@@ -1,0 +1,39 @@
+<RCC>
+    <qresource prefix="/">
+        <file>img/emptythumb.png</file>
+        <file>img/checkbox_checked.png</file>
+        <file>img/checkbox_unchecked.png</file>
+        <file>img/about.png</file>
+        <file>img/exif.png</file>
+        <file>img/first.png</file>
+        <file>img/flipH.png</file>
+        <file>img/flipV.png</file>
+        <file>img/interrupt.png</file>
+        <file>img/last.png</file>
+        <file>img/logo.png</file>
+        <file>img/menu.png</file>
+        <file>img/next.png</file>
+        <file>img/open.png</file>
+        <file>img/previous.png</file>
+        <file>img/print.png</file>
+        <file>img/quit.png</file>
+        <file>img/reload.png</file>
+        <file>img/rotateLeft.png</file>
+        <file>img/rotateRight.png</file>
+        <file>img/setup.png</file>
+        <file>img/splash.png</file>
+        <file>img/toggle.png</file>
+        <file>img/radiobutton_checked.png</file>
+        <file>img/radiobutton_unchecked.png</file>
+        <file>img/addsh.png</file>
+        <file>img/delsh.png</file>
+        <file>img/empty.png</file>
+        <file>img/nothumb.png</file>
+        <file>img/emptybackground.png</file>
+        <file>img/splashwithoutversion.png</file>
+        <file>img/startupthumbs.png</file>
+        <file>img/startupfileaction.png</file>
+        <file>img/startupfileformats.png</file>
+        <file>img/startupbackground.png</file>
+    </qresource>
+</RCC>

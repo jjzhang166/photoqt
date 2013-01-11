@@ -1,0 +1,145 @@
+Changelog Photo - by Lukas Spies, 2012 - Contact: photoQt@ymail.com
+
+
+Release 0.8.2 - 13/12/2012
+----------------------------
+- New and updated languages
+- Small fix for desktop-file to make it possible to select it as default image viewer on some platforms
+
+
+Release 0.8.1.2 - 09/11/2012
+----------------------------
+- FIXED: A click anywhere on the main image area would cause Photo to crash
+
+
+Release 0.8.1.1 - 08/11/2012
+----------------------------
+- Important fix of CMakeLists.txt. It installed some icons in /usr/icons instead of /usr/share/icons
+
+
+Release 0.8.1 - 07/11/2012
+----------------------------
+- FIXED: mouse shortcuts for external commands didn't work
+- FIXED: text labels (like filename, etc.) didn't stay hidden in certain circumstances
+- IMPROVED: CMakeLists.txt was improved to be better adaptable to different setups
+- IMPROVED: detection of currently set translation better generalised
+- ADDED: 6 new languages (Arabic, Norwegian (Nynorsk), Russian, Turkish, Ukrainian, Chinese)
+
+
+Release 0.8 - 19/07/2012
+----------------------------
+- Allow only one instance of Photo at a time - a new execution of the photo binary re-opens the already running one
+- Photo can be controlled through the command line (although the amount of commands possible are still limited
+- Photo can make use of the system tray, and can also start minimised to the tray -> instant availability
+- Slightly restyled and enhanced dropdown menu
+- Photo supports now (still very basic) printing functionality
+- A click on a GPS location in the exif widget opens the position on an online map service (e.g. google maps or bing maps)
+- New experimental opening dialog - STILL BETA, lacking many functions and reliability - USE AT OWN RISK!
+- Many other smaller changes
+
+
+Release 0.7.1.1 - 26/03/2012
+----------------------------
+- Added Serbian Translation by Mladen Pejaković
+
+
+Release 0.7.1 - 23/03/2012
+----------------------------
+- Updating Greek translation
+- Looping through images (can be turned off)
+- Possibility to jump to first/last image in folder (shortcut)
+- First implementation of smooth transitions between images (still beta!!)
+- Fixed Bug: Hiding Thumbnails works now
+- Improved start-up time (window is build up a little faster now)
+
+
+Release 0.7 - 08/03/2012
+----------------------------
+- Rotating/flipping of image as stored in its exif data
+- Possibility to set and adjust mouse actions as shortcuts
+- Make Thumbnails moveable to top
+- Internal Shortcuts made easier accessable
+- More than one modifier (Ctrl/Shift/Alt) can now be used for shortcuts
+- Flipping of images
+- Zoom to actual size
+- Improved speed of rotating images
+- Scrolling at any point on the thumbnail bar scrolls horizontally
+- Fixed Bug: On dual-screen systems, if the other screen had bigger dimensions than current one -> image wouldn't load
+- Fixed Bug: Only one shortcut could be added per session, or Photo crashed
+- Other smaller changes
+
+
+Release 0.6.1 - 14/02/2012
+----------------------------
+- Added better desktop integration (i.e. desktop file and icons)
+- Fixed exiv2 bug, that could cause Photo to crash
+- Switched to cmake for building
+
+
+Release 0.6 - 09/02/2012
+----------------------------
+- Support for animated images
+- Centered thumbnail view
+- Exif information (using exiv2 library)
+- Extended/Changed Thumbnail caching
+- New About widget
+- Logo (Thanks to Archie Arevalo)
+- New thumbnail hover effect
+- Possibility to hide labels in main display area
+- Adjusted and extended settings widget
+- many smaller code improvements
+
+
+Release 0.5 -21/01/2012
+----------------------------
+- Rotating of images
+- Improved zooming
+- Added file handling (rename,copy,move,delete)
+- Optional feature: Click on empty (grey) background will close Photo
+- Fixed hover effect for thumbnails
+- Fixed hover effect for shortcuts
+- Fixed Dual-Screen Monitor Bug
+- Other small code changes
+
+
+Release 0.4 - 10/01/2012
+----------------------------
+- Added zooming of images
+- Replaced menu button by nicely animated menu
+- Different code improvements that might increase the speed of Photo slightly
+- Other small code changes
+
+
+
+Release 0.3.0.1 - 31/12/2011
+----------------------------
+- Added Greek Translation by Dimitrios Glentadakis
+
+
+
+Release 0.3 - 27/12/2011
+----------------------------
+- Rewritten and Restyled Settings Window
+- Improved Shortcut handling
+- Faster thumbnail (re-)creation
+- Replaced buttons top right by single menu buttons
+- Translation into German
+- Several small changes and code improvements
+
+
+
+Release 0.2 - 16/12/2011
+----------------------------
+- Improved Thumbnail View (now more interactive)
+- Thumbnail Cache (freedesktop.org compliant)
+- Use of QImageReader to increase performance
+- Composite made an option in settings
+- Thumbnail size can be adjusted
+- Implement function to open a new file from inside photo
+- many, many small bug fixes and code improvements
+
+
+
+Release 0.1 - 08/12/2011
+----------------------------
+First initial Release
