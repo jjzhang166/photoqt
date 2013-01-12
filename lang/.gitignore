@@ -1,3 +1,4 @@
 .tx/
 translations
 *.ts
+.gitignore
