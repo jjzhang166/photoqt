@@ -520,7 +520,7 @@ void MainWindow::blockFunc(bool bl) {
 void MainWindow::closeEvent(QCloseEvent *e) {
 
 	// If a widget is opened and Alt was just pressed, then this close event probably results from the Alt+F4 combination
-	if(globVar->blocked && globVar->altForAltF4) {
+	if(globVar->blocked) {
 
 		e->ignore();
 
@@ -693,20 +693,6 @@ void MainWindow::drawImage() {
 
 	}
 
-}
-
-// This bool function is used to catch the Alt+F4 event
-bool MainWindow::eventFilter(QObject *, QEvent *e) {
-	if (e->type() == QEvent::ShortcutOverride) {
-		QKeyEvent *event = (QKeyEvent *)e;
-		if(event->modifiers() == Qt::AltModifier) {
-			// We set the modifier with a 1s timeout
-			globVar->altForAltF4 = true;
-			QTimer::singleShot(1000, this, SLOT(resetAltForF4()));
-			return false;
-		}
-	}
-	return QMainWindow::event(e);
 }
 
 // When the Exif data dictates an orientation
@@ -1196,13 +1182,6 @@ void MainWindow::reloadDir(QString t) {
 		}
 
 	}
-
-}
-
-// Simply reset this parameter after a timeout
-void MainWindow::resetAltForF4() {
-
-	globVar->altForAltF4 = false;
 
 }
 
@@ -1790,7 +1769,7 @@ void MainWindow::systemShortcutDO(QString todo) {
 	if(globVar->blocked) {
 		if(set->isShown && !set->tabShortcuts->detect->isShown) {
 
-			if(todo == "Escape" || todo == "Alt+F4") {
+			if(todo == "Escape") {
 				if(set->tabShortcuts->changeCommand->isShown)
 					set->tabShortcuts->changeCommand->animate();
 				else if(set->tabThumb->confirmClean->isShown)
@@ -1825,14 +1804,14 @@ void MainWindow::systemShortcutDO(QString todo) {
 
 		if(startup->isShown) {
 
-			if(todo == "Escape" || todo == "Alt+F4" || todo == "Return" || todo == "Enter")
+			if(todo == "Escape" || todo == "Return" || todo == "Enter")
 				startup->animate();
 
 		}
 
 		if(filehandling->isShown) {
 
-			if(todo == "Escape" || todo == "Alt+F4") {
+			if(todo == "Escape") {
 				if(filehandling->dialogType == "rename")
 					filehandling->renameCancel->animateClick();
 				else if(filehandling->dialogType == "delete")
@@ -1857,7 +1836,7 @@ void MainWindow::systemShortcutDO(QString todo) {
 
 		if(about->isShown) {
 
-			if(todo == "Escape" || todo == "Alt+F4")
+			if(todo == "Escape")
 				about->close->animateClick();
 
 		}
@@ -1866,14 +1845,14 @@ void MainWindow::systemShortcutDO(QString todo) {
 
 			if(todo == "Enter" || todo == "Return")
 				exif->rotConf->yes->animateClick();
-			else if(todo == "Escape" || todo == "Alt+F4")
+			else if(todo == "Escape")
 				exif->rotConf->no->animateClick();
 
 		}
 
 		if(slideshow->isShown) {
 
-			if(todo == "Escape" || todo == "Alt+F4")
+			if(todo == "Escape")
 				slideshow->animate();
 			if(todo == "Enter" || todo == "Return")
 				slideshow->andStart();
@@ -1882,7 +1861,7 @@ void MainWindow::systemShortcutDO(QString todo) {
 
 		if(slideshowbar->enabled) {
 
-			if(todo == "Escape" || todo == "Alt+F4")
+			if(todo == "Escape")
 				stopSlideShow();
 
 		}

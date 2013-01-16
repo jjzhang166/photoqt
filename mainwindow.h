@@ -141,9 +141,6 @@ public:
 	// Draw the big main image
 	void drawImage();
 
-	// Used to catch an Alt+F4
-	bool eventFilter(QObject *o, QEvent *e);
-
 	// Show the startup widget (after update/fresh install)
 	void showStartupUpdateInstallMsg();
 
@@ -199,9 +196,6 @@ public slots:
 
 	// After a file has been manipulated (renamed, deleted, moved), the current dir is reloaded
 	void reloadDir(QString t);
-
-	// After a timeout, the switch for catching the Alt+F4 is reset
-	void resetAltForF4();
 
 	// Restore default settings
 	void restoreDefaultSettings();
