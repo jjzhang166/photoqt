@@ -1,6 +1,23 @@
 Changelog Photo - by Lukas Spies, 2012 - Contact: photoQt@ymail.com
 
 
+Release 0.9 - 18/01/2013
+----------------------------
+- Completely re-written and re-structured
+- Mostly new and improved look
+- Many more settings
+- Better image handling
+- Better Thumbnail implementation
+- Better Exif Handling
+- Better Shortcut Handling
+- Added Slideshow feature
+- Faster startup
+- Removed custom open dialog for now (needs a lot more work, just not up to standard...) :(
+- More command line options (run 'photo --help' for overview)
+- Many bugs fixed/avoided
+- ... and sooo much more ...
+
+
 Release 0.8.2 - 13/12/2012
 ----------------------------
 - New and updated languages

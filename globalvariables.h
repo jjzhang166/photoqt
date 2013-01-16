@@ -46,9 +46,6 @@ public:
 	// Is a slideshow running
 	bool slideshowRunning;
 
-	// Used to catch Alt+F4 (well, actually Alt+closeEvent)
-	bool altForAltF4;
-
 	// Is the startup message shown (displayed after update/fresh install)
 	int startupMessageInstallUpdateShown;
 
@@ -66,12 +63,10 @@ public:
 		zoomedByMouse = true;
 		zoomedImgAtLeastOnce = false;
 
-		systemSh << "Escape" << "Enter" << "Return" << "Ctrl+s" << "Left" << "Right" << "Up" << "Down" << "Alt+Up" << "Alt+Left" << "Alt+Right" << "Alt+F4" << "Alt+1" << "Alt+2" << "Alt+3" << "Alt+4" << "Alt+5" << "Ctrl+Tab" << "Ctrl+Shift+Tab";
+		systemSh << "Escape" << "Enter" << "Return" << "Ctrl+s" << "Left" << "Right" << "Up" << "Down" << "Alt+Up" << "Alt+Left" << "Alt+Right" << "Alt+1" << "Alt+2" << "Alt+3" << "Alt+4" << "Alt+5" << "Ctrl+Tab" << "Ctrl+Shift+Tab";
 
 		flipVer = false;
 		flipHor = false;
-
-		altForAltF4 = false;
 
 		exifRead = false;
 
