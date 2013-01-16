@@ -1,0 +1,1849 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-01-14 23:07+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Translate Toolkit 1.9.0\n"
+
+#: About#1
+msgid ""
+"Photo is a simple image viewer, designed to be good looking, highly "
+"configurable, yet easy to use and fast."
+msgstr ""
+
+#: About#2
+msgid ""
+"\"Photo\" is not a very creative name for an image viewer. There are so many "
+"better names possible. So why is Photo called \"Photo\"? Well, as I started "
+"out programming what should become version 0.1, I never really thought of "
+"actually developing it as far as it is now. I actually wasn't sure if I "
+"should upload it somewhere at all. I eventually decided to give it a go, and "
+"I uploaded it at qt-apps.org. And, well, of course, if you want to upload a "
+"project there (as probably everywhere else too), you need to give it a "
+"name. And the first thing that came to my mind was \"photo\", just to satisfy "
+"the upload form of qt-apps.org..."
+msgstr ""
+
+#: About#3
+msgid ""
+"I'm not a trained programmer. I'm a simple Maths student that loves doing "
+"stuff like this. All I know about programming I taught myself over the "
+"years. So Photo is certainly not done in the best of ways. Many things could "
+"probably be improved (from a programming point of view). But it's as good "
+"as I can do it. And I'm constantly learning and improving things. So you "
+"sometimes have to be a little patient with me :)"
+msgstr ""
+
+#: About#4
+msgid ""
+"I heard a number of times people saying, that Photo is a \"copy\" of Picasa's "
+"image viewer. Well, it's not. In fact, I myself have never used Picasa. I "
+"have seen it in use though by others, and I can't deny that it influenced "
+"the basic design idea a little. But I'm not trying to do something \"like "
+"Picasa\". I try to do my own thing, and to do it as good as I can. If some "
+"consider it to be a replacement for Picasa, well, I feel a little honoured "
+"(since Picasa is created by \"proper\" programmers)."
+msgstr ""
+
+#: About#5
+msgid "Don't forget to check out the website:"
+msgstr ""
+
+#: About#6
+msgid ""
+"If there's one thing I want to achieve with Photo, then it is, that you find "
+"it useful. If I accomplished that, then I'm glad. There's no other reason "
+"I'm doing that. I don't want money or anything, but just be helpful."
+msgstr ""
+
+#: About#7
+msgid ""
+"If you find a bug or if you have a question or suggestion, tell me. I'm open "
+"to any feedback I get :)"
+msgstr ""
+"Jeśli znajdziesz błąd, lub jeśli masz pytania, sugestie, napisz do mnie. "
+"Jestem otwarty na wszystkie komentarze, jakie otrzymuje :)"
+
+#: About#8
+msgid ""
+"Thanks to everybody who<br>contributed to Photo<br>and/or translated Photo "
+"to another language!<br><br>You guys rock!! :-)"
+msgstr ""
+
+#: About#9
+msgid ""
+"You want to join the team and do something, e.g. translating Photo to "
+"another language? Drop me and email (Lukas@photoqt.org), and for "
+"translations, check the project page on Transifex: "
+"http://transifex.com/p/photo."
+msgstr ""
+
+#: About#10
+msgid "Okay, I got enough of that..."
+msgstr ""
+
+#: About#11
+msgid "Photo %1, by Lukas Spies, 2013 (Lukas@photoqt.org)"
+msgstr ""
+
+#: About#12
+msgid "website:"
+msgstr ""
+
+#: About#13
+msgid "Licensed under GPL, without any guarantee"
+msgstr "Program jest na licencji GPL, bez żadnych gwarancji"
+
+#: CustomConfirm#1
+msgid "Don't ask me again..."
+msgstr ""
+
+#: DropDownMenu#1
+msgid "General Functions"
+msgstr ""
+
+#: DropDownMenu#2
+msgid "Open File"
+msgstr ""
+
+#: DropDownMenu#3
+msgid "Settings"
+msgstr ""
+
+#: DropDownMenu#4
+msgctxt "DropDownMenu#4"
+msgid "Interrupt Thumbnail Creation"
+msgstr ""
+
+#: DropDownMenu#5
+msgctxt "DropDownMenu#5"
+msgid "Reload Thumbnails"
+msgstr ""
+
+#: DropDownMenu#6
+msgid "Show Exif Widget"
+msgstr ""
+
+#: DropDownMenu#7
+msgid "About Photo"
+msgstr ""
+
+#: DropDownMenu#8
+msgid "Hide (System Tray)"
+msgstr ""
+
+#: DropDownMenu#9
+msgid "Quit"
+msgstr ""
+
+#: DropDownMenu#10
+msgid "Go To"
+msgstr ""
+
+#: DropDownMenu#11
+msgid "Previous"
+msgstr ""
+
+#: DropDownMenu#12
+msgid "Next"
+msgstr ""
+
+#: DropDownMenu#13
+msgid "Jump To"
+msgstr ""
+
+#: DropDownMenu#14
+msgid "First"
+msgstr ""
+
+#: DropDownMenu#15
+msgid "Last"
+msgstr ""
+
+#: DropDownMenu#16
+msgid "Zoom:"
+msgstr ""
+
+#: DropDownMenu#17
+msgid "In"
+msgstr ""
+
+#: DropDownMenu#18
+msgid "Out"
+msgstr ""
+
+#: DropDownMenu#19
+msgid "Actual"
+msgstr ""
+
+#: DropDownMenu#20
+msgid "Reset"
+msgstr ""
+
+#: DropDownMenu#21
+msgid "Rotate:"
+msgstr ""
+
+#: DropDownMenu#22
+msgid "Left"
+msgstr ""
+
+#: DropDownMenu#23
+msgid "Right"
+msgstr ""
+
+#: DropDownMenu#24
+msgid "Flip:"
+msgstr ""
+
+#: DropDownMenu#25
+msgid "Horizontally"
+msgstr ""
+
+#: DropDownMenu#26
+msgid "Vertically"
+msgstr ""
+
+#: DropDownMenu#27
+msgid "File:"
+msgstr ""
+
+#: DropDownMenu#28
+msgid "Rename"
+msgstr ""
+
+#: DropDownMenu#29
+msgctxt "DropDownMenu#29"
+msgid "Copy"
+msgstr ""
+
+#: DropDownMenu#30
+msgctxt "DropDownMenu#30"
+msgid "Move"
+msgstr ""
+
+#: DropDownMenu#31
+msgid "Delete"
+msgstr ""
+
+#: DropDownMenu#32
+msgid "Slideshow:"
+msgstr ""
+
+#: DropDownMenu#33
+msgid "Quickstart"
+msgstr ""
+
+#: Exif#1
+msgid "No file loaded"
+msgstr "Nie wczytano żadnego pliku"
+
+#: Exif#2
+msgid "Rotate Image?"
+msgstr ""
+
+#: Exif#3
+msgid ""
+"The Exif data of this image says, that this image is supposed to be rotated."
+msgstr ""
+
+#: Exif#4
+msgid "Do you want to apply the rotation?"
+msgstr ""
+
+#: Exif#5
+msgid "Okay, do it"
+msgstr ""
+
+#: Exif#6
+msgid "What? No!"
+msgstr ""
+
+#: Exif#7
+msgid "Unknown"
+msgstr "Nieznany"
+
+#: Exif#8
+msgid "Daylight"
+msgstr "Światło dzienne"
+
+#: Exif#9
+msgid "Fluorescent"
+msgstr "Fluorescencyjny (jarzeniowy)"
+
+#: Exif#10
+msgid "Tungsten (incandescent light)"
+msgstr "Wolfram (rozżarzony światło)"
+
+#: Exif#11
+msgctxt "Exif#11"
+msgid "Flash"
+msgstr "Błysk"
+
+#: Exif#12
+msgid "Fine weather"
+msgstr "Ładna pogoda"
+
+#: Exif#13
+msgid "Cloudy Weather"
+msgstr "Pochmurna pogoda"
+
+#: Exif#14
+msgid "Shade"
+msgstr "Cień"
+
+#: Exif#15
+msgid "Daylight fluorescent (D 5700 - 7100K)"
+msgstr "Światło dzienne jarzeniowe (D 5700 - 7100K)"
+
+#: Exif#16
+msgid "Day white fluorescent (N 4600 - 5400K)"
+msgstr "Biały dzień fluorescencyjny (jarzeniowy) (N 4600 - 5400K)"
+
+#: Exif#17
+msgid "Cool white fluorescent"
+msgstr "Chłodna biel fluorescencyjna (jarzeniowa)"
+
+#: Exif#18
+msgid "White fluorescent"
+msgstr "Białe światło fluorescencyjne (jarzeniowe)"
+
+#: Exif#19
+msgid "Standard light"
+msgstr "Standardowe światło"
+
+#: Exif#20
+msgid "ISO studio tungsten"
+msgstr "ISO studio wolfram"
+
+#: Exif#21
+msgid "Other light source"
+msgstr "Inne źródła światła"
+
+#: Exif#22
+msgid "yes"
+msgstr "Tak"
+
+#: Exif#23
+msgid "no"
+msgstr "Nie"
+
+#: Exif#24
+msgid "strobe return light not detected"
+msgstr "stroboskopowe światło powrotne niewykryte"
+
+#: Exif#25
+msgid "strobe return light detected"
+msgstr "stroboskopowe światło powrotne wykryte"
+
+#: Exif#26
+msgid "compulsory flash mode"
+msgstr "tryb lampy błyskowej"
+
+#: Exif#27
+msgid "auto mode"
+msgstr "tryb auto"
+
+#: Exif#28
+msgid "red-eye reduction mode"
+msgstr "redukcja efektu czerwonych oczu"
+
+#: Exif#29
+msgid "return light detected"
+msgstr "światło powrotne wykryte"
+
+#: Exif#30
+msgid "return light not detected"
+msgstr "światło powrotne niewykryte"
+
+#: Exif#31
+msgid "No flash function"
+msgstr "Brak funkcji błysku"
+
+#: Exif#32
+msgid "Standard"
+msgstr "Standardowy"
+
+#: Exif#33
+msgid "Landscape"
+msgstr "Krajobraz"
+
+#: Exif#34
+msgid "Portrait"
+msgstr "Portret"
+
+#: Exif#35
+msgid "Night Scene"
+msgstr "Nocne sceny"
+
+#: Exif#36
+msgctxt "Exif#36"
+"Exif#36"
+msgid "Filename"
+msgstr "Nazwa pliku"
+
+#: Exif#37
+msgctxt "Exif#37"
+msgid "Filetype"
+msgstr "Typ pliku"
+
+#: Exif#38
+msgctxt "Exif#38"
+msgid "Filesize"
+msgstr "Rozmiar pliku"
+
+#: Exif#39
+msgctxt "Exif#39"
+msgid "Dimensions"
+msgstr "Wymiary"
+
+#: Exif#40
+msgctxt "Exif#40"
+msgid "Make"
+msgstr "Wykonano"
+
+#: Exif#41
+msgctxt "Exif#41"
+msgid "Model"
+msgstr "Model"
+
+#: Exif#42
+msgctxt "Exif#42"
+msgid "Software"
+msgstr "Oprogramowanie"
+
+#: Exif#43
+msgid "Time photo was taken"
+msgstr "Data zrobienia zdjęcia"
+
+#: Exif#44
+msgctxt "Exif#44"
+msgid "Exposure Time"
+msgstr "Czas naświetlania"
+
+#: Exif#45
+msgctxt "Exif#45"
+msgid "ISO"
+msgstr "ISO"
+
+#: Exif#46
+msgctxt "Exif#46"
+msgid "Scene Type"
+msgstr "Rodzaj sceny"
+
+#: Exif#47
+msgctxt "Exif#47"
+msgid "Focal Length"
+msgstr "Ogniskowa"
+
+#: Exif#48
+msgid "F Number"
+msgstr "Liczba F"
+
+#: Exif#49
+msgctxt "Exif#49"
+msgid "Light Source"
+msgstr "Źródło światła"
+
+#: Exif#50
+msgctxt "Exif#50"
+msgid "GPS Position"
+msgstr "Pozycja GPS"
+
+#: Exif#51
+msgid "Unknown data"
+msgstr "Nieznany"
+
+#: Exif#52
+msgid "not set"
+msgstr "Nie ustawiony"
+
+#: Exif#53
+msgid "unsupported format"
+msgstr "niewspierane formaty plików"
+
+#: FileHandling#1
+msgctxt "FileHandling#1"
+msgid "Rename File"
+msgstr ""
+
+#: FileHandling#2
+msgid "Save"
+msgstr ""
+
+#: FileHandling#3
+msgid "Cancel"
+msgstr ""
+
+#: FileHandling#4
+msgctxt "FileHandling#4"
+msgid "Delete File"
+msgstr ""
+
+#: FileHandling#5
+msgid "Do you really want to delete this file?"
+msgstr ""
+
+#: FileHandling#6
+msgid "Delete permanently"
+msgstr ""
+
+#: FileHandling#7
+msgid "Move to Trash"
+msgstr ""
+
+#: FileHandling#8
+msgid "Moving File"
+msgstr ""
+
+#: FileHandling#9
+msgctxt "FileHandling#9"
+msgid "Filename"
+msgstr ""
+
+#: FileHandling#10
+msgctxt "FileHandling#10"
+msgid "Move"
+msgstr ""
+
+#: FileHandling#11
+msgid "Copying File"
+msgstr ""
+
+#: FileHandling#12
+msgctxt "FileHandling#12"
+msgid "Copy"
+msgstr ""
+
+#: FileHandling#13
+msgid "Old name"
+msgstr ""
+
+#: FileHandling#14
+msgid "File with this name already exists!"
+msgstr ""
+
+#: MainWindow#1
+msgid "Open File to Begin."
+msgstr ""
+
+#: MainWindow#2
+msgid "Open image file"
+msgstr "Otwórz nowy obrazek"
+
+#: MainWindow#3
+msgid "Images"
+msgstr "Obrazki"
+
+#: MainWindow#4
+msgid "Photo - Image Viewer"
+msgstr "Photo - Przeglądarka obrazków"
+
+#: MainWindow#5
+msgid "Hide/Show Photo"
+msgstr ""
+
+#: MainWindow#6
+msgid "Open New Image"
+msgstr ""
+
+#: MainWindow#7
+msgctxt "MainWindow#7"
+msgid "Quit Photo"
+msgstr ""
+
+#: QuickInfoLabel#1
+msgid "Hide Filepath, leave Filename"
+msgstr ""
+
+#: QuickInfoLabel#2
+msgid "Hide this item"
+msgstr ""
+
+#: Settings#1
+msgctxt "Settings#1"
+msgid "Look and Feel"
+msgstr ""
+
+#: Settings#2
+msgctxt "Settings#2"
+msgid "Thumbnails"
+msgstr ""
+
+#: Settings#3
+msgid "Exif"
+msgstr ""
+
+#: Settings#4
+msgctxt "Settings#4"
+msgid "Other Settings"
+msgstr ""
+
+#: Settings#5
+msgctxt "Settings#5"
+msgid "Shortcuts"
+msgstr ""
+
+#: Settings#6
+msgid "Restore Default Settings"
+msgstr ""
+
+#: Settings#7
+msgid "Save Changes and Exit"
+msgstr ""
+
+#: Settings#8
+msgid "Exit and Discard Changes"
+msgstr ""
+
+#: Settings#9
+msgid "Restore Default Settings?"
+msgstr ""
+
+#: Settings#10
+msgid ""
+"Do you really want to get rid of your custom settings and set the default "
+"ones? This only resets all settings. A default set of shortcuts can be set "
+"in the shortcuts tab."
+msgstr ""
+
+#: Settings#11
+msgctxt "Settings#11"
+msgid "This step cannot be reversed!"
+msgstr ""
+
+#: Settings#12
+msgid "Yep, I want new stuff"
+msgstr ""
+
+#: Settings#13
+msgid "Um, no, not really"
+msgstr ""
+
+#: SettingsTabExif#1
+msgctxt "SettingsTabExif#1"
+msgid "Exif Information"
+msgstr ""
+
+#: SettingsTabExif#2
+msgid ""
+"Photo can display meta (exif) information for images. The widget for this "
+"information is on the left outside the screen and slides in when mouse gets "
+"close to it and/or when the set shortcut (default Ctrl+E) is triggered. On "
+"demand, the triggering by mouse movement can be disabled by checking the box "
+"below."
+msgstr ""
+
+#: SettingsTabExif#3
+msgid "Trigger Widget on Mouse Hovering"
+msgstr ""
+
+#: SettingsTabExif#4
+msgid ""
+"Per default the exif widget can be shown two ways: Moving the mouse cursor "
+"to the left screen edge to fade it in temporarily (as long as the mouse is "
+"hovering it), or permanently by clicking the checkbox (checkbox only stored "
+"per session, can't be saved permanently!). Alternatively the widget can also "
+"be triggered by shortcut. On demand the mouse triggering can be disabled, "
+"so that the widget would only show on shortcut. This can come in handy, if "
+"you get annoyed by accidentally opening the widget occasionally."
+msgstr ""
+
+#: SettingsTabExif#5
+msgid "Turn mouse triggering OFF"
+msgstr ""
+
+#: SettingsTabExif#6
+msgid "Which items are shown?"
+msgstr ""
+
+#: SettingsTabExif#7
+msgid ""
+"Photo can display a number of exif information. However, you might not be "
+"interested in some of them, hence you can choose to disable some of them "
+"here."
+msgstr ""
+
+#: SettingsTabExif#8
+msgid "Enable ALL"
+msgstr ""
+
+#: SettingsTabExif#9
+msgid "Disable ALL"
+msgstr ""
+
+#: SettingsTabExif#10
+msgctxt "SettingsTabExif#10"
+msgid "Filename"
+msgstr ""
+
+#: SettingsTabExif#11
+msgctxt "SettingsTabExif#11"
+msgid "Filetype"
+msgstr ""
+
+#: SettingsTabExif#12
+msgctxt "SettingsTabExif#12"
+msgid "Filesize"
+msgstr ""
+
+#: SettingsTabExif#13
+msgctxt "SettingsTabExif#13"
+msgid "Dimensions"
+msgstr ""
+
+#: SettingsTabExif#14
+msgctxt "SettingsTabExif#14"
+msgid "Make"
+msgstr ""
+
+#: SettingsTabExif#15
+msgctxt "SettingsTabExif#15"
+msgid "Model"
+msgstr ""
+
+#: SettingsTabExif#16
+msgctxt "SettingsTabExif#16"
+msgid "Software"
+msgstr ""
+
+#: SettingsTabExif#17
+msgid "Time Photo was Taken"
+msgstr ""
+
+#: SettingsTabExif#18
+msgctxt "SettingsTabExif#18"
+msgid "Exposure Time"
+msgstr ""
+
+#: SettingsTabExif#19
+msgctxt "SettingsTabExif#19"
+msgid "Flash"
+msgstr ""
+
+#: SettingsTabExif#20
+msgctxt "SettingsTabExif#20"
+msgid "ISO"
+msgstr ""
+
+#: SettingsTabExif#21
+msgctxt "SettingsTabExif#21"
+msgid "Scene Type"
+msgstr ""
+
+#: SettingsTabExif#22
+msgctxt "SettingsTabExif#22"
+msgid "Focal Length"
+msgstr ""
+
+#: SettingsTabExif#23
+msgid "F-Number"
+msgstr ""
+
+#: SettingsTabExif#24
+msgctxt "SettingsTabExif#24"
+msgid "Light Source"
+msgstr ""
+
+#: SettingsTabExif#25
+msgctxt "SettingsTabExif#25"
+msgid "GPS Position"
+msgstr ""
+
+#: SettingsTabExif#26
+msgid "Adjusting Font Size"
+msgstr ""
+
+#: SettingsTabExif#27
+msgid ""
+"Computers can have very different resolutions. On some of them, it might be "
+"nice to increase the font size of the labels to have them easier readable. "
+"Often, a size of 8 or 9 should be working quite well..."
+msgstr ""
+
+#: SettingsTabExif#28
+msgid "Smallest size"
+msgstr ""
+
+#: SettingsTabExif#29
+msgid "Biggest size"
+msgstr ""
+
+#: SettingsTabExif#30
+msgid "Rotating/Flipping Image according to Exif Info"
+msgstr ""
+
+#: SettingsTabExif#31
+msgid ""
+"Some cameras can detect - while taking the photo - whether the camera was "
+"turned and might store this information in the image exif data. If Photo "
+"finds this information, it can rotate the image accordingly. Per default "
+"it's not doing it, but it can be enabled here as desired."
+msgstr ""
+
+#: SettingsTabExif#32
+msgid "Never rotate images"
+msgstr ""
+
+#: SettingsTabExif#33
+msgid "Always rotate images"
+msgstr ""
+
+#: SettingsTabExif#34
+msgid "Always ask"
+msgstr ""
+
+#: SettingsTabExif#35
+msgid "Online map for GPS"
+msgstr ""
+
+#: SettingsTabExif#36
+msgid ""
+"If you're image includes a GPS location, then a click on the location text "
+"will load this location in an online map using your default external "
+"browser. Here you can choose which online service to use (suggestions for "
+"other online maps always welcome)."
+msgstr ""
+
+#: SettingsTabLookAndFeel#1
+msgctxt "SettingsTabLookAndFeel#1"
+msgid "Look and Feel"
+msgstr ""
+
+#: SettingsTabLookAndFeel#2
+msgid "Enable Composite"
+msgstr ""
+
+#: SettingsTabLookAndFeel#3
+msgid "Use Screenshot"
+msgstr ""
+
+#: SettingsTabLookAndFeel#4
+msgid "Use custom background image"
+msgstr ""
+
+#: SettingsTabLookAndFeel#5
+msgid "Don't use either"
+msgstr ""
+
+#: SettingsTabLookAndFeel#6
+msgid "Composite or Background Image"
+msgstr ""
+
+#: SettingsTabLookAndFeel#7
+msgid ""
+"If composite is enabled, then it causes the background of photo to be real "
+"half transparent. Of course, using composite is not a must. When disabled "
+"Photo by default uses a screenshot and sets it as a background. However, "
+"this is only possible for single-screen setups. On multi-head setups you can "
+"only set either a background image (with overlay) or just set some "
+"background colour. Of course these two options are also available for setups "
+"with a single monitor only."
+msgstr ""
+
+#: SettingsTabLookAndFeel#8
+msgid "no image has been selected"
+msgstr ""
+
+#: SettingsTabLookAndFeel#9
+msgid "Scale To Fit"
+msgstr ""
+
+#: SettingsTabLookAndFeel#10
+msgid "Stretch To Fit"
+msgstr ""
+
+#: SettingsTabLookAndFeel#11
+msgid "Center Image"
+msgstr ""
+
+#: SettingsTabLookAndFeel#12
+msgid "Background/Overlay Color"
+msgstr ""
+
+#: SettingsTabLookAndFeel#13
+msgid ""
+"Here you can adjust the background colour of Photo. When using compositing "
+"or a background image, then you can also specify an alpha value, i.e. the "
+"transparency of the coloured overlay layer. When neither compositing is "
+"enabled nor a background image is set, then this colour will be the "
+"background of Photo."
+msgstr ""
+
+#: SettingsTabLookAndFeel#14
+msgid "Click to change color!"
+msgstr ""
+
+#: SettingsTabLookAndFeel#15
+msgid "Hide to Tray Icon"
+msgstr ""
+
+#: SettingsTabLookAndFeel#16
+msgid ""
+"When started Photo creates a tray icon in the system tray. If desired, you "
+"can set Photo to minimise to the tray instead of quitting. This causes Photo "
+"to be almost instantaneously available when an image is opened."
+msgstr ""
+
+#: SettingsTabLookAndFeel#17
+msgid ""
+"It is also possible to start Photo already minimised to the tray (e.g. at "
+"system startup) when called with \"--start-in-tray\"."
+msgstr ""
+
+#: SettingsTabLookAndFeel#18
+msgid "Loop Through Folder"
+msgstr ""
+
+#: SettingsTabLookAndFeel#19
+msgid "Looping Through Folder"
+msgstr ""
+
+#: SettingsTabLookAndFeel#20
+msgid ""
+"When you load the last image in a directory and select \"Next\", Photo "
+"automatically jumps to the first image (and vice versa: if you select "
+"\"Previous\" while having the first image loaded, Photo jumps to the last "
+"image). Disabling this option makes Photo stop at the first/last image (i.e. "
+"selecting \"Next\"/\"Previous\" will have no effect in these two special "
+"cases)."
+msgstr ""
+
+#: SettingsTabLookAndFeel#21
+msgctxt "SettingsTabLookAndFeel#21"
+msgid "Smooth Transition"
+msgstr ""
+
+#: SettingsTabLookAndFeel#22
+msgid ""
+"Switching between images can be done smoothly, the new image can be set to "
+"fade into the old image."
+msgstr ""
+
+#: SettingsTabLookAndFeel#23
+msgid "No Fading"
+msgstr ""
+
+#: SettingsTabLookAndFeel#24
+msgctxt "SettingsTabLookAndFeel#24"
+msgid "Long Transition"
+msgstr ""
+
+#: SettingsTabLookAndFeel#25
+msgid "Menu Sensitivity"
+msgstr ""
+
+#: SettingsTabLookAndFeel#26
+msgid ""
+"Here you can adjust the sensitivity of the drop-down menu. The menu opens "
+"when your mouse cursor gets close to the right side of the upper edge. Here "
+"you can adjust how close you need to get for it to open."
+msgstr ""
+
+#: SettingsTabLookAndFeel#27
+msgid "Low Sensitivity"
+msgstr ""
+
+#: SettingsTabLookAndFeel#28
+msgid "High Sensitivity"
+msgstr ""
+
+#: SettingsTabLookAndFeel#29
+msgid "Close on Click in empty area"
+msgstr ""
+
+#: SettingsTabLookAndFeel#30
+msgid ""
+"This option makes Photo a bit like the JavaScript image viewers you find on "
+"many websites. A click outside of the image on the empty background will "
+"close the application. It can be a nice feature, Photo will feel even more "
+"like a \"floating layer\". However, you might at times close Photo "
+"accidentally."
+msgstr ""
+
+#: SettingsTabLookAndFeel#31
+msgid ""
+"Note: If you use a mouse click for a shortcut already, then this option wont "
+"have any effect!"
+msgstr ""
+
+#: SettingsTabLookAndFeel#32
+msgid "Border Around Image"
+msgstr ""
+
+#: SettingsTabLookAndFeel#33
+msgid ""
+"Whenever you load an image, the image is per default not shown completely in "
+"fullscreen, i.e. it's not stretching from screen edge to screen edge. "
+"Instead there is a small margin around the image of a couple pixels (for "
+"optical reasons). Here you can adjust the width of this border or disable it "
+"altogether. Note, that this only works when the thumbnails are floating."
+msgstr ""
+
+#: SettingsTabLookAndFeel#34
+msgid "Hide Quickinfo (Text Labels)"
+msgstr ""
+
+#: SettingsTabLookAndFeel#35
+msgid ""
+"Here you can hide the text labels shown in the main area: The Counter in the "
+"top left corner, the file path/name following the counter, and the \"X\" "
+"displayed in the top right corner. The labels can also be hidden by simply "
+"right-clicking on them and selecting \"Hide\"."
+msgstr ""
+
+#: SettingsTabLookAndFeel#36
+msgid "Hide Counter"
+msgstr ""
+
+#: SettingsTabLookAndFeel#37
+msgid "Hide Filepath (Shows only file name)"
+msgstr ""
+
+#: SettingsTabLookAndFeel#38
+msgid "Hide Filename (Including file path)"
+msgstr ""
+
+#: SettingsTabLookAndFeel#39
+msgid "Hide \"X\" (Closing)"
+msgstr ""
+
+#: SettingsTabLookAndFeel#40
+msgid "Select Background Image"
+msgstr ""
+
+#: SettingsTabOther#1
+msgctxt "SettingsTabOther#1"
+msgid "Other Settings"
+msgstr ""
+
+#: SettingsTabOther#2
+msgid "Choose Language"
+msgstr ""
+
+#: SettingsTabOther#3
+msgid ""
+"There are a good few different languages available. Thanks to everybody who "
+"took the time to translate Photo!"
+msgstr ""
+
+#: SettingsTabOther#4
+msgid "Adjust Context Menu"
+msgstr ""
+
+#: SettingsTabOther#5
+msgid ""
+"Here you can adjust the context menu. You can simply drag and drop the "
+"entries, edit them, add a new one and remove an existing one."
+msgstr ""
+
+#: SettingsTabOther#6
+msgid "Add new Entry"
+msgstr ""
+
+#: SettingsTabOther#7
+msgid "Known File Types"
+msgstr ""
+
+#: SettingsTabOther#8
+msgid ""
+"Here you can adjust the list of known image types. Some image types "
+"(especially more exotic ones) aren't supported by every Qt installation "
+"(depending on which image plugins you've got installed, etc.). If there's "
+"any problem with an image type, you can take it out of the list here. If you "
+"want to add an image type, simply add it to the list."
+msgstr ""
+
+#: SettingsTabOther#9
+msgid "Only change the list if you know what you're doing!"
+msgstr ""
+
+#: SettingsTabShortcuts#1
+msgctxt "SettingsTabShortcuts#1"
+msgid "Shortcuts"
+msgstr ""
+
+#: SettingsTabShortcuts#2
+msgid ""
+"Here you can adjust the shortcuts, add new or remove existing ones, or "
+"change a key combination. The shortcuts are grouped into 4 different "
+"categories for internal commands plus a category for external commands. The "
+"boxes on the right side contain all the possible commands. To add a shortcut "
+"for one of the available function you can either double click on the tile "
+"or click the \"+\" button. This automatically opens another widget where you "
+"can set a key combination."
+msgstr ""
+
+#: SettingsTabShortcuts#3
+msgid "Set default shortcuts"
+msgstr ""
+
+#: SettingsTabShortcuts#4
+msgid "Set default shortcuts?"
+msgstr ""
+
+#: SettingsTabShortcuts#5
+msgid ""
+"This reverses all changes to the shortcuts and sets the set of default ones."
+msgstr ""
+
+#: SettingsTabShortcuts#6
+msgctxt "SettingsTabShortcuts#6"
+msgid "This step cannot be reversed!"
+msgstr ""
+
+#: SettingsTabShortcuts#7
+msgid "Give me defaults"
+msgstr ""
+
+#: SettingsTabShortcuts#8
+msgid "Hm, maybe not now"
+msgstr ""
+
+#: SettingsTabShortcuts#9
+msgid "Go to first Image"
+msgstr ""
+
+#: SettingsTabShortcuts#10
+msgid "Go to last Image"
+msgstr ""
+
+#: SettingsTabShortcuts#11
+msgid "Hide to System Tray"
+msgstr ""
+
+#: SettingsTabShortcuts#12
+msgid "Next Image"
+msgstr ""
+
+#: SettingsTabShortcuts#13
+msgid "Open New File"
+msgstr ""
+
+#: SettingsTabShortcuts#14
+msgid "Previous Image"
+msgstr ""
+
+#: SettingsTabShortcuts#15
+msgctxt "SettingsTabShortcuts#15"
+msgid "Quit Photo"
+msgstr ""
+
+#: SettingsTabShortcuts#16
+msgid "Zoom In"
+msgstr ""
+
+#: SettingsTabShortcuts#17
+msgid "Zoom Out"
+msgstr ""
+
+#: SettingsTabShortcuts#18
+msgid "Reset Zoom"
+msgstr ""
+
+#: SettingsTabShortcuts#19
+msgid "Zoom to Actual Size"
+msgstr ""
+
+#: SettingsTabShortcuts#20
+msgid "Rotate Right"
+msgstr ""
+
+#: SettingsTabShortcuts#21
+msgid "Rotate Left"
+msgstr ""
+
+#: SettingsTabShortcuts#22
+msgid "Reset Rotation"
+msgstr ""
+
+#: SettingsTabShortcuts#23
+msgid "Flip Horizontally"
+msgstr ""
+
+#: SettingsTabShortcuts#24
+msgid "Flip Vertically"
+msgstr ""
+
+#: SettingsTabShortcuts#25
+msgctxt "SettingsTabShortcuts#25"
+msgid "Rename File"
+msgstr ""
+
+#: SettingsTabShortcuts#26
+msgctxt "SettingsTabShortcuts#26"
+msgid "Delete File"
+msgstr ""
+
+#: SettingsTabShortcuts#27
+msgid "Copy File to a New Location"
+msgstr ""
+
+#: SettingsTabShortcuts#28
+msgid "Move File to a New Location"
+msgstr ""
+
+#: SettingsTabShortcuts#29
+msgctxt "SettingsTabShortcuts#29"
+msgid "Interrupt Thumbnail Creation"
+msgstr ""
+
+#: SettingsTabShortcuts#30
+msgctxt "SettingsTabShortcuts#30"
+msgid "Reload Thumbnails"
+msgstr ""
+
+#: SettingsTabShortcuts#31
+msgid "Hide/Show Exif Info"
+msgstr ""
+
+#: SettingsTabShortcuts#32
+msgid "Show Settings"
+msgstr ""
+
+#: SettingsTabShortcuts#33
+msgid "Start Slideshow"
+msgstr ""
+
+#: SettingsTabShortcuts#34
+msgid "Start Slideshow (Quickstart)"
+msgstr ""
+
+#: SettingsTabShortcuts#35
+msgid "About photo"
+msgstr ""
+
+#: SettingsTabShortcuts#36
+msgid "Category:"
+msgstr ""
+
+#: SettingsTabShortcuts#37
+msgid "some executeable"
+msgstr ""
+
+#: SettingsTabThumbnail#1
+msgctxt "SettingsTabThumbnail#1"
+msgid "Thumbnails"
+msgstr ""
+
+#: SettingsTabThumbnail#2
+msgid "Thumbnail Size"
+msgstr ""
+
+#: SettingsTabThumbnail#3
+msgid ""
+"Here you can adjust the thumbnail size. You can set it to any size between "
+"20 and 256 pixel. Per default it is set to 80 pixel, but with different "
+"screen resolutions it might be nice to have them larger/smaller."
+msgstr ""
+
+#: SettingsTabThumbnail#4
+msgid "Border Around Thumbnail Images"
+msgstr ""
+
+#: SettingsTabThumbnail#5
+msgid ""
+"The thumbnails are shown on squares in a row at the lower/upper edge "
+"(depending on your setup). Per default they are lined up side to side with "
+"no empty space between them. Here you can change that."
+msgstr ""
+
+#: SettingsTabThumbnail#6
+msgid "Lift-up of Thumbnail Images on Hovering"
+msgstr ""
+
+#: SettingsTabThumbnail#7
+msgid ""
+"When a thumbnail is hovered, it is lifted up some pixels (default 10). Here "
+"you can increase/decrease this value according to your personal preference."
+msgstr ""
+
+#: SettingsTabThumbnail#8
+msgid "Change Thumbnail Position"
+msgstr ""
+
+#: SettingsTabThumbnail#9
+msgid ""
+"Per default the bar with the thumbnails is shown at the lower edge. However, "
+"some might find it nice and handy to have the thumbnail bar at the upper "
+"edge, so that's what can be changed here."
+msgstr ""
+
+#: SettingsTabThumbnail#10
+msgid "Show Thumbnails at upper edge"
+msgstr ""
+
+#: SettingsTabThumbnail#11
+msgid "Show Thumbnails at lower edge"
+msgstr ""
+
+#: SettingsTabThumbnail#12
+msgid "Keep Thumbnails Visible"
+msgstr ""
+
+#: SettingsTabThumbnail#13
+msgid ""
+"Per default the Thumbnails slide out over the edge of the screen. Here you "
+"can force them to stay visible. The big image is shrunk to fit into the "
+"empty space. Note, that the thumbnails will be hidden (and shown on mouse "
+"hovering) once you zoomed the image in/out. Resetting the zoom restores the "
+"original visibility of the thumbnails."
+msgstr ""
+
+#: SettingsTabThumbnail#14
+msgid "Use file-name-only Thumbnails"
+msgstr ""
+
+#: SettingsTabThumbnail#15
+msgid ""
+"If you don't want Photo to always load the thumbnails in the background, but "
+"you still want to have something for better navigating, then you can set a "
+"file-name-only thumbnail, i.e. Photo wont load any thumbnail images but "
+"simply puts the file name into the box. You can also adjust the font size of "
+"this text."
+msgstr ""
+
+#: SettingsTabThumbnail#16
+msgid "Use file-name-only Thumbnail"
+msgstr ""
+
+#: SettingsTabThumbnail#17
+msgid "Disable Thumbnails"
+msgstr ""
+
+#: SettingsTabThumbnail#18
+msgid ""
+"If you just don't need or don't want any thumbnails whatsoever, then you can "
+"disable them here completely. This option can also be toggled remotely via "
+"command line (run 'photo --help' for more information on that)."
+msgstr ""
+
+#: SettingsTabThumbnail#19
+msgid "Disable Thumbnails altogether"
+msgstr ""
+
+#: SettingsTabThumbnail#20
+msgid "Thumbnail Cache"
+msgstr ""
+
+#: SettingsTabThumbnail#21
+msgid ""
+"Thumbnails can be cached in two different ways:<br>1) File Caching "
+"(following the freedesktop.org standard) or<br>2) Database Caching (better "
+"performance and management, default option)."
+msgstr ""
+
+#: SettingsTabThumbnail#22
+msgid "Both ways have their advantages and disadvantages:"
+msgstr ""
+
+#: SettingsTabThumbnail#23
+msgid ""
+"File Caching is done according to the freedesktop.org standard and thus "
+"different applications can share the same thumbnail for the same image file. "
+"However, it's not possible to check for obsolete thumbnails (thus this may "
+"lead to many unneeded thumbnail files)."
+msgstr ""
+
+#: SettingsTabThumbnail#24
+msgid ""
+"Database Caching doesn't have the advantage of sharing thumbnails with other "
+"applications (and thus every thumbnails has to be newly created for Photo), "
+"but it brings a slightly better performance, and it allows a better "
+"handling of existing thumbnails (e.g. deleting obsolete thumbnails)."
+msgstr ""
+
+#: SettingsTabThumbnail#25
+msgid ""
+"Photo works with either option, though the second way is set as default."
+msgstr ""
+
+#: SettingsTabThumbnail#26
+msgid ""
+"Although everybody is encouraged to use at least one of the two options, "
+"caching can be completely disabled altogether. However, that does affect the "
+"performance and usability of Photo, since thumbnails have to be newly re-"
+"created every time they are needed."
+msgstr ""
+
+#: SettingsTabThumbnail#27
+msgid "Enable Thumbnail Cache"
+msgstr ""
+
+#: SettingsTabThumbnail#28
+msgid "File caching"
+msgstr ""
+
+#: SettingsTabThumbnail#29
+msgid "Database caching"
+msgstr ""
+
+#: SettingsTabThumbnail#30
+msgid "CLEAN up Database"
+msgstr ""
+
+#: SettingsTabThumbnail#31
+msgid "ERASE Database"
+msgstr ""
+
+#: SettingsTabThumbnail#32
+msgid "Clean Database"
+msgstr ""
+
+#: SettingsTabThumbnail#33
+msgid ""
+"Do you really want to clean up the database? This removes all obsolete "
+"thumbnails, thus possibly making Photo a little faster."
+msgstr ""
+
+#: SettingsTabThumbnail#34
+msgid "This process might take a little while."
+msgstr ""
+
+#: SettingsTabThumbnail#35
+msgid "Yes, clean is good"
+msgstr ""
+
+#: SettingsTabThumbnail#36
+msgid "No, don't have time for that"
+msgstr ""
+
+#: SettingsTabThumbnail#37
+msgid "Erase Database"
+msgstr ""
+
+#: SettingsTabThumbnail#38
+msgid ""
+"Do you really want to ERASE the entire database? This removes every single "
+"item in the database! This step should never really be necessarily. After "
+"that, every thumbnail has to be newly re-created. This step cannot be "
+"reversed!"
+msgstr ""
+
+#: SettingsTabThumbnail#39
+msgid "Yes, get rid of it all"
+msgstr ""
+
+#: SettingsTabThumbnail#40
+msgid "No, I want to keep it"
+msgstr ""
+
+#: SettingsTabThumbnail#41
+msgid "Current database filesize: %1 KB"
+msgstr ""
+
+#: SettingsTabThumbnail#42
+msgid "Entries in database: %2"
+msgstr ""
+
+#: ShortcutChangeCommand#1
+msgid "Set Command/Executeable"
+msgstr ""
+
+#: ShortcutChangeCommand#2
+msgid ""
+"Here you can change the executeable. A click on the button allows you to "
+"browse for one."
+msgstr ""
+
+#: ShortcutChangeCommand#3
+msgid ""
+"You can use two placeholders:<br>%f = current file, %d = current directory"
+msgstr ""
+
+#: ShortcutChangeCommand#4
+msgid "Okay, set it!"
+msgstr ""
+
+#: ShortcutChangeCommand#5
+msgid "Don't set anything!"
+msgstr ""
+
+#: ShortcutChangeCommand#6
+msgid "Select executeable"
+msgstr ""
+
+#: ShortcutKeyDetect#1
+msgid "Detecting Shortcut"
+msgstr ""
+
+#: ShortcutKeyDetect#2
+msgid "Key Shortcut"
+msgstr ""
+
+#: ShortcutKeyDetect#3
+msgid "Mouse Shortcut"
+msgstr ""
+
+#: ShortcutKeyDetect#4
+msgid "Ctrl"
+msgstr ""
+
+#: ShortcutKeyDetect#5
+msgid "Alt"
+msgstr ""
+
+#: ShortcutKeyDetect#6
+msgid "Shift"
+msgstr ""
+
+#: ShortcutKeyDetect#7
+msgid "Ctrl+Alt"
+msgstr ""
+
+#: ShortcutKeyDetect#8
+msgid "Alt+Shift"
+msgstr ""
+
+#: ShortcutKeyDetect#9
+msgid "Ctrl+Alt+Shift"
+msgstr ""
+
+#: ShortcutKeyDetect#10
+msgid "Left Button"
+msgstr ""
+
+#: ShortcutKeyDetect#11
+msgid "Right Button"
+msgstr ""
+
+#: ShortcutKeyDetect#12
+msgid "Middle Button"
+msgstr ""
+
+#: ShortcutKeyDetect#13
+msgid "Wheel Up"
+msgstr ""
+
+#: ShortcutKeyDetect#14
+msgid "Wheel Down"
+msgstr ""
+
+#: ShortcutKeyDetect#15
+msgid "Okay"
+msgstr ""
+
+#: ShortcutKeyDetect#16
+msgid "Cancel and don't set a shortcut"
+msgstr ""
+
+#: ShortcutKeyDetect#17
+msgid "Press a key combination"
+msgstr ""
+
+#: ShortcutKeyDetect#18
+msgid "Key combination exists already. Please choose another one!"
+msgstr ""
+
+#: ShortcutsTiles#1
+msgid "quit"
+msgstr ""
+
+#: ShortcutsTiles#2
+msgid "key"
+msgstr ""
+
+#: SlideShow#1
+msgid "Start a Slideshow"
+msgstr ""
+
+#: SlideShow#2
+msgid ""
+"There are several settings that can be adjusted for a slideshow, like the "
+"time between the image, if and how long the transition between the images "
+"should be, and also a music file can be specified that is played in the "
+"background."
+msgstr ""
+
+#: SlideShow#3
+msgid ""
+"Once you have set the desired options, you can also start a slideshow the "
+"next time via 'Quickstart', i.e. skipping this settings window."
+msgstr ""
+
+#: SlideShow#4
+msgid "Time in between"
+msgstr ""
+
+#: SlideShow#5
+msgid ""
+"Adjust the time between the images. The time specified here is the amount of "
+"time the image will be completely visible, i.e. the transitioning (if set) "
+"is not part of this time."
+msgstr ""
+
+#: SlideShow#6
+msgctxt "SlideShow#6"
+msgid "Smooth Transition"
+msgstr ""
+
+#: SlideShow#7
+msgid ""
+"Here you can set, if you want the images to fade into each other, and how "
+"fast they shall do that."
+msgstr ""
+
+#: SlideShow#8
+msgid "No Transition"
+msgstr ""
+
+#: SlideShow#9
+msgctxt "SlideShow#9"
+msgid "Long Transition"
+msgstr ""
+
+#: SlideShow#10
+msgid "Hide Quickinfos"
+msgstr ""
+
+#: SlideShow#11
+msgid "Hide Quickinfo"
+msgstr ""
+
+#: SlideShow#12
+msgid ""
+"Depending on your setup, Photo displays some information at the top edge, "
+"like position in current directory or file path/name. Here you can disable "
+"them temporarily for the slideshow."
+msgstr ""
+
+#: SlideShow#13
+msgid "Enable Music"
+msgstr ""
+
+#: SlideShow#14
+msgid "Click to select/change music file"
+msgstr ""
+
+#: SlideShow#15
+msgid "Background Music"
+msgstr ""
+
+#: SlideShow#16
+msgid ""
+"Some might like to listen to some music while the slideshow is running. Here "
+"you can select a music file you want to be played in the background."
+msgstr ""
+
+#: SlideShow#17
+msgid "Okay, lets start"
+msgstr ""
+
+#: SlideShow#18
+msgid "Maybe later"
+msgstr ""
+
+#: SlideShowBar#1
+msgid "Pause Slideshow"
+msgstr ""
+
+#: SlideShowBar#2
+msgid "Music Volume:"
+msgstr ""
+
+#: SlideShowBar#3
+msgid "Exit Slideshow"
+msgstr ""
+
+#: SlideShowBar#4
+msgid "Play Slideshow"
+msgstr ""
+
+#: StartUpWidget#1
+msgid "Okay, I got enough now. Lets start!"
+msgstr ""
+
+#: StartUpWidget#2
+msgid "Many File Formats"
+msgstr ""
+
+#: StartUpWidget#3
+msgid ""
+"Photo can recognise many image file formats. In fact it can work with any "
+"file format your Qt setup can handle. There's a default list, that should "
+"work at most setups. However, this list can be adjusted in the settings if "
+"needs be (usually there shouldn't!). If you do adjust it, then please don't "
+"blame me, if Photo doesn't recognise all image formats you want anymore. If "
+"you \"break\" anything (as much as you can break it), usually the best is to "
+"re-set the default settings again."
+msgstr ""
+
+#: StartUpWidget#4
+msgid "Many Settings Possible"
+msgstr ""
+
+#: StartUpWidget#5
+msgid ""
+"Photo has an extensive settings area. You can call it by the default "
+"shortcut \"e\" or through the dropdown menu at the top edge towards the top "
+"right corner. You can adjust (almost) everything, and it's' certainly worth "
+"having a look there. Each setting usually comes with a little text "
+"explaining what it does and what it can do."
+msgstr ""
+
+#: StartUpWidget#6
+msgctxt "StartUpWidget#6"
+msgid "Thumbnails"
+msgstr ""
+
+#: StartUpWidget#7
+msgid ""
+"What would be an image viewer without thumbnails support? It would only be "
+"half as good. Whenever you load an image, Photo loads the other images in "
+"the directory in the background. It lines them up in a row at the bottom "
+"edge (move your mouse there to see them). There are many settings just for "
+"the thumbnails, like size, liftup, en-/disabled, type, filename, permanently "
+"shown/hidden, etc. Photo's quite flexible with that."
+msgstr ""
+
+#: StartUpWidget#8
+msgctxt "StartUpWidget#8"
+msgid "Shortcuts"
+msgstr ""
+
+#: StartUpWidget#9
+msgid ""
+"One of the many strengths of Photo is the ability to easily set a shortcut "
+"for almost anything. Even mouse shortcuts are possible!"
+msgstr ""
+
+#: StartUpWidget#10
+msgctxt "StartUpWidget#10"
+msgid "Exif Information"
+msgstr ""
+
+#: StartUpWidget#11
+msgid ""
+"Most images store some information about the image in the file. Photo can "
+"read and display a good bit of that. You can find the information in the "
+"slide-in window at the left edge."
+msgstr ""
+
+#: StartUpWidget#12
+msgid "Background"
+msgstr ""
+
+#: StartUpWidget#13
+msgid ""
+"The background of Photo is now much more flexible. You can have a (half) "
+"transparent background with composite, set a background colour, use a "
+"screenshot instead of composite (single monitor setup only) or even set a "
+"background image. It's up to you."
+msgstr ""
+
+#: StartUpWidget#14
+msgid "Zooming"
+msgstr ""
+
+#: StartUpWidget#15
+msgid ""
+"Of course, zooming is possible as well. Photo supports plain zoom in/out, "
+"zoom to fit and also actual size."
+msgstr ""
+
+#: StartUpWidget#16
+msgid "Rotating and Flipping"
+msgstr ""
+
+#: StartUpWidget#17
+msgid ""
+"Images can also be rotated and/or flipped. Rotation is possible in 90Â° "
+"angles, and flipping can be done vertically and horizontally."
+msgstr ""
+
+#: StartUpWidget#18
+msgid "Basic File Actions"
+msgstr ""
+
+#: StartUpWidget#19
+msgid ""
+"Basic file actions like renaming a file, or moving/copying it or deleting it "
+"can be done from inside of Photo. However, you can only operate on a single "
+"file at a time. So for bigger operations, it'd be a better solution to use "
+"your preferred file manager."
+msgstr ""
+
+#: StartUpWidget#20
+msgid "Slideshow"
+msgstr ""
+
+#: StartUpWidget#21
+msgid ""
+"Photo also brings a slideshow feature. When you start a slideshow, it starts "
+"at the currently displayed image. There are a couple simply settings like "
+"transition and speed, and you can also set a music file that is played in "
+"the background. When the slideshow takes longer than the music file, then "
+"Photo starts the music file all over from the beginning. At anytime during "
+"the slideshow, you can move the mouse cursor to the top edge of the screen "
+"to get a little bar, where you can pause/exit the slideshow and adjust the "
+"music volume."
+msgstr ""
+
+#: StartUpWidget#22
+msgid "Localisation"
+msgstr ""
+
+#: StartUpWidget#23
+msgid ""
+"Photo comes with a number of translations. Many have taken some of their "
+"time to create/update one of them. Not all of them are (yet) complete, so "
+"why don't you help?"
+msgstr ""
+
+#: StartUpWidget#24
+msgid ""
+"There are many many more features. Best is, you just give it a go. Don't "
+"forget to check the settings to turn Photo into \"your own\"."
+msgstr ""
+
+#: StartUpWidget#25
+msgid "Enjoy :-)"
+msgstr ""
+
+#: StartUpWidget#26
+msgid "Photo was successfully updated"
+msgstr ""
+
+#: StartUpWidget#27
+msgid "Welcome back to Photo."
+msgstr ""
+
+#: StartUpWidget#28
+msgid ""
+"This app is now over one year old, and has developed quite a bit in that "
+"time. It will never reach the state \"finished\", because this doesn't exist. "
+"This app is a journey, changing and improving constantly. So please forgive "
+"me, if a bug sneaked in here or there again, they are never intended, I "
+"promise!!"
+msgstr ""
+
+#: StartUpWidget#29
+msgid ""
+"A lot (and I mean a lot) has changed since the last version(s). Photo was "
+"pretty much completely re-written and re-structured. So here below you find "
+"a short overview of what Photo has to offer. Or you can just get started."
+msgstr ""
+
+#: StartUpWidget#30
+msgid "Photo was successfully installed"
+msgstr ""
+
+#: StartUpWidget#31
+msgid ""
+"Welcome to Photo. Photo is an image viewer, aimed at being fast, highly "
+"customisable and good looking."
+msgstr ""
+
+#: StartUpWidget#32
+msgid ""
+"Here below you find a short overview of what Photo has to offer. If you "
+"don't want to read it, you can also simply close this window and get "
+"started. But for the ones that are a little curious and want to know in "
+"advance a little:"
+msgstr ""
