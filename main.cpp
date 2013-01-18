@@ -316,12 +316,6 @@ int main(int argc, char *argv[]) {
 		// Set the file to open that the user might have passed on
 		w.globVar->currentfile = file_str;
 
-		if(QFile::exists(QDir::homePath() + "/.photo/update"))
-			update = 1;
-
-		if(QFile::exists(QDir::homePath() + "/.photo/install"))
-			update = 2;
-
 		w.globVar->startupMessageInstallUpdateShown = update;
 		w.startUpTimer->start();
 

@@ -88,7 +88,7 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set)
 	langShort << "ru_RU";
 
 	//Slovakian
-	langDesc << QString::fromUtf8("Slovenčina (Lukas Dobransky)");
+	langDesc << QString::fromUtf8("Slovenčina (Lukáš Dobránsky)");
 	langShort << "sk";
 
 	// Serbian

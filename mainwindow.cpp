@@ -1033,7 +1033,7 @@ void MainWindow::mouseMoved(int x, int y) {
 
 
 		// Animate exif widget
-		if(x < 10*globSet->menusensitivity && y > exif->rectShown.y()-3*globSet->menusensitivity && y < exif->rectShown.y()+exif->rectShown.height()+globSet->menusensitivity*3 && !exif->isShown)
+		if(x < 10*globSet->menusensitivity && y > exif->rectShown.y()-3*globSet->menusensitivity && y < exif->rectShown.y()+exif->rectShown.height()+globSet->menusensitivity*3 && !exif->isShown && globSet->exifenablemousetriggering)
 			exif->animate();
 
 		if((x > exif->rectShown.width()+10*globSet->menusensitivity || y < exif->rectShown.y()-3*globSet->menusensitivity || y > exif->rectShown.y()+exif->rectShown.height()+3*globSet->menusensitivity) && exif->isShown && !exif->stay->isChecked())
@@ -1926,7 +1926,7 @@ void MainWindow::updateQuickInfo() {
 
 		if(globVar->currentfile != "") {
 
-			quickInfoCounterTOP->setText("<span style=\"color: red; font-weight: bold\">Beta Version!</span> -- " + QString("%1/%2").arg(viewThumbs->countpos+1).arg(viewThumbs->counttot));
+			quickInfoCounterTOP->setText(QString("%1/%2").arg(viewThumbs->countpos+1).arg(viewThumbs->counttot));
 
 			if(globSet->hidefilepathshowfilename)
 				quickInfoFilenameTOP->setText(QFileInfo(globVar->currentfile).fileName());
@@ -1938,7 +1938,7 @@ void MainWindow::updateQuickInfo() {
 			closeWindowX->setShown(!globSet->hidex);
 			quickInfoSepTOP->setShown((globSet->hidefilename == globSet->hidecounter) && !globSet->hidecounter);
 		} else {
-			quickInfoFilenameTOP->setText("<span style=\"color: red; font-weight: bold\">Beta Version!</span> -- " + tr("Open File to Begin."));
+			quickInfoFilenameTOP->setText(tr("Open File to Begin."));
 			quickInfoCounterTOP->hide();
 			quickInfoSepTOP->hide();
 			quickInfoFilenameTOP->show();
@@ -1948,7 +1948,7 @@ void MainWindow::updateQuickInfo() {
 
 		if(globVar->currentfile != "") {
 
-			quickInfoCounterBOT->setText("<span style=\"color: red; font-weight: bold\">Beta Version!</span> -- " + QString("%1/%2").arg(viewThumbs->countpos+1).arg(viewThumbs->counttot));
+			quickInfoCounterBOT->setText(QString("%1/%2").arg(viewThumbs->countpos+1).arg(viewThumbs->counttot));
 
 			if(globSet->hidefilepathshowfilename)
 				quickInfoFilenameBOT->setText(QFileInfo(globVar->currentfile).fileName());
@@ -1960,7 +1960,7 @@ void MainWindow::updateQuickInfo() {
 			closeWindowX->setShown(!globSet->hidex);
 			quickInfoSepBOT->setShown(!globSet->hidefilename && !globSet->hidecounter);
 		} else {
-			quickInfoFilenameBOT->setText("<span style=\"color: red; font-weight: bold\">Beta Version!</span> -- " + tr("Open File to Begin."));
+			quickInfoFilenameBOT->setText(tr("Open File to Begin."));
 			quickInfoCounterBOT->hide();
 			quickInfoSepBOT->hide();
 			quickInfoFilenameBOT->show();

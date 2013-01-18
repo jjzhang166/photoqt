@@ -152,27 +152,25 @@ SlideShow::SlideShow(QMap<QString, QVariant> set, QWidget *parent) : QWidget(par
 	central->addSpacing(5);
 	central->addLayout(musicEnableLay);
 	central->addLayout(musicPathLay);
-	central->addSpacing(25);
 	connect(musicEnable, SIGNAL(toggled(bool)), musicPath, SLOT(setEnabled(bool)));
 	connect(musicPath, SIGNAL(clicked()), this, SLOT(browseForMusic()));
 
+	central->addStretch();
 
+
+	// Start or don't slideshow
 	CustomPushButton *ok = new CustomPushButton(tr("Okay, lets start"));
 	CustomPushButton *cancel = new CustomPushButton(tr("Maybe later"));
-
-	connect(ok, SIGNAL(clicked()), this, SLOT(andStart()));
-	connect(cancel, SIGNAL(clicked()), this, SLOT(animate()));
-
 	QHBoxLayout *butLay = new QHBoxLayout;
 	butLay->addStretch();
 	butLay->addWidget(ok);
 	butLay->addWidget(cancel);
 	butLay->addStretch();
+	scCentral->addLayout(butLay);
 
-	central->addStretch();
+	connect(ok, SIGNAL(clicked()), this, SLOT(andStart()));
+	connect(cancel, SIGNAL(clicked()), this, SLOT(animate()));
 
-	central->addLayout(butLay);
-	central->addSpacing(10);
 
 }
 

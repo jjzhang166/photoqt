@@ -114,6 +114,7 @@ public slots:
 		allMouseShortcuts.clear();
 
 		allKeyShortcuts.insert("O",QList<QVariant>() << false << "__open");
+		allKeyShortcuts.insert("Ctrl+O",QList<QVariant>() << false << "__open");
 		allKeyShortcuts.insert("Right",QList<QVariant>() << false << "__next");
 		allKeyShortcuts.insert("Space",QList<QVariant>() << false << "__next");
 		allKeyShortcuts.insert("Left",QList<QVariant>() << false << "__prev");
@@ -141,6 +142,11 @@ public slots:
 		allKeyShortcuts.insert("Ctrl+R",QList<QVariant>() << false << "__reloadThb");
 		allKeyShortcuts.insert("Escape",QList<QVariant>() << false << "__hide");
 		allKeyShortcuts.insert("Q",QList<QVariant>() << false << "__close");
+		allKeyShortcuts.insert("Ctrl+Q",QList<QVariant>() << false << "__close");
+		allKeyShortcuts.insert("Home",QList<QVariant>() << false << "__gotoFirstThb");
+		allKeyShortcuts.insert("End",QList<QVariant>() << false << "__gotoLastThb");
+		allKeyShortcuts.insert("M", QList<QVariant>() << false << "__slideshow");
+		allKeyShortcuts.insert("Shift+M", QList<QVariant>() << false << "__slideshowQuick");
 
 		allMouseShortcuts.insert("[M] Ctrl+Wheel Down",QList<QVariant>() << false << "__zoomOut");
 		allMouseShortcuts.insert("[M] Ctrl+Wheel Up",QList<QVariant>() << false << "__zoomIn");

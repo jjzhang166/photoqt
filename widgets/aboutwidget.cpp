@@ -24,7 +24,7 @@ About::About(QWidget *parent) : QWidget(parent) {
 
 	// the central widget containing all the information
 	center = new QWidget(this);
-	center->setStyleSheet("background: rgba(0,0,0,200); border-radius: 10px;");
+	center->setStyleSheet("background: rgba(0,0,0,200); border-radius: 10px; font-size: 12pt;");
 
 	// The current animation framework
 	ani = new QPropertyAnimation(center,"geometry");
@@ -63,7 +63,9 @@ About::About(QWidget *parent) : QWidget(parent) {
 	logoLay->addStretch();
 	logoLay->addWidget(logo);
 	logoLay->addStretch();
+	central->addSpacing(20);
 	central->addLayout(logoLay);
+	central->addSpacing(30);
 
 	// The main text block
 	QString txt = tr("Photo is a simple image viewer, designed to be good looking, highly configurable, yet easy to use and fast.") +  "<br><br>";
@@ -91,6 +93,7 @@ About::About(QWidget *parent) : QWidget(parent) {
 	closeLay->addStretch();
 	closeLay->addWidget(close);
 	closeLay->addStretch();
+	closeLay->setMargin(10);
 	scCentral->addLayout(closeLay);
 	connect(close, SIGNAL(clicked()), this, SLOT(animate()));
 
@@ -103,7 +106,7 @@ About::About(QWidget *parent) : QWidget(parent) {
 // Set the license with version (called from mainwindow.cpp)
 void About::setLicense(QString version) {
 
-	license->setText("<div style=\"font-size: 8pt\"><span style=\"color: red; font-weight: bold\">Beta Version!</span> -- " + tr("Photo %1, by Lukas Spies, 2013 (Lukas@photoqt.org)").arg(version) + " &ndash; " + tr("website:") + " photoqt.org &ndash; " + tr("Licensed under GPL, without any guarantee") + "</div>");
+	license->setText("<div style=\"font-size: 8pt\">" + tr("Photo %1, by Lukas Spies, 2013 (Lukas@photoqt.org)").arg(version) + " &ndash; " + tr("website:") + " photoqt.org &ndash; " + tr("Licensed under GPL, without any guarantee") + "</div>");
 
 }
 
