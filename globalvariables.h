@@ -56,8 +56,6 @@ public:
 	// Set the default values
 	void setVariables() {
 
-		verbose = false;
-
 		rotation = 0;
 
 		skipTrayIcon = false;

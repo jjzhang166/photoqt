@@ -28,8 +28,10 @@ class FileHandling : public QWidget {
 	Q_OBJECT
 
 public:
-	FileHandling(QWidget *parent = 0);
+	FileHandling(QWidget *parent = 0, bool verbose = false);
 	~FileHandling();
+
+	bool verbose;
 
 	// The animation for the content widget
 	QPropertyAnimation *ani;

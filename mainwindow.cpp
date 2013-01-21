@@ -941,7 +941,7 @@ void MainWindow::hideQuickInfo() {
 // Enabling the key detection by the shortcuts
 void MainWindow::keyReleaseEvent(QKeyEvent *e) {
 
-	if(globVar->verbose) qDebug() << "Got Key Event:" << e;
+	if(globVar->verbose) qDebug() << "Got Key Event:" << e->key();
 
 	if(set->tabShortcuts->detect->isShown && set->tabShortcuts->detect->keyShortcut->isChecked())
 		set->tabShortcuts->detect->analyseKeyEvent(e);
@@ -1242,29 +1242,27 @@ void MainWindow::resizeEvent(QResizeEvent *) {
 	if(globVar->verbose) qDebug() << "Window resized";
 
 	// When photo is minimised and is restored, then the widget actually isn't resized, so the stuff in this function doesn't need to be done
-	if((QDateTime::currentDateTime().toTime_t() - globVar->restoringFromTrayNoResize) > 1) {
 
-		// Set an empty QPixmap to avoid any possible graphical artefacts
-		if(globVar->currentfile == "") {
-			QPixmap empty(viewBig->size());
-			empty.fill(Qt::transparent);
-			graphItem->setPixmap(empty,false,false);
-		}
-
-		// Adjust the geometries
-		adjustGeometries();
-
-		// Adjust the background
-		setBackground();
-
-		// Adjust scene rect
-		sceneBig.setSceneRect(sceneBig.itemsBoundingRect());
-
-		// And if an image is loaded, redraw it
-		if(globVar->currentfile != "" && !globVar->zoomed)
-			drawImage();
-
+	// Set an empty QPixmap to avoid any possible graphical artefacts
+	if(globVar->currentfile == "") {
+		QPixmap empty(viewBig->size());
+		empty.fill(Qt::transparent);
+		graphItem->setPixmap(empty,false,false);
 	}
+
+	// Adjust the geometries
+	adjustGeometries();
+
+	// Adjust the background
+	setBackground();
+
+	// Adjust scene rect
+	sceneBig.setSceneRect(sceneBig.itemsBoundingRect());
+
+	// And if an image is loaded, redraw it
+	if(globVar->currentfile != "" && !globVar->zoomed && (QDateTime::currentDateTime().toTime_t() - globVar->restoringFromTrayNoResize) > 1)
+		drawImage();
+
 }
 
 // Restore the default settings

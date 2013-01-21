@@ -1,7 +1,9 @@
 #include "filehandling.h"
 #include <unistd.h>
 
-FileHandling::FileHandling(QWidget *parent) : QWidget(parent) {
+FileHandling::FileHandling(QWidget *parent, bool v) : QWidget(parent) {
+
+	verbose = v;
 
 	// The different QRects
 	rectShown = QRect(0,0,parent->width(),parent->height());
@@ -339,6 +341,8 @@ FileHandling::FileHandling(QWidget *parent) : QWidget(parent) {
 // Open the dialog type 't'
 void FileHandling::openDialog(QString t) {
 
+	if(verbose) qDebug() << "fhd: Open widget:" << t;
+
 	if(currentfile != "") {
 
 		// Make sure all widgets are hidden by default
@@ -369,6 +373,8 @@ void FileHandling::openDialog(QString t) {
 
 // The animation function
 void FileHandling::animate() {
+
+	if(verbose) qDebug() << "fhd: Animate";
 
 	QRect shown = QRect();
 
@@ -472,6 +478,8 @@ void FileHandling::aniFinished() {
 // Set the rename dialog
 void FileHandling::setRename() {
 
+	if(verbose) qDebug() << "fhd: Set rename layout";
+
 	// Update the labels and focus the LineEdit
 	renameOldName->setText("<center>"+ tr("Old name") + ": " + QFileInfo(currentfile).fileName() + "</center>");
 	renameNewName->setText(QFileInfo(currentfile).completeBaseName());
@@ -491,6 +499,8 @@ void FileHandling::setRename() {
 // Set the delete dialog
 void FileHandling::setDelete() {
 
+	if(verbose) qDebug() << "fhd: Set delete layout";
+
 	// Update old filename
 	deleteFilename->setText("<center>" + QFileInfo(currentfile).fileName() + "</center>");
 
@@ -501,6 +511,8 @@ void FileHandling::setDelete() {
 
 // Set the copy dialog
 void FileHandling::setCopy() {
+
+	if(verbose) qDebug() << "fhd: Set copy layout";
 
 	QModelIndex first = copyTreeModel->index(QFileInfo(currentfile).absolutePath());
 	copyTree->setCurrentIndex(first);
@@ -521,6 +533,8 @@ void FileHandling::setCopy() {
 
 // Set the move dialog
 void FileHandling::setMove() {
+
+	if(verbose) qDebug() << "fhd: Set move layout";
 
 	QModelIndex first = moveTreeModel->index(QFileInfo(currentfile).absolutePath());
 	moveTree->setCurrentIndex(first);
@@ -548,6 +562,8 @@ void FileHandling::doRename() {
 	// The new filename including full path
 	QString newfile = QFileInfo(currentfile).absolutePath() + "/" + renameNewName->text() + renameOldEnding->text().toLower();
 
+	if(verbose) qDebug() << "fhd: Rename:" << currentfile << "-" << newfile;
+
 	// Do renaming (this first check of existence shouldn't be needed but just to be on the safe side)
 	if(!QFile(newfile).exists()) {
 		if(file.copy(newfile)) {
@@ -571,7 +587,9 @@ void FileHandling::doDelete(int harddelete) {
 
 #if defined(Q_WS_X11)
 
-	if(harddelete == 1) {
+	if(harddelete == 0) {
+
+		if(verbose) qDebug() << "fhd: Move to trash";
 
 		QString filepath = currentfile;
 
@@ -655,6 +673,8 @@ void FileHandling::doDelete(int harddelete) {
 
 	} else {
 
+		if(verbose) qDebug() << "fhd: Hard delete file";
+
 		// current file
 		QFile file(currentfile);
 
@@ -673,6 +693,8 @@ void FileHandling::doDelete(int harddelete) {
 	}
 
 #else
+
+	if(verbose) qDebug() << "fhd: Delete file";
 
 	// current file
 	QFile file(currentfile);
@@ -698,6 +720,8 @@ void FileHandling::doDelete(int harddelete) {
 void FileHandling::doMove() {
 
 	QString newfilename = moveTreeModel->filePath(moveTree->selectionModel()->selectedIndexes().at(0)) + "/" + moveNewName->text() + moveNewNameEnding->text();
+
+	if(verbose) qDebug() << "fhd: Move file:" << currentfile << "-" << newfilename;
 
 	QFile file(currentfile);
 
@@ -725,6 +749,8 @@ void FileHandling::doMove() {
 void FileHandling::doCopy() {
 
 	QString newfilename = copyTreeModel->filePath(copyTree->selectionModel()->selectedIndexes().at(0)) + "/" + copyNewName->text() + copyNewNameEnding->text();
+
+	if(verbose) qDebug() << "fhd: Copy file:" << currentfile << "-" << newfilename;
 
 	QFile file(currentfile);
 

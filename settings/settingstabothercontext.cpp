@@ -1,6 +1,8 @@
 #include "settingstabothercontext.h"
 
-Context::Context(QWidget *parent) : QScrollArea(parent) {
+Context::Context(QWidget *parent, bool v) : QScrollArea(parent) {
+
+	verbose = v;
 
 	// No tiles at startup of course
 	allTiles.clear();
@@ -49,6 +51,8 @@ void Context::mousePressEvent(QMouseEvent *e) {
 	// Start dragging
 	if(e->button() == Qt::LeftButton) {
 
+		if(verbose) qDebug() << "setOC: Start dragging";
+
 		QDrag *drag = new QDrag(this);
 		QMimeData *mimeData = new QMimeData;
 
@@ -92,6 +96,8 @@ void Context::dropEvent(QDropEvent *e) {
 	if(newIndex == -1)
 		newIndex = lay->indexOf(this->childAt(e->pos())->parentWidget());
 
+	if(verbose) qDebug() << "setOC: Item dropped:" << oldIndex << "-" << newIndex;
+
 	// If a valid tile was dragged onto another valid tile, move it
 	if(newIndex != -1 && newIndex != 0 && oldIndex != -1 && oldIndex != 0 && this->childAt(e->pos()) != 0) {
 
@@ -105,6 +111,8 @@ void Context::dropEvent(QDropEvent *e) {
 
 // Load the context menu entries
 void Context::loadContext() {
+
+	if(verbose) qDebug() << "setOC: Load context menu from file";
 
 	// First delete all existing tiles
 	for(int i = 0; i < allTiles.length(); ++i) {
@@ -143,6 +151,8 @@ void Context::loadContext() {
 // Add a new entry at the end
 void Context::addNewEntry() {
 
+	if(verbose) qDebug() << "setOC: Add new entry";
+
 	ContextTile *tile = new ContextTile("exe","text",this);
 	tile->index = lay->count()-1;
 	allTiles.append(tile);
@@ -157,6 +167,8 @@ void Context::addNewEntry() {
 
 // Save context menu
 void Context::saveContext() {
+
+	if(verbose) qDebug() << "setOC: Save context menu";
 
 	// This map is sorted according to the tiles order in the widget (possibly changed by user)
 	QMap<int,QStringList> items;
@@ -202,6 +214,8 @@ void Context::saveContext() {
 
 // Delete an existing entry
 void Context::deleteTile(int index) {
+
+	if(verbose) qDebug() << "setOC: Delete tile:" << index;
 
 	int newIndex = 0;
 

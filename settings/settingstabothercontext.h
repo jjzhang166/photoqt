@@ -14,8 +14,10 @@ class Context : public QScrollArea {
 	Q_OBJECT
 
 public:
-	Context(QWidget *parent = 0);
+	Context(QWidget *parent = 0, bool verbose = false);
 	~Context();
+
+	bool verbose;
 
 	// The main layout
 	QVBoxLayout *lay;

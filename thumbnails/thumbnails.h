@@ -25,8 +25,10 @@ class Thumbnails : public QWidget {
 	Q_OBJECT
 
 public:
-	Thumbnails(QWidget *parent = 0);
+	Thumbnails(QWidget *parent = 0, bool verbose = false);
 	~Thumbnails();
+
+	bool verbose;
 
 	// The global settings
 	QMap<QString,QVariant> globSet;

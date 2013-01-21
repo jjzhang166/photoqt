@@ -1,6 +1,8 @@
 #include "thumbnails.h"
 
-Thumbnails::Thumbnails(QWidget *parent) : QWidget(parent) {
+Thumbnails::Thumbnails(QWidget *parent, bool v) : QWidget(parent) {
+
+	verbose = v;
 
 	QHBoxLayout *layout = new QHBoxLayout;
 	this->setLayout(layout);
@@ -43,6 +45,8 @@ void Thumbnails::animate() {
 	// Open widget
 	if(ani->state() == QPropertyAnimation::Stopped && !isShown) {
 
+		if(verbose) qDebug() << "thb: Animate in";
+
 		ani->setDuration(500);
 		isShown = true;
 
@@ -55,6 +59,8 @@ void Thumbnails::animate() {
 
 	// Close widget
 	} else if(ani->state() == QPropertyAnimation::Stopped && isShown) {
+
+		if(verbose) qDebug() << "thb: Animate out";
 
 		ani->setDuration(500);
 		isShown = false;
@@ -90,6 +96,8 @@ void Thumbnails::loadDir() {
 		currentdir = QFileInfo(currentfile).absoluteDir().absolutePath();
 	else
 		currentdir = currentfile;
+
+	if(verbose) qDebug() << "thb: Load directory:" << currentdir << "- nothb:" << noThumbs;
 
 	// Get QDir instance
 	QDir *dir = new QDir(currentdir);
@@ -156,6 +164,8 @@ void Thumbnails::loadDir() {
 			paint2.drawPixmap((border)/2,(border)/2,normsqu-border,normsqu-border,f.pixmap(normsqu-border,normsqu-border));
 			if(filenameInsteadThumb) {
 
+				if(verbose) qDebug() << "thb: Use filename thumbs";
+
 				txt.setHtml(QString("<center><div style=\"text-align: center; font-size: %1pt; font-wight: bold; color: white; background: none;\">" + allImgsInfo.at(i).fileName() + "</div></center>").arg(filenameInsteadFontSize));
 				txt.setTextWidth(normsqu);
 				paint2.translate(0,0);
@@ -190,6 +200,8 @@ void Thumbnails::loadDir() {
 		// If image thumbnails are wanted, start the thread
 		if(!filenameInsteadThumb) {
 
+			if(verbose) qDebug() << "thb: Start loading thumbs";
+
 			// Set and start the thumbnail thread
 			thumbThread->counttot = allImgsPath.length();
 			thumbThread->allimgs.clear();
@@ -223,6 +235,8 @@ void Thumbnails::stopThbCreation() {
 
 // Update a thumbnail
 void Thumbnails::updateThumb(QImage img, QString path, int pos) {
+
+	if(verbose) qDebug() << "thb: Update thumb:" << pos << "-" << path;
 
 	// Default size
 	int size = globSet.value("ThumbnailSize").toInt();
@@ -296,6 +310,8 @@ void Thumbnails::updateThumb(QImage img, QString path, int pos) {
 // Got a click on an item
 void Thumbnails::gotClick(QString path) {
 
+	if(verbose) qDebug() << "thb: gotClick:" << path;
+
 	updateThbViewHoverNormPix(currentfile,path);
 
 	emit loadNewImg(path);
@@ -322,6 +338,8 @@ void Thumbnails::updateThbViewHoverNormPix(QString oldpath, QString newpath) {
 
 // Jump to first/last image in list
 void Thumbnails::gotoFirstLast(QString side) {
+
+	if(verbose) qDebug() << "thb: Got to first/Last:" << side;
 
 	if(allImgsPath.length()) {
 

@@ -158,11 +158,15 @@ int main(int argc, char *argv[]) {
 			if(set.open(QIODevice::ReadOnly)) {
 				QTextStream in(&set);
 				QString all = in.readAll();
-				if(all.contains("TrayIcon=0")) {
-					all.replace("TrayIcon=0","Trayicon=1");
+				if(!all.contains("TrayIcon=1")) {
+					if(all.contains("TrayIcon=0"))
+						all.replace("TrayIcon=0","TrayIcon=1");
+					else
+						all += "\n[Temporary Appended]\nTrayIcon=1\n";
 					set.close();
 					set.remove();
-					set.open(QIODevice::WriteOnly);
+					if(!set.open(QIODevice::WriteOnly))
+						qDebug() << "ERROR: Can't enable tray icon setting!";
 					QTextStream out(&set);
 					out << all;
 					set.close();
@@ -304,7 +308,7 @@ int main(int argc, char *argv[]) {
 
 
 		// The Window has to be initialised *AFTER* the checks above to ensure that the settings exist and are updated and can be loaded
-		MainWindow w;
+		MainWindow w(0,verbose);
 		w.show();
 		if(!startintray)
 			w.showFullScreen();
