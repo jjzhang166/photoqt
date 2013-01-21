@@ -29,8 +29,10 @@ class SettingsTabThumbnail : public QWidget {
 	Q_OBJECT
 
 public:
-	SettingsTabThumbnail(QWidget *parent = 0, QMap<QString,QVariant> set = QMap<QString,QVariant>());
+	SettingsTabThumbnail(QWidget *parent = 0, QMap<QString,QVariant> set = QMap<QString,QVariant>(), bool verbose = false);
 	~SettingsTabThumbnail();
+
+	bool verbose;
 
 	// The database to do some operation on it
 	QSqlDatabase db;

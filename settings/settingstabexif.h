@@ -23,8 +23,10 @@ class SettingsTabExif : public QWidget {
 	Q_OBJECT
 
 public:
-	SettingsTabExif(QWidget *parent = 0, QMap<QString,QVariant> set = QMap<QString,QVariant>());
+	SettingsTabExif(QWidget *parent = 0, QMap<QString,QVariant> set = QMap<QString,QVariant>(), bool verbose = false);
 	~SettingsTabExif();
+
+	bool verbose;
 
 	CustomScrollbar *scrollbar;
 

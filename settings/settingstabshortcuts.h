@@ -19,8 +19,10 @@ class SettingsTabShortcuts : public QWidget {
 	Q_OBJECT
 
 public:
-	SettingsTabShortcuts(QWidget *parent = 0);
+	SettingsTabShortcuts(QWidget *parent = 0, bool verbose = false);
 	~SettingsTabShortcuts();
+
+	bool verbose;
 
 	// The scrollbar
 	CustomScrollbar *scrollbar;

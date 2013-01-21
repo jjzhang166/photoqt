@@ -8,6 +8,9 @@
 class GlobalVariables {
 
 public:
+
+	bool verbose;
+
 	// The current file
 	QString currentfile;
 
@@ -52,6 +55,8 @@ public:
 
 	// Set the default values
 	void setVariables() {
+
+		verbose = false;
 
 		rotation = 0;
 

@@ -52,8 +52,10 @@ class SettingsTabLookAndFeel : public QWidget {
 	Q_OBJECT
 
 public:
-	SettingsTabLookAndFeel(QWidget *parent = 0, QMap<QString,QVariant> set = QMap<QString,QVariant>());
+	SettingsTabLookAndFeel(QWidget *parent = 0, QMap<QString,QVariant> set = QMap<QString,QVariant>(), bool verbose = false);
 	~SettingsTabLookAndFeel();
+
+	bool verbose;
 
 	// The global settings
 	QMap<QString,QVariant> globSet;

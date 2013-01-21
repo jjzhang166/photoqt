@@ -5,6 +5,11 @@
 
 int main(int argc, char *argv[]) {
 
+#if DISABLE_PHONON == true
+		qDebug() << "PHONON DISABLED!!";
+#endif
+
+
 	QCoreApplication::setApplicationName("photo");
 
 	// This string holds the current version
@@ -33,8 +38,11 @@ int main(int argc, char *argv[]) {
 
 	hlp += ">> Remote controlling w/ filename needed:\n\n";
 
-	hlp += "\t--no-thumbs [filename]\t\tDon't load thumbnails (Navigation through folder is still possible)\n";
-	hlp += "\t--thumbs [filename]\t\tReversing a '--no-thumbs' (thumbnails are enabled by default)\n\n";
+	hlp += "\t--no-thumbs [filename]\tDon't load thumbnails (Navigation through folder is still possible)\n";
+	hlp += "\t--thumbs [filename]\tReversing a '--no-thumbs' (thumbnails are enabled by default)\n\n";
+
+	hlp += ">> Debuging:\n\n";
+	hlp += "\t--v, --verbose\t\tEnabling debug messages\n\n";
 
 	hlp += "\n   Enjoy Photo :-)\n\n\n";
 
@@ -58,6 +66,8 @@ int main(int argc, char *argv[]) {
 	knownArgs << "--show";
 	knownArgs << "--hide";
 	knownArgs << "--start-in-tray";
+	knownArgs << "--verbose";
+	knownArgs << "--v";
 
 	// If photo was started with "--h" or "--help", show help message
 	if(allArgs.contains("--help") || allArgs.contains("-help") || allArgs.contains("--h") || allArgs.contains("-h")) {
@@ -79,7 +89,8 @@ int main(int argc, char *argv[]) {
 
 		for(int i = 1; i < allArgs.length(); ++i) {
 
-			if(knownArgs.contains(allArgs.at(i)))
+			// We ignore the verbose switch when an instance is already running
+			if(knownArgs.contains(allArgs.at(i)) && allArgs.at(i) != "--v" && allArgs.at(i) != "--verbose")
 				cont += allArgs.at(i) + "\n";
 			else if(allArgs.at(i).startsWith("-"))
 				err = true;
@@ -137,8 +148,11 @@ int main(int argc, char *argv[]) {
 		// This boolean stores if photo needs to be minimized to the tray
 		bool startintray = allArgs.contains("--start-in-tray");
 
+		bool verbose = (allArgs.contains("--v") || allArgs.contains("--verbose"));
+
 		// If photo is supposed to be started minimized in system tray
 		if(startintray) {
+			if(verbose) qDebug() << "Starting minimised to tray";
 			// If the option "Use Tray Icon" in the settings is not set, we set it
 			QFile set(QDir::homePath() + "/.photo/settings");
 			if(set.open(QIODevice::ReadOnly)) {
@@ -166,6 +180,7 @@ int main(int argc, char *argv[]) {
 		// Check if languaged is changed to one of the possible translations
 		QFile fileSettings(QDir::homePath() + "/.photo/settings");
 		if(fileSettings.open(QIODevice::ReadOnly)) {
+			if(verbose) qDebug() << "Checking for translation";
 			QTextStream in(&fileSettings);
 			QString all = in.readAll();
 			if(all.contains("Language=") && !all.contains("Language=en")) {
@@ -181,8 +196,10 @@ int main(int argc, char *argv[]) {
 
 		// Ensure that the config folder exists
 		QDir dir(QDir::homePath() + "/.photo");
-		if(!dir.exists())
+		if(!dir.exists()) {
+			if(verbose) qDebug() << "Creating ~/.photo/";
 			dir.mkdir(QDir::homePath() + "/.photo");
+		}
 
 		// This int holds 1 if photo was updated and 2 if it's newly installed
 		int update = 0;
@@ -193,7 +210,7 @@ int main(int argc, char *argv[]) {
 			if(!file.open(QIODevice::WriteOnly))
 				qDebug() << "ERROR: Couldn't write settings file! Please ensure that you have read&write access to home directory";
 			else {
-				qDebug() << "Creating basic settings file";
+				if(verbose) qDebug() << "Creating basic settings file";
 				QTextStream out(&file);
 				out << "Version=" + globVersion + "\n";
 				file.close();
@@ -208,6 +225,8 @@ int main(int argc, char *argv[]) {
 			else {
 				QTextStream in(&file);
 				QString all = in.readAll();
+
+				if(verbose) qDebug() << "Checking if first run of new version";
 
 				// If it contains no "Version=" (photo 0.1)
 				if(!all.contains("Version=")) {
@@ -237,27 +256,26 @@ int main(int argc, char *argv[]) {
 		QFile database(QDir::homePath() + "/.photo/thumbnails");
 		if(!database.exists()) {
 
-			qDebug() << "Create Database";
+			if(verbose) qDebug() << "Create Database";
 
 			QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE", "thumbDB");
 			db.setDatabaseName(QDir::homePath() + "/.photo/thumbnails");
-			if(!db.open())
-				qDebug() << "ERROR: Couldn't open thumbnail database:" << db.lastError().text().trimmed();
+			if(!db.open()) qDebug() << "ERROR: Couldn't open thumbnail database:" << db.lastError().text().trimmed();
 			QSqlQuery query(db);
 			query.prepare("CREATE TABLE Thumbnails (filepath TEXT,thumbnail BLOB, filelastmod INT, thumbcreated INT)");
 			query.exec();
-			if(query.lastError().text().trimmed().length())
-				qDebug() << "ERROR (Creating Thumbnail Datbase):" << query.lastError().text().trimmed();
+			if(query.lastError().text().trimmed().length()) qDebug() << "ERROR (Creating Thumbnail Datbase):" << query.lastError().text().trimmed();
 			query.clear();
 
 
 		} else {
 
+			if(verbose) qDebug() << "Opening Thumbnail Database";
+
 			// Opening the thumbnail database
 			QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE","thumbDB");
 			db.setDatabaseName(QDir::homePath() + "/.photo/thumbnails");
-			if(!db.open())
-				qDebug() << "ERROR: Couldn't open thumbnail database:" << db.lastError().text().trimmed();
+			if(!db.open()) qDebug() << "ERROR: Couldn't open thumbnail database:" << db.lastError().text().trimmed();
 
 		}
 
@@ -268,6 +286,9 @@ int main(int argc, char *argv[]) {
 		// The main image has a (very basic) context menu. Internal commands are not yet possible, will hopefuly come in next version
 		QFile contextmenu(QDir::homePath() + "/.photo/contextmenu");
 		if(!contextmenu.exists()) {
+
+			if(verbose) qDebug() << "Create basic context menu file";
+
 			if(contextmenu.open(QIODevice::WriteOnly)) {
 
 				QTextStream out(&contextmenu);
@@ -292,8 +313,8 @@ int main(int argc, char *argv[]) {
 
 		QString file_str = "";
 
-		// Look for a filename possibly passed on by the user
-		for(int i = 0; i < allArgs.length(); ++i) {
+		// Look for a filename possibly passed on by the user. We NEED to start at i=1, otherwise it simply takes the app name as passed on filename
+		for(int i = 1; i < allArgs.length(); ++i) {
 			if(!allArgs.at(i).startsWith("-")) {
 				QString filename = allArgs.at(i);
 				filename = QFileInfo(filename).absoluteFilePath();
@@ -308,16 +329,20 @@ int main(int argc, char *argv[]) {
 
 		// Possibly disable thumbnails
 		if(allArgs.contains("--no-thumbs")) {
+			if(verbose) qDebug() << "Disabling Thumbnails";
 			QMap<QString,QVariant> upd;
 			upd.insert("ThumbnailDisable",true);
 			w.globSet->settingsUpdated(upd);
 		}
 
+
 		// Set the file to open that the user might have passed on
 		w.globVar->currentfile = file_str;
 
 		w.globVar->startupMessageInstallUpdateShown = update;
-		w.startUpTimer->start();
+
+		if(!startintray)
+			w.startUpTimer->start();
 
 
 		return a.exec();

@@ -66,7 +66,7 @@ private:
 	void setupTrayIcon();
 	
 public:
-	explicit MainWindow(QWidget *parent = 0);
+	explicit MainWindow(QWidget *parent = 0, bool verbose = false);
 	~MainWindow();
 
 	// The current screenshot

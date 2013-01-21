@@ -1,10 +1,13 @@
 #include "settings.h"
 
-Settings::Settings(QWidget *parent, QMap<QString, QVariant> glob) : QWidget(parent) {
+Settings::Settings(QWidget *parent, QMap<QString, QVariant> glob, bool v) : QWidget(parent) {
+
+	verbose = v;
 
 	// the settings and shortcuts
 	globSet = glob;
 	sh = new Shortcuts;
+	sh->verbose = verbose;
 	sh->loadSH();
 
 	// Setting the background
@@ -19,11 +22,11 @@ Settings::Settings(QWidget *parent, QMap<QString, QVariant> glob) : QWidget(pare
 	tabs = new QTabWidget;
 
 	// All the tabs
-	tabOther = new SettingsTabOther(this,globSet);
-	tabLookFeel = new SettingsTabLookAndFeel(this,globSet);
-	tabThumb = new SettingsTabThumbnail(this,globSet);
-	tabExif = new SettingsTabExif(this,globSet);
-	tabShortcuts = new SettingsTabShortcuts(this);
+	tabOther = new SettingsTabOther(this,globSet,verbose);
+	tabLookFeel = new SettingsTabLookAndFeel(this,globSet,verbose);
+	tabThumb = new SettingsTabThumbnail(this,globSet,verbose);
+	tabExif = new SettingsTabExif(this,globSet,verbose);
+	tabShortcuts = new SettingsTabShortcuts(this,verbose);
 	tabShortcuts->allKeyShortcuts = sh->allKeyShortcuts;
 	tabShortcuts->allMouseShortcuts = sh->allMouseShortcuts;
 	tabShortcuts->loadUserSetShortcuts();

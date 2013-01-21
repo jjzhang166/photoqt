@@ -22,8 +22,10 @@ class SlideShow : public QWidget {
 	Q_OBJECT
 
 public:
-	SlideShow(QMap<QString,QVariant> set, QWidget *parent = 0);
+	SlideShow(QMap<QString,QVariant> set, QWidget *parent = 0, bool verbose = false);
 	~SlideShow();
+
+	bool verbose;
 
 	QMap<QString,QVariant> globSet;
 

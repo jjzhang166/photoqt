@@ -23,8 +23,10 @@ class SettingsTabOther: public QWidget {
 	Q_OBJECT
 
 public:
-	SettingsTabOther(QWidget *parent = 0, QMap<QString,QVariant> set = QMap<QString,QVariant>());
+	SettingsTabOther(QWidget *parent = 0, QMap<QString,QVariant> set = QMap<QString,QVariant>(), bool verbose = false);
 	~SettingsTabOther();
+
+	bool verbose;
 
 	CustomScrollbar *scrollbar;
 

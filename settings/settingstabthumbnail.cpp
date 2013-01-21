@@ -1,9 +1,11 @@
 #include "settingstabthumbnail.h"
 
-SettingsTabThumbnail::SettingsTabThumbnail(QWidget *parent, QMap<QString, QVariant> set) : QWidget(parent) {
+SettingsTabThumbnail::SettingsTabThumbnail(QWidget *parent, QMap<QString, QVariant> set, bool v) : QWidget(parent) {
 
 	// The global settings
 	globSet = set;
+
+	verbose = v;
 
 	// Opening the thumbnail database
 	db = QSqlDatabase::database("thumbDB");
@@ -270,6 +272,8 @@ SettingsTabThumbnail::SettingsTabThumbnail(QWidget *parent, QMap<QString, QVaria
 // Load all settings
 void SettingsTabThumbnail::loadSettings() {
 
+	if(verbose) qDebug() << "Load Settings (Thumb)";
+
 	defaults.clear();
 
 	thumbSizeSlider->setValue(globSet.value("ThumbnailSize").toInt());
@@ -316,6 +320,8 @@ void SettingsTabThumbnail::loadSettings() {
 
 // Save all settings
 void SettingsTabThumbnail::saveSettings() {
+
+	if(verbose) qDebug() << "Save Settings (Thumb)";
 
 	updatedSet.clear();
 
@@ -386,6 +392,8 @@ void SettingsTabThumbnail::saveSettings() {
 // Set some basic database info (is loaded when tab is activated)
 void SettingsTabThumbnail::setDatabaseInfo() {
 
+	if(verbose) qDebug() << "thb: Setting Database Info";
+
 	QSqlQuery query(db);
 	query.exec("SELECT COUNT(filepath) AS c FROM Thumbnails");
 	if(query.lastError().text().trimmed().length())
@@ -402,6 +410,8 @@ void SettingsTabThumbnail::setDatabaseInfo() {
 
 // Clean the database
 void SettingsTabThumbnail::doCleanDatabase() {
+
+	if(verbose) qDebug() << "thb: Clean database";
 
 	QSqlQuery query(db);
 
@@ -465,6 +475,8 @@ void SettingsTabThumbnail::doCleanDatabase() {
 
 // Erase the entire database
 void SettingsTabThumbnail::doEraseDatabase() {
+
+	if(verbose) qDebug() << "thb: Erase database";
 
 	QFile(QDir::homePath() + "/.photo/thumbnails").remove();
 

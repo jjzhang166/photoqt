@@ -1,6 +1,8 @@
 #include "settingstabshortcuts.h"
 
-SettingsTabShortcuts::SettingsTabShortcuts(QWidget *parent) : QWidget(parent) {
+SettingsTabShortcuts::SettingsTabShortcuts(QWidget *parent, bool v) : QWidget(parent) {
+
+	verbose = v;
 
 	this->setStyleSheet("background: transparent; color: white;");
 
@@ -189,6 +191,8 @@ SettingsTabShortcuts::SettingsTabShortcuts(QWidget *parent) : QWidget(parent) {
 // Load the user set shortcuts - called from settings.cpp after shortcut QMap is set
 void SettingsTabShortcuts::loadUserSetShortcuts() {
 
+	if(verbose) qDebug() << "setSH: Load user set shortcuts";
+
 	if(!allTiles.isEmpty()) {
 
 		QMapIterator<QString, QMap<QString, ShortcutsTiles*> > i(allTiles);
@@ -333,6 +337,8 @@ void SettingsTabShortcuts::loadUserSetShortcuts() {
 // Load all the available shortcuts
 void SettingsTabShortcuts::loadAvailShortcuts() {
 
+	if(verbose) qDebug() << "setSH: Load possible shortcuts";
+
 	QMapIterator<QString, QMap<QString,QString> > i(internFunctions);
 	while(i.hasNext()) {
 
@@ -358,6 +364,8 @@ void SettingsTabShortcuts::loadAvailShortcuts() {
 // Remove a tile
 void SettingsTabShortcuts::removeTile(QString key, QString cat) {
 
+	if(verbose) qDebug() << "setSH: Remove tile:" << cat << "-" << key;
+
 	markForChange();
 
 	allTiles[cat][key]->hide();
@@ -368,6 +376,8 @@ void SettingsTabShortcuts::removeTile(QString key, QString cat) {
 
 // Add a new tile
 void SettingsTabShortcuts::addNewTile(QString exe, QString cat) {
+
+	if(verbose) qDebug() << "setSH: Add new tile:" << cat << "-" << exe;
 
 	markForChange();
 
@@ -393,6 +403,8 @@ void SettingsTabShortcuts::addNewTile(QString exe, QString cat) {
 // Set a new shortcut that we got from the detect widget
 void SettingsTabShortcuts::analyseKeyCombo(QString category, QString identification, QString newKey) {
 
+	if(verbose) qDebug() << "setSH: Analyse Key Combo:" << category << "-" << identification << "-" << newKey;
+
 	markForChange();
 
 	if(newKey.startsWith("[M]")) {
@@ -414,6 +426,8 @@ void SettingsTabShortcuts::analyseKeyCombo(QString category, QString identificat
 
 // Open the detect widget to get a (new) key combination/mouse action
 void SettingsTabShortcuts::getNewKeyCombo(QString cat, QString id, QString exe) {
+
+	if(verbose) qDebug() << "setSH: get new key combo:" << cat << "-" << id << "-" << exe;
 
 	bool mouse = id.startsWith("[M]");
 	QString intern = ((ShortcutsTiles *)sender())->shortcutText;
@@ -479,6 +493,8 @@ void SettingsTabShortcuts::shortcutDetectCancelled() {
 
 void SettingsTabShortcuts::analyseChangedCommand(QString id, QString cmd) {
 
+	if(verbose) qDebug() << "setSH: Analyse changed command:" << id << "-" << cmd;
+
 	markForChange();
 
 	allTiles["extern"][id]->back->setText(cmd);
@@ -493,6 +509,8 @@ void SettingsTabShortcuts::analyseChangedCancelled(QString id) {
 }
 
 void SettingsTabShortcuts::saveShortcuts() {
+
+	if(verbose) qDebug() << "setSH: Save Shortcuts";
 
 	allKeyShortcutsNEW.clear();
 	allMouseShortcutsNEW.clear();

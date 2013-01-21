@@ -1,6 +1,8 @@
 #include "settingstabexif.h"
 
-SettingsTabExif::SettingsTabExif(QWidget *parent, QMap<QString, QVariant> set) : QWidget(parent) {
+SettingsTabExif::SettingsTabExif(QWidget *parent, QMap<QString, QVariant> set, bool v) : QWidget(parent) {
+
+	verbose = v;
 
 	globSet = set;
 
@@ -221,6 +223,8 @@ void SettingsTabExif::disEnableAll() {
 	if(pushed == "disable")
 		en = false;
 
+	if(verbose) qDebug() << "Dis-/Enable all exif:" << en;
+
 	for(int i = 0; i < allTiles.length(); ++i)
 		allTiles.at(i)->setChecked(en);
 
@@ -228,6 +232,8 @@ void SettingsTabExif::disEnableAll() {
 
 // Load the settings
 void SettingsTabExif::loadSettings() {
+
+	if(verbose) qDebug() << "Load Settings (Exif)";
 
 	defaults.clear();
 
@@ -269,6 +275,8 @@ void SettingsTabExif::loadSettings() {
 
 // Save the settings (if changed)
 void SettingsTabExif::saveSettings() {
+
+	if(verbose) qDebug() << "Save Settings (Exif)";
 
 	updatedSet.clear();
 

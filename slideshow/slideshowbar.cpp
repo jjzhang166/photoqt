@@ -1,6 +1,8 @@
 #include "slideshowbar.h"
 
-SlideShowBar::SlideShowBar(QMap<QString, QVariant> set, QWidget *parent) : QWidget(parent) {
+SlideShowBar::SlideShowBar(QMap<QString, QVariant> set, QWidget *parent, bool v) : QWidget(parent) {
+
+	verbose = v;
 
 	this->setStyleSheet("background: rgba(0,0,0,200)");
 
@@ -90,11 +92,13 @@ SlideShowBar::SlideShowBar(QMap<QString, QVariant> set, QWidget *parent) : QWidg
 void SlideShowBar::togglePlay() {
 
 	if(nextImg->isActive()) {
+		if(verbose) qDebug() << "sldb: Toggle Playback (Play)";
 		playPause->setText(tr("Play Slideshow"));
 		nextImg->stop();
 		if(musicFile != "")
 			media->pause();
 	} else {
+		if(verbose) qDebug() << "sldb: Toggle Playback (Pause)";
 		playPause->setText(tr("Pause Slideshow"));
 		nextImg->start();
 		if(musicFile != "")
@@ -106,12 +110,16 @@ void SlideShowBar::togglePlay() {
 
 void SlideShowBar::loadNextImg() {
 
+	if(verbose) qDebug() << "sldb: Load next img";
+
 	emit moveInDirectory(1);
 
 }
 
 
 void SlideShowBar::endOfMusicFile() {
+
+	if(verbose) qDebug() << "sldb: End of music file";
 
 	media->stop();
 	media->play();
@@ -133,6 +141,8 @@ void SlideShowBar::animate() {
 	// Open widget
 	if(ani->state() == QPropertyAnimation::Stopped && !isShown && enabled) {
 
+		if(verbose) qDebug() << "sldb: Animate in";
+
 		ani->setDuration(500);
 		isShown = true;
 
@@ -145,6 +155,8 @@ void SlideShowBar::animate() {
 
 	// Close widget
 	} else if(ani->state() == QPropertyAnimation::Stopped && isShown) {
+
+		if(verbose) qDebug() << "sldb: Animate out";
 
 		ani->setDuration(500);
 		isShown = false;
@@ -159,6 +171,8 @@ void SlideShowBar::animate() {
 
 
 void SlideShowBar::startSlideShow() {
+
+	if(verbose) qDebug() << "sldb: Start Slideshow";
 
 	if(musicFile != "") {
 		volume->setEnabled(true);
@@ -176,6 +190,8 @@ void SlideShowBar::startSlideShow() {
 
 
 void SlideShowBar::stopSlideShow() {
+
+	if(verbose) qDebug() << "sldb: Stop slideshow";
 
 	media->stop();
 

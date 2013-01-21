@@ -18,6 +18,8 @@ class GlobalSettings : public QObject {
 	Q_OBJECT
 
 public:
+	bool verbose;
+
 	// The current version
 	QString version;
 
@@ -275,6 +277,8 @@ public:
 			qDebug() << "ERROR reading settings";
 
 		else {
+
+			if(verbose) qDebug() << "Read Settings from File";
 
 			// Read file
 			QTextStream in(&file);
@@ -536,6 +540,8 @@ public:
 			qDebug() << "ERROR saving settings";
 
 		else {
+
+			if(verbose) qDebug() << "Save Settings";
 
 			file.close();
 			file.remove();
@@ -874,6 +880,8 @@ public slots:
 			exifgpsmapservice = changedSet.value("ExifGPSMapService").toString();
 			applySet["exif"] = true;
 		}
+
+		if(verbose) qDebug() << "Settings changed:" << applySet;
 
 		saveSettings(applySet);
 

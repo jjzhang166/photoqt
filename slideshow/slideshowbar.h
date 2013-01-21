@@ -22,8 +22,10 @@ class SlideShowBar : public QWidget {
 	Q_OBJECT
 
 public:
-	SlideShowBar(QMap<QString,QVariant> set, QWidget *parent = 0);
+	SlideShowBar(QMap<QString,QVariant> set, QWidget *parent = 0, bool verbose = false);
 	~SlideShowBar();
+
+	bool verbose;
 
 	// All the global settings
 	QMap<QString,QVariant> globSet;

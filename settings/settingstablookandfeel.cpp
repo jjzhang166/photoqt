@@ -1,9 +1,11 @@
 #include "settingstablookandfeel.h"
 
-SettingsTabLookAndFeel::SettingsTabLookAndFeel(QWidget *parent, QMap<QString, QVariant> set) : QWidget(parent) {
+SettingsTabLookAndFeel::SettingsTabLookAndFeel(QWidget *parent, QMap<QString, QVariant> set, bool v) : QWidget(parent) {
 
 	// The global settings
 	globSet = set;
+
+	verbose = v;
 
 	// Style widget
 	this->setStyleSheet("background: transparent; color: white;");
@@ -253,6 +255,8 @@ SettingsTabLookAndFeel::SettingsTabLookAndFeel(QWidget *parent, QMap<QString, QV
 // Load the settings
 void SettingsTabLookAndFeel::loadSettings() {
 
+	if(verbose) qDebug() << "Load Settings (Look And Feel)";
+
 	defaults.clear();
 
 
@@ -344,6 +348,8 @@ void SettingsTabLookAndFeel::loadSettings() {
 
 // Save all settings
 void SettingsTabLookAndFeel::saveSettings() {
+
+	if(verbose) qDebug() << "Save Settings (Look and Feel)";
 
 	updatedSet.clear();
 
@@ -472,6 +478,8 @@ void SettingsTabLookAndFeel::saveSettings() {
 // Set a background image into the preview square
 void SettingsTabLookAndFeel::setBackgroundImage(QString path, bool empty) {
 
+	if(verbose) qDebug() << "lnf: Set background image:" << path << "-" << empty;
+
 	// Empty background
 	if(empty) {
 		backgroundImage->setToolTip("<p style=\"background: black\">" + QString(" " + tr("no image has been selected")).split(" ").join("/") + "</p>");
@@ -490,12 +498,14 @@ void SettingsTabLookAndFeel::setBackgroundImage(QString path, bool empty) {
 
 		// Stretch Image to fit screen dimensions
 		if(backgroundImgStretchToFit->isChecked()) {
+			if(verbose) qDebug() << "lnf: Set background image: StretchToFit";
 			backgroundImage->setAlignment(Qt::AlignLeft);
 			backgroundImage->setAlignment(Qt::AlignTop);
 			iw = 200;
 			ih = 150;
 		// Scale image to fit width of screen
 		} else if(backgroundImgScaleToFit->isChecked()) {
+			if(verbose) qDebug() << "lnf: Set background image: ScaleToFit";
 			backgroundImage->setAlignment(Qt::AlignLeft);
 			backgroundImage->setAlignment(Qt::AlignTop);
 			if(iw != 200) {
@@ -507,6 +517,7 @@ void SettingsTabLookAndFeel::setBackgroundImage(QString path, bool empty) {
 			}
 		// Center image
 		} else {
+			if(verbose) qDebug() << "lnf: Set background image: Center";
 			if(backgroundImgCenter->isChecked())
 				backgroundImage->setAlignment(Qt::AlignCenter);
 			else {
@@ -537,12 +548,16 @@ void SettingsTabLookAndFeel::setBackgroundImage(QString path, bool empty) {
 // A new background color selected
 void SettingsTabLookAndFeel::newBgColorSelected(QColor col) {
 
+	if(verbose) qDebug() << "lnf: New background color selected:" << col;
+
 	selectCol->setStyleSheet(QString("background: rgba(%1,%2,%3,%4); border-radius: 10px; padding: 25px; border: 1px solid white;").arg(col.red()).arg(col.green()).arg(col.blue()).arg(col.alpha()));
 
 }
 
 // Browse for a new background image
 void SettingsTabLookAndFeel::changeBackgroundImage() {
+
+	if(verbose) qDebug() << "lnf: Change background image.";
 
 	QString dir = QDir::homePath();
 
@@ -566,16 +581,19 @@ void SettingsTabLookAndFeel::backgroundDispType() {
 	QString objName = ((CustomCheckBox *)sender())->objectName();
 
 	if(backgroundImgScaleToFit->isChecked() && objName == "scale") {
+		if(verbose) qDebug() << "lnf: Set background image: scale";
 		backgroundImgStretchToFit->setChecked(false);
 		backgroundImgCenter->setChecked(false);
 	}
 
 	if(backgroundImgStretchToFit->isChecked() && objName == "stretch") {
+		if(verbose) qDebug() << "lnf: Set background image: stretch";
 		backgroundImgScaleToFit->setChecked(false);
 		backgroundImgCenter->setChecked(false);
 	}
 
 	if(backgroundImgCenter->isChecked() && objName == "center") {
+		if(verbose) qDebug() << "lnf: Set background image: center";
 		backgroundImgScaleToFit->setChecked(false);
 		backgroundImgStretchToFit->setChecked(false);
 	}

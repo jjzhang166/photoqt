@@ -21,8 +21,10 @@ class Settings : public QWidget {
 	Q_OBJECT
 
 public:
-	Settings(QWidget *parent = 0, QMap<QString,QVariant> globalSet = QMap<QString,QVariant>());
+	Settings(QWidget *parent = 0, QMap<QString,QVariant> globalSet = QMap<QString,QVariant>(), bool v = false);
 	~Settings();
+
+	bool verbose;
 
 	// The geometries of the widget
 	QRect rectShown;

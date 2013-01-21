@@ -1,6 +1,8 @@
 #include "slideshowsettings.h"
 
-SlideShow::SlideShow(QMap<QString, QVariant> set, QWidget *parent) : QWidget(parent) {
+SlideShow::SlideShow(QMap<QString, QVariant> set, QWidget *parent, bool v) : QWidget(parent) {
+
+	verbose = v;
 
 	// The global settings
 	globSet = set;
@@ -177,6 +179,8 @@ SlideShow::SlideShow(QMap<QString, QVariant> set, QWidget *parent) : QWidget(par
 // Adjust the geometries of the widgets
 void SlideShow::adjustGeometries() {
 
+	if(verbose) qDebug() << "slb: adjust geometries";
+
 	if(this->isShown) {
 		this->setGeometry(rectShown);
 		QRect shown = QRect(200,200,rectShown.width()-400,rectShown.height()-400);
@@ -203,6 +207,8 @@ void SlideShow::animate() {
 
 	// Open widget
 	if(ani->state() == QPropertyAnimation::Stopped && !isShown) {
+
+		if(verbose) qDebug() << "slb: Animate in";
 
 		// The background is initially transparent but the geometry is full
 		this->setStyleSheet(QString("background: rgba(0,0,0,0);"));
@@ -233,6 +239,8 @@ void SlideShow::animate() {
 	// Close widget
 	} else if(ani->state() == QPropertyAnimation::Stopped && isShown) {
 
+		if(verbose) qDebug() << "slb: Animate out";
+
 		// Fade background out
 		fadeBack->setDuration(100);
 		fadeBack->setLoopCount(5);
@@ -259,6 +267,8 @@ void SlideShow::animate() {
 
 // Every fade step for the background
 void SlideShow::fadeStep() {
+
+	if(verbose) qDebug() << "slb: Fade Step";
 
 	// Fade in
 	if(fadeBackIN) {
@@ -297,6 +307,8 @@ void SlideShow::mouseReleaseEvent(QMouseEvent *e) {
 
 // browse for a music file
 void SlideShow::browseForMusic() {
+
+	if(verbose) qDebug() << "slb: Browse for music file";
 
 	QString oldPath = QDir::homePath();
 	if(musicPath->text() != "" && QFileInfo(musicPath->text()).exists())

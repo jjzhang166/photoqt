@@ -6,6 +6,7 @@
 #include <QFile>
 #include <QDir>
 #include <QTextStream>
+#include <QVariant>
 #include <QtDebug>
 
 class Shortcuts : public QObject {
@@ -13,6 +14,8 @@ class Shortcuts : public QObject {
 	Q_OBJECT
 
 public:
+
+	bool verbose;
 
 	// Store all the shortcuts
 	QMap<QString,QList<QVariant> > allKeyShortcuts;
@@ -23,6 +26,8 @@ public:
 
 	// Load all shortcuts
 	void loadSH() {
+
+		if(verbose) qDebug() << "Loading Shortcuts";
 
 		allKeyShortcuts.clear();
 		allMouseShortcuts.clear();
@@ -69,6 +74,8 @@ public:
 	// Save the current shortcuts
 	void saveSH() {
 
+		if(verbose) qDebug() << "Save Shortcuts";
+
 		// The version is always the first line
 		QString content = QString("Version=%1\n").arg(version);
 
@@ -109,6 +116,8 @@ public slots:
 
 	// Set the set of default shortcuts
 	void setDefault() {
+
+		if(verbose) qDebug() << "Set default shortcuts";
 
 		allKeyShortcuts.clear();
 		allMouseShortcuts.clear();

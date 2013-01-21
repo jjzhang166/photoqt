@@ -1,9 +1,11 @@
 #include "settingstabother.h"
 
-SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set) : QWidget(parent) {
+SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set, bool v) : QWidget(parent) {
 
 	// The global settings
 	globSet = set;
+
+	verbose = v;
 
 	this->setStyleSheet("background: transparent; color: white");
 
@@ -176,6 +178,8 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set)
 // Load the settings
 void SettingsTabOther::loadSettings() {
 
+	if(verbose) qDebug() << "Load Settings (Other)";
+
 	context->loadContext();
 
 	defaults.clear();
@@ -195,6 +199,8 @@ void SettingsTabOther::loadSettings() {
 
 // Save the settings
 void SettingsTabOther::saveSettings() {
+
+	if(verbose) qDebug() << "Save Settings (Other)";
 
 	updatedSet.clear();
 
