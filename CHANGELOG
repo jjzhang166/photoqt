@@ -5,6 +5,7 @@ Release 0.9.1 - 22/01/2013
 ----------------------------
 - FIXED: Open image by clicking on it didn't work
 - FIXED: Start in system tray resulted in some annoying behaviour
+- FIXED: Rotation according to exif data was done the wrong way round (anti-clockwise instead of clockwise)
 - ADDED: verbose mode (start photo with "--v" or "--verbose") -- Caution: produces a lot of output!
 
 

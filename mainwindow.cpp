@@ -727,17 +727,21 @@ void MainWindow::getOrientationFromExif(int degree, bool flipHor) {
 
 	if(globVar->verbose) qDebug() << "Exif Rotate/Flip:" << degree << "-" << flipHor;
 
+	// And rotate
+	if(degree > 0) {
+		while(degree > 0) {
+			globVar->rotation += 90;
+			viewBig->rotate(-90);
+			globVar->rotation %= 360;
+			degree -= 90;
+		}
+		drawImage();
+	}
+
 	// Flip Horizontally
 	if(flipHor) {
 		viewBig->scale(-1,1);
 		globVar->flipHor = !globVar->flipHor;
-	}
-
-	// And rotate
-	if(degree > 0) {
-		globVar->rotation = degree;
-		viewBig->rotate(degree);
-		drawImage();
 	}
 
 	// A vertical flip is just a horizontal flip plus 180° turn
