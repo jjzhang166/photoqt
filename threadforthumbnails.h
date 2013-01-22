@@ -15,6 +15,8 @@ class ThumbThread : public QThread {
 	Q_OBJECT
 
 public:
+	bool verbose;
+
 	// Some variables for the needed information
 	int counttot;
 	QFileInfoList allimgs;
@@ -37,6 +39,8 @@ protected:
 		// If type is not set to be "files" (i.e. set to "database" or not set at all), use database (default)
 		if(typeCache != "files") {
 
+			if(verbose) qDebug() << "thread: Using database cache";
+
 			if(dbName != "thread" && dbName != "open")
 				dbName = "thread";
 
@@ -46,7 +50,8 @@ protected:
 
 			db.transaction();
 
-		}
+		} else
+			if(verbose) qDebug() << "thread: Using file cache";
 
 		for(int i = 0; i < counttot; ++i) {
 
@@ -74,6 +79,8 @@ protected:
 				// If there exists a thumbnail of the current file already
 				if(QFile(QDir::homePath() + "/.thumbnails/" + td + "/" + md5 + ".png").exists() && cacheEnabled) {
 
+					if(verbose) qDebug() << "thread: Loading existing thumb from file:" << i;
+
 					p.load(QDir::homePath() + "/.thumbnails/" + td + "/" + md5 + ".png");
 
 					int mtime = p.text("Thumb").remove("MTime:").trimmed().toInt();
@@ -95,6 +102,7 @@ protected:
 				if(query.next()) {
 
 					if(query.value(query.record().indexOf("filelastmod")).toInt() == int(allimgs.at(i).lastModified().toTime_t())) {
+						if(verbose) qDebug() << "thread: Loading existing thumb from db:" << i;
 						QByteArray b;
 						b = query.value(query.record().indexOf("thumbnail")).toByteArray();
 						p.loadFromData(b);
@@ -111,6 +119,8 @@ protected:
 
 			// If file wasn't loaded from file or database, then it doesn't exist yet (or isn't up-to-date anymore) and we have to create it
 			if(!loaded) {
+
+				if(verbose) qDebug() << "thread: Creating new thumb:" << i;
 
 				QImageReader reader(allimgs.at(i).absoluteFilePath());
 				int readerWidth = reader.size().width();

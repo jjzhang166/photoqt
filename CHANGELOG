@@ -1,6 +1,13 @@
 Changelog Photo - by Lukas Spies, 2012 - Contact: photoQt@ymail.com
 
 
+Release 0.9.1 - 22/01/2013
+----------------------------
+- FIXED: Open image by clicking on it didn't work
+- FIXED: Start in system tray resulted in some annoying behaviour
+- ADDED: verbose mode (start photo with "--v" or "--verbose") -- Caution: produces a lot of output!
+
+
 Release 0.9 - 18/01/2013
 ----------------------------
 - Completely re-written and re-structured code

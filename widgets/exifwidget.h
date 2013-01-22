@@ -40,8 +40,10 @@ class Exif : public QWidget {
 	Q_OBJECT
 
 public:
-	Exif(QWidget *parent = 0, QMap<QString,QVariant> set = QMap<QString,QVariant>());
+	Exif(QWidget *parent = 0, QMap<QString,QVariant> set = QMap<QString,QVariant>(), bool verbose = false);
 	~Exif();
+
+	bool verbose;
 
 	// Global Settings
 	QMap<QString,QVariant> globSet;

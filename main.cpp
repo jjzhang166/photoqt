@@ -5,15 +5,10 @@
 
 int main(int argc, char *argv[]) {
 
-#if DISABLE_PHONON == true
-		qDebug() << "PHONON DISABLED!!";
-#endif
-
-
 	QCoreApplication::setApplicationName("photo");
 
 	// This string holds the current version
-	QString globVersion = "0.9beta";
+	QString globVersion = "0.9.1";
 
 	// A help message for the command line
 	QString hlp = "\nPhoto v" + globVersion + " - created by Lukas Spies (photoQt@ymail.com) - License: GPL\n";
@@ -260,7 +255,7 @@ int main(int argc, char *argv[]) {
 		QFile database(QDir::homePath() + "/.photo/thumbnails");
 		if(!database.exists()) {
 
-			if(verbose) qDebug() << "Create Database";
+			if(verbose) qDebug() << "Create Thumbnail Database";
 
 			QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE", "thumbDB");
 			db.setDatabaseName(QDir::homePath() + "/.photo/thumbnails");
@@ -323,7 +318,7 @@ int main(int argc, char *argv[]) {
 				QString filename = allArgs.at(i);
 				filename = QFileInfo(filename).absoluteFilePath();
 				if(filename != QApplication::applicationFilePath()) {
-					qDebug() << filename;
+					if(verbose) qDebug() << "Filename submitted:" << filename;
 					file_str = filename;
 					break;
 				}

@@ -14,6 +14,7 @@ SET(photo_RESOURCES resLang.qrc resImg.qrc)
 SET(QT_USE_QTSQL TRUE)
 # and add phonon
 SET(QT_USE_PHONON TRUE)
+SET(QT_PHONON_INCLUDE_DIR /usr/include/phonon)
 # moc files
 QT4_WRAP_CPP(photo_HEADERS_MOC ${photo_HEADERS})
 QT4_ADD_RESOURCES(photo_RESOURCES_RCC ${photo_RESOURCES})
@@ -26,11 +27,6 @@ INCLUDE_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR})
 # And add the executeable
 ADD_EXECUTABLE(photo ${photo_SOURCES} ${photo_HEADERS_MOC} ${photo_RESOURCES_RCC})
 TARGET_LINK_LIBRARIES(photo ${QT_LIBRARIES})
-
-#set_target_properties(photo PROPERTIES COMPILE_DEFINITIONS "WITHOUT_PHONON")
-#ADD_DEFINITIONS(-DWITHOUT_PHONON)
-set(DISABLE_PHONON BOOL "Disable Phonon")
-
 
 if(UNIX)
 

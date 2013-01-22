@@ -33,6 +33,7 @@ Thumbnails::Thumbnails(QWidget *parent, bool v) : QWidget(parent) {
 
 	// The thumbnail thread
 	thumbThread = new ThumbThread;
+	thumbThread->verbose = verbose;
 	connect(thumbThread, SIGNAL(updateThb(QImage,QString,int)), this, SLOT(updateThumb(QImage,QString,int)));
 
 	layout->addWidget(view);

@@ -1,7 +1,9 @@
 #include "exifwidget.h"
 
 // This class provides a widget for displaying meta (Exif) information
-Exif::Exif(QWidget *parent, QMap<QString, QVariant> set): QWidget(parent) {
+Exif::Exif(QWidget *parent, QMap<QString, QVariant> set, bool v): QWidget(parent) {
+
+	verbose = v;
 
 	// The global settings
 	globSet = set;
@@ -161,6 +163,8 @@ Exif::Exif(QWidget *parent, QMap<QString, QVariant> set): QWidget(parent) {
 // Setup the labels
 void Exif::setupLabels() {
 
+	if(verbose) qDebug() << "exif: setting up labels";
+
 	// This QMap stores the exiv2 key and the connected internal ids
 	keyVal.clear();
 
@@ -294,6 +298,8 @@ void Exif::setupLabels() {
 
 // Update the labels data
 void Exif::updateData(QString currentfile, QSize origSize, bool exiv2Supported) {
+
+	if(verbose) qDebug() << "exif: Updating data:" << currentfile << "-" << origSize << "-" << exiv2Supported;
 
 	// This button is only shown when mouse triggering is enabled
 	if(mouseTrickerEnable)
@@ -535,6 +541,8 @@ void Exif::updateData(QString currentfile, QSize origSize, bool exiv2Supported) 
 	// If image format isn't supported
 	} else {
 
+		if(verbose) qDebug() << "exif: Current file format not supported";
+
 		QMapIterator<QString,QString> i(keyVal);
 
 		while(i.hasNext()) {
@@ -565,6 +573,8 @@ void Exif::updateData(QString currentfile, QSize origSize, bool exiv2Supported) 
 // Format exposure time
 QString Exif::exifExposureTime(QString value) {
 
+	QString temp = value;
+
 	if(value.contains("/")) {
 		QStringList split = value.split("/");
 		if(split.at(0) != "1") {
@@ -586,12 +596,16 @@ QString Exif::exifExposureTime(QString value) {
 
 	}
 
+	if(verbose) qDebug() << "exif: exposuretime:" << temp << "-" << value;
+
 	return value;
 
 }
 
 // Format Focal Length
 QString Exif::exifFNumberFLength(QString value) {
+
+	QString temp = value;
 
 	if(value.contains("/")) {
 		QStringList split = value.split("/");
@@ -601,6 +615,8 @@ QString Exif::exifFNumberFLength(QString value) {
 		value = QString("%1").arg(t1);
 	}
 
+	if(verbose) qDebug() << "exif: fnumberlength:" << temp << "-" << value;
+
 	return value;
 
 }
@@ -608,10 +624,14 @@ QString Exif::exifFNumberFLength(QString value) {
 // Format time the photo was taken
 QString Exif::exifPhotoTaken(QString value) {
 
+	QString temp = value;
+
        QStringList split = value.split(" ");
        QStringList split2 = split.at(0).split(":");
        if(split.length() > 1 && split2.length() > 2)
 	       value = split2.at(2) + "/" + split2.at(1) + "/" + split2.at(0) + ", " + split.at(1);
+
+       if(verbose) qDebug() << "exif: phototaken:" << temp << "-" << value;
 
        return value;
 
@@ -619,6 +639,8 @@ QString Exif::exifPhotoTaken(QString value) {
 
 // Compose GPS data
 QString Exif::exifGps(QString gpsLonRef, QString gpsLon, QString gpsLatRef, QString gpsLat) {
+
+	QString temp = gpsLat + " " + gpsLatRef + ", " + gpsLon + " " + gpsLonRef;
 
 	// Format the latitude string
 	QStringList split = gpsLat.split(" ");
@@ -643,13 +665,20 @@ QString Exif::exifGps(QString gpsLonRef, QString gpsLon, QString gpsLatRef, QStr
 	}
 	gpsLon = split.at(0) + "&deg;" + split.at(1) + "'" + split.at(2) + "''";
 
+	QString value = gpsLat + " " + gpsLatRef + ", " + gpsLon + " " + gpsLonRef;
+
+	if(verbose) qDebug() << "exif: gps (1):" << temp;
+	if(verbose) qDebug() << "exif: gps (2):" << value;
+
 	// Compose all the gps data into one string
-	return gpsLat + " " + gpsLatRef + ", " + gpsLon + " " + gpsLonRef;
+	return value;
 
 }
 
 // Click on yes
 void Exif::rotConfYes() {
+
+	if(verbose) qDebug() << "exif: rotation confirmed";
 
 	emit setOrientation(rotationDeg, flipHor);
 
@@ -664,6 +693,8 @@ void Exif::rotConfYes() {
 // Click on no
 void Exif::rotConfNo() {
 
+	if(verbose) qDebug() << "exif: rotation cancelled";
+
 	if(rotConf->dontShowAgain->isChecked()) {
 		QMap<QString,QVariant> set;
 		set.insert("ExifRotation","Never");
@@ -674,6 +705,8 @@ void Exif::rotConfNo() {
 
 // Animate open/close the widget
 void Exif::animate() {
+
+	if(verbose) qDebug() << "exif: Animate";
 
 	// Open widget
 	if(ani->state() == QPropertyAnimation::Stopped && !isShown) {
@@ -719,6 +752,8 @@ void Exif::adjustHeight() {
 	rectShown = QRect(rectShown.x(),(this->parentWidget()->height()-count*(200/fsize))/4,41*fsize,count*fsize*2.8);
 	rectHidden = QRect(-rectShown.width(),rectShown.y(),rectShown.width(),rectShown.height());
 
+	if(verbose) qDebug() << "exif: Adjusting height:" << rectShown;
+
 	// Set the appropriate QRect
 	if(isShown)
 		this->setGeometry(rectShown);
@@ -731,6 +766,8 @@ void Exif::adjustHeight() {
 // Click on GPS location (opens in online map (google/bing))
 void Exif::gpsClick() {
 
+	if(verbose) qDebug() << "exif: Click on GPS";
+
 	QStringList temp = items["Gps"]->text().split(":");
 	temp.removeFirst();
 	QString loc = temp.join(":").trimmed();
@@ -740,10 +777,13 @@ void Exif::gpsClick() {
 		loc.replace("&deg;",QString::fromUtf8("°"));
 
 		QUrl url;
-		if(onlineservice == "bing.com/maps")
+		if(onlineservice == "bing.com/maps") {
+			if(verbose) qDebug() << "exif: clickGPS: Using bing maps";
 			url.setUrl("http://www.bing.com/maps/?sty=b&q=" + loc);
-		else
+		} else {
+			if(verbose) qDebug() << "exif: clickGPS: Using google maps";
 			url.setUrl("http://maps.google.com/maps?t=h&q=" + loc);
+		}
 
 
 		if(!QDesktopServices::openUrl(QUrl(url)))
@@ -757,6 +797,8 @@ void Exif::gpsClick() {
 void Exif::updateFontsize() {
 
 	labelCSSfontsize = QString("font-size: %1pt;").arg((globSet.value("ExifFontSize").toInt()));
+
+	if(verbose) qDebug() << "exif: Updating font size:" << labelCSSfontsize;
 
 	for(int i = 0; i < labelsId.size(); ++i) {
 

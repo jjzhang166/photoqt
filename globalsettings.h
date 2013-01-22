@@ -195,7 +195,7 @@ public:
 	// Set the default settings
 	void setDefault() {
 
-		version = "0.9beta";
+		version = "0.9.1";
 
 		knownFileTypes = "*.bmp,*.gif,*.tif,*.jpg,*.jpeg,*.jpeg2000,*.png,*.pbm,*.pgm,*.ppm,*.xbm,*.xpm,*.tiff";
 

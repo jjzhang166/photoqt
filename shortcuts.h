@@ -74,7 +74,7 @@ public:
 	// Save the current shortcuts
 	void saveSH() {
 
-		if(verbose) qDebug() << "Save Shortcuts";
+		if(verbose) qDebug() << "sh: Save Shortcuts";
 
 		// The version is always the first line
 		QString content = QString("Version=%1\n").arg(version);
@@ -117,7 +117,7 @@ public slots:
 	// Set the set of default shortcuts
 	void setDefault() {
 
-		if(verbose) qDebug() << "Set default shortcuts";
+		if(verbose) qDebug() << "sh: Set default shortcuts";
 
 		allKeyShortcuts.clear();
 		allMouseShortcuts.clear();

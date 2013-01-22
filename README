@@ -1,5 +1,5 @@
-Photo 0.9- by Lukas Spies, 2013 - Licensed under the GPL - Contact: Lukas@photoqt.org - http://photoqt.org
--------------------------------------------------------------------------------------------------------
+Photo 0.9.1  - by Lukas Spies, 2013 - Licensed under the GPL - Contact: Lukas@photoqt.org - http://photoqt.org
+--------------------------------------------------------------------------------------------------------------
 
 
 Photo is an image viewer with a simple and fast interface, being good looking and highly configureable.
@@ -11,7 +11,8 @@ Qt >= 4.7
 exiv2
 cmake (needed for building Photo)
 
-Note: On some systems you also need the *-dev for compiling (e.g. exiv2-dev - names can vary slightly depending on your distribution). These files usually can be removed again after compilation is done.
+Note: On some systems you also need the *-dev for compiling (e.g. exiv2-dev - names can vary slightly depending
+on your distribution). These files usually can be removed again after compilation is done.
 
 
 INSTALL
@@ -23,6 +24,10 @@ INSTALL
 
    # To install Photo into e.g. /usr/{bin,share}, run:
    cmake -DCMAKE_INSTALL_PREFIX=/usr ..
+   
+   # CMake expects the phonon libs to be in /usr/include/phonon.
+   # If you're storing them in a different place, you need to tell cmake:
+   cmake -DQT_PHONON_INCLUDE_DIR=/path/to/phonon/include/dir ..
 
 3) make  # This creates an executeable photo binary located in the source folder
 
@@ -35,10 +40,13 @@ ALTERNATIVE INSTALL
 -------------------
 
 The above way using cmake is the recommended way of installing Photo.
-Of course, it is also possible to compile photo the old way with "qmake" and "make". However, after compiling photo this way you need to move all the files to their right location manually.
+Of course, it is also possible to compile photo the old way with "qmake" and "make". However, after compiling
+Photo this way you need to move all the files to their right location manually.
 
 
 
 UNINSTALL
 ---------
-If you want to uninstall Photo, simply run "make uninstall" as root. This removes the desktop file (via "xdg-desktop-menu uninstall"), the icons and the binary file. Alternatively you can simply remove all the files manually, that should yield the same result.
+If you want to uninstall Photo, simply run "make uninstall" as root. This removes the desktop file (via
+"xdg-desktop-menu uninstall"), the icons and the binary file. Alternatively you can simply remove all the files
+manually, that should yield the same result.

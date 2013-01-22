@@ -114,6 +114,8 @@ Settings::Settings(QWidget *parent, QMap<QString, QVariant> glob, bool v) : QWid
 // the animation function
 void Settings::animate() {
 
+	if(verbose) qDebug() << "set: Animating";
+
 	// Open widget
 	if(ani->state() == QPropertyAnimation::Stopped && !isShown) {
 
@@ -149,6 +151,8 @@ void Settings::animate() {
 // Load all settings
 void Settings::loadSettings() {
 
+	if(verbose) qDebug() << "set: Requesting Load Settings";
+
 	tabLookFeel->loadSettings();
 	tabThumb->loadSettings();
 	tabExif->loadSettings();
@@ -158,6 +162,8 @@ void Settings::loadSettings() {
 
 // Save all settings
 void Settings::saveSettings() {
+
+	if(verbose) qDebug() << "set: Requesting Save Settings and Shortcuts";
 
 	tabShortcuts->saveShortcuts();
 	sh->allKeyShortcuts = tabShortcuts->allKeyShortcutsNEW;
@@ -206,11 +212,15 @@ void Settings::aniFinished() {
 
 void Settings::restoreDefaultSettings() {
 
+	if(verbose) qDebug() << "set: Request to restore default settings";
+
 	emit restoreDefault();
 
 }
 
 void Settings::restoreDefaultShortcuts() {
+
+	if(verbose) qDebug() << "set: Request to restore default shortcuts";
 
 	sh->setDefault();
 	tabShortcuts->allKeyShortcuts = sh->allKeyShortcuts;
@@ -221,6 +231,8 @@ void Settings::restoreDefaultShortcuts() {
 
 // On Tab Change, scroll to top
 void Settings::tabChanged() {
+
+	if(verbose) qDebug() << "set: Current Tab Changed";
 
 	if(tabs->currentIndex() == 1)
 		tabThumb->setDatabaseInfo();
@@ -236,6 +248,8 @@ void Settings::tabChanged() {
 // Go to next tab
 void Settings::nextTab() {
 
+	if(verbose) qDebug() << "set: Next Tab";
+
 	int current = tabs->currentIndex();
 	if(current == 4)
 		current = -1;
@@ -246,6 +260,8 @@ void Settings::nextTab() {
 
 // Go to prev tab
 void Settings::prevTab() {
+
+	if(verbose) qDebug() << "set: Prev Tab";
 
 	int current = tabs->currentIndex();
 	if(current == 0)
