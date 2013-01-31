@@ -64,6 +64,9 @@ public:
 	// Keep thumbnails always visible or fade out
 	CustomCheckBox *keepVisible;
 
+	// Enable dynamic thumbnails (i.e. only create the ones you need)
+	CustomCheckBox *dynamicThumbnails;
+
 	// use file-name-only thumbnail
 	CustomCheckBox *filenameInsteadThb;
 	CustomSlider *filenameFontSizeSlider;

@@ -298,6 +298,10 @@ void MainWindow::adjustGeometries() {
 
 		viewThumbs->rectShown = QRect(0,0,viewBig->width(),thbHeight);
 		viewThumbs->rectHidden = QRect(0,0,viewBig->width(),-thbHeight);
+		if(viewThumbs->isShown)
+			viewThumbs->setGeometry(viewThumbs->rectShown);
+		else
+			viewThumbs->setGeometry(viewThumbs->rectHidden);
 
 		menu->rectShown = QRect(viewBig->width()-750,viewBig->height()-350,700,350);
 		menu->rectHidden = QRect(menu->rectShown.x(),viewBig->height(),menu->rectShown.width(),menu->rectShown.height());
@@ -562,7 +566,7 @@ void MainWindow::closeEvent(QCloseEvent *e) {
 		// Quit
 		} else {
 			sceneBig.clear();
-			viewThumbs->scene.clear();
+			viewThumbs->view->scene.clear();
 
 			e->accept();
 
@@ -713,8 +717,12 @@ void MainWindow::drawImage() {
 
 
 			// Ensure the active thumbnail is shown
-			if(viewThumbs->allImgsPath.indexOf(globVar->currentfile) != -1 && !globSet->thumbnailDisable)
+			// We only do that when the thumbnail was NOT loaded through a click on it. The reason is, that otherwise the thumbnailview might move a little (ensuring the thumbnail is visible) although it already IS visible.
+			if(viewThumbs->allImgsPath.indexOf(globVar->currentfile) != -1 && !globSet->thumbnailDisable && !viewThumbs->thumbLoadedThroughClick) {
 				viewThumbs->view->ensureVisible(viewThumbs->allPixmaps.at(viewThumbs->allImgsPath.indexOf(globVar->currentfile)));
+				viewThumbs->startThread();
+			} else if(viewThumbs->thumbLoadedThroughClick)
+				viewThumbs->thumbLoadedThroughClick = false;
 
 		}
 
@@ -1213,7 +1221,7 @@ void MainWindow::reloadDir(QString t) {
 		// If it was the last file in the directory
 		if(viewThumbs->counttot == 1) {
 			sceneBig.clear();
-			viewThumbs->scene.clear();
+			viewThumbs->view->scene.clear();
 			viewThumbs->counttot = 0;
 			viewThumbs->countpos = 0;
 			viewThumbs->allImgsInfo.clear();

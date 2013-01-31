@@ -83,6 +83,8 @@ public:
 	int thumbnailLiftUp;
 	// Are the thumbnails fading out or always visible?
 	bool thumbnailKeepVisible;
+	// Enable dynamic thumbnail creation
+	bool thumbnailDynamic;
 	// Don't load actual thumbnail but just display the filename
 	bool thumbnailFilenameInstead;
 	int thumbnailFilenameInsteadFontSize;
@@ -158,6 +160,7 @@ public:
 		map.insert("ThumbnailBorderAround",thumbnailBorderAround);
 		map.insert("ThumbnailLiftUp",thumbnailLiftUp);
 		map.insert("ThumbnailKeepVisible",thumbnailKeepVisible);
+		map.insert("ThumbnailDynamic",thumbnailDynamic);
 		map.insert("ThumbnailFilenameInstead",thumbnailFilenameInstead);
 		map.insert("ThumbnailFilenameInsteadFontSize",thumbnailFilenameInsteadFontSize);
 		map.insert("ThumbnailDisable",thumbnailDisable);
@@ -195,7 +198,7 @@ public:
 	// Set the default settings
 	void setDefault() {
 
-		version = "0.9.1";
+		version = "beta";
 
 		knownFileTypes = "*.bmp,*.gif,*.tif,*.jpg,*.jpeg,*.jpeg2000,*.png,*.pbm,*.pgm,*.ppm,*.xbm,*.xpm,*.tiff";
 
@@ -232,6 +235,7 @@ public:
 		thumbnailBorderAround = 0;
 		thumbnailLiftUp = 10;
 		thumbnailKeepVisible = false;
+		thumbnailDynamic = false;
 		thumbnailDisable = false;
 
 		thumbnailFilenameInstead = false;
@@ -402,6 +406,11 @@ public:
 				thumbnailKeepVisible = true;
 			else if(all.contains("ThumbnailKeepVisible=0"))
 				thumbnailKeepVisible = false;
+
+			if(all.contains("ThumbnailDynamic=1"))
+				thumbnailDynamic = true;
+			else if(all.contains("ThumbnailDynamic=0"))
+				thumbnailDynamic = false;
 
 			if(all.contains("ThumbnailFilenameInstead=1"))
 				thumbnailFilenameInstead = true;
@@ -592,6 +601,7 @@ public:
 			cont += QString("ThumbnailBorderAround=%1\n").arg(thumbnailBorderAround);
 			cont += QString("ThumbnailLiftUp=%1\n").arg(thumbnailLiftUp);
 			cont += QString("ThumbnailKeepVisible=%1\n").arg(thumbnailKeepVisible);
+			cont += QString("ThumbnailDynamic=%1\n").arg(thumbnailDynamic);
 			cont += QString("ThumbnailFilenameInstead=%1\n").arg(int(thumbnailFilenameInstead));
 			cont += QString("ThumbnailFilenameInsteadFontSize=%1\n").arg(thumbnailFilenameInsteadFontSize);
 			cont += QString("ThumbnailDisable=%1\n").arg(thumbnailDisable);
@@ -773,6 +783,8 @@ public slots:
 			applySet["thumb"] = true;
 			applySet["redrawimg"] = true;
 		}
+		if(changedSet.keys().contains("ThumbnailDynamic"))
+			thumbnailDynamic = changedSet.value("ThumbnailDynamic").toBool();
 		if(changedSet.keys().contains("ThumbnailFilenameInstead")) {
 			thumbnailFilenameInstead = changedSet.value("ThumbnailFilenameInstead").toBool();
 			applySet["thumb"] = true;

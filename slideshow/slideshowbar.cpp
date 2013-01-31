@@ -45,7 +45,6 @@ SlideShowBar::SlideShowBar(QMap<QString, QVariant> set, QWidget *parent, bool v)
 		css += "border-radius: 3px;";
 	css += "}";
 
-
 	QHBoxLayout *central = new QHBoxLayout;
 
 	playPause = new CustomPushButton(tr("Pause Slideshow"),this);
@@ -96,13 +95,13 @@ void SlideShowBar::togglePlay() {
 		playPause->setText(tr("Play Slideshow"));
 		nextImg->stop();
 		if(musicFile != "")
-			media->pause();
+			media->play();
 	} else {
 		if(verbose) qDebug() << "sldb: Toggle Playback (Pause)";
 		playPause->setText(tr("Pause Slideshow"));
 		nextImg->start();
 		if(musicFile != "")
-			media->play();
+			media->pause();
 	}
 
 }

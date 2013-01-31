@@ -14,14 +14,10 @@ Thumbnails::Thumbnails(QWidget *parent, bool v) : QWidget(parent) {
 
 	// The view and scene
 	view = new ThumbnailView;
-	view->setScene(&scene);
-	view->setCursor(Qt::ArrowCursor);
-	scene.clear();
+	// Load needed thumbnails (dynamic thumbnail creation)
+	connect(view, SIGNAL(movedScroll()), this, SLOT(scrolledView()));
 
 	this->setStyleSheet("background: transparent");
-
-	scrollbar = new CustomScrollbar;
-	view->setHorizontalScrollBar(scrollbar);
 
 	// The animation instances
 	ani = new QPropertyAnimation(this,"geometry");
@@ -78,7 +74,7 @@ void Thumbnails::animate() {
 void Thumbnails::loadDir() {
 
 	// Clear the scene
-	scene.clear();
+	view->scene.clear();
 
 	// Clear all possibly existing pixmaps
 	allPixmaps.clear();
@@ -191,39 +187,67 @@ void Thumbnails::loadDir() {
 			allPixmaps.append(pix);
 
 			// And add to scene
-			scene.addItem(pix);
+			view->scene.addItem(pix);
 
 		}
 
 		// Adjust scene rect
-		scene.setSceneRect(scene.itemsBoundingRect());
+		view->scene.setSceneRect(view->scene.itemsBoundingRect());
 
-		// If image thumbnails are wanted, start the thread
-		if(!filenameInsteadThumb) {
-
-			if(verbose) qDebug() << "thb: Start loading thumbs";
-
-			// Set and start the thumbnail thread
-			thumbThread->counttot = allImgsPath.length();
-			thumbThread->allimgs.clear();
-			thumbThread->allimgs.append(allImgsInfo);
-			thumbThread->height = globSet.value("ThumbnailSize").toInt();
-			if(globSet.value("ThumbnailCache").toBool())
-				thumbThread->cacheEnabled = true;
-			else
-				thumbThread->cacheEnabled = false;
-			thumbThread->breakme = false;
-			thumbThread->dbName = "thumb";
-			if(globSet.value("ThbCacheFile").toBool())
-				thumbThread->typeCache = "files";
-			else
-				thumbThread->typeCache = "database";
-			if(allImgsInfo.length())
-				thumbThread->start();
-
-		}
+		newlyLoadedDir = true;
 
 	}
+
+}
+
+void Thumbnails::startThread() {
+
+	// If image thumbnails are wanted, start the thread
+	if(!globSet.value("ThumbnailFilenameInstead").toBool() && newlyLoadedDir) {
+
+		newlyLoadedDir = false;
+
+		if(verbose) qDebug() << "thb: Start loading thumbs";
+
+		view->thbWidth = globSet.value("ThumbnailSize").toInt();
+
+		ThumbnailPixmapItem *pix = (ThumbnailPixmapItem*)view->itemAt(view->viewport()->visibleRegion().boundingRect().center());
+		int newpos = allImgsPath.indexOf(pix->path);
+		if(newpos == -1) {
+			// Get new middle position
+			newpos = allImgsPath.indexOf(currentfile);
+			if(newpos < 0)
+				newpos = 0;
+			if(newpos >= thumbThread->counttot)
+				newpos = thumbThread->counttot-1;
+		}
+		thumbThread->currentPos = newpos;
+
+		// Set and start the thumbnail thread
+		thumbThread->counttot = allImgsPath.length();
+		thumbThread->allimgs.clear();
+		thumbThread->allimgs.append(allImgsInfo);
+		thumbThread->viewWidth = this->width();
+		// This is cleared here, because the run() function in the tread is also called for updates only (i.e. this list needs to be preserved in that case)
+		thumbThread->posCreated.clear();
+		thumbThread->thbWidth = globSet.value("ThumbnailSize").toInt();
+		thumbThread->dynamicThumbs = globSet.value("ThumbnailDynamic").toBool();
+		thumbThread->height = globSet.value("ThumbnailSize").toInt();
+		if(globSet.value("ThumbnailCache").toBool())
+			thumbThread->cacheEnabled = true;
+		else
+			thumbThread->cacheEnabled = false;
+		thumbThread->breakme = false;
+		thumbThread->dbName = "thumb";
+		if(globSet.value("ThbCacheFile").toBool())
+			thumbThread->typeCache = "files";
+		else
+			thumbThread->typeCache = "database";
+		if(allImgsInfo.length())
+			thumbThread->start();
+
+	}
+
 
 }
 
@@ -315,6 +339,9 @@ void Thumbnails::gotClick(QString path) {
 
 	updateThbViewHoverNormPix(currentfile,path);
 
+	// We set this boolean to true, and this causes drawImg() in mainwindow.cpp NOT to ensure the visibility of the item (it already is visible). Before occasionally this led to the thumbnailview "jumping" a little to the right/left ensuring the visibility.
+	thumbLoadedThroughClick = true;
+
 	emit loadNewImg(path);
 
 }
@@ -350,6 +377,50 @@ void Thumbnails::gotoFirstLast(QString side) {
 			gotClick(allImgsPath.last());
 
 	}
+
+}
+
+// The view has been scrolled (needed for dynamic thumbnail creation)
+void Thumbnails::scrolledView() {
+
+	// Get some info about current position (using scrollbar)
+	int visibleStart = view->scrollbar->value()-(view->width()/2);
+	int toLeft = visibleStart/view->thbWidth;
+	int changed = toLeft - view->lastToLeft;
+
+	// If current position changed
+	if(changed != 0) {
+
+		// We get the position of the item in view center
+		ThumbnailPixmapItem *pix = (ThumbnailPixmapItem*)view->itemAt(view->viewport()->visibleRegion().boundingRect().center());
+		int newpos = allImgsPath.indexOf(pix->path);
+
+		// If something went wrong in above's check
+		if(newpos == -1) {
+
+			// Backup middle position
+			newpos = thumbThread->currentPos+changed;
+			if(newpos < 0)
+				newpos = 0;
+			if(newpos >= thumbThread->counttot)
+				newpos = thumbThread->counttot-1;
+
+		}
+
+		// And submit data to thread
+		// The amUpdatingData bool is true as long as data is updated, and the thread is sitting idle in that time
+		thumbThread->amUpdatingData = true;
+		// Set data
+		thumbThread->newData(newpos,globSet.value("ThumbnailSize").toInt(),view->width());
+		// Tell the view the new position
+		view->lastToLeft = toLeft;
+		// Finished
+		thumbThread->amUpdatingData = false;
+		// If thread wasn't even running, start it
+		if(!thumbThread->isRunning())
+			thumbThread->start();
+	}
+
 
 }
 

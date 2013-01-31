@@ -33,9 +33,8 @@ public:
 	// The global settings
 	QMap<QString,QVariant> globSet;
 
-	// The Graphicsview and -scene
+	// The Graphicsview
 	ThumbnailView *view;
-	QGraphicsScene scene;
 
 	// The current filepath
 	QString currentfile;
@@ -62,9 +61,6 @@ public:
 	ThumbThread *thumbThread;
 	QList<ThumbnailPixmapItem *> allPixmaps;
 
-	// The scrollbar of the view
-	CustomScrollbar *scrollbar;
-
 	// Update which item in the thumbnail view is hovered
 	void updateThbViewHoverNormPix(QString oldpath, QString newpath);
 
@@ -73,6 +69,12 @@ public:
 
 	// Disable thumbnails
 	bool noThumbs;
+
+	bool thumbLoadedThroughClick;
+
+	// Called from mainwindow.cpp drawImg(), after ensuring visibility of thumbnail
+	void startThread();
+	bool newlyLoadedDir;
 
 public slots:
 	// Animate the widget
@@ -89,6 +91,8 @@ public slots:
 
 	// Jump to beginning/end of list
 	void gotoFirstLast(QString side);
+
+	void scrolledView();
 
 private:
 	void paintEvent(QPaintEvent *);

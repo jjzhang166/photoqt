@@ -137,6 +137,20 @@ SettingsTabThumbnail::SettingsTabThumbnail(QWidget *parent, QMap<QString, QVaria
 	lay->addSpacing(20);
 
 
+	// OPTION TO ENABLE DYNAMIC THUMBNAIL CREATION (handy for faster harddrives)
+	QLabel *dynamicThumbnailsLabel = new QLabel("<b><span style=\"font-size: 12pt\">" + tr("Dynamic Thumbnail Creation") + "</span></b><br><bR>" + tr("Enable dynamic thumbnail creation."));
+	dynamicThumbnailsLabel->setWordWrap(true);
+	QHBoxLayout *dynamicThbLay = new QHBoxLayout;
+	dynamicThumbnails = new CustomCheckBox(tr("Enable Dynamic Thumbnails"));
+	dynamicThbLay->addStretch();
+	dynamicThbLay->addWidget(dynamicThumbnails);
+	dynamicThbLay->addStretch();
+	lay->addWidget(dynamicThumbnailsLabel);
+	lay->addSpacing(5);
+	lay->addLayout(dynamicThbLay);
+	lay->addSpacing(20);
+
+
 	// OPTION TO ONLY USE FILENAME AND NO ACTUAL THUMBNAIL
 	QLabel *filenameInsteadThbLabel = new QLabel("<b><span style=\"font-size: 12pt\">" + tr("Use file-name-only Thumbnails") + "</span></b><br><bR>" + tr("If you don't want Photo to always load the thumbnails in the background, but you still want to have something for better navigating, then you can set a file-name-only thumbnail, i.e. Photo wont load any thumbnail images but simply puts the file name into the box. You can also adjust the font size of this text."));
 	filenameInsteadThbLabel->setWordWrap(true);
@@ -295,6 +309,9 @@ void SettingsTabThumbnail::loadSettings() {
 	keepVisible->setChecked(globSet.value("ThumbnailKeepVisible").toBool());
 	defaults.insert("ThumbnailKeepVisible",globSet.value("ThumbnailKeepVisible").toBool());
 
+	dynamicThumbnails->setChecked(globSet.value("ThumbnailDynamic").toBool());
+	defaults.insert("ThumbnailDynamic",globSet.value("ThumbnailDynamic").toBool());
+
 	filenameInsteadThb->setChecked(globSet.value("ThumbnailFilenameInstead").toBool());
 	filenameFontSizeSlider->setEnabled(filenameInsteadThb->isChecked());
 	filenameFontSizeSpin->setEnabled(filenameInsteadThb->isChecked());
@@ -356,6 +373,11 @@ void SettingsTabThumbnail::saveSettings() {
 		updatedSet.insert("ThumbnailKeepVisible",keepVisible->isChecked());
 		defaults.remove("ThumbnailKeepVisible");
 		defaults.insert("ThumbnailKeepVisible",keepVisible->isChecked());
+	}
+	if(defaults.value("ThumbnailDynamic").toBool() != dynamicThumbnails->isChecked()) {
+		updatedSet.insert("ThumbnailDynamic",dynamicThumbnails->isChecked());
+		defaults.remove("ThumbnailDynamic");
+		defaults.insert("ThumbnailDynamic",dynamicThumbnails->isChecked());
 	}
 
 	if(defaults.value("ThumbnailFilenameInstead").toBool() != filenameInsteadThb->isChecked()) {

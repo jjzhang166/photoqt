@@ -8,7 +8,7 @@ int main(int argc, char *argv[]) {
 	QCoreApplication::setApplicationName("photo");
 
 	// This string holds the current version
-	QString globVersion = "0.9.1";
+	QString globVersion = "beta";
 
 	// A help message for the command line
 	QString hlp = "\nPhoto v" + globVersion + " - created by Lukas Spies (photoQt@ymail.com) - License: GPL\n";
