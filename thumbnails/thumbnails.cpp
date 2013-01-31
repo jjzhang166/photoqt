@@ -211,15 +211,20 @@ void Thumbnails::startThread() {
 
 		view->thbWidth = globSet.value("ThumbnailSize").toInt();
 
-		ThumbnailPixmapItem *pix = (ThumbnailPixmapItem*)view->itemAt(view->viewport()->visibleRegion().boundingRect().center());
-		int newpos = allImgsPath.indexOf(pix->path);
-		if(newpos == -1) {
-			// Get new middle position
-			newpos = allImgsPath.indexOf(currentfile);
-			if(newpos < 0)
-				newpos = 0;
-			if(newpos >= thumbThread->counttot)
-				newpos = thumbThread->counttot-1;
+
+		int newpos = 0;
+
+		if(view->viewport()->visibleRegion().boundingRect().width() > view->width()) {
+			ThumbnailPixmapItem *pix = (ThumbnailPixmapItem*)view->itemAt(view->viewport()->visibleRegion().boundingRect().center());
+			int newpos = allImgsPath.indexOf(pix->path);
+			if(newpos == -1) {
+				// Get new middle position
+				newpos = allImgsPath.indexOf(currentfile);
+				if(newpos < 0)
+					newpos = 0;
+				if(newpos >= thumbThread->counttot)
+					newpos = thumbThread->counttot-1;
+			}
 		}
 		thumbThread->currentPos = newpos;
 

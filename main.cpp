@@ -5,7 +5,7 @@
 
 int main(int argc, char *argv[]) {
 
-	QCoreApplication::setApplicationName("photo");
+	QApplication::setApplicationName("photo");
 
 	// This string holds the current version
 	QString globVersion = "beta";
@@ -48,6 +48,12 @@ int main(int argc, char *argv[]) {
 		QTextStream in(&chk);
 		all = in.readAll();
 	}
+
+	// Set proper encoding. This is needed e.g. for files with special characters like accents or umlaute in the file name/path
+	QTextCodec *utf8Codec=QTextCodec::codecForName("UTF-8");
+	QTextCodec::setCodecForCStrings(utf8Codec);
+	QTextCodec::setCodecForLocale(utf8Codec);
+	QTextCodec::setCodecForTr(utf8Codec);
 
 	QStringList allArgs;
 	for(int i = 0; i < argc; ++i)
@@ -139,6 +145,9 @@ int main(int argc, char *argv[]) {
 			// Nothing after this return will be executed (Photo will simply quit)
 			return 0;
 		}
+
+		if(QFile(QDir::homePath()+"/.photo/cmd").exists())
+			QFile(QDir::homePath()+"/.photo/cmd").remove();
 
 		// This boolean stores if photo needs to be minimized to the tray
 		bool startintray = allArgs.contains("--start-in-tray");

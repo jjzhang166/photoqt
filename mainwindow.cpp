@@ -805,7 +805,9 @@ void MainWindow::globalRunningProgTimerTimeout() {
 			if(line == "--thumbs")
 				doThumbs = true;
 			if(line.startsWith("-f-"))
-				doNewFile = line.remove(0,3);
+				doNewFile = line.remove(0,3).toUtf8();
+
+			qDebug() << line;
 
 		} while (!line.isNull());
 
