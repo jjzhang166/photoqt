@@ -4,6 +4,7 @@
 #include <QGraphicsView>
 #include <QWheelEvent>
 #include <QtDebug>
+#include <QSignalMapper>
 #include "../customelements/customscrollbar.h"
 
 // We translate a vertical scrolling into a horizontal one
@@ -12,8 +13,10 @@ class ThumbnailView : public QGraphicsView {
 	Q_OBJECT
 
 public:
-	ThumbnailView();
+	ThumbnailView(QMap<QString,QVariant> set);
 	~ThumbnailView();
+
+	QMap<QString,QVariant> globSet;
 
 	// The scene
 	QGraphicsScene scene;

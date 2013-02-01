@@ -17,14 +17,6 @@ public:
 	SettingsTabExifTiles(QString exifTxt, QString exifIntern, QWidget *parent = 0);
 	~SettingsTabExifTiles();
 
-	// Different css styles
-	QString css;
-	QString cssOff;
-	QString cssBackgroundNorm;
-	QString cssBackgroundOffNorm;
-	QString cssBackgroundHov;
-	QString cssBackgroundOffHov;
-
 	// This string holds the exif key value (the itemsShort list in settingstabexif.cpp)
 	QString intern;
 
@@ -37,7 +29,16 @@ public:
 	// Set this checkbox checked
 	void setChecked(bool chkd);
 
-public slots:
+private:
+	// Different css styles
+	QString css;
+	QString cssOff;
+	QString cssBackgroundNorm;
+	QString cssBackgroundOffNorm;
+	QString cssBackgroundHov;
+	QString cssBackgroundOffHov;
+
+private slots:
 	// A click on a checkbox
 	void checkboxClicked();
 
@@ -46,8 +47,6 @@ protected:
 	void mousePressEvent(QMouseEvent *);
 	void enterEvent(QEvent *);
 	void leaveEvent(QEvent *);
-
-private:
 	void paintEvent(QPaintEvent *);
 
 };

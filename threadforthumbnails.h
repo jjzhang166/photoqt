@@ -102,6 +102,8 @@ protected:
 		if(!dynamicThumbs)
 			numberThbs = counttot;
 
+		qDebug() << "THB_thread: Started! verbose:" << verbose << "- currentPox:" << currentPos << "- amountCreated:" << amountCreated << "- numberThumbs:" << numberThbs << "- amUpdatingData:" << amUpdatingData;
+
 		// We add all thumbnails up and stop when we reach the total number
 		while(amountCreated < numberThbs || amUpdatingData) {
 

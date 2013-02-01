@@ -49,7 +49,8 @@ SOURCES += main.cpp\
     slideshow/slideshowbar.cpp \
     widgets/dropdownmenu.cpp \
     widgets/startupwidget.cpp \
-    widgets/dropdownmenuitem.cpp
+    widgets/dropdownmenuitem.cpp \
+    widgets/wallpaper.cpp
 
 HEADERS  += mainwindow.h \
     graphicsview.h \
@@ -91,7 +92,8 @@ HEADERS  += mainwindow.h \
     slideshow/slideshowbar.h \
     widgets/dropdownmenu.h \
     widgets/startupwidget.h \
-    widgets/dropdownmenuitem.h
+    widgets/dropdownmenuitem.h \
+    widgets/wallpaper.h
 
 TRANSLATIONS += lang/photo_en.ts
 

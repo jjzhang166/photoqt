@@ -44,7 +44,7 @@ MainWindow::MainWindow(QWidget *parent, bool verbose) : QMainWindow(parent) {
 	// The two GraphicViews
 	viewBig = new GraphicsView(globSet->toSignalOut(),bglabel);
 	viewBig->setAlignment(Qt::AlignTop);
-	viewThumbs = new Thumbnails(viewBig);
+	viewThumbs = new Thumbnails(viewBig,globSet->verbose,globSet->toSignalOut());
 
 	// This widget is the front widget
 	viewBig->raise();
@@ -128,6 +128,8 @@ MainWindow::MainWindow(QWidget *parent, bool verbose) : QMainWindow(parent) {
 	// The about widget
 	about = new About(viewBig);
 	about->setLicense(globSet->version);
+
+	wallpaper = new Wallpaper;
 
 	// The slideshow settings widget
 	slideshow = new SlideShow(globSet->toSignalOut(),viewBig, globVar->verbose);
@@ -555,7 +557,7 @@ void MainWindow::closeEvent(QCloseEvent *e) {
 		viewThumbs->thumbThread->breakme = true;
 
 		// Hide to system tray
-		if(set->tabLookFeel->trayIcon->isChecked() && !globVar->skipTrayIcon) {
+		if(globSet->trayicon && !globVar->skipTrayIcon) {
 
 			if(set->isShown)
 				set->animate();
@@ -719,7 +721,12 @@ void MainWindow::drawImage() {
 			// Ensure the active thumbnail is shown
 			// We only do that when the thumbnail was NOT loaded through a click on it. The reason is, that otherwise the thumbnailview might move a little (ensuring the thumbnail is visible) although it already IS visible.
 			if(viewThumbs->allImgsPath.indexOf(globVar->currentfile) != -1 && !globSet->thumbnailDisable && !viewThumbs->thumbLoadedThroughClick) {
-				viewThumbs->view->ensureVisible(viewThumbs->allPixmaps.at(viewThumbs->allImgsPath.indexOf(globVar->currentfile)));
+				if(viewThumbs->newlyLoadedDir)
+					viewThumbs->view->centerOn(viewThumbs->allPixmaps.at(viewThumbs->allImgsPath.indexOf(globVar->currentfile)));
+				else
+					viewThumbs->view->ensureVisible(viewThumbs->allPixmaps.at(viewThumbs->allImgsPath.indexOf(globVar->currentfile)));
+				if(!globSet->thumbnailKeepVisible && !viewThumbs->isShown)
+					viewThumbs->setGeometry(viewThumbs->rectHidden);
 				viewThumbs->startThread();
 			} else if(viewThumbs->thumbLoadedThroughClick)
 				viewThumbs->thumbLoadedThroughClick = false;
@@ -862,9 +869,9 @@ void MainWindow::globalRunningProgTimerTimeout() {
 	// Hide Photo
 	if(doHide) {
 
-		if(!set->tabLookFeel->trayIcon->isChecked()) {
-			set->tabLookFeel->trayIcon->setChecked(true);
-			set->saveSettings();
+		if(!globSet->trayicon) {
+			globSet->trayicon = true;
+			globSet->saveSettings();
 		}
 
 		if(this->isVisible())
@@ -932,23 +939,22 @@ void MainWindow::hideQuickInfo() {
 		quickInfoCounterBOT->hide();
 		quickInfoSepTOP->hide();
 		quickInfoSepBOT->hide();
-		set->tabLookFeel->hideCounter->setChecked(true);
+		globSet->hidecounter = true;
 	}
-	if(objName == "quickinfoFilepath") {
-		set->tabLookFeel->hideFilePATH->setChecked(true);
-	}
+	if(objName == "quickinfoFilepath")
+		globSet->hidefilepathshowfilename = true;
 	if(objName == "quickinfoFilename") {
 		quickInfoSepTOP->hide();
 		quickInfoSepBOT->hide();
 		quickInfoFilenameTOP->hide();
 		quickInfoFilenameBOT->hide();
-		set->tabLookFeel->hideFilename->setChecked(true);
+		globSet->hidefilename = true;
 	}
 	if(objName == "closewindowX") {
-		closeWindowX->hide();
-		set->tabLookFeel->hideX->setChecked(true);
+//		closeWindowX->hide();
+		globSet->hidex = true;
 	}
-	set->saveSettings();
+	globSet->saveSettings();
 
 }
 
@@ -2090,6 +2096,7 @@ void MainWindow::updateSettings(QMap<QString, QVariant> settings) {
 	if(globVar->verbose) qDebug() << "Pass updated settings to subclasses";
 
 	viewThumbs->globSet = settings;
+	viewThumbs->view->globSet = settings;
 	viewBig->globSet = settings;
 
 	quickInfoFilenameBOT->globSet = settings;

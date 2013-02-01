@@ -1,6 +1,8 @@
 #include "thumbnailview.h"
 
-ThumbnailView::ThumbnailView() : QGraphicsView() {
+ThumbnailView::ThumbnailView(QMap<QString, QVariant> set) : QGraphicsView() {
+
+	globSet = set;
 
 	this->setMouseTracking(true);
 
@@ -14,6 +16,8 @@ ThumbnailView::ThumbnailView() : QGraphicsView() {
 	// Last number of thumbs to the left
 	lastToLeft = -1;
 
+	thbWidth = globSet.value("ThumbnailSize").toInt();
+
 	// Scrollbar
 	scrollbar = new CustomScrollbar;
 	this->setHorizontalScrollBar(scrollbar);
@@ -24,7 +28,7 @@ ThumbnailView::ThumbnailView() : QGraphicsView() {
 	// Timer to identify end of scrolling
 	updateScroll = new QTimer;
 	updateScroll->setSingleShot(true);
-	updateScroll->setInterval(500);
+	updateScroll->setInterval(200);
 	connect(updateScroll, SIGNAL(timeout()), this, SLOT(scrollUpdateTimeout()));
 
 }
@@ -50,15 +54,16 @@ void ThumbnailView::wheelEvent(QWheelEvent *event) {
 // The value of the thumbnail has changed
 void ThumbnailView::scrollbarValueChanged(int) {
 
-	// Initially lastToLeft == 0, and we first need to update it
-	int visibleStart = scrollbar->value()-(this->width()/2);
+	int scrollBarValue = scrollbar->value();
+	int thisWidth = this->width();
+	int visibleStart = scrollBarValue-(thisWidth/2);
 	int toLeft = visibleStart/thbWidth+2;
+	// Initially lastToLeft == 0, and we first need to update it
 	if(lastToLeft == -1)
 		lastToLeft = toLeft;
 	// Restart timer
 	updateScroll->stop();
 	updateScroll->start();
-
 
 }
 

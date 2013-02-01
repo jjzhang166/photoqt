@@ -63,6 +63,12 @@ public:
 	// The scrollbar
 	CustomScrollbar *scrollbar;
 
+	// This holds the updated settings when saved
+	QMap<QString,QVariant> updatedSet;
+	QMap<QString,QVariant> defaults;
+
+private:
+
 	// Adjust background
 	CustomRadioButton *compositeBackground;
 	CustomRadioButton *backgroundImageUseScreenshot;
@@ -102,18 +108,15 @@ public:
 	CustomCheckBox *hideFilename;
 	CustomCheckBox *hideX;
 
-	// This holds the updated settings when saved
-	QMap<QString,QVariant> updatedSet;
-	QMap<QString,QVariant> defaults;
-
 
 public slots:
-	// background color changed
-	void newBgColorSelected(QColor col);
-
 	// Load and save settings
 	void loadSettings();
 	void saveSettings();
+
+private slots:
+	// background color changed
+	void newBgColorSelected(QColor col);
 
 	// Change background image (i.e. browse for new image)
 	void changeBackgroundImage();

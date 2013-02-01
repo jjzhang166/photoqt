@@ -16,6 +16,7 @@
 #include "slideshow/slideshowsettings.h"
 #include "slideshow/slideshowbar.h"
 #include "widgets/startupwidget.h"
+#include "widgets/wallpaper.h"
 
 #include <QApplication>
 #include <QDesktopWidget>
@@ -64,18 +65,23 @@ class MainWindow : public QMainWindow {
 
 private:
 	void setupTrayIcon();
-	
+
 public:
 	explicit MainWindow(QWidget *parent = 0, bool verbose = false);
 	~MainWindow();
 
-	// The current screenshot
-	QPixmap screenshot;
-	QLabel *bglabel;
-
 	// Global variables and settings
 	GlobalVariables *globVar;
 	GlobalSettings *globSet;
+
+	// The timer is started at startup to wait until window is completely set up
+	QTimer *startUpTimer;
+
+
+private:
+	// The current screenshot
+	QPixmap screenshot;
+	QLabel *bglabel;
 
 	// The graphicsscenes and -views
 	QGraphicsScene sceneBig;
@@ -84,9 +90,6 @@ public:
 
 	// The big main graphic item
 	GraphicsItem *graphItem;
-
-	// The timer is started at startup to wait until window is completely set up
-	QTimer *startUpTimer;
 
 	// The settings dialog
 	Settings *set;
@@ -134,6 +137,8 @@ public:
 	// This widget is shown after an update/fresh install
 	StartUpWidget *startup;
 
+	Wallpaper *wallpaper;
+
 
 	// Adjust all the geometries (QRects and stuff)
 	void adjustGeometries();
@@ -162,7 +167,7 @@ public:
 	// Zoom the current image; if a string is set, the boolean is ignored
 	void zoom(bool zoomin, QString ignoreBoolean = "");
 
-public slots:
+private slots:
 	// This is called, whenever the settings have changed, and updates all sub-widgets
 	// This function is needed together with the updateSettings() function to avoid a crash on startup
 	void applySettings(QMap<QString,bool> applySet = QMap<QString,bool>(), bool justApplyAllOfThem = false);

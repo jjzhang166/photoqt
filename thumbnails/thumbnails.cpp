@@ -1,6 +1,8 @@
 #include "thumbnails.h"
 
-Thumbnails::Thumbnails(QWidget *parent, bool v) : QWidget(parent) {
+Thumbnails::Thumbnails(QWidget *parent, bool v, QMap<QString,QVariant> set) : QWidget(parent) {
+
+	globSet = set;
 
 	verbose = v;
 
@@ -13,7 +15,7 @@ Thumbnails::Thumbnails(QWidget *parent, bool v) : QWidget(parent) {
 	currentfile = "";
 
 	// The view and scene
-	view = new ThumbnailView;
+	view = new ThumbnailView(globSet);
 	// Load needed thumbnails (dynamic thumbnail creation)
 	connect(view, SIGNAL(movedScroll()), this, SLOT(scrolledView()));
 
@@ -22,6 +24,7 @@ Thumbnails::Thumbnails(QWidget *parent, bool v) : QWidget(parent) {
 	// The animation instances
 	ani = new QPropertyAnimation(this,"geometry");
 	isShown = false;
+	connect(ani, SIGNAL(finished()), this, SLOT(aniFinished()));
 
 	// The geometries
 	rectShown = QRect(0,0,10,10);
@@ -67,6 +70,15 @@ void Thumbnails::animate() {
 		ani->setEasingCurve(QEasingCurve::OutBack);
 		ani->start();
 	}
+
+}
+
+void Thumbnails::aniFinished() {
+
+//	if(animateInAndOut && isShown)
+//		QTimer::singleShot(400, this, SLOT(animate()));
+
+	animateInAndOut = false;
 
 }
 
@@ -179,6 +191,7 @@ void Thumbnails::loadDir() {
 			// Create the pixmapitem, set pixmaps and adjust the position
 			ThumbnailPixmapItem *pix = new ThumbnailPixmapItem;
 			pix->path = allImgsPath.at(i);
+			pix->setData(1,pix->path);
 			pix->setPixmap(imgNorm,imgHov);
 			pix->setPos(i*normsqu,0);
 			connect(pix, SIGNAL(clicked(QString)), this, SLOT(gotClick(QString)));
@@ -214,20 +227,26 @@ void Thumbnails::startThread() {
 
 		int newpos = 0;
 
-		if(view->viewport()->visibleRegion().boundingRect().width() > view->width()) {
-			ThumbnailPixmapItem *pix = (ThumbnailPixmapItem*)view->itemAt(view->viewport()->visibleRegion().boundingRect().center());
-			int newpos = allImgsPath.indexOf(pix->path);
+		if(view->scene.width() > view->width()) {
+			QPoint center = view->viewport()->visibleRegion().boundingRect().center();
+			if(center != QPoint(0,0)) {
+				ThumbnailPixmapItem *pix = (ThumbnailPixmapItem*)view->itemAt(center);
+				QString pixpath = pix->path;
+				newpos = allImgsPath.indexOf(pixpath);
+			} else
+				newpos = -1;
 			if(newpos == -1) {
 				// Get new middle position
 				newpos = allImgsPath.indexOf(currentfile);
 				if(newpos < 0)
 					newpos = 0;
-				if(newpos >= thumbThread->counttot)
-					newpos = thumbThread->counttot-1;
+				if(newpos >= counttot)
+					newpos = counttot-1;
 			}
 		}
 		thumbThread->currentPos = newpos;
 
+		thumbThread->verbose = verbose;
 		// Set and start the thumbnail thread
 		thumbThread->counttot = allImgsPath.length();
 		thumbThread->allimgs.clear();
@@ -386,7 +405,7 @@ void Thumbnails::gotoFirstLast(QString side) {
 }
 
 // The view has been scrolled (needed for dynamic thumbnail creation)
-void Thumbnails::scrolledView() {
+void Thumbnails::scrolledView(bool forceUpdate) {
 
 	// Get some info about current position (using scrollbar)
 	int visibleStart = view->scrollbar->value()-(view->width()/2);
@@ -394,23 +413,22 @@ void Thumbnails::scrolledView() {
 	int changed = toLeft - view->lastToLeft;
 
 	// If current position changed
-	if(changed != 0) {
+	if(changed != 0 || forceUpdate) {
 
 		// We get the position of the item in view center
-		ThumbnailPixmapItem *pix = (ThumbnailPixmapItem*)view->itemAt(view->viewport()->visibleRegion().boundingRect().center());
-		int newpos = allImgsPath.indexOf(pix->path);
+		QGraphicsItem *pix = (QGraphicsItem*)view->itemAt(view->viewport()->visibleRegion().boundingRect().center());
+		QString pixPath = pix->data(1).toString();
+		int newpos = allImgsPath.indexOf(pixPath);
 
 		// If something went wrong in above's check
-		if(newpos == -1) {
-
+		if(newpos == -1)
 			// Backup middle position
 			newpos = thumbThread->currentPos+changed;
-			if(newpos < 0)
-				newpos = 0;
-			if(newpos >= thumbThread->counttot)
-				newpos = thumbThread->counttot-1;
 
-		}
+		if(newpos < 0)
+			newpos = 0;
+		if(newpos >= thumbThread->counttot)
+			newpos = thumbThread->counttot-1;
 
 		// And submit data to thread
 		// The amUpdatingData bool is true as long as data is updated, and the thread is sitting idle in that time

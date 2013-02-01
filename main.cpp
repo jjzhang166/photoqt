@@ -59,6 +59,9 @@ int main(int argc, char *argv[]) {
 	for(int i = 0; i < argc; ++i)
 		allArgs.append(argv[i]);
 
+	if(QFile(QDir::homePath()+"/.photo/verbose").exists())
+		allArgs.append("--v");
+
 	QStringList knownArgs;
 	knownArgs << "--open";
 	knownArgs << "--no-thumbs";

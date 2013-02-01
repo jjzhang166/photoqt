@@ -13,6 +13,8 @@ public:
 
 	// Minimum width
 	void setMinWidth(int w);
+
+private:
 	int width;
 
 protected:

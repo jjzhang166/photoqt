@@ -14,6 +14,8 @@ public:
 
 	// Per default the button has rounded corners - can be disabled
 	void removeRoundedCorners();
+
+private:
 	bool noRoundedCorners;
 
 public slots:

@@ -19,6 +19,10 @@ public:
 	explicit CustomScrollbar(QWidget *parent = 0);
 	~CustomScrollbar();
 
+	// Per default the scrollbar fades out when not used. On demand it can be forced to stay always visible
+	void keepAlwaysVisible(bool keepVisible);
+
+private:
 	// This timer is the time after it is stopped being used before it fades out
 	QTimer *hideTimer;
 
@@ -32,15 +36,15 @@ public:
 	// The timeline for fading out
 	QTimeLine *fadeOut;
 
-	// Per default the scrollbar fades out when not used. On demand it can be forced to stay always visible
-	void keepAlwaysVisible(bool keepVisible);
 	bool dontfadeout;
 
-public slots:
+private slots:
 	// Start Fading out
 	void hideTimerTimeout();
 	// Step by step fading out
 	void fadeOutStep();
+
+public slots:
 	// Set scrollbar full shown
 	void setScrollbarShown();
 

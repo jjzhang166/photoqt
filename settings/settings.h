@@ -34,9 +34,6 @@ public:
 	// Two display booleans
 	bool isShown;
 
-	// The property animation
-	QPropertyAnimation *ani;
-
 	// The global Settings (passed on when initialising this class)
 	QMap<QString,QVariant> globSet;
 
@@ -60,10 +57,17 @@ public:
 	void nextTab();
 	void prevTab();
 
-public slots:
-	// Animation functions
-	void animate();
+private:
+	// The property animation
+	QPropertyAnimation *ani;
+
+private slots:
+	// Animation finished function
 	void aniFinished();
+
+public slots:
+	// Animation function
+	void animate();
 
 	// Load and Save functions
 	void loadSettings();
@@ -76,7 +80,7 @@ public slots:
 	// Called when tab changed
 	void tabChanged();
 
-private:
+protected:
 	void paintEvent(QPaintEvent *);
 
 signals:

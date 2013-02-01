@@ -30,6 +30,18 @@ public:
 
 	CustomScrollbar *scrollbar;
 
+	// Global settings
+	QMap<QString,QVariant> globSet;
+
+	// The updated settings
+	QMap<QString,QVariant> updatedSet;
+
+	// Load and save settings
+	void loadSettings();
+	void saveSettings();
+
+private:
+
 	// The flowlayout wraps around the corners dynamically = AWESOME!
 	FlowLayout *flow;
 
@@ -52,27 +64,18 @@ public:
 	CustomRadioButton *radioGoogle;
 	CustomRadioButton *radioBing;
 
-	// Global settings
-	QMap<QString,QVariant> globSet;
-
-	// The updated settings
-	QMap<QString,QVariant> updatedSet;
-
 	// The default settings (for detecting user changed)
 	QMap<QString, QVariant> defaults;
 
-	// Load and save settings
-	void loadSettings();
-	void saveSettings();
-
 	// Adjustable font size of slider
 	CustomSlider *setFontSizeSlider;
+
 
 public slots:
 	// Quick way to diable or enable all tiles
 	void disEnableAll();
 
-private:
+protected:
 	void paintEvent(QPaintEvent *);
 };
 

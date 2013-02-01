@@ -25,7 +25,7 @@ class Thumbnails : public QWidget {
 	Q_OBJECT
 
 public:
-	Thumbnails(QWidget *parent = 0, bool verbose = false);
+	Thumbnails(QWidget *parent = 0, bool verbose = false, QMap<QString,QVariant> set = QMap<QString,QVariant>());
 	~Thumbnails();
 
 	bool verbose;
@@ -76,9 +76,14 @@ public:
 	void startThread();
 	bool newlyLoadedDir;
 
+
+
+	bool animateInAndOut;
+
 public slots:
 	// Animate the widget
 	void animate();
+	void aniFinished();
 
 	// Stop the creation of thumbnails
 	void stopThbCreation();
@@ -92,7 +97,7 @@ public slots:
 	// Jump to beginning/end of list
 	void gotoFirstLast(QString side);
 
-	void scrolledView();
+	void scrolledView(bool forceUpdate = false);
 
 private:
 	void paintEvent(QPaintEvent *);
