@@ -129,7 +129,7 @@ MainWindow::MainWindow(QWidget *parent, bool verbose) : QMainWindow(parent) {
 	about = new About(viewBig);
 	about->setLicense(globSet->version);
 
-//	wallpaper = new Wallpaper;
+	wallpaper = new Wallpaper(viewBig);
 
 	// The slideshow settings widget
 	slideshow = new SlideShow(globSet->toSignalOut(),viewBig, globVar->verbose);
@@ -372,6 +372,10 @@ void MainWindow::adjustGeometries() {
 	startup->rectHidden = fullscreenRectHidden;
 	startup->aniStart = fullscreenRectAni;
 	startup->rectShown = fullscreenRectShown;
+
+	wallpaper->kdeUnsupported->rectShown = fullscreenRectShown;
+	wallpaper->kdeUnsupported->rectHidden = fullscreenRectHidden;
+	wallpaper->kdeUnsupported->rectAni = fullscreenRectAni;
 
 	// And adjust the current geometries of all the widgets
 	if(set->isShown)
@@ -1717,6 +1721,9 @@ void MainWindow::shortcutDO(QString key, bool mouseSH) {
 				viewThumbs->gotoFirstLast("first");
 			if(key == "__gotoLastThb")
 				viewThumbs->gotoFirstLast("last");
+
+			if(key == "__wallpaper")
+				wallpaper->setWallpaper(globVar->currentfile);
 
 		}
 	} else

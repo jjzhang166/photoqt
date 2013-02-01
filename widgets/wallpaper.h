@@ -2,18 +2,25 @@
 #define WALLPAPER_H
 
 #include <QObject>
+#include <QtDebug>
+#include <QProcess>
+#include "customconfirm.h"
 
-class Wallpaper {
+class Wallpaper : public QWidget {
 
 public:
-	Wallpaper();
+	Wallpaper(QWidget *parent = 0);
 	~Wallpaper();
 
-	void setWallpaper(QString filename);
+	void setWallpaper(QString file);
+
+	QString filename;
+
+	CustomConfirm *kdeUnsupported;
 
 private:
-	void detectWM();
 
+	void detectWM();
 	void setKDE();
 	void setGNOME();
 	void setXFCE();

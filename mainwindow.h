@@ -16,7 +16,7 @@
 #include "slideshow/slideshowsettings.h"
 #include "slideshow/slideshowbar.h"
 #include "widgets/startupwidget.h"
-//#include "widgets/wallpaper.h"
+#include "widgets/wallpaper.h"
 
 #include <QApplication>
 #include <QDesktopWidget>
@@ -137,7 +137,7 @@ private:
 	// This widget is shown after an update/fresh install
 	StartUpWidget *startup;
 
-//	Wallpaper *wallpaper;
+	Wallpaper *wallpaper;
 
 
 	// Adjust all the geometries (QRects and stuff)

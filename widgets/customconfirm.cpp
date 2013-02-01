@@ -80,8 +80,12 @@ CustomConfirm::CustomConfirm(QString title, QString text, QString yesText, QStri
 	yesNoLay->addStretch();
 	if(yesText != "")
 		yesNoLay->addWidget(yes);
+	else
+		yes->hide();
 	if(noText != "")
 		yesNoLay->addWidget(no);
+	else
+		no->hide();
 	yesNoLay->addStretch();
 	lay->addLayout(yesNoLay);
 

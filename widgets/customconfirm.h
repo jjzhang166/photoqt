@@ -28,21 +28,7 @@ public:
 	QRect rectHidden;
 	QRect rectAni;
 
-	// The size the user wants it to be
-	QSize widgetSize;
-
-	// The animation instance
-	QPropertyAnimation *ani;
 	bool isShown;
-
-	// The central widget containing all the content
-	QWidget *center;
-
-	// The fade parameters for the background
-	int backAlphaShow;
-	int backAlphaCur;
-	QTimeLine *fadeBack;
-	bool fadeBackIN;
 
 	// A yes and a no is possible (with custom text of course)
 	CustomPushButton *yes;
@@ -54,6 +40,22 @@ public:
 
 	// Show a border around the widget?
 	void showBorder(QString color, int width);
+
+private:
+	// The size the user wants it to be
+	QSize widgetSize;
+
+	// The animation instance
+	QPropertyAnimation *ani;
+
+	// The central widget containing all the content
+	QWidget *center;
+
+	// The fade parameters for the background
+	int backAlphaShow;
+	int backAlphaCur;
+	QTimeLine *fadeBack;
+	bool fadeBackIN;
 
 public slots:
 	// The animation/fading functions

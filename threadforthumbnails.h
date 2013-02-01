@@ -99,7 +99,7 @@ protected:
 		// The actual number of thumbnail we have to create (plus 4, 2 for safety on either site)
 		int numberThbs = viewWidth/thbWidth + 4;
 		// If we don't stop whenever the thumbnails are out of range, then we just continue until all are eventually set up
-		if(!dynamicThumbs)
+		if(!dynamicThumbs || numberThbs > counttot)
 			numberThbs = counttot;
 
 		qDebug() << "THB_thread: Started! verbose:" << verbose << "- currentPox:" << currentPos << "- amountCreated:" << amountCreated << "- numberThumbs:" << numberThbs << "- amUpdatingData:" << amUpdatingData;

@@ -101,6 +101,7 @@ SettingsTabShortcuts::SettingsTabShortcuts(QWidget *parent, bool v) : QWidget(pa
 	other.insert("__slideshow",tr("Start Slideshow"));
 	other.insert("__slideshowQuick",tr("Start Slideshow (Quickstart)"));
 	other.insert("__about",tr("About photo"));
+	other.insert("__wallpaper",tr("Set as Wallpaper"));
 
 	// Add them to the main QMap
 	internFunctions.insert("navigation",navigation);
