@@ -129,7 +129,7 @@ MainWindow::MainWindow(QWidget *parent, bool verbose) : QMainWindow(parent) {
 	about = new About(viewBig);
 	about->setLicense(globSet->version);
 
-	wallpaper = new Wallpaper;
+//	wallpaper = new Wallpaper;
 
 	// The slideshow settings widget
 	slideshow = new SlideShow(globSet->toSignalOut(),viewBig, globVar->verbose);
