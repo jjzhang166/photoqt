@@ -17,6 +17,7 @@
 #include "slideshow/slideshowbar.h"
 #include "widgets/startupwidget.h"
 #include "widgets/wallpaper.h"
+//#include "imagemagick.h"
 
 #include <QApplication>
 #include <QDesktopWidget>
@@ -138,6 +139,8 @@ private:
 	StartUpWidget *startup;
 
 	Wallpaper *wallpaper;
+
+//	ImageMagick *imageMagick;
 
 
 	// Adjust all the geometries (QRects and stuff)

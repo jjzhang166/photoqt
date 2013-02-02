@@ -149,6 +149,8 @@ int main(int argc, char *argv[]) {
 			return 0;
 		}
 
+//		Magick::InitializeMagick(*argv);
+
 		if(QFile(QDir::homePath()+"/.photo/cmd").exists())
 			QFile(QDir::homePath()+"/.photo/cmd").remove();
 

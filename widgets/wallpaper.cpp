@@ -23,11 +23,11 @@ void Wallpaper::setWallpaper(QString file) {
 
 void Wallpaper::detectWM() {
 
-	if(QString(getenv("KDE_FULL_SESSION")) == "true")
+	if(QString(getenv("KDE_FULL_SESSION")).toLower() == "true")
 		setKDE();
-	else if(QString(getenv("DESKTOP_SESSION")) == "gnome")
+	else if(QString(getenv("DESKTOP_SESSION")).toLower() == "gnome" || QString(getenv("XDG_CURRENT_DESKTOP")).toLower() == "unity" || QString(getenv("DESKTOP_SESSION")).toLower() == "ubuntu")
 		setGNOME();
-	else if(QString(getenv("DESKTOP_SESSION")) == "xfce4")
+	else if(QString(getenv("DESKTOP_SESSION")).toLower() == "xfce4")
 		setXFCE();
 
 }

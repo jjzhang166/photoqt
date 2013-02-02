@@ -130,6 +130,7 @@ MainWindow::MainWindow(QWidget *parent, bool verbose) : QMainWindow(parent) {
 	about->setLicense(globSet->version);
 
 	wallpaper = new Wallpaper(viewBig);
+//	imageMagick = new ImageMagick;
 
 	// The slideshow settings widget
 	slideshow = new SlideShow(globSet->toSignalOut(),viewBig, globVar->verbose);
@@ -623,11 +624,14 @@ void MainWindow::drawImage() {
 
 			// Scaling and adding the image to display (using QImageReader for better performance)
 			QImageReader reader(globVar->currentfile);
+//			imageMagick->readThisImage(globVar->currentfile);
+//			QImage reader = imageMagick->imageRead;
 
 			// Store the width/height for later use
 			QSize origSize = reader.size();
 			// Store the fileformat for later use
 			QString fileformat = reader.format().toLower();
+//			QString fileformat = "";
 
 			// The image width/height
 			int readerWidth = origSize.width();
@@ -679,6 +683,7 @@ void MainWindow::drawImage() {
 			}
 
 			if(!globVar->zoomed)
+//				reader.scaledToHeight(dispHeight);
 				reader.setScaledSize(QSize(dispWidth,dispHeight));
 
 			// Eventually load the image

@@ -50,7 +50,8 @@ SOURCES += main.cpp\
     widgets/dropdownmenu.cpp \
     widgets/startupwidget.cpp \
     widgets/dropdownmenuitem.cpp \
-    widgets/wallpaper.cpp
+    widgets/wallpaper.cpp \
+    imagemagick.cpp
 
 HEADERS  += mainwindow.h \
     graphicsview.h \
@@ -93,7 +94,8 @@ HEADERS  += mainwindow.h \
     widgets/dropdownmenu.h \
     widgets/startupwidget.h \
     widgets/dropdownmenuitem.h \
-    widgets/wallpaper.h
+    widgets/wallpaper.h \
+    imagemagick.h
 
 TRANSLATIONS += lang/photo_en.ts
 
@@ -102,3 +104,6 @@ RESOURCES += \
     resLang.qrc
 
 LIBS += -lexiv2
+LIBS += /usr/lib/libMagick++-Q16.so
+
+INCLUDEPATH += /usr/include/ImageMagick
