@@ -10,6 +10,8 @@
 #include <QCryptographicHash>
 #include <QtSql>
 
+#include "imagereader.h"
+
 class ThumbThread : public QThread {
 
 	Q_OBJECT
@@ -210,25 +212,30 @@ protected:
 
 						if(verbose && !amUpdatingData) qDebug() << "thread: Creating new thumb:" << createThisOne;
 
-						QImageReader reader;
-						if(!amUpdatingData) reader.setFileName(allimgs.at(createThisOne).absoluteFilePath());
-						int readerWidth = reader.size().width();
-						int readerHeight = reader.size().height();
 
-						if(readerWidth > ts) {
-							float q = ts/(readerWidth*1.0);
-							readerWidth *= q;
-							readerHeight *= q;
-						}
-						if(readerHeight > ts) {
-							float q = ts/(readerHeight*1.0);
-							readerWidth *= q;
-							readerHeight *= q;
-						}
 
-						if(!amUpdatingData) reader.setScaledSize(QSize(readerWidth,readerHeight));
+						ImageReader image;
+						p = image.readImage(allimgs.at(createThisOne).absoluteFilePath(),0,false,QSize(ts,ts));
 
-						if(!amUpdatingData) p = reader.read();
+//						QImageReader reader;
+//						if(!amUpdatingData) reader.setFileName(allimgs.at(createThisOne).absoluteFilePath());
+//						int readerWidth = reader.size().width();
+//						int readerHeight = reader.size().height();
+
+//						if(readerWidth > ts) {
+//							float q = ts/(readerWidth*1.0);
+//							readerWidth *= q;
+//							readerHeight *= q;
+//						}
+//						if(readerHeight > ts) {
+//							float q = ts/(readerHeight*1.0);
+//							readerWidth *= q;
+//							readerHeight *= q;
+//						}
+
+//						if(!amUpdatingData) reader.setScaledSize(QSize(readerWidth,readerHeight));
+
+//						if(!amUpdatingData) p = reader.read();
 
 						if(typeCache == "files") {
 

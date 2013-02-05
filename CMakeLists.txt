@@ -6,8 +6,8 @@ FIND_PACKAGE(Qt4 REQUIRED)
 LINK_LIBRARIES(exiv2)
 
 # Set Sources and Headers
-SET(photo_SOURCES main.cpp mainwindow.cpp graphicsview.cpp graphicsitem.cpp widgets/aboutwidget.cpp widgets/customconfirm.cpp widgets/dropdownmenu.cpp widgets/dropdownmenuitem.cpp widgets/exifwidget.cpp widgets/filehandling.cpp widgets/startupwidget.cpp thumbnails/thumbnailpixmapitem.cpp thumbnails/thumbnails.cpp thumbnails/thumbnailview.cpp slideshow/slideshowbar.cpp slideshow/slideshowsettings.cpp settings/settings.cpp settings/settingstabexif.cpp settings/settingstabexiftiles.cpp settings/settingstablookandfeel.cpp settings/settingstabother.cpp settings/settingstabothercontext.cpp settings/settingstabothercontexttiles.cpp settings/settingstabotherlanguagetiles.cpp settings/settingstabshortcuts.cpp settings/settingstabshortcutschangecommand.cpp settings/settingstabshortcutskeydetect.cpp settings/settingstabshortcutstiles.cpp settings/settingstabthumbnail.cpp flowlayout/flowlayout.cpp customelements/customcheckbox.cpp customelements/customcombobox.cpp customelements/customlineedit.cpp customelements/custompushbutton.cpp customelements/customradiobutton.cpp customelements/customscrollbar.cpp customelements/customslider.cpp customelements/customspinbox.cpp widgets/wallpaper.cpp)
-SET(photo_HEADERS mainwindow.h globalsettings.h globalvariables.h shortcuts.h threadforthumbnails.h graphicsview.h graphicsitem.h widgets/aboutwidget.h widgets/customconfirm.h widgets/dropdownmenu.h widgets/dropdownmenuitem.h widgets/exifwidget.h widgets/filehandling.h widgets/startupwidget.h thumbnails/thumbnailpixmapitem.h thumbnails/thumbnails.h thumbnails/thumbnailview.h slideshow/slideshowbar.h slideshow/slideshowsettings.h settings/settings.h settings/settingstabexif.h settings/settingstabexiftiles.h settings/settingstablookandfeel.h settings/settingstabother.h settings/settingstabothercontext.h settings/settingstabothercontexttiles.h settings/settingstabotherlanguagetiles.h settings/settingstabshortcuts.h settings/settingstabshortcutschangecommand.h settings/settingstabshortcutskeydetect.h settings/settingstabshortcutstiles.h settings/settingstabthumbnail.h flowlayout/flowlayout.h customelements/customcheckbox.h customelements/customcombobox.h customelements/customlineedit.h customelements/custompushbutton.h customelements/customradiobutton.h customelements/customscrollbar.h customelements/customslider.h customelements/customspinbox.h widgets/wallpaper.h)
+SET(photo_SOURCES main.cpp mainwindow.cpp graphicsview.cpp graphicsitem.cpp widgets/aboutwidget.cpp widgets/customconfirm.cpp widgets/dropdownmenu.cpp widgets/dropdownmenuitem.cpp widgets/exifwidget.cpp widgets/filehandling.cpp widgets/startupwidget.cpp thumbnails/thumbnailpixmapitem.cpp thumbnails/thumbnails.cpp thumbnails/thumbnailview.cpp slideshow/slideshowbar.cpp slideshow/slideshowsettings.cpp settings/settings.cpp settings/settingstabexif.cpp settings/settingstabexiftiles.cpp settings/settingstablookandfeel.cpp settings/settingstabother.cpp settings/settingstabothercontext.cpp settings/settingstabothercontexttiles.cpp settings/settingstabotherlanguagetiles.cpp settings/settingstabshortcuts.cpp settings/settingstabshortcutschangecommand.cpp settings/settingstabshortcutskeydetect.cpp settings/settingstabshortcutstiles.cpp settings/settingstabthumbnail.cpp flowlayout/flowlayout.cpp customelements/customcheckbox.cpp customelements/customcombobox.cpp customelements/customlineedit.cpp customelements/custompushbutton.cpp customelements/customradiobutton.cpp customelements/customscrollbar.cpp customelements/customslider.cpp customelements/customspinbox.cpp widgets/wallpaper.cpp imagereader.cpp globalsettings.h globalvariables.h shortcuts.h threadforthumbnails.h)
+SET(photo_HEADERS mainwindow.h globalsettings.h globalvariables.h shortcuts.h threadforthumbnails.h graphicsview.h graphicsitem.h widgets/aboutwidget.h widgets/customconfirm.h widgets/dropdownmenu.h widgets/dropdownmenuitem.h widgets/exifwidget.h widgets/filehandling.h widgets/startupwidget.h thumbnails/thumbnailpixmapitem.h thumbnails/thumbnails.h thumbnails/thumbnailview.h slideshow/slideshowbar.h slideshow/slideshowsettings.h settings/settings.h settings/settingstabexif.h settings/settingstabexiftiles.h settings/settingstablookandfeel.h settings/settingstabother.h settings/settingstabothercontext.h settings/settingstabothercontexttiles.h settings/settingstabotherlanguagetiles.h settings/settingstabshortcuts.h settings/settingstabshortcutschangecommand.h settings/settingstabshortcutskeydetect.h settings/settingstabshortcutstiles.h settings/settingstabthumbnail.h flowlayout/flowlayout.h customelements/customcheckbox.h customelements/customcombobox.h customelements/customlineedit.h customelements/custompushbutton.h customelements/customradiobutton.h customelements/customscrollbar.h customelements/customslider.h customelements/customspinbox.h widgets/wallpaper.h imagereader.h)
 # Set sources
 SET(photo_RESOURCES resLang.qrc resImg.qrc)
 # and add sql
@@ -19,6 +19,7 @@ SET(QT_PHONON_INCLUDE_DIR /usr/include/phonon)
 QT4_WRAP_CPP(photo_HEADERS_MOC ${photo_HEADERS})
 QT4_ADD_RESOURCES(photo_RESOURCES_RCC ${photo_RESOURCES})
 
+
 # include, add defiunitions and include dirs
 INCLUDE(${QT_USE_FILE})
 ADD_DEFINITIONS(${QT_DEFINITIONS})
@@ -27,6 +28,13 @@ INCLUDE_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR})
 # And add the executeable
 ADD_EXECUTABLE(photo ${photo_SOURCES} ${photo_HEADERS_MOC} ${photo_RESOURCES_RCC})
 TARGET_LINK_LIBRARIES(photo ${QT_LIBRARIES})
+
+
+
+INCLUDE_DIRECTORIES("/usr/include/GraphicsMagick/")
+TARGET_LINK_LIBRARIES(photo "GraphicsMagick++")
+
+
 
 if(UNIX)
 

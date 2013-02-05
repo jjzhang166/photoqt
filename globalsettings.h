@@ -12,6 +12,182 @@
 #include <QX11Info>
 #endif
 
+class FileFormats {
+
+private:
+	bool readonly;
+
+public:
+	QStringList setDefaultFormats() {
+
+		QStringList formats;
+		formats << ".art";
+		formats << ".avs";
+		formats << ".bmp";
+		formats << ".cals";
+		formats << ".cgm";
+//		formats << ".cmyk";	*** not working yet
+//		formats << ".cur";	*** conversion failed
+//		formats << ".cut";	*** conversion failed
+//		formats << ".dcm";	*** conversion failed
+		formats << ".dcx";
+		formats << ".dib";
+		formats << ".dpx";
+		formats << ".emf";
+		formats << ".epdf";
+		formats << ".epi";
+		formats << ".eps";
+		formats << ".eps2";
+		formats << ".eps3";
+		formats << ".epsf";
+		formats << ".epsi";
+		formats << ".ept";
+		formats << ".fax";
+		formats << ".fig";
+		formats << ".fits";
+		formats << ".fpx";
+		formats << ".gif";
+		formats << ".gplt";
+//		formats << ".gray";	*** not working yet
+		formats << ".hpgl";
+//		formats << ".ico";	*** conversion failed
+		formats << ".jbig";
+		formats << ".jng";
+		formats << ".jp2";
+		formats << ".jpc";
+		formats << ".jpeg";
+		formats << ".jpeg2000";
+		formats << ".jpg";
+		formats << ".mat";
+		formats << ".miff";
+//		formats << ".mono";	*** not working yet
+//		formats << ".mng";	*** not working yet
+		formats << ".mpc";
+//		formats << ".msl";	*** conversion failed
+		formats << ".mtv";
+//		formats << ".mvg";	*** conversion failed
+		formats << ".otb";
+		formats << ".p7";
+		formats << ".palm";
+		formats << ".pam";
+		formats << ".pbm";
+		formats << ".pcd";
+		formats << ".pcds";
+//		formats << ".pcl";	*** external tool needed ("hp2xx")
+		formats << ".pcx";
+		formats << ".pdb";
+		formats << ".pdf";
+//		formats << ".pfa";	*** conversion failed
+//		formats << ".pfb";	*** conversion failed
+		formats << ".pgm";
+		formats << ".picon";
+		formats << ".pict";
+//		formats << ".pix";	*** conversion failed
+		formats << ".png";
+		formats << ".pnm";
+		formats << ".ppm";
+		formats << ".ps";
+		formats << ".ps2";
+		formats << ".ps3";
+		formats << ".psd";
+		formats << ".ptif";
+//		formats << ".pwp";	*** conversion failed
+		formats << ".ras";
+		formats << ".rad";
+//		formats << ".rgb";	*** not working yet
+//		formats << ".rgba";	*** not working yet
+//		formats << ".rla";	*** conversion failed
+//		formats << ".rle";	*** some tool missing
+//		formats << ".sct";	*** conversion failed
+//		formats << ".sfw";	*** conversion failed
+		formats << ".sgi";
+		formats << ".sun";
+//		formats << ".svg";	*** conversion failed
+		formats << ".tga";
+		formats << ".tif";
+		formats << ".tiff";
+//		formats << ".tim";	*** conversion failed
+//		formats << ".uil";	*** conversion resulted in "Speicherzugriffsfehler"
+//		formats << ".uyvy";	*** not working yet
+		formats << ".vicar";
+		formats << ".viff";
+		formats << ".wbmp";
+//		formats << ".wmf";	*** conversion failed
+//		formats << ".wpg";	*** conversion failed
+		formats << ".xbm";
+		formats << ".xcf";
+		formats << ".xpm";
+		formats << ".xwd";
+//		formats << ".yuv";	*** not working yet
+
+		return formats;
+
+	}
+
+	QStringList getFormats() {
+
+		QStringList formats = setDefaultFormats();
+
+		QFile file(QDir::homePath() + "/.photo/fileformats");
+		if(file.exists()) {
+
+
+			if(!file.open(QIODevice::ReadOnly))
+				qDebug() << "ERROR: Can't open image formats file";
+			else {
+
+				formats.clear();
+
+				QTextStream in(&file);
+
+				QString line = in.readLine();
+				while (!line.isNull()) {
+					formats << line.trimmed();
+					line = in.readLine();
+				}
+
+			}
+
+
+		}
+
+		return formats;
+
+	}
+
+	void saveFormats(QString newFormats) {
+
+		if(!readonly) {
+
+			QString formats = newFormats.replace(",","\n");
+			formats = formats.trimmed();
+
+			QFile file(QDir::homePath() + "/.photo/fileformats");
+			if(file.exists()) {
+				if(!file.remove())
+					qDebug() << "ERROR: Cannot replace image formats file";
+			}
+			if(!file.open(QIODevice::WriteOnly))
+				qDebug() << "ERROR: Cannot write to image formats file";
+			else {
+				QTextStream out(&file);
+				out << formats;
+				file.close();
+
+			}
+
+		}
+
+
+	}
+
+	void setReadonly(bool ro) {
+		readonly = ro;
+	}
+
+
+};
+
 // All the global settings
 class GlobalSettings : public QObject {
 
@@ -92,6 +268,7 @@ public:
 	bool thumbnailDisable;
 
 	// The currently known filetypes
+	FileFormats *fileFormats;
 	QString knownFileTypes;
 
 	// Some exif settings
@@ -117,6 +294,7 @@ public:
 	bool exiffnumber;
 	bool exiflightsource;
 	bool exifgps;
+
 
 	// Create a map that is given to all subwidgets
 	QMap<QString,QVariant> toSignalOut() {
@@ -200,7 +378,8 @@ public:
 
 		version = "beta";
 
-		knownFileTypes = "*.bmp,*.gif,*.tif,*.jpg,*.jpeg,*.jpeg2000,*.png,*.pbm,*.pgm,*.ppm,*.xbm,*.xpm,*.tiff";
+		fileFormats = new FileFormats;
+		knownFileTypes = "*" + fileFormats->getFormats().join(",*");
 
 		language = "en";
 		bgColorRed = 0;
@@ -291,11 +470,13 @@ public:
 			if(all.contains("Language="))
 				language = all.split("Language=").at(1).split("\n").at(0);
 
-			if(all.contains("KnownFileTypes=")) {
-				QString temp = all.split("KnownFileTypes=").at(1).split("\n").at(0);
-				if(temp.length() > 3)
-					knownFileTypes = temp;
-			}
+//			if(all.contains("KnownFileTypes=")) {
+//				QString temp = all.split("KnownFileTypes=").at(1).split("\n").at(0);
+//				if(temp.length() > 3)
+//					knownFileTypes = temp;
+//			}
+			knownFileTypes = "*" + fileFormats->getFormats().join(",*");
+			qDebug() << "KFT:" << knownFileTypes;
 
 			if(all.contains("Composite=1"))
 				composite = true;
@@ -560,7 +741,9 @@ public:
 
 			QString cont = "Version=" + version + "\n";
 			cont += QString("Language=%1\n").arg(language);
-			cont += QString("KnownFileTypes=%1\n").arg(knownFileTypes);
+//			cont += QString("KnownFileTypes=%1\n").arg(knownFileTypes);
+
+			fileFormats->saveFormats(knownFileTypes.replace("*.","."));
 
 			cont += "\n[Look]\n";
 
@@ -665,7 +848,7 @@ public slots:
 			version = changedSet.value("Version").toString();
 
 		if(changedSet.keys().contains("KnownFileTypes"))
-			knownFileTypes = changedSet.value("KnownFileTypes").toString();;
+			knownFileTypes = changedSet.value("KnownFileTypes").toString();
 
 		if(changedSet.keys().contains("Language"))
 			language = changedSet.value("Language").toString();

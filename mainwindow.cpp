@@ -131,6 +131,7 @@ MainWindow::MainWindow(QWidget *parent, bool verbose) : QMainWindow(parent) {
 
 	wallpaper = new Wallpaper(viewBig);
 //	imageMagick = new ImageMagick;
+	imageReader = new ImageReader;
 
 	// The slideshow settings widget
 	slideshow = new SlideShow(globSet->toSignalOut(),viewBig, globVar->verbose);
@@ -610,6 +611,8 @@ void MainWindow::drawImage() {
 
 		} else {
 
+			qApp->setOverrideCursor(Qt::WaitCursor);
+
 			if(globVar->verbose) qDebug() << "Got filename:" << globVar->currentfile;
 
 			// Tell the filehandling widget the new filename
@@ -622,76 +625,26 @@ void MainWindow::drawImage() {
 				viewThumbs->loadDir();
 			}
 
-			// Scaling and adding the image to display (using QImageReader for better performance)
-			QImageReader reader(globVar->currentfile);
-//			imageMagick->readThisImage(globVar->currentfile);
-//			QImage reader = imageMagick->imageRead;
+//			bool useMagick = false;
 
-			// Store the width/height for later use
-			QSize origSize = reader.size();
-			// Store the fileformat for later use
-			QString fileformat = reader.format().toLower();
-//			QString fileformat = "";
-
-			// The image width/height
-			int readerWidth = origSize.width();
-			int readerHeight = origSize.height();
-
-			int dispWidth = readerWidth;
-			int dispHeight = readerHeight;
-
-			// If the image is rotated to the left or right, the image dimensions are swapped
-			if(globVar->rotation == 90 || globVar->rotation == 270) {
-				int tmp = dispWidth;
-				dispWidth = dispHeight;
-				dispHeight = tmp;
-			}
-
-
-			// Calculate the factor by which the main image (view) has to be zoomed
-			float q = 1;
-
-			if(dispWidth > viewBig->width()-2*globSet->borderAroundImg) {
-					q = (viewBig->width()-globSet->borderAroundImg*2)/(dispWidth*1.0);
-					dispWidth *= q;
-					dispHeight *= q;
-			}
-
-			if(globVar->zoomed)
-				viewBig->scale(q,q);
-
-			// If thumbnails are kept visible, then we need to subtract their height from the absolute height otherwise they overlap with the main image
+			int maxW = viewBig->width()-globSet->borderAroundImg*2;
 			int subtractThumbnailHeight = 0;
 			if(globSet->thumbnailKeepVisible)
 				subtractThumbnailHeight = viewThumbs->height();
+			int maxH = viewBig->height()-2*globSet->borderAroundImg-subtractThumbnailHeight;
 
-			if(dispHeight > viewBig->height()-2*globSet->borderAroundImg-subtractThumbnailHeight) {
-				q = (viewBig->height()-2*globSet->borderAroundImg-subtractThumbnailHeight)/(dispHeight*1.0);
-				dispWidth *= q;
-				dispHeight *= q;
-			}
+			QImage img = imageReader->readImage(globVar->currentfile,globVar->rotation,globVar->zoomed,QSize(maxW,maxH));
 
-			if(globVar->zoomed && dispWidth < viewBig->width()-2*globSet->borderAroundImg)
-				viewBig->scale(q,q);
+			if(imageReader->scaleImg1 != -1)
+				viewBig->scale(imageReader->scaleImg1,imageReader->scaleImg1);
+			if(imageReader->scaleImg2 != -1)
+				viewBig->scale(imageReader->scaleImg2,imageReader->scaleImg2);
 
+			QString fileformat = imageReader->fileformat;
+			QSize origSize = imageReader->origSize;
 
-			// If image is rotated left or right, then we set the right image dimensions again
-			if(globVar->rotation == 90 || globVar->rotation == 270) {
-				int tmp = dispHeight;
-				dispHeight = dispWidth;
-				dispWidth = tmp;
-			}
-
-			if(!globVar->zoomed)
-//				reader.scaledToHeight(dispHeight);
-				reader.setScaledSize(QSize(dispWidth,dispHeight));
-
-			// Eventually load the image
-			QImage img = reader.read();
-
-			// If the image is animated, set it as movie
-			if(reader.supportsAnimation() && reader.imageCount() > 1)
-				graphItem->setMovie(globVar->currentfile,readerWidth,readerHeight);
+			if(imageReader->animatedImg)
+				graphItem->setMovie(globVar->currentfile,origSize.width(),origSize.height());
 			// Otherwise do the normal setPixmap()
 			else
 				graphItem->setPixmap(QPixmap::fromImage(img));
@@ -725,6 +678,8 @@ void MainWindow::drawImage() {
 					exif->updateData(globVar->currentfile,origSize,false);
 
 			}
+
+			qApp->restoreOverrideCursor();
 
 
 			// Ensure the active thumbnail is shown
@@ -1001,9 +956,13 @@ void MainWindow::loadNewImgFromOpen(QString path) {
 	globVar->exifRead = false;
 
 	// When a new image is loaded we reset any zooming, rotation, flipping
+	qDebug() << 1;
 	zoom(true,"resetNoDraw");
+	qDebug() << 2;
 	rotateFlip(true,"resetNoDraw");
+	qDebug() << 3;
 	rotateFlip(false, "reset");
+	qDebug() << 4;
 
 	// Draw new image
 	drawImage();
@@ -2145,15 +2104,19 @@ void MainWindow::zoom(bool zoomin, QString ignoreBoolean) {
 		globVar->zoomed = false;
 		viewBig->resetMatrix();
 		viewBig->rotate(globVar->rotation);
+		globVar->rotation = 0;
 		if(globVar->flipHor)
 			viewBig->scale(-1,1);
+		globVar->flipHor = false;
 		if(globVar->flipVer)
 			viewBig->scale(1,-1);
+		globVar->flipVer = false;
 		globVar->zoomedImgAtLeastOnce = false;
 		if(globSet->thumbnailKeepVisible) {
 			viewThumbs->setGeometry(viewThumbs->rectShown);
 			viewThumbs->isShown = true;
 		}
+
 		if(ignoreBoolean != "resetNoDraw" || globSet->transition != 0)
 			drawImage();
 
