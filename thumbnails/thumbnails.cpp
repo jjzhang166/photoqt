@@ -227,7 +227,7 @@ void Thumbnails::startThread() {
 
 		int newpos = 0;
 
-		if(view->scene.width() > view->width()) {
+		if(view->scene.width() > this->width()) {
 			QPoint center = view->viewport()->visibleRegion().boundingRect().center();
 			if(center != QPoint(0,0)) {
 				ThumbnailPixmapItem *pix = (ThumbnailPixmapItem*)view->itemAt(center);
