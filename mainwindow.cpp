@@ -129,7 +129,9 @@ MainWindow::MainWindow(QWidget *parent, bool verbose) : QMainWindow(parent) {
 	about = new About(viewBig);
 	about->setLicense(globSet->version);
 
-	wallpaper = new Wallpaper(viewBig);
+	wallpaper = new Wallpaper(globSet->toSignalOut(),viewBig);
+//	connect(wallpaper, SIGNAL(wallpaperSet(QMap<QString,QVariant>)), globSet, SLOT(settingsUpdated(QMap<QString,QVariant>)));
+
 //	imageMagick = new ImageMagick;
 	imageReader = new ImageReader;
 
@@ -239,6 +241,7 @@ MainWindow::MainWindow(QWidget *parent, bool verbose) : QMainWindow(parent) {
 	connect(slideshow, SIGNAL(blockFunc(bool)), this, SLOT(blockFunc(bool)));
 	connect(filehandling, SIGNAL(blockFunc(bool)), this, SLOT(blockFunc(bool)));
 	connect(exif->rotConf, SIGNAL(blockFunc(bool)), this, SLOT(blockFunc(bool)));
+	connect(wallpaper, SIGNAL(blockFunc(bool)), this, SLOT(blockFunc(bool)));
 
 	// The settings have been changed by the user
 	connect(set, SIGNAL(updateSettings(QMap<QString,QVariant>)), globSet, SLOT(settingsUpdated(QMap<QString,QVariant>)));
@@ -375,9 +378,9 @@ void MainWindow::adjustGeometries() {
 	startup->aniStart = fullscreenRectAni;
 	startup->rectShown = fullscreenRectShown;
 
-	wallpaper->kdeUnsupported->rectShown = fullscreenRectShown;
-	wallpaper->kdeUnsupported->rectHidden = fullscreenRectHidden;
-	wallpaper->kdeUnsupported->rectAni = fullscreenRectAni;
+	wallpaper->rectShown = fullscreenRectShown;
+	wallpaper->rectHidden = fullscreenRectHidden;
+	wallpaper->rectAni = fullscreenRectAni;
 
 	// And adjust the current geometries of all the widgets
 	if(set->isShown)
@@ -1945,6 +1948,12 @@ void MainWindow::systemShortcutDO(QString todo) {
 
 		}
 
+		if(wallpaper->isShown) {
+
+			if(todo == "Escape")
+				wallpaper->dontSetWallpaper();
+		}
+
 	// If functions are not blocked, then check if there's a user shortcut set for it
 	} else {
 
@@ -2085,6 +2094,8 @@ void MainWindow::updateSettings(QMap<QString, QVariant> settings) {
 	graphItem->transitionSetChange(globSet->transition);
 
 	slideshow->globSet = settings;
+
+	wallpaper->globSet = settings;
 
 	set->loadSettings();
 

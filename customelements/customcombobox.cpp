@@ -2,49 +2,51 @@
 
 CustomComboBox::CustomComboBox(QWidget *parent) : QComboBox(parent) {
 
-	QString css = "QComboBox {";
-		css += "border: 1px solid rgba(255,255,255,40);";
-		css += "border-radius: 0px;";
-		css += "min-width: 130px;";
-		css += "color: white;";
-	css += "}";
+	enabled = true;
+	fontsize = 9;
 
-	css += "QComboBox:on {";
-		css += "padding-top: 0px;";
-		css += "padding-left: 4px;";
-	css += "}";
+	borderColour = "rgba(255,255,255,40)";
+	borderWidth = 1;
 
-	css += "QComboBox QAbstractItemView {";
-		css += "border-radius: 0px;";
-		css += "color: white;";
-		css += "selection-background-color: white;";
-		css += "selection-color: black;";
-	css += "}";
-
-
-	css += "QComboBox::drop-down::down-arrow {";
-		css += "image: url(:/img/empty.png);";
-	css += "}";
-
-	css += "QComboBox::drop-down::down-arrow:on {";
-		css += "image: url(:/img/empty.png);";
-	css += "}";
-
-	this->setStyleSheet(css);
+	setCSS();
 
 }
 
-void CustomComboBox::setEnabled(bool enabled) {
+void CustomComboBox::setEnabled(bool e) {
+
+	enabled = e;
+
+	QComboBox::setEnabled(enabled);
+
+	setCSS();
+
+}
+
+void CustomComboBox::setFontSize(int fsize) {
+
+	fontsize = fsize;
+	setCSS();
+
+}
+
+void CustomComboBox::setBorder(int width, QString colour) {
+
+	borderWidth = width;
+	borderColour = colour;
+
+	setCSS();
+
+}
+
+void CustomComboBox::setCSS() {
 
 	QString css = "QComboBox {";
-		css += "border: 1px solid rgba(255,255,255,40);";
+	css += QString("border: %1px solid %2;").arg(borderWidth).arg(borderColour);
 		css += "background-color: rgb(0,0,0);";
 		css += "border-radius: 0px;";
 		css += "min-width: 130px;";
-		if(enabled)
-			css += "color: white;";
-		else
-			css += "color: grey;";
+		css += QString("font-size: %1pt;").arg(fontsize);
+		css += "color: " + QString(enabled ? "white" : "grey") + ";";
 	css += "}";
 
 	css += "QComboBox:on {";
@@ -54,10 +56,8 @@ void CustomComboBox::setEnabled(bool enabled) {
 
 	css += "QComboBox QAbstractItemView {";
 		css += "border-radius: 0px;";
-		if(enabled)
-			css += "color: white;";
-		else
-			css += "color: grey;";
+		css += "background-color: black;";
+		css += "color: " + QString(enabled ? "white" : "grey") + ";";
 		css += "selection-background-color: white;";
 		css += "selection-color: black;";
 	css += "}";
@@ -72,8 +72,6 @@ void CustomComboBox::setEnabled(bool enabled) {
 	css += "}";
 
 	this->setStyleSheet(css);
-
-	QComboBox::setEnabled(enabled);
 
 }
 

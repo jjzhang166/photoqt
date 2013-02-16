@@ -21,9 +21,6 @@ class About : public QWidget {
 public:
 	About(QWidget *parent = 0);
 
-	// The animation for the content widget
-	QPropertyAnimation *ani;
-
 	// Boolean about current geometry/position
 	bool isShown;
 
@@ -32,25 +29,33 @@ public:
 	QRect rectHidden;
 	QRect rectAni;
 
-	// The fade parameters for the background
-	int backAlphaShow;
-	int backAlphaCur;
-	QTimeLine *fadeBack;
-	bool fadeBackIN;
-
 	// The central widget
 	QWidget *center;
 
 	// A button to close the widget
 	CustomPushButton *close;
 
+	void setLicense(QString version);
+
+
+private:
+	// The animation for the content widget
+	QPropertyAnimation *ani;
+
+	// The fade parameters for the background
+	int backAlphaShow;
+	int backAlphaCur;
+	QTimeLine *fadeBack;
+	bool fadeBackIN;
+
 	// The license at top
 	QLabel *license;
-	void setLicense(QString version);
 
 public slots:
 	// The animation functions
 	void animate();
+
+private slots:
 	void aniFinished();
 
 	// Each fade step calls this function

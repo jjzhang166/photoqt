@@ -10,6 +10,18 @@ public:
 	explicit CustomComboBox(QWidget *parent = 0);
 	~CustomComboBox();
 
+	void setFontSize(int fsize);
+	void setBorder(int width, QString colour);
+
+private:
+	int fontsize;
+	bool enabled;
+
+	int borderWidth;
+	QString borderColour;
+
+	void setCSS();
+
 public slots:
 	// When disabled, we need to adjust some colors to make it visible
 	void setEnabled(bool);

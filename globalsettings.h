@@ -21,36 +21,99 @@ public:
 	QStringList setDefaultFormats() {
 
 		QStringList formats;
+
+		// PFS: 1st Publisher
 		formats << ".art";
+
+		//AVS X image
 		formats << ".avs";
+
+		// Microsoft Windows bitmap
 		formats << ".bmp";
+
+		// Continuous Acquisition and Life-cycle Support Type 1 image
 		formats << ".cals";
+
+		// Computer Graphics Metafile
 		formats << ".cgm";
+
+		// Raw cyan, magenta, yellow, and black samples
 //		formats << ".cmyk";	*** not working yet
-//		formats << ".cur";	*** conversion failed
-//		formats << ".cut";	*** conversion failed
-//		formats << ".dcm";	*** conversion failed
+
+		// Microsoft Cursor Icon
+		formats << ".cur";	// *** UNTESTED, should work
+
+		// DR Halo
+		formats << ".cut";
+
+		// Digital Imaging and Communications in Medicine (DICOM) image
+//		formats << ".acr";
+//		formats << ".dcm";
+//		formats << ".dicom";	// *** not working yet ("Unexpected end-of-file")
+//		formats << ".dic";
+
+		// ZSoft IBM PC multi-page Paintbrush image
 		formats << ".dcx";
+
+		// Microsoft Windows Device Independent Bitmap
 		formats << ".dib";
+
+		// Digital Moving Picture Exchange
 		formats << ".dpx";
+
+		// Microsoft Enhanced Metafile (32-bit)
 		formats << ".emf";
+
+		// Encapsulated Portable Document Format
 		formats << ".epdf";
+
+		// Adobe Encapsulated PostScript Interchange format
 		formats << ".epi";
+
+		// Adobe Encapsulated PostScript
 		formats << ".eps";
+
+		// Adobe Level II Encapsulated PostScript
 		formats << ".eps2";
+
+		// Adobe Level III Encapsulated PostScript
 		formats << ".eps3";
+
+		// Adobe Encapsulated PostScript
 		formats << ".epsf";
+
+		// Adobe Encapsulated PostScript Interchange format
 		formats << ".epsi";
+
+		// Adobe Encapsulated PostScript Interchange format with TIFF preview
 		formats << ".ept";
+
+		// Group 3 FAX
 		formats << ".fax";
+
+		// FIG graphics format
 		formats << ".fig";
+
+		// Flexible Image Transport System
 		formats << ".fits";
+
+		// FlashPix Format
 		formats << ".fpx";
+
+		// CompuServe Graphics Interchange Format
 		formats << ".gif";
+
+		// Gnuplot plot files
 		formats << ".gplt";
+
+		// Raw gray samples
 //		formats << ".gray";	*** not working yet
-		formats << ".hpgl";
-//		formats << ".ico";	*** conversion failed
+
+		// HP-GL plotter language
+//		formats << ".hpgl";	** requires hp2xx
+
+		// Microsoft icon
+//		formats << ".ico";	*** not working yet (Improper Image Header)
 		formats << ".jbig";
 		formats << ".jng";
 		formats << ".jp2";
@@ -82,7 +145,7 @@ public:
 		formats << ".pgm";
 		formats << ".picon";
 		formats << ".pict";
-//		formats << ".pix";	*** conversion failed
+		formats << ".pix";
 		formats << ".png";
 		formats << ".pnm";
 		formats << ".ppm";
@@ -102,7 +165,7 @@ public:
 //		formats << ".sfw";	*** conversion failed
 		formats << ".sgi";
 		formats << ".sun";
-//		formats << ".svg";	*** conversion failed
+//		formats << ".svg";	// not working yet
 		formats << ".tga";
 		formats << ".tif";
 		formats << ".tiff";
@@ -245,6 +308,9 @@ public:
 	QString slideShowMusicFile;
 	bool slideShowHideQuickinfo;
 
+	QString wallpaperAlignment;
+	QString wallpaperScale;
+
 	// The Size of the thumbnail squares
 	int thumbnailsize;
 	// Thumbnails at the bottom or top?
@@ -348,6 +414,9 @@ public:
 		map.insert("SlideShowMusicFile",slideShowMusicFile);
 		map.insert("SlideShowHideQuickinfo",slideShowHideQuickinfo);
 
+		map.insert("WallpaperAlignment",wallpaperAlignment);
+		map.insert("WallpaperScale",wallpaperScale);
+
 		map.insert("ExifEnableMouseTriggering",exifenablemousetriggering);
 		map.insert("ExifFontSize",exiffontsize);
 		map.insert("ExifFilename",exiffilename);
@@ -424,6 +493,9 @@ public:
 		slideShowTransition = 4;
 		slideShowMusicFile = "";
 		slideShowHideQuickinfo = true;
+
+		wallpaperAlignment = "center";
+		wallpaperScale = "noscale";
 
 
 		exifenablemousetriggering = true;
@@ -619,6 +691,11 @@ public:
 			if(all.contains("SlideShowHideQuickinfo="))
 				slideShowHideQuickinfo = bool(all.split("SlideShowHideQuickinfo=").at(1).split("\n").at(0).toInt());
 
+			if(all.contains("WallpaperAlignment="))
+				wallpaperAlignment =  all.split("WallpaperAlignment=").at(1).split("\n").at(0);
+			if(all.contains("WallpaperScale="))
+				wallpaperScale = all.split("WallpaperScale=").at(1).split("\n").at(0);
+
 
 			if(all.contains("ExifEnableMouseTriggering=1"))
 				exifenablemousetriggering = true;
@@ -795,6 +872,11 @@ public:
 			cont += QString("SlideShowTransition=%1\n").arg(slideShowTransition);
 			cont += QString("SlideShowMusicFile=%1\n").arg(slideShowMusicFile);
 			cont += QString("SlideShowHideQuickinfo=%1\n").arg(int(slideShowHideQuickinfo));
+
+			cont += "\n[Wallpaper]\n";
+
+			cont += QString("WallpaperAlignment=%1\n").arg(wallpaperAlignment);
+			cont += QString("WallpaperScale=%1\n").arg((wallpaperScale));
 
 			cont += "\n[Exif]\n";
 
@@ -993,6 +1075,15 @@ public slots:
 
 		if(changedSet.keys().contains("SlideShowHideQuickinfo"))
 			slideShowHideQuickinfo = changedSet.value("SlideShowHideQuickinfo").toBool();
+
+
+
+		if(changedSet.keys().contains("WallpaperAlignment"))
+			wallpaperAlignment = changedSet.value("WallpaperAlignment").toString();
+
+		if(changedSet.keys().contains("WallpaperScale"))
+			wallpaperScale = changedSet.value("WallpaperScale").toString();
+
 
 
 		if(changedSet.keys().contains("ExifEnableMouseTriggering")) {

@@ -16,7 +16,7 @@
 #include "slideshow/slideshowsettings.h"
 #include "slideshow/slideshowbar.h"
 #include "widgets/startupwidget.h"
-#include "widgets/wallpaper.h"
+#include "wallpaper/wallpaper.h"
 #include "imagereader.h"
 
 #include <QApplication>

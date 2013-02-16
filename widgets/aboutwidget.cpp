@@ -35,7 +35,7 @@ About::About(QWidget *parent) : QWidget(parent) {
 	central->setMargin(10);
 	QScrollArea *scroll = new QScrollArea(this);
 	scroll->setObjectName("scrollWidget");
-	scroll->setStyleSheet("QWidget#scrollWidget { background: transparent;border-bottom: 3px solid black; padding-bottom: 3px; border-radius: 0px; }");
+	scroll->setStyleSheet("QWidget#scrollWidget { background: transparent;border-bottom: 1px solid white; padding-bottom: 3px; border-radius: 0px; }");
 	QWidget *scrollWidget = new QWidget(scroll->widget());
 	scrollWidget->setStyleSheet("background: transparent;");
 	scroll->setWidgetResizable(true);

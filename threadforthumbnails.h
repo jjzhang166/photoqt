@@ -125,14 +125,16 @@ protected:
 					if((createThisOne <= currentPos && rightNextThb < counttot) || leftNextThb < 0) {
 						createThisOne = rightNextThb;
 						++rightNextThb;
-						if(leftNextThb < 0)
+						if(leftNextThb < 0 && numberThbs != counttot)
 							++amountCreated;
+						qDebug() << "RIGHT THB";
 					// Next thumbnail to the left
 					} else if((createThisOne >= currentPos && leftNextThb >= 0) || rightNextThb >= counttot) {
 						createThisOne = leftNextThb;
 						--leftNextThb;
-						if(rightNextThb >= counttot)
+						if(rightNextThb >= counttot && numberThbs != counttot)
 							++amountCreated;
+						qDebug() << "LEFT THB";
 					}
 
 				}
