@@ -4,6 +4,8 @@ Settings::Settings(QWidget *parent, QMap<QString, QVariant> glob, bool v) : QWid
 
 	verbose = v;
 
+	tabsSetup = false;
+
 	// the settings and shortcuts
 	globSet = glob;
 	sh = new Shortcuts;
@@ -21,62 +23,62 @@ Settings::Settings(QWidget *parent, QMap<QString, QVariant> glob, bool v) : QWid
 	// The tab widget
 	tabs = new QTabWidget;
 
-	// All the tabs
-	tabOther = new SettingsTabOther(this,globSet,verbose);
-	tabLookFeel = new SettingsTabLookAndFeel(this,globSet,verbose);
-	tabThumb = new SettingsTabThumbnail(this,globSet,verbose);
-	tabExif = new SettingsTabExif(this,globSet,verbose);
-	tabShortcuts = new SettingsTabShortcuts(this,verbose);
-	tabShortcuts->allKeyShortcuts = sh->allKeyShortcuts;
-	tabShortcuts->allMouseShortcuts = sh->allMouseShortcuts;
-	tabShortcuts->loadUserSetShortcuts();
+//	// All the tabs
+//	tabOther = new SettingsTabOther(this,globSet,verbose);
+//	tabLookFeel = new SettingsTabLookAndFeel(this,globSet,verbose);
+//	tabThumb = new SettingsTabThumbnail(this,globSet,verbose);
+//	tabExif = new SettingsTabExif(this,globSet,verbose);
+//	tabShortcuts = new SettingsTabShortcuts(this,verbose);
+//	tabShortcuts->allKeyShortcuts = sh->allKeyShortcuts;
+//	tabShortcuts->allMouseShortcuts = sh->allMouseShortcuts;
+//	tabShortcuts->loadUserSetShortcuts();
 
-	// Add the tabs
-	tabs->addTab(tabLookFeel, QIcon(), tr("Look and Feel"));
-	tabs->addTab(tabThumb, QIcon(), tr("Thumbnails"));
-	tabs->addTab(tabExif, QIcon(), tr("Exif"));
-	tabs->addTab(tabOther, QIcon(), tr("Other Settings"));
-	tabs->addTab(tabShortcuts, QIcon(), tr("Shortcuts"));
-	connect(tabs, SIGNAL(currentChanged(int)), this, SLOT(tabChanged()));
+//	// Add the tabs
+//	tabs->addTab(tabLookFeel, QIcon(), tr("Look and Feel"));
+//	tabs->addTab(tabThumb, QIcon(), tr("Thumbnails"));
+//	tabs->addTab(tabExif, QIcon(), tr("Exif"));
+//	tabs->addTab(tabOther, QIcon(), tr("Other Settings"));
+//	tabs->addTab(tabShortcuts, QIcon(), tr("Shortcuts"));
+//	connect(tabs, SIGNAL(currentChanged(int)), this, SLOT(tabChanged()));
 
-	// The cursor changes over the tabbar
-	QList<QTabBar *> tabBar = tabs->findChildren<QTabBar *>();
-	tabBar.at(0)->setCursor(Qt::PointingHandCursor);
+//	// The cursor changes over the tabbar
+//	QList<QTabBar *> tabBar = tabs->findChildren<QTabBar *>();
+//	tabBar.at(0)->setCursor(Qt::PointingHandCursor);
 
 	QVBoxLayout *layout = new QVBoxLayout;
 	this->setLayout(layout);
 	layout->addWidget(tabs);
 
-	// the tabwidget is majorly styled
-	QString css = "QTabWidget::pane {";
-		css += "border-bottom: 4px double black;";
-		css += "padding: 10px;";
-		css += "padding-top: 20px;";
-	css += "}";
-	css += "QTabBar::tab {";
-		css += "background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #b4b4b4, stop: 1 #080808);";
-		css += "border: 2px solid transparent;";
-		css += "font-weight: bold;";
-		css += "border-bottom-left-radius: 10px;";
-		css += "border-bottom-right-radius: 10px;";
-		css += "min-width: 25ex;";
-		css += "padding: 5px;";
-	css += "}";
-	css += "QTabBar::tab:selected, QTabBar::tab:hover {";
-		css += "background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #ffffff, stop: 1 #a8a8a8);";
-	css += "}";
-	css += "QTabBar::tab:selected {";
-		css += "border-bottom-left-radius: 10px;";
-		css += "border-bottom-right-radius: 10px;";
-	css += "}";
-	css += "QTabWidget::tab-bar {";
-		css += "alignment: center;";
-	css += "}";
-	css += "QTabWidget::pane {";
-		css += "position: absolute;";
-		css += "top: -0.5em;";
-	css += "}";
-	tabs->setStyleSheet(css);
+//	// the tabwidget is majorly styled
+//	QString css = "QTabWidget::pane {";
+//		css += "border-bottom: 4px double black;";
+//		css += "padding: 10px;";
+//		css += "padding-top: 20px;";
+//	css += "}";
+//	css += "QTabBar::tab {";
+//		css += "background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #b4b4b4, stop: 1 #080808);";
+//		css += "border: 2px solid transparent;";
+//		css += "font-weight: bold;";
+//		css += "border-bottom-left-radius: 10px;";
+//		css += "border-bottom-right-radius: 10px;";
+//		css += "min-width: 25ex;";
+//		css += "padding: 5px;";
+//	css += "}";
+//	css += "QTabBar::tab:selected, QTabBar::tab:hover {";
+//		css += "background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #ffffff, stop: 1 #a8a8a8);";
+//	css += "}";
+//	css += "QTabBar::tab:selected {";
+//		css += "border-bottom-left-radius: 10px;";
+//		css += "border-bottom-right-radius: 10px;";
+//	css += "}";
+//	css += "QTabWidget::tab-bar {";
+//		css += "alignment: center;";
+//	css += "}";
+//	css += "QTabWidget::pane {";
+//		css += "position: absolute;";
+//		css += "top: -0.5em;";
+//	css += "}";
+//	tabs->setStyleSheet(css);
 
 	// Some buttons
 	CustomPushButton *setDefault = new CustomPushButton(tr("Restore Default Settings"));
@@ -104,10 +106,175 @@ Settings::Settings(QWidget *parent, QMap<QString, QVariant> glob, bool v) : QWid
 
 	connect(ani, SIGNAL(finished()), this, SLOT(aniFinished()));
 
-	connect(tabShortcuts, SIGNAL(setDefaultShortcuts()), this, SLOT(restoreDefaultShortcuts()));
-
 	// Load the settings
-	loadSettings();
+//	loadSettings();
+
+}
+
+void Settings::setupTabs() {
+
+	if(!tabsSetup) {
+
+		qApp->setOverrideCursor(Qt::WaitCursor);
+
+		tabsSetup = true;
+
+		// The tab widget
+//		tabs = new QTabWidget;
+
+		// All the tabs
+		tabOther = new SettingsTabOther(this,globSet,verbose);
+		tabLookFeel = new SettingsTabLookAndFeel(this,globSet,verbose);
+		tabThumb = new SettingsTabThumbnail(this,globSet,verbose);
+		tabExif = new SettingsTabExif(this,globSet,verbose);
+		tabShortcuts = new SettingsTabShortcuts(this,verbose);
+		tabShortcuts->allKeyShortcuts = sh->allKeyShortcuts;
+		tabShortcuts->allMouseShortcuts = sh->allMouseShortcuts;
+		tabShortcuts->loadUserSetShortcuts();
+
+		// Add the tabs
+		tabs->addTab(tabLookFeel, QIcon(), tr("Look and Feel"));
+		tabs->addTab(tabThumb, QIcon(), tr("Thumbnails"));
+		tabs->addTab(tabExif, QIcon(), tr("Exif"));
+		tabs->addTab(tabOther, QIcon(), tr("Other Settings"));
+		tabs->addTab(tabShortcuts, QIcon(), tr("Shortcuts"));
+		connect(tabs, SIGNAL(currentChanged(int)), this, SLOT(tabChanged()));
+
+		tabLookFeel->globSet = globSet;
+		tabThumb->globSet = globSet;
+		tabExif->globSet = globSet;
+		tabOther->globSet = globSet;
+
+		// The cursor changes over the tabbar
+		QList<QTabBar *> tabBar = tabs->findChildren<QTabBar *>();
+		tabBar.at(0)->setCursor(Qt::PointingHandCursor);
+
+//		QVBoxLayout *layout = new QVBoxLayout;
+//		this->setLayout(layout);
+//		layout->addWidget(tabs);
+
+		// the tabwidget is majorly styled
+		QString css = "QTabWidget::pane {";
+		css += "border-bottom: 4px double black;";
+		css += "padding: 10px;";
+		css += "padding-top: 20px;";
+		css += "}";
+		css += "QTabBar::tab {";
+		css += "background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #b4b4b4, stop: 1 #080808);";
+		css += "border: 2px solid transparent;";
+		css += "font-weight: bold;";
+		css += "border-bottom-left-radius: 10px;";
+		css += "border-bottom-right-radius: 10px;";
+		css += "min-width: 25ex;";
+		css += "padding: 5px;";
+		css += "}";
+		css += "QTabBar::tab:selected, QTabBar::tab:hover {";
+		css += "background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #ffffff, stop: 1 #a8a8a8);";
+		css += "}";
+		css += "QTabBar::tab:selected {";
+		css += "border-bottom-left-radius: 10px;";
+		css += "border-bottom-right-radius: 10px;";
+		css += "}";
+		css += "QTabWidget::tab-bar {";
+		css += "alignment: center;";
+		css += "}";
+		css += "QTabWidget::pane {";
+		css += "position: absolute;";
+		css += "top: -0.5em;";
+		css += "}";
+		tabs->setStyleSheet(css);
+
+		connect(tabShortcuts, SIGNAL(setDefaultShortcuts()), this, SLOT(restoreDefaultShortcuts()));
+
+
+		restoreDefaultConfirm->rectShown = rectShown;
+		restoreDefaultConfirm->rectHidden = rectHidden;
+		restoreDefaultConfirm->rectAni = aniStart;
+
+		tabShortcuts->detect->rectShown = rectShown;
+		tabShortcuts->detect->rectHidden = rectHidden;
+		tabShortcuts->detect->rectAni = aniStart;
+
+		tabShortcuts->setDefaultConfirm->rectShown = rectShown;
+		tabShortcuts->setDefaultConfirm->rectHidden = rectHidden;
+		tabShortcuts->setDefaultConfirm->rectAni = aniStart;
+
+		tabShortcuts->changeCommand->rectShown = rectShown;
+		tabShortcuts->changeCommand->rectHidden = rectHidden;
+		tabShortcuts->changeCommand->rectAni = aniStart;
+
+		tabThumb->confirmClean->rectShown = rectShown;
+		tabThumb->confirmClean->rectHidden = rectHidden;
+		tabThumb->confirmClean->rectAni = aniStart;
+
+		tabThumb->confirmErase->rectShown = rectShown;
+		tabThumb->confirmErase->rectHidden = rectHidden;
+		tabThumb->confirmErase->rectAni = aniStart;
+
+
+		loadSettings();
+
+		qApp->restoreOverrideCursor();
+
+
+	}
+
+}
+
+void Settings::makeHide() {
+
+	if(isShown) animate();
+
+}
+
+void Settings::makeShow() {
+
+	if(!isShown) animate();
+
+	if(!tabsSetup) setupTabs();
+
+}
+
+void Settings::setRect(QRect rect) {
+
+	QRect hidden(0,-10,10,10);
+	QRect anim(rect.width()/2.0,rect.height()/2.0,1,1);
+
+	rectShown = rect;
+	rectHidden = hidden;
+	aniStart = anim;
+
+
+	if(tabsSetup) {
+
+		restoreDefaultConfirm->rectShown = rect;
+		restoreDefaultConfirm->rectHidden = hidden;
+		restoreDefaultConfirm->rectAni = anim;
+
+		tabShortcuts->detect->rectShown = rect;
+		tabShortcuts->detect->rectHidden = hidden;
+		tabShortcuts->detect->rectAni = anim;
+
+		tabShortcuts->setDefaultConfirm->rectShown = rect;
+		tabShortcuts->setDefaultConfirm->rectHidden = hidden;
+		tabShortcuts->setDefaultConfirm->rectAni = anim;
+
+		tabShortcuts->changeCommand->rectShown = rect;
+		tabShortcuts->changeCommand->rectHidden = hidden;
+		tabShortcuts->changeCommand->rectAni = anim;
+
+		tabThumb->confirmClean->rectShown = rect;
+		tabThumb->confirmClean->rectHidden = hidden;
+		tabThumb->confirmClean->rectAni = anim;
+
+		tabThumb->confirmErase->rectShown = rect;
+		tabThumb->confirmErase->rectHidden = hidden;
+		tabThumb->confirmErase->rectAni = anim;
+
+	}
+
+	if(isShown) this->setGeometry(rectShown);
+	else this->setGeometry(rectHidden);
 
 }
 
@@ -198,6 +365,8 @@ void Settings::saveSettings() {
 
 // When the animation has finished
 void Settings::aniFinished() {
+
+	qDebug() << "ANI FINISHED:" << isShown;
 
 	tabs->setCurrentIndex(0);
 

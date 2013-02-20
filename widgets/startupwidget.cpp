@@ -121,6 +121,30 @@ void StartUpWidget::setInstallMsg() {
 }
 
 
+void StartUpWidget::makeShow() {
+
+	if(!isShown) animate();
+
+}
+
+void StartUpWidget::makeHide() {
+
+	if(isShown) animate();
+
+}
+
+void StartUpWidget::setRect(QRect rect) {
+
+	rectShown = rect;
+	rectHidden = QRect(0,-10,10,10);
+	aniStart = QRect(rect.width()/2.0,rect.height()/2.0,1,1);
+
+	if(isShown) this->setGeometry(rectShown);
+	else this->setGeometry(rectHidden);
+
+}
+
+
 // the animation function
 void StartUpWidget::animate() {
 

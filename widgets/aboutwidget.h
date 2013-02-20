@@ -21,6 +21,21 @@ class About : public QWidget {
 public:
 	About(QWidget *parent = 0);
 
+	void setLicense(QString version);
+
+	void makeHide();
+	void makeShow();
+	bool isVisible() { return isShown; }
+	void setRect(QRect rect);
+
+
+private:
+	// The central widget
+	QWidget *center;
+
+	// A button to close the widget
+	CustomPushButton *close;
+
 	// Boolean about current geometry/position
 	bool isShown;
 
@@ -29,16 +44,6 @@ public:
 	QRect rectHidden;
 	QRect rectAni;
 
-	// The central widget
-	QWidget *center;
-
-	// A button to close the widget
-	CustomPushButton *close;
-
-	void setLicense(QString version);
-
-
-private:
 	// The animation for the content widget
 	QPropertyAnimation *ani;
 
@@ -51,11 +56,9 @@ private:
 	// The license at top
 	QLabel *license;
 
-public slots:
+private slots:
 	// The animation functions
 	void animate();
-
-private slots:
 	void aniFinished();
 
 	// Each fade step calls this function

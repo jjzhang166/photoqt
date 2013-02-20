@@ -48,6 +48,31 @@ public:
 	// Global Settings
 	QMap<QString,QVariant> globSet;
 
+	// The "stay open" state and button
+	CustomCheckBox *stay;
+
+	bool isVisible() { return isShown; }
+	void makeHide();
+	void makeShow();
+
+	void setRect(QRect rect);
+	void updateFontsize();
+
+	CustomConfirm *rotConf;
+
+
+
+private:
+	// This boolean stores if the widget is shown or hidden
+	bool isShown;
+
+	// The blocking boolean
+	bool blockAll;
+
+	// The two rects for the two states (hidden/shown)
+	QRect rectShown;
+	QRect rectHidden;
+
 	// The main layout of the widget
 	QVBoxLayout *central;
 
@@ -60,19 +85,6 @@ public:
 
 	// The animation class
 	QPropertyAnimation *ani;
-
-	// This boolean stores if the widget is shown or hidden
-	bool isShown;
-
-	// The two rects for the two states (hidden/shown)
-	QRect rectShown;
-	QRect rectHidden;
-
-	// The "stay open" state and button
-	CustomCheckBox *stay;
-
-	// The blocking boolean
-	bool blockAll;
 
 	// All the label data for displaying and detecting data
 	QMap<QString,QString> keyVal;
@@ -98,16 +110,16 @@ public:
 	// Rotation/Flipping values
 	int rotationDeg;
 	bool flipHor;
-	CustomConfirm *rotConf;
 
 	// Fontsize can be adjusted
 	QString labelCSS;
 	QString labelCSSfontsize;
-	void updateFontsize();
 
 public slots:
 	// Update the label data
 	void updateData(QString currentfile, QSize origSize, bool exiv2Supported = true);
+
+private slots:
 
 	// Animate open/close the widget
 	void animate();

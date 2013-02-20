@@ -97,6 +97,17 @@ CustomConfirm::CustomConfirm(QString title, QString text, QString yesText, QStri
 
 }
 
+void CustomConfirm::setRect(QRect rect) {
+
+	rectShown = rect;
+	rectHidden = QRect(0,-10,10,10);
+	rectAni = QRect(rect.width()/2.0,rect.height()/2.0,1,1);
+
+	if(isShown) this->setGeometry(rectShown);
+	else this->setGeometry(rectHidden);
+
+}
+
 // The animation function
 void CustomConfirm::animate() {
 

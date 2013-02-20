@@ -4,7 +4,7 @@
 #include "../customelements/customscrollbar.h"
 #include "thumbnailpixmapitem.h"
 #include "thumbnailview.h"
-#include "../threadforthumbnails.h"
+#include "threadforthumbnails.h"
 
 #include <QGraphicsView>
 #include <QVariant>
@@ -36,21 +36,50 @@ public:
 	// The Graphicsview
 	ThumbnailView *view;
 
+	// Load the current directory
+	void loadDir();
+
 	// The current filepath
 	QString currentfile;
 
 	// The total amount of images
 	int counttot;
-
 	// the current position in folder
 	int countpos;
+
+	// Disable thumbnails
+	bool noThumbs;
 
 	// Some lists containing info about items in directory
 	QFileInfoList allImgsInfo;
 	QStringList allImgsPath;
 
-	// The animation instances
+	QList<ThumbnailPixmapItem *> allPixmaps;
+
+	bool thumbLoadedThroughClick;
+
+	// Called from mainwindow.cpp drawImg(), after ensuring visibility of thumbnail
+	void startThread();
+	bool newlyLoadedDir;
+
+	// Update which item in the thumbnail view is hovered
+	void updateThbViewHoverNormPix(QString oldpath, QString newpath);
+
+	void setRect(QRect rect);
+	void makeShow();
+	void makeHide();
+
+	bool isVisible() { return isShown; }
+
+
+
+	void ensureThumbLoad();
+
+private:
+
 	bool isShown;
+
+	// The animation instances
 	QPropertyAnimation *ani;
 
 	// The geometries of the view
@@ -59,34 +88,22 @@ public:
 
 	// The thumbnail thread and a list for all the pixmaps
 	ThumbThread *thumbThread;
-	QList<ThumbnailPixmapItem *> allPixmaps;
-
-	// Update which item in the thumbnail view is hovered
-	void updateThbViewHoverNormPix(QString oldpath, QString newpath);
-
-	// Load the current directory
-	void loadDir();
-
-	// Disable thumbnails
-	bool noThumbs;
-
-	bool thumbLoadedThroughClick;
-
-	// Called from mainwindow.cpp drawImg(), after ensuring visibility of thumbnail
-	void startThread();
-	bool newlyLoadedDir;
-
-
 
 	bool animateInAndOut;
 
 public slots:
+	// Stop the creation of thumbnails
+	void stopThbCreation();
+
+	// Jump to beginning/end of list
+	void gotoFirstLast(QString side);
+
+	void scrolledView(bool forceUpdate = false);
+
+private slots:
 	// Animate the widget
 	void animate();
 	void aniFinished();
-
-	// Stop the creation of thumbnails
-	void stopThbCreation();
 
 	// got a click on an item
 	void gotClick(QString path);
@@ -94,12 +111,8 @@ public slots:
 	// Update a thumbnail
 	void updateThumb(QImage img,QString path, int pos);
 
-	// Jump to beginning/end of list
-	void gotoFirstLast(QString side);
 
-	void scrolledView(bool forceUpdate = false);
-
-private:
+protected:
 	void paintEvent(QPaintEvent *);
 
 signals:

@@ -34,6 +34,16 @@ public:
 	DropDownMenu(QWidget *parent = 0);
 	~DropDownMenu();
 
+	void setRect(QRect rect);
+
+	void setSensitivity(int xSens, int ySens);
+
+	void makeShow();
+	void makeHide();
+	bool isVisible() { return isShown; }
+
+
+private:
 	// We use Qt's property animation feature
 	QPropertyAnimation *ani;
 

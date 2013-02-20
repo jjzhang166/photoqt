@@ -30,6 +30,26 @@ public:
 	// All the global settings
 	QMap<QString,QVariant> globSet;
 
+	void makeShow();
+	void makeHide();
+	bool isVisible() { return isShown; }
+	bool isEnabled() { return enabled; }
+	void setWidth(int w);
+	void setEnabled(bool e) { enabled = e; }
+
+	// The timer to load the next image
+	QTimer *nextImg;
+
+	// Exiting the slideshow
+	CustomPushButton *cancel;
+
+	// At the start and end of a slideshow, the bar is shortly sliding in and out again (after a very short delay)
+	bool animateInAndOut;
+
+	QString musicFile;
+
+private:
+
 	// The animation framework
 	QPropertyAnimation *ani;
 
@@ -43,16 +63,9 @@ public:
 	// Is a slideshow running?
 	bool enabled;
 
-	// At the start and end of a slideshow, the bar is shortly sliding in and out again (after a very short delay)
-	bool animateInAndOut;
-
 	// The Phonon Objects for the possibly set music file
 	Phonon::AudioOutput *audio;
 	Phonon::MediaObject *media;
-	QString musicFile;
-
-	// The timer to load the next image
-	QTimer *nextImg;
 
 	// A button to play/pause the slideshow
 	CustomPushButton *playPause;
@@ -60,9 +73,6 @@ public:
 	// Adjusting the volume
 	Phonon::VolumeSlider *volume;
 	QLabel *volumeLabel;
-
-	// Exiting the slideshow
-	CustomPushButton *cancel;
 
 public slots:
 	// Animation functions

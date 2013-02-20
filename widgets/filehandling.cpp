@@ -1,7 +1,7 @@
 #include "filehandling.h"
 #include <unistd.h>
 
-FileHandling::FileHandling(QWidget *parent, bool v) : QWidget(parent) {
+FileHandling::FileHandling(QWidget *parent, bool v, QString cf) : QWidget(parent) {
 
 	verbose = v;
 
@@ -18,7 +18,7 @@ FileHandling::FileHandling(QWidget *parent, bool v) : QWidget(parent) {
 	this->setStyleSheet(QString("background: rgba(0,0,0,%1);").arg(backAlphaShow));
 
 	// Some variables
-	currentfile = "";
+	currentfile = cf;
 	fadeBack = new QTimeLine;
 	fadeBack->setLoopCount(5);
 	backAlphaShow = 130;
@@ -371,6 +371,30 @@ void FileHandling::openDialog(QString t) {
 
 }
 
+void FileHandling::makeHide() {
+
+	if(isShown) animate();
+
+}
+
+void FileHandling::makeShow() {
+
+	if(!isShown) animate();
+
+}
+
+void FileHandling::setRect(QRect rect) {
+
+	rectHidden = QRect(0,-10,10,10);
+	rectAni = QRect(rect.width()/2.0,rect.height()/2.0,1,1);
+	rectShown = rect;
+
+	if(isShown) this->setGeometry(rectShown);
+	else this->setGeometry(rectHidden);
+
+}
+
+
 // The animation function
 void FileHandling::animate() {
 
@@ -382,6 +406,8 @@ void FileHandling::animate() {
 		shown = QRect((rectShown.width()-600)/2,(rectShown.height()-500)/2,600,500);
 	else
 		shown = QRect((rectShown.width()-600)/2,(rectShown.height()-300)/2,600,300);
+
+	qDebug() << "FH:" << isShown << "-" << shown;
 
 	// Open widget
 	if(ani->state() == QPropertyAnimation::Stopped && !isShown) {
@@ -488,6 +514,8 @@ void FileHandling::setRename() {
 	renameNewName->selectAll();
 	renameOldEnding->setText("." + QFileInfo(currentfile).completeSuffix());
 
+	ani->stop();
+
 	// Adjust target of animation
 	ani->setTargetObject(renameWidget);
 
@@ -503,6 +531,8 @@ void FileHandling::setDelete() {
 
 	// Update old filename
 	deleteFilename->setText("<center>" + QFileInfo(currentfile).fileName() + "</center>");
+
+	ani->stop();
 
 	// Adjust target of animation
 	ani->setTargetObject(deleteWidget);
@@ -525,6 +555,8 @@ void FileHandling::setCopy() {
 	copyNewName->setEnabled(true);
 	copyNewName->selectAll();
 
+	ani->stop();
+
 	ani->setTargetObject(copyWidget);
 
 	validateMoveAndCopyFilename();
@@ -546,6 +578,8 @@ void FileHandling::setMove() {
 
 	moveNewName->setEnabled(true);
 	moveNewName->selectAll();
+
+	ani->stop();
 
 	ani->setTargetObject(moveWidget);
 

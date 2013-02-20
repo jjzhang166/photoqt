@@ -2,9 +2,6 @@
 
 MainWindow::MainWindow(QWidget *parent, bool verbose) : QMainWindow(parent) {
 
-	// Needed to catch the Alt+F4. In fact we only catch Alt+closeEvent (see eventFilter())
-	this->installEventFilter(this);
-
 	// Make a screenshot
 	screenshot = QPixmap::grabWindow(QApplication::desktop()->winId());
 
@@ -22,6 +19,12 @@ MainWindow::MainWindow(QWidget *parent, bool verbose) : QMainWindow(parent) {
 	globSet = new GlobalSettings;
 	globSet->verbose = verbose;
 	globSet->readSettings();
+	// Connect some globSet signals
+	connect(globSet, SIGNAL(updateSettingsData(QMap<QString,QVariant>)), this, SLOT(updateSettings(QMap<QString,QVariant>)));
+	connect(globSet, SIGNAL(updateSettingsToApply(QMap<QString,bool>)), this, SLOT(applySettings(QMap<QString,bool>)));
+
+	// Instance for which widgets have been set up
+	setupWidgets = new SetupWidgets;
 
 	// Central Widget
 	QWidget *central = new QWidget;
@@ -37,80 +40,57 @@ MainWindow::MainWindow(QWidget *parent, bool verbose) : QMainWindow(parent) {
 	centralLayout->setMargin(0);
 	bglabel->setLayout(centralLayout);
 
-	// The Item holding the big pixmap item
-	graphItem = new GraphicsItem;
-	sceneBig.addItem(graphItem);
 
-	// The two GraphicViews
+	// The main GraphicViews
 	viewBig = new GraphicsView(globSet->toSignalOut(),bglabel);
-	viewBig->setAlignment(Qt::AlignTop);
-	viewThumbs = new Thumbnails(viewBig,globSet->verbose,globSet->toSignalOut());
-
-	// This widget is the front widget
-	viewBig->raise();
-
+	connect(viewBig, SIGNAL(mousePos(int,int)), this, SLOT(mouseMoved(int,int)));
+	connect(viewBig, SIGNAL(clicked(QPoint)), this, SLOT(gotViewBigClick(QPoint)));
 	// A mouse action triggered a shortcut
 	connect(viewBig, SIGNAL(shMouseDo(QString,bool)), this, SLOT(shortcutDO(QString,bool)));
 	connect(viewBig, SIGNAL(loadContextMenuAction(QString)), this, SLOT(shortcutDO(QString)));
+	// The main GraphicsView fills the whole widget
+	centralLayout->addWidget(viewBig);
+
+	// Setup the quickinfo labels. We have two sets of labels, for the top and for the bottom. This way we can change the position without having to restart photo.
+	viewBigLay = new ViewBigLay(globSet->toSignalOut());
+	viewBig->setLayout(viewBigLay);
+	viewBigLay->setPosition(globSet->thumbnailposition);
+	connect(viewBigLay, SIGNAL(clickOnX(QString)), this, SLOT(shortcutDO(QString)));
+	connect(viewBigLay, SIGNAL(updateSettings(QMap<QString,QVariant>)), globSet, SLOT(settingsUpdated(QMap<QString,QVariant>)));
+	viewBigLay->updateInfo("",0,0);
+
+	// The Item holding the big pixmap item
+	graphItem = new GraphicsItem;
+	connect(graphItem, SIGNAL(updateSceneBigRect()), this, SLOT(updateSceneBigRect()));
+	viewBig->scene()->addItem(graphItem);
+
+	// The thumbnail-bar instance
+	viewThumbs = new Thumbnails(viewBig,globSet->verbose,globSet->toSignalOut());
+	connect(viewThumbs, SIGNAL(loadNewImg(QString)), this, SLOT(loadNewImgFromThumbs(QString)));
+
+	// An ImageReader combining QImageReader and GraphicsMagic
+	imageReader = new ImageReader;
+
 
 	// The settings widget
 	set = new Settings(viewBig,globSet->toSignalOut());
-
-	// The file handling dialog
-	filehandling = new FileHandling(viewBig);
-	connect(filehandling, SIGNAL(reloadDir(QString)), this, SLOT(reloadDir(QString)));
-	connect(filehandling, SIGNAL(stopThbCreation()), viewThumbs, SLOT(stopThbCreation()));
-
-	// Connect some globSet signals
-	connect(globSet, SIGNAL(updateSettingsData(QMap<QString,QVariant>)), this, SLOT(updateSettings(QMap<QString,QVariant>)));
-	connect(globSet, SIGNAL(updateSettingsToApply(QMap<QString,bool>)), this, SLOT(applySettings(QMap<QString,bool>)));
+	// Set the shortcut version (needed for saving shortcuts
+	connect(set, SIGNAL(blockFunc(bool)), this, SLOT(blockFunc(bool)));
+	connect(set, SIGNAL(updateSettings(QMap<QString,QVariant>)), globSet, SLOT(settingsUpdated(QMap<QString,QVariant>)));
+	connect(set, SIGNAL(restoreDefault()), this, SLOT(restoreDefaultSettings()));
+	set->sh->version = globSet->version;
+	connect(set->sh, SIGNAL(updatedShortcuts()), this, SLOT(setupShortcuts()));
 
 	// The drop-down menu
 	menu = new DropDownMenu(viewBig);
 	connect(menu, SIGNAL(itemClicked(QString,int)), this, SLOT(menuClicked(QString,int)));
 
-	// Adjust some properties of the big GraphicsView for the main image
-	viewBig->setRenderHints(QPainter::Antialiasing | QPainter::SmoothPixmapTransform | QPainter::HighQualityAntialiasing);
-	viewBig->setObjectName("viewBig");
-	viewBig->setScene(&sceneBig);
-	viewBig->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-	viewBig->setDragMode(QGraphicsView::ScrollHandDrag);
-	viewBig->setMouseTracking(true);
-	CustomScrollbar *vertScrollbar = new CustomScrollbar;
-	CustomScrollbar *horScrollbar = new CustomScrollbar;
-	horScrollbar->setOrientation(Qt::Horizontal);
-	viewBig->setVerticalScrollBar(vertScrollbar);
-	viewBig->setHorizontalScrollBar(horScrollbar);
-	connect(viewBig, SIGNAL(mousePos(int,int)), this, SLOT(mouseMoved(int,int)));
-	connect(viewBig, SIGNAL(clicked(QPoint)), this, SLOT(gotViewBigClick(QPoint)));
+	// The exif widget
+	exif = new Exif(viewBig,globSet->toSignalOut());
+	connect(exif, SIGNAL(setOrientation(int,bool)), this, SLOT(getOrientationFromExif(int,bool)));
+	connect(exif, SIGNAL(updateSettings(QMap<QString,QVariant>)), globSet, SLOT(settingsUpdated(QMap<QString,QVariant>)));
+	connect(exif->rotConf, SIGNAL(blockFunc(bool)), this, SLOT(blockFunc(bool)));
 
-	// Adjust some properties of the small GraphicsView for Thumbnails
-	viewThumbs->setObjectName("viewThumbs");
-	viewThumbs->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
-	viewThumbs->view->setDragMode(QGraphicsView::ScrollHandDrag);
-	viewThumbs->view->setMouseTracking(true);
-	if(globSet->thumbnailKeepVisible) {
-		viewThumbs->setGeometry(viewThumbs->rectShown);
-		viewThumbs->isShown = true;
-	} else
-		viewThumbs->setGeometry(viewThumbs->rectHidden);
-
-	connect(viewThumbs, SIGNAL(loadNewImg(QString)), this, SLOT(loadNewImgFromThumbs(QString)));
-
-
-	// The main GraphicsView fills the whole widget
-	centralLayout->addWidget(viewBig);
-
-	// This widget is shown after an update/fresh install
-	startup = new StartUpWidget(viewBig);
-
-	// A startup-timer (started from main.cpp)
-	startUpTimer = new QTimer;
-	startUpTimer->setInterval(500);
-	connect(startUpTimer, SIGNAL(timeout()), this, SLOT(startuptimer()));
-
-	// Set the shortcut version (needed for saving shortcuts
-	set->sh->version = globSet->version;
 
 	// These shortcut are needed for the widgets like settings, open, etc., thus they need to be set up always
 	for(int i = 0; i < globVar->systemSh.size(); ++i) {
@@ -125,133 +105,16 @@ MainWindow::MainWindow(QWidget *parent, bool verbose) : QMainWindow(parent) {
 		connect(mapper, SIGNAL(mapped(QString)), this, SLOT(systemShortcutDO(QString)));
 	}
 
-	// The about widget
-	about = new About(viewBig);
-	about->setLicense(globSet->version);
-
-	wallpaper = new Wallpaper(globSet->toSignalOut(),viewBig);
-//	connect(wallpaper, SIGNAL(wallpaperSet(QMap<QString,QVariant>)), globSet, SLOT(settingsUpdated(QMap<QString,QVariant>)));
-
-//	imageMagick = new ImageMagick;
-	imageReader = new ImageReader;
-
-	// The slideshow settings widget
-	slideshow = new SlideShow(globSet->toSignalOut(),viewBig, globVar->verbose);
-	connect(slideshow, SIGNAL(startSlideShow()), this, SLOT(startSlideShow()));
-
-	// The slideshowbar (shown as slide-in at top edge during slideshows)
-	slideshowbar = new SlideShowBar(globSet->toSignalOut(), viewBig, globVar->verbose);
-	connect(slideshowbar, SIGNAL(moveInDirectory(int)), this, SLOT(moveInDirectory(int)));
-	connect(slideshowbar->cancel, SIGNAL(clicked()), this, SLOT(stopSlideShow()));
-
-	// The exif widget
-	exif = new Exif(viewBig,globSet->toSignalOut());
-	connect(exif, SIGNAL(setOrientation(int,bool)), this, SLOT(getOrientationFromExif(int,bool)));
-	connect(exif, SIGNAL(updateSettings(QMap<QString,QVariant>)), globSet, SLOT(settingsUpdated(QMap<QString,QVariant>)));
-
 	// Setup the shortcuts
 	setupShortcuts();
 
 	// Setup the tray icon
 	setupTrayIcon();
 
-	// Setup the quickinfo labels. We have two sets of labels, for the top and for the bottom. This way we can change the position without having to restart photo.
-	QVBoxLayout *viewBigLay = new QVBoxLayout;
-	QHBoxLayout *quickInfoTOP = new QHBoxLayout;
-
-	// We have labels for the top and for the bottom. So there's no need to restart Photo when switching thumbnails from top to bottom or vice versa
-	quickInfoCounterTOP = new QuickInfoLabel(0,"quickinfoCounterTOP");
-	quickInfoCounterTOP->setStyleSheet("color: white");
-	quickInfoCounterTOP->hide();
-	quickInfoSepTOP = new QLabel("--");
-	quickInfoSepTOP->setStyleSheet("color:white");
-	quickInfoSepTOP->setShown((globSet->hidefilename == globSet->hidecounter) && !globSet->hidecounter);
-	quickInfoSepTOP->hide();
-	quickInfoFilenameTOP = new QuickInfoLabel(0,"quickinfoFilenameTOP");
-	quickInfoFilenameTOP->setText(tr("Open File to Begin."));
-	quickInfoFilenameTOP->setStyleSheet("color: white");
-	quickInfoFilenameTOP->hide();
-	quickInfoFilenameTOP->globSet = globSet->toSignalOut();
-	closeWindowX = new QuickInfoLabel(0,"closewindowXTOP");
-	closeWindowX->setText("x");
-	closeWindowX->setStyleSheet("color: white; padding: 5px");
-	closeWindowX->setCursor(Qt::PointingHandCursor);
-	closeWindowX->setShown(!globSet->hidex);
-	QSignalMapper *mapperXTOP = new QSignalMapper;
-	mapperXTOP->setMapping(closeWindowX,"0:::::__hide");
-	connect(closeWindowX, SIGNAL(clicked()), mapperXTOP, SLOT(map()));
-	connect(mapperXTOP, SIGNAL(mapped(QString)), this, SLOT(shortcutDO(QString)));
-	connect(quickInfoCounterTOP->dohide, SIGNAL(triggered()), this, SLOT(hideQuickInfo()));
-	connect(quickInfoFilenameTOP->dohide, SIGNAL(triggered()), this, SLOT(hideQuickInfo()));
-	connect(quickInfoFilenameTOP->dohideFilepath, SIGNAL(triggered()), this, SLOT(hideQuickInfo()));
-	connect(closeWindowX->dohide, SIGNAL(triggered()), this, SLOT(hideQuickInfo()));
-
-	quickInfoTOP->addWidget(quickInfoCounterTOP);
-	quickInfoTOP->addWidget(quickInfoSepTOP);
-	quickInfoTOP->addWidget(quickInfoFilenameTOP);
-	quickInfoTOP->addStretch();
-	quickInfoTOP->addWidget(closeWindowX);
-
-	viewBigLay->addLayout(quickInfoTOP);
-
-	QHBoxLayout *quickInfoBOT = new QHBoxLayout;
-
-	quickInfoCounterBOT = new QuickInfoLabel(0,"quickinfoCounterBOT");
-	quickInfoCounterBOT->setStyleSheet("color: white");
-	quickInfoCounterBOT->hide();
-	quickInfoSepBOT = new QLabel("--");
-	quickInfoSepBOT->setStyleSheet("color:white");
-	quickInfoSepBOT->setShown((globSet->hidefilename == globSet->hidecounter) && !globSet->hidecounter);
-	quickInfoSepBOT->hide();
-	quickInfoFilenameBOT = new QuickInfoLabel(0,"quickinfoFilenameBOT");
-	quickInfoFilenameBOT->setText(tr("Open File to Begin."));
-	quickInfoFilenameBOT->setStyleSheet("color: white");
-	quickInfoFilenameBOT->hide();
-	quickInfoFilenameBOT->globSet = globSet->toSignalOut();
-	connect(quickInfoCounterBOT->dohide, SIGNAL(triggered()), this, SLOT(hideQuickInfo()));
-	connect(quickInfoFilenameBOT->dohide, SIGNAL(triggered()), this, SLOT(hideQuickInfo()));
-	connect(quickInfoFilenameBOT->dohideFilepath, SIGNAL(triggered()), this, SLOT(hideQuickInfo()));
-
-	quickInfoBOT->addWidget(quickInfoCounterBOT);
-	quickInfoBOT->addWidget(quickInfoSepBOT);
-	quickInfoBOT->addWidget(quickInfoFilenameBOT);
-	quickInfoBOT->addStretch();
-
-	viewBigLay->addStretch();
-	viewBigLay->addLayout(quickInfoBOT);
-
-	viewBig->setLayout(viewBigLay);
-
-	if(globSet->thumbnailposition == "Bottom") {
-		quickInfoCounterTOP->hide();
-		quickInfoFilenameTOP->hide();
-		quickInfoSepTOP->hide();
-		closeWindowX->hide();
-	} else if(globSet->thumbnailposition == "Top") {
-		quickInfoCounterBOT->hide();
-		quickInfoFilenameBOT->hide();
-		quickInfoSepBOT->hide();
-		closeWindowX->hide();
-	}
-
-
-	// Connect some of the blockFunc signals
-	connect(about, SIGNAL(blockFunc(bool)), this, SLOT(blockFunc(bool)));
-	connect(set, SIGNAL(blockFunc(bool)), this, SLOT(blockFunc(bool)));
-	connect(slideshow, SIGNAL(blockFunc(bool)), this, SLOT(blockFunc(bool)));
-	connect(filehandling, SIGNAL(blockFunc(bool)), this, SLOT(blockFunc(bool)));
-	connect(exif->rotConf, SIGNAL(blockFunc(bool)), this, SLOT(blockFunc(bool)));
-	connect(wallpaper, SIGNAL(blockFunc(bool)), this, SLOT(blockFunc(bool)));
-
-	// The settings have been changed by the user
-	connect(set, SIGNAL(updateSettings(QMap<QString,QVariant>)), globSet, SLOT(settingsUpdated(QMap<QString,QVariant>)));
 
 	// Pass the current settings on to all the subclasses
 	updateSettings(globSet->toSignalOut());
 	applySettings(QMap<QString,bool>(),true);
-
-	// The settings have been changed by the user
-	connect(set->sh, SIGNAL(updatedShortcuts()), this, SLOT(setupShortcuts()));
 
 	// The global timer ensuring only one instance of Photo runs at a time
 	globalRunningProgTimer = new QTimer;
@@ -259,23 +122,23 @@ MainWindow::MainWindow(QWidget *parent, bool verbose) : QMainWindow(parent) {
 	connect(globalRunningProgTimer, SIGNAL(timeout()), this, SLOT(globalRunningProgTimerTimeout()));
 	globalRunningProgTimer->start();
 
-	// Restore the default settings again
-	connect(set, SIGNAL(restoreDefault()), this, SLOT(restoreDefaultSettings()));
+	// A startup-timer (started from main.cpp)
+	startUpTimer = new QTimer;
+	startUpTimer->setInterval(500);
+	connect(startUpTimer, SIGNAL(timeout()), this, SLOT(startuptimer()));
 
-	// Update the scene rect (called from there to make transition work)
-	connect(graphItem, SIGNAL(updateSceneBigRect()), this, SLOT(updateSceneBigRect()));
-
-	// Set initial "Open File to Begin" message
-	updateQuickInfo();
 
 }
 
+// Adjust the geometries (if applicable)
 void MainWindow::adjustGeometries() {
 
 	if(globVar->verbose) qDebug() << "Adjusting geometries";
 
 	// The thumbnail hight for later use
 	int thbHeight = globSet->thumbnailsize + globSet->thumbnailLiftUp + 30;
+	int viewH = viewBig->height();
+	int viewW = viewBig->width();
 
 	// If the thumbnail bar is shown at the bottom
 	if(globSet->thumbnailposition == "Bottom") {
@@ -283,139 +146,52 @@ void MainWindow::adjustGeometries() {
 		if(globVar->verbose) qDebug() << "Thumbnails at the bottom";
 
 		// Adjust the thumbnail geometry
-		viewThumbs->rectShown = QRect(0,viewBig->height()-thbHeight,viewBig->width(),thbHeight);
-		viewThumbs->rectHidden = QRect(0,viewBig->height(),viewBig->width(),thbHeight);
-		if(viewThumbs->isShown)
-			viewThumbs->setGeometry(viewThumbs->rectShown);
-		else
-			viewThumbs->setGeometry(viewThumbs->rectHidden);
+		viewThumbs->setRect(QRect(0,viewH-thbHeight,viewW,thbHeight));
 
 		// Adjust the menu geometry
-		menu->rectShown = QRect(viewBig->width()-750,0,700,350);
-		menu->rectHidden = QRect(menu->rectShown.x(),-menu->rectShown.height(),menu->rectShown.width(),menu->rectShown.height());
-		if(menu->isShown)
-			menu->setGeometry(menu->rectShown);
-		else
-			menu->setGeometry(menu->rectHidden);
+		menu->setRect(QRect(viewW-750,0,700,350));
+
+
 
 	// And if the thumbnail bar is shown at the top
 	} else if(globSet->thumbnailposition == "Top") {
 
 		if(globVar->verbose) qDebug() << "Thumbnails at the top";
 
-		viewThumbs->rectShown = QRect(0,0,viewBig->width(),thbHeight);
-		viewThumbs->rectHidden = QRect(0,0,viewBig->width(),-thbHeight);
-		if(viewThumbs->isShown)
-			viewThumbs->setGeometry(viewThumbs->rectShown);
-		else
-			viewThumbs->setGeometry(viewThumbs->rectHidden);
+		// Adjust the thumbnail geometry
+		viewThumbs->setRect(QRect(0,0,viewBig->width(),thbHeight));
 
-		menu->rectShown = QRect(viewBig->width()-750,viewBig->height()-350,700,350);
-		menu->rectHidden = QRect(menu->rectShown.x(),viewBig->height(),menu->rectShown.width(),menu->rectShown.height());
-		if(menu->isShown)
-			menu->setGeometry(menu->rectShown);
-		else
-			menu->setGeometry(menu->rectHidden);
+		// Adjust the menu geometry
+		menu->setRect(QRect(viewBig->width()-750,viewBig->height()-350,700,350));
 
 	}
 
-	// Fullscreen Rects
-	QRect fullscreenRectHidden = QRect(0,-10,10,10);
-	QRect fullscreenRectAni = QRect(viewBig->width()/2.0,viewBig->height()/2.0,1,1);
-	QRect fullscreenRectShown = QRect(viewBig->x(),viewBig->y(),viewBig->width(),viewBig->height());
+	// Fullscreen Rect
+	QRect fullscreen = QRect(0,0,viewW,viewH);
 
-	if(globVar->verbose) qDebug() << "AdjustingGeometries (1):" << fullscreenRectHidden;
-	if(globVar->verbose) qDebug() << "AdjustingGeometries (2):" << fullscreenRectShown;
-	if(globVar->verbose) qDebug() << "AdjustingGeometries (3):" << fullscreenRectAni;
+	if(globVar->verbose) qDebug() << "Adjusting Geometries:" << fullscreen;
 
-	// These QRects are set to all the widgets that have a fullscreen element
 
-	exif->rotConf->rectShown = fullscreenRectShown;
-	exif->rotConf->rectHidden = fullscreenRectHidden;
-	exif->rotConf->rectAni = fullscreenRectAni;
+	// exif and set are always setup (the tabs in set aren't initially)
+	exif->setRect(fullscreen);
+	set->setRect(fullscreen);
 
-	set->rectHidden = fullscreenRectHidden;
-	set->aniStart = fullscreenRectAni;
-	set->rectShown = fullscreenRectShown;
 
-	set->restoreDefaultConfirm->rectShown = fullscreenRectShown;
-	set->restoreDefaultConfirm->rectHidden = fullscreenRectHidden;
-	set->restoreDefaultConfirm->rectAni = fullscreenRectAni;
+	if(setupWidgets->filehandling) filehandling->setRect(fullscreen);
 
-	set->tabShortcuts->detect->rectShown = fullscreenRectShown;
-	set->tabShortcuts->detect->rectHidden = fullscreenRectHidden;
-	set->tabShortcuts->detect->rectAni = fullscreenRectAni;
+	if(setupWidgets->about) about->setRect(fullscreen);
 
-	set->tabShortcuts->setDefaultConfirm->rectShown = fullscreenRectShown;
-	set->tabShortcuts->setDefaultConfirm->rectHidden = fullscreenRectHidden;
-	set->tabShortcuts->setDefaultConfirm->rectAni = fullscreenRectAni;
+	if(setupWidgets->slideshow) slideshow->setRect(fullscreen);
 
-	set->tabShortcuts->changeCommand->rectShown = fullscreenRectShown;
-	set->tabShortcuts->changeCommand->rectHidden = fullscreenRectHidden;
-	set->tabShortcuts->changeCommand->rectAni = fullscreenRectAni;
+	if(setupWidgets->startup) startup->setRect(fullscreen);
 
-	set->tabThumb->confirmClean->rectShown = fullscreenRectShown;
-	set->tabThumb->confirmClean->rectHidden = fullscreenRectHidden;
-	set->tabThumb->confirmClean->rectAni = fullscreenRectAni;
+	if(setupWidgets->wallpaper) wallpaper->setRect(fullscreen);
 
-	set->tabThumb->confirmErase->rectShown = fullscreenRectShown;
-	set->tabThumb->confirmErase->rectHidden = fullscreenRectHidden;
-	set->tabThumb->confirmErase->rectAni = fullscreenRectAni;
+	if(setupWidgets->slideshowbar) slideshowbar->setWidth(this->width());
 
-	filehandling->rectHidden = fullscreenRectHidden;
-	filehandling->rectShown = fullscreenRectShown;
-	filehandling->rectAni = fullscreenRectAni;
 
-	about->rectHidden = fullscreenRectHidden;
-	about->rectShown = fullscreenRectShown;
-	about->rectAni = fullscreenRectAni;
-
-	slideshow->rectHidden = fullscreenRectHidden;
-	slideshow->rectShown = fullscreenRectShown;
-	slideshow->rectAni = fullscreenRectAni;
-
-	startup->rectHidden = fullscreenRectHidden;
-	startup->aniStart = fullscreenRectAni;
-	startup->rectShown = fullscreenRectShown;
-
-	wallpaper->rectShown = fullscreenRectShown;
-	wallpaper->rectHidden = fullscreenRectHidden;
-	wallpaper->rectAni = fullscreenRectAni;
-
-	// And adjust the current geometries of all the widgets
-	if(set->isShown)
-		set->setGeometry(set->rectShown);
-	else
-		set->setGeometry(set->rectHidden);
-
-	if(startup->isShown)
-		startup->setGeometry(startup->rectShown);
-	else
-		startup->setGeometry(startup->rectHidden);
-
-	if(about->isShown) {
-		about->setGeometry(about->rectShown);
-		about->center->setGeometry(QRect(100,50,about->rectShown.width()-200,about->rectShown.height()-100));
-	} else {
-		about->setGeometry(about->rectHidden);
-	}
-
-	if(filehandling->isShown)
-		filehandling->setGeometry(filehandling->rectShown);
-	else
-		filehandling->setGeometry(filehandling->rectHidden);
-
-	if(globSet->thumbnailKeepVisible) {
-		if(!globVar->zoomedImgAtLeastOnce)
-			viewThumbs->setGeometry(viewThumbs->rectShown);
-	}
-
-	// Adjust the slideshow geometry
-	slideshow->adjustGeometries();
-
-	// And adjust the slideshow bar
-	slideshowbar->rectShown = QRect(0,0,this->width(),50);
-	slideshowbar->rectHidden = QRect(0,-50,this->width(),50);
+	if(globSet->thumbnailKeepVisible)
+		viewThumbs->makeShow();
 
 }
 
@@ -447,90 +223,49 @@ void MainWindow::applySettings(QMap<QString, bool> applySet, bool justApplyAllOf
 
 		// The max thumbnail height is
 		int thbHeight = globSet->thumbnailsize + globSet->thumbnailLiftUp + 30;
+		int viewH = viewBig->height();
+		int viewW = viewBig->width();
 
 		// If the thumbnails are supposed to be shown at the bottom
 		if(globSet->thumbnailposition == "Bottom") {
 
-			// Hide top quickinfo labels and show bottom ones
-			quickInfoCounterBOT->hide();
-			quickInfoSepBOT->hide();
-			quickInfoFilenameBOT->hide();
-			closeWindowX->show();
-			quickInfoCounterTOP->show();
-			quickInfoSepTOP->show();
-			quickInfoFilenameTOP->show();
-
 			// Adjust the thumbnail geometry
-			viewThumbs->rectShown = QRect(0,viewBig->height()-thbHeight,viewBig->width(),thbHeight);
-			viewThumbs->rectHidden = QRect(0,viewBig->height(),viewBig->width(),thbHeight);
-			if(viewThumbs->isShown)
-				viewThumbs->setGeometry(viewThumbs->rectShown);
-			else
-				viewThumbs->setGeometry(viewThumbs->rectHidden);
+			viewThumbs->setRect(QRect(0,viewH-thbHeight,viewW,thbHeight));
 
 			// Adjust the menu geometry
-			menu->rectShown = QRect(viewBig->width()-750,0,700,350);
-			menu->rectHidden = QRect(menu->rectShown.x(),-menu->rectShown.height(),menu->rectShown.width(),menu->rectShown.height());
+			menu->setRect(QRect(viewW-750,0,700,350));
 
-			if(menu->isShown)
-				menu->setGeometry(menu->rectShown);
-			else
-				menu->setGeometry(menu->rectHidden);
-
-			// Adjust the look (i.e. rounded corners) of the menu
-			menu->setStyleSheet("border-radius: 8px; border-top-right-radius: 0px; border-top-left-radius: 0px; background-color: rgba(0, 0, 0, 220)");
 
 		// If the thumbnails are supposed to be shown at the top
 		} else if(globSet->thumbnailposition == "Top") {
 
-			// Hide bottom quickinfo labels and show top ones
-			quickInfoCounterBOT->show();
-			quickInfoSepBOT->show();
-			quickInfoFilenameBOT->show();
-			closeWindowX->show();
-			quickInfoCounterTOP->hide();
-			quickInfoSepTOP->hide();
-			quickInfoFilenameTOP->hide();
-
 			// Adjust the thumbnail geometry
-			viewThumbs->rectShown = QRect(0,0,viewBig->width(),thbHeight);
-			viewThumbs->rectHidden = QRect(0,-thbHeight,viewBig->width(),thbHeight);
-			if(viewThumbs->isShown)
-				viewThumbs->setGeometry(viewThumbs->rectShown);
-			else
-				viewThumbs->setGeometry(viewThumbs->rectHidden);
+			viewThumbs->setRect(QRect(0,0,viewBig->width(),thbHeight));
 
 			// Adjust the menu geometry
-			menu->rectShown = QRect(viewBig->width()-750,viewBig->height()-350,700,350);
-			menu->rectHidden = QRect(menu->rectShown.x(),viewBig->height(),menu->rectShown.width(),menu->rectShown.height());
-			if(menu->isShown)
-				menu->setGeometry(menu->rectShown);
-			else
-				menu->setGeometry(menu->rectHidden);
-
-			// Adjust the look (i.e. rounded corners) of the menu
-			menu->setStyleSheet("border-radius: 8px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px; background-color: rgba(0, 0, 0, 220)");
+			menu->setRect(QRect(viewBig->width()-750,viewBig->height()-350,700,350));
 
 		}
 
+		// (Re-)Load dir
 		if(globVar->currentfile != "")
 			viewThumbs->loadDir();
 
-		if(globSet->thumbnailKeepVisible && !viewThumbs->isShown)
-			viewThumbs->animate();
+		// Keep Thumbs visible?
+		if(globSet->thumbnailKeepVisible && !viewThumbs->isVisible())
+			viewThumbs->makeShow();
 
 
 	}
 
 	if(applySet["menu"]) {
 		// Adjusting the menu sensitivity
-		menu->xSensitivity = globSet->menusensitivity*3;
-		menu->ySensitivity = globSet->menusensitivity*10;
+		menu->setSensitivity(globSet->menusensitivity*3,globSet->menusensitivity*10);
 	}
 
 	if(applySet["thumb"] || applySet["quickinfo"])
 		// Update the quickinfo labels
-		updateQuickInfo();
+		viewBigLay->updateInfo(globVar->currentfile,viewThumbs->countpos,viewThumbs->counttot);
 
 
 	if(applySet["redrawimg"])
@@ -543,7 +278,8 @@ void MainWindow::blockFunc(bool bl) {
 
 	if(globVar->verbose) qDebug() << "Blocking Interface:" << bl;
 
-	viewThumbs->thumbThread->breakme = true;
+	// That'll also block all thumbs creation
+	if(bl) viewThumbs->stopThbCreation();
 
 	globVar->blocked = bl;
 }
@@ -551,7 +287,7 @@ void MainWindow::blockFunc(bool bl) {
 // The close event
 void MainWindow::closeEvent(QCloseEvent *e) {
 
-	// If a widget is opened and Alt was just pressed, then this close event probably results from the Alt+F4 combination
+	// If a widget (like settings or about) is open, then this close event only closes this widget (like escape)
 	if(globVar->blocked) {
 
 		if(globVar->verbose) qDebug() << "Ignoring event, sending 'Escape' shortcut";
@@ -563,20 +299,21 @@ void MainWindow::closeEvent(QCloseEvent *e) {
 	} else {
 
 		// Stop the thumbnail thread
-		viewThumbs->thumbThread->breakme = true;
+		viewThumbs->stopThbCreation();
 
 		// Hide to system tray
 		if(globSet->trayicon && !globVar->skipTrayIcon) {
 
-			if(set->isShown)
-				set->animate();
+			if(set->isVisible())
+				set->makeHide();
 			globVar->restoringFromTrayNoResize = QDateTime::currentDateTime().toTime_t();
 			this->hide();
 			if(globVar->verbose) qDebug() << "Hiding to System Tray.";
 			e->ignore();
+
 		// Quit
 		} else {
-			sceneBig.clear();
+			viewBig->scene()->clear();
 			viewThumbs->view->scene.clear();
 
 			e->accept();
@@ -592,7 +329,7 @@ void MainWindow::closeEvent(QCloseEvent *e) {
 void MainWindow::drawImage() {
 
 	// The slideshow also sets the globVar->blocked bool, but nevertheless, the image has to be drawn in that specific case
-	if(!globVar->blocked || slideshowbar->enabled) {
+	if(!globVar->blocked || (setupWidgets->slideshowbar && slideshowbar->isEnabled())) {
 
 		if(globVar->verbose) qDebug() << "Drawing Image";
 
@@ -605,21 +342,24 @@ void MainWindow::drawImage() {
 		} else if(!globSet->thumbnailKeepVisible || globVar->zoomedImgAtLeastOnce)
 			viewBig->setAlignment(Qt::AlignCenter);
 
+		// No file loaded yet,...
 		if(globVar->currentfile == "") {
 
 			if(globVar->verbose) qDebug() << "Ask for filename";
 
-			// No file loaded yet, open "open file" widget
+			// ..., so open "open file" widget
 			openFile();
 
+		// Load image
 		} else {
 
+			// Display busy cursor
 			qApp->setOverrideCursor(Qt::WaitCursor);
 
 			if(globVar->verbose) qDebug() << "Got filename:" << globVar->currentfile;
 
 			// Tell the filehandling widget the new filename
-			filehandling->currentfile = globVar->currentfile;
+			if(setupWidgets->filehandling) filehandling->currentfile = globVar->currentfile;
 
 			// If the current directory info hasn't been loaded yet
 			if(viewThumbs->counttot == 0) {
@@ -628,24 +368,28 @@ void MainWindow::drawImage() {
 				viewThumbs->loadDir();
 			}
 
-//			bool useMagick = false;
 
+			// Get the maximum possible dimensions of the main image
 			int maxW = viewBig->width()-globSet->borderAroundImg*2;
 			int subtractThumbnailHeight = 0;
 			if(globSet->thumbnailKeepVisible)
 				subtractThumbnailHeight = viewThumbs->height();
 			int maxH = viewBig->height()-2*globSet->borderAroundImg-subtractThumbnailHeight;
 
+			// Get the image
 			QImage img = imageReader->readImage(globVar->currentfile,globVar->rotation,globVar->zoomed,QSize(maxW,maxH));
 
+			// The imagereader stores two possible scaling factors
 			if(imageReader->scaleImg1 != -1)
 				viewBig->scale(imageReader->scaleImg1,imageReader->scaleImg1);
 			if(imageReader->scaleImg2 != -1)
 				viewBig->scale(imageReader->scaleImg2,imageReader->scaleImg2);
 
+			// Get the fileformat and the original size
 			QString fileformat = imageReader->fileformat;
 			QSize origSize = imageReader->origSize;
 
+			// Is it an animated image?
 			if(imageReader->animatedImg)
 				graphItem->setMovie(globVar->currentfile,origSize.width(),origSize.height());
 			// Otherwise do the normal setPixmap()
@@ -663,12 +407,14 @@ void MainWindow::drawImage() {
 			viewThumbs->countpos = viewThumbs->allImgsPath.indexOf(globVar->currentfile);
 
 			// Adjust scene rect
-			sceneBig.setSceneRect(sceneBig.itemsBoundingRect());
+			viewBig->scene()->setSceneRect(viewBig->scene()->itemsBoundingRect());
 
+			// If exif isn't read yet
 			if(!globVar->exifRead) {
 
 				if(globVar->verbose) qDebug() << "Requesting Exif Info";
 
+				// Exif info read
 				globVar->exifRead = true;
 
 				// If supported, load exiv2 data
@@ -682,19 +428,22 @@ void MainWindow::drawImage() {
 
 			}
 
+			// Restore normal cursor
 			qApp->restoreOverrideCursor();
 
 
 			// Ensure the active thumbnail is shown
 			// We only do that when the thumbnail was NOT loaded through a click on it. The reason is, that otherwise the thumbnailview might move a little (ensuring the thumbnail is visible) although it already IS visible.
 			if(viewThumbs->allImgsPath.indexOf(globVar->currentfile) != -1 && !globSet->thumbnailDisable && !viewThumbs->thumbLoadedThroughClick) {
+				// We center on the image if it's a newly loaded dir
 				if(viewThumbs->newlyLoadedDir)
 					viewThumbs->view->centerOn(viewThumbs->allPixmaps.at(viewThumbs->allImgsPath.indexOf(globVar->currentfile)));
 				else
 					viewThumbs->view->ensureVisible(viewThumbs->allPixmaps.at(viewThumbs->allImgsPath.indexOf(globVar->currentfile)));
-				if(!globSet->thumbnailKeepVisible && !viewThumbs->isShown)
-					viewThumbs->setGeometry(viewThumbs->rectHidden);
+				if(!globSet->thumbnailKeepVisible && viewThumbs->isVisible())
+					viewThumbs->makeHide();
 				viewThumbs->startThread();
+				viewThumbs->ensureThumbLoad();
 			} else if(viewThumbs->thumbLoadedThroughClick)
 				viewThumbs->thumbLoadedThroughClick = false;
 
@@ -895,42 +644,12 @@ void MainWindow::gotViewBigClick(QPoint p) {
 
 }
 
-// This is called by the quickinfo context menus to hide the quickinfo labels
-void MainWindow::hideQuickInfo() {
-
-	QString objName = ((QAction *) sender())->objectName();
-	if(globVar->verbose) qDebug() << "Hide quickinfo:" << objName;
-
-	if(objName == "quickinfoCounter") {
-		quickInfoCounterTOP->hide();
-		quickInfoCounterBOT->hide();
-		quickInfoSepTOP->hide();
-		quickInfoSepBOT->hide();
-		globSet->hidecounter = true;
-	}
-	if(objName == "quickinfoFilepath")
-		globSet->hidefilepathshowfilename = true;
-	if(objName == "quickinfoFilename") {
-		quickInfoSepTOP->hide();
-		quickInfoSepBOT->hide();
-		quickInfoFilenameTOP->hide();
-		quickInfoFilenameBOT->hide();
-		globSet->hidefilename = true;
-	}
-	if(objName == "closewindowX") {
-//		closeWindowX->hide();
-		globSet->hidex = true;
-	}
-	globSet->saveSettings();
-
-}
-
 // Enabling the key detection by the shortcuts
 void MainWindow::keyReleaseEvent(QKeyEvent *e) {
 
 	if(globVar->verbose) qDebug() << "Got Key Event:" << e->key();
 
-	if(set->tabShortcuts->detect->isShown && set->tabShortcuts->detect->keyShortcut->isChecked())
+	if(set->tabsSetup && set->tabShortcuts->detect->isShown && set->tabShortcuts->detect->keyShortcut->isChecked())
 		set->tabShortcuts->detect->analyseKeyEvent(e);
 
 	QMainWindow::keyPressEvent(e);
@@ -975,7 +694,7 @@ void MainWindow::loadNewImgFromOpen(QString path) {
 		viewThumbs->updateThbViewHoverNormPix(temp,globVar->currentfile);
 
 	// Update quickinfo labels
-	updateQuickInfo();
+	viewBigLay->updateInfo(globVar->currentfile,viewThumbs->countpos,viewThumbs->counttot);
 
 }
 
@@ -1001,7 +720,7 @@ void MainWindow::loadNewImgFromThumbs(QString path) {
 	viewThumbs->currentfile = globVar->currentfile;
 	drawImage();
 
-	updateQuickInfo();
+	viewBigLay->updateInfo(globVar->currentfile,viewThumbs->countpos,viewThumbs->counttot);
 
 }
 
@@ -1032,20 +751,20 @@ void MainWindow::mouseMoved(int x, int y) {
 
 			// Animate thumbnail bar
 			if(!globSet->thumbnailDisable) {
-				if(y < viewBig->height()-h-20 && viewThumbs->isShown && (!globSet->thumbnailKeepVisible || globVar->zoomedImgAtLeastOnce))
-					viewThumbs->animate();
+				if(y < viewBig->height()-h-20 && viewThumbs->isVisible() && (!globSet->thumbnailKeepVisible || globVar->zoomedImgAtLeastOnce))
+					viewThumbs->makeHide();
 
-				if(y > viewBig->height()-20 && !viewThumbs->isShown)
-					viewThumbs->animate();
+				if(y > viewBig->height()-20 && !viewThumbs->isVisible())
+					viewThumbs->makeShow();
 			}
 
 			// Animate menu
-			if(x >= menu->rectShown.x()-globSet->menusensitivity*3 && x <= menu->rectShown.x()+menu->rectShown.width()+globSet->menusensitivity*3 && y <= globSet->menusensitivity*10 && !menu->isShown) {
-				menu->animate();
+			if(x >= menu->x()-globSet->menusensitivity*3 && x <= menu->x()+menu->width()+globSet->menusensitivity*3 && y <= globSet->menusensitivity*10 && !menu->isVisible()) {
+				menu->makeShow();
 			}
 
-			if((x < menu->rectShown.x()-globSet->menusensitivity*3 || x > menu->rectShown.x()+menu->rectShown.width()+globSet->menusensitivity*3 || y > menu->rectShown.height()+globSet->menusensitivity*10) && menu->isShown) {
-				menu->animate();
+			if((x < menu->x()-globSet->menusensitivity*3 || x > menu->x()+menu->width()+globSet->menusensitivity*3 || y > menu->height()+globSet->menusensitivity*10) && menu->isVisible()) {
+				menu->makeHide();
 			}
 
 
@@ -1053,49 +772,51 @@ void MainWindow::mouseMoved(int x, int y) {
 
 			// Animate thumbnail bar
 			if(!globSet->thumbnailDisable) {
-				if(y < 20 && !viewThumbs->isShown)
-					viewThumbs->animate();
 
-				if(y > viewThumbs->rectShown.height()+20 && (!globSet->thumbnailKeepVisible || globVar->zoomedImgAtLeastOnce) && viewThumbs->isShown)
-					viewThumbs->animate();
+				if(y < 20 && !viewThumbs->isVisible())
+					viewThumbs->makeShow();
+
+				int viewThbH = globSet->thumbnailsize + globSet->thumbnailLiftUp + 30;
+				if(y > viewThbH+20 && (!globSet->thumbnailKeepVisible || globVar->zoomedImgAtLeastOnce) && viewThumbs->isVisible())
+					viewThumbs->makeHide();
 			}
 
 			// Animate menu
-			if(x >= menu->rectShown.x()-globSet->menusensitivity*3 && x <= menu->rectShown.x()+menu->rectShown.width()+globSet->menusensitivity*3 && y >= menu->rectHidden.y()-globSet->menusensitivity*10 && !menu->isShown)
-				menu->animate();
+			if(x >= menu->x()-globSet->menusensitivity*3 && x <= menu->x()+menu->width()+globSet->menusensitivity*3 && y >= menu->y()-globSet->menusensitivity*10 && !menu->isVisible())
+				menu->makeShow();
 
-			if((x < menu->rectShown.x()-globSet->menusensitivity*3 || x > menu->rectShown.x()+menu->rectShown.width()+globSet->menusensitivity*3 || y < menu->rectShown.y()-globSet->menusensitivity*10) && menu->isShown)
-				menu->animate();
+			if((x < menu->x()-globSet->menusensitivity*3 || x > menu->x()+menu->width()+globSet->menusensitivity*3 || y < menu->y()-globSet->menusensitivity*10) && menu->isVisible())
+				menu->makeHide();
 
 		}
 
 
 		// Animate exif widget
-		if(x < 10*globSet->menusensitivity && y > exif->rectShown.y()-3*globSet->menusensitivity && y < exif->rectShown.y()+exif->rectShown.height()+globSet->menusensitivity*3 && !exif->isShown && globSet->exifenablemousetriggering)
-			exif->animate();
+		if(x < 10*globSet->menusensitivity && y > exif->y()-3*globSet->menusensitivity && y < exif->y()+exif->height()+globSet->menusensitivity*3 && !exif->isVisible() && globSet->exifenablemousetriggering)
+			exif->makeShow();
 
-		if((x > exif->rectShown.width()+10*globSet->menusensitivity || y < exif->rectShown.y()-3*globSet->menusensitivity || y > exif->rectShown.y()+exif->rectShown.height()+3*globSet->menusensitivity) && exif->isShown && !exif->stay->isChecked())
-			exif->animate();
+		if((x > exif->width()+10*globSet->menusensitivity || y < exif->y()-3*globSet->menusensitivity || y > exif->y()+exif->height()+3*globSet->menusensitivity) && exif->isVisible() && !exif->stay->isChecked())
+			exif->makeHide();
 
 
 	// If globVar->blocked is set, but slideshow is running, animate slideshowbar
-	} else if(slideshowbar->enabled) {
+	} else if(setupWidgets->slideshowbar && slideshowbar->isEnabled()) {
 
 		if(globSet->thumbnailposition == "Bottom") {
 
-			if(y < 30 && !slideshowbar->isShown)
-				slideshowbar->animate();
+			if(y < 30 && !slideshowbar->isVisible())
+				slideshowbar->makeShow();
 
-			if(y > slideshowbar->height() && slideshowbar->isShown)
-				slideshowbar->animate();
+			if(y > slideshowbar->height() && slideshowbar->isVisible())
+				slideshowbar->makeHide();
 
 		} else {
 
-			if(y > this->height()-30 && !slideshowbar->isShown)
-				slideshowbar->animate();
+			if(y > this->height()-30 && !slideshowbar->isVisible())
+				slideshowbar->makeShow();
 
-			if(y < this->height()-slideshowbar->height() && slideshowbar->isShown)
-				slideshowbar->animate();
+			if(y < this->height()-slideshowbar->height() && slideshowbar->isVisible())
+				slideshowbar->makeHide();
 
 		}
 
@@ -1128,7 +849,7 @@ void MainWindow::moveInDirectory(int direction) {
 		viewThumbs->currentfile = globVar->currentfile;
 		drawImage();
 	// Move to right, end of directory
-	} else if(direction == 1 && viewThumbs->countpos == viewThumbs->counttot-1 && globSet->loopthroughfolder && viewThumbs->counttot > 0 && !slideshowbar->enabled) {
+	} else if(direction == 1 && viewThumbs->countpos == viewThumbs->counttot-1 && globSet->loopthroughfolder && viewThumbs->counttot > 0 && (!setupWidgets->slideshowbar || !slideshowbar->isEnabled())) {
 		globVar->zoomedImgAtLeastOnce = false;
 		globVar->currentfile = viewThumbs->allImgsPath.at(0);
 		viewThumbs->countpos = 1;
@@ -1152,11 +873,11 @@ void MainWindow::moveInDirectory(int direction) {
 		viewThumbs->currentfile = globVar->currentfile;
 		drawImage();
 	// If a slideshow is running and we're at the end of the directory, then we stop
-	} else if(slideshowbar->enabled)
+	} else if(setupWidgets->slideshowbar && slideshowbar->isEnabled())
 		stopSlideShow();
 
 	// Update quickinfo labels
-	updateQuickInfo();
+	viewBigLay->updateInfo(globVar->currentfile,viewThumbs->countpos,viewThumbs->counttot);
 
 }
 
@@ -1191,15 +912,15 @@ void MainWindow::reloadDir(QString t) {
 	if(globVar->verbose) qDebug() << "Reload current directory:" << t;
 
 	// If file was renamed, simply reload renamed file
-	if(t == "rename") {
+	if(t == "rename" && setupWidgets->filehandling) {
 		loadNewImgFromOpen(filehandling->currentfile);
 
 	// If file was deleted
-	} else if(t == "delete") {
+	} else if(t == "delete" && setupWidgets->filehandling) {
 
 		// If it was the last file in the directory
 		if(viewThumbs->counttot == 1) {
-			sceneBig.clear();
+			viewBig->scene()->clear();
 			viewThumbs->view->scene.clear();
 			viewThumbs->counttot = 0;
 			viewThumbs->countpos = 0;
@@ -1208,7 +929,7 @@ void MainWindow::reloadDir(QString t) {
 			globVar->currentfile = "";
 			viewThumbs->currentfile = "";
 			filehandling->currentfile = "";
-			updateQuickInfo();
+			viewBigLay->updateInfo("",0,0);
 			drawImage();
 		// If it wasn't the last file, then load file to left/right
 		} else {
@@ -1248,7 +969,7 @@ void MainWindow::resizeEvent(QResizeEvent *) {
 	setBackground();
 
 	// Adjust scene rect
-	sceneBig.setSceneRect(sceneBig.itemsBoundingRect());
+	viewBig->scene()->setSceneRect(viewBig->scene()->itemsBoundingRect());
 
 	// And if an image is loaded, redraw it
 	if(globVar->currentfile != "" && !globVar->zoomed && (QDateTime::currentDateTime().toTime_t() - globVar->restoringFromTrayNoResize) > 1)
@@ -1581,16 +1302,106 @@ void MainWindow::setupTrayIcon() {
 
 }
 
+// Some widgets aren't setup initially (faster startup)
+void MainWindow::setupWidget(QString what) {
+
+	// Set up filehandling
+	if(what == "filehandling" && !setupWidgets->filehandling) {
+
+		qDebug() << "Setting up filehandling";
+
+		setupWidgets->filehandling = true;
+
+		filehandling = new FileHandling(viewBig,globVar->verbose,globVar->currentfile);
+		filehandling->setRect(QRect(0,0,viewBig->width(),viewBig->height()));
+		filehandling->show();
+
+		connect(filehandling, SIGNAL(reloadDir(QString)), this, SLOT(reloadDir(QString)));
+		connect(filehandling, SIGNAL(stopThbCreation()), viewThumbs, SLOT(stopThbCreation()));
+
+		connect(filehandling, SIGNAL(blockFunc(bool)), this, SLOT(blockFunc(bool)));
+
+
+
+	}
+
+	// Set up about
+	if(what == "about" && !setupWidgets->about) {
+
+		qDebug() << "Setting up about";
+
+		setupWidgets->about = true;
+
+		about = new About(viewBig);
+		about->setLicense(globSet->version);
+		about->setRect(QRect(0,0,viewBig->width(),viewBig->height()));
+		about->show();
+
+		connect(about, SIGNAL(blockFunc(bool)), this, SLOT(blockFunc(bool)));
+
+	}
+
+	// Set up wallpaper
+	if(what == "wallpaper" && !setupWidgets->wallpaper) {
+
+		qDebug() << "Setting up wallpaper";
+
+		setupWidgets->wallpaper = true;
+
+		wallpaper = new Wallpaper(globSet->toSignalOut(),viewBig);
+		wallpaper->globSet = globSet->toSignalOut();
+		wallpaper->setRect(QRect(0,0,viewBig->width(),viewBig->height()));
+		wallpaper->show();
+
+		connect(wallpaper, SIGNAL(blockFunc(bool)), this, SLOT(blockFunc(bool)));
+
+	}
+
+	// Set up slideshow
+	if(what == "slideshow" && !setupWidgets->slideshow) {
+
+		qDebug() << "Setting up slideshow";
+
+		setupWidgets->slideshow = true;
+
+		slideshow = new SlideShow(globSet->toSignalOut(),viewBig, globVar->verbose);
+		slideshow->setRect(QRect(0,0,viewBig->width(),viewBig->height()));
+		slideshow->show();
+		slideshow->globSet = globSet->toSignalOut();
+
+		connect(slideshow, SIGNAL(startSlideShow()), this, SLOT(startSlideShow()));
+		connect(slideshow, SIGNAL(blockFunc(bool)), this, SLOT(blockFunc(bool)));
+
+	}
+
+	// Set up slideshowbar
+	if(what == "slideshowbar" && !setupWidgets->slideshowbar) {
+
+		qDebug() << "Setting up slideshowbar";
+
+		setupWidgets->slideshowbar = true;
+
+		slideshowbar = new SlideShowBar(globSet->toSignalOut(), viewBig, globVar->verbose);
+		slideshowbar->setWidth(this->width());
+		slideshowbar->show();
+
+		connect(slideshowbar, SIGNAL(moveInDirectory(int)), this, SLOT(moveInDirectory(int)));
+		connect(slideshowbar->cancel, SIGNAL(clicked()), this, SLOT(stopSlideShow()));
+
+	}
+
+}
+
 // Called by shortcuts to execute something
 void MainWindow::shortcutDO(QString key, bool mouseSH) {
 
 	if(!globVar->blocked) {
 
+		// If key is empty, then we get the info from the sender#s object name
 		if(key == "")
 			key = ((QShortcut *) sender())->objectName();
 
 		if(globVar->verbose) qDebug() << "DO shortcut:" << mouseSH << "-" << key;
-
 
 		QString c = "";
 
@@ -1599,6 +1410,7 @@ void MainWindow::shortcutDO(QString key, bool mouseSH) {
 			key = key.split(":::::").at(1);
 		}
 
+		// external command
 		if(!key.startsWith("__")) {
 
 			QProcess *p = new QProcess;
@@ -1609,6 +1421,7 @@ void MainWindow::shortcutDO(QString key, bool mouseSH) {
 			if(c == "1")
 				this->close();
 
+		// internal command
 		} else {
 
 			if(key == "__stopThb")
@@ -1619,21 +1432,25 @@ void MainWindow::shortcutDO(QString key, bool mouseSH) {
 			}
 			if(key == "__hide")
 				this->close();
-			if(key == "__settings") {
-				set->animate();
-				set->raise();
-			}
+			if(key == "__settings")
+				set->makeShow();
 			if(key == "__next")
 				moveInDirectory(1);
 			if(key == "__prev")
 				moveInDirectory(0);
 			if(key == "__reloadThb")
 				viewThumbs->loadDir();
-			if(key == "__about")
-				about->animate();
+			if(key == "__about") {
+				if(!setupWidgets->about)
+					setupWidget("about");
+				about->makeShow();
+			}
 			if(key == "__slideshow") {
-				if(globVar->currentfile != "")
-					slideshow->animate();
+				if(globVar->currentfile != "") {
+					if(!setupWidgets->slideshow)
+						setupWidget("slideshow");
+					slideshow->makeShow();
+				}
 			}
 			if(key == "__slideshowQuick") {
 				if(globVar->currentfile != "")
@@ -1667,21 +1484,30 @@ void MainWindow::shortcutDO(QString key, bool mouseSH) {
 				rotateFlip(false, "ver");
 			if(key == "__flipR")
 				rotateFlip(false, "reset");
-			if(key == "__rename")
+			if(key == "__rename") {
+				if(!setupWidgets->filehandling)
+					setupWidget("filehandling");
 				filehandling->openDialog("rename");
-			if(key == "__delete")
+			}
+			if(key == "__delete") {
+				if(!setupWidgets->filehandling) setupWidget("filehandling");
 				filehandling->openDialog("delete");
-			if(key == "__copy")
+			}
+			if(key == "__copy") {
+				if(!setupWidgets->filehandling) setupWidget("filehandling");
 				filehandling->openDialog("copy");
-			if(key == "__move")
+			}
+			if(key == "__move") {
+				if(!setupWidgets->filehandling) setupWidget("filehandling");
 				filehandling->openDialog("move");
+			}
 			if(key == "__hideMeta") {
-				if(!exif->isShown) {
+				if(!exif->isVisible()) {
 					exif->stay->setChecked(true);
-					exif->animate();
+					exif->makeShow();
 				} else {
 					exif->stay->setChecked(false);
-					exif->animate();
+					exif->makeHide();
 				}
 			}
 			if(key == "__gotoFirstThb")
@@ -1689,8 +1515,10 @@ void MainWindow::shortcutDO(QString key, bool mouseSH) {
 			if(key == "__gotoLastThb")
 				viewThumbs->gotoFirstLast("last");
 
-			if(key == "__wallpaper")
+			if(key == "__wallpaper") {
+				if(!setupWidgets->wallpaper) setupWidget("wallpaper");
 				wallpaper->setWallpaper(globVar->currentfile);
+			}
 
 		}
 	} else
@@ -1703,17 +1531,28 @@ void MainWindow::showStartupUpdateInstallMsg() {
 
 	if(globVar->startupMessageInstallUpdateShown == 1) {
 
+		// This widget is shown after an update/fresh install
+		startup = new StartUpWidget(viewBig);
+		setupWidgets->startup = true;
+		startup->setRect(QRect(0,0,viewBig->width(),viewBig->height()));
+
 		if(globVar->verbose) qDebug() << "Show Update Message";
 
 		startup->setUpdateMsg();
 
 		connect(startup, SIGNAL(finished()), this, SLOT(startupInstallUpdateMsgClosed()));
 
-		startup->animate();
+		startup->show();
+		startup->makeShow();
 
 		blockFunc(true);
 
 	} else if(globVar->startupMessageInstallUpdateShown == 2) {
+
+		// This widget is shown after an update/fresh install
+		startup = new StartUpWidget(viewBig);
+		setupWidgets->startup = true;
+		startup->setRect(QRect(0,0,viewBig->width(),viewBig->height()));
 
 		if(globVar->verbose) qDebug() << "Show Install Message";
 
@@ -1721,7 +1560,8 @@ void MainWindow::showStartupUpdateInstallMsg() {
 
 		connect(startup, SIGNAL(finished()), this, SLOT(startupInstallUpdateMsgClosed()));
 
-		startup->animate();
+		startup->show();
+		startup->makeShow();
 
 		blockFunc(true);
 
@@ -1746,7 +1586,7 @@ void MainWindow::startuptimer() {
 	if(this->centralWidget()->height()-viewBig->height() < 25 && this->centralWidget()->width()-viewBig->width() < 25 && viewBig->width() > 500 && viewBig->height() > 500) {
 
 		// Show startup message (if it has to be shown and isn't shown yet)
-		if(globVar->startupMessageInstallUpdateShown != 0 && !startup->isShown) {
+		if(globVar->startupMessageInstallUpdateShown != 0 && !setupWidgets->startup) {
 			if(globVar->verbose) qDebug() << "Startup timer ended (message)";
 			showStartupUpdateInstallMsg();
 		// Start Photo
@@ -1760,7 +1600,7 @@ void MainWindow::startuptimer() {
 
 			viewThumbs->updateThbViewHoverNormPix("",globVar->currentfile);
 
-			updateQuickInfo();
+			viewBigLay->updateInfo(globVar->currentfile,viewThumbs->countpos,viewThumbs->counttot);
 
 		}
 
@@ -1770,6 +1610,12 @@ void MainWindow::startuptimer() {
 
 // Start slideshow
 void MainWindow::startSlideShow() {
+
+	if(!setupWidgets->slideshowbar)
+		setupWidget("slideshowbar");
+
+	if(!setupWidgets->slideshow)
+		setupWidget("slideshow");
 
 	if(globVar->verbose) qDebug() << "Start slideshow";
 
@@ -1789,12 +1635,12 @@ void MainWindow::startSlideShow() {
 	graphItem->transitionSetChange(slideshow->trans->value());
 
 	// Activate slideshow bar and animate it in and out to signalise start
-	slideshowbar->enabled = true;
+	slideshowbar->setEnabled(true);
 	slideshowbar->animateInAndOut = true;
 	slideshowbar->animate();
 
 	// update the quickinfo
-	updateQuickInfo();
+	viewBigLay->updateInfo(globVar->currentfile,viewThumbs->countpos,viewThumbs->counttot);
 
 	// set the music file to bar
 	slideshowbar->musicFile = musicFilePath;
@@ -1806,13 +1652,16 @@ void MainWindow::startSlideShow() {
 	slideshowbar->startSlideShow();
 
 	// Hide these possibly shown widgets
-	if(viewThumbs->isShown)
-		viewThumbs->animate();
-	if(exif->isShown)
-		exif->animate();
-	if(menu->isShown)
-		menu->animate();
+	if(viewThumbs->isVisible())
+		viewThumbs->makeHide();
+	if(exif->isVisible())
+		exif->makeHide();
+	if(menu->isVisible())
+		menu->makeHide();
 
+	viewBigLay->slideshowHide = slideshow->hideQuickInfo->isChecked();
+	viewBigLay->slideshowRunning = true;
+	viewBigLay->updateInfo(globVar->currentfile,viewThumbs->countpos,viewThumbs->counttot);
 
 }
 
@@ -1826,19 +1675,22 @@ void MainWindow::stopSlideShow() {
 	slideshowbar->animate();
 
 	// Disable slideshowbar
-	slideshowbar->enabled = false;
+	slideshowbar->setEnabled(false);
 
 	// Unblock all functions again
 	blockFunc(false);
 
 	// Update quickinfo
-	updateQuickInfo();
+	viewBigLay->updateInfo(globVar->currentfile,viewThumbs->countpos,viewThumbs->counttot);
 
 	// Stop slideshow
 	slideshowbar->stopSlideShow();
 
 	// Re-set original transition value
 	graphItem->transitionSetChange(globSet->transition);
+
+	viewBigLay->slideshowRunning = false;
+	viewBigLay->updateInfo(globVar->currentfile,viewThumbs->countpos,viewThumbs->counttot);
 
 }
 
@@ -1849,7 +1701,7 @@ void MainWindow::systemShortcutDO(QString todo) {
 
 		if(globVar->verbose) qDebug() << "Shortcut received (blockd):" << todo;
 
-		if(set->isShown && !set->tabShortcuts->detect->isShown) {
+		if(set->isVisible() && !set->tabShortcuts->detect->isShown) {
 
 			if(todo == "Escape") {
 				if(set->tabShortcuts->changeCommand->isShown)
@@ -1860,11 +1712,11 @@ void MainWindow::systemShortcutDO(QString todo) {
 					set->tabThumb->confirmErase->no->animateClick();
 				else {
 					set->loadSettings();
-					set->animate();
+					set->makeHide();
 				}
 			}
 			if(todo == "Ctrl+s" && !set->tabShortcuts->changeCommand->isShown) {
-				set->animate();
+				set->makeHide();
 				set->saveSettings();
 			}
 			if(todo == "Alt+1")
@@ -1884,14 +1736,14 @@ void MainWindow::systemShortcutDO(QString todo) {
 
 		}
 
-		if(startup->isShown) {
+		if(setupWidgets->startup && startup->isVisible()) {
 
 			if(todo == "Escape" || todo == "Return" || todo == "Enter")
-				startup->animate();
+				startup->makeHide();
 
 		}
 
-		if(filehandling->isShown) {
+		if(setupWidgets->filehandling && filehandling->isVisible()) {
 
 			if(todo == "Escape") {
 				if(filehandling->dialogType == "rename")
@@ -1916,10 +1768,10 @@ void MainWindow::systemShortcutDO(QString todo) {
 
 		}
 
-		if(about->isShown) {
+		if(setupWidgets->about && about->isVisible()) {
 
 			if(todo == "Escape")
-				about->close->animateClick();
+				about->makeHide();
 
 		}
 
@@ -1932,23 +1784,23 @@ void MainWindow::systemShortcutDO(QString todo) {
 
 		}
 
-		if(slideshow->isShown) {
+		if(setupWidgets->slideshow && slideshow->isVisible()) {
 
 			if(todo == "Escape")
-				slideshow->animate();
+				slideshow->makeHide();
 			if(todo == "Enter" || todo == "Return")
 				slideshow->andStart();
 
 		}
 
-		if(slideshowbar->enabled) {
+		if(setupWidgets->slideshowbar && slideshowbar->isEnabled()) {
 
 			if(todo == "Escape")
 				stopSlideShow();
 
 		}
 
-		if(wallpaper->isShown) {
+		if(setupWidgets->wallpaper && wallpaper->isVisible()) {
 
 			if(todo == "Escape")
 				wallpaper->dontSetWallpaper();
@@ -1998,76 +1850,10 @@ void MainWindow::trayAcDo(QSystemTrayIcon::ActivationReason rsn) {
 
 }
 
-// Update the quickinfo labels top bar
-void MainWindow::updateQuickInfo() {
-
-	if(globVar->verbose) qDebug() << "Update Quickinfo labels (show/hide)";
-
-	// If a slideshow is running and the user disabled all the quickinfos for that
-	if(slideshowbar->enabled && slideshow->hideQuickInfo->isChecked()) {
-
-		quickInfoCounterTOP->hide();
-		quickInfoFilenameTOP->hide();
-		quickInfoSepTOP->hide();
-
-		quickInfoCounterBOT->hide();
-		quickInfoSepBOT->hide();
-		quickInfoFilenameBOT->hide();
-
-		closeWindowX->hide();
-
-	} else if(globSet->thumbnailposition == "Bottom") {
-
-		if(globVar->currentfile != "") {
-
-			quickInfoCounterTOP->setText(QString("%1/%2").arg(viewThumbs->countpos+1).arg(viewThumbs->counttot));
-
-			if(globSet->hidefilepathshowfilename)
-				quickInfoFilenameTOP->setText(QFileInfo(globVar->currentfile).fileName());
-			else
-				quickInfoFilenameTOP->setText(globVar->currentfile);
-
-			quickInfoCounterTOP->setShown(!globSet->hidecounter);
-			quickInfoFilenameTOP->setShown(!globSet->hidefilename);
-			closeWindowX->setShown(!globSet->hidex);
-			quickInfoSepTOP->setShown((globSet->hidefilename == globSet->hidecounter) && !globSet->hidecounter);
-		} else {
-			quickInfoFilenameTOP->setText(tr("Open File to Begin."));
-			quickInfoCounterTOP->hide();
-			quickInfoSepTOP->hide();
-			quickInfoFilenameTOP->show();
-		}
-
-	} else if(globSet->thumbnailposition == "Top") {
-
-		if(globVar->currentfile != "") {
-
-			quickInfoCounterBOT->setText(QString("%1/%2").arg(viewThumbs->countpos+1).arg(viewThumbs->counttot));
-
-			if(globSet->hidefilepathshowfilename)
-				quickInfoFilenameBOT->setText(QFileInfo(globVar->currentfile).fileName());
-			else
-				quickInfoFilenameBOT->setText(globVar->currentfile);
-
-			quickInfoCounterBOT->setShown(!globSet->hidecounter);
-			quickInfoFilenameBOT->setShown(!globSet->hidefilename);
-			closeWindowX->setShown(!globSet->hidex);
-			quickInfoSepBOT->setShown(!globSet->hidefilename && !globSet->hidecounter);
-		} else {
-			quickInfoFilenameBOT->setText(tr("Open File to Begin."));
-			quickInfoCounterBOT->hide();
-			quickInfoSepBOT->hide();
-			quickInfoFilenameBOT->show();
-		}
-
-	}
-
-}
-
 // Update scene rect (called from graphicsitem.cpp)
 void MainWindow::updateSceneBigRect() {
 	if(globVar->verbose) qDebug() << "Update Scene Rect";
-	sceneBig.setSceneRect(sceneBig.itemsBoundingRect());
+	viewBig->scene()->setSceneRect(viewBig->scene()->itemsBoundingRect());
 }
 
 // The settings have been updated, so the map is passed to sub-widgets
@@ -2079,25 +1865,28 @@ void MainWindow::updateSettings(QMap<QString, QVariant> settings) {
 	viewThumbs->view->globSet = settings;
 	viewBig->globSet = settings;
 
-	quickInfoFilenameBOT->globSet = settings;
-	quickInfoFilenameTOP->globSet = settings;
+	viewBigLay->globSet = settings;
+
+	viewBigLay->globSet = settings;
 
 	set->globSet = settings;
-	set->tabLookFeel->globSet = settings;
-	set->tabThumb->globSet = settings;
-	set->tabExif->globSet = settings;
-	set->tabOther->globSet = settings;
+	if(set->tabsSetup) {
+		set->tabLookFeel->globSet = settings;
+		set->tabThumb->globSet = settings;
+		set->tabExif->globSet = settings;
+		set->tabOther->globSet = settings;
+	}
 
 	exif->globSet = settings;
 	exif->updateFontsize();
 
 	graphItem->transitionSetChange(globSet->transition);
 
-	slideshow->globSet = settings;
+	if(setupWidgets->slideshow) slideshow->globSet = settings;
 
-	wallpaper->globSet = settings;
+	if(setupWidgets->wallpaper) wallpaper->globSet = settings;
 
-	set->loadSettings();
+	if(set->tabsSetup) set->loadSettings();
 
 }
 
@@ -2123,10 +1912,8 @@ void MainWindow::zoom(bool zoomin, QString ignoreBoolean) {
 			viewBig->scale(1,-1);
 		globVar->flipVer = false;
 		globVar->zoomedImgAtLeastOnce = false;
-		if(globSet->thumbnailKeepVisible) {
-			viewThumbs->setGeometry(viewThumbs->rectShown);
-			viewThumbs->isShown = true;
-		}
+		if(globSet->thumbnailKeepVisible)
+			viewThumbs->makeShow();
 
 		if(ignoreBoolean != "resetNoDraw" || globSet->transition != 0)
 			drawImage();
@@ -2160,9 +1947,8 @@ void MainWindow::zoom(bool zoomin, QString ignoreBoolean) {
 			if(globVar->flipVer)
 				viewBig->scale(1,-1);
 
-			if(globSet->thumbnailKeepVisible && viewThumbs->isShown) {
-				viewThumbs->animate();
-			}
+			if(globSet->thumbnailKeepVisible && viewThumbs->isVisible())
+				viewThumbs->makeHide();
 
 		}
 
@@ -2246,44 +2032,4 @@ void MainWindow::zoom(bool zoomin, QString ignoreBoolean) {
 
 MainWindow::~MainWindow() { }
 
-
-/*####################################################################################
-  ####################################################################################
-  ####################################################################################
-  ####################################################################################
-  ####################################################################################*/
-
-
-// A custom label for enabling a right click on them, and adding a clicked() event
-QuickInfoLabel::QuickInfoLabel(QWidget *parent, QString objName) : QLabel(parent) {
-
-	this->setObjectName(objName);
-
-	c = new QMenu;
-	if(objName.startsWith("quickinfoFilename")) {
-		dohideFilepath = new QAction(tr("Hide Filepath, leave Filename"),c);
-		dohideFilepath->setObjectName("quickinfoFilepath");
-		c->addAction(dohideFilepath);
-	}
-	dohide = new QAction(tr("Hide this item"),c);
-	dohide->setObjectName(objName);
-	c->setStyleSheet("QMenu { background-color: black; margin: 2px; } QMenu::item { color: grey; } QMenu::item:selected { color: white; } QMenu::item::disabled { color: black; }");
-	c->addAction(dohide);
-
-}
-
-// The label on the top right (the little "x") for closing the app
-void QuickInfoLabel::mouseReleaseEvent(QMouseEvent *e) {
-
-	if(e->button() == Qt::LeftButton)
-		emit clicked();
-
-}
-
-// Showing the context menu
-void QuickInfoLabel::contextMenuEvent(QContextMenuEvent*) {
-	if(this->objectName() == "quickinfoFilename")
-		dohideFilepath->setVisible(!globSet.value("HideFilepathShowFilename").toBool());
-	c->popup(QCursor::pos());
-}
 

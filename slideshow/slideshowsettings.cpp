@@ -190,6 +190,32 @@ void SlideShow::adjustGeometries() {
 
 }
 
+void SlideShow::makeHide() {
+
+	if(isShown) animate();
+
+}
+
+void SlideShow::makeShow() {
+
+	if(!isShown) animate();
+
+}
+
+void SlideShow::setRect(QRect rect) {
+
+	rectShown = rect;
+	rectHidden = QRect(0,-10,10,10);
+	rectAni = QRect(rect.width()/2.0,rect.height()/2.0,1,1);
+
+	if(isShown) this->setGeometry(rectShown);
+	else this->setGeometry(rectHidden);
+
+	// Adjust the slideshow geometry
+	adjustGeometries();
+
+}
+
 // The animation function
 void SlideShow::animate() {
 

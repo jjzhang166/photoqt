@@ -2,6 +2,8 @@
 
 Thumbnails::Thumbnails(QWidget *parent, bool v, QMap<QString,QVariant> set) : QWidget(parent) {
 
+	this->setObjectName("viewThumbs");
+
 	globSet = set;
 
 	verbose = v;
@@ -16,6 +18,9 @@ Thumbnails::Thumbnails(QWidget *parent, bool v, QMap<QString,QVariant> set) : QW
 
 	// The view and scene
 	view = new ThumbnailView(globSet);
+	view->setDragMode(QGraphicsView::ScrollHandDrag);
+	view->setMouseTracking(true);
+	this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
 	// Load needed thumbnails (dynamic thumbnail creation)
 	connect(view, SIGNAL(movedScroll()), this, SLOT(scrolledView()));
 
@@ -36,6 +41,13 @@ Thumbnails::Thumbnails(QWidget *parent, bool v, QMap<QString,QVariant> set) : QW
 	connect(thumbThread, SIGNAL(updateThb(QImage,QString,int)), this, SLOT(updateThumb(QImage,QString,int)));
 
 	layout->addWidget(view);
+
+	// Adjust some properties of the small GraphicsView for Thumbnails
+	if(globSet.value("ThumbnailKeepVisible").toBool()) {
+		this->setGeometry(rectShown);
+		isShown = true;
+	} else
+		this->setGeometry(rectHidden);
 
 }
 
@@ -404,45 +416,57 @@ void Thumbnails::gotoFirstLast(QString side) {
 
 }
 
+void Thumbnails::setRect(QRect rect) {
+
+	// Adjust the thumbnail geometry
+	rectShown = QRect(rect);
+	if(rect.y() != 0)
+		rectHidden = QRect(0,rect.bottomLeft().y(),rect.width(),rect.height());
+	else
+		rectHidden = QRect(0,0,rect.width(),-rect.height());
+
+	qDebug() << rectShown << "-" << rectHidden << isShown;
+
+	if(isShown) this->setGeometry(rectShown);
+	else this->setGeometry(rectHidden);
+
+}
+
+void Thumbnails::makeShow() {
+
+	qDebug() << "SHOW" << isShown;
+
+	if(!isShown)
+		animate();
+
+}
+
+void Thumbnails::makeHide() {
+
+	if(isShown)
+		animate();
+
+}
+
 // The view has been scrolled (needed for dynamic thumbnail creation)
 void Thumbnails::scrolledView(bool forceUpdate) {
 
-	// Get some info about current position (using scrollbar)
-	int visibleStart = view->scrollbar->value()-(view->width()/2);
-	int toLeft = visibleStart/view->thbWidth;
-	int changed = toLeft - view->lastToLeft;
+	// We get the position of the item in view center
+	QGraphicsItem *pix = (QGraphicsItem*)view->itemAt(view->viewport()->visibleRegion().boundingRect().center());
+	QString pixPath = pix->data(1).toString();
+	int newpos = allImgsPath.indexOf(pixPath);
 
-	// If current position changed
-	if(changed != 0 || forceUpdate) {
+	// And submit data to thread
+	// The amUpdatingData bool is true as long as data is updated, and the thread is sitting idle in that time
+	thumbThread->amUpdatingData = true;
+	// Set data
+	thumbThread->newData(newpos,globSet.value("ThumbnailSize").toInt(),view->width());
 
-		// We get the position of the item in view center
-		QGraphicsItem *pix = (QGraphicsItem*)view->itemAt(view->viewport()->visibleRegion().boundingRect().center());
-		QString pixPath = pix->data(1).toString();
-		int newpos = allImgsPath.indexOf(pixPath);
-
-		// If something went wrong in above's check
-		if(newpos == -1)
-			// Backup middle position
-			newpos = thumbThread->currentPos+changed;
-
-		if(newpos < 0)
-			newpos = 0;
-		if(newpos >= thumbThread->counttot)
-			newpos = thumbThread->counttot-1;
-
-		// And submit data to thread
-		// The amUpdatingData bool is true as long as data is updated, and the thread is sitting idle in that time
-		thumbThread->amUpdatingData = true;
-		// Set data
-		thumbThread->newData(newpos,globSet.value("ThumbnailSize").toInt(),view->width());
-		// Tell the view the new position
-		view->lastToLeft = toLeft;
-		// Finished
-		thumbThread->amUpdatingData = false;
-		// If thread wasn't even running, start it
-		if(!thumbThread->isRunning())
-			thumbThread->start();
-	}
+	// Finished
+	thumbThread->amUpdatingData = false;
+	// If thread wasn't even running, start it
+	if(!thumbThread->isRunning())
+		thumbThread->start();
 
 
 }
@@ -455,6 +479,12 @@ void Thumbnails::paintEvent(QPaintEvent *) {
 	style()->drawPrimitive(QStyle::PE_Widget, &o, &p, this);
 }
 
+
+void Thumbnails::ensureThumbLoad() {
+
+	view->scrollbar->setValue(view->scrollbar->value()+1);
+
+}
 
 
 Thumbnails::~Thumbnails() { }

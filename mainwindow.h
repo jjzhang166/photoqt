@@ -4,11 +4,11 @@
 #include <QMainWindow>
 
 #include "widgets/aboutwidget.h"
-#include "graphicsview.h"
+#include "graphics/graphicsview.h"
 #include "globalvariables.h"
 #include "globalsettings.h"
 #include "thumbnails/thumbnails.h"
-#include "graphicsitem.h"
+#include "graphics/graphicsitem.h"
 #include "settings/settings.h"
 #include "widgets/dropdownmenu.h"
 #include "widgets/filehandling.h"
@@ -17,7 +17,9 @@
 #include "slideshow/slideshowbar.h"
 #include "widgets/startupwidget.h"
 #include "wallpaper/wallpaper.h"
-#include "imagereader.h"
+#include "graphics/imagereader.h"
+#include "setupwidgets.h"
+#include "graphics/graphicsviewlay.h"
 
 #include <QApplication>
 #include <QDesktopWidget>
@@ -39,27 +41,6 @@
 #include <QSystemTrayIcon>
 #include <QMenu>
 
-// A custom label (the "x" top right corner) for closing Photo
-class QuickInfoLabel : public QLabel {
-	Q_OBJECT
-
-public:
-	QuickInfoLabel(QWidget *parent = 0, QString objName = "");
-	QMenu *c;
-	QAction *dohideFilepath;
-	QAction *dohide;
-	QString version;
-
-	QMap<QString,QVariant> globSet;
-
-protected:
-	void mouseReleaseEvent(QMouseEvent *e);
-	void contextMenuEvent(QContextMenuEvent *ev);
-signals:
-	void clicked();
-};
-
-
 
 class MainWindow : public QMainWindow {
 	Q_OBJECT
@@ -75,8 +56,14 @@ public:
 	GlobalVariables *globVar;
 	GlobalSettings *globSet;
 
+	// Which widgets have been setup
+	SetupWidgets *setupWidgets;
+
 	// The timer is started at startup to wait until window is completely set up
 	QTimer *startUpTimer;
+
+	// The layout of viewBig
+	ViewBigLay *viewBigLay;
 
 
 private:
@@ -110,15 +97,6 @@ private:
 	// The tray icon menu
 	QMenu *trayIconMenu;
 
-	// The quickinfo labels
-	QuickInfoLabel *quickInfoCounterTOP;
-	QLabel *quickInfoSepTOP;
-	QuickInfoLabel *quickInfoFilenameTOP;
-	QuickInfoLabel *closeWindowX;
-	QuickInfoLabel *quickInfoCounterBOT;
-	QLabel *quickInfoSepBOT;
-	QuickInfoLabel *quickInfoFilenameBOT;
-
 	// The filehandling widget
 	FileHandling *filehandling;
 
@@ -138,9 +116,10 @@ private:
 	// This widget is shown after an update/fresh install
 	StartUpWidget *startup;
 
+	// Wallpaper settings
 	Wallpaper *wallpaper;
 
-//	ImageMagick *imageMagick;
+	// imagereader combining QImageReader and GraphicsMagic
 	ImageReader *imageReader;
 
 
@@ -165,11 +144,11 @@ private:
 	// Set the background of Photo
 	void setBackground();
 
-	// Update the quickinfo labels top bar
-	void updateQuickInfo();
-
 	// Zoom the current image; if a string is set, the boolean is ignored
 	void zoom(bool zoomin, QString ignoreBoolean = "");
+
+	// Setup a widget
+	void setupWidget(QString what);
 
 private slots:
 	// This is called, whenever the settings have changed, and updates all sub-widgets
@@ -187,9 +166,6 @@ private slots:
 
 	// A click on the main image graphicsview
 	void gotViewBigClick(QPoint pos);
-
-	// This is called by the menus set to the quickinfo labels
-	void hideQuickInfo();
 
 	// Load a new image in current dir from the thumbnail view
 	void loadNewImgFromThumbs(QString path);

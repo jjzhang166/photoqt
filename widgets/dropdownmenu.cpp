@@ -39,6 +39,7 @@ DropDownMenu::DropDownMenu(QWidget *parent) : QWidget(parent) {
 	setHeading(tr("General Functions"),"right");
 	setStandard("right", tr("Open File"), ":/img/open.png","open", 1);
 	setStandard("right", tr("Settings"), ":/img/setup.png","settings", 1);
+	setStandard("right", tr("Set as Wallpaper"), ":/img/setup.png","wallpaper", 1);
 	setStandard("right", tr("Interrupt Thumbnail Creation"), ":/img/interrupt.png","stopThb", 1);
 	setStandard("right", tr("Reload Thumbnails"), ":/img/reload.png","reloadThb", 1);
 	setStandard("right", tr("Show Exif Widget"), ":/img/exif.png","hideMeta", 1);
@@ -398,6 +399,42 @@ void DropDownMenu::setHeading(QString txt, QString pos) {
 }
 
 
+void DropDownMenu::setRect(QRect rect) {
+
+	rectShown = rect;
+
+	if(rect.y() == 0)
+		rectHidden = QRect(rect.x(),-rect.height(),rect.width(),rect.height());
+	else
+		rectHidden = QRect(rect.x(),rect.y()+rect.height(),rect.width(),rect.height());
+
+	this->setStyleSheet(QString("border-radius: 8px; border-%1-right-radius: 0px; border-%2-left-radius: 0px; background-color: rgba(0, 0, 0, 220)").arg(rect.y() == 0 ? "top" : "bottom").arg(rect.y() == 0 ? "top" : "bottom"));
+
+	if(isShown) this->setGeometry(rectShown);
+	else this->setGeometry(rectHidden);
+
+}
+
+void DropDownMenu::setSensitivity(int xSens, int ySens) {
+
+	xSensitivity = xSens;
+	ySensitivity = ySens;
+
+}
+
+void DropDownMenu::makeShow() {
+
+	if(!isShown)
+		animate();
+
+}
+
+void DropDownMenu::makeHide() {
+
+	if(isShown)
+		animate();
+
+}
 
 
 // Animate the menu in/out

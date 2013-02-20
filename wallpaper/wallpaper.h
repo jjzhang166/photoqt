@@ -15,9 +15,12 @@
 #include <QtDebug>
 #include <QButtonGroup>
 #include <QDesktopWidget>
+//#include <QApplication>
 
 #ifdef Q_WS_X11
 #include <X11/Xlib.h>
+#include <X11/Xproto.h>
+#include <X11/Xatom.h>
 #endif
 
 #include "../customelements/custompushbutton.h"
@@ -39,6 +42,14 @@ public:
 	void setWallpaper(QString file);
 	void dontSetWallpaper();
 
+	void makeShow();
+	void makeHide();
+	bool isVisible() { return isShown; }
+	void setRect(QRect rect);
+
+
+private:
+
 	// Boolean about current geometry/position
 	bool isShown;
 
@@ -50,8 +61,6 @@ public:
 	// The central widget
 	QWidget *center;
 
-
-private:
 	// The animation for the content widget
 	QPropertyAnimation *ani;
 
@@ -86,6 +95,8 @@ private:
 	void setGNOME();
 	void setXFCE();
 	void setOTHER();
+
+	Window ToonGetRootWindow(Display *display, int screen, Window *clientparent);
 
 private slots:
 	// The animation functions

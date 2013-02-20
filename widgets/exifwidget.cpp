@@ -703,6 +703,20 @@ void Exif::rotConfNo() {
 
 }
 
+void Exif::makeShow() {
+	if(!isShown) animate();
+}
+
+void Exif::makeHide() {
+	if(isShown) animate();
+}
+
+void Exif::setRect(QRect rect) {
+
+	rotConf->setRect(rect);
+
+}
+
 // Animate open/close the widget
 void Exif::animate() {
 

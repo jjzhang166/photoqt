@@ -29,6 +29,29 @@ public:
 
 	QMap<QString,QVariant> globSet;
 
+	void makeHide();
+	void makeShow();
+	bool isVisible() { return isShown; }
+	void setRect(QRect rect);
+
+	// Adjust time
+	CustomSlider *timeSlider;
+	// Adjust transition
+	CustomSlider *trans;
+
+	// Adjust music
+	CustomCheckBox *musicEnable;
+	CustomLineEdit *musicPath;
+
+	// Adjust quickinfo labels
+	CustomCheckBox *hideQuickInfo;
+
+public slots:
+	// Start slideshow
+	void andStart();
+
+private:
+
 	// The animation for the content widget
 	QPropertyAnimation *ani;
 
@@ -49,20 +72,10 @@ public:
 	// Central widget
 	QWidget *center;
 
-	// Adjust time
-	CustomSlider *timeSlider;
-	// Adjust transition
-	CustomSlider *trans;
-	// Adjust quickinfo labels
-	CustomCheckBox *hideQuickInfo;
-	// Adjust music
-	CustomCheckBox *musicEnable;
-	CustomLineEdit *musicPath;
-
 	// Adjust geometries
 	void adjustGeometries();
 
-public slots:
+private slots:
 	// The animation functions
 	void animate();
 	void aniFinished();
@@ -72,9 +85,6 @@ public slots:
 
 	// Browse filesystem for music file
 	void browseForMusic();
-
-	// Start slideshow
-	void andStart();
 
 signals:
 	// Block all function in mainwindow and activate system keys

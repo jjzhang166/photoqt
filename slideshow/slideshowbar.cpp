@@ -134,6 +134,29 @@ void SlideShowBar::aniFinished() {
 
 }
 
+
+void SlideShowBar::makeShow() {
+
+	if(!isShown) animate();
+
+}
+
+void SlideShowBar::makeHide() {
+
+	if(isShown) animate();
+
+}
+
+void SlideShowBar::setWidth(int w) {
+
+	rectShown = QRect(0,0,w,50);
+	rectHidden = QRect(0,-50,w,50);
+
+	if(isShown) this->setGeometry(rectShown);
+	else this->setGeometry(rectHidden);
+
+}
+
 void SlideShowBar::animate() {
 
 

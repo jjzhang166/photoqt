@@ -54,14 +54,14 @@ void ThumbnailView::wheelEvent(QWheelEvent *event) {
 // The value of the thumbnail has changed
 void ThumbnailView::scrollbarValueChanged(int) {
 
-	int scrollBarValue = scrollbar->value();
-	int thisWidth = this->width();
-	int visibleStart = scrollBarValue-(thisWidth/2);
-	int toLeft = visibleStart/thbWidth+2;
-	// Initially lastToLeft == 0, and we first need to update it
-	if(lastToLeft == -1)
-		lastToLeft = toLeft;
-	// Restart timer
+//	int scrollBarValue = scrollbar->value();
+//	int thisWidth = this->width();
+//	int visibleStart = scrollBarValue-(thisWidth/2);
+//	int toLeft = visibleStart/thbWidth+2;
+//	// Initially lastToLeft == 0, and we first need to update it
+//	if(lastToLeft == -1)
+//		lastToLeft = toLeft;
+//	// Restart timer
 	updateScroll->stop();
 	updateScroll->start();
 
@@ -70,10 +70,10 @@ void ThumbnailView::scrollbarValueChanged(int) {
 // The timer has timed out, i.e. the user stopped scrolling
 void ThumbnailView::scrollUpdateTimeout() {
 
-	// Check if position has actually changed, and if so, then ask for thumbnail update
-	int visibleStart = scrollbar->value()-(this->width()/2);
-	int toLeft = visibleStart/thbWidth+2;
-	if(toLeft != lastToLeft)
+//	// Check if position has actually changed, and if so, then ask for thumbnail update
+//	int visibleStart = scrollbar->value()-(this->width()/2);
+//	int toLeft = visibleStart/thbWidth+2;
+//	if(toLeft != lastToLeft)
 		emit movedScroll();
 
 }

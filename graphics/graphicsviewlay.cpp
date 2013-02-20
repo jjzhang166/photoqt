@@ -1,0 +1,234 @@
+#include "graphicsviewlay.h"
+
+ViewBigLay::ViewBigLay(QMap<QString, QVariant> set) : QVBoxLayout() {
+
+	globSet = set;
+
+
+	slideshowRunning = false;
+	slideshowHide = false;
+
+
+	QHBoxLayout *quickInfoTOP = new QHBoxLayout;
+
+	// We have labels for the top and for the bottom. So there's no need to restart Photo when switching thumbnails from top to bottom or vice versa
+	quickInfoCounterTOP = new QuickInfoLabel(0,"quickinfoCounterTOP");
+	quickInfoCounterTOP->setStyleSheet("color: white");
+	quickInfoCounterTOP->hide();
+	quickInfoSepTOP = new QLabel("--");
+	quickInfoSepTOP->setStyleSheet("color:white");
+	quickInfoSepTOP->hide();
+	quickInfoFilenameTOP = new QuickInfoLabel(0,"quickinfoFilenameTOP");
+	quickInfoFilenameTOP->setText(tr("Open File to Begin."));
+	quickInfoFilenameTOP->setStyleSheet("color: white");
+	quickInfoFilenameTOP->hide();
+	quickInfoFilenameTOP->globSet = globSet;
+	closeWindowX = new QuickInfoLabel(0,"closewindowXTOP");
+	closeWindowX->setText("x");
+	closeWindowX->setStyleSheet("color: white; padding: 5px");
+	closeWindowX->setCursor(Qt::PointingHandCursor);
+	closeWindowX->setShown(!globSet.value("HideX").toBool());
+	QSignalMapper *mapperXTOP = new QSignalMapper;
+	mapperXTOP->setMapping(closeWindowX,"0:::::__hide");
+	connect(closeWindowX, SIGNAL(clicked()), mapperXTOP, SLOT(map()));
+	connect(mapperXTOP, SIGNAL(mapped(QString)), this, SIGNAL(clickOnX(QString)));
+	connect(quickInfoCounterTOP->dohide, SIGNAL(triggered()), this, SLOT(hideItem()));
+	connect(quickInfoFilenameTOP->dohide, SIGNAL(triggered()), this, SLOT(hideItem()));
+	connect(quickInfoFilenameTOP->dohideFilepath, SIGNAL(triggered()), this, SLOT(hideItem()));
+	connect(closeWindowX->dohide, SIGNAL(triggered()), this, SLOT(hideItem()));
+
+	quickInfoTOP->addWidget(quickInfoCounterTOP);
+	quickInfoTOP->addWidget(quickInfoSepTOP);
+	quickInfoTOP->addWidget(quickInfoFilenameTOP);
+	quickInfoTOP->addStretch();
+	quickInfoTOP->addWidget(closeWindowX);
+
+	this->addLayout(quickInfoTOP);
+
+	QHBoxLayout *quickInfoBOT = new QHBoxLayout;
+
+	quickInfoCounterBOT = new QuickInfoLabel(0,"quickinfoCounterBOT");
+	quickInfoCounterBOT->setStyleSheet("color: white");
+	quickInfoCounterBOT->hide();
+	quickInfoSepBOT = new QLabel("--");
+	quickInfoSepBOT->setStyleSheet("color:white");
+	quickInfoSepBOT->hide();
+	quickInfoFilenameBOT = new QuickInfoLabel(0,"quickinfoFilenameBOT");
+	quickInfoFilenameBOT->setText(tr("Open File to Begin."));
+	quickInfoFilenameBOT->setStyleSheet("color: white");
+	quickInfoFilenameBOT->hide();
+	quickInfoFilenameBOT->globSet = globSet;
+	connect(quickInfoCounterBOT->dohide, SIGNAL(triggered()), this, SLOT(hideItem()));
+	connect(quickInfoFilenameBOT->dohide, SIGNAL(triggered()), this, SLOT(hideItem()));
+	connect(quickInfoFilenameBOT->dohideFilepath, SIGNAL(triggered()), this, SLOT(hideItem()));
+
+	quickInfoBOT->addWidget(quickInfoCounterBOT);
+	quickInfoBOT->addWidget(quickInfoSepBOT);
+	quickInfoBOT->addWidget(quickInfoFilenameBOT);
+	quickInfoBOT->addStretch();
+
+	this->addStretch();
+	this->addLayout(quickInfoBOT);
+
+
+}
+
+void ViewBigLay::setPosition(QString pos) {
+
+	if(pos == "Bottom") {
+		quickInfoCounterTOP->hide();
+		quickInfoFilenameTOP->hide();
+		quickInfoSepTOP->hide();
+		closeWindowX->hide();
+	} else if(pos == "Top") {
+		quickInfoCounterBOT->hide();
+		quickInfoFilenameBOT->hide();
+		quickInfoSepBOT->hide();
+		closeWindowX->hide();
+	}
+
+}
+
+void ViewBigLay::updateInfo(QString currentfile, int countpos, int counttot) {
+
+//	if(globVar->verbose) qDebug() << "Update Quickinfo labels (show/hide)";
+
+	// If a slideshow is running and the user disabled all the quickinfos for that
+	if(slideshowRunning && slideshowHide) {
+
+		quickInfoCounterTOP->hide();
+		quickInfoFilenameTOP->hide();
+		quickInfoSepTOP->hide();
+
+		quickInfoCounterBOT->hide();
+		quickInfoSepBOT->hide();
+		quickInfoFilenameBOT->hide();
+
+		closeWindowX->hide();
+
+	} else if(globSet.value("ThumbnailPosition").toString() == "Bottom") {
+
+		if(currentfile != "") {
+
+			quickInfoCounterTOP->setText(QString("%1/%2").arg(countpos+1).arg(counttot));
+
+			if(globSet.value("HideFilepathShowFilename").toBool())
+				quickInfoFilenameTOP->setText(QFileInfo(currentfile).fileName());
+			else
+				quickInfoFilenameTOP->setText(currentfile);
+
+			quickInfoCounterTOP->setShown(!globSet.value("HideCounter").toBool());
+			quickInfoFilenameTOP->setShown(!globSet.value("HideFilename").toBool());
+			closeWindowX->setShown(!globSet.value("HideX").toBool());
+			quickInfoSepTOP->setShown((globSet.value("HideFilename").toBool() == globSet.value("HideCounter").toBool()) && !globSet.value("HideCounter").toBool());
+		} else {
+			quickInfoFilenameTOP->setText(tr("Open File to Begin."));
+			quickInfoCounterTOP->hide();
+			quickInfoSepTOP->hide();
+			quickInfoFilenameTOP->show();
+		}
+
+	} else if(globSet.value("ThumbnailPosition").toString() == "Top") {
+
+		if(currentfile != "") {
+
+			quickInfoCounterBOT->setText(QString("%1/%2").arg(countpos+1).arg(counttot));
+
+			if(globSet.value("HideFilepathShowFilename").toBool())
+				quickInfoFilenameBOT->setText(QFileInfo(currentfile).fileName());
+			else
+				quickInfoFilenameBOT->setText(currentfile);
+
+			quickInfoCounterBOT->setShown(!globSet.value("HideCounter").toBool());
+			quickInfoFilenameBOT->setShown(!globSet.value("HideFilename").toBool());
+			closeWindowX->setShown(!globSet.value("HideX").toBool());
+			quickInfoSepBOT->setShown(!globSet.value("HideFilename").toBool() && !globSet.value("HideCounter").toBool());
+		} else {
+			quickInfoFilenameBOT->setText(tr("Open File to Begin."));
+			quickInfoCounterBOT->hide();
+			quickInfoSepBOT->hide();
+			quickInfoFilenameBOT->show();
+		}
+
+	}
+
+}
+
+void ViewBigLay::hideItem() {
+
+	QMap<QString,QVariant> updateSet;
+
+	QString objName = ((QAction *) sender())->objectName();
+//	if(globVar->verbose) qDebug() << "Hide quickinfo:" << objName;
+
+	if(objName == "quickinfoCounter") {
+		quickInfoCounterTOP->hide();
+		quickInfoCounterBOT->hide();
+		quickInfoSepTOP->hide();
+		quickInfoSepBOT->hide();
+		updateSet.insert("HideCounter",true);
+	}
+	if(objName == "quickinfoFilepath")
+		updateSet.insert("HideFilepathShowFilename",true);
+	if(objName == "quickinfoFilename") {
+		quickInfoSepTOP->hide();
+		quickInfoSepBOT->hide();
+		quickInfoFilenameTOP->hide();
+		quickInfoFilenameBOT->hide();
+		updateSet.insert("HideFilename",true);
+	}
+	if(objName == "closewindowX") {
+		closeWindowX->hide();
+		updateSet.insert("HideX",true);
+	}
+
+
+	emit updateSettings(updateSet);
+
+}
+
+
+ViewBigLay::~ViewBigLay() { }
+
+
+
+
+/*####################################################################################
+  ####################################################################################
+  ####################################################################################
+  ####################################################################################
+  ####################################################################################*/
+
+
+// A custom label for enabling a right click on them, and adding a clicked() event
+QuickInfoLabel::QuickInfoLabel(QWidget *parent, QString objName) : QLabel(parent) {
+
+	this->setObjectName(objName);
+
+	c = new QMenu;
+	if(objName.startsWith("quickinfoFilename")) {
+		dohideFilepath = new QAction(tr("Hide Filepath, leave Filename"),c);
+		dohideFilepath->setObjectName("quickinfoFilepath");
+		c->addAction(dohideFilepath);
+	}
+	dohide = new QAction(tr("Hide this item"),c);
+	dohide->setObjectName(objName);
+	c->setStyleSheet("QMenu { background-color: black; margin: 2px; } QMenu::item { color: grey; } QMenu::item:selected { color: white; } QMenu::item::disabled { color: black; }");
+	c->addAction(dohide);
+
+}
+
+// The label on the top right (the little "x") for closing the app
+void QuickInfoLabel::mouseReleaseEvent(QMouseEvent *e) {
+
+	if(e->button() == Qt::LeftButton)
+		emit clicked();
+
+}
+
+// Showing the context menu
+void QuickInfoLabel::contextMenuEvent(QContextMenuEvent*) {
+//	if(this->objectName() == "quickinfoFilename")
+//		dohideFilepath->setVisible(!globSet.value("HideFilepathShowFilename").toBool());
+	c->popup(QCursor::pos());
+}

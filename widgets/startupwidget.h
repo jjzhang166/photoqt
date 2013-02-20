@@ -20,6 +20,18 @@ public:
 	StartUpWidget(QWidget *parent = 0);
 	~StartUpWidget();
 
+	// There's a little difference between an update message and a fresh install message
+	void setUpdateMsg();
+	void setInstallMsg();
+
+	void makeShow();
+	void makeHide();
+	bool isVisible() { return isShown; }
+	void setRect(QRect rect);
+
+
+private:
+
 	// The geometries of the widget
 	QRect rectShown;
 	QRect rectHidden;
@@ -34,16 +46,12 @@ public:
 	// the custom scrollbar on the right
 	CustomScrollbar *scrollbar;
 
-	// There's a little difference between an update message and a fresh install message
-	void setUpdateMsg();
-	void setInstallMsg();
-
 	// The title and intro can be customised by above functions
 	QLabel *title;
 	QLabel *customIntro;
 
 
-public slots:
+private slots:
 	// The animation functions
 	void animate();
 	void aniFinished();

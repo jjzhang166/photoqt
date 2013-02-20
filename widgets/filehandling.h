@@ -28,10 +28,53 @@ class FileHandling : public QWidget {
 	Q_OBJECT
 
 public:
-	FileHandling(QWidget *parent = 0, bool verbose = false);
+	FileHandling(QWidget *parent = 0, bool verbose = false, QString cf = "");
 	~FileHandling();
 
 	bool verbose;
+
+	// The current loaded file
+	QString currentfile;
+
+	// The current type of dialog opened
+	QString dialogType;
+
+	// Open the dialog as type 't'
+	void openDialog(QString t);
+
+	// Set the different widgets to be used
+	void setRename();
+	void setDelete();
+	void setMove();
+	void setCopy();
+
+	QPushButton *renameSave;
+	QPushButton *renameCancel;
+
+	QPushButton *deleteYes;
+	QPushButton *deleteYesHard;
+	QPushButton *deleteNo;
+
+	QPushButton *moveSave;
+	QPushButton *moveCancel;
+
+	QPushButton *copySave;
+	QPushButton *copyCancel;
+
+	void makeHide();
+	void makeShow();
+	bool isVisible() { return isShown; }
+	void setRect(QRect rect);
+
+
+private:
+
+
+	// The fade parameters for the background
+	int backAlphaShow;
+	int backAlphaCur;
+	QTimeLine *fadeBack;
+	bool fadeBackIN;
 
 	// The animation for the content widget
 	QPropertyAnimation *ani;
@@ -43,19 +86,6 @@ public:
 	QRect rectShown;
 	QRect rectHidden;
 	QRect rectAni;
-
-	// The current loaded file
-	QString currentfile;
-
-	// The fade parameters for the background
-	int backAlphaShow;
-	int backAlphaCur;
-	QTimeLine *fadeBack;
-	bool fadeBackIN;
-
-	// The current type of dialog opened
-	QString dialogType;
-
 
 
 	/**********************************
@@ -69,8 +99,6 @@ public:
 	QLabel *renameOldEnding;
 	QLabel *renameNewNameExists;
 	QString renameSaveCSS;
-	QPushButton *renameSave;
-	QPushButton *renameCancel;
 
 
 
@@ -82,10 +110,6 @@ public:
 	QLabel *deleteTitle;
 	QLabel *deleteFilename;
 	QLabel *deleteQuestion;
-	QPushButton *deleteYes;
-	QPushButton *deleteYesHard;
-	QPushButton *deleteNo;
-
 
 
 	/********************************
@@ -102,8 +126,6 @@ public:
 	QLineEdit *moveNewName;
 	QLabel *moveNewNameEnding;
 	QString moveSaveCSS;
-	QPushButton *moveSave;
-	QPushButton *moveCancel;
 
 	/********************************
 	/////////// COPY ////////////////
@@ -119,19 +141,7 @@ public:
 	QLineEdit *copyNewName;
 	QLabel *copyNewNameEnding;
 	QString copySaveCSS;
-	QPushButton *copySave;
-	QPushButton *copyCancel;
 
-
-
-	// Open the dialog as type 't'
-	void openDialog(QString t);
-
-	// Set the different widgets to be used
-	void setRename();
-	void setDelete();
-	void setMove();
-	void setCopy();
 
 public slots:
 	// The animation functions

@@ -1,7 +1,7 @@
 #ifndef SETTINGS_H
 #define SETTINGS_H
 
-#include "../shortcuts.h"
+#include "shortcuts.h"
 #include "settingstabexif.h"
 #include "settingstabother.h"
 #include "settingstablookandfeel.h"
@@ -15,6 +15,7 @@
 #include <QtDebug>
 #include <QVBoxLayout>
 #include <QShortcut>
+#include <QApplication>
 
 class Settings : public QWidget {
 
@@ -25,14 +26,6 @@ public:
 	~Settings();
 
 	bool verbose;
-
-	// The geometries of the widget
-	QRect rectShown;
-	QRect rectHidden;
-	QRect aniStart;
-
-	// Two display booleans
-	bool isShown;
 
 	// The global Settings (passed on when initialising this class)
 	QMap<QString,QVariant> globSet;
@@ -50,24 +43,43 @@ public:
 	SettingsTabExif *tabExif;
 	SettingsTabShortcuts *tabShortcuts;
 
-	// Confirm restoration of default settings
-	CustomConfirm *restoreDefaultConfirm;
+	bool tabsSetup;
 
 	// Switch Tabs back/for
 	void nextTab();
 	void prevTab();
 
+	void makeShow();
+	void makeHide();
+	bool isVisible() { return isShown; }
+	void setRect(QRect rect);
+
 private:
+	void setupTabs();
+
+	// Confirm restoration of default settings
+	CustomConfirm *restoreDefaultConfirm;
+
+	// The geometries of the widget
+	QRect rectShown;
+	QRect rectHidden;
+	QRect aniStart;
+
+	// Two display booleans
+	bool isShown;
+
 	// The property animation
 	QPropertyAnimation *ani;
 
 private slots:
-	// Animation finished function
+	// Animation functions
+	void animate();
 	void aniFinished();
 
+	// Called when tab changed
+	void tabChanged();
+
 public slots:
-	// Animation function
-	void animate();
 
 	// Load and Save functions
 	void loadSettings();
@@ -76,9 +88,6 @@ public slots:
 	// Restore default settings & shortcuts
 	void restoreDefaultSettings();
 	void restoreDefaultShortcuts();
-
-	// Called when tab changed
-	void tabChanged();
 
 protected:
 	void paintEvent(QPaintEvent *);

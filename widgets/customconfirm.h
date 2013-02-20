@@ -41,6 +41,8 @@ public:
 	// Show a border around the widget?
 	void showBorder(QString color, int width);
 
+	void setRect(QRect);
+
 private:
 	// The size the user wants it to be
 	QSize widgetSize;

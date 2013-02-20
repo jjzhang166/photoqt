@@ -110,6 +110,33 @@ void About::setLicense(QString version) {
 
 }
 
+void About::makeHide() {
+
+	if(isShown) animate();
+
+}
+
+void About::makeShow() {
+
+	if(!isShown) animate();
+
+}
+
+void About::setRect(QRect rect) {
+
+	rectShown = rect;
+	rectHidden = QRect(0,-10,10,10);
+	rectAni = QRect(rect.width()/2.0,rect.height()/2.0,1,1);
+
+	if(isShown) {
+		this->setGeometry(rectShown);
+		center->setGeometry(QRect(100,50,rectShown.width()-200,rectShown.height()-100));
+	} else
+		this->setGeometry(rectHidden);
+
+}
+
+
 // The animation function
 void About::animate() {
 
