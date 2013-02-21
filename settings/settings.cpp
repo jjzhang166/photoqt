@@ -23,62 +23,9 @@ Settings::Settings(QWidget *parent, QMap<QString, QVariant> glob, bool v) : QWid
 	// The tab widget
 	tabs = new QTabWidget;
 
-//	// All the tabs
-//	tabOther = new SettingsTabOther(this,globSet,verbose);
-//	tabLookFeel = new SettingsTabLookAndFeel(this,globSet,verbose);
-//	tabThumb = new SettingsTabThumbnail(this,globSet,verbose);
-//	tabExif = new SettingsTabExif(this,globSet,verbose);
-//	tabShortcuts = new SettingsTabShortcuts(this,verbose);
-//	tabShortcuts->allKeyShortcuts = sh->allKeyShortcuts;
-//	tabShortcuts->allMouseShortcuts = sh->allMouseShortcuts;
-//	tabShortcuts->loadUserSetShortcuts();
-
-//	// Add the tabs
-//	tabs->addTab(tabLookFeel, QIcon(), tr("Look and Feel"));
-//	tabs->addTab(tabThumb, QIcon(), tr("Thumbnails"));
-//	tabs->addTab(tabExif, QIcon(), tr("Exif"));
-//	tabs->addTab(tabOther, QIcon(), tr("Other Settings"));
-//	tabs->addTab(tabShortcuts, QIcon(), tr("Shortcuts"));
-//	connect(tabs, SIGNAL(currentChanged(int)), this, SLOT(tabChanged()));
-
-//	// The cursor changes over the tabbar
-//	QList<QTabBar *> tabBar = tabs->findChildren<QTabBar *>();
-//	tabBar.at(0)->setCursor(Qt::PointingHandCursor);
-
 	QVBoxLayout *layout = new QVBoxLayout;
 	this->setLayout(layout);
 	layout->addWidget(tabs);
-
-//	// the tabwidget is majorly styled
-//	QString css = "QTabWidget::pane {";
-//		css += "border-bottom: 4px double black;";
-//		css += "padding: 10px;";
-//		css += "padding-top: 20px;";
-//	css += "}";
-//	css += "QTabBar::tab {";
-//		css += "background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #b4b4b4, stop: 1 #080808);";
-//		css += "border: 2px solid transparent;";
-//		css += "font-weight: bold;";
-//		css += "border-bottom-left-radius: 10px;";
-//		css += "border-bottom-right-radius: 10px;";
-//		css += "min-width: 25ex;";
-//		css += "padding: 5px;";
-//	css += "}";
-//	css += "QTabBar::tab:selected, QTabBar::tab:hover {";
-//		css += "background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #ffffff, stop: 1 #a8a8a8);";
-//	css += "}";
-//	css += "QTabBar::tab:selected {";
-//		css += "border-bottom-left-radius: 10px;";
-//		css += "border-bottom-right-radius: 10px;";
-//	css += "}";
-//	css += "QTabWidget::tab-bar {";
-//		css += "alignment: center;";
-//	css += "}";
-//	css += "QTabWidget::pane {";
-//		css += "position: absolute;";
-//		css += "top: -0.5em;";
-//	css += "}";
-//	tabs->setStyleSheet(css);
 
 	// Some buttons
 	CustomPushButton *setDefault = new CustomPushButton(tr("Restore Default Settings"));
@@ -106,9 +53,6 @@ Settings::Settings(QWidget *parent, QMap<QString, QVariant> glob, bool v) : QWid
 
 	connect(ani, SIGNAL(finished()), this, SLOT(aniFinished()));
 
-	// Load the settings
-//	loadSettings();
-
 }
 
 void Settings::setupTabs() {
@@ -118,9 +62,6 @@ void Settings::setupTabs() {
 		qApp->setOverrideCursor(Qt::WaitCursor);
 
 		tabsSetup = true;
-
-		// The tab widget
-//		tabs = new QTabWidget;
 
 		// All the tabs
 		tabOther = new SettingsTabOther(this,globSet,verbose);
@@ -148,10 +89,6 @@ void Settings::setupTabs() {
 		// The cursor changes over the tabbar
 		QList<QTabBar *> tabBar = tabs->findChildren<QTabBar *>();
 		tabBar.at(0)->setCursor(Qt::PointingHandCursor);
-
-//		QVBoxLayout *layout = new QVBoxLayout;
-//		this->setLayout(layout);
-//		layout->addWidget(tabs);
 
 		// the tabwidget is majorly styled
 		QString css = "QTabWidget::pane {";

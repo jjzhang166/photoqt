@@ -5,6 +5,8 @@
 
 int main(int argc, char *argv[]) {
 
+	qDebug() << QDateTime::currentMSecsSinceEpoch();
+
 	QApplication::setApplicationName("photo");
 
 	// This string holds the current version
@@ -357,6 +359,7 @@ int main(int argc, char *argv[]) {
 		if(!startintray)
 			w.startUpTimer->start();
 
+		qDebug() << QDateTime::currentMSecsSinceEpoch();
 
 		return a.exec();
 

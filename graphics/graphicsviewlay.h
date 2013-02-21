@@ -7,6 +7,7 @@
 #include <QSignalMapper>
 #include <QMouseEvent>
 #include <QFileInfo>
+#include <QtDebug>
 
 
 // A custom label (the "x" top right corner) for closing Photo
@@ -14,7 +15,12 @@ class QuickInfoLabel : public QLabel {
 	Q_OBJECT
 
 public:
-	QuickInfoLabel(QWidget *parent = 0, QString objName = "");
+	QuickInfoLabel(QWidget *parent = 0, QString objName = "", bool v = false);
+
+	bool verbose;
+
+	bool hideFilepathShowFilename;
+
 	QMenu *c;
 	QAction *dohideFilepath;
 	QAction *dohide;
@@ -36,10 +42,10 @@ class ViewBigLay : public QVBoxLayout {
 	Q_OBJECT
 
 public:
-	ViewBigLay(QMap<QString,QVariant> set);
+	ViewBigLay(QMap<QString,QVariant> set, bool v);
 	~ViewBigLay();
 
-	QMap<QString,QVariant> globSet;
+	bool verbose;
 
 	void setPosition(QString pos);
 	void updateInfo(QString currentfile, int countpos, int counttot);
@@ -47,10 +53,14 @@ public:
 	bool slideshowRunning;
 	bool slideshowHide;
 
+	void setSettings(QMap<QString,QVariant>);
+
 public slots:
 	void hideItem();
 
 private:
+	QMap<QString,QVariant> globSet;
+
 	QuickInfoLabel *quickInfoCounterBOT;
 	QLabel *quickInfoSepBOT;
 	QuickInfoLabel *quickInfoFilenameBOT;

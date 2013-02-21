@@ -1,6 +1,8 @@
 #include "graphicsviewlay.h"
 
-ViewBigLay::ViewBigLay(QMap<QString, QVariant> set) : QVBoxLayout() {
+ViewBigLay::ViewBigLay(QMap<QString, QVariant> set, bool v) : QVBoxLayout() {
+
+	verbose = v;
 
 	globSet = set;
 
@@ -12,18 +14,18 @@ ViewBigLay::ViewBigLay(QMap<QString, QVariant> set) : QVBoxLayout() {
 	QHBoxLayout *quickInfoTOP = new QHBoxLayout;
 
 	// We have labels for the top and for the bottom. So there's no need to restart Photo when switching thumbnails from top to bottom or vice versa
-	quickInfoCounterTOP = new QuickInfoLabel(0,"quickinfoCounterTOP");
+	quickInfoCounterTOP = new QuickInfoLabel(0,"quickinfoCounterTOP",verbose);
 	quickInfoCounterTOP->setStyleSheet("color: white");
 	quickInfoCounterTOP->hide();
 	quickInfoSepTOP = new QLabel("--");
 	quickInfoSepTOP->setStyleSheet("color:white");
 	quickInfoSepTOP->hide();
-	quickInfoFilenameTOP = new QuickInfoLabel(0,"quickinfoFilenameTOP");
+	quickInfoFilenameTOP = new QuickInfoLabel(0,"quickinfoFilenameTOP",verbose);
 	quickInfoFilenameTOP->setText(tr("Open File to Begin."));
 	quickInfoFilenameTOP->setStyleSheet("color: white");
 	quickInfoFilenameTOP->hide();
 	quickInfoFilenameTOP->globSet = globSet;
-	closeWindowX = new QuickInfoLabel(0,"closewindowXTOP");
+	closeWindowX = new QuickInfoLabel(0,"closewindowXTOP",verbose);
 	closeWindowX->setText("x");
 	closeWindowX->setStyleSheet("color: white; padding: 5px");
 	closeWindowX->setCursor(Qt::PointingHandCursor);
@@ -47,13 +49,13 @@ ViewBigLay::ViewBigLay(QMap<QString, QVariant> set) : QVBoxLayout() {
 
 	QHBoxLayout *quickInfoBOT = new QHBoxLayout;
 
-	quickInfoCounterBOT = new QuickInfoLabel(0,"quickinfoCounterBOT");
+	quickInfoCounterBOT = new QuickInfoLabel(0,"quickinfoCounterBOT",verbose);
 	quickInfoCounterBOT->setStyleSheet("color: white");
 	quickInfoCounterBOT->hide();
 	quickInfoSepBOT = new QLabel("--");
 	quickInfoSepBOT->setStyleSheet("color:white");
 	quickInfoSepBOT->hide();
-	quickInfoFilenameBOT = new QuickInfoLabel(0,"quickinfoFilenameBOT");
+	quickInfoFilenameBOT = new QuickInfoLabel(0,"quickinfoFilenameBOT",verbose);
 	quickInfoFilenameBOT->setText(tr("Open File to Begin."));
 	quickInfoFilenameBOT->setStyleSheet("color: white");
 	quickInfoFilenameBOT->hide();
@@ -69,6 +71,19 @@ ViewBigLay::ViewBigLay(QMap<QString, QVariant> set) : QVBoxLayout() {
 
 	this->addStretch();
 	this->addLayout(quickInfoBOT);
+
+
+}
+
+void ViewBigLay::setSettings(QMap<QString, QVariant> set) {
+
+	globSet = set;
+
+	quickInfoCounterTOP->hideFilepathShowFilename = set.value("HideFilepathShowFilename").toBool();
+	quickInfoFilenameTOP->hideFilepathShowFilename = set.value("HideFilepathShowFilename").toBool();
+	closeWindowX->hideFilepathShowFilename = set.value("HideFilepathShowFilename").toBool();
+	quickInfoCounterBOT->hideFilepathShowFilename = set.value("HideFilepathShowFilename").toBool();
+	quickInfoFilenameBOT->hideFilepathShowFilename = set.value("HideFilepathShowFilename").toBool();
 
 
 }
@@ -91,7 +106,7 @@ void ViewBigLay::setPosition(QString pos) {
 
 void ViewBigLay::updateInfo(QString currentfile, int countpos, int counttot) {
 
-//	if(globVar->verbose) qDebug() << "Update Quickinfo labels (show/hide)";
+	if(verbose) qDebug() << "Update Quickinfo labels (show/hide)";
 
 	// If a slideshow is running and the user disabled all the quickinfos for that
 	if(slideshowRunning && slideshowHide) {
@@ -159,25 +174,25 @@ void ViewBigLay::hideItem() {
 	QMap<QString,QVariant> updateSet;
 
 	QString objName = ((QAction *) sender())->objectName();
-//	if(globVar->verbose) qDebug() << "Hide quickinfo:" << objName;
+	qDebug() << "Hide quickinfo:" << objName;
 
-	if(objName == "quickinfoCounter") {
+	if(objName.startsWith("quickinfoCounter")) {
 		quickInfoCounterTOP->hide();
 		quickInfoCounterBOT->hide();
 		quickInfoSepTOP->hide();
 		quickInfoSepBOT->hide();
 		updateSet.insert("HideCounter",true);
 	}
-	if(objName == "quickinfoFilepath")
+	if(objName.startsWith("quickinfoFilepath"))
 		updateSet.insert("HideFilepathShowFilename",true);
-	if(objName == "quickinfoFilename") {
+	if(objName.startsWith("quickinfoFilename")) {
 		quickInfoSepTOP->hide();
 		quickInfoSepBOT->hide();
 		quickInfoFilenameTOP->hide();
 		quickInfoFilenameBOT->hide();
 		updateSet.insert("HideFilename",true);
 	}
-	if(objName == "closewindowX") {
+	if(objName.startsWith("closewindowX")) {
 		closeWindowX->hide();
 		updateSet.insert("HideX",true);
 	}
@@ -201,7 +216,10 @@ ViewBigLay::~ViewBigLay() { }
 
 
 // A custom label for enabling a right click on them, and adding a clicked() event
-QuickInfoLabel::QuickInfoLabel(QWidget *parent, QString objName) : QLabel(parent) {
+QuickInfoLabel::QuickInfoLabel(QWidget *parent, QString objName, bool v) : QLabel(parent) {
+
+	verbose = v;
+	hideFilepathShowFilename = false;
 
 	this->setObjectName(objName);
 
@@ -228,7 +246,7 @@ void QuickInfoLabel::mouseReleaseEvent(QMouseEvent *e) {
 
 // Showing the context menu
 void QuickInfoLabel::contextMenuEvent(QContextMenuEvent*) {
-//	if(this->objectName() == "quickinfoFilename")
-//		dohideFilepath->setVisible(!globSet.value("HideFilepathShowFilename").toBool());
+	if(this->objectName() == "quickinfoFilename")
+		dohideFilepath->setVisible(!hideFilepathShowFilename);
 	c->popup(QCursor::pos());
 }

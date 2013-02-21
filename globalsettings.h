@@ -222,7 +222,7 @@ public:
 
 		if(!readonly) {
 
-			QString formats = newFormats.replace(",","\n");
+			QString formats = newFormats.replace(",","\n").replace("*.",".");
 			formats = formats.trimmed();
 
 			QFile file(QDir::homePath() + "/.photo/fileformats");
@@ -820,7 +820,7 @@ public:
 			cont += QString("Language=%1\n").arg(language);
 //			cont += QString("KnownFileTypes=%1\n").arg(knownFileTypes);
 
-			fileFormats->saveFormats(knownFileTypes.replace("*.","."));
+			fileFormats->saveFormats(knownFileTypes);
 
 			cont += "\n[Look]\n";
 
@@ -929,8 +929,8 @@ public slots:
 		if(changedSet.keys().contains("Version"))
 			version = changedSet.value("Version").toString();
 
-		if(changedSet.keys().contains("KnownFileTypes"))
-			knownFileTypes = changedSet.value("KnownFileTypes").toString();
+//		if(changedSet.keys().contains("KnownFileTypes"))
+//			knownFileTypes = changedSet.value("KnownFileTypes").toString();
 
 		if(changedSet.keys().contains("Language"))
 			language = changedSet.value("Language").toString();

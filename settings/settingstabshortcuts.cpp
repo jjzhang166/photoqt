@@ -21,11 +21,13 @@ SettingsTabShortcuts::SettingsTabShortcuts(QWidget *parent, bool v) : QWidget(pa
 
 	// The widget for detecting a new shortcut/mouse action
 	detect = new ShortcutKeyDetect(this->parentWidget());
+	detect->show();
 	connect(detect, SIGNAL(gotKeys(QString,QString,QString)), this, SLOT(analyseKeyCombo(QString,QString,QString)));
 	connect(detect, SIGNAL(shortcutCancelled()), this, SLOT(shortcutDetectCancelled()));
 
 	// A widget to change the external command
 	changeCommand = new ShortcutChangeCommand(this->parentWidget());
+	changeCommand->show();
 	connect(changeCommand, SIGNAL(commandChanged(QString,QString)), this, SLOT(analyseChangedCommand(QString,QString)));
 	connect(changeCommand, SIGNAL(commandCanceled(QString)), this, SLOT(analyseChangedCancelled(QString)));
 
@@ -52,6 +54,7 @@ SettingsTabShortcuts::SettingsTabShortcuts(QWidget *parent, bool v) : QWidget(pa
 	lay->addLayout(setDefLay);
 	setDefaultConfirm = new CustomConfirm(tr("Set default shortcuts?"), tr("This reverses all changes to the shortcuts and sets the set of default ones.") + "<br><br>" + tr("This step cannot be reversed!"), tr("Give me defaults"), tr("Hm, maybe not now"),QSize(400,200),this->parentWidget());
 	setDefaultConfirm->showBorder("white",2);
+	setDefaultConfirm->show();
 	connect(setDefault, SIGNAL(clicked()), setDefaultConfirm, SLOT(animate()));
 	connect(setDefaultConfirm, SIGNAL(confirmed()), this, SIGNAL(setDefaultShortcuts()));
 

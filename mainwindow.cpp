@@ -52,7 +52,7 @@ MainWindow::MainWindow(QWidget *parent, bool verbose) : QMainWindow(parent) {
 	centralLayout->addWidget(viewBig);
 
 	// Setup the quickinfo labels. We have two sets of labels, for the top and for the bottom. This way we can change the position without having to restart photo.
-	viewBigLay = new ViewBigLay(globSet->toSignalOut());
+	viewBigLay = new ViewBigLay(globSet->toSignalOut(),verbose);
 	viewBig->setLayout(viewBigLay);
 	viewBigLay->setPosition(globSet->thumbnailposition);
 	connect(viewBigLay, SIGNAL(clickOnX(QString)), this, SLOT(shortcutDO(QString)));
@@ -1865,9 +1865,7 @@ void MainWindow::updateSettings(QMap<QString, QVariant> settings) {
 	viewThumbs->view->globSet = settings;
 	viewBig->globSet = settings;
 
-	viewBigLay->globSet = settings;
-
-	viewBigLay->globSet = settings;
+	viewBigLay->setSettings(settings);
 
 	set->globSet = settings;
 	if(set->tabsSetup) {

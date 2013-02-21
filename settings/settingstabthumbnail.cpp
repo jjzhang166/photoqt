@@ -267,10 +267,12 @@ SettingsTabThumbnail::SettingsTabThumbnail(QWidget *parent, QMap<QString, QVaria
 	// We ask for confirmation before cleaning up the database
 	confirmClean = new CustomConfirm(tr("Clean Database"),tr("Do you really want to clean up the database? This removes all obsolete thumbnails, thus possibly making Photo a little faster.") + "<bR><br>" + tr("This process might take a little while."),tr("Yes, clean is good"),tr("No, don't have time for that"),QSize(400,200),this->parentWidget());
 	confirmClean->showBorder("white",2);
+	confirmClean->show();
 
 	// We ask for confirmation before erasing the entire database
 	confirmErase = new CustomConfirm(tr("Erase Database"),tr("Do you really want to ERASE the entire database? This removes every single item in the database! This step should never really be necessarily. After that, every thumbnail has to be newly re-created. This step cannot be reversed!"),tr("Yes, get rid of it all"),tr("No, I want to keep it"),QSize(400,200),this->parentWidget());
 	confirmErase->showBorder("white",2);
+	confirmErase->show();
 
 	connect(cleanDatabase, SIGNAL(clicked()), confirmClean, SLOT(animate()));
 	connect(eraseDatabase, SIGNAL(clicked()), confirmErase, SLOT(animate()));
