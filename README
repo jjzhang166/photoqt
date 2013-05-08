@@ -39,7 +39,7 @@ INSTALL
    
    # PhotoQt makes use of different libraries: exiv2, phonon, graphicsmagick.
    # You can en-/disable them with the following options:
-   -DWITH_EXIV=OFF		# default: ON
+   -DWITH_EXIV2=OFF		# default: ON
    -DWITH_PHONON=OFF		# default: ON
    -DWITH_GRAPHICSMAGICK=OFF	# default: ON
    # You can combine them in any way you want.
