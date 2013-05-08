@@ -22,14 +22,47 @@ public:
 
 		QStringList formats;
 
+		// Microsoft Windows bitmap
+		formats << ".bmp";
+
+		// CompuServe Graphics Interchange Format
+		formats << ".gif";
+
+		// Tagged Image File Format
+		formats << ".tif";
+		formats << ".tiff";
+
+		// JPEG-2000 Code Stream Syntax
+		formats << ".jpeg2000";
+
+		// Joint Photographic Experts Group JFIF format
+		formats << ".jpeg";
+		formats << ".jpg";
+
+		// Portable Network Graphics
+		formats << ".png";
+
+		// Portable bitmap format (black and white)
+		formats << ".pbm";
+
+		// Portable graymap format (gray scale)
+		formats << ".pgm";
+
+		// Portable pixmap format (color)
+		formats << ".ppm";
+
+		// X Windows system bitmap, black and white only
+		formats << ".xbm";
+
+		// X Windows system pixmap
+		formats << ".xpm";
+
+#ifdef WITH_GRAPHICSMAGICK
 		// PFS: 1st Publisher
 		formats << ".art";
 
 		//AVS X image
 		formats << ".avs";
-
-		// Microsoft Windows bitmap
-		formats << ".bmp";
 
 		// Continuous Acquisition and Life-cycle Support Type 1 image
 		formats << ".cals";
@@ -47,10 +80,10 @@ public:
 		formats << ".cut";
 
 		// Digital Imaging and Communications in Medicine (DICOM) image
-//		formats << ".acr";
-//		formats << ".dcm";
-//		formats << ".dicom";	// *** not working yet ("Unexpected end-of-file")
-//		formats << ".dic";
+		formats << ".acr";
+		formats << ".dcm";
+		formats << ".dicom";
+		formats << ".dic";
 
 		// ZSoft IBM PC multi-page Paintbrush image
 		formats << ".dcx";
@@ -100,9 +133,6 @@ public:
 		// FlashPix Format
 		formats << ".fpx";
 
-		// CompuServe Graphics Interchange Format
-		formats << ".gif";
-
 		// Gnuplot plot files
 		formats << ".gplt";
 
@@ -110,78 +140,180 @@ public:
 //		formats << ".gray";	*** not working yet
 
 		// HP-GL plotter language
-//		formats << ".hpgl";	** requires hp2xx
+//		formats << ".hpgl";	*** requires hp2xx
 
 		// Microsoft icon
-//		formats << ".ico";	*** not working yet (Improper Image Header)
+		formats << ".ico";
+
+		// Joint Bi-level Image experts Group file interchange format
 		formats << ".jbig";
+
+		// JPEG Network Graphics
 		formats << ".jng";
+
+		// JPEG-2000 JP2 File Format Syntax
 		formats << ".jp2";
+
+		// JPEG-2000 Code Stream Syntax
 		formats << ".jpc";
-		formats << ".jpeg";
-		formats << ".jpeg2000";
-		formats << ".jpg";
+
+		// MATLAB image format
 		formats << ".mat";
+
+		// Magick image file format
 		formats << ".miff";
+
+		// Bi-level bitmap in least-significant-byte first order
 //		formats << ".mono";	*** not working yet
-//		formats << ".mng";	*** not working yet
+
+		// Multiple-image Network Graphics
+		formats << ".mng";
+
+		// Magick Persistent Cache image file format
 		formats << ".mpc";
+
+		// Magick Scripting Language
 //		formats << ".msl";	*** conversion failed
+
+		// MTV Raytracing image format
 		formats << ".mtv";
+
+		// Magick Vector Graphics
 //		formats << ".mvg";	*** conversion failed
+
+		// On-the-air Bitmap
 		formats << ".otb";
+
+		// Xv's Visual Schnauzer thumbnail format
 		formats << ".p7";
+
+		// Palm pixmap
 		formats << ".palm";
+
+		// Portable Arbitrary Map format
 		formats << ".pam";
-		formats << ".pbm";
+
+		// Photo CD
 		formats << ".pcd";
 		formats << ".pcds";
+
+		// HP Page Control Language
 //		formats << ".pcl";	*** external tool needed ("hp2xx")
+
+		// ZSoft IBM PC Paintbrush file
 		formats << ".pcx";
+
+		// Palm Database ImageViewer Format
 		formats << ".pdb";
+
+		// Portable Document Format
 		formats << ".pdf";
+
+		// Postscript Type 1 font (ASCII)
 //		formats << ".pfa";	*** conversion failed
+
+		// Postscript Type 1 font (binary)
 //		formats << ".pfb";	*** conversion failed
-		formats << ".pgm";
+
+		// Personal Icon
 		formats << ".picon";
+
+		// Apple Macintosh QuickDraw /PICT file
 		formats << ".pict";
+
+		// Alias/Wavefront RLE image format
 		formats << ".pix";
-		formats << ".png";
+
+		// Portable anymap
 		formats << ".pnm";
-		formats << ".ppm";
+
+		// Adobe PostScript file
 		formats << ".ps";
+
+		// Adobe Level II PostScript file
 		formats << ".ps2";
+
+		// Adobe Level III PostScript file
 		formats << ".ps3";
+
+		// Adobe Photoshop bitmap file
 		formats << ".psd";
+
+		// Pyramid encoded TIFF
 		formats << ".ptif";
+
+		// Seattle File Works multi-image file
 //		formats << ".pwp";	*** conversion failed
+
+		// TopoL (GIS)
 		formats << ".ras";
+
+		// Radiance image file
 		formats << ".rad";
+
+		// Raw red, green, and blue samples
 //		formats << ".rgb";	*** not working yet
+
+		// Raw red, green, and blue and matte samples
 //		formats << ".rgba";	*** not working yet
+
+		// Alias/Wavefront image file
 //		formats << ".rla";	*** conversion failed
+
+		// Utah Run length encoded image file
 //		formats << ".rle";	*** some tool missing
+
+		// Scitex Continuous Tone Picture
 //		formats << ".sct";	*** conversion failed
+
+		// Seattle File Works image
 //		formats << ".sfw";	*** conversion failed
+
+		// Irix RGB image
 		formats << ".sgi";
+
+		// SUN Rasterfile
 		formats << ".sun";
-//		formats << ".svg";	// not working yet
+
+		// Scalable Vector Graphics
+		formats << ".svg";
+
+		// Truevision Targa image
 		formats << ".tga";
-		formats << ".tif";
-		formats << ".tiff";
+
+		// PSX TIM file
 //		formats << ".tim";	*** conversion failed
+
+		// X-Motif UIL table
 //		formats << ".uil";	*** conversion resulted in "Speicherzugriffsfehler"
+
+		// Interleaved YUV raw image
 //		formats << ".uyvy";	*** not working yet
+
+		// VICAR rasterfile format
 		formats << ".vicar";
+
+		// Khoros Visualization Image File Format
 		formats << ".viff";
+
+		// Wireless bitmap
 		formats << ".wbmp";
+
+		// Windows Metafile
 //		formats << ".wmf";	*** conversion failed
+
+		// Word Perfect Graphics File
 //		formats << ".wpg";	*** conversion failed
-		formats << ".xbm";
+
+		// GIMP image
 		formats << ".xcf";
-		formats << ".xpm";
+		// X Windows system window dump
 		formats << ".xwd";
+
+		// CCIR 601 4:1:1
 //		formats << ".yuv";	*** not working yet
+
+#endif
 
 		return formats;
 
@@ -191,7 +323,9 @@ public:
 
 		QStringList formats = setDefaultFormats();
 
-		QFile file(QDir::homePath() + "/.photo/fileformats");
+#ifdef WITH_GRAPHICSMAGICK
+
+		QFile file(QDir::homePath() + "/.photoqt/fileformats");
 		if(file.exists()) {
 
 
@@ -214,6 +348,8 @@ public:
 
 		}
 
+#endif
+
 		return formats;
 
 	}
@@ -225,7 +361,7 @@ public:
 			QString formats = newFormats.replace(",","\n").replace("*.",".");
 			formats = formats.trimmed();
 
-			QFile file(QDir::homePath() + "/.photo/fileformats");
+			QFile file(QDir::homePath() + "/.photoqt/fileformats");
 			if(file.exists()) {
 				if(!file.remove())
 					qDebug() << "ERROR: Cannot replace image formats file";
@@ -320,7 +456,7 @@ public:
 	// Are files used for caching (use database if false)
 	bool thbcachefile;
 	// Border between thumbnails
-	int thumbnailBorderAround;
+	int thumbnailSpacingBetween;
 	// Lift hovered/selected thumbnails by x pixels
 	int thumbnailLiftUp;
 	// Are the thumbnails fading out or always visible?
@@ -401,7 +537,7 @@ public:
 		map.insert("ThumbnailPosition",thumbnailposition);
 		map.insert("ThumbnailCache",thumbnailcache);
 		map.insert("ThbCacheFile",thbcachefile);
-		map.insert("ThumbnailBorderAround",thumbnailBorderAround);
+		map.insert("ThumbnailSpacingBetween",thumbnailSpacingBetween);
 		map.insert("ThumbnailLiftUp",thumbnailLiftUp);
 		map.insert("ThumbnailKeepVisible",thumbnailKeepVisible);
 		map.insert("ThumbnailDynamic",thumbnailDynamic);
@@ -480,7 +616,7 @@ public:
 		thumbnailposition = "Bottom";
 		thumbnailcache = true;
 		thbcachefile = false;
-		thumbnailBorderAround = 0;
+		thumbnailSpacingBetween = 0;
 		thumbnailLiftUp = 10;
 		thumbnailKeepVisible = false;
 		thumbnailDynamic = false;
@@ -525,7 +661,7 @@ public:
 
 		setDefault();
 
-		QFile file(QDir::homePath() + "/.photo/settings");
+		QFile file(QDir::homePath() + "/.photoqt/settings");
 
 		if(!file.open(QIODevice::ReadOnly))
 
@@ -649,8 +785,11 @@ public:
 			else if(all.contains("ThbCacheFile=0"))
 				thbcachefile = false;
 
-			if(all.contains("ThumbnailBorderAround="))
-				thumbnailBorderAround = all.split("ThumbnailBorderAround=").at(1).split("\n").at(0).toInt();
+			if(all.contains("ThumbnailSpacingBetween="))
+				thumbnailSpacingBetween = all.split("ThumbnailSpacingBetween=").at(1).split("\n").at(0).toInt();
+			// That below the old property
+			else if(all.contains("ThumbnailBorderAround="))
+				thumbnailSpacingBetween = all.split("ThumbnailBorderAround=").at(1).split("\n").at(0).toInt();
 
 			if(all.contains("ThumbnailLiftUp="))
 				thumbnailLiftUp = all.split("ThumbnailLiftUp=").at(1).split("\n").at(0).toInt();
@@ -800,7 +939,7 @@ public:
 	// Save settings
 	void saveSettings(QMap<QString,bool> applySet = QMap<QString,bool>()) {
 
-		QFile file(QDir::homePath() + "/.photo/settings");
+		QFile file(QDir::homePath() + "/.photoqt/settings");
 
 		if(!file.open(QIODevice::ReadWrite))
 
@@ -858,7 +997,7 @@ public:
 			cont += QString("ThumbnailPosition=%1\n").arg(thumbnailposition);
 			cont += QString("ThumbnailCache=%1\n").arg(int(thumbnailcache));
 			cont += QString("ThbCacheFile=%1\n").arg(int(thbcachefile));
-			cont += QString("ThumbnailBorderAround=%1\n").arg(thumbnailBorderAround);
+			cont += QString("ThumbnailSpacingBetween=%1\n").arg(thumbnailSpacingBetween);
 			cont += QString("ThumbnailLiftUp=%1\n").arg(thumbnailLiftUp);
 			cont += QString("ThumbnailKeepVisible=%1\n").arg(thumbnailKeepVisible);
 			cont += QString("ThumbnailDynamic=%1\n").arg(thumbnailDynamic);
@@ -1035,8 +1174,8 @@ public slots:
 			thumbnailcache = changedSet.value("ThumbnailCache").toBool();
 		if(changedSet.keys().contains("ThbCacheFile"))
 			thbcachefile = changedSet.value("ThbCacheFile").toBool();
-		if(changedSet.keys().contains("ThumbnailBorderAround")) {
-			thumbnailBorderAround = changedSet.value("ThumbnailBorderAround").toInt();
+		if(changedSet.keys().contains("ThumbnailSpacingBetween")) {
+			thumbnailSpacingBetween = changedSet.value("ThumbnailSpacingBetween").toInt();
 			applySet["thumb"] = true;
 		}
 		if(changedSet.keys().contains("ThumbnailLiftUp")) {

@@ -45,7 +45,7 @@ private:
 	// The flowlayout wraps around the corners dynamically = AWESOME!
 	FlowLayout *flow;
 
-	// The items Photo understands. allItemsShort contains the actual Exif key (without the "Exif"), the first one is the one that's being displayed
+	// The items PhotoQt understands. allItemsShort contains the actual Exif key (without the "Exif"), the first one is the one that's being displayed
 	QStringList allItems;
 	QStringList allItemsShort;
 

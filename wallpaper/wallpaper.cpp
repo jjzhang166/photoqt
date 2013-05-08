@@ -84,7 +84,7 @@ Wallpaper::Wallpaper(QMap<QString, QVariant> set, QWidget *parent) : QWidget(par
 
 
 	// Label explaining the wm detection
-	QLabel *wmDetectedLabel = new QLabel("<b><span style=\"font-size:12pt\">" + tr("Window Manager") + "</span></b> " + "<br><br>" + tr("Photo tries to detect you window manager according to the environment variables set by your system. If it still got it wrong, you can change the window manager here manually."));
+	QLabel *wmDetectedLabel = new QLabel("<b><span style=\"font-size:12pt\">" + tr("Window Manager") + "</span></b> " + "<br><br>" + tr("PhotoQt tries to detect you window manager according to the environment variables set by your system. If it still got it wrong, you can change the window manager here manually."));
 	wmDetectedLabel->setWordWrap(true);
 	wmDetectedLabel->setStyleSheet("color: white");
 	central->addWidget(wmDetectedLabel);
@@ -95,8 +95,9 @@ Wallpaper::Wallpaper(QMap<QString, QVariant> set, QWidget *parent) : QWidget(par
 	wm->setFontSize(15);
 	wm->setBorder(1,"white");
 	wm->addItem("KDE","kde");
-	wm->addItem("Gnome","gnome");
+	wm->addItem("Gnome/Unity","gnome");
 	wm->addItem("XFCE4","xfce");
+	wm->addItem("Razor-Qt", "razor");
 	wm->addItem(tr("Other"),"other");
 	QHBoxLayout *wmLay = new QHBoxLayout;
 	wmLay->addStretch();
@@ -158,32 +159,34 @@ Wallpaper::Wallpaper(QMap<QString, QVariant> set, QWidget *parent) : QWidget(par
 
 
 
-	/////// XFCE SETTINGS /////////////
+	////// THE FOLLOWING SCREEN SELECT IS USED BY DIFFERENT WMs //////
 
-	QVBoxLayout *xfceMonitorLayCenter = new QVBoxLayout;
-	xfceMonitorSelect.clear();
+	QVBoxLayout *wmMonitorLayCenter = new QVBoxLayout;
+	wmMonitorSelect.clear();
 	QDesktopWidget desk;
 	for(int i = 0; i < desk.screenCount(); ++i) {
 		CustomCheckBox *mon = new CustomCheckBox(tr("Screen") + QString(" #%1").arg(i));
 		mon->setChecked(true);
-		xfceMonitorLayCenter->addWidget(mon);
-		xfceMonitorSelect.insert(i,mon);
+		wmMonitorLayCenter->addWidget(mon);
+		wmMonitorSelect.insert(i,mon);
 	}
 
-	QHBoxLayout *xfceMonitorLay = new QHBoxLayout;
-	xfceMonitorLay->addStretch();
-	xfceMonitorLay->addLayout(xfceMonitorLayCenter);
-	xfceMonitorLay->addStretch();
+	QHBoxLayout *wmMonitorLay = new QHBoxLayout;
+	wmMonitorLay->addStretch();
+	wmMonitorLay->addLayout(wmMonitorLayCenter);
+	wmMonitorLay->addStretch();
 
-	xfceMonitorLabel = new QLabel("<b><span style=\"font-size:12pt\">" + tr("Select Monitors") + "</span></b> " + "<br><br>" + tr("The wallpaper can be set to either of the available monitors (or any combination)."));
-	xfceMonitorLabel->setWordWrap(true);
-	xfceMonitorLabel->setMargin(5);
-	xfceMonitorLabel->setStyleSheet("color: white");
+	wmMonitorLabel = new QLabel("<b><span style=\"font-size:12pt\">" + tr("Select Monitors") + "</span></b> " + "<br><br>" + tr("The wallpaper can be set to either of the available monitors (or any combination)."));
+	wmMonitorLabel->setWordWrap(true);
+	wmMonitorLabel->setMargin(5);
+	wmMonitorLabel->setStyleSheet("color: white");
 
-	central->addWidget(xfceMonitorLabel);
-	central->addLayout(xfceMonitorLay);
+	central->addWidget(wmMonitorLabel);
+	central->addLayout(wmMonitorLay);
 
 
+
+	/////// XFCE SETTINGS /////////////
 
 	QVBoxLayout *xfcePicOpsLayCenter = new QVBoxLayout;
 
@@ -219,15 +222,128 @@ Wallpaper::Wallpaper(QMap<QString, QVariant> set, QWidget *parent) : QWidget(par
 
 
 
+	///////// OTHER SETTINGS ///////////
+
+	otherFeh = new CustomRadioButton("Use 'feh'");
+	otherFeh->setIndicatorImage(":/img/checkbox_checked.png",":/img/checkbox_unchecked.png");
+	otherFeh->setChecked(true);
+	otherNitrogen = new CustomRadioButton("Use 'nitrogen'");
+	otherNitrogen->setIndicatorImage(":/img/checkbox_checked.png",":/img/checkbox_unchecked.png");
+
+	QButtonGroup *otherGrp = new QButtonGroup;
+	otherGrp->addButton(otherFeh);
+	otherGrp->addButton(otherNitrogen);
+
+	QHBoxLayout *externLay = new QHBoxLayout;
+	externLay->addStretch();
+	externLay->addWidget(otherFeh);
+	externLay->addWidget(otherNitrogen);
+	externLay->addStretch();
+	connect(otherFeh, SIGNAL(clicked()), this, SLOT(swapFehNitrogen()));
+	connect(otherNitrogen, SIGNAL(clicked()), this, SLOT(swapFehNitrogen()));
+
+	otherNitrogenGrp = new QButtonGroup;
+	otherNitrogenOptions.clear();
+	QVBoxLayout *otherNitrogenPicOptLay = new QVBoxLayout;
+	otherNitrogenPicOptLay->setMargin(5);
+	QStringList listNitrogen;
+	listNitrogen << "auto";
+	listNitrogen << "centered";
+	listNitrogen << "scaled";
+	listNitrogen << "tiled";
+	listNitrogen << "zoom";
+	listNitrogen << "zoom-fill";
+	QString eleN;
+	foreach(eleN, listNitrogen) {
+		CustomRadioButton *r = new CustomRadioButton("--set-" + eleN);
+		r->setObjectName(eleN);
+		if(eleN == "auto") r->setChecked(true);
+		otherNitrogenPicOptLay->addWidget(r);
+		otherNitrogenOptions.insert(eleN,r);
+		otherNitrogenGrp->addButton(r);
+	}
+
+	otherFehGrp = new QButtonGroup;
+	otherFehOptions.clear();
+	QVBoxLayout *otherFehPicOptLay = new QVBoxLayout;
+	otherFehPicOptLay->setMargin(5);
+	QStringList listFeh;
+	listFeh << "center";
+	listFeh << "fill";
+	listFeh << "max";
+	listFeh << "scale";
+	listFeh << "tile";
+	QString eleF;
+	foreach(eleF, listFeh) {
+		CustomRadioButton *r = new CustomRadioButton("--bg-" + eleF);
+		r->setObjectName(eleF);
+		if(eleF == "fill") r->setChecked(true);
+		otherFehPicOptLay->addWidget(r);
+		otherFehOptions.insert(eleF,r);
+		otherFehGrp->addButton(r);
+	}
+
+
+	QHBoxLayout *otherVLay = new QHBoxLayout;
+	otherVLay->setMargin(5);
+	otherVLay->addStretch();
+	otherVLay->addLayout(otherNitrogenPicOptLay);
+	otherVLay->addLayout(otherFehPicOptLay);
+	otherVLay->addStretch();
+
+
+
+	central->addLayout(externLay);
+	central->addLayout(otherVLay);
+
 
 
 	central->addSpacing(10);
 	central->addStretch();
 
-
 	detectWM();
 	wmSelected();
 
+}
+
+void Wallpaper::swapFehNitrogen() {
+
+	if(otherFeh->isChecked()) {
+
+		QMapIterator<QString, CustomRadioButton*> iN(otherNitrogenOptions);
+		while (iN.hasNext()) {
+			iN.next();
+			iN.value()->hide();
+		}
+
+
+		QMapIterator<QString, CustomRadioButton*> iF(otherFehOptions);
+		while (iF.hasNext()) {
+			iF.next();
+			if(wm->currentIndex() == wm->count()-1)
+				iF.value()->show();
+			else
+				iF.value()->hide();
+		}
+
+	} else {
+
+		QMapIterator<QString, CustomRadioButton*> iN(otherNitrogenOptions);
+		while (iN.hasNext()) {
+			iN.next();
+			if(wm->currentIndex() == wm->count()-1)
+				iN.value()->show();
+			else
+				iN.value()->hide();
+		}
+
+		QMapIterator<QString, CustomRadioButton*> iF(otherFehOptions);
+		while (iF.hasNext()) {
+			iF.next();
+			iF.value()->hide();
+		}
+
+	}
 
 }
 
@@ -265,8 +381,10 @@ void Wallpaper::detectWM() {
 		wm->setCurrentIndex(1);
 	else if(QString(getenv("DESKTOP_SESSION")).toLower() == "xfce4")
 		wm->setCurrentIndex(2);
-	else
+	else if(QString(getenv("XDG_CURRENT_DESKTOP")) == "Razor")
 		wm->setCurrentIndex(3);
+	else
+		wm->setCurrentIndex(wm->count()-1);
 
 }
 
@@ -274,8 +392,11 @@ void Wallpaper::detectWM() {
 void Wallpaper::wmSelected() {
 
 	// These two hold whether the gnome/xfce specific options have to be visible or not
-	bool hideGNOME = false;
-	bool hideXFCE = false;
+	bool hideKDE = true;
+	bool hideGNOME = true;
+	bool hideXFCE = true;
+	bool hideRazor = true;
+	bool hideOther = true;
 
 	// The current wm index
 	int current = wm->currentIndex();
@@ -289,8 +410,7 @@ void Wallpaper::wmSelected() {
 		ok->setEnabled(false);
 		wmMessage->setVisible(true);
 
-		hideGNOME = true;
-		hideXFCE = true;
+		hideKDE = false;
 
 	// GNOME
 	} else if(current == 1) {
@@ -299,9 +419,6 @@ void Wallpaper::wmSelected() {
 		wmMessage->setVisible(false);
 
 		hideGNOME = false;
-		hideXFCE = true;
-
-
 
 	// XFCE4
 	} else if(current == 2) {
@@ -309,19 +426,28 @@ void Wallpaper::wmSelected() {
 		ok->setEnabled(true);
 		wmMessage->setVisible(false);
 
-		hideGNOME = true;
 		hideXFCE = false;
+
+	// RAZOR
+	} else if(current == 3) {
+
+		wmMessage->setText(tr("Sorry, Razor-Qt doesn't yet support this feature (except possibly a debug build)... hopefully that'll change soon!"));
+		wmMessage->setStyleSheet("color: red; font-weight: bold");
+
+		ok->setEnabled(false);
+		wmMessage->setVisible(true);
+
+		hideRazor = false;
 
 
 	// OTHER
-	} else if(current == 3) {
-		wmMessage->setText(tr("Photo will try to change the background of the root window. This usually equates to the desktop background. However, there's no guarantee that this will work!"));
-		wmMessage->setStyleSheet("color: red");
+	} else if(current == wm->count()-1) {
+		wmMessage->setText(tr("PhotoQt uses feh or nitrogen to change the background of the desktop background. This is meant particularly for window managers that don't natively support this (like e.g. Openbox)."));
+		wmMessage->setStyleSheet("color: white");
 		ok->setEnabled(true);
 		wmMessage->setVisible(true);
 
-		hideGNOME = true;
-		hideXFCE = true;
+		hideOther = false;
 
 	}
 
@@ -342,11 +468,14 @@ void Wallpaper::wmSelected() {
 	}
 
 	if(hideXFCE) {
-		xfceMonitorLabel->hide();
-		QMapIterator<int, CustomCheckBox*> i2(xfceMonitorSelect);
-		while (i2.hasNext()) {
-			i2.next();
-			i2.value()->hide();
+
+		if(hideRazor) {
+			wmMonitorLabel->hide();
+			QMapIterator<int, CustomCheckBox*> i2(wmMonitorSelect);
+			while (i2.hasNext()) {
+				i2.next();
+				i2.value()->hide();
+			}
 		}
 
 		xfcePicOpsLabel->hide();
@@ -359,15 +488,15 @@ void Wallpaper::wmSelected() {
 		// The monitor selection is only visible if there's more than one monitor connected
 		QDesktopWidget desk;
 		if(desk.screenCount() > 1) {
-			xfceMonitorLabel->show();
-			QMapIterator<int, CustomCheckBox*> i2(xfceMonitorSelect);
+			wmMonitorLabel->show();
+			QMapIterator<int, CustomCheckBox*> i2(wmMonitorSelect);
 			while (i2.hasNext()) {
 				i2.next();
 				i2.value()->show();
 			}
 		} else {
-			xfceMonitorLabel->hide();
-			QMapIterator<int, CustomCheckBox*> i2(xfceMonitorSelect);
+			wmMonitorLabel->hide();
+			QMapIterator<int, CustomCheckBox*> i2(wmMonitorSelect);
 			while (i2.hasNext()) {
 				i2.next();
 				i2.value()->hide();
@@ -381,6 +510,62 @@ void Wallpaper::wmSelected() {
 			i3.value()->show();
 		}
 	}
+
+	if(hideRazor) {
+
+		if(hideXFCE) {
+			wmMonitorLabel->hide();
+			QMapIterator<int, CustomCheckBox*> i2(wmMonitorSelect);
+			while (i2.hasNext()) {
+				i2.next();
+				i2.value()->hide();
+			}
+		}
+
+	} else {
+
+		// UNCOMMENT WHEN FEATURE GETS IMPLEMENTED
+/*		wmMonitorLabel->show();
+		QMapIterator<int, CustomCheckBox*> i2(wmMonitorSelect);
+		while (i2.hasNext()) {
+			i2.next();
+			i2.value()->show();
+		}*/
+
+		// REMOVE WHEN FEATURE GETS IMPLEMENTED
+		if(hideXFCE) {
+			wmMonitorLabel->hide();
+			QMapIterator<int, CustomCheckBox*> i2(wmMonitorSelect);
+			while (i2.hasNext()) {
+				i2.next();
+				i2.value()->hide();
+			}
+		}
+
+	}
+
+	if(hideOther) {
+
+		otherFeh->hide();
+		otherNitrogen->hide();
+
+		QMapIterator<QString, CustomRadioButton*> i(otherFehOptions);
+		while (i.hasNext()) {
+			i.next();
+			i.value()->hide();
+		}
+
+		swapFehNitrogen();
+
+	} else {
+
+		otherFeh->show();
+		otherNitrogen->show();
+
+		swapFehNitrogen();
+
+	}
+
 }
 
 
@@ -399,6 +584,8 @@ void Wallpaper::goAheadAndSetWallpaper() {
 	else if(wm->currentIndex() == 2)
 		setXFCE();
 	else if(wm->currentIndex() == 3)
+		setRazor();
+	else if(wm->currentIndex() == wm->count()-1)
 		setOTHER();
 
 
@@ -435,7 +622,7 @@ void Wallpaper::setXFCE() {
 	xfcePicOpts << "scaled";
 	xfcePicOpts << "magnified";
 
-	QMapIterator<int, CustomCheckBox*> i3(xfceMonitorSelect);
+	QMapIterator<int, CustomCheckBox*> i3(wmMonitorSelect);
 	int i = 0;
 	while (i3.hasNext()) {
 		i3.next();
@@ -499,247 +686,32 @@ void Wallpaper::setXFCE() {
 
 }
 
+// Razor doesn't provide functionality yet
+void Wallpaper::setRazor() {
+
+	qDebug() << "RAZOR";
+
+}
+
 void Wallpaper::setOTHER() {
 
-#ifdef Q_WS_X11
+	qDebug() << "OTHER";
 
-	static Pixmap bgPixmap = 0;
+	if(otherFeh->isChecked()) {
 
-	// get resources
-//	Display* dpy = static_cast<Display*>(this->getDisplay());
-	Display *dpy = XOpenDisplay(NULL);
-	int screen = DefaultScreen(dpy);
+		QString option = "--bg-" + otherFehGrp->checkedButton()->objectName();
 
-	Window root = RootWindow(dpy, screen);
+		QProcess::execute(QString("feh %1 %2").arg(option).arg(filename));
 
-	Window roots_root;
-	int x,y;
-	unsigned int width, height;
-	unsigned int border_width;
-	unsigned int depth;
+	} else {
 
-	// get the root windows size
-	XGetGeometry(dpy, root, &roots_root,
-	&x, &y, &width, &height, &border_width,
-	&depth);
+		QString option = "--set-" + otherNitrogenGrp->checkedButton()->objectName();
 
-	Atom rootPMapIds[2];
-	rootPMapIds[0] = XInternAtom(dpy, "_XROOTPMAP_ID", False);
-	rootPMapIds[1] = XInternAtom(dpy, "ESETROOT_PMAP_ID", False);
-	Atom pixmapType = XInternAtom(dpy, "PIXMAP", False);
+		QProcess::execute(QString("nitrogen %1 %2").arg(option).arg(filename));
 
-	// create pixmap if not created
-	if (!bgPixmap) {
-	bgPixmap = XCreatePixmap(dpy, root, width, height, depth);
 	}
 
-	// set the X11 root window
-	GC gc = XCreateGC(dpy, bgPixmap, 0, 0);
-
-	QImage img(filename);
-
-	XCopyArea(dpy, QPixmap::fromImage(img).handle(), bgPixmap, gc, 0, 0, width, height, 0, 0);
-
-	XFreeGC(dpy, gc);
-
-	XSetWindowBackgroundPixmap(dpy, root, bgPixmap);
-
-	// Set root info
-	// important for transparency
-	for (int i = 0; i < 2; i++) {
-	    XChangeProperty(dpy, root, rootPMapIds[i], pixmapType,
-		sizeof(bgPixmap)*8, PropModeReplace,
-		reinterpret_cast<unsigned char*>(&bgPixmap), 1);
-	}
-
-	XClearWindow(dpy, root);
-
-//	Display *disp2 = XOpenDisplay(NULL);
-//	Window root2 = RootWindow(disp2, DefaultScreen(disp2));
-//	// Generation of random number to set window color
-//	srand(time(NULL));
-//	int i = rand();
-	// Setting background
-	// I forgot to change 256 to i
-	// XSetWindowBackground(disp2, root2, 256 );
-//	XSetWindowBackground(disp2, root2, i);
-//	Pixmap *pix;
-//	unsigned int *w = 4000;
-//	unsigned int *h = 3000;
-//	unsigned int *xh = 0;
-//	unsigned int *yh = 0;
-//	XCreatePixmapFromBitmapData(disp2,root2,)
-//	XReadBitmapFile(disp2,root2,filename.toLocal8Bit(),w,h,pix,xh,yh);
-//	XSetWindowBackgroundPixmap(disp2,root2,pix);
-//	XClearWindow(disp2, root2);
-
-
-	/*********
-
-
-
-void setWallpaper(FXApp* app, FXImage* image)
-{
-
- static Pixmap bgPixmap = 0;
-
-    // get resources
-    Display* dpy = static_cast<Display*>(app->getDisplay());
-    int screen = DefaultScreen(dpy);
-
-    Window root = RootWindow(dpy, screen);
-
-    Window roots_root;
-    int x,y;
-    unsigned int width, height;
-    unsigned int border_width;
-    unsigned int depth;
-
-    // get the root windows size
-    XGetGeometry(dpy, root, &roots_root,
-	&x, &y, &width, &height, &border_width,
-	&depth);
-
-    Atom rootPMapIds[2];
-    rootPMapIds[0] = XInternAtom(dpy, "_XROOTPMAP_ID", False);
-    rootPMapIds[1] = XInternAtom(dpy, "ESETROOT_PMAP_ID", False);
-    Atom pixmapType = XInternAtom(dpy, "PIXMAP", False);
-
-    // create pixmap if not created
-    if (!bgPixmap) {
-	bgPixmap = XCreatePixmap(dpy, root, width, height, depth);
-    }
-
-    // ensure the image is created
-    image->create();
-
-    // set the X11 root window
-    GC gc = XCreateGC(dpy, bgPixmap, 0, 0);
-
-    XCopyArea(dpy, image->id(), bgPixmap, gc, 0, 0, width, height, 0, 0);
-
-    XFreeGC(dpy, gc);
-
-    XSetWindowBackgroundPixmap(dpy, root, bgPixmap);
-
-    // Set root info
-    // important for transparency
-    for (int i = 0; i < 2; i++) {
-	XChangeProperty(dpy, root, rootPMapIds[i], pixmapType,
-	    sizeof(bgPixmap)*8, PropModeReplace,
-	    reinterpret_cast<unsigned char*>(&bgPixmap), 1);
-    }
-
-    XClearWindow(dpy, root);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	******/
-
-
-#else
-
-	qDebug() << "Sorry, you're not using a Unix based system...";
-
-#endif
-
-}
-
-
-
-
-// The following function is taken from the source code of xmms-rootvis:
-// http://fopref.meinungsverstaerker.de/xmms-rootvis/
-Window
-Wallpaper::ToonGetRootWindow(Display *display, int screen, Window *clientparent)
-{
-  Window background = 0; /* The return value */
-  Window root = RootWindow(display, screen);
-  Window rootReturn, parentReturn, *children;
-  unsigned char *toplevel = NULL;
-  unsigned int nChildren;
-  unsigned long nitems, bytesafter;
-  Atom actual_type;
-  int actual_format;
-  unsigned char *workspace = NULL;
-  unsigned char *desktop = NULL;
-
-  *clientparent = root;
-
-
-  if (!background) {
-    /* Look for a _WIN_WORKSPACE property, used by Enlightenment */
-    Atom _WIN_WORKSPACE = XInternAtom(display, "_WIN_WORKSPACE", False);
-    if (XGetWindowProperty(display, root, _WIN_WORKSPACE,
-			   0, 1, False, XA_CARDINAL,
-			   &actual_type, &actual_format,
-			   &nitems, &bytesafter,
-			   &workspace) == Success
-	&& workspace) {
-      /* Found a _WIN_WORKSPACE property - this is the desktop to look for.
-       * For now assume that this is Enlightenment.
-       * We're looking for a child of the root window that has an
-       * ENLIGHTENMENT_DESKTOP atom with a value equal to the root window's
-       * _WIN_WORKSPACE atom. */
-      Atom ENLIGHTENMENT_DESKTOP = XInternAtom(display,
-					       "ENLIGHTENMENT_DESKTOP",
-					       False);
-      /* First check to see if the root window is the current desktop... */
-      if (XGetWindowProperty(display, root,
-			     ENLIGHTENMENT_DESKTOP, 0, 1,
-			     False, XA_CARDINAL,
-			     &actual_type, &actual_format,
-			     &nitems, &bytesafter,
-			     &desktop) == Success
-	  && desktop && *desktop == *workspace) {
-	/* The root window is the current Enlightenment desktop */
-	background = root;
-	XFree(desktop);
-      }
-      /* Now look at each immediate child window of root to see if it is
-       * the current desktop */
-      else if (XQueryTree(display, root, &rootReturn, &parentReturn,
-			  &children, &nChildren)) {
-	int i;
-	for (i = 0; i < nChildren; ++i) {
-	  if (XGetWindowProperty(display, children[i],
-				 ENLIGHTENMENT_DESKTOP, 0, 1,
-				 False, XA_CARDINAL,
-				 &actual_type, &actual_format,
-				 &nitems, &bytesafter,
-				 &desktop) == Success
-	      && desktop && *desktop == *workspace) {
-	    /* Found current Enlightenment desktop */
-	    background = *clientparent = children[i];
-	    XFree(desktop);
-	  }
-	}
-	XFree((char *) children);
-      }
-      XFree(workspace);
-    }
-  }
-  if (background) {
-    return background;
-  }
-  else {
-    return root;
-  }
-}
-
-
 
 
 void Wallpaper::makeShow() {
@@ -762,6 +734,13 @@ void Wallpaper::setRect(QRect rect) {
 
 	if(isShown) this->setGeometry(rectShown);
 	else this->setGeometry(rectHidden);
+
+}
+
+void Wallpaper::accept() {
+
+	if(ok->isEnabled())
+		ok->animateClick();
 
 }
 

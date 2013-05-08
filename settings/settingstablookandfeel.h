@@ -29,6 +29,8 @@
 #include <QToolTip>
 
 
+#include <QGraphicsEffect>
+
 class ClickLabel : public QLabel {
 
 	Q_OBJECT
@@ -36,6 +38,14 @@ class ClickLabel : public QLabel {
 public:
 	ClickLabel(const QString &text = "", QWidget *parent = 0);
 	~ClickLabel();
+
+	void setCSS(QString);
+
+private:
+	QString css;
+
+public slots:
+	void setEnabled(bool);
 
 protected:
 	void mouseReleaseEvent(QMouseEvent *e);

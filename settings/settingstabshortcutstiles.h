@@ -11,7 +11,7 @@
 #include <QStyleOption>
 #include <QPainter>
 
-// A custom label (the "x" top right corner) for closing Photo
+// A custom label (the "x" top right corner) for closing PhotoQt
 class Label : public QLabel {
 	Q_OBJECT
 public:
@@ -47,7 +47,7 @@ public:
 	// This button adds a new instance of it (displayed for available shortcuts, i.e. right side)
 	QPushButton *add;
 
-	// A checkbox for quitting photo after executing (displayed for existing shortcuts)>
+	// A checkbox for quitting PhotoQt after executing (displayed for existing shortcuts)>
 	CustomCheckBox *quit;
 
 	// Display a white "M" for mouse shortcuts

@@ -34,7 +34,7 @@ SettingsTabLookAndFeel::SettingsTabLookAndFeel(QWidget *parent, QMap<QString, QV
 	backgroundImageUseScreenshot = new CustomRadioButton(tr("Use Screenshot"));
 	backgroundImageUseCustom = new CustomRadioButton(tr("Use custom background image"));
 	noBackgroundImage = new CustomRadioButton(tr("Don't use either"));
-	QLabel *compositeImageLabel = new QLabel("<b><span style=\"font-size: 12pt\">" + tr("Composite or Background Image") + "</span></b><br><br>" + tr("If composite is enabled, then it causes the background of photo to be real half transparent. Of course, using composite is not a must. When disabled Photo by default uses a screenshot and sets it as a background. However, this is only possible for single-screen setups. On multi-head setups you can only set either a background image (with overlay) or just set some background colour. Of course these two options are also available for setups with a single monitor only."));
+	QLabel *compositeImageLabel = new QLabel("<b><span style=\"font-size: 12pt\">" + tr("Composite or Background Image") + "</span></b><br><br>" + tr("If composite is enabled, then it causes the background of PhotoQt to be real half transparent. Of course, using composite is not a must. When disabled PhotoQt by default uses a screenshot and sets it as a background. However, this is only possible for single-screen setups. On multi-head setups you can only set either a background image (with overlay) or just set some background colour. Of course these two options are also available for setups with a single monitor only."));
 	compositeImageLabel->setWordWrap(true);
 	QHBoxLayout *compLay = new QHBoxLayout;
 	compLay->addStretch();
@@ -96,7 +96,7 @@ SettingsTabLookAndFeel::SettingsTabLookAndFeel(QWidget *parent, QMap<QString, QV
 	// OPTION TO ADJUST BACKGROUND COLOR
 	background = new QColorDialog;
 	background->setOption(QColorDialog::ShowAlphaChannel);
-	QLabel *backgroundLabel = new QLabel("<b><span style=\"font-size:12pt\">" + tr("Background/Overlay Color") + "</span></b><br><br>" + tr("Here you can adjust the background colour of Photo. When using compositing or a background image, then you can also specify an alpha value, i.e. the transparency of the coloured overlay layer. When neither compositing is enabled nor a background image is set, then this colour will be the background of Photo."));
+	QLabel *backgroundLabel = new QLabel("<b><span style=\"font-size:12pt\">" + tr("Background/Overlay Color") + "</span></b><br><br>" + tr("Here you can adjust the background colour of PhotoQt. When using compositing or a background image, then you can also specify an alpha value, i.e. the transparency of the coloured overlay layer. When neither compositing is enabled nor a background image is set, then this colour will be the background of PhotoQt."));
 	backgroundLabel->setWordWrap(true);
 	selectCol = new CustomPushButton(tr("Click to change color!"));
 	QHBoxLayout *backgroundLay = new QHBoxLayout;
@@ -113,7 +113,7 @@ SettingsTabLookAndFeel::SettingsTabLookAndFeel(QWidget *parent, QMap<QString, QV
 
 	// OPTION FOR TRAY ICON USAGE
 	trayIcon = new CustomCheckBox(tr("Hide to Tray Icon"));
-	QLabel *trayIconLabel = new QLabel("<b><span style=\"font-size:12pt\">" + tr("Hide to Tray Icon") + "</span></b><br><br>" + tr("When started Photo creates a tray icon in the system tray. If desired, you can set Photo to minimise to the tray instead of quitting. This causes Photo to be almost instantaneously available when an image is opened.") + "<br>" + tr("It is also possible to start Photo already minimised to the tray (e.g. at system startup) when called with \"--start-in-tray\"."));
+	QLabel *trayIconLabel = new QLabel("<b><span style=\"font-size:12pt\">" + tr("Hide to Tray Icon") + "</span></b><br><br>" + tr("When started PhotoQt creates a tray icon in the system tray. If desired, you can set PhotoQt to minimise to the tray instead of quitting. This causes PhotoQt to be almost instantaneously available when an image is opened.") + "<br>" + tr("It is also possible to start PhotoQt already minimised to the tray (e.g. at system startup) when called with \"--start-in-tray\"."));
 	trayIconLabel->setWordWrap(true);
 	QHBoxLayout *trayIconLay = new QHBoxLayout;
 	trayIconLay->addStretch();
@@ -128,7 +128,7 @@ SettingsTabLookAndFeel::SettingsTabLookAndFeel(QWidget *parent, QMap<QString, QV
 
 	// OPTION FOR LOOPING THROUGH FOLDER
 	loopThroughFolder = new CustomCheckBox(tr("Loop Through Folder"));
-	QLabel *loopLabel = new QLabel("<b><span style=\"font-size: 12pt\">" + tr("Looping Through Folder") + "</span></b><hr>" + tr("When you load the last image in a directory and select \"Next\", Photo automatically jumps to the first image (and vice versa: if you select \"Previous\" while having the first image loaded, Photo jumps to the last image). Disabling this option makes Photo stop at the first/last image (i.e. selecting \"Next\"/\"Previous\" will have no effect in these two special cases)."));
+	QLabel *loopLabel = new QLabel("<b><span style=\"font-size: 12pt\">" + tr("Looping Through Folder") + "</span></b><hr>" + tr("When you load the last image in a directory and select \"Next\", PhotoQt automatically jumps to the first image (and vice versa: if you select \"Previous\" while having the first image loaded, PhotoQt jumps to the last image). Disabling this option makes PhotoQt stop at the first/last image (i.e. selecting \"Next\"/\"Previous\" will have no effect in these two special cases)."));
 	loopLabel->setWordWrap(true);
 	QHBoxLayout *loopLay = new QHBoxLayout;
 	loopLay->addStretch();
@@ -188,7 +188,7 @@ SettingsTabLookAndFeel::SettingsTabLookAndFeel(QWidget *parent, QMap<QString, QV
 
 	// OPTION FOR CLOSING ON CLICK ON GREY
 	grey = new CustomCheckBox(tr("Close on Click in empty area"));
-	QLabel *greyLabel = new QLabel("<b><span style=\"font-size: 12pt\">" + tr("Close on Click in empty area") + "</span></b><hr>" + tr("This option makes Photo a bit like the JavaScript image viewers you find on many websites. A click outside of the image on the empty background will close the application. It can be a nice feature, Photo will feel even more like a \"floating layer\". However, you might at times close Photo accidentally.") + "<br><br>" + tr("Note: If you use a mouse click for a shortcut already, then this option wont have any effect!"));
+	QLabel *greyLabel = new QLabel("<b><span style=\"font-size: 12pt\">" + tr("Close on Click in empty area") + "</span></b><hr>" + tr("This option makes PhotoQt a bit like the JavaScript image viewers you find on many websites. A click outside of the image on the empty background will close the application. It can be a nice feature, PhotoQt will feel even more like a \"floating layer\". However, you might at times close PhotoQt accidentally.") + "<br><br>" + tr("Note: If you use a mouse click for a shortcut already, then this option wont have any effect!"));
 	greyLabel->setWordWrap(true);
 	QHBoxLayout *greyLay = new QHBoxLayout;
 	greyLay->addStretch();
@@ -616,7 +616,35 @@ SettingsTabLookAndFeel::~SettingsTabLookAndFeel() { }
 // A label that emits a clicked() signal
 ClickLabel::ClickLabel(const QString &text, QWidget *parent) : QLabel(text, parent) {
 
-	this->setStyleSheet("QLabel {color: white; } QLabel:disabled { color: grey; }");
+	css = "QLabel {color: white; } QLabel:disabled { color: grey; }";
+
+	this->setStyleSheet(css);
+
+}
+
+void ClickLabel::setEnabled(bool e) {
+
+	QGraphicsOpacityEffect *eff = new QGraphicsOpacityEffect;
+
+	if(e)
+		eff->setOpacity(1);
+	else
+		eff->setOpacity(0.3);
+
+	this->setGraphicsEffect(eff);
+
+
+	QLabel::setEnabled(e);
+
+}
+
+void ClickLabel::setCSS(QString c) {
+
+	css = css;
+	if(this->isEnabled())
+		this->setStyleSheet(css + "QLabel { background: rgba(255,255,255,200); }");
+	else
+		this->setStyleSheet(css + "QLabel { background: transparent; }");
 
 }
 

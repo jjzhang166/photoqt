@@ -15,13 +15,8 @@
 #include <QtDebug>
 #include <QButtonGroup>
 #include <QDesktopWidget>
-//#include <QApplication>
 
-#ifdef Q_WS_X11
-#include <X11/Xlib.h>
-#include <X11/Xproto.h>
-#include <X11/Xatom.h>
-#endif
+//#include <QDir>
 
 #include "../customelements/custompushbutton.h"
 #include "../customelements/customscrollbar.h"
@@ -46,6 +41,8 @@ public:
 	void makeHide();
 	bool isVisible() { return isShown; }
 	void setRect(QRect rect);
+
+	void accept();
 
 
 private:
@@ -83,20 +80,29 @@ private:
 	QLabel *gnomePicOpsLabel;
 	QMap<QString,CustomRadioButton*> gnomePictureOptions;
 
-	QMap<int,CustomCheckBox*> xfceMonitorSelect;
-	QLabel *xfceMonitorLabel;
 	QButtonGroup *xfceButGrp;
 	QLabel *xfcePicOpsLabel;
 	QMap<QString,CustomRadioButton*> xfcePictureOptions;
+
+
+	CustomRadioButton *otherFeh;
+	CustomRadioButton *otherNitrogen;
+	QMap<QString,CustomRadioButton*> otherFehOptions;
+	QMap<QString,CustomRadioButton*> otherNitrogenOptions;
+	QButtonGroup *otherFehGrp;
+	QButtonGroup *otherNitrogenGrp;
+
+
+	QMap<int,CustomCheckBox*> wmMonitorSelect;
+	QLabel *wmMonitorLabel;
 
 	void detectWM();
 
 	void setKDE();
 	void setGNOME();
 	void setXFCE();
+	void setRazor();
 	void setOTHER();
-
-	Window ToonGetRootWindow(Display *display, int screen, Window *clientparent);
 
 private slots:
 	// The animation functions
@@ -110,6 +116,8 @@ private slots:
 	void wmSelected();
 
 	void goAheadAndSetWallpaper();
+
+	void swapFehNitrogen();
 
 signals:
 	// Block all function in mainwindow and activate system keys

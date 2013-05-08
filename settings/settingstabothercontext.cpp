@@ -123,7 +123,7 @@ void Context::loadContext() {
 	allTiles.clear();
 
 	// Load the file
-	QFile file(QDir::homePath() + "/.photo/contextmenu");
+	QFile file(QDir::homePath() + "/.photoqt/contextmenu");
 	if(file.open(QIODevice::ReadOnly)) {
 
 		QTextStream in(&file);
@@ -195,7 +195,7 @@ void Context::saveContext() {
 	}
 
 	// And save the file
-	QFile file(QDir::homePath() + "/.photo/contextmenu");
+	QFile file(QDir::homePath() + "/.photoqt/contextmenu");
 	if(file.remove()) {
 		if(file.open(QIODevice::WriteOnly)) {
 

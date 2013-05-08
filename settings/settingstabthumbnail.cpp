@@ -57,13 +57,13 @@ SettingsTabThumbnail::SettingsTabThumbnail(QWidget *parent, QMap<QString, QVaria
 	// OPTION TO SET BORDER AROUND THUMBNAILS
 	borderAroundSlider = new CustomSlider;
 	borderAroundSlider->setMinimum(0);
-	borderAroundSlider->setMaximum(20);
+	borderAroundSlider->setMaximum(30);
 	borderAroundSlider->setTickInterval(4);
 	borderAroundSpin = new CustomSpinBox;
 	borderAroundSpin->setMinimum(0);
-	borderAroundSpin->setMaximum(20);
+	borderAroundSpin->setMaximum(30);
 	borderAroundSpin->setSuffix(" px");
-	QLabel *thbBorderAroundLabel = new QLabel("<b><span style=\"font-size: 12pt\">" + tr("Border Around Thumbnail Images") + "</span></b><br><br>" + tr("The thumbnails are shown on squares in a row at the lower/upper edge (depending on your setup). Per default they are lined up side to side with no empty space between them. Here you can change that."));
+	QLabel *thbBorderAroundLabel = new QLabel("<b><span style=\"font-size: 12pt\">" + tr("Spacing Between Thumbnail Images") + "</span></b><br><br>" + tr("The thumbnails are shown in a row at the lower or upper edge (depending on your setup). They are lined up side by side. Here you can adjust the spacing in between (or remove spacing altogether)."));
 	thbBorderAroundLabel->setWordWrap(true);
 	QHBoxLayout *thbBorderLay = new QHBoxLayout;
 	thbBorderLay->addStretch();
@@ -152,7 +152,7 @@ SettingsTabThumbnail::SettingsTabThumbnail(QWidget *parent, QMap<QString, QVaria
 
 
 	// OPTION TO ONLY USE FILENAME AND NO ACTUAL THUMBNAIL
-	QLabel *filenameInsteadThbLabel = new QLabel("<b><span style=\"font-size: 12pt\">" + tr("Use file-name-only Thumbnails") + "</span></b><br><bR>" + tr("If you don't want Photo to always load the thumbnails in the background, but you still want to have something for better navigating, then you can set a file-name-only thumbnail, i.e. Photo wont load any thumbnail images but simply puts the file name into the box. You can also adjust the font size of this text."));
+	QLabel *filenameInsteadThbLabel = new QLabel("<b><span style=\"font-size: 12pt\">" + tr("Use file-name-only Thumbnails") + "</span></b><br><bR>" + tr("If you don't want PhotoQt to always load the thumbnails in the background, but you still want to have something for better navigating, then you can set a file-name-only thumbnail, i.e. PhotoQt wont load any thumbnail images but simply puts the file name into the box. You can also adjust the font size of this text."));
 	filenameInsteadThbLabel->setWordWrap(true);
 	filenameInsteadThb = new CustomCheckBox(tr("Use file-name-only Thumbnail"));
 	filenameInsteadThb->setChecked(false);
@@ -190,7 +190,7 @@ SettingsTabThumbnail::SettingsTabThumbnail(QWidget *parent, QMap<QString, QVaria
 
 
 
-	QLabel *thumbnailDisableLabel = new QLabel("<b><span style=\"font-size: 12pt\">" + tr("Disable Thumbnails") + "</span></b><br><bR>" + tr("If you just don't need or don't want any thumbnails whatsoever, then you can disable them here completely. This option can also be toggled remotely via command line (run 'photo --help' for more information on that)."));
+	QLabel *thumbnailDisableLabel = new QLabel("<b><span style=\"font-size: 12pt\">" + tr("Disable Thumbnails") + "</span></b><br><bR>" + tr("If you just don't need or don't want any thumbnails whatsoever, then you can disable them here completely. This option can also be toggled remotely via command line (run 'photoqt --help' for more information on that)."));
 	thumbnailDisableLabel->setWordWrap(true);
 	thumbDisable = new CustomCheckBox(tr("Disable Thumbnails altogether"));
 	thumbDisable->setChecked(false);
@@ -205,7 +205,7 @@ SettingsTabThumbnail::SettingsTabThumbnail(QWidget *parent, QMap<QString, QVaria
 
 
 	// OPTION FOR THUMBNAIL CACHE
-	QLabel *thumbCacheLabel = new QLabel("<b><span style=\"font-size:12pt\">" + tr("Thumbnail Cache") + "</span></b><hr>" + tr("Thumbnails can be cached in two different ways:<br>1) File Caching (following the freedesktop.org standard) or<br>2) Database Caching (better performance and management, default option).") + "<br><br>" + tr("Both ways have their advantages and disadvantages:") + "<br>" + tr("File Caching is done according to the freedesktop.org standard and thus different applications can share the same thumbnail for the same image file. However, it's not possible to check for obsolete thumbnails (thus this may lead to many unneeded thumbnail files).") + "<br>" + tr("Database Caching doesn't have the advantage of sharing thumbnails with other applications (and thus every thumbnails has to be newly created for Photo), but it brings a slightly better performance, and it allows a better handling of existing thumbnails (e.g. deleting obsolete thumbnails).") + "<br><br>" + tr("Photo works with either option, though the second way is set as default.") + "<br><br>" + tr("Although everybody is encouraged to use at least one of the two options, caching can be completely disabled altogether. However, that does affect the performance and usability of Photo, since thumbnails have to be newly re-created every time they are needed."));
+	QLabel *thumbCacheLabel = new QLabel("<b><span style=\"font-size:12pt\">" + tr("Thumbnail Cache") + "</span></b><hr>" + tr("Thumbnails can be cached in two different ways:<br>1) File Caching (following the freedesktop.org standard) or<br>2) Database Caching (better performance and management, default option).") + "<br><br>" + tr("Both ways have their advantages and disadvantages:") + "<br>" + tr("File Caching is done according to the freedesktop.org standard and thus different applications can share the same thumbnail for the same image file. However, it's not possible to check for obsolete thumbnails (thus this may lead to many unneeded thumbnail files).") + "<br>" + tr("Database Caching doesn't have the advantage of sharing thumbnails with other applications (and thus every thumbnails has to be newly created for PhotoQt), but it brings a slightly better performance, and it allows a better handling of existing thumbnails (e.g. deleting obsolete thumbnails).") + "<br><br>" + tr("PhotoQt works with either option, though the second way is set as default.") + "<br><br>" + tr("Although everybody is encouraged to use at least one of the two options, caching can be completely disabled altogether. However, that does affect the performance and usability of PhotoQt, since thumbnails have to be newly re-created every time they are needed."));
 	thumbCacheLabel->setWordWrap(true);
 	QHBoxLayout *thumbCacheLay = new QHBoxLayout;
 	thumbCache = new CustomCheckBox(tr("Enable Thumbnail Cache"));
@@ -265,7 +265,7 @@ SettingsTabThumbnail::SettingsTabThumbnail(QWidget *parent, QMap<QString, QVaria
 
 
 	// We ask for confirmation before cleaning up the database
-	confirmClean = new CustomConfirm(tr("Clean Database"),tr("Do you really want to clean up the database? This removes all obsolete thumbnails, thus possibly making Photo a little faster.") + "<bR><br>" + tr("This process might take a little while."),tr("Yes, clean is good"),tr("No, don't have time for that"),QSize(400,200),this->parentWidget());
+	confirmClean = new CustomConfirm(tr("Clean Database"),tr("Do you really want to clean up the database? This removes all obsolete thumbnails, thus possibly making PhotoQt a little faster.") + "<bR><br>" + tr("This process might take a little while."),tr("Yes, clean is good"),tr("No, don't have time for that"),QSize(400,200),this->parentWidget());
 	confirmClean->showBorder("white",2);
 	confirmClean->show();
 
@@ -296,9 +296,9 @@ void SettingsTabThumbnail::loadSettings() {
 	thumbSizeSpin->setValue(globSet.value("ThumbnailSize").toInt());
 	defaults.insert("ThumbnailSize",globSet.value("ThumbnailSize").toInt());
 
-	borderAroundSlider->setValue(globSet.value("ThumbnailBorderAround").toInt());
-	borderAroundSpin->setValue(globSet.value("ThumbnailBorderAround").toInt());
-	defaults.insert("ThumbnailBorderAround",globSet.value("ThumbnailBorderAround").toInt());
+	borderAroundSlider->setValue(globSet.value("ThumbnailSpacingBetween").toInt());
+	borderAroundSpin->setValue(globSet.value("ThumbnailSpacingBetween").toInt());
+	defaults.insert("ThumbnailSpacingBetween",globSet.value("ThumbnailSpacingBetween").toInt());
 
 	thbLiftUpSlider->setValue(globSet.value("ThumbnailLiftUp").toInt());
 	thbLiftUpSpin->setValue(globSet.value("ThumbnailLiftUp").toInt());
@@ -350,10 +350,10 @@ void SettingsTabThumbnail::saveSettings() {
 		defaults.insert("ThumbnailSize",thumbSizeSlider->value());
 	}
 
-	if(defaults.value("ThumbnailBorderAround").toInt() != borderAroundSlider->value()) {
-		updatedSet.insert("ThumbnailBorderAround",borderAroundSlider->value());
-		defaults.remove("ThumbnailBorderAround");
-		defaults.insert("ThumbnailBorderAround",borderAroundSlider->value());
+	if(defaults.value("ThumbnailSpacingBetween").toInt() != borderAroundSlider->value()) {
+		updatedSet.insert("ThumbnailSpacingBetween",borderAroundSlider->value());
+		defaults.remove("ThumbnailSpacingBetween");
+		defaults.insert("ThumbnailSpacingBetween",borderAroundSlider->value());
 	}
 	if(defaults.value("ThumbnailLiftUp").toInt() != thbLiftUpSlider->value()) {
 		updatedSet.insert("ThumbnailLiftUp",thbLiftUpSlider->value());
@@ -426,7 +426,7 @@ void SettingsTabThumbnail::setDatabaseInfo() {
 
 	noOfEntriesInDb = query.value(query.record().indexOf("c")).toInt();
 
-	dbInfo->setText(tr("Current database filesize: %1 KB").arg(QFileInfo(QDir::homePath() + "/.photo/thumbnails").size()/1024) + "<br>" + tr("Entries in database: %2").arg(noOfEntriesInDb));
+	dbInfo->setText(tr("Current database filesize: %1 KB").arg(QFileInfo(QDir::homePath() + "/.photoqt/thumbnails").size()/1024) + "<br>" + tr("Entries in database: %2").arg(noOfEntriesInDb));
 
 	query.clear();
 
@@ -502,12 +502,12 @@ void SettingsTabThumbnail::doEraseDatabase() {
 
 	if(verbose) qDebug() << "thb: Erase database";
 
-	QFile(QDir::homePath() + "/.photo/thumbnails").remove();
+	QFile(QDir::homePath() + "/.photoqt/thumbnails").remove();
 
 	QSqlDatabase::removeDatabase("thumbDB");
 
 	QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE", "thumbDB");
-	db.setDatabaseName(QDir::homePath() + "/.photo/thumbnails");
+	db.setDatabaseName(QDir::homePath() + "/.photoqt/thumbnails");
 	if(!db.open())
 		qDebug() << "ERROR: Couldn't open thumbnail database:" << db.lastError().text().trimmed();
 	QSqlQuery query(db);

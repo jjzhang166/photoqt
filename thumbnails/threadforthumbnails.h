@@ -121,7 +121,7 @@ protected:
 					rightNextThb = createThisOne+1;
 				} else {
 					// Next thumbnail to the right
-					// Note: We need to check for right strictly less than counttot, since counttot starts counting at 1, but Photo starts counting at 0
+					// Note: We need to check for right strictly less than counttot, since counttot starts counting at 1, but PhotoQt starts counting at 0
 					if((createThisOne <= currentPos && rightNextThb < counttot) || leftNextThb < 0) {
 						createThisOne = rightNextThb;
 						++rightNextThb;

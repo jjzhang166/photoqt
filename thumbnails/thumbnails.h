@@ -71,10 +71,6 @@ public:
 
 	bool isVisible() { return isShown; }
 
-
-
-	void ensureThumbLoad();
-
 private:
 
 	bool isShown;
@@ -98,7 +94,7 @@ public slots:
 	// Jump to beginning/end of list
 	void gotoFirstLast(QString side);
 
-	void scrolledView(bool forceUpdate = false);
+	void scrolledView();
 
 private slots:
 	// Animate the widget
@@ -109,7 +105,7 @@ private slots:
 	void gotClick(QString path);
 
 	// Update a thumbnail
-	void updateThumb(QImage img,QString path, int pos);
+	void updateThumb(QImage img, QString path, int pos);
 
 
 protected:

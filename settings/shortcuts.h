@@ -32,7 +32,7 @@ public:
 		allKeyShortcuts.clear();
 		allMouseShortcuts.clear();
 
-		QFile file(QDir::homePath() + "/.photo/shortcuts");
+		QFile file(QDir::homePath() + "/.photoqt/shortcuts");
 		if(!file.exists())
 			setDefault();
 		else {
@@ -100,7 +100,7 @@ public:
 		}
 
 		// And save file
-		QFile file(QDir::homePath() + "/.photo/shortcuts");
+		QFile file(QDir::homePath() + "/.photoqt/shortcuts");
 		file.remove();
 		file.open(QIODevice::WriteOnly);
 		QTextStream out(&file);

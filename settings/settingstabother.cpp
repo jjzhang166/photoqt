@@ -30,7 +30,7 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 
 
 	// CHOOSE A LANGUAGE
-	QLabel *langLabel = new QLabel("<b><span style=\"font-size:12pt\">" + tr("Choose Language") + "</span></b><br><br>" + tr("There are a good few different languages available. Thanks to everybody who took the time to translate Photo!"));
+	QLabel *langLabel = new QLabel("<b><span style=\"font-size:12pt\">" + tr("Choose Language") + "</span></b><br><br>" + tr("There are a good few different languages available. Thanks to everybody who took the time to translate PhotoQt!"));
 	langLabel->setWordWrap(true);
 	lay->addWidget(langLabel);
 	lay->addSpacing(15);
@@ -109,7 +109,7 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 	langDesc << QString::fromUtf8("Tiếng Việt (Nguyễn Hữu Tài)");
 	langShort << "vi";
 
-	// The Chinese translation hasn't been updated in a long time, and only 3% are currently translated. It's removed for now from the Photo app, but remains at Transifex, and if somebody starts updating it again, it'll get included again.
+	// The Chinese translation hasn't been updated in a long time, and only 3% are currently translated. It's removed for now from the PhotoQt app, but remains at Transifex, and if somebody starts updating it again, it'll get included again.
 	// Chinese
 //	langDesc << "Chinese (Dianjin Wang)";
 //	langShort << "zh_CN";

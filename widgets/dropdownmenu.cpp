@@ -43,7 +43,7 @@ DropDownMenu::DropDownMenu(QWidget *parent) : QWidget(parent) {
 	setStandard("right", tr("Interrupt Thumbnail Creation"), ":/img/interrupt.png","stopThb", 1);
 	setStandard("right", tr("Reload Thumbnails"), ":/img/reload.png","reloadThb", 1);
 	setStandard("right", tr("Show Exif Widget"), ":/img/exif.png","hideMeta", 1);
-	setStandard("right", tr("About Photo"), ":/img/about.png","about", 1);
+	setStandard("right", tr("About PhotoQt"), ":/img/about.png","about", 1);
 	setStandard("right", tr("Hide (System Tray)"), ":/img/quit.png","hide", 1);
 	setStandard("right", tr("Quit"), ":/img/quit.png","close", 1);
 

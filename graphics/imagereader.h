@@ -2,10 +2,13 @@
 #define IMAGEREADER_H
 
 #include <QObject>
-#include <GraphicsMagick/Magick++/Image.h>
 #include <QImage>
 #include <QImageReader>
 #include <QtDebug>
+
+#ifdef WITH_GRAPHICSMAGICK
+#include <GraphicsMagick/Magick++/Image.h>
+#endif
 
 class ImageReader : public QObject {
 

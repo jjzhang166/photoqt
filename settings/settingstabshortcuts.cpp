@@ -74,7 +74,7 @@ SettingsTabShortcuts::SettingsTabShortcuts(QWidget *parent, bool v) : QWidget(pa
 	navigation.insert("__next",tr("Next Image"));
 	navigation.insert("__open",tr("Open New File"));
 	navigation.insert("__prev",tr("Previous Image"));
-	navigation.insert("__close",tr("Quit Photo"));
+	navigation.insert("__close",tr("Quit PhotoQt"));
 
 	// A map for all internal functions in the category "image"
 	QMap<QString, QString> image;
@@ -103,7 +103,7 @@ SettingsTabShortcuts::SettingsTabShortcuts(QWidget *parent, bool v) : QWidget(pa
 	other.insert("__settings",tr("Show Settings"));
 	other.insert("__slideshow",tr("Start Slideshow"));
 	other.insert("__slideshowQuick",tr("Start Slideshow (Quickstart)"));
-	other.insert("__about",tr("About photo"));
+	other.insert("__about",tr("About PhotoQt"));
 	other.insert("__wallpaper",tr("Set as Wallpaper"));
 
 	// Add them to the main QMap

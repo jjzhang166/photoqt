@@ -120,7 +120,7 @@ SlideShow::SlideShow(QMap<QString, QVariant> set, QWidget *parent, bool v) : QWi
 	// Adjust quickinfo labels
 	hideQuickInfo = new CustomCheckBox(tr("Hide Quickinfos"));
 	hideQuickInfo->setChecked(globSet.value("SlideShowHideQuickinfo").toBool());
-	QLabel *hideQuickLabel = new QLabel("<b><span style=\"font-size:12pt\">" + tr("Hide Quickinfo") + "</span></b> " + "<br><br>" + tr("Depending on your setup, Photo displays some information at the top edge, like position in current directory or file path/name. Here you can disable them temporarily for the slideshow."));
+	QLabel *hideQuickLabel = new QLabel("<b><span style=\"font-size:12pt\">" + tr("Hide Quickinfo") + "</span></b> " + "<br><br>" + tr("Depending on your setup, PhotoQt displays some information at the top edge, like position in current directory or file path/name. Here you can disable them temporarily for the slideshow."));
 	hideQuickLabel->setWordWrap(true);
 	QHBoxLayout *hideQuickLay = new QHBoxLayout;
 	hideQuickLay->addStretch();
@@ -131,6 +131,7 @@ SlideShow::SlideShow(QMap<QString, QVariant> set, QWidget *parent, bool v) : QWi
 	central->addLayout(hideQuickLay);
 	central->addSpacing(10);
 
+#ifdef WITH_PHONON
 	// Adjust music
 	musicEnable = new CustomCheckBox(tr("Enable Music"));
 	musicEnable->setChecked(globSet.value("SlideShowMusicFile").toString() != "");
@@ -156,6 +157,7 @@ SlideShow::SlideShow(QMap<QString, QVariant> set, QWidget *parent, bool v) : QWi
 	central->addLayout(musicPathLay);
 	connect(musicEnable, SIGNAL(toggled(bool)), musicPath, SLOT(setEnabled(bool)));
 	connect(musicPath, SIGNAL(clicked()), this, SLOT(browseForMusic()));
+#endif
 
 	central->addStretch();
 
@@ -331,9 +333,11 @@ void SlideShow::mouseReleaseEvent(QMouseEvent *e) {
 
 }
 
+
 // browse for a music file
 void SlideShow::browseForMusic() {
 
+#ifdef WITH_PHONON
 	if(verbose) qDebug() << "slb: Browse for music file";
 
 	QString oldPath = QDir::homePath();
@@ -344,8 +348,10 @@ void SlideShow::browseForMusic() {
 
 	if(newFile != "")
 		musicPath->setText(newFile);
+#endif
 
 }
+
 
 // Start slideshow
 void SlideShow::andStart() {

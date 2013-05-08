@@ -22,7 +22,7 @@ SettingsTabExif::SettingsTabExif(QWidget *parent, QMap<QString, QVariant> set, b
 	scroll->setVerticalScrollBar(scrollbar);
 
 	// The title labels, explaining what can be done here
-	QLabel *title = new QLabel("<center><h1>" + tr("Exif Information") + "</h1></center>" + tr("Photo can display meta (exif) information for images. The widget for this information is on the left outside the screen and slides in when mouse gets close to it and/or when the set shortcut (default Ctrl+E) is triggered. On demand, the triggering by mouse movement can be disabled by checking the box below."));
+	QLabel *title = new QLabel("<center><h1>" + tr("Exif Information") + "</h1></center>" + tr("PhotoQt can display meta (exif) information for images. The widget for this information is on the left outside the screen and slides in when mouse gets close to it and/or when the set shortcut (default Ctrl+E) is triggered. On demand, the triggering by mouse movement can be disabled by checking the box below."));
 	title->setWordWrap(true);
 	lay->addSpacing(10);
 	lay->addWidget(title);
@@ -43,7 +43,7 @@ SettingsTabExif::SettingsTabExif(QWidget *parent, QMap<QString, QVariant> set, b
 
 
 
-	QLabel *whichItemShown = new QLabel("<b><span style=\"font-size: 12pt\">" + tr("Which items are shown?") + "</span></b><br><br>" + tr("Photo can display a number of exif information. However, you might not be interested in some of them, hence you can choose to disable some of them here."));
+	QLabel *whichItemShown = new QLabel("<b><span style=\"font-size: 12pt\">" + tr("Which items are shown?") + "</span></b><br><br>" + tr("PhotoQt can display a number of exif information. However, you might not be interested in some of them, hence you can choose to disable some of them here."));
 	whichItemShown->setWordWrap(true);
 	lay->addWidget(whichItemShown);
 	lay->addSpacing(10);
@@ -169,7 +169,7 @@ SettingsTabExif::SettingsTabExif(QWidget *parent, QMap<QString, QVariant> set, b
 
 
 	// ALWAYS/NEVER/POSSIBLY ROTATE/FLIP ACCORDING TO EXIF DATA
-	QLabel *rotateFlipLabel = new QLabel("<b><span style=\"font-size: 12pt\">" + tr("Rotating/Flipping Image according to Exif Info") + "</span></b><br><br>" + tr("Some cameras can detect - while taking the photo - whether the camera was turned and might store this information in the image exif data. If Photo finds this information, it can rotate the image accordingly. Per default it's not doing it, but it can be enabled here as desired."));
+	QLabel *rotateFlipLabel = new QLabel("<b><span style=\"font-size: 12pt\">" + tr("Rotating/Flipping Image according to Exif Info") + "</span></b><br><br>" + tr("Some cameras can detect - while taking the photo - whether the camera was turned and might store this information in the image exif data. If PhotoQt finds this information, it can rotate the image accordingly. Per default it's not doing it, but it can be enabled here as desired."));
 	rotateFlipLabel->setWordWrap(true);
 	QButtonGroup *groupRot = new QButtonGroup;
 	exifRotNev = new CustomRadioButton(tr("Never rotate images"));

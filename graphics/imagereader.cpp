@@ -4,16 +4,9 @@ ImageReader::ImageReader() : QObject() {
 
 }
 
-//void ImageReader::readThisImage(QString filename) {
-
-//	image.read(filename.toStdString());
-//	imageRead = QImage(image.columns(), image.rows(), QImage::Format_RGB32);
-
-//}
-
-
 bool ImageReader::doIUseMagick(QString filename) {
 
+#ifdef WITH_GRAPHICSMAGICK
 	QStringList qtFiles;
 	qtFiles << ".bmp";
 	qtFiles << ".gif";
@@ -34,13 +27,19 @@ bool ImageReader::doIUseMagick(QString filename) {
 	}
 
 	return true;
+#else
+	return false;
+#endif
 
 }
 
 
 QImage ImageReader::readImage(QString filename, int rotation, bool zoomed, QSize maxSize) {
 
+#ifdef WITH_GRAPHICSMAGICK
 	Magick::Image image;
+#endif
+
 	QImageReader reader;
 
 	qDebug() << "ZOOMED:" << zoomed;
@@ -73,6 +72,8 @@ QImage ImageReader::readImage(QString filename, int rotation, bool zoomed, QSize
 
 	} else {
 
+#ifdef WITH_GRAPHICSMAGICK
+
 		qDebug() << "BEFORE";
 
 		image.read(filename.toAscii().data());
@@ -84,6 +85,7 @@ QImage ImageReader::readImage(QString filename, int rotation, bool zoomed, QSize
 
 		origSize = QSize(readerWidth,readerHeight);
 		fileformat = QString::fromStdString(image.format());
+#endif
 
 	}
 
@@ -159,6 +161,8 @@ QImage ImageReader::readImage(QString filename, int rotation, bool zoomed, QSize
 
 	} else {
 
+#ifdef WITH_GRAPHICSMAGICK
+
 		if(!zoomed)
 			image.zoom(Magick::Geometry(QString("%1x%2").arg(dispWidth).arg(dispHeight).toStdString()));
 //					image.resize(Magick::Geometry(QString("%1x%2").arg(dispWidth).arg(dispHeight).toStdString()));
@@ -171,6 +175,7 @@ QImage ImageReader::readImage(QString filename, int rotation, bool zoomed, QSize
 		// Passing Image Buffer to a QPixmap
 		const QByteArray imgData ((char*)(blob.data()));
 		img.loadFromData(imgData);
+#endif
 
 	}
 

@@ -6,6 +6,8 @@ ThumbnailView::ThumbnailView(QMap<QString, QVariant> set) : QGraphicsView() {
 
 	this->setMouseTracking(true);
 
+	this->setAlignment(Qt::AlignCenter);
+
 	// The scene
 	this->setScene(&scene);
 	scene.clear();

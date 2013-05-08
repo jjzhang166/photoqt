@@ -10,7 +10,7 @@
 #include <QtDebug>
 
 
-// A custom label (the "x" top right corner) for closing Photo
+// A custom label (the "x" top right corner) for closing PhotoQt
 class QuickInfoLabel : public QLabel {
 	Q_OBJECT
 

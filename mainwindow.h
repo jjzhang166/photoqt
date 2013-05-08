@@ -150,6 +150,11 @@ private:
 	// Setup a widget
 	void setupWidget(QString what);
 
+
+
+	QGraphicsPixmapItem *emptyThumbnailFreeSpace;
+
+
 private slots:
 	// This is called, whenever the settings have changed, and updates all sub-widgets
 	// This function is needed together with the updateSettings() function to avoid a crash on startup

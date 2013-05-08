@@ -7,31 +7,31 @@ int main(int argc, char *argv[]) {
 
 	qDebug() << QDateTime::currentMSecsSinceEpoch();
 
-	QApplication::setApplicationName("photo");
+	QApplication::setApplicationName("photoqt");
 
 	// This string holds the current version
 	QString globVersion = "beta";
 
 	// A help message for the command line
-	QString hlp = "\nPhoto v" + globVersion + " - created by Lukas Spies (photoQt@ymail.com) - License: GPL\n";
-	hlp += "Photo is a fast, simple, good looking, yet powerfull and highly configurable image viewer.\n\n";
+	QString hlp = "\nPhotoQt v" + globVersion + " - created by Lukas Spies (photoQt@ymail.com) - License: GPL\n";
+	hlp += "PhotoQt is a fast, simple, good looking, yet powerfull and highly configurable image viewer.\n\n";
 
-	hlp += "Usage: photo [options|file]\n\n";
+	hlp += "Usage: photoqt [options|file]\n\n";
 
 	hlp += "Options:\n";
 	hlp += "\t--h, --help\t\tThis help message\n\n";
 
 	hlp += ">> Start-up options:\n\n";
 
-	hlp += "\t--start-in-tray\t\tStart Photo hidden to the system tray\n";
+	hlp += "\t--start-in-tray\t\tStart PhotoQt hidden to the system tray\n";
 	hlp += "\t--no-thumbs\t\tDon't load thumbnails (Navigation through folder is still possible)\n\n";
 
 	hlp += ">> Remote Controlling:\n\n";
 
-	hlp += "\t--open\t\t\tOpens the open file dialog (also shows Photo if hidden)\n";
-	hlp += "\t--toggle\t\tToggles Photo - hides Photo if visible, shows if hidden\n";
-	hlp += "\t--show\t\t\tShows Photo (does nothing if already shown)\n";
-	hlp += "\t--hide\t\t\tHides Photo (does nothing if already hidden)\n\n";
+	hlp += "\t--open\t\t\tOpens the open file dialog (also shows PhotoQt if hidden)\n";
+	hlp += "\t--toggle\t\tToggles PhotoQt - hides PhotoQt if visible, shows if hidden\n";
+	hlp += "\t--show\t\t\tShows PhotoQt (does nothing if already shown)\n";
+	hlp += "\t--hide\t\t\tHides PhotoQt (does nothing if already hidden)\n\n";
 
 	hlp += ">> Remote controlling w/ filename needed:\n\n";
 
@@ -41,10 +41,10 @@ int main(int argc, char *argv[]) {
 	hlp += ">> Debuging:\n\n";
 	hlp += "\t--v, --verbose\t\tEnabling debug messages\n\n";
 
-	hlp += "\n   Enjoy Photo :-)\n\n\n";
+	hlp += "\n   Enjoy PhotoQt :-)\n\n\n";
 
-	// This file is updated by a running instance of Photo every 500 milliseconds - check
-	QFile chk(QDir::homePath() + "/.photo/running");
+	// This file is updated by a running instance of PhotoQt every 500 milliseconds - check
+	QFile chk(QDir::homePath() + "/.photoqt/running");
 	QString all = "";
 	if(chk.open(QIODevice::ReadOnly)) {
 		QTextStream in(&chk);
@@ -61,7 +61,7 @@ int main(int argc, char *argv[]) {
 	for(int i = 0; i < argc; ++i)
 		allArgs.append(argv[i]);
 
-	if(QFile(QDir::homePath()+"/.photo/verbose").exists())
+	if(QFile(QDir::homePath()+"/.photoqt/verbose").exists())
 		allArgs.append("--v");
 
 	QStringList knownArgs;
@@ -75,19 +75,19 @@ int main(int argc, char *argv[]) {
 	knownArgs << "--verbose";
 	knownArgs << "--v";
 
-	// If photo was started with "--h" or "--help", show help message
+	// If PhotoQt was started with "--h" or "--help", show help message
 	if(allArgs.contains("--help") || allArgs.contains("-help") || allArgs.contains("--h") || allArgs.contains("-h")) {
 
 		std::cout << hlp.toStdString();
 
 		return 0;
 
-	// If an instance of photo is running, we check for command line arguments
+	// If an instance of PhotoQt is running, we check for command line arguments
 	} else if(QDateTime::currentMSecsSinceEpoch() - all.toLongLong() < qint64(520)) {
 
-		qDebug() << "Running instance of Photo detected...";
+		qDebug() << "Running instance of PhotoQt detected...";
 
-		// This is the content of the file used to communicate with running photo instance
+		// This is the content of the file used to communicate with running PhotoQt instance
 		QString cont = "";
 
 		// This boolean is set to true if an unknown command is used
@@ -110,21 +110,21 @@ int main(int argc, char *argv[]) {
 
 		}
 
-		// If photo is called without any arguments, "show" is used
+		// If PhotoQt is called without any arguments, "show" is used
 		if(allArgs.length() == 1)
 			cont = "--show";
 
 		// If only correct arguments were used
 		if(!err) {
-			// Write the commands into this file, which is checked regularly by a running instance of photo
-			QFile f(QDir::homePath() + "/.photo/cmd");
+			// Write the commands into this file, which is checked regularly by a running instance of PhotoQt
+			QFile f(QDir::homePath() + "/.photoqt/cmd");
 			f.remove();
 			if(f.open(QIODevice::WriteOnly)) {
 				QTextStream out(&f);
 				out << cont;
 				f.close();
 			} else
-				qDebug() << "ERROR! Couldn't write to file '~/.photo/cmd'. Unable to communicate with running process";
+				qDebug() << "ERROR! Couldn't write to file '~/.photoqt/cmd'. Unable to communicate with running process";
 
 		// If an uncorrect argument was used
 		} else
@@ -133,8 +133,70 @@ int main(int argc, char *argv[]) {
 
 		return 0;
 
-	// If photo isn't running and no command line argument (besides filename and "--start-in.tray") was used
+	// If PhotoQt isn't running and no command line argument (besides filename and "--start-in.tray") was used
 	} else {
+
+		bool verbose = (allArgs.contains("--v") || allArgs.contains("--verbose") || QFile(QDir::homePath() + "./photoqt/verbose").exists() || (!QDir(QDir::homePath() + "/.photoqt").exists() && QFile(QDir::homePath() + "/.photo/verbose").exists()));
+
+		// Ensure that the config folder exists
+		QDir dir(QDir::homePath() + "/.photoqt");
+		if(!dir.exists()) {
+			QDir dir_old(QDir::homePath() + "/.photo");
+			if(dir_old.exists()) {
+				if(verbose) qDebug() << "Moving ~/.photo to ~/.photoqt";
+				dir.mkdir(QDir::homePath() + "/.photoqt");
+
+				QFile file(QDir::homePath() + "/.photo/contextmenu");
+				if(file.exists()) {
+					file.copy(QDir::homePath() + "/.photoqt/contextmenu");
+					file.remove();
+				}
+
+				file.setFileName(QDir::homePath() + "/.photo/fileformats");
+				if(file.exists()) {
+					file.copy(QDir::homePath() + "/.photoqt/fileformats");
+					file.remove();
+				}
+
+				file.setFileName(QDir::homePath() + "/.photo/running");
+				if(file.exists()) {
+					file.copy(QDir::homePath() + "/.photoqt/running");
+					file.remove();
+				}
+
+				file.setFileName(QDir::homePath() + "/.photo/settings");
+				if(file.exists()) {
+					file.copy(QDir::homePath() + "/.photoqt/settings");
+					file.remove();
+				}
+
+				file.setFileName(QDir::homePath() + "/.photo/shortcuts");
+				if(file.exists()) {
+					file.copy(QDir::homePath() + "/.photoqt/shortcuts");
+					file.remove();
+				}
+
+				file.setFileName(QDir::homePath() + "/.photo/thumbnails");
+				if(file.exists()) {
+					file.copy(QDir::homePath() + "/.photoqt/thumbnails");
+					file.remove();
+				}
+
+				file.setFileName(QDir::homePath() + "/.photo/verbose");
+				if(file.exists()) {
+					file.copy(QDir::homePath() + "/.photoqt/verbose");
+					file.remove();
+				}
+
+				dir_old.rmdir(dir_old.absolutePath());
+
+
+
+			} else {
+				if(verbose) qDebug() << "Creating ~/.photoqt/";
+				dir.mkdir(QDir::homePath() + "/.photoqt");
+			}
+		}
 
 		bool err = false;
 
@@ -147,25 +209,25 @@ int main(int argc, char *argv[]) {
 
 			std::cout << hlp.toStdString();
 
-			// Nothing after this return will be executed (Photo will simply quit)
+			// Nothing after this return will be executed (PhotoQt will simply quit)
 			return 0;
 		}
 
+#ifdef WITH_GRAPHICSMAGICK
 		Magick::InitializeMagick(*argv);
+#endif
 
-		if(QFile(QDir::homePath()+"/.photo/cmd").exists())
-			QFile(QDir::homePath()+"/.photo/cmd").remove();
+		if(QFile(QDir::homePath()+"/.photoqt/cmd").exists())
+			QFile(QDir::homePath()+"/.photoqt/cmd").remove();
 
-		// This boolean stores if photo needs to be minimized to the tray
+		// This boolean stores if PhotoQt needs to be minimized to the tray
 		bool startintray = allArgs.contains("--start-in-tray");
 
-		bool verbose = (allArgs.contains("--v") || allArgs.contains("--verbose"));
-
-		// If photo is supposed to be started minimized in system tray
+		// If PhotoQt is supposed to be started minimized in system tray
 		if(startintray) {
 			if(verbose) qDebug() << "Starting minimised to tray";
 			// If the option "Use Tray Icon" in the settings is not set, we set it
-			QFile set(QDir::homePath() + "/.photo/settings");
+			QFile set(QDir::homePath() + "/.photoqt/settings");
 			if(set.open(QIODevice::ReadOnly)) {
 				QTextStream in(&set);
 				QString all = in.readAll();
@@ -193,14 +255,14 @@ int main(int argc, char *argv[]) {
 		QTranslator trans;
 
 		// Check if languaged is changed to one of the possible translations
-		QFile fileSettings(QDir::homePath() + "/.photo/settings");
+		QFile fileSettings(QDir::homePath() + "/.photoqt/settings");
 		if(fileSettings.open(QIODevice::ReadOnly)) {
 			if(verbose) qDebug() << "Checking for translation";
 			QTextStream in(&fileSettings);
 			QString all = in.readAll();
 			if(all.contains("Language=") && !all.contains("Language=en")) {
 				QString code = all.split("Language=").at(1).split("\n").at(0).trimmed();
-				trans.load(":/lang/photo_" + code);
+				trans.load(":/lang/photoqt_" + code);
 				a.installTranslator(&trans);
 				qDebug() << "Loading Translation:" << code;
 			}
@@ -208,19 +270,11 @@ int main(int argc, char *argv[]) {
 		} else
 			qDebug() << "ERROR! Couldn't read settings file.";
 
-
-		// Ensure that the config folder exists
-		QDir dir(QDir::homePath() + "/.photo");
-		if(!dir.exists()) {
-			if(verbose) qDebug() << "Creating ~/.photo/";
-			dir.mkdir(QDir::homePath() + "/.photo");
-		}
-
-		// This int holds 1 if photo was updated and 2 if it's newly installed
+		// This int holds 1 if PhotoQt was updated and 2 if it's newly installed
 		int update = 0;
 
 		// Check if the settings file exists. If not, create a file with default settings (i.e. empty file, settings and defaults are handled by globalsettings.h)
-		QFile file(QDir::homePath() + "/.photo/settings");
+		QFile file(QDir::homePath() + "/.photoqt/settings");
 		if(!file.exists()) {
 			if(!file.open(QIODevice::WriteOnly))
 				qDebug() << "ERROR: Couldn't write settings file! Please ensure that you have read&write access to home directory";
@@ -233,7 +287,7 @@ int main(int argc, char *argv[]) {
 
 			update = 2;
 
-		// If file does exist, check if it is from a previous version -> photo was updated
+		// If file does exist, check if it is from a previous version -> PhotoQt was updated
 		} else {
 			if(!file.open(QIODevice::ReadWrite))
 				qDebug() << "ERROR: Couldn't read settings file! Please ensure that you have read&write access to home directory";
@@ -243,15 +297,8 @@ int main(int argc, char *argv[]) {
 
 				if(verbose) qDebug() << "Checking if first run of new version";
 
-				// If it contains no "Version=" (photo 0.1)
-				if(!all.contains("Version=")) {
-					file.close();
-					file.remove();
-					file.open(QIODevice::ReadWrite);
-					in << "Version=" + globVersion  + "\n" << all;
-					update = 1;
 				// If it doesn't contain current version (some previous version)
-				} else if(!all.contains("Version=" + globVersion + "\n")) {
+				if(!all.contains("Version=" + globVersion + "\n")) {
 					file.close();
 					file.remove();
 					file.open(QIODevice::ReadWrite);
@@ -268,13 +315,13 @@ int main(int argc, char *argv[]) {
 		}
 
 		// Check if thumbnail database exists. If not, create it
-		QFile database(QDir::homePath() + "/.photo/thumbnails");
+		QFile database(QDir::homePath() + "/.photoqt/thumbnails");
 		if(!database.exists()) {
 
 			if(verbose) qDebug() << "Create Thumbnail Database";
 
 			QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE", "thumbDB");
-			db.setDatabaseName(QDir::homePath() + "/.photo/thumbnails");
+			db.setDatabaseName(QDir::homePath() + "/.photoqt/thumbnails");
 			if(!db.open()) qDebug() << "ERROR: Couldn't open thumbnail database:" << db.lastError().text().trimmed();
 			QSqlQuery query(db);
 			query.prepare("CREATE TABLE Thumbnails (filepath TEXT,thumbnail BLOB, filelastmod INT, thumbcreated INT)");
@@ -289,17 +336,17 @@ int main(int argc, char *argv[]) {
 
 			// Opening the thumbnail database
 			QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE","thumbDB");
-			db.setDatabaseName(QDir::homePath() + "/.photo/thumbnails");
+			db.setDatabaseName(QDir::homePath() + "/.photoqt/thumbnails");
 			if(!db.open()) qDebug() << "ERROR: Couldn't open thumbnail database:" << db.lastError().text().trimmed();
 
 		}
 
 
-		// Previous versions of Photo checked here also for the shortcuts file. We don't need to do that anymore, since all shortcuts including the defaults are handled by shortcuts.h
+		// Previous versions of PhotoQt checked here also for the shortcuts file. We don't need to do that anymore, since all shortcuts including the defaults are handled by shortcuts.h
 
 
 		// The main image has a (very basic) context menu. Internal commands are not yet possible, will hopefuly come in next version
-		QFile contextmenu(QDir::homePath() + "/.photo/contextmenu");
+		QFile contextmenu(QDir::homePath() + "/.photoqt/contextmenu");
 		if(!contextmenu.exists()) {
 
 			if(verbose) qDebug() << "Create basic context menu file";

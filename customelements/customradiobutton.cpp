@@ -10,6 +10,9 @@ CustomRadioButton::CustomRadioButton(const QString &text, QWidget *parent) : QRa
 	hovering = false;
 	hoveringEnabled = false;
 
+	imgUnchkd = ":/img/radiobutton_unchecked.png";
+	imgChkd = ":/img/radiobutton_checked.png";
+
 	setBackgroundColor("");
 
 	this->setCursor(Qt::PointingHandCursor);
@@ -85,13 +88,27 @@ void CustomRadioButton::setCSS() {
 		css += QString("border-radius: %1px;").arg(borderRadius);
 	css += "}";
 	css += "QRadioButton::indicator:unchecked {";
-		css += "image: url(:/img/radiobutton_unchecked.png);";
+		css += QString("image: url(%1);").arg(imgUnchkd);
 	css += "}";
 	css += "QRadioButton::indicator:checked {";
-		css += "image: url(:/img/radiobutton_checked.png);";
+		css += QString("image: url(%1);").arg(imgChkd);
+	css += "}";
+	css += "QRadioButton::indicator {";
+		css += "width: 15px;";
+		css += "height: 15px;";
 	css += "}";
 
 	this->setStyleSheet(css);
+
+}
+
+// change indicator image
+void CustomRadioButton::setIndicatorImage(QString chkd, QString unchkd) {
+
+	imgChkd = chkd;
+	imgUnchkd = unchkd;
+
+	setCSS();
 
 }
 

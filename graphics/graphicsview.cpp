@@ -79,7 +79,7 @@ void GraphicsView::setShortcut(QString key, bool close, QString id) {
 void GraphicsView::contextMenuEvent(QContextMenuEvent *event) {
 
 	// Get the last modification date
-	qint64 secs = QFileInfo(QDir::homePath() + "/.photo/contextmenu").lastModified().toMSecsSinceEpoch();
+	qint64 secs = QFileInfo(QDir::homePath() + "/.photoqt/contextmenu").lastModified().toMSecsSinceEpoch();
 
 	// If the menu has been modified since last time or hasn't been setup yet, we set it up
 	if(secs != menuLastChange || menuSetup) {
@@ -96,7 +96,7 @@ void GraphicsView::contextMenuEvent(QContextMenuEvent *event) {
 		menu->addAction(t);
 
 		// Now actually read in the entries from file
-		QFile file(QDir::homePath() + "/.photo/contextmenu");
+		QFile file(QDir::homePath() + "/.photoqt/contextmenu");
 
 		if(file.open(QIODevice::ReadOnly)) {
 

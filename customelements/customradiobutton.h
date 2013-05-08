@@ -17,6 +17,7 @@ public:
 	void setPadding(int pad);
 	void setBorderRadius(int rad);
 	void setHoverEffect(QString hovCol);
+	void setIndicatorImage(QString chkd, QString unchkd);
 
 private:
 	QString css;
@@ -27,6 +28,9 @@ private:
 	QString colour;
 	int padding;
 	int borderRadius;
+
+	QString imgChkd;
+	QString imgUnchkd;
 
 	void setCSS();
 

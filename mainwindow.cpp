@@ -2,6 +2,18 @@
 
 MainWindow::MainWindow(QWidget *parent, bool verbose) : QMainWindow(parent) {
 
+#ifdef WITH_PHONON
+	qDebug() << "PHONON IS BEING USED!!!!!!! :-)";
+#endif
+
+#ifdef WITH_GRAPHICSMAGICK
+	qDebug() << "GRAPHICSMAGICK IS BEING USED!!!!!!! :-)";
+#endif
+
+#ifdef WITH_EXIV2
+	qDebug() << "EXIV2 IS BEING USED!!!!!!! :-)";
+#endif
+
 	// Make a screenshot
 	screenshot = QPixmap::grabWindow(QApplication::desktop()->winId());
 
@@ -51,7 +63,7 @@ MainWindow::MainWindow(QWidget *parent, bool verbose) : QMainWindow(parent) {
 	// The main GraphicsView fills the whole widget
 	centralLayout->addWidget(viewBig);
 
-	// Setup the quickinfo labels. We have two sets of labels, for the top and for the bottom. This way we can change the position without having to restart photo.
+	// Setup the quickinfo labels. We have two sets of labels, for the top and for the bottom. This way we can change the position without having to restart PhotoQt.
 	viewBigLay = new ViewBigLay(globSet->toSignalOut(),verbose);
 	viewBig->setLayout(viewBigLay);
 	viewBigLay->setPosition(globSet->thumbnailposition);
@@ -87,9 +99,11 @@ MainWindow::MainWindow(QWidget *parent, bool verbose) : QMainWindow(parent) {
 
 	// The exif widget
 	exif = new Exif(viewBig,globSet->toSignalOut());
-	connect(exif, SIGNAL(setOrientation(int,bool)), this, SLOT(getOrientationFromExif(int,bool)));
 	connect(exif, SIGNAL(updateSettings(QMap<QString,QVariant>)), globSet, SLOT(settingsUpdated(QMap<QString,QVariant>)));
+#ifdef WITH_EXIV2
+	connect(exif, SIGNAL(setOrientation(int,bool)), this, SLOT(getOrientationFromExif(int,bool)));
 	connect(exif->rotConf, SIGNAL(blockFunc(bool)), this, SLOT(blockFunc(bool)));
+#endif
 
 
 	// These shortcut are needed for the widgets like settings, open, etc., thus they need to be set up always
@@ -278,9 +292,6 @@ void MainWindow::blockFunc(bool bl) {
 
 	if(globVar->verbose) qDebug() << "Blocking Interface:" << bl;
 
-	// That'll also block all thumbs creation
-	if(bl) viewThumbs->stopThbCreation();
-
 	globVar->blocked = bl;
 }
 
@@ -334,12 +345,24 @@ void MainWindow::drawImage() {
 		if(globVar->verbose) qDebug() << "Drawing Image";
 
 		// Adjust the alignment. If the thumbnail are shwn permanently, then we need to align the image at the top, otherwise it overlaps with the thumbnails
-		if(globSet->thumbnailKeepVisible && !globVar->zoomedImgAtLeastOnce) {
-			if(globSet->thumbnailposition == "Bottom")
-				viewBig->setAlignment(Qt::AlignTop);
-			else if(globSet->thumbnailposition == "Top")
-				viewBig->setAlignment(Qt::AlignBottom);
-		} else if(!globSet->thumbnailKeepVisible || globVar->zoomedImgAtLeastOnce)
+//		if(globSet->thumbnailKeepVisible && !globVar->zoomedImgAtLeastOnce) {
+
+//			QPixmap e(viewThumbs->width(), viewThumbs->height());
+//			e.fill(Qt::red);
+//			emptyThumbnailFreeSpace->setPixmap(e);
+//			emptyThumbnailFreeSpace->show();
+
+//		} else {
+//			emptyThumbnailFreeSpace->hide();
+//		}
+//			viewBig->
+//		else
+//			viewBig->setViewportMargins(0,0,0,0);
+//			if(globSet->thumbnailposition == "Bottom")
+//				viewBig->setAlignment(Qt::AlignTop);
+//			else if(globSet->thumbnailposition == "Top")
+//				viewBig->setAlignment(Qt::AlignBottom);
+//		} else if(!globSet->thumbnailKeepVisible || globVar->zoomedImgAtLeastOnce)
 			viewBig->setAlignment(Qt::AlignCenter);
 
 		// No file loaded yet,...
@@ -397,7 +420,11 @@ void MainWindow::drawImage() {
 				graphItem->setPixmap(QPixmap::fromImage(img));
 
 			// Set the right position of the main image
-			graphItem->setPos(QPoint((viewBig->width()-img.width())/2.0,(viewBig->height()-img.height())/2.0));
+
+			int graphItemX = (viewBig->width()-img.width())/2.0;
+			int graphItemY = (viewBig->height()-(globSet->thumbnailKeepVisible ? viewThumbs->height() : 0)-img.height())/2.0;
+			graphItem->setPos(viewBig->mapToScene(QPoint(graphItemX,graphItemY)));
+			qDebug() << "POSPOSPOS:" << graphItem->pos();
 
 			// These formats known by Photo are supported by exiv2
 			QStringList formats;
@@ -443,7 +470,8 @@ void MainWindow::drawImage() {
 				if(!globSet->thumbnailKeepVisible && viewThumbs->isVisible())
 					viewThumbs->makeHide();
 				viewThumbs->startThread();
-				viewThumbs->ensureThumbLoad();
+				// Making sure the thumbnails load
+				QTimer::singleShot(1000,viewThumbs,SLOT(scrolledView()));
 			} else if(viewThumbs->thumbLoadedThroughClick)
 				viewThumbs->thumbLoadedThroughClick = false;
 
@@ -479,20 +507,20 @@ void MainWindow::getOrientationFromExif(int degree, bool flipHor) {
 
 }
 
-// The global timer to ensure only one instance of Photo running and to make Photo remotely controllable
+// The global timer to ensure only one instance of PhotoQt running and to make PhotoQt remotely controllable
 void MainWindow::globalRunningProgTimerTimeout() {
 
 	// Updates the "running" file with current timestamp
-	QFile t(QDir::homePath() + "/.photo/running");
+	QFile t(QDir::homePath() + "/.photoqt/running");
 	if(t.open(QIODevice::WriteOnly)) {
 		QTextStream out(&t);
 		out << QDateTime::currentMSecsSinceEpoch();
 		t.close();
 	} else
-		qDebug() << "ERROR! Unable to write to file '~/.photo/running' - unable to control this instance through command line.";
+		qDebug() << "ERROR! Unable to write to file '~/.photoqt/running' - unable to control this instance through command line.";
 
 	// Checks the "cmd" file for commands to be executed
-	QFile cmd(QDir::homePath() + "/.photo/cmd");
+	QFile cmd(QDir::homePath() + "/.photoqt/cmd");
 
 	// Switches to identify options set
 	bool doOpen = false;
@@ -537,7 +565,7 @@ void MainWindow::globalRunningProgTimerTimeout() {
 		cmd.close();
 
 	} else if(cmd.exists())
-		qDebug() << "ERROR! Can't read '~/.photo/cmd'.";
+		qDebug() << "ERROR! Can't read '~/.photoqt/cmd'.";
 
 	// Remove file after command is read in
 	cmd.remove();
@@ -549,7 +577,7 @@ void MainWindow::globalRunningProgTimerTimeout() {
 	}
 
 
-	// Toggle Photo
+	// Toggle PhotoQt
 	if(doToggle) {
 
 		if(this->isVisible()) {
@@ -571,7 +599,7 @@ void MainWindow::globalRunningProgTimerTimeout() {
 		openFile();
 	}
 
-	// Show Photo
+	// Show PhotoQt
 	if(doShow) {
 		if(this->isHidden())
 			this->showFullScreen();
@@ -582,7 +610,7 @@ void MainWindow::globalRunningProgTimerTimeout() {
 			openFile();
 	}
 
-	// Hide Photo
+	// Hide PhotoQt
 	if(doHide) {
 
 		if(!globSet->trayicon) {
@@ -634,7 +662,7 @@ void MainWindow::gotViewBigClick(QPoint p) {
 	int wg = graphItem->pixmap().width();
 	int hg = graphItem->pixmap().height();
 
-	// If click was on grey area outside image and corresponding option is set, then close Photo
+	// If click was on grey area outside image and corresponding option is set, then close PhotoQt
 	if(x < xg || x > xg+wg || y < yg || y > yg+hg || globVar->currentfile.trimmed().length() == 0) {
 		if(globSet->closeongrey) {
 			globVar->skipTrayIcon = true;
@@ -754,8 +782,10 @@ void MainWindow::mouseMoved(int x, int y) {
 				if(y < viewBig->height()-h-20 && viewThumbs->isVisible() && (!globSet->thumbnailKeepVisible || globVar->zoomedImgAtLeastOnce))
 					viewThumbs->makeHide();
 
-				if(y > viewBig->height()-20 && !viewThumbs->isVisible())
+				if(y > viewBig->height()-20 && !viewThumbs->isVisible()) {
 					viewThumbs->makeShow();
+					QTimer::singleShot(520,viewThumbs,SLOT(scrolledView()));
+				}
 			}
 
 			// Animate menu
@@ -881,7 +911,7 @@ void MainWindow::moveInDirectory(int direction) {
 
 }
 
-// Open a new file. I had to remove (temporarily) Photo's custom Open File Dialog, because it just wasn't working right yet. It has to be completely re-done from scratch in a different way (using a model/view)
+// Open a new file. I had to remove (temporarily) PhotoQt's custom Open File Dialog, because it just wasn't working right yet. It has to be completely re-done from scratch in a different way (using a model/view)
 void MainWindow::openFile() {
 
 	if(globVar->verbose) qDebug() << "Request to open new file";
@@ -889,7 +919,7 @@ void MainWindow::openFile() {
 	// Stopping a possibly running thread
 	viewThumbs->stopThbCreation();
 
-	// Open the FileDialog in the dir of last image. If Photo just was started (i.e. no current image), then open in home dir
+	// Open the FileDialog in the dir of last image. If PhotoQt just was started (i.e. no current image), then open in home dir
 	QString opendir = QDir::homePath();
 	if(globVar->currentfile != "")
 		opendir = QFileInfo(globVar->currentfile).absoluteDir().absolutePath();
@@ -953,7 +983,7 @@ void MainWindow::resizeEvent(QResizeEvent *) {
 
 	if(globVar->verbose) qDebug() << "Window resized";
 
-	// When photo is minimised and is restored, then the widget actually isn't resized, so the stuff in this function doesn't need to be done
+	// When PhotoQt is minimised and is restored, then the widget actually isn't resized, so the stuff in this function doesn't need to be done
 
 	// Set an empty QPixmap to avoid any possible graphical artefacts
 	if(globVar->currentfile == "") {
@@ -1055,7 +1085,7 @@ void MainWindow::rotateFlip(bool rotateNotFlipped, QString direction) {
 
 }
 
-// Set the background of Photo
+// Set the background of PhotoQt
 void MainWindow::setBackground() {
 
 	if(globVar->verbose) qDebug() << "Set the background";
@@ -1264,14 +1294,14 @@ void MainWindow::setupTrayIcon() {
 	// The Tray Icon
 	trayIcon = new QSystemTrayIcon(this);
 	trayIcon->setIcon(QIcon(":/img/logo.png"));
-	trayIcon->setToolTip(tr("Photo - Image Viewer"));
+	trayIcon->setToolTip(tr("PhotoQt - Image Viewer"));
 
 	// A context menu for the tray icon
 	trayIconMenu = new QMenu(this);
 	trayIconMenu->setStyleSheet("background-color: rgb(67,67,67); color: white; border-radius: 5px;");
 
 	// A new action for the menu
-	QAction *trayAcToggle = new QAction(QIcon(":/img/logo.png"),tr("Hide/Show Photo"),this);
+	QAction *trayAcToggle = new QAction(QIcon(":/img/logo.png"),tr("Hide/Show PhotoQt"),this);
 	trayAcToggle->setObjectName("toggle");
 	trayIconMenu->addAction(trayAcToggle);
 
@@ -1284,7 +1314,7 @@ void MainWindow::setupTrayIcon() {
 	trayIconMenu->addSeparator();
 
 	// A new action for the menu
-	QAction *trayAcQuit = new QAction(QIcon(":/img/quit.png"),tr("Quit Photo"),this);
+	QAction *trayAcQuit = new QAction(QIcon(":/img/quit.png"),tr("Quit PhotoQt"),this);
 	trayAcQuit->setObjectName("quit");
 	trayIconMenu->addAction(trayAcQuit);
 
@@ -1297,7 +1327,7 @@ void MainWindow::setupTrayIcon() {
 	connect(trayAcQuit, SIGNAL(triggered()), this, SLOT(trayAcDo()));
 	connect(trayIcon, SIGNAL(activated(QSystemTrayIcon::ActivationReason)), this, SLOT(trayAcDo(QSystemTrayIcon::ActivationReason)));
 
-	// The tray icon is always shown, but Photo is not necessarily always minimised to it (depending on user settings)
+	// The tray icon is always shown, but PhotoQt is not necessarily always minimised to it (depending on user settings)
 	trayIcon->show();
 
 }
@@ -1589,7 +1619,7 @@ void MainWindow::startuptimer() {
 		if(globVar->startupMessageInstallUpdateShown != 0 && !setupWidgets->startup) {
 			if(globVar->verbose) qDebug() << "Startup timer ended (message)";
 			showStartupUpdateInstallMsg();
-		// Start Photo
+		// Start PhotoQt
 		} else if(globVar->startupMessageInstallUpdateShown == 0) {
 
 			if(globVar->verbose) qDebug() << "Startup timer ended (load)";
@@ -1622,10 +1652,12 @@ void MainWindow::startSlideShow() {
 	// Set some global parameters
 	globSet->slideShowTime = slideshow->timeSlider->value();
 	globSet->slideShowTransition = slideshow->trans->value();
+#ifndef Q_OS_UNIX
 	QString musicFilePath = slideshow->musicPath->text();
 	if(!slideshow->musicEnable->isChecked())
 		musicFilePath = "";
 	globSet->slideShowMusicFile = musicFilePath;
+#endif
 	globSet->saveSettings();
 
 	// Block all functions
@@ -1642,8 +1674,10 @@ void MainWindow::startSlideShow() {
 	// update the quickinfo
 	viewBigLay->updateInfo(globVar->currentfile,viewThumbs->countpos,viewThumbs->counttot);
 
+#ifndef Q_OS_UNIX
 	// set the music file to bar
 	slideshowbar->musicFile = musicFilePath;
+#endif
 
 	// set the interval
 	slideshowbar->nextImg->setInterval(slideshow->timeSlider->value()*1000);
@@ -1775,6 +1809,7 @@ void MainWindow::systemShortcutDO(QString todo) {
 
 		}
 
+#ifdef WITH_EXIV2
 		if(exif->rotConf->isShown) {
 
 			if(todo == "Enter" || todo == "Return")
@@ -1783,6 +1818,7 @@ void MainWindow::systemShortcutDO(QString todo) {
 				exif->rotConf->no->animateClick();
 
 		}
+#endif
 
 		if(setupWidgets->slideshow && slideshow->isVisible()) {
 
@@ -1804,6 +1840,8 @@ void MainWindow::systemShortcutDO(QString todo) {
 
 			if(todo == "Escape")
 				wallpaper->dontSetWallpaper();
+			if(todo == "Enter" || todo == "Return")
+				wallpaper->accept();
 		}
 
 	// If functions are not blocked, then check if there's a user shortcut set for it

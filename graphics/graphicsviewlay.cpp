@@ -13,7 +13,7 @@ ViewBigLay::ViewBigLay(QMap<QString, QVariant> set, bool v) : QVBoxLayout() {
 
 	QHBoxLayout *quickInfoTOP = new QHBoxLayout;
 
-	// We have labels for the top and for the bottom. So there's no need to restart Photo when switching thumbnails from top to bottom or vice versa
+	// We have labels for the top and for the bottom. So there's no need to restart PhotoQt when switching thumbnails from top to bottom or vice versa
 	quickInfoCounterTOP = new QuickInfoLabel(0,"quickinfoCounterTOP",verbose);
 	quickInfoCounterTOP->setStyleSheet("color: white");
 	quickInfoCounterTOP->hide();

@@ -21,8 +21,10 @@
 #include <QDesktopServices>
 #include <QUrl>
 
+#ifdef WITH_EXIV2
 #include "exiv2/image.hpp"
 #include "exiv2/exif.hpp"
+#endif
 
 // A custom label (the "x" top right corner) for closing Photo
 class LabelClick : public QLabel {
@@ -58,7 +60,9 @@ public:
 	void setRect(QRect rect);
 	void updateFontsize();
 
+#ifdef WITH_EXIV2
 	CustomConfirm *rotConf;
+#endif
 
 
 
@@ -98,6 +102,8 @@ private:
 	// This boolean stores if mouse triggering is en-/disabled
 	bool mouseTrickerEnable;
 
+#ifdef WITH_EXIV2
+
 	// The online map service opened when clicked on GPS coordinates in the exif window
 	QString onlineservice;
 
@@ -106,6 +112,7 @@ private:
 	QString exifFNumberFLength(QString value);
 	QString exifPhotoTaken(QString value);
 	QString exifGps(QString gpsLonRef, QString gpsLon, QString gpsLatRef, QString gpsLat);
+#endif
 
 	// Rotation/Flipping values
 	int rotationDeg;
@@ -127,12 +134,14 @@ private slots:
 	// Adjusting the widget height
 	void adjustHeight();
 
+#ifdef WITH_EXIV2
 	// A click on the GPS coordinates
 	void gpsClick();
 
 	// Yes/No clicked in confirmation widget
 	void rotConfYes();
 	void rotConfNo();
+#endif
 
 signals:
 	// Update orientation of big image

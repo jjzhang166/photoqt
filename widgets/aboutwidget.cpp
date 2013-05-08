@@ -68,15 +68,15 @@ About::About(QWidget *parent) : QWidget(parent) {
 	central->addSpacing(30);
 
 	// The main text block
-	QString txt = tr("Photo is a simple image viewer, designed to be good looking, highly configurable, yet easy to use and fast.") +  "<br><br>";
-	txt += tr("\"Photo\" is not a very creative name for an image viewer. There are so many better names possible. So why is Photo called \"Photo\"? Well, as I started out programming what should become version 0.1, I never really thought of actually developing it as far as it is now. I actually wasn't sure if I should upload it somewhere at all. I eventually decided to give it a go, and I uploaded it at qt-apps.org. And, well, of course, if you want to upload a project there (as probably everywhere else too), you need to give it a name. And the first thing that came to my mind was \"photo\", just to satisfy the upload form of qt-apps.org...") + "<br><br>";
-	txt += tr("I'm not a trained programmer. I'm a simple Maths student that loves doing stuff like this. All I know about programming I taught myself over the years. So Photo is certainly not done in the best of ways. Many things could probably be improved (from a programming point of view). But it's as good as I can do it. And I'm constantly learning and improving things. So you sometimes have to be a little patient with me :)") + "<br><br>";
-	txt += tr("I heard a number of times people saying, that Photo is a \"copy\" of Picasa's image viewer. Well, it's not. In fact, I myself have never used Picasa. I have seen it in use though by others, and I can't deny that it influenced the basic design idea a little. But I'm not trying to do something \"like Picasa\". I try to do my own thing, and to do it as good as I can. If some consider it to be a replacement for Picasa, well, I feel a little honoured (since Picasa is created by \"proper\" programmers).") + "<br><bR>";
+	QString txt = tr("PhotoQt is a simple image viewer, designed to be good looking, highly configurable, yet easy to use and fast.") +  "<br><br>";
+	txt += tr("\"PhotoQt\" is not a very creative name for an image viewer. There are so many better names possible. So why is PhotoQt called \"PhotoQt\"? Well, as I started out programming what should become version 0.1, I never really thought of actually developing it as far as it is now. I actually wasn't sure if I should upload it somewhere at all. I eventually decided to give it a go, and I uploaded it at qt-apps.org. And, well, of course, if you want to upload a project there (as probably everywhere else too), you need to give it a name. And the first thing that came to my mind was \"PhotoQt\", just to satisfy the upload form of qt-apps.org...") + "<br><br>";
+	txt += tr("I'm not a trained programmer. I'm a simple Maths student that loves doing stuff like this. All I know about programming I taught myself over the years. So PhotoQt is certainly not done in the best of ways. Many things could probably be improved (from a programming point of view). But it's as good as I can do it. And I'm constantly learning and improving things. So you sometimes have to be a little patient with me :)") + "<br><br>";
+	txt += tr("I heard a number of times people saying, that PhotoQt is a \"copy\" of Picasa's image viewer. Well, it's not. In fact, I myself have never used Picasa. I have seen it in use though by others, and I can't deny that it influenced the basic design idea a little. But I'm not trying to do something \"like Picasa\". I try to do my own thing, and to do it as good as I can. If some consider it to be a replacement for Picasa, well, I feel a little honoured (since Picasa is created by \"proper\" programmers).") + "<br><bR>";
 	txt += tr("Don't forget to check out the website:") + " http://PhotoQt.org<br><br><br>";
-	txt += tr("If there's one thing I want to achieve with Photo, then it is, that you find it useful. If I accomplished that, then I'm glad. There's no other reason I'm doing that. I don't want money or anything, but just be helpful.") + "<br><br><br><br>";
+	txt += tr("If there's one thing I want to achieve with PhotoQt, then it is, that you find it useful. If I accomplished that, then I'm glad. There's no other reason I'm doing that. I don't want money or anything, but just be helpful.") + "<br><br><br><br>";
 	txt += tr("If you find a bug or if you have a question or suggestion, tell me. I'm open to any feedback I get :)") + "<br><br>";
-	txt += "<center><h2>" + tr("Thanks to everybody who<br>contributed to Photo<br>and/or translated Photo to another language!<br><br>You guys rock!! :-)") + "</h2></center><br><br>";
-	txt += tr("You want to join the team and do something, e.g. translating Photo to another language? Drop me and email (Lukas@photoqt.org), and for translations, check the project page on Transifex: http://transifex.com/p/photo.") + "<br><br><br>";
+	txt += "<center><h2>" + tr("Thanks to everybody who<br>contributed to PhotoQt<br>and/or translated PhotoQt to another language!<br><br>You guys rock!! :-)") + "</h2></center><br><br>";
+	txt += tr("You want to join the team and do something, e.g. translating PhotoQt to another language? Drop me and email (Lukas@photoqt.org), and for translations, check the project page on Transifex: http://transifex.com/p/photoqt.") + "<br><br><br>";
 
 	QLabel *text = new QLabel(txt);
 	text->setTextInteractionFlags(Qt::TextSelectableByMouse);
@@ -106,7 +106,7 @@ About::About(QWidget *parent) : QWidget(parent) {
 // Set the license with version (called from mainwindow.cpp)
 void About::setLicense(QString version) {
 
-	license->setText("<div style=\"font-size: 8pt\">" + tr("Photo %1, by Lukas Spies, 2013 (Lukas@photoqt.org)").arg(version) + " &ndash; " + tr("website:") + " photoqt.org &ndash; " + tr("Licensed under GPL, without any guarantee") + "</div>");
+	license->setText("<div style=\"font-size: 8pt\">" + tr("PhotoQt %1, by Lukas Spies, 2013 (Lukas@photoqt.org)").arg(version) + " &ndash; " + tr("website:") + " photoqt.org &ndash; " + tr("Licensed under GPL, without any guarantee") + "</div>");
 
 }
 

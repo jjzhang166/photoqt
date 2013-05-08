@@ -13,8 +13,6 @@ Exif::Exif(QWidget *parent, QMap<QString, QVariant> set, bool v): QWidget(parent
 	this->setStyleSheet("QWidget#exif { border-radius: 8px; border-bottom-left-radius: 0px; border-top-left-radius: 0px; background-color: rgba(0, 0, 0, 200); }");
 	this->setContentsMargins(10,10,10,10);
 
-	onlineservice = "maps.google.com";
-
 	// Initiate and set layout
 	central = new QVBoxLayout;
 	this->setLayout(central);
@@ -46,6 +44,10 @@ Exif::Exif(QWidget *parent, QMap<QString, QVariant> set, bool v): QWidget(parent
 
 	// Setup the labels
 	setupLabels();
+
+#ifdef WITH_EXIV2
+
+	onlineservice = "maps.google.com";
 
 	// Confirm a rotation
 	rotConf = new CustomConfirm(tr("Rotate Image?"), tr("The Exif data of this image says, that this image is supposed to be rotated.") + "<br><br>" + tr("Do you want to apply the rotation?"), tr("Okay, do it"), tr("What? No!"),QSize(450,210), this->parentWidget());
@@ -158,6 +160,8 @@ Exif::Exif(QWidget *parent, QMap<QString, QVariant> set, bool v): QWidget(parent
 	mapAll.insert("SceneType",mapSceneType);
 
 
+#endif
+
 }
 
 // Setup the labels
@@ -183,6 +187,8 @@ void Exif::setupLabels() {
 
 	labels << tr("Dimensions");
 	labelsId << "Dimensions";
+
+#ifdef WITH_EXIV2
 
 	labels << "";
 	labelsId << "";
@@ -251,6 +257,8 @@ void Exif::setupLabels() {
 	keyVal.insert("Exif.GPSInfo.GPSLatitude","gpslat");
 	keyVal.insert("Exif.GPSInfo.GPSLongitudeRef","gpslonref");
 	keyVal.insert("Exif.GPSInfo.GPSLongitude","gpslon");
+
+#endif
 
 	labelCSS = "color: white; background: rgba(0,0,0,100); padding: 2px; border-radius: 4px;";
 	labelCSSfontsize = QString("font-size: %1pt;").arg(globSet.value("ExifFontSize").toInt());
@@ -361,6 +369,7 @@ void Exif::updateData(QString currentfile, QSize origSize, bool exiv2Supported) 
 	else
 		items["Dimensions"]->hide();
 
+#ifdef WITH_EXIV2
 
 	// If image format is supported
 	if(exiv2Supported) {
@@ -566,9 +575,13 @@ void Exif::updateData(QString currentfile, QSize origSize, bool exiv2Supported) 
 
 	}
 
+#endif
+
 	adjustHeight();
 
 }
+
+#ifdef WITH_EXIV2
 
 // Format exposure time
 QString Exif::exifExposureTime(QString value) {
@@ -580,7 +593,7 @@ QString Exif::exifExposureTime(QString value) {
 		if(split.at(0) != "1") {
 			int t1 = split.at(0).toInt();
 			float t2 = split.at(1).toFloat();
-			// I got a bug report of Photo crashing for certain images that have an exposure time of "0/1". So we have to check for it, or we get a division by zero, i.e. crash
+			// I got a bug report of PhotoQt crashing for certain images that have an exposure time of "0/1". So we have to check for it, or we get a division by zero, i.e. crash
 			if(t1 == 0) {
 				t1 = 0;
 				t2 = 0;
@@ -703,6 +716,8 @@ void Exif::rotConfNo() {
 
 }
 
+#endif
+
 void Exif::makeShow() {
 	if(!isShown) animate();
 }
@@ -712,8 +727,9 @@ void Exif::makeHide() {
 }
 
 void Exif::setRect(QRect rect) {
-
+#ifdef WITH_EXIV2
 	rotConf->setRect(rect);
+#endif
 
 }
 
@@ -777,6 +793,7 @@ void Exif::adjustHeight() {
 
 }
 
+#ifdef WITH_EXIV2
 // Click on GPS location (opens in online map (google/bing))
 void Exif::gpsClick() {
 
@@ -806,6 +823,7 @@ void Exif::gpsClick() {
 	}
 
 }
+#endif
 
 // Change the fontsize of all the labels
 void Exif::updateFontsize() {

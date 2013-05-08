@@ -43,7 +43,7 @@ public:
 	// Currently zoomed to actual size
 	bool zoomToActualSize;
 
-	// When restoring photo from system tray, it emits a resizeEvent -> ignore it
+	// When restoring PhotoQt from system tray, it emits a resizeEvent -> ignore it
 	uint restoringFromTrayNoResize;
 
 	// Is a slideshow running
