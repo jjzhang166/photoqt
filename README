@@ -5,16 +5,21 @@ PhotoQt devel  - by Lukas Spies, 2013 - Licensed under the GPL - Contact: Lukas@
 !!! DEVELOPMENT VERSION -- UNSTABLE !!!
 
 
-PhotoQt is an image viewer with a simple and fast interface, being good looking and highly configureable.
+PhotoQt is a fast and highly configurable image viewer with a simple and nice interface.
 
 
 DEPENDENCIES
 ------------
 Qt >= 4.7
-exiv2
 cmake (needed for building PhotoQt)
 
-Note: On some systems you also need the *-dev for compiling (e.g. exiv2-dev - names can vary slightly depending
+>> Dependencies, that can be disabled via cmake (see INSTALL section):
+exiv2
+Phonon
+GraphicsMagick
+
+
+Note: On some systems you also need the *-dev package for compiling (e.g. exiv2-dev - names can vary slightly depending
 on your distribution). These files usually can be removed again after compilation is done.
 
 
@@ -32,7 +37,7 @@ INSTALL
    # If you're storing them in a different place, you need to tell cmake:
    cmake -DQT_PHONON_INCLUDE_DIR=/path/to/phonon/include/dir ..
    
-   # PhotoQt makes use ov different libraries: exiv2, phonon, graphicsmagick.
+   # PhotoQt makes use of different libraries: exiv2, phonon, graphicsmagick.
    # You can en-/disable them with the following options:
    -DWITHEXIV=OFF		# default: ON
    -DWITHPHONON=OFF		# default: ON
@@ -48,14 +53,6 @@ INSTALL
 4) (as root) make install  # This (i) installs the desktop file to /usr/share/applications/
 				(ii) moves some icons to /usr/share/icons/hicolor/
 				(iii) moves the binary to /usr/bin
-
-
-ALTERNATIVE INSTALL
--------------------
-
-The above way using cmake is the recommended way of installing PhotoQt.
-Of course, it is also possible to compile PhotoQt the old way with "qmake" and "make". However, after compiling
-PhotoQt this way you need to move all the files to their right location manually.
 
 
 
