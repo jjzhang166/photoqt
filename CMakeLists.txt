@@ -18,7 +18,7 @@ SET(QT_USE_QTSQL TRUE)
 
 OPTION(WITH_PHONON "Use Phonon" ON)
 OPTION(WITH_EXIV2 "Use exiv2 library" ON)
-OPTION(WITH_GRAPHICSMAGICK "Use graphicsmagick library" ON)     ### NOT YET IMPLEMENETED
+OPTION(WITH_GRAPHICSMAGICK "Use graphicsmagick library" ON)
 OPTION(WITH_QTONLY "ONLY USE QT-ONLY FEATURES" OFF)
 
 if(NOT WITH_QTONLY AND WITH_PHONON)
@@ -35,9 +35,9 @@ SET(CMAKE_BUILD_TYPE Debug)
 QT4_WRAP_CPP(photoqt_HEADERS_MOC ${photoqt_HEADERS})
 QT4_ADD_RESOURCES(photoqt_RESOURCES_RCC ${photoqt_RESOURCES})
 
-if(NOT WITH_QTONLY AND WITH_EXIV2)
-        LINK_LIBRARIES(exiv2)
-endif(NOT WITH_QTONLY AND WITH_EXIV2)
+# if(NOT WITH_QTONLY AND WITH_EXIV2)
+#         LINK_LIBRARIES(exiv2)
+# endif(NOT WITH_QTONLY AND WITH_EXIV2)
 
 # include, add defiunitions and include dirs
 INCLUDE(${QT_USE_FILE})
@@ -55,7 +55,7 @@ if(NOT WITH_QTONLY)
 
         if(WITH_EXIV2)
                 # Link Exiv Libraries
-
+		TARGET_LINK_LIBRARIES(photoqt "exiv2")
                 ADD_DEFINITIONS(-DWITH_EXIV2)
                 message("** Exiv2 enabled")
         elseif(NOT WITH_EXIV2)
@@ -73,7 +73,9 @@ if(NOT WITH_QTONLY)
         endif(WITH_PHONON)
 
         if(WITH_GRAPHICSMAGICK)
-                INCLUDE_DIRECTORIES("/usr/include/GraphicsMagick/")
+		if(UNIX)
+			INCLUDE_DIRECTORIES("/usr/include/GraphicsMagick/")
+		endif(UNIX)
                 TARGET_LINK_LIBRARIES(photoqt "GraphicsMagick++")
                 ADD_DEFINITIONS(-DWITH_GRAPHICSMAGICK)
                 message("** Graphicsmagick enabled")
