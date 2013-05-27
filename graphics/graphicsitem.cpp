@@ -9,6 +9,8 @@ GraphicsItem::GraphicsItem(QGraphicsItem *parent, QGraphicsScene *scene) : QGrap
 	// The default transition setting is 0
 	transitionSetting = 0;
 
+	addTransBar = 0;
+
 	// These booleans initially are set to false
 	curRotated = false;
 	prevRotated = false;
@@ -43,6 +45,7 @@ void GraphicsItem::movieNextImg() {
 
 // Set the movie and start it
 void GraphicsItem::setMovie(QString m, int width, int height) {
+
 	mov->stop();
 	mov->setFileName(m);
 	mov->setScaledSize(QSize(width,height));
@@ -54,6 +57,16 @@ void GraphicsItem::setMovie(QString m, int width, int height) {
 // Set a (normal) pixmap
 void GraphicsItem::setPixmap(const QPixmap &pixmap, bool dontStopMov, bool smoothTransition, bool movieUpdate) {
 
+	// TEMPORARILY DISABLED - DOESN'T WORK WITH PERMANENT ENABLED THUMBS!!
+	smoothTransition = false;
+
+	QPixmap pix(pixmap.width(), pixmap.height()+addTransBar);
+	pix.fill(Qt::transparent);
+	QPainter p(&pix);
+	p.drawPixmap(0,0,pixmap.width(),pixmap.height(),pixmap);
+	p.end();
+
+
 	// Stop the movie, if function itself isn't called by the movie
 	if(!dontStopMov && mov->state() == QMovie::Running) {
 		mov->stop();
@@ -62,7 +75,7 @@ void GraphicsItem::setPixmap(const QPixmap &pixmap, bool dontStopMov, bool smoot
 
 	// If the movie emmited a change in its pixmap and the transition is running, simply change the current item for the transition
 	if(movieUpdate && trans->state() == QTimeLine::Running) {
-		curItem = pixmap;
+		curItem = pix;
 
 	// If a transition is supposed to be done
 	} else if(smoothTransition && transitionSetting != 0 && !curRotated && !prevRotated && !itemZoomed) {
@@ -79,14 +92,14 @@ void GraphicsItem::setPixmap(const QPixmap &pixmap, bool dontStopMov, bool smoot
 		}
 
 		// The new current item
-		curItem = pixmap;
+		curItem = pix;
 
 		// Start the transition
 		trans->start();
 
 	// And if none of the above applied, we simply call the default setPixmap() function
 	} else
-		QGraphicsPixmapItem::setPixmap(pixmap);
+		QGraphicsPixmapItem::setPixmap(pix);
 
 	emit updateSceneBigRect();
 
@@ -142,12 +155,9 @@ void GraphicsItem::composePixmap(int i) {
 	newPaint.setCompositionMode(QPainter::CompositionMode_SourceOver);
 
 	// Adjust the position
-	x = 0;
-	y = 0;
-	if(curItem.width() < prevItem.width())
-		x = (prevItem.width()-curItem.width())/2;
-	if(curItem.height() < prevItem.height())
-		y = (prevItem.height()-curItem.height())/2;
+	x = (curItem.width() < prevItem.width()) ? (prevItem.width()-curItem.width())/2 : 0;
+	y = (curItem.height() < prevItem.height()) ? (prevItem.height()-curItem.height())/2 : 0;
+
 	newPaint.drawPixmap(x,y,curItem.width(),curItem.height(),curItem);
 	newPaint.end();
 
@@ -161,5 +171,11 @@ void GraphicsItem::movieError(QImageReader::ImageReaderError r) {
 	qDebug() << "ERROR (Animated Image):" << r;
 }
 
+void GraphicsItem::setTransBarHeight(int height) {
+
+
+	addTransBar = height;
+
+}
 
 GraphicsItem::~GraphicsItem() { }

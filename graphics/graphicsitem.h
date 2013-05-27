@@ -44,6 +44,12 @@ public:
 	// Has the item been zoomed?
 	bool itemZoomed;
 
+	void setTransBarHeight(int height);
+	int getTransBarHeight() { return addTransBar; }
+
+private:
+	int addTransBar;
+
 public slots:
 	// Set next movie image as pixmap
 	void movieNextImg();

@@ -166,7 +166,7 @@ protected:
 					bool wasoncecreated = false;
 
 					// If files in ~/.thumbnails/ shall be used, then do use them
-					if(typeCache == "files") {
+					if(typeCache == "files" && cacheEnabled) {
 
 						// If there exists a thumbnail of the current file already
 						if(QFile(QDir::homePath() + "/.thumbnails/" + td + "/" + md5 + ".png").exists() && cacheEnabled) {
@@ -185,7 +185,7 @@ protected:
 						}
 
 					// otherwise use the database (default)
-					} else {
+					} else if(cacheEnabled) {
 
 						ts = 256;
 
@@ -213,7 +213,6 @@ protected:
 					if(!loaded) {
 
 						if(verbose && !amUpdatingData) qDebug() << "thread: Creating new thumb:" << createThisOne;
-
 
 
 						ImageReader image;

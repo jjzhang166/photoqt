@@ -61,6 +61,7 @@ protected:
 	void mousePressEvent(QMouseEvent *event);
 	void contextMenuEvent(QContextMenuEvent *event);
 
+
 signals:
 	// Mouse moved
 	void mousePos(int,int);

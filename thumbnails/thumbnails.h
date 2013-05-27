@@ -66,8 +66,6 @@ public:
 	void updateThbViewHoverNormPix(QString oldpath, QString newpath);
 
 	void setRect(QRect rect);
-	void makeShow();
-	void makeHide();
 
 	bool isVisible() { return isShown; }
 
@@ -88,6 +86,9 @@ private:
 	bool animateInAndOut;
 
 public slots:
+	void makeShow();
+	void makeHide();
+
 	// Stop the creation of thumbnails
 	void stopThbCreation();
 

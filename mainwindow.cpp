@@ -344,26 +344,8 @@ void MainWindow::drawImage() {
 
 		if(globVar->verbose) qDebug() << "Drawing Image";
 
-		// Adjust the alignment. If the thumbnail are shwn permanently, then we need to align the image at the top, otherwise it overlaps with the thumbnails
-//		if(globSet->thumbnailKeepVisible && !globVar->zoomedImgAtLeastOnce) {
-
-//			QPixmap e(viewThumbs->width(), viewThumbs->height());
-//			e.fill(Qt::red);
-//			emptyThumbnailFreeSpace->setPixmap(e);
-//			emptyThumbnailFreeSpace->show();
-
-//		} else {
-//			emptyThumbnailFreeSpace->hide();
-//		}
-//			viewBig->
-//		else
-//			viewBig->setViewportMargins(0,0,0,0);
-//			if(globSet->thumbnailposition == "Bottom")
-//				viewBig->setAlignment(Qt::AlignTop);
-//			else if(globSet->thumbnailposition == "Top")
-//				viewBig->setAlignment(Qt::AlignBottom);
-//		} else if(!globSet->thumbnailKeepVisible || globVar->zoomedImgAtLeastOnce)
-			viewBig->setAlignment(Qt::AlignCenter);
+		// the alignment of the image is always center. If the thumbnails are kept visible, we simply add a tranparent bar to the bottom of the image (happening just a couple lines below)
+		viewBig->setAlignment(Qt::AlignCenter);
 
 		// No file loaded yet,...
 		if(globVar->currentfile == "") {
@@ -386,6 +368,7 @@ void MainWindow::drawImage() {
 
 			// If the current directory info hasn't been loaded yet
 			if(viewThumbs->counttot == 0) {
+				qDebug() << "Draw: Loading dir";
 				viewThumbs->currentfile = globVar->currentfile;
 				viewThumbs->noThumbs = globSet->thumbnailDisable;
 				viewThumbs->loadDir();
@@ -412,6 +395,8 @@ void MainWindow::drawImage() {
 			QString fileformat = imageReader->fileformat;
 			QSize origSize = imageReader->origSize;
 
+
+			graphItem->setTransBarHeight((!globVar->zoomed && globSet->thumbnailKeepVisible) ? viewThumbs->height() : 0);
 			// Is it an animated image?
 			if(imageReader->animatedImg)
 				graphItem->setMovie(globVar->currentfile,origSize.width(),origSize.height());
@@ -419,10 +404,11 @@ void MainWindow::drawImage() {
 			else
 				graphItem->setPixmap(QPixmap::fromImage(img));
 
-			// Set the right position of the main image
 
+			// Set the right position of the main image
 			int graphItemX = (viewBig->width()-img.width())/2.0;
-			int graphItemY = (viewBig->height()-(globSet->thumbnailKeepVisible ? viewThumbs->height() : 0)-img.height())/2.0;
+//			int graphItemY = (viewBig->height()-(globSet->thumbnailKeepVisible ? viewThumbs->height() : 0)-img.height())/2.0;
+			int graphItemY = (viewBig->height()-img.height())/2.0;
 			graphItem->setPos(viewBig->mapToScene(QPoint(graphItemX,graphItemY)));
 			qDebug() << "POSPOSPOS:" << graphItem->pos();
 
@@ -458,6 +444,8 @@ void MainWindow::drawImage() {
 			// Restore normal cursor
 			qApp->restoreOverrideCursor();
 
+			qDebug() << "Thb LoadedThourhgClick:" << viewThumbs->thumbLoadedThroughClick;
+
 
 			// Ensure the active thumbnail is shown
 			// We only do that when the thumbnail was NOT loaded through a click on it. The reason is, that otherwise the thumbnailview might move a little (ensuring the thumbnail is visible) although it already IS visible.
@@ -467,13 +455,16 @@ void MainWindow::drawImage() {
 					viewThumbs->view->centerOn(viewThumbs->allPixmaps.at(viewThumbs->allImgsPath.indexOf(globVar->currentfile)));
 				else
 					viewThumbs->view->ensureVisible(viewThumbs->allPixmaps.at(viewThumbs->allImgsPath.indexOf(globVar->currentfile)));
-				if(!globSet->thumbnailKeepVisible && viewThumbs->isVisible())
+				if(!globSet->thumbnailKeepVisible && viewThumbs->isVisible() && !viewThumbs->thumbLoadedThroughClick)
 					viewThumbs->makeHide();
 				viewThumbs->startThread();
 				// Making sure the thumbnails load
 				QTimer::singleShot(1000,viewThumbs,SLOT(scrolledView()));
 			} else if(viewThumbs->thumbLoadedThroughClick)
 				viewThumbs->thumbLoadedThroughClick = false;
+
+
+			qDebug() << "END of draw";
 
 		}
 
@@ -779,7 +770,7 @@ void MainWindow::mouseMoved(int x, int y) {
 
 			// Animate thumbnail bar
 			if(!globSet->thumbnailDisable) {
-				if(y < viewBig->height()-h-20 && viewThumbs->isVisible() && (!globSet->thumbnailKeepVisible || globVar->zoomedImgAtLeastOnce))
+				if(y < viewBig->height()-h-20 && viewThumbs->isVisible() && (!globSet->thumbnailKeepVisible || (globVar->zoomedImgAtLeastOnce && globVar->zoomed && viewBig->absoluteScaleFactor > 0)))
 					viewThumbs->makeHide();
 
 				if(y > viewBig->height()-20 && !viewThumbs->isVisible()) {
@@ -1951,7 +1942,7 @@ void MainWindow::zoom(bool zoomin, QString ignoreBoolean) {
 		if(globSet->thumbnailKeepVisible)
 			viewThumbs->makeShow();
 
-		if(ignoreBoolean != "resetNoDraw" || globSet->transition != 0)
+		if(ignoreBoolean != "resetNoDraw" || (ignoreBoolean != "resetNoDraw" && globSet->transition != 0))
 			drawImage();
 
 		graphItem->itemZoomed = false;
@@ -2060,6 +2051,25 @@ void MainWindow::zoom(bool zoomin, QString ignoreBoolean) {
 		} else {
 			viewBig->scale(0.90909090,0.90909090);
 			viewBig->absoluteScaleFactor -= 1;
+		}
+
+		if(viewBig->absoluteScaleFactor == 0 && globSet->thumbnailKeepVisible && !viewThumbs->isVisible()) {
+			globVar->zoomToActualSize = false;
+			globVar->zoomed = false;
+			viewBig->resetMatrix();
+			viewBig->rotate(globVar->rotation);
+			globVar->rotation = 0;
+			if(globVar->flipHor)
+				viewBig->scale(-1,1);
+			globVar->flipHor = false;
+			if(globVar->flipVer)
+				viewBig->scale(1,-1);
+			globVar->flipVer = false;
+			globVar->zoomedImgAtLeastOnce = false;
+			if(globSet->thumbnailKeepVisible)
+				// We need to use timer, since it might not yet be faded out completely
+				QTimer::singleShot(500,viewThumbs, SLOT(makeShow()));
+
 		}
 
 	}

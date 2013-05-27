@@ -63,15 +63,13 @@ public:
 
 		//AVS X image
 		formats << ".avs";
+//		formats << ".x";
 
 		// Continuous Acquisition and Life-cycle Support Type 1 image
 		formats << ".cals";
 
 		// Computer Graphics Metafile
 		formats << ".cgm";
-
-		// Raw cyan, magenta, yellow, and black samples
-//		formats << ".cmyk";	*** not working yet
 
 		// Microsoft Cursor Icon
 		formats << ".cur";	// *** UNTESTED, should work
@@ -129,6 +127,8 @@ public:
 
 		// Flexible Image Transport System
 		formats << ".fits";
+		formats << ".fts";
+		formats << ".fit";
 
 		// FlashPix Format
 		formats << ".fpx";
@@ -146,6 +146,7 @@ public:
 		formats << ".ico";
 
 		// Joint Bi-level Image experts Group file interchange format
+		formats << ".jbg";
 		formats << ".jbig";
 
 		// JPEG Network Graphics
@@ -153,6 +154,11 @@ public:
 
 		// JPEG-2000 JP2 File Format Syntax
 		formats << ".jp2";
+		formats << ".j2k";
+		formats << ".jpf";
+		formats << ".jpx";
+		formats << ".jpm";
+		formats << ".mj2";
 
 		// JPEG-2000 Code Stream Syntax
 		formats << ".jpc";
@@ -220,6 +226,8 @@ public:
 
 		// Apple Macintosh QuickDraw /PICT file
 		formats << ".pict";
+		formats << ".pct";
+		formats << ".pic";
 
 		// Alias/Wavefront RLE image format
 		formats << ".pix";
@@ -245,8 +253,9 @@ public:
 		// Seattle File Works multi-image file
 //		formats << ".pwp";	*** conversion failed
 
-		// TopoL (GIS)
+		// Sun Raster Image
 		formats << ".ras";
+		formats << ".rast";
 
 		// Radiance image file
 		formats << ".rad";
@@ -298,6 +307,7 @@ public:
 
 		// Wireless bitmap
 		formats << ".wbmp";
+		formats << ".wbm";
 
 		// Windows Metafile
 //		formats << ".wmf";	*** conversion failed
@@ -307,6 +317,7 @@ public:
 
 		// GIMP image
 		formats << ".xcf";
+
 		// X Windows system window dump
 		formats << ".xwd";
 
@@ -325,28 +336,28 @@ public:
 
 #ifdef WITH_GRAPHICSMAGICK
 
-		QFile file(QDir::homePath() + "/.photoqt/fileformats");
-		if(file.exists()) {
+//		QFile file(QDir::homePath() + "/.photoqt/fileformats");
+//		if(file.exists()) {
 
 
-			if(!file.open(QIODevice::ReadOnly))
-				qDebug() << "ERROR: Can't open image formats file";
-			else {
+//			if(!file.open(QIODevice::ReadOnly))
+//				qDebug() << "ERROR: Can't open image formats file";
+//			else {
 
-				formats.clear();
+//				formats.clear();
 
-				QTextStream in(&file);
+//				QTextStream in(&file);
 
-				QString line = in.readLine();
-				while (!line.isNull()) {
-					formats << line.trimmed();
-					line = in.readLine();
-				}
+//				QString line = in.readLine();
+//				while (!line.isNull()) {
+//					formats << line.trimmed();
+//					line = in.readLine();
+//				}
 
-			}
+//			}
 
 
-		}
+//		}
 
 #endif
 
