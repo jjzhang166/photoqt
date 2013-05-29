@@ -20,7 +20,7 @@ public:
 
 //	void readThisImage(QString filename);
 
-	QImage readImage(QString filename, int rotation, bool zoomed, QSize maxSize);
+	QImage readImage(QString filename, int rotation, bool zoomed, QSize maxSize, bool dontscale = false);
 
 
 	float scaleImg1;

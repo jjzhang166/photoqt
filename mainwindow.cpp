@@ -383,13 +383,15 @@ void MainWindow::drawImage() {
 			int maxH = viewBig->height()-2*globSet->borderAroundImg-subtractThumbnailHeight;
 
 			// Get the image
-			QImage img = imageReader->readImage(globVar->currentfile,globVar->rotation,globVar->zoomed,QSize(maxW,maxH));
+			QImage img = imageReader->readImage(globVar->currentfile,globVar->rotation,globVar->zoomed,QSize(maxW,maxH),true);
 
-			// The imagereader stores two possible scaling factors
-			if(imageReader->scaleImg1 != -1)
-				viewBig->scale(imageReader->scaleImg1,imageReader->scaleImg1);
-			if(imageReader->scaleImg2 != -1)
-				viewBig->scale(imageReader->scaleImg2,imageReader->scaleImg2);
+			if(!globVar->zoomToActualSize) {
+				// The imagereader stores two possible scaling factors
+				if(imageReader->scaleImg1 != -1)
+					viewBig->scale(imageReader->scaleImg1,imageReader->scaleImg1);
+				if(imageReader->scaleImg2 != -1)
+					viewBig->scale(imageReader->scaleImg2,imageReader->scaleImg2);
+			}
 
 			// Get the fileformat and the original size
 			QString fileformat = imageReader->fileformat;
@@ -405,11 +407,16 @@ void MainWindow::drawImage() {
 				graphItem->setPixmap(QPixmap::fromImage(img));
 
 
-			// Set the right position of the main image
-			int graphItemX = (viewBig->width()-img.width())/2.0;
-//			int graphItemY = (viewBig->height()-(globSet->thumbnailKeepVisible ? viewThumbs->height() : 0)-img.height())/2.0;
-			int graphItemY = (viewBig->height()-img.height())/2.0;
-			graphItem->setPos(viewBig->mapToScene(QPoint(graphItemX,graphItemY)));
+			if(img.width() < viewBig->width()) {
+				// Set the right position of the main image
+				int graphItemX = (viewBig->width()-img.width())/2.0;
+	//			int graphItemY = (viewBig->height()-(globSet->thumbnailKeepVisible ? viewThumbs->height() : 0)-img.height())/2.0;
+				graphItem->setX(graphItemX);
+			}
+			if(img.height() < viewBig->height()) {
+				int graphItemY = (viewBig->height()-img.height())/2.0;
+				graphItem->setY(graphItemY);
+			}
 			qDebug() << "POSPOSPOS:" << graphItem->pos();
 
 			// These formats known by Photo are supported by exiv2
@@ -1930,44 +1937,47 @@ void MainWindow::zoom(bool zoomin, QString ignoreBoolean) {
 		globVar->zoomToActualSize = false;
 		globVar->zoomed = false;
 		viewBig->resetMatrix();
-		viewBig->rotate(globVar->rotation);
-		globVar->rotation = 0;
-		if(globVar->flipHor)
-			viewBig->scale(-1,1);
-		globVar->flipHor = false;
-		if(globVar->flipVer)
-			viewBig->scale(1,-1);
-		globVar->flipVer = false;
 		globVar->zoomedImgAtLeastOnce = false;
 		if(globSet->thumbnailKeepVisible)
 			viewThumbs->makeShow();
 
+
+		graphItem->itemZoomed = false;
+
+		viewBig->rotate(globVar->rotation);
+		if(globVar->flipVer)
+			viewBig->scale(1,-1);
+		if(globVar->flipHor)
+			viewBig->scale(-1,1);
+
 		if(ignoreBoolean != "resetNoDraw" || (ignoreBoolean != "resetNoDraw" && globSet->transition != 0))
 			drawImage();
 
-		graphItem->itemZoomed = false;
 	// zoom to actual size (toggle)
 	} else if(ignoreBoolean == "actualsize") {
 
 		if(globVar->verbose) qDebug() << "Zoom to actual size";
 
 		// If at actual size -> reset
-		if(globVar->zoomToActualSize)
+		if(globVar->zoomToActualSize || globVar->zoomed)
 			zoom(true,"reset");
 		else {
 
+			qDebug() << "SET TO ACTUAL SIZE";
+
 			viewBig->resetMatrix();
+			viewBig->resetTransform();
 			// These need to be set to true for drawImg() not to scale the image
 			globVar->zoomed = true;
 			graphItem->itemZoomed = true;
 			globVar->zoomedImgAtLeastOnce = true;
 
-			drawImage();
-
 			globVar->zoomToActualSize = true;
 
-			viewBig->resetMatrix();
-			globVar->zoomed = false;
+			drawImage();
+
+			viewBig->centerOn(viewBig->scene()->sceneRect().center());
+
 			viewBig->rotate(globVar->rotation);
 			if(globVar->flipHor)
 				viewBig->scale(-1,1);

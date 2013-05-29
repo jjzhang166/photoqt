@@ -34,7 +34,7 @@ bool ImageReader::doIUseMagick(QString filename) {
 }
 
 
-QImage ImageReader::readImage(QString filename, int rotation, bool zoomed, QSize maxSize) {
+QImage ImageReader::readImage(QString filename, int rotation, bool zoomed, QSize maxSize, bool dontscale) {
 
 #ifdef WITH_GRAPHICSMAGICK
 	Magick::Image image;
@@ -163,7 +163,7 @@ QImage ImageReader::readImage(QString filename, int rotation, bool zoomed, QSize
 
 #ifdef WITH_GRAPHICSMAGICK
 
-		if(!zoomed)
+		if(!zoomed && !dontscale)
 			image.zoom(Magick::Geometry(QString("%1x%2").arg(dispWidth).arg(dispHeight).toStdString()));
 //					image.resize(Magick::Geometry(QString("%1x%2").arg(dispWidth).arg(dispHeight).toStdString()));
 
