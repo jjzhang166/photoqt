@@ -21,7 +21,9 @@
 #include "setupwidgets.h"
 #include "graphics/graphicsviewlay.h"
 
-#include <QApplication>
+#include "application.h"
+
+//#include <QApplication>
 #include <QDesktopWidget>
 #include <QFile>
 #include <QDir>
@@ -64,6 +66,9 @@ public:
 
 	// The layout of viewBig
 	ViewBigLay *viewBigLay;
+
+public slots:
+	void showErrorFromMagick(const char*);
 
 
 private:
@@ -153,6 +158,8 @@ private:
 
 
 	QGraphicsPixmapItem *emptyThumbnailFreeSpace;
+
+	CustomConfirm *errorMagick;
 
 
 private slots:

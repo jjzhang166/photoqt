@@ -55,22 +55,28 @@ void GraphicsItem::setMovie(QString m, int width, int height) {
 }
 
 // Set a (normal) pixmap
-void GraphicsItem::setPixmap(const QPixmap &pixmap, bool dontStopMov, bool smoothTransition, bool movieUpdate) {
+void GraphicsItem::setPixmap(const QPixmap &pixmap, bool dontStopMov, bool smoothTransition, bool movieUpdate, bool transitionUpdate) {
 
-	// TEMPORARILY DISABLED - DOESN'T WORK WITH PERMANENT ENABLED THUMBS!!
-	smoothTransition = false;
 
-	QPixmap pix(pixmap.width(), pixmap.height()+addTransBar);
-	pix.fill(Qt::transparent);
-	QPainter p(&pix);
-	p.drawPixmap(0,0,pixmap.width(),pixmap.height(),pixmap);
-	p.end();
+	QPixmap pix(pixmap);
+	if(!transitionUpdate) {
+		pix = QPixmap(pixmap.width(), pixmap.height()+addTransBar);
+		pix.fill(Qt::transparent);
+		QPainter p(&pix);
+		p.drawPixmap(0,0,pixmap.width(),pixmap.height(),pixmap);
+		p.end();
+	}
 
 
 	// Stop the movie, if function itself isn't called by the movie
 	if(!dontStopMov && mov->state() == QMovie::Running) {
 		mov->stop();
-		QGraphicsPixmapItem::setPixmap(mov->currentPixmap());
+		QPixmap movPix(mov->currentPixmap().width(), mov->currentPixmap().height()+addTransBar);
+		movPix.fill(Qt::transparent);
+		QPainter movP(&movPix);
+		movP.drawPixmap(0,0,mov->currentPixmap().width(),mov->currentPixmap().height(),mov->currentPixmap());
+		movP.end();
+		QGraphicsPixmapItem::setPixmap(movPix);
 	}
 
 	// If the movie emmited a change in its pixmap and the transition is running, simply change the current item for the transition
@@ -162,7 +168,7 @@ void GraphicsItem::composePixmap(int i) {
 	newPaint.end();
 
 	// And set the new pixmap as part of the transition
-	setPixmap(newitem,true,false);
+	setPixmap(newitem,true,false,false,true);
 
 }
 

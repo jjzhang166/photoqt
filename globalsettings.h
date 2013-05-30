@@ -63,7 +63,7 @@ public:
 
 		//AVS X image
 		formats << ".avs";
-//		formats << ".x";
+		formats << ".x";
 
 		// Continuous Acquisition and Life-cycle Support Type 1 image
 		formats << ".cals";

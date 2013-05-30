@@ -1418,6 +1418,16 @@ void MainWindow::setupWidget(QString what) {
 
 	}
 
+	if(what == "magickerror" && !setupWidgets->errormagick) {
+
+		qDebug() << "Setting up error infobox for Magick";
+
+		setupWidgets->errormagick = true;
+
+		errorMagick = new CustomConfirm("Error reading file","I'm sorry, I wasn't able to succesfully load and display the image '%1'.<br><br>Please let me know (Lukas@photoqt.org), so that we can find a solution to this. Thanks :)","Close","",QSize(600,400),viewBig);
+
+	}
+
 }
 
 // Called by shortcuts to execute something
@@ -1551,6 +1561,14 @@ void MainWindow::shortcutDO(QString key, bool mouseSH) {
 		}
 	} else
 		if(globVar->verbose) qDebug() << "DO shortcut (blocked)";
+
+}
+
+void MainWindow::showErrorFromMagick(const char *) {
+
+	if(!setupWidgets->errormagick) setupWidget("errormagick");
+
+	errorMagick->animate();
 
 }
 

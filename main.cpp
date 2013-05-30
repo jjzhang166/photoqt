@@ -1,4 +1,4 @@
-#include <QtGui/QApplication>
+#include <QtGui>
 #include "mainwindow.h"
 #include <iostream>
 #include <QTranslator>
@@ -7,7 +7,7 @@ int main(int argc, char *argv[]) {
 
 	qDebug() << QDateTime::currentMSecsSinceEpoch();
 
-	QApplication::setApplicationName("photoqt");
+	Application::setApplicationName("photoqt");
 
 	// This string holds the current version
 	QString globVersion = "beta";
@@ -104,7 +104,7 @@ int main(int argc, char *argv[]) {
 				QString filename = allArgs.at(i);
 				if(!filename.startsWith("/"))
 					filename = QFileInfo(filename).absoluteFilePath();
-				if(filename != QApplication::applicationFilePath())
+				if(filename != Application::applicationFilePath())
 					cont += "-f-" + filename;
 			}
 
@@ -249,7 +249,7 @@ int main(int argc, char *argv[]) {
 				qDebug() << "Unable to ensure TrayIcon is enabled - make sure it is enabled!!";
 		}
 
-		QApplication a(argc, argv);
+		Application a(argc, argv);
 
 		// LOAD THE TRANSLATOR
 		QTranslator trans;
@@ -380,7 +380,7 @@ int main(int argc, char *argv[]) {
 			if(!allArgs.at(i).startsWith("-")) {
 				QString filename = allArgs.at(i);
 				filename = QFileInfo(filename).absoluteFilePath();
-				if(filename != QApplication::applicationFilePath()) {
+				if(filename != Application::applicationFilePath()) {
 					if(verbose) qDebug() << "Filename submitted:" << filename;
 					file_str = filename;
 					break;
@@ -412,3 +412,6 @@ int main(int argc, char *argv[]) {
 
 	}
 }
+
+
+

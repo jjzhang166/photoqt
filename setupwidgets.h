@@ -15,6 +15,7 @@ public:
 		slideshow = false;
 		slideshowbar = false;
 		settings = false;
+		errormagick = false;
 	}
 
 	bool filehandling;
@@ -24,6 +25,7 @@ public:
 	bool slideshow;
 	bool slideshowbar;
 	bool settings;
+	bool errormagick;
 
 };
 

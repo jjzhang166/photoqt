@@ -25,7 +25,7 @@ public:
 
 	// Setting a new Pixmap/Movie
 	void setMovie(QString m, int width, int height);
-	void setPixmap(const QPixmap &pixmap, bool dontStopMov = false, bool smoothTransition = true, bool movieUpdate = false);
+	void setPixmap(const QPixmap &pixmap, bool dontStopMov = false, bool smoothTransition = true, bool movieUpdate = false, bool transitionUpdate = false);
 
 	// This handles the transition when switching between images (calls function repeatedly)
 	QTimeLine *trans;
