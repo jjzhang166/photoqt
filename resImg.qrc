@@ -35,5 +35,7 @@
         <file>img/startupfileaction.png</file>
         <file>img/startupfileformats.png</file>
         <file>img/startupbackground.png</file>
+        <file>img/switchoff.png</file>
+        <file>img/switchon.png</file>
     </qresource>
 </RCC>

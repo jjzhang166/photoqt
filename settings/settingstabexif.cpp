@@ -29,6 +29,14 @@ SettingsTabExif::SettingsTabExif(QWidget *parent, QMap<QString, QVariant> set, b
 	lay->addSpacing(15);
 
 	// Triggering on mouse movement
+	widgetTrigger = new QWidget;
+	widgetTrigger->setObjectName("widgetTrigger");
+	widgetTrigger->setStyleSheet("QWidget#widgetTrigger { background: rgba(255,255,255,20); border-radius: 20px; padding: 20px; }");
+	QLabel *extTrig = new QLabel(tr("Extended Setting"));
+	extTrig->setStyleSheet("font-weight: bold; font-size: 10px; font-style: italic");
+	QHBoxLayout *extTrigLay = new QHBoxLayout;
+	extTrigLay->addWidget(extTrig);
+	extTrigLay->addStretch();
 	QLabel *triggerOnMouseLabel = new QLabel("<b><span style=\"font-size: 12pt\">" + tr("Trigger Widget on Mouse Hovering") + "</span></b><br><br>" + tr("Per default the exif widget can be shown two ways: Moving the mouse cursor to the left screen edge to fade it in temporarily (as long as the mouse is hovering it), or permanently by clicking the checkbox (checkbox only stored per session, can't be saved permanently!). Alternatively the widget can also be triggered by shortcut. On demand the mouse triggering can be disabled, so that the widget would only show on shortcut. This can come in handy, if you get annoyed by accidentally opening the widget occasionally."));
 	triggerOnMouseLabel->setWordWrap(true);
 	triggerOnMouse = new CustomCheckBox(tr("Turn mouse triggering OFF"));
@@ -36,10 +44,16 @@ SettingsTabExif::SettingsTabExif(QWidget *parent, QMap<QString, QVariant> set, b
 	triggerLay->addStretch();
 	triggerLay->addWidget(triggerOnMouse);
 	triggerLay->addStretch();
-	lay->addWidget(triggerOnMouseLabel);
-	lay->addSpacing(10);
-	lay->addLayout(triggerLay);
-	lay->addSpacing(20);
+	QVBoxLayout *widgetTriggerLay = new QVBoxLayout;
+	widgetTriggerLay->addLayout(extTrigLay);
+	widgetTriggerLay->addWidget(triggerOnMouseLabel);
+	widgetTriggerLay->addSpacing(10);
+	widgetTriggerLay->addLayout(triggerLay);
+	widgetTriggerLay->addSpacing(20);
+	widgetTrigger->setLayout(widgetTriggerLay);
+	lay->addWidget(widgetTrigger);
+	widgetTrigger->hide();
+
 
 
 
@@ -146,6 +160,14 @@ SettingsTabExif::SettingsTabExif(QWidget *parent, QMap<QString, QVariant> set, b
 
 
 	// Adjust Font Size of Labels
+	widgetFontSize = new QWidget;
+	widgetFontSize->setObjectName("widgetFontSize");
+	widgetFontSize->setStyleSheet("QWidget#widgetFontSize { background: rgba(255,255,255,20); border-radius: 20px; padding: 20px; }");
+	QLabel *extFont = new QLabel(tr("Extended Setting"));
+	extFont->setStyleSheet("font-weight: bold; font-size: 10px; font-style: italic");
+	QHBoxLayout *extFontLay = new QHBoxLayout;
+	extFontLay->addWidget(extFont);
+	extFontLay->addStretch();
 	QLabel *fontSizelabel = new QLabel("<b><span style=\"font-size: 12pt\">" + tr("Adjusting Font Size") + "</span></b><br><br>" + tr("Computers can have very different resolutions. On some of them, it might be nice to increase the font size of the labels to have them easier readable. Often, a size of 8 or 9 should be working quite well..."));
 	fontSizelabel->setWordWrap(true);
 	setFontSizeSlider = new CustomSlider;
@@ -162,10 +184,16 @@ SettingsTabExif::SettingsTabExif(QWidget *parent, QMap<QString, QVariant> set, b
 	fsizeLay->addWidget(setFontSizeSlider);
 	fsizeLay->addWidget(fsizeright);
 	fsizeLay->addStretch();
-	lay->addWidget(fontSizelabel);
-	lay->addSpacing(5);
-	lay->addLayout(fsizeLay);
-	lay->addSpacing(20);
+	QVBoxLayout *widgetFontSizeLay = new QVBoxLayout;
+	widgetFontSizeLay->addLayout(extFontLay);
+	widgetFontSizeLay->addWidget(fontSizelabel);
+	widgetFontSizeLay->addSpacing(5);
+	widgetFontSizeLay->addLayout(fsizeLay);
+	widgetFontSizeLay->addSpacing(20);
+	widgetFontSize->setLayout(widgetFontSizeLay);
+	lay->addWidget(widgetFontSize);
+	widgetFontSize->hide();
+
 
 
 	// ALWAYS/NEVER/POSSIBLY ROTATE/FLIP ACCORDING TO EXIF DATA
@@ -327,6 +355,13 @@ void SettingsTabExif::saveSettings() {
 		defaults.remove("ExifGPSMapService");
 		defaults.insert("ExifGPSMapService","bing.com/maps");
 	}
+
+}
+
+void SettingsTabExif::toggleExtended(bool extended) {
+
+	widgetTrigger->setVisible(extended);
+	widgetFontSize->setVisible(extended);
 
 }
 

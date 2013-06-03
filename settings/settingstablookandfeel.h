@@ -77,6 +77,8 @@ public:
 	QMap<QString,QVariant> updatedSet;
 	QMap<QString,QVariant> defaults;
 
+	void toggleExtended(bool extended);
+
 private:
 
 	// Adjust background
@@ -89,6 +91,7 @@ private:
 	CustomCheckBox *backgroundImgScaleToFit;
 	CustomCheckBox *backgroundImgCenter;
 
+	QWidget *widgetOverlay;
 	// Adjust background overlay color
 	QColorDialog *background;
 	CustomPushButton *selectCol;
@@ -96,19 +99,23 @@ private:
 	// Adjust tray icon usage
 	CustomCheckBox *trayIcon;
 
+	QWidget *widgetLoop;
 	// Adjust looping through the folder
 	CustomCheckBox *loopThroughFolder;
 
 	// Transitioning between images (DISABLED AT THE MOMENT)
 	CustomSlider *transition;
 
+	QWidget *widgetBorder;
 	// Border around main image
 	CustomSlider *borderAroundImgSlider;
 	CustomSpinBox *borderAroundImgSpinBox;
 
+	QWidget *widgetMenuSensitivity;
 	// Menu sensitivity
 	CustomSlider *menu;
 
+	QWidget *widgetGrey;
 	// Close on click on grey
 	CustomCheckBox *grey;
 

@@ -57,11 +57,17 @@ void GraphicsItem::setMovie(QString m, int width, int height) {
 // Set a (normal) pixmap
 void GraphicsItem::setPixmap(const QPixmap &pixmap, bool dontStopMov, bool smoothTransition, bool movieUpdate, bool transitionUpdate) {
 
+	QPixmap thisPixmap = this->pixmap();
 
+	QPixmap em(this->pixmap().size());
+	em.fill(Qt::transparent);
+	QGraphicsPixmapItem::setPixmap(em);
+
+	// For every frame in a transition, we do add a bar to each (that would cause the image to slide down every time a little more).
 	QPixmap pix(pixmap);
 	if(!transitionUpdate) {
 		pix = QPixmap(pixmap.width(), pixmap.height()+addTransBar);
-		pix.fill(Qt::transparent);
+		pix.fill(QColor(0,0,0,1));
 		QPainter p(&pix);
 		p.drawPixmap(0,0,pixmap.width(),pixmap.height(),pixmap);
 		p.end();
@@ -94,7 +100,7 @@ void GraphicsItem::setPixmap(const QPixmap &pixmap, bool dontStopMov, bool smoot
 
 		// No transition currently running, update the prevItem only
 		} else {
-			prevItem = this->pixmap();
+			prevItem = thisPixmap;
 		}
 
 		// The new current item
@@ -116,7 +122,7 @@ void GraphicsItem::composePixmap(int i) {
 
 	// We make the background pixmap big enough to fit the previous and current pixmap
 	QPixmap newitem(qMax(curItem.width(),prevItem.width()),qMax(curItem.height(),prevItem.height()));
-	newitem.fill(Qt::transparent);
+	newitem.fill(QColor(0,0,0,1));
 
 	// If the new item is smaller than the previous one, we have to fade out the previous one, but leave a patch as big as the new pixmap to prevent an ugly bug (background showing through)
 	if(prevItem.width() > curItem.width() || prevItem.height() > curItem.height()) {
@@ -131,7 +137,7 @@ void GraphicsItem::composePixmap(int i) {
 			x = (prevItem.width()-curItem.width())/2;
 		if(curItem.height() < prevItem.height())
 			y = (prevItem.height()-curItem.height())/2;
-		p.drawPixmap(x,y,curItem.width(),curItem.height(),prevItem,x,y,curItem.width(),curItem.height());
+		p.drawPixmap(x,y,curItem.width(),curItem.height()-addTransBar,prevItem,x,y,curItem.width(),curItem.height());
 		p.end();
 
 

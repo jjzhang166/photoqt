@@ -26,6 +26,8 @@ public:
 	SettingsTabOther(QWidget *parent = 0, QMap<QString,QVariant> set = QMap<QString,QVariant>(), bool verbose = false);
 	~SettingsTabOther();
 
+	void toggleExtended(bool extended);
+
 	bool verbose;
 
 	CustomScrollbar *scrollbar;
@@ -38,6 +40,7 @@ public:
 	// Context menu adjusting area
 	Context *context;
 
+	QWidget *widgetKnown;
 	// All the known file foormats
 	CustomLineEdit *knownFile;
 

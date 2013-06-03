@@ -369,6 +369,7 @@ int main(int argc, char *argv[]) {
 		MainWindow w(0,verbose);
 		w.show();
 		if(!startintray)
+//			w.showMaximized();
 			w.showFullScreen();
 		else
 			w.hide();

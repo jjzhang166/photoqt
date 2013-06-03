@@ -71,6 +71,8 @@ private:
 	// The property animation
 	QPropertyAnimation *ani;
 
+	CustomCheckBox *switchExtended;
+
 private slots:
 	// Animation functions
 	void animate();
@@ -78,6 +80,8 @@ private slots:
 
 	// Called when tab changed
 	void tabChanged();
+
+	void toggleExtended();
 
 public slots:
 

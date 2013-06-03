@@ -5,7 +5,8 @@ CustomCheckBox::CustomCheckBox(const QString &text, QWidget *parent) : QCheckBox
 	this->setCursor(Qt::PointingHandCursor);
 
 	// Default indicator size
-	indicSize = 15;
+	indicSizeH = 15;
+	indicSizeW = 15;
 
 	// A fontsize of 0 leaves the default
 	fontsize = 0;
@@ -24,8 +25,8 @@ CustomCheckBox::CustomCheckBox(const QString &text, QWidget *parent) : QCheckBox
 		css += "color: white;";
 	css += "}";
 	css += "QCheckBox::indicator {";
-		css += QString("width: %1px;").arg(indicSize);
-		css += QString("height: %1px;").arg(indicSize);
+		css += QString("width: %1px;").arg(indicSizeW);
+		css += QString("height: %1px;").arg(indicSizeH);
 	css += "}";
 
 	// Standard indicator image
@@ -42,6 +43,15 @@ CustomCheckBox::CustomCheckBox(const QString &text, QWidget *parent) : QCheckBox
 // The tick indicator can be resized
 void CustomCheckBox::setIndicatorSize(int indicatorsize) {
 
+	setIndicatorSize(indicatorsize,indicatorsize);
+
+}
+
+void CustomCheckBox::setIndicatorSize(int w, int h) {
+
+	indicSizeW = w;
+	indicSizeH = h;
+
 	QString css = "QCheckBox::indicator:unchecked {";
 		css += QString("image: url(%1);").arg(imgUnchkd);
 	css += "}";
@@ -55,11 +65,9 @@ void CustomCheckBox::setIndicatorSize(int indicatorsize) {
 		css += "color: " + fontCol + ";";
 	css += "}";
 	css += "QCheckBox::indicator {";
-		css += QString("width: %1px;").arg(indicatorsize);
-		css += QString("height: %1px;").arg(indicatorsize);
+		css += QString("width: %1px;").arg(indicSizeW);
+		css += QString("height: %1px;").arg(indicSizeH);
 	css += "}";
-
-	indicSize = indicatorsize;
 
 	this->setStyleSheet(css);
 
@@ -81,8 +89,8 @@ void CustomCheckBox::setFontColor(QString col) {
 		css += "color: " + col + ";";
 	css += "}";
 	css += "QCheckBox::indicator {";
-		css += QString("width: %1px;").arg(indicSize);
-		css += QString("height: %1px;").arg(indicSize);
+		css += QString("width: %1px;").arg(indicSizeW);
+		css += QString("height: %1px;").arg(indicSizeH);
 	css += "}";
 
 	fontCol = col;
@@ -96,7 +104,7 @@ void CustomCheckBox::setFontSize(int size) {
 
 	fontsize = size;
 
-	setIndicatorSize(indicSize);
+	setIndicatorSize(indicSizeW,indicSizeH);
 
 }
 
@@ -106,7 +114,7 @@ void CustomCheckBox::setIndicatorImage(QString chkd, QString unchkd) {
 	imgChkd = chkd;
 	imgUnchkd = unchkd;
 
-	setIndicatorSize(indicSize);
+	setIndicatorSize(indicSizeW,indicSizeH);
 
 }
 

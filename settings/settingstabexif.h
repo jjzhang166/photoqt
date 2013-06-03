@@ -40,6 +40,8 @@ public:
 	void loadSettings();
 	void saveSettings();
 
+	void toggleExtended(bool extended);
+
 private:
 
 	// The flowlayout wraps around the corners dynamically = AWESOME!
@@ -52,6 +54,7 @@ private:
 	// We store all the tiles for later access
 	QList<SettingsTabExifTiles *> allTiles;
 
+	QWidget *widgetTrigger;
 	// En-/Disable triggering on mouse movement
 	CustomCheckBox *triggerOnMouse;
 
@@ -67,6 +70,7 @@ private:
 	// The default settings (for detecting user changed)
 	QMap<QString, QVariant> defaults;
 
+	QWidget *widgetFontSize;
 	// Adjustable font size of slider
 	CustomSlider *setFontSizeSlider;
 

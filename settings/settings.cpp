@@ -28,10 +28,18 @@ Settings::Settings(QWidget *parent, QMap<QString, QVariant> glob, bool v) : QWid
 	layout->addWidget(tabs);
 
 	// Some buttons
+	switchExtended = new CustomCheckBox(tr("&Extended"));
+	switchExtended->setFontColor("grey");
+	switchExtended->setIndicatorImage(":/img/switchon.png",":/img/switchoff.png");
+	switchExtended->setIndicatorSize(40,20);
+	switchExtended->setFontSize(8);
+
 	CustomPushButton *setDefault = new CustomPushButton(tr("Restore Default Settings"));
 	CustomPushButton *saveExit = new CustomPushButton(tr("Save Changes and Exit"));
 	CustomPushButton *cancel = new CustomPushButton(tr("Exit and Discard Changes"));
 	QHBoxLayout *butLay = new QHBoxLayout;
+	butLay->addWidget(switchExtended);
+	butLay->addSpacing(20);
 	butLay->addWidget(setDefault);
 	butLay->addStretch();
 	butLay->addWidget(saveExit);
@@ -42,6 +50,8 @@ Settings::Settings(QWidget *parent, QMap<QString, QVariant> glob, bool v) : QWid
 	// Ask for confirmation of restoring default settings
 	restoreDefaultConfirm = new CustomConfirm(tr("Restore Default Settings?"),tr("Do you really want to get rid of your custom settings and set the default ones? This only resets all settings. A default set of shortcuts can be set in the shortcuts tab.") + "<br><br>" + tr("This step cannot be reversed!"),tr("Yep, I want new stuff"),tr("Um, no, not really"),QSize(400,200),this);
 	restoreDefaultConfirm->showBorder("white",2);
+
+	connect(switchExtended, SIGNAL(clicked()), this, SLOT(toggleExtended()));
 
 	connect(saveExit, SIGNAL(clicked()), this, SLOT(animate()));
 	connect(saveExit, SIGNAL(clicked()), this, SLOT(saveSettings()));
@@ -374,6 +384,18 @@ void Settings::prevTab() {
 		current = 5;
 	--current;
 	tabs->setCurrentIndex(current);
+
+}
+
+void Settings::toggleExtended() {
+
+	switchExtended->setFontColor(switchExtended->isChecked() ? "white" : "grey");
+
+	tabLookFeel->toggleExtended(switchExtended->isChecked());
+	tabThumb->toggleExtended(switchExtended->isChecked());
+	tabExif->toggleExtended(switchExtended->isChecked());
+	tabOther->toggleExtended(switchExtended->isChecked());
+
 
 }
 

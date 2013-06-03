@@ -14,6 +14,7 @@ public:
 
 	// The tick indicator can be resized
 	void setIndicatorSize(int indicatorsize);
+	void setIndicatorSize(int indicatorWidth, int indicatorHeight);
 
 	// And the font color can be changed
 	void setFontColor(QString col);
@@ -27,7 +28,8 @@ public:
 
 private:
 	// The variables below correspond to the functions above, but they shouldn't be accessed/changed directly
-	int indicSize;
+	int indicSizeW;
+	int indicSizeH;
 	QString fontCol;
 	QString imgChkd;
 	QString imgUnchkd;

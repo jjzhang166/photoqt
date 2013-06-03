@@ -32,6 +32,8 @@ public:
 	SettingsTabThumbnail(QWidget *parent = 0, QMap<QString,QVariant> set = QMap<QString,QVariant>(), bool verbose = false);
 	~SettingsTabThumbnail();
 
+	void toggleExtended(bool extended);
+
 	bool verbose;
 
 	// The database to do some operation on it
@@ -49,6 +51,7 @@ public:
 	CustomSlider *thumbSizeSlider;
 	CustomSpinBox *thumbSizeSpin;
 
+	QWidget *widgetSpacing;
 	// The border around the thumbnails
 	CustomSlider *borderAroundSlider;
 	CustomSpinBox *borderAroundSpin;
@@ -64,6 +67,7 @@ public:
 	// Keep thumbnails always visible or fade out
 	CustomCheckBox *keepVisible;
 
+	QWidget *widgetDynamic;
 	// Enable dynamic thumbnails (i.e. only create the ones you need)
 	CustomCheckBox *dynamicThumbnails;
 
@@ -72,9 +76,11 @@ public:
 	CustomSlider *filenameFontSizeSlider;
 	CustomSpinBox *filenameFontSizeSpin;
 
+	QWidget *widgetDisable;
 	// Disable thumbnails
 	CustomCheckBox *thumbDisable;
 
+	QWidget *widgetCache;
 	// Use thumbnail cache
 	CustomCheckBox *thumbCache;
 

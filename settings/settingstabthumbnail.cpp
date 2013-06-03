@@ -55,6 +55,14 @@ SettingsTabThumbnail::SettingsTabThumbnail(QWidget *parent, QMap<QString, QVaria
 
 
 	// OPTION TO SET BORDER AROUND THUMBNAILS
+	widgetSpacing = new QWidget;
+	widgetSpacing->setObjectName("widgetSpacing");
+	widgetSpacing->setStyleSheet("QWidget#widgetSpacing { background: rgba(255,255,255,20); border-radius: 20px; padding: 20px; }");
+	QLabel *extSpacing = new QLabel(tr("Extended Setting"));
+	extSpacing->setStyleSheet("font-weight: bold; font-size: 10px; font-style: italic");
+	QHBoxLayout *extSpacingLay = new QHBoxLayout;
+	extSpacingLay->addWidget(extSpacing);
+	extSpacingLay->addStretch();
 	borderAroundSlider = new CustomSlider;
 	borderAroundSlider->setMinimum(0);
 	borderAroundSlider->setMaximum(30);
@@ -70,10 +78,15 @@ SettingsTabThumbnail::SettingsTabThumbnail(QWidget *parent, QMap<QString, QVaria
 	thbBorderLay->addWidget(borderAroundSlider);
 	thbBorderLay->addWidget(borderAroundSpin);
 	thbBorderLay->addStretch();
-	lay->addWidget(thbBorderAroundLabel);
-	lay->addSpacing(5);
-	lay->addLayout(thbBorderLay);
-	lay->addSpacing(20);
+	QVBoxLayout *widgetSpacingLay = new QVBoxLayout;
+	widgetSpacingLay->addLayout(extSpacingLay);
+	widgetSpacingLay->addWidget(thbBorderAroundLabel);
+	widgetSpacingLay->addSpacing(5);
+	widgetSpacingLay->addLayout(thbBorderLay);
+	widgetSpacingLay->addSpacing(20);
+	widgetSpacing->setLayout(widgetSpacingLay);
+	lay->addWidget(widgetSpacing);
+	widgetSpacing->hide();
 	connect(borderAroundSlider, SIGNAL(valueChanged(int)), borderAroundSpin, SLOT(setValue(int)));
 	connect(borderAroundSpin, SIGNAL(valueChanged(int)), borderAroundSlider, SLOT(setValue(int)));
 
@@ -123,6 +136,7 @@ SettingsTabThumbnail::SettingsTabThumbnail(QWidget *parent, QMap<QString, QVaria
 	lay->addSpacing(20);
 
 
+
 	// OPTION TO KEEP THUMBNAILS VISIBLE OR FADE THEM OUT
 	QLabel *thbKeepVisibleLabel = new QLabel("<b><span style=\"font-size: 12pt\">" + tr("Keep Thumbnails Visible") + "</span></b><br><bR>" + tr("Per default the Thumbnails slide out over the edge of the screen. Here you can force them to stay visible. The big image is shrunk to fit into the empty space. Note, that the thumbnails will be hidden (and shown on mouse hovering) once you zoomed the image in/out. Resetting the zoom restores the original visibility of the thumbnails."));
 	thbKeepVisibleLabel->setWordWrap(true);
@@ -138,6 +152,14 @@ SettingsTabThumbnail::SettingsTabThumbnail(QWidget *parent, QMap<QString, QVaria
 
 
 	// OPTION TO ENABLE DYNAMIC THUMBNAIL CREATION (handy for faster harddrives)
+	widgetDynamic = new QWidget;
+	widgetDynamic->setObjectName("widgetDynamic");
+	widgetDynamic->setStyleSheet("QWidget#widgetDynamic { background: rgba(255,255,255,20); border-radius: 20px; padding: 20px; }");
+	QLabel *extDyn = new QLabel(tr("Extended Setting"));
+	extDyn->setStyleSheet("font-weight: bold; font-size: 10px; font-style: italic");
+	QHBoxLayout *extDynLay = new QHBoxLayout;
+	extDynLay->addWidget(extDyn);
+	extDynLay->addStretch();
 	QLabel *dynamicThumbnailsLabel = new QLabel("<b><span style=\"font-size: 12pt\">" + tr("Dynamic Thumbnail Creation") + "</span></b><br><bR>" + tr("Enable dynamic thumbnail creation."));
 	dynamicThumbnailsLabel->setWordWrap(true);
 	QHBoxLayout *dynamicThbLay = new QHBoxLayout;
@@ -145,10 +167,16 @@ SettingsTabThumbnail::SettingsTabThumbnail(QWidget *parent, QMap<QString, QVaria
 	dynamicThbLay->addStretch();
 	dynamicThbLay->addWidget(dynamicThumbnails);
 	dynamicThbLay->addStretch();
-	lay->addWidget(dynamicThumbnailsLabel);
-	lay->addSpacing(5);
-	lay->addLayout(dynamicThbLay);
-	lay->addSpacing(20);
+	QVBoxLayout *widgetDynLay = new QVBoxLayout;
+	widgetDynLay->addLayout(extDynLay);
+	widgetDynLay->addWidget(dynamicThumbnailsLabel);
+	widgetDynLay->addSpacing(5);
+	widgetDynLay->addLayout(dynamicThbLay);
+	widgetDynLay->addSpacing(20);
+	widgetDynamic->setLayout(widgetDynLay);
+	lay->addWidget(widgetDynamic);
+	widgetDynamic->hide();
+
 
 
 	// OPTION TO ONLY USE FILENAME AND NO ACTUAL THUMBNAIL
@@ -179,10 +207,6 @@ SettingsTabThumbnail::SettingsTabThumbnail(QWidget *parent, QMap<QString, QVaria
 	QVBoxLayout *filenameLay = new QVBoxLayout;
 	filenameLay->addLayout(filenameCheckLay);
 	filenameLay->addLayout(filenameSpinSliderLay);
-	lay->addWidget(filenameInsteadThbLabel);
-	lay->addSpacing(5);
-	lay->addLayout(filenameLay);
-	lay->addSpacing(20);
 	connect(filenameInsteadThb, SIGNAL(toggled(bool)), filenameFontSizeSlider, SLOT(setEnabled(bool)));
 	connect(filenameInsteadThb, SIGNAL(toggled(bool)), filenameFontSizeSpin, SLOT(setEnabled(bool)));
 	connect(filenameFontSizeSlider, SIGNAL(valueChanged(int)), filenameFontSizeSpin, SLOT(setValue(int)));
@@ -190,6 +214,15 @@ SettingsTabThumbnail::SettingsTabThumbnail(QWidget *parent, QMap<QString, QVaria
 
 
 
+
+	widgetDisable = new QWidget;
+	widgetDisable->setObjectName("widgetDynamic");
+	widgetDisable->setStyleSheet("QWidget#widgetDynamic { background: rgba(255,255,255,20); border-radius: 20px; padding: 20px; }");
+	QLabel *extDis = new QLabel(tr("Extended Setting"));
+	extDis->setStyleSheet("font-weight: bold; font-size: 10px; font-style: italic");
+	QHBoxLayout *extDisLay = new QHBoxLayout;
+	extDisLay->addWidget(extDis);
+	extDisLay->addStretch();
 	QLabel *thumbnailDisableLabel = new QLabel("<b><span style=\"font-size: 12pt\">" + tr("Disable Thumbnails") + "</span></b><br><bR>" + tr("If you just don't need or don't want any thumbnails whatsoever, then you can disable them here completely. This option can also be toggled remotely via command line (run 'photoqt --help' for more information on that)."));
 	thumbnailDisableLabel->setWordWrap(true);
 	thumbDisable = new CustomCheckBox(tr("Disable Thumbnails altogether"));
@@ -198,13 +231,27 @@ SettingsTabThumbnail::SettingsTabThumbnail(QWidget *parent, QMap<QString, QVaria
 	thumbDisableLay->addStretch();
 	thumbDisableLay->addWidget(thumbDisable);
 	thumbDisableLay->addStretch();
-	lay->addWidget(thumbnailDisableLabel);
-	lay->addSpacing(5);
-	lay->addLayout(thumbDisableLay);
-	lay->addSpacing(20);
+	QVBoxLayout *widgetDisLay = new QVBoxLayout;
+	widgetDisLay->addLayout(extDisLay);
+	widgetDisLay->addWidget(thumbnailDisableLabel);
+	widgetDisLay->addSpacing(5);
+	widgetDisLay->addLayout(thumbDisableLay);
+	widgetDisLay->addSpacing(20);
+	widgetDisable->setLayout(widgetDisLay);
+	lay->addWidget(widgetDisable);
+	widgetDisable->hide();
 
 
 	// OPTION FOR THUMBNAIL CACHE
+	widgetCache = new QWidget;
+	widgetCache->setObjectName("widgetCache");
+	widgetCache->setStyleSheet("QWidget#widgetCache { background: rgba(255,255,255,20); border-radius: 20px; padding: 20px; }");
+	QLabel *extCache = new QLabel(tr("Extended Setting"));
+	extCache->setStyleSheet("font-weight: bold; font-size: 10px; font-style: italic");
+	QHBoxLayout *extCacheLay = new QHBoxLayout;
+	extCacheLay->addWidget(extCache);
+	extCacheLay->addStretch();
+
 	QLabel *thumbCacheLabel = new QLabel("<b><span style=\"font-size:12pt\">" + tr("Thumbnail Cache") + "</span></b><hr>" + tr("Thumbnails can be cached in two different ways:<br>1) File Caching (following the freedesktop.org standard) or<br>2) Database Caching (better performance and management, default option).") + "<br><br>" + tr("Both ways have their advantages and disadvantages:") + "<br>" + tr("File Caching is done according to the freedesktop.org standard and thus different applications can share the same thumbnail for the same image file. However, it's not possible to check for obsolete thumbnails (thus this may lead to many unneeded thumbnail files).") + "<br>" + tr("Database Caching doesn't have the advantage of sharing thumbnails with other applications (and thus every thumbnails has to be newly created for PhotoQt), but it brings a slightly better performance, and it allows a better handling of existing thumbnails (e.g. deleting obsolete thumbnails).") + "<br><br>" + tr("PhotoQt works with either option, though the second way is set as default.") + "<br><br>" + tr("Although everybody is encouraged to use at least one of the two options, caching can be completely disabled altogether. However, that does affect the performance and usability of PhotoQt, since thumbnails have to be newly re-created every time they are needed."));
 	thumbCacheLabel->setWordWrap(true);
 	QHBoxLayout *thumbCacheLay = new QHBoxLayout;
@@ -225,12 +272,16 @@ SettingsTabThumbnail::SettingsTabThumbnail(QWidget *parent, QMap<QString, QVaria
 	cacheOption->addWidget(cacheDatabase);
 	cacheOption->addStretch();
 	cacheDatabase->setChecked(true);
-	lay->addWidget(thumbCacheLabel);
-	lay->addSpacing(5);
-	lay->addLayout(thumbCacheLay);
-	lay->addSpacing(5);
-	lay->addLayout(cacheOption);
-	lay->addSpacing(5);
+
+	QVBoxLayout *widgetCacheLay = new QVBoxLayout;
+	widgetCacheLay->addLayout(extCacheLay);
+	widgetCacheLay->addWidget(thumbCacheLabel);
+	widgetCacheLay->addSpacing(5);
+	widgetCacheLay->addLayout(thumbCacheLay);
+	widgetCacheLay->addSpacing(5);
+	widgetCacheLay->addLayout(cacheOption);
+	widgetCacheLay->addSpacing(5);
+
 	connect(thumbCache, SIGNAL(toggled(bool)), cacheFile, SLOT(setEnabled(bool)));
 	connect(thumbCache, SIGNAL(toggled(bool)), cacheDatabase, SLOT(setEnabled(bool)));
 
@@ -241,7 +292,7 @@ SettingsTabThumbnail::SettingsTabThumbnail(QWidget *parent, QMap<QString, QVaria
 	dbInfoLay->addStretch();
 	dbInfoLay->addWidget(dbInfo);
 	dbInfoLay->addStretch();
-	lay->addLayout(dbInfoLay);
+	widgetCacheLay->addLayout(dbInfoLay);
 
 	// The database can be cleaned and erased
 	cleanDatabase = new CustomPushButton(tr("CLEAN up Database"));
@@ -254,9 +305,13 @@ SettingsTabThumbnail::SettingsTabThumbnail(QWidget *parent, QMap<QString, QVaria
 	dbLay->addWidget(eraseDatabase);
 	dbLay->addStretch();
 
-	lay->addSpacing(10);
-	lay->addLayout(dbLay);
-	lay->addSpacing(10);
+	widgetCacheLay->addSpacing(10);
+	widgetCacheLay->addLayout(dbLay);
+	widgetCacheLay->addSpacing(10);
+
+	widgetCache->setLayout(widgetCacheLay);
+	lay->addWidget(widgetCache);
+	widgetCache->hide();
 
 	connect(thumbCache, SIGNAL(toggled(bool)), cleanDatabase, SLOT(setEnabled(bool)));
 	connect(thumbCache, SIGNAL(toggled(bool)), eraseDatabase, SLOT(setEnabled(bool)));
@@ -519,6 +574,15 @@ void SettingsTabThumbnail::doEraseDatabase() {
 
 	// Update database info
 	setDatabaseInfo();
+
+}
+
+void SettingsTabThumbnail::toggleExtended(bool extended) {
+
+	widgetSpacing->setVisible(extended);
+	widgetDynamic->setVisible(extended);
+	widgetDisable->setVisible(extended);
+	widgetCache->setVisible(extended);
 
 }
 

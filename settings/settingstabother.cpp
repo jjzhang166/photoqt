@@ -157,6 +157,14 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 
 
 	// Adjust known file formats
+	widgetKnown = new QLabel;
+	widgetKnown->setObjectName("widgetKnown");
+	widgetKnown->setStyleSheet("QWidget#widgetKnown { background: rgba(255,255,255,20); border-radius: 20px; padding: 20px; }");
+	QLabel *extKnown = new QLabel(tr("Extended Setting"));
+	extKnown->setStyleSheet("font-weight: bold; font-size: 10px; font-style: italic");
+	QHBoxLayout *extKnownLay = new QHBoxLayout;
+	extKnownLay->addWidget(extKnown);
+	extKnownLay->addStretch();
 	QLabel *knownLabel = new QLabel("<b><span style=\"font-size:12pt\">" + tr("Known File Types") + "</span></b><br><br>" + tr("Here you can adjust the list of known image types. Some image types (especially more exotic ones) aren't supported by every Qt installation (depending on which image plugins you've got installed, etc.). If there's any problem with an image type, you can take it out of the list here. If you want to add an image type, simply add it to the list.") + "<br><b>" + tr("Only change the list if you know what you're doing!") + "</b>");
 	knownLabel->setWordWrap(true);
 	knownFile = new CustomLineEdit("Known File Types");
@@ -165,10 +173,16 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 	knownLay->addStretch();
 	knownLay->addWidget(knownFile);
 	knownLay->addStretch();
-	lay->addWidget(knownLabel);
-	lay->addSpacing(5);
-	lay->addLayout(knownLay);
-	lay->addSpacing(20);
+	QVBoxLayout *widgetKnownLay = new QVBoxLayout;
+	widgetKnownLay->addLayout(extKnownLay);
+	widgetKnownLay->addWidget(knownLabel);
+	widgetKnownLay->addSpacing(5);
+	widgetKnownLay->addLayout(knownLay);
+	widgetKnownLay->addSpacing(20);
+	widgetKnown->setLayout(widgetKnownLay);
+	lay->addWidget(widgetKnown);
+	widgetKnown->hide();
+
 
 
 	lay->addStretch();
@@ -222,6 +236,12 @@ void SettingsTabOther::saveSettings() {
 	}
 
 	context->saveContext();
+
+}
+
+void SettingsTabOther::toggleExtended(bool extended) {
+
+	widgetKnown->setVisible(extended);
 
 }
 
