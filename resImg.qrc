@@ -37,5 +37,7 @@
         <file>img/startupbackground.png</file>
         <file>img/switchoff.png</file>
         <file>img/switchon.png</file>
+        <file>img/delete.png</file>
+        <file>img/rename.png</file>
     </qresource>
 </RCC>

@@ -55,7 +55,14 @@ void GraphicsView::contextMenuClicked() {
 	QAction *action = (QAction *)sender();
 	QString cmd = action->data().toString();
 
-	emit loadContextMenuAction(QString("1:::::%1").arg(cmd));
+	if(cmd == "openinfm")
+		emit loadContextMenuAction("__ctx__openinfm");
+	else if(cmd == "delete")
+		emit loadContextMenuAction("__ctx__delete");
+	else if(cmd == "rename")
+		emit loadContextMenuAction("__ctx__rename");
+	else
+		emit loadContextMenuAction(QString("1:::::%1").arg(cmd));
 
 }
 
@@ -82,7 +89,7 @@ void GraphicsView::contextMenuEvent(QContextMenuEvent *event) {
 	qint64 secs = QFileInfo(QDir::homePath() + "/.photoqt/contextmenu").lastModified().toMSecsSinceEpoch();
 
 	// If the menu has been modified since last time or hasn't been setup yet, we set it up
-	if(secs != menuLastChange || menuSetup) {
+	if(secs != menuLastChange || !menuSetup) {
 
 		menuSetup = true;
 		menuLastChange = secs;
@@ -91,9 +98,29 @@ void GraphicsView::contextMenuEvent(QContextMenuEvent *event) {
 		menu->clear();
 
 		// A disabled option
-		QAction *t = new QAction("Image Context Options",menu);
+		QAction *t = new QAction(tr("Image Context Options"),menu);
 		t->setDisabled(true);
 		menu->addAction(t);
+
+		QAction *openInFm = new QAction(tr("Open Folder in default File Manager"), menu);
+		openInFm->setData("openinfm");
+		openInFm->setIcon(QIcon(":/img/open.png"));
+		menu->addAction(openInFm);
+		connect(openInFm, SIGNAL(triggered()), this, SLOT(contextMenuClicked()));
+
+		QAction *deleteFile = new QAction(tr("Delete File"), menu);
+		deleteFile->setData("delete");
+		deleteFile->setIcon(QIcon(":/img/delete.png"));
+		menu->addAction(deleteFile);
+		connect(deleteFile, SIGNAL(triggered()), this, SLOT(contextMenuClicked()));
+
+		QAction *renameFile = new QAction(tr("Rename File"), menu);
+		renameFile->setData("rename");
+		renameFile->setIcon(QIcon(":/img/rename.png"));
+		menu->addAction(renameFile);
+		connect(renameFile, SIGNAL(triggered()), this, SLOT(contextMenuClicked()));
+
+		menu->addSeparator();
 
 		// Now actually read in the entries from file
 		QFile file(QDir::homePath() + "/.photoqt/contextmenu");

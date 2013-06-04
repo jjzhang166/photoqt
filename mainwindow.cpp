@@ -1435,6 +1435,22 @@ void MainWindow::shortcutDO(QString key, bool mouseSH) {
 
 	if(!globVar->blocked) {
 
+		if(key.startsWith("__ctx__")) {
+
+			if(key == "__ctx__openinfm")
+				QDesktopServices::openUrl(QUrl("file:///" + QFileInfo(globVar->currentfile).absolutePath()));
+			else if(key == "__ctx__delete") {
+				if(!setupWidgets->filehandling) setupWidget("filehandling");
+				filehandling->openDialog("delete");
+			} else if(key == "__ctx__rename") {
+				if(!setupWidgets->filehandling) setupWidget("filehandling");
+				filehandling->openDialog("rename");
+			}
+
+			return;
+
+		}
+
 		// If key is empty, then we get the info from the sender#s object name
 		if(key == "")
 			key = ((QShortcut *) sender())->objectName();

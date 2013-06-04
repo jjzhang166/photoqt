@@ -355,7 +355,7 @@ int main(int argc, char *argv[]) {
 
 				QTextStream out(&contextmenu);
 
-				QString def = "dolphin %d\nOpen in Dolphin\n\ngimp %f\nEdit with Gimp\n\ngwenview %f\nOpen in GwenView";
+				QString def = "gimp %f\nEdit with Gimp\n\ngwenview %f\nOpen in GwenView";
 				out << def;
 
 				contextmenu.close();

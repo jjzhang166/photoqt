@@ -703,11 +703,7 @@ public:
 				composite = false;
 			else {
 #if defined(Q_WS_X11)
-
-				if(QX11Info::isCompositingManagerRunning())
-					composite = true;
-				else
-					composite = false;
+				composite = QX11Info::isCompositingManagerRunning() ? true : false;
 
 #endif
 			}
