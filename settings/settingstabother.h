@@ -40,6 +40,9 @@ public:
 	// Context menu adjusting area
 	Context *context;
 
+	QWidget *widgetWindow;
+	CustomCheckBox *windowMode;
+
 	QWidget *widgetKnown;
 	// All the known file foormats
 	CustomLineEdit *knownFile;

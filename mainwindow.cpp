@@ -97,6 +97,8 @@ MainWindow::MainWindow(QWidget *parent, bool verbose) : QMainWindow(parent) {
 	menu = new DropDownMenu(viewBig);
 	connect(menu, SIGNAL(itemClicked(QString,int)), this, SLOT(menuClicked(QString,int)));
 
+//	imagemanip = new ImageManip(viewBig);
+
 	// The exif widget
 	exif = new Exif(viewBig,globSet->toSignalOut());
 	connect(exif, SIGNAL(updateSettings(QMap<QString,QVariant>)), globSet, SLOT(settingsUpdated(QMap<QString,QVariant>)));
@@ -230,6 +232,14 @@ void MainWindow::applySettings(QMap<QString, bool> applySet, bool justApplyAllOf
 	// Adjust/Set the background
 	if(applySet["background"])
 		setBackground();
+
+	if(applySet["window"]) {
+		if(globSet->windowmode) {
+			this->showMaximized();
+			QTimer::singleShot(200,this,SLOT(showMaximized()));
+		} else
+			this->showFullScreen();
+	}
 
 
 	// Update the thumbnails

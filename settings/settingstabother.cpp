@@ -155,6 +155,26 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 	lay->addLayout(addNewLay);
 	lay->addSpacing(20);
 
+	// Adjust context menu
+	widgetWindow = new QLabel;
+	widgetWindow->setObjectName("widgetWindow");
+	widgetWindow->setStyleSheet("QWidget#widgetWindow { background: rgba(255,255,255,20); border-radius: 20px; padding: 20px; }");
+	QLabel *windowModeLabel = new QLabel("<b><span style=\"font-size:12pt\">" + tr("Window Mode") + "</span></b><br><br>" + tr("PhotoQt is designed with the space of a fullscreen app in mind. That's why it by default runs as fullscreen. However, some might prefer to have it as a normal window.") + "<br><b>" + tr("Note: It might be a little awkward to use e.g. the menu when PhotoQt is run in window mode.") + "</b>");
+	windowModeLabel->setWordWrap(true);
+	windowMode = new CustomCheckBox(tr("Run Photo in Window Mode"));
+	QHBoxLayout *windowLay = new QHBoxLayout;
+	windowLay->addStretch();
+	windowLay->addWidget(windowMode);
+	windowLay->addStretch();
+	QVBoxLayout *widgetWindowLay = new QVBoxLayout;
+	widgetWindowLay->addWidget(windowModeLabel);
+	widgetWindowLay->addSpacing(10);
+	widgetWindowLay->addLayout(windowLay);
+	widgetWindowLay->addSpacing(20);
+	widgetWindow->setLayout(widgetWindowLay);
+	lay->addWidget(widgetWindow);
+	widgetWindow->hide();
+
 
 	// Adjust known file formats
 	widgetKnown = new QLabel;
@@ -206,6 +226,9 @@ void SettingsTabOther::loadSettings() {
 		}
 	}
 
+	windowMode->setChecked(globSet.value("WindowMode").toBool());
+	defaults.insert("WindowMode",globSet.value("WindowMode").toBool());
+
 	knownFile->setText(globSet.value("KnownFileTypes").toString());
 	defaults.insert("KnownFileTypes",globSet.value("KnownFileTypes").toString());
 
@@ -229,6 +252,12 @@ void SettingsTabOther::saveSettings() {
 		}
 	}
 
+	if(defaults.value("WindowMode").toBool() != windowMode->isChecked()) {
+		updatedSet.insert("WindowMode",windowMode->isChecked());
+		defaults.remove("WindowMode");
+		defaults.insert("WindowMode",windowMode->isChecked());
+	}
+
 	if(defaults.value("KnownFileTypes").toString() != knownFile->text()) {
 		updatedSet.insert("KnownFileTypes",knownFile->text());
 		defaults.remove("KnownFileTypes");
@@ -242,6 +271,7 @@ void SettingsTabOther::saveSettings() {
 void SettingsTabOther::toggleExtended(bool extended) {
 
 	widgetKnown->setVisible(extended);
+	widgetWindow->setVisible(extended);
 
 }
 

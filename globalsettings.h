@@ -480,6 +480,12 @@ public:
 	// Thumbnails can be disabled altogether
 	bool thumbnailDisable;
 
+
+
+	bool windowmode;
+
+
+
 	// The currently known filetypes
 	FileFormats *fileFormats;
 	QString knownFileTypes;
@@ -518,6 +524,8 @@ public:
 		map.insert("Language",language);
 
 		map.insert("KnownFileTypes",knownFileTypes);
+
+		map.insert("WindowMode",windowmode);
 
 		map.insert("Composite",composite);
 		map.insert("BgColorRed",bgColorRed);
@@ -596,6 +604,7 @@ public:
 
 		fileFormats = new FileFormats;
 		knownFileTypes = "*" + fileFormats->getFormats().join(",*");
+		windowmode = false;
 
 		language = "en";
 		bgColorRed = 0;
@@ -696,6 +705,11 @@ public:
 //			}
 			knownFileTypes = "*" + fileFormats->getFormats().join(",*");
 			qDebug() << "KFT:" << knownFileTypes;
+
+			if(all.contains("WindowMode=1"))
+				windowmode = true;
+			else if(all.contains("WindowMode=0"))
+				windowmode = false;
 
 			if(all.contains("Composite=1"))
 				composite = true;
@@ -964,6 +978,7 @@ public:
 
 			QString cont = "Version=" + version + "\n";
 			cont += QString("Language=%1\n").arg(language);
+			cont += QString("WindowMode=%1\n").arg(int(windowmode));
 //			cont += QString("KnownFileTypes=%1\n").arg(knownFileTypes);
 
 			fileFormats->saveFormats(knownFileTypes);
@@ -1065,6 +1080,7 @@ public slots:
 		QMap<QString,bool> applySet;
 
 		applySet.insert("background",false);
+		applySet.insert("window",false);
 		applySet.insert("menu",false);
 		applySet.insert("quickinfo",false);
 		applySet.insert("redrawimg",false);
@@ -1077,6 +1093,11 @@ public slots:
 
 //		if(changedSet.keys().contains("KnownFileTypes"))
 //			knownFileTypes = changedSet.value("KnownFileTypes").toString();
+
+		if(changedSet.keys().contains("WindowMode")) {
+			windowmode = changedSet.value("WindowMode").toBool();
+			applySet["window"] = true;
+		}
 
 		if(changedSet.keys().contains("Language"))
 			language = changedSet.value("Language").toString();
