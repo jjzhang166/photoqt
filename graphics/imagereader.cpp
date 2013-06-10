@@ -18,6 +18,7 @@ bool ImageReader::doIUseMagick(QString filename) {
 	qtFiles << ".pbm";
 	qtFiles << ".pgm";
 	qtFiles << ".ppm";
+	qtFiles << ".png";
 	qtFiles << ".xbm";
 	qtFiles << ".xpm";
 
