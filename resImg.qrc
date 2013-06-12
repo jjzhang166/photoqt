@@ -39,5 +39,14 @@
         <file>img/switchon.png</file>
         <file>img/delete.png</file>
         <file>img/rename.png</file>
+        <file>img/rotateLeftSmall.png</file>
+        <file>img/rotateRightSmall.png</file>
+        <file>img/flipHSmall.png</file>
+        <file>img/flipVSmall.png</file>
+        <file>img/zoomInSmall.png</file>
+        <file>img/zoomOutSmall.png</file>
+        <file>img/firstSmall.png</file>
+        <file>img/lastSmall.png</file>
+        <file>img/slideshow.png</file>
     </qresource>
 </RCC>

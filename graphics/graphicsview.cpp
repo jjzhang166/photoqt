@@ -5,6 +5,8 @@ GraphicsView::GraphicsView(QMap<QString, QVariant> set, QWidget *parent) : QGrap
 
 	globSet = set;
 
+	imgLoaded = false;
+
 	this->setRenderHints(QPainter::Antialiasing | QPainter::SmoothPixmapTransform | QPainter::HighQualityAntialiasing);
 	this->setObjectName("viewBig");
 	this->setScene(&sceneBig);
@@ -55,14 +57,17 @@ void GraphicsView::contextMenuClicked() {
 	QAction *action = (QAction *)sender();
 	QString cmd = action->data().toString();
 
-	if(cmd == "openinfm")
-		emit loadContextMenuAction("__ctx__openinfm");
-	else if(cmd == "delete")
-		emit loadContextMenuAction("__ctx__delete");
-	else if(cmd == "rename")
-		emit loadContextMenuAction("__ctx__rename");
-	else
-		emit loadContextMenuAction(QString("1:::::%1").arg(cmd));
+	cmd.startsWith("__CTX__") ? loadContextMenuAction(cmd) : loadContextMenuAction(QString("1:::::%1").arg(cmd));
+
+}
+
+void GraphicsView::contextMenuClickedWidgetAction() {
+
+	CustomLabel *action = (CustomLabel *)sender();
+	QString cmd = action->objectName();
+
+	cmd.startsWith("__CTX__") ? loadContextMenuAction(cmd) : loadContextMenuAction(QString("1:::::%1").arg(cmd));
+
 
 }
 
@@ -85,6 +90,8 @@ void GraphicsView::setShortcut(QString key, bool close, QString id) {
 // Show (and possibly set up) the context menu
 void GraphicsView::contextMenuEvent(QContextMenuEvent *event) {
 
+	if(!imgLoaded) return;
+
 	// Get the last modification date
 	qint64 secs = QFileInfo(QDir::homePath() + "/.photoqt/contextmenu").lastModified().toMSecsSinceEpoch();
 
@@ -97,25 +104,140 @@ void GraphicsView::contextMenuEvent(QContextMenuEvent *event) {
 		// Make sure it's empty (after a change, we would re-setup the menu and not calling clear() would lead to double entries)
 		menu->clear();
 
+
 		// A disabled option
 		QAction *t = new QAction(tr("Image Context Options"),menu);
 		t->setDisabled(true);
-		menu->addAction(t);
+//		menu->addAction(t);
 
-		QAction *openInFm = new QAction(tr("Open Folder in default File Manager"), menu);
-		openInFm->setData("openinfm");
+		QWidgetAction *moveImg = new QWidgetAction(menu);
+		CustomLabel *move = new CustomLabel(tr("Move:"));
+		move->setStyleSheet("QLabel {color: rgba(180,180,180,255); background: transparent; }");
+		CustomLabel *moveFirst = new CustomLabel;
+		moveFirst->setPixmap(QPixmap(":/img/firstSmall.png"));
+		moveFirst->setObjectName("__CTX__movefirst");
+		moveFirst->setCursor(Qt::PointingHandCursor);
+		CustomLabel *moveLeft = new CustomLabel(tr("Previous"));
+		moveLeft->setObjectName("__CTX__moveprev");
+		moveLeft->setCursor(Qt::PointingHandCursor);
+		CustomLabel *moveRight = new CustomLabel(tr("Next"));
+		moveRight->setObjectName("__CTX__movenext");
+		moveRight->setCursor(Qt::PointingHandCursor);
+		CustomLabel *moveLast = new CustomLabel;
+		moveLast->setPixmap(QPixmap(":/img/lastSmall.png"));
+		moveLast->setObjectName("__CTX__movelast");
+		moveLast->setCursor(Qt::PointingHandCursor);
+		QWidget *moveWid = new QWidget;
+		QHBoxLayout *moveLay = new QHBoxLayout;
+		moveLay->addWidget(move);
+		moveLay->addSpacing(5);
+		moveLay->addWidget(moveFirst);
+		moveLay->addSpacing(5);
+		moveLay->addWidget(moveLeft);
+//		moveLay->addSpacing(10);
+		moveLay->addWidget(moveRight);
+		moveLay->addSpacing(5);
+		moveLay->addWidget(moveLast);
+		moveLay->addStretch();
+		moveWid->setLayout(moveLay);
+		moveImg->setDefaultWidget(moveWid);
+		menu->addAction(moveImg);
+		connect(moveFirst, SIGNAL(clicked()), this, SLOT(contextMenuClickedWidgetAction()));
+		connect(moveLeft, SIGNAL(clicked()), this, SLOT(contextMenuClickedWidgetAction()));
+		connect(moveRight, SIGNAL(clicked()), this, SLOT(contextMenuClickedWidgetAction()));
+		connect(moveLast, SIGNAL(clicked()), this, SLOT(contextMenuClickedWidgetAction()));
+
+		QWidgetAction *rotateImg = new QWidgetAction(menu);
+		CustomLabel *rot = new CustomLabel(tr("Rotate:"));
+		rot->setStyleSheet("QLabel {color: rgba(180,180,180,255); background: transparent; }");
+		CustomLabel *rotLeft = new CustomLabel("<img src=\":/img/rotateLeftSmall.png\"> " + tr("Left"));
+		rotLeft->setObjectName("__CTX__rotateleft");
+		rotLeft->setCursor(Qt::PointingHandCursor);
+		CustomLabel *rotRight = new CustomLabel(tr("Right") + " <img src=\":/img/rotateRightSmall.png\">");
+		rotRight->setObjectName("__CTX__rotateright");
+		rotRight->setCursor(Qt::PointingHandCursor);
+		QWidget *rotWid = new QWidget;
+		QHBoxLayout *rotLay = new QHBoxLayout;
+		rotLay->addWidget(rot);
+		rotLay->addSpacing(5);
+		rotLay->addWidget(rotLeft);
+		rotLay->addSpacing(10);
+		rotLay->addWidget(rotRight);
+		rotLay->addStretch();
+		rotWid->setLayout(rotLay);
+		rotateImg->setDefaultWidget(rotWid);
+		menu->addAction(rotateImg);
+		connect(rotLeft, SIGNAL(clicked()), this, SLOT(contextMenuClickedWidgetAction()));
+		connect(rotRight, SIGNAL(clicked()), this, SLOT(contextMenuClickedWidgetAction()));
+
+		QWidgetAction *flipImg = new QWidgetAction(menu);
+		CustomLabel *flip = new CustomLabel(tr("Flip:"));
+		flip->setStyleSheet("QLabel {color: rgba(180,180,180,255); background: transparent; }");
+		CustomLabel *flipHor = new CustomLabel("<img src=\":/img/flipHSmall.png\"> " + tr("Horizontal"));
+		flipHor->setObjectName("__CTX__fliph");
+		flipHor->setCursor(Qt::PointingHandCursor);
+		CustomLabel *flipVer = new CustomLabel("<img src=\":/img/flipVSmall.png\">" + tr("Vertical"));
+		flipVer->setObjectName("__CTX__flipv");
+		flipVer->setCursor(Qt::PointingHandCursor);
+		QWidget *flipWid = new QWidget;
+		QHBoxLayout *flipLay = new QHBoxLayout;
+		flipLay->addWidget(flip);
+		flipLay->addSpacing(5);
+		flipLay->addWidget(flipHor);
+		flipLay->addSpacing(10);
+		flipLay->addWidget(flipVer);
+		flipLay->addStretch();
+		flipWid->setLayout(flipLay);
+		flipImg->setDefaultWidget(flipWid);
+		menu->addAction(flipImg);
+		connect(flipHor, SIGNAL(clicked()), this, SLOT(contextMenuClickedWidgetAction()));
+		connect(flipVer, SIGNAL(clicked()), this, SLOT(contextMenuClickedWidgetAction()));
+
+		QWidgetAction *zoomImg = new QWidgetAction(menu);
+		CustomLabel *zoom = new CustomLabel(tr("Zoom:"));
+		zoom->setStyleSheet("QLabel {color: rgba(180,180,180,255); background: transparent; }");
+		CustomLabel *zoomIn = new CustomLabel("(+) " + tr("In"));
+		zoomIn->setObjectName("__CTX__zoomin");
+		zoomIn->setCursor(Qt::PointingHandCursor);
+		CustomLabel *zoomOut = new CustomLabel("(-) " + tr("Out"));
+		zoomOut->setObjectName("__CTX__zoomout");
+		zoomOut->setCursor(Qt::PointingHandCursor);
+		CustomLabel *zoomReset = new CustomLabel("(1:1) " + tr("Reset"));
+		zoomReset->setObjectName("__CTX__zoomreset");
+		zoomReset->setCursor(Qt::PointingHandCursor);
+		QWidget *zoomWid = new QWidget;
+		QHBoxLayout *zoomLay = new QHBoxLayout;
+		zoomLay->addWidget(zoom);
+		zoomLay->addSpacing(5);
+		zoomLay->addWidget(zoomIn);
+		zoomLay->addSpacing(5);
+		zoomLay->addWidget(zoomOut);
+		zoomLay->addSpacing(5);
+		zoomLay->addWidget(zoomReset);
+		zoomLay->addStretch();
+		zoomWid->setLayout(zoomLay);
+		zoomImg->setDefaultWidget(zoomWid);
+		menu->addAction(zoomImg);
+		connect(zoomIn, SIGNAL(clicked()), this, SLOT(contextMenuClickedWidgetAction()));
+		connect(zoomOut, SIGNAL(clicked()), this, SLOT(contextMenuClickedWidgetAction()));
+		connect(zoomReset, SIGNAL(clicked()), this, SLOT(contextMenuClickedWidgetAction()));
+
+		menu->addSeparator();
+
+		QAction *openInFm = new QAction(tr("Open in default File Manager"), menu);
+		openInFm->setData("__CTX__openinfm");
 		openInFm->setIcon(QIcon(":/img/open.png"));
 		menu->addAction(openInFm);
 		connect(openInFm, SIGNAL(triggered()), this, SLOT(contextMenuClicked()));
 
 		QAction *deleteFile = new QAction(tr("Delete File"), menu);
-		deleteFile->setData("delete");
+		deleteFile->setData("__CTX__delete");
 		deleteFile->setIcon(QIcon(":/img/delete.png"));
 		menu->addAction(deleteFile);
 		connect(deleteFile, SIGNAL(triggered()), this, SLOT(contextMenuClicked()));
 
 		QAction *renameFile = new QAction(tr("Rename File"), menu);
-		renameFile->setData("rename");
+		renameFile->setData("__CTX__rename");
 		renameFile->setIcon(QIcon(":/img/rename.png"));
 		menu->addAction(renameFile);
 		connect(renameFile, SIGNAL(triggered()), this, SLOT(contextMenuClicked()));

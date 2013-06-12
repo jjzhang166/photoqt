@@ -26,7 +26,7 @@ void CustomLabel::setEnabled(bool e) {
 
 void CustomLabel::setCSS(QString c) {
 
-	css = css;
+	css = c;
 	if(this->isEnabled())
 		this->setStyleSheet(css + "QLabel { background: rgba(255,255,255,200); }");
 	else

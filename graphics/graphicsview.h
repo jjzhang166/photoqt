@@ -1,6 +1,8 @@
 #ifndef GRAPHICSVIEW_H
 #define GRAPHICSVIEW_H
 
+#include "../customelements/customlabel.h"
+
 #include <QGraphicsView>
 #include <QWheelEvent>
 #include <QtDebug>
@@ -10,6 +12,9 @@
 #include <QDir>
 #include <QTimeLine>
 #include <QDateTime>
+
+#include <QWidgetAction>
+#include <QHBoxLayout>
 
 // the graphicsview for the main image
 class GraphicsView : public QGraphicsView {
@@ -46,12 +51,15 @@ public:
 	bool menuSetup;
 	qint64 menuLastChange;
 
+	bool imgLoaded;
+
 public slots:
 	// Set a mouse shortcut
 	void setShortcut(QString key, bool close, QString id);
 
 	// A click on a context menu item
 	void contextMenuClicked();
+	void contextMenuClickedWidgetAction();
 
 protected:
 	// This events are used for zooming and menu opening/closing

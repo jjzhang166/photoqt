@@ -15,19 +15,13 @@ class DropDownMenu : public QWidget {
 
 private:
 	// Set specialised function
-	void setGoTo(QString pos);
-	void setJumpTo(QString pos);
-	void setZoom(QString pos);
-	void setRotate(QString pos);
-	void setFlip(QString pos);
-	void setFileActions(QString pos);
-	void setSlideshow(QString pos);
+	void setSlideshow();
 
 	// Set standard function
-	void setStandard(QString pos, QString txt, QString icon, QString data, int active);
+	void setStandard(QString txt, QString icon, QString data, int active);
 
-	void setSep(QString pos);
-	void setHeading(QString txt, QString pos);
+	void setSep();
+	void setHeading(QString txt);
 
 
 public:
@@ -62,8 +56,7 @@ private:
 	bool posAtBottom;
 
 	// The layout holding all the labels
-	QVBoxLayout *mLayL;
-	QVBoxLayout *mLayR;
+	QVBoxLayout *mLay;
 
 public slots:
 	// Animate the menu in/out

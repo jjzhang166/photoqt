@@ -14,6 +14,8 @@ MainWindow::MainWindow(QWidget *parent, bool verbose) : QMainWindow(parent) {
 	qDebug() << "EXIV2 IS BEING USED!!!!!!! :-)";
 #endif
 
+	this->setMinimumSize(800,600);
+
 	// Make a screenshot
 	screenshot = QPixmap::grabWindow(QApplication::desktop()->winId());
 
@@ -165,7 +167,7 @@ void MainWindow::adjustGeometries() {
 		viewThumbs->setRect(QRect(0,viewH-thbHeight,viewW,thbHeight));
 
 		// Adjust the menu geometry
-		menu->setRect(QRect(viewW-750,0,700,350));
+		menu->setRect(QRect(viewW-400,0,250,250));
 
 
 
@@ -178,7 +180,7 @@ void MainWindow::adjustGeometries() {
 		viewThumbs->setRect(QRect(0,0,viewBig->width(),thbHeight));
 
 		// Adjust the menu geometry
-		menu->setRect(QRect(viewBig->width()-750,viewBig->height()-350,700,350));
+		menu->setRect(QRect(viewBig->width()-400,viewBig->height()-250,250,250));
 
 	}
 
@@ -725,6 +727,8 @@ void MainWindow::loadNewImgFromOpen(QString path) {
 	// Draw new image
 	drawImage();
 
+	viewBig->imgLoaded = true;
+
 	// If thumbnails are not disabled
 	if(!globSet->thumbnailDisable)
 		viewThumbs->updateThbViewHoverNormPix(temp,globVar->currentfile);
@@ -755,6 +759,8 @@ void MainWindow::loadNewImgFromThumbs(QString path) {
 	viewThumbs->countpos = viewThumbs->allImgsPath.indexOf(path);
 	viewThumbs->currentfile = globVar->currentfile;
 	drawImage();
+
+	viewBig->imgLoaded = true;
 
 	viewBigLay->updateInfo(globVar->currentfile,viewThumbs->countpos,viewThumbs->counttot);
 
@@ -1031,6 +1037,13 @@ void MainWindow::rotateFlip(bool rotateNotFlipped, QString direction) {
 	if(globVar->verbose) qDebug() << "Rotate and Flip:" << rotateNotFlipped << "-" << direction;
 
 	if(rotateNotFlipped) {
+
+		if((globVar->flipHor || globVar->flipVer) && !(globVar->flipHor && globVar->flipVer)) {
+			if(direction == "clock")
+				direction = "anticlock";
+			else if(direction == "anticlock")
+				direction = "clock";
+		}
 
 		// ROTATE
 
@@ -1445,17 +1458,38 @@ void MainWindow::shortcutDO(QString key, bool mouseSH) {
 
 	if(!globVar->blocked) {
 
-		if(key.startsWith("__ctx__")) {
+		if(key.startsWith("__CTX__")) {
 
-			if(key == "__ctx__openinfm")
+			if(key == "__CTX__openinfm")
 				QDesktopServices::openUrl(QUrl("file:///" + QFileInfo(globVar->currentfile).absolutePath()));
-			else if(key == "__ctx__delete") {
+			else if(key == "__CTX__delete") {
 				if(!setupWidgets->filehandling) setupWidget("filehandling");
 				filehandling->openDialog("delete");
-			} else if(key == "__ctx__rename") {
+			} else if(key == "__CTX__rename") {
 				if(!setupWidgets->filehandling) setupWidget("filehandling");
 				filehandling->openDialog("rename");
-			}
+			} else if(key == "__CTX__rotateleft")
+				rotateFlip(true,"anticlock");
+			else if(key == "__CTX__rotateright")
+				rotateFlip(true,"clock");
+			else if(key == "__CTX__fliph")
+				rotateFlip(false,"hor");
+			else if(key == "__CTX__flipv")
+				rotateFlip(false,"ver");
+			else if(key == "__CTX__zoomin")
+				zoom(true);
+			else if(key == "__CTX__zoomout")
+				zoom(false);
+			else if(key == "__CTX__zoomreset")
+				zoom(true,"reset");
+			else if(key == "__CTX__movefirst")
+				viewThumbs->gotoFirstLast("first");
+			else if(key == "__CTX__moveprev")
+				moveInDirectory(0);
+			else if(key == "__CTX__movenext")
+				moveInDirectory(1);
+			else if(key == "__CTX__movelast")
+				viewThumbs->gotoFirstLast("last");
 
 			return;
 
