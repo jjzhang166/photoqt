@@ -368,15 +368,14 @@ int main(int argc, char *argv[]) {
 		// The Window has to be initialised *AFTER* the checks above to ensure that the settings exist and are updated and can be loaded
 		MainWindow w(0,verbose);
 		w.show();
+
+		w.setWindowFlags(Qt::FramelessWindowHint);
+
 		if(!startintray) {
 			QFile file(QDir::homePath() + "/.photoqt/settings");
 			if(file.open(QIODevice::ReadOnly)) {
 				QTextStream in(&file);
-				if(in.readAll().contains("WindowMode=1"))
-					w.showMaximized();
-				else
-					w.showFullScreen();
-
+				in.readAll().contains("WindowMode=1") ? w.showMaximized() : w.showFullScreen();
 			} else
 				w.showFullScreen();
 		} else
