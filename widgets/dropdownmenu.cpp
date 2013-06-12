@@ -4,6 +4,8 @@ DropDownMenu::DropDownMenu(QWidget *parent) : QWidget(parent) {
 
 	this->setStyleSheet("border-radius: 8px; border-top-right-radius: 0px; border-top-left-radius: 0px; background-color: rgba(0, 0, 0, 220)");
 
+	allItems.clear();
+
 	// The sensitivity of the menu
 	ySensitivity = 10;
 	xSensitivity = 3;
@@ -31,7 +33,7 @@ DropDownMenu::DropDownMenu(QWidget *parent) : QWidget(parent) {
 	setStandard(tr("Settings"), ":/img/setup.png","settings", 1);
 	setStandard(tr("Set as Wallpaper"), ":/img/setup.png","wallpaper", 1);
 	setSlideshow();
-	setStandard(tr("Show Exif Widget"), ":/img/exif.png","hideMeta", 1);
+	setStandard(tr("Show Details"), ":/img/exif.png","hideMeta", 0);
 	setStandard(tr("About PhotoQt"), ":/img/about.png","about", 1);
 	setStandard(tr("Hide (System Tray)"), ":/img/quit.png","hide", 1);
 	setStandard(tr("Quit"), ":/img/quit.png","close", 1);
@@ -47,6 +49,9 @@ void DropDownMenu::setSlideshow() {
 
 	MainMenuItem *item1 = new MainMenuItem(tr("Start Slideshow"),":/img/slideshow","slideshow",1);
 	MainMenuItem *item2 = new MainMenuItem(tr("(Quickstart)"),"","slideshowQuick",1);
+
+	allItems.insert("slideshow",item1);
+	allItems.insert("slideshowQuick",item2);
 
 	QHBoxLayout *slideLay = new QHBoxLayout;
 
@@ -68,6 +73,8 @@ void DropDownMenu::setStandard(QString txt, QString icon, QString data, int acti
 	QHBoxLayout *itemLay = new QHBoxLayout;
 
 	MainMenuItem *item = new MainMenuItem(txt,icon,data,active);
+
+	allItems.insert(data,item);
 
 	itemLay->addWidget(item);
 	itemLay->addSpacing(50);

@@ -167,7 +167,7 @@ void MainWindow::adjustGeometries() {
 		viewThumbs->setRect(QRect(0,viewH-thbHeight,viewW,thbHeight));
 
 		// Adjust the menu geometry
-		menu->setRect(QRect(viewW-400,0,250,250));
+		menu->setRect(QRect(viewW-450,0,300,250));
 
 
 
@@ -180,7 +180,7 @@ void MainWindow::adjustGeometries() {
 		viewThumbs->setRect(QRect(0,0,viewBig->width(),thbHeight));
 
 		// Adjust the menu geometry
-		menu->setRect(QRect(viewBig->width()-400,viewBig->height()-250,250,250));
+		menu->setRect(QRect(viewBig->width()-450,viewBig->height()-250,300,250));
 
 	}
 
@@ -774,11 +774,17 @@ void MainWindow::menuClicked(QString txt, int close) {
 	globVar->zoomedImgAtLeastOnce = false;
 
 	// If this item was set up so that the menu closes on executing, then do it before executing the actual command (some commands could hold the menu open until the function call is finished)
-	if(close)
-		menu->animate();
+	if(close) menu->animate();
+
+	if(txt == "hideMeta") {
+		menu->allItems["hideMeta"]->setText(exif->isVisible() ? tr("Show Details") : tr("Hide Details"));
+		menu->allItems["hideMeta"]->setIcon(":/img/exif.png");
+	}
+
 
 	// Also calls this function (same as executeShortcut())
 	shortcutDO(QString("0:::::__%2").arg(txt));
+
 
 }
 
@@ -836,11 +842,17 @@ void MainWindow::mouseMoved(int x, int y) {
 
 
 		// Animate exif widget
-		if(x < 10*globSet->menusensitivity && y > exif->y()-3*globSet->menusensitivity && y < exif->y()+exif->height()+globSet->menusensitivity*3 && !exif->isVisible() && globSet->exifenablemousetriggering)
+		if(x < 10*globSet->menusensitivity && y > exif->y()-3*globSet->menusensitivity && y < exif->y()+exif->height()+globSet->menusensitivity*3 && !exif->isVisible() && globSet->exifenablemousetriggering) {
 			exif->makeShow();
+			menu->allItems["hideMeta"]->setText(tr("Hide Details"));
+			menu->allItems["hideMeta"]->setIcon(":/img/exif.png");
+		}
 
-		if((x > exif->width()+10*globSet->menusensitivity || y < exif->y()-3*globSet->menusensitivity || y > exif->y()+exif->height()+3*globSet->menusensitivity) && exif->isVisible() && !exif->stay->isChecked())
+		if((x > exif->width()+10*globSet->menusensitivity || y < exif->y()-3*globSet->menusensitivity || y > exif->y()+exif->height()+3*globSet->menusensitivity) && exif->isVisible() && !exif->stay->isChecked()) {
 			exif->makeHide();
+			menu->allItems["hideMeta"]->setText(tr("Show Details"));
+			menu->allItems["hideMeta"]->setIcon(":/img/exif.png");
+		}
 
 
 	// If globVar->blocked is set, but slideshow is running, animate slideshowbar

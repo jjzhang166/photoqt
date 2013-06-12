@@ -36,6 +36,8 @@ public:
 	void makeHide();
 	bool isVisible() { return isShown; }
 
+	QMap<QString,MainMenuItem*> allItems;
+
 
 private:
 	// We use Qt's property animation feature

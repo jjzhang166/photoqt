@@ -7,6 +7,7 @@
 #include "../customelements/custompushbutton.h"
 #include "../customelements/customspinbox.h"
 #include "../customelements/customradiobutton.h"
+#include "../customelements/customlabel.h"
 
 #include <QWidget>
 #include <QStyleOption>
@@ -30,30 +31,6 @@
 
 
 #include <QGraphicsEffect>
-
-class ClickLabel : public QLabel {
-
-	Q_OBJECT
-
-public:
-	ClickLabel(const QString &text = "", QWidget *parent = 0);
-	~ClickLabel();
-
-	void setCSS(QString);
-
-private:
-	QString css;
-
-public slots:
-	void setEnabled(bool);
-
-protected:
-	void mouseReleaseEvent(QMouseEvent *e);
-
-signals:
-	void clicked();
-
-};
 
 
 // Settings to customise the look and feel
@@ -86,7 +63,7 @@ private:
 	CustomRadioButton *backgroundImageUseScreenshot;
 	CustomRadioButton *backgroundImageUseCustom;
 	CustomRadioButton *noBackgroundImage;
-	ClickLabel *backgroundImage;
+	CustomLabel *backgroundImage;
 	CustomCheckBox *backgroundImgStretchToFit;
 	CustomCheckBox *backgroundImgScaleToFit;
 	CustomCheckBox *backgroundImgCenter;

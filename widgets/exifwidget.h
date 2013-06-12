@@ -2,6 +2,7 @@
 #define EXIFWIDGET_H
 
 #include "../customelements/customcheckbox.h"
+#include "../customelements/customlabel.h"
 #include "customconfirm.h"
 
 #include <QWidget>
@@ -25,16 +26,6 @@
 #include "exiv2/image.hpp"
 #include "exiv2/exif.hpp"
 #endif
-
-// A custom label (the "x" top right corner) for closing Photo
-class LabelClick : public QLabel {
-	Q_OBJECT
-
-protected:
-	void mouseReleaseEvent(QMouseEvent *e);
-signals:
-	void clicked();
-};
 
 // This class provides a widget for displaying meta (Exif) information
 class Exif : public QWidget {

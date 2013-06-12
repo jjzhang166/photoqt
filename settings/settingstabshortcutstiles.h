@@ -2,6 +2,7 @@
 #define SETTINGSTABSHORTCUTSTILES_H
 
 #include "../customelements/customcheckbox.h"
+#include "../customelements/customlabel.h"
 
 #include <QWidget>
 #include <QLabel>
@@ -10,18 +11,6 @@
 #include <QTimer>
 #include <QStyleOption>
 #include <QPainter>
-
-// A custom label (the "x" top right corner) for closing PhotoQt
-class Label : public QLabel {
-	Q_OBJECT
-public:
-	Label(QString txt = "", QWidget *parent = 0);
-	~Label();
-protected:
-	void mouseReleaseEvent(QMouseEvent *e);
-signals:
-	void clicked();
-};
 
 // This class provides tiles representing a shortcut
 class ShortcutsTiles: public QWidget {
@@ -33,7 +22,7 @@ public:
 	~ShortcutsTiles();
 
 	// The main back label
-	Label *back;
+	CustomLabel *back;
 
 	// The cmd and the category
 	QString exe;
@@ -58,7 +47,7 @@ public:
 	QPushButton *del;
 
 	// This Button holds the shortcut and a click on it allows the user to renew it
-	Label *shortcut;
+	CustomLabel *shortcut;
 
 	// This holds the current shortcut without any formatting
 	QString shortcutText;

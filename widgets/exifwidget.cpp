@@ -274,7 +274,7 @@ void Exif::setupLabels() {
 				central->addWidget(l);
 				l->hide();
 			} else {
-				LabelClick *l = new LabelClick;
+				CustomLabel *l = new CustomLabel;
 				l->setCursor(Qt::PointingHandCursor);
 				l->setText("<b>" + labels.at(i) + "</b>");
 				connect(l, SIGNAL(clicked()), this, SLOT(gpsClick()));
@@ -853,8 +853,3 @@ void Exif::paintEvent(QPaintEvent *) {
 
 Exif::~Exif() { }
 
-
-
-void LabelClick::mouseReleaseEvent(QMouseEvent *) {
-	emit clicked();
-}

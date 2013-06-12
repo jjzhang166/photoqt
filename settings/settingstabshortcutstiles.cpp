@@ -51,7 +51,7 @@ ShortcutsTiles::ShortcutsTiles(QString exeCmd, QString exeDesc, QString category
 	}
 
 	// The back label is the same no matter what type
-	back = new Label(exeDesc);
+	back = new CustomLabel(exeDesc);
 	back->setTextFormat(Qt::PlainText);
 	back->setAlignment(Qt::AlignCenter);
 	back->setStyleSheet("background: transparent");
@@ -74,7 +74,7 @@ ShortcutsTiles::ShortcutsTiles(QString exeCmd, QString exeDesc, QString category
 	} else if(type == "exist") {
 
 		// The shortcut button is only shown for type "exist"
-		shortcut = new Label("<" + tr("key") + ">");
+		shortcut = new CustomLabel("<" + tr("key") + ">");
 		shortcut->setTextFormat(Qt::PlainText);
 		shortcut->setAlignment(Qt::AlignCenter);
 		shortcut->setStyleSheet("background: transparent; font-size: 7pt;");
@@ -187,15 +187,3 @@ void ShortcutsTiles::paintEvent(QPaintEvent *) {
 }
 
 ShortcutsTiles::~ShortcutsTiles() { }
-
-
-
-Label::Label(QString txt, QWidget *parent) : QLabel(txt, parent) {
-	this->setWordWrap(true);
-}
-
-Label::~Label() { }
-
-void Label::mouseReleaseEvent(QMouseEvent *) {
-	emit clicked();
-}
