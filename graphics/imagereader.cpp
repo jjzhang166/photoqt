@@ -41,6 +41,7 @@ QImage ImageReader::readImage(QString filename, int rotation, bool zoomed, QSize
 
 #ifdef WITH_GRAPHICSMAGICK
 	Magick::Image image;
+	QString faultyImage = "";
 #endif
 
 	QImageReader reader;
@@ -84,16 +85,20 @@ QImage ImageReader::readImage(QString filename, int rotation, bool zoomed, QSize
 			std::cerr << "[read] CODER WARNING: " << warning.what() << std::endl;
 		} catch( Magick::ErrorFileOpen &error ) {
 			std::cerr << "[read] ERROR opening file: " << error.what() << std::endl;
+			faultyImage = error.what();
 		} catch(Magick::ErrorMissingDelegate &error) {
 			std::cerr << "[read] DELEGATE ERROR: " << error.what() << std::endl;
+			faultyImage = error.what();
 		} catch(Magick::WarningCorruptImage &error) {
 			std::cerr << "[read] CORUPT IMAGE: " << error.what() << std::endl;
 		} catch( Magick::Warning &warning ) {
 			std::cerr << "[read] WARNING: " << warning.what() << std::endl;
 		} catch(Magick::Exception &error) {
 			std::cerr << "[read] ERROR: " << error.what() << std::endl;
+			faultyImage = error.what();
 		} catch( ... ) {
 			std::cerr << "[read] CRITICAL ERROR: unknown reason" << std::endl;
+			faultyImage = "unknown error";
 		}
 
 		readerWidth = image.columns();
@@ -106,63 +111,12 @@ QImage ImageReader::readImage(QString filename, int rotation, bool zoomed, QSize
 			std::cerr << "[format] ERROR: " << warning.what() << std::endl;
 		} catch(Magick::Exception &error) {
 			std::cerr << "[format] ERROR: " << error.what() << std::endl;
+			faultyImage = error.what();
 		} catch(...) {
 			std::cerr << "[format] ERROR: unknown error" << std::endl;
+			faultyImage = "unknown error";
 		}
 
-
-		/*
-		 *try {
-     // Construct an image instance first so that we don't have to worry
-     // about object construction failure due to a minor warning exception
-     // being thrown.
-     Magick::Image image;
-     try {
-       // Try reading image file
-       image.read(infile);
-     }
-     catch( Magick::WarningCoder &warning )
-     {
-       // Process coder warning while loading file (e.g. TIFF warning)
-       // Maybe the user will be interested in these warnings (or not).
-       // If a warning is produced while loading an image, the image
-       // can normally still be used (but not if the warning was about
-       // something important!)
-       cerr << “Coder Warning: “ << warning.what() << endl;
-     }
-     catch( Magick::Warning &warning )
-     {
-       // Handle any other Magick++ warning.
-       cerr << “Warning: “ << warning.what() << endl;
-     }
-     catch( Magick::ErrorFileOpen &error )
-     {
-       // Process Magick++ file open error
-       cerr << “Error: “ << error.what() << endl;
-       continue; // Try next image.
-     }
-     try {
-       image.rotate(90);
-       image.write(“outfile”);
-     }
-     catch ( MagickExeption & error)
-     {
-	// Handle problem while rotating or writing outfile.
-	cerr << “Caught Magick++ exception: “ << error.what() << endl;
-     }
-   }
-   catch( std::exception &error )
-   {
-      // Process any other exceptions derived from standard C++ exception
-      cerr << “Caught C++ STD exception: “ << error.what() << endl;
-   }
-   catch( ... )
-   {
-     // Process *any* exception (last-ditch effort). There is not a lot
-     // you can do here other to retry the operation that failed, or exit
-     // the program.
-   }
-   */
 #endif
 
 	}
@@ -179,8 +133,6 @@ QImage ImageReader::readImage(QString filename, int rotation, bool zoomed, QSize
 		dispHeight = tmp;
 	}
 
-//	qDebug() << "D1:" << dispWidth << "-" << dispHeight;
-
 
 	// Calculate the factor by which the main image (view) has to be zoomed
 	float q = 1;
@@ -190,8 +142,6 @@ QImage ImageReader::readImage(QString filename, int rotation, bool zoomed, QSize
 			dispWidth *= q;
 			dispHeight *= q;
 	}
-
-//	qDebug() << "D2:" << dispWidth << "-" << dispHeight;
 
 	if(zoomed)
 		scaleImg1 = q;
@@ -205,10 +155,7 @@ QImage ImageReader::readImage(QString filename, int rotation, bool zoomed, QSize
 		dispHeight *= q;
 	}
 
-//	qDebug() << "D3:" << dispWidth << "-" << dispHeight;
-
 	if(zoomed && dispWidth < maxSize.width())
-//	if(zoomed)
 		scaleImg2 = q;
 	else
 		scaleImg2 = -1;
@@ -255,15 +202,35 @@ QImage ImageReader::readImage(QString filename, int rotation, bool zoomed, QSize
 				std::cerr << "CAUGHT Magick++ WARNING: " << warning.what() << std::endl;
 			} catch(Magick::Exception &error) {
 				std::cerr << "CAUGHT Magick++ EXCEPTION: " << error.what() << std::endl;
+				faultyImage = error.what();
 			} catch(std::exception &error) {
 				std::cerr << "CAUGHT C++ STD EXCEPTION: " << error.what() << std::endl;
+				faultyImage = error.what();
 			} catch( ... ) {
 				std::cerr << "CRITICAL ERROR: unknown reason" << std::endl;
+				faultyImage = "unknown error";
 			}
 		}
-		// Passing Image Buffer to a QPixmap
-		const QByteArray imgData ((char*)(blob.data()));
-		img.loadFromData(imgData);
+
+		if(faultyImage == "") {
+
+			// Passing Image Buffer to a QPixmap
+			const QByteArray imgData ((char*)(blob.data()));
+			img.loadFromData(imgData);
+
+		} else {
+
+			QPixmap pix(":/img/plainerrorimg.png");
+			QPainter paint(&pix);
+			QTextDocument txt;
+			txt.setHtml("<center><div style=\"text-align: center; font-size: 12pt; font-wight: bold; color: white; background: none;\">ERROR LOADING IMAGE<br><br><bR>" + faultyImage + "</div></center>");
+			paint.translate(100,150);
+			txt.setTextWidth(440);
+			txt.drawContents(&paint);
+			paint.end();
+			img = pix.toImage();
+
+		}
 
 #endif
 

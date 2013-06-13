@@ -48,5 +48,6 @@
         <file>img/firstSmall.png</file>
         <file>img/lastSmall.png</file>
         <file>img/slideshow.png</file>
+        <file>img/plainerrorimg.png</file>
     </qresource>
 </RCC>

@@ -5,8 +5,8 @@
 #include <QImage>
 #include <QImageReader>
 #include <QtDebug>
-
-#include <QMessageBox>
+#include <QPainter>
+#include <QTextDocument>
 
 #ifdef WITH_GRAPHICSMAGICK
 #include <GraphicsMagick/Magick++/Image.h>
