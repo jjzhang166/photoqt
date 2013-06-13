@@ -86,7 +86,7 @@ void Settings::setupTabs() {
 		// Add the tabs
 		tabs->addTab(tabLookFeel, QIcon(), tr("Look and Feel"));
 		tabs->addTab(tabThumb, QIcon(), tr("Thumbnails"));
-		tabs->addTab(tabExif, QIcon(), tr("Exif"));
+		tabs->addTab(tabExif, QIcon(), tr("Details"));
 		tabs->addTab(tabOther, QIcon(), tr("Other Settings"));
 		tabs->addTab(tabShortcuts, QIcon(), tr("Shortcuts"));
 		connect(tabs, SIGNAL(currentChanged(int)), this, SLOT(tabChanged()));

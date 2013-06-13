@@ -12,7 +12,7 @@
 #include "settings/settings.h"
 #include "widgets/dropdownmenu.h"
 #include "widgets/filehandling.h"
-#include "widgets/exifwidget.h"
+#include "widgets/detailswidget.h"
 #include "slideshow/slideshowsettings.h"
 #include "slideshow/slideshowbar.h"
 #include "widgets/startupwidget.h"
@@ -20,8 +20,6 @@
 #include "graphics/imagereader.h"
 #include "setupwidgets.h"
 #include "graphics/graphicsviewlay.h"
-
-#include "application.h"
 
 //#include <QApplication>
 #include <QDesktopWidget>
@@ -113,7 +111,7 @@ private:
 	SlideShowBar *slideshowbar;
 
 	// Showing some exif information
-	Exif *exif;
+	Details *details;
 
 	// The timer that ensures only one instance of Photo is running a time
 	QTimer *globalRunningProgTimer;

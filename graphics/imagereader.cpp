@@ -1,5 +1,7 @@
 #include "imagereader.h"
 
+#include <iostream>
+
 ImageReader::ImageReader() : QObject() {
 
 }
@@ -75,17 +77,92 @@ QImage ImageReader::readImage(QString filename, int rotation, bool zoomed, QSize
 
 #ifdef WITH_GRAPHICSMAGICK
 
-		qDebug() << "BEFORE";
-
-		image.read(filename.toAscii().data());
-
-		qDebug() << "AFTER";
+		try {
+			image.read(filename.toAscii().data());
+		} catch( Magick::WarningCoder &warning ) {
+			// Process coder warning while loading file
+			std::cerr << "[read] CODER WARNING: " << warning.what() << std::endl;
+		} catch( Magick::ErrorFileOpen &error ) {
+			std::cerr << "[read] ERROR opening file: " << error.what() << std::endl;
+		} catch(Magick::ErrorMissingDelegate &error) {
+			std::cerr << "[read] DELEGATE ERROR: " << error.what() << std::endl;
+		} catch(Magick::WarningCorruptImage &error) {
+			std::cerr << "[read] CORUPT IMAGE: " << error.what() << std::endl;
+		} catch( Magick::Warning &warning ) {
+			std::cerr << "[read] WARNING: " << warning.what() << std::endl;
+		} catch(Magick::Exception &error) {
+			std::cerr << "[read] ERROR: " << error.what() << std::endl;
+		} catch( ... ) {
+			std::cerr << "[read] CRITICAL ERROR: unknown reason" << std::endl;
+		}
 
 		readerWidth = image.columns();
 		readerHeight = image.rows();
 
 		origSize = QSize(readerWidth,readerHeight);
-		fileformat = QString::fromStdString(image.format());
+		try {
+			fileformat = QString::fromStdString(image.format());
+		} catch(Magick::Warning &warning) {
+			std::cerr << "[format] ERROR: " << warning.what() << std::endl;
+		} catch(Magick::Exception &error) {
+			std::cerr << "[format] ERROR: " << error.what() << std::endl;
+		} catch(...) {
+			std::cerr << "[format] ERROR: unknown error" << std::endl;
+		}
+
+
+		/*
+		 *try {
+     // Construct an image instance first so that we don't have to worry
+     // about object construction failure due to a minor warning exception
+     // being thrown.
+     Magick::Image image;
+     try {
+       // Try reading image file
+       image.read(infile);
+     }
+     catch( Magick::WarningCoder &warning )
+     {
+       // Process coder warning while loading file (e.g. TIFF warning)
+       // Maybe the user will be interested in these warnings (or not).
+       // If a warning is produced while loading an image, the image
+       // can normally still be used (but not if the warning was about
+       // something important!)
+       cerr << “Coder Warning: “ << warning.what() << endl;
+     }
+     catch( Magick::Warning &warning )
+     {
+       // Handle any other Magick++ warning.
+       cerr << “Warning: “ << warning.what() << endl;
+     }
+     catch( Magick::ErrorFileOpen &error )
+     {
+       // Process Magick++ file open error
+       cerr << “Error: “ << error.what() << endl;
+       continue; // Try next image.
+     }
+     try {
+       image.rotate(90);
+       image.write(“outfile”);
+     }
+     catch ( MagickExeption & error)
+     {
+	// Handle problem while rotating or writing outfile.
+	cerr << “Caught Magick++ exception: “ << error.what() << endl;
+     }
+   }
+   catch( std::exception &error )
+   {
+      // Process any other exceptions derived from standard C++ exception
+      cerr << “Caught C++ STD exception: “ << error.what() << endl;
+   }
+   catch( ... )
+   {
+     // Process *any* exception (last-ditch effort). There is not a lot
+     // you can do here other to retry the operation that failed, or exit
+     // the program.
+   }
+   */
 #endif
 
 	}
@@ -164,18 +241,30 @@ QImage ImageReader::readImage(QString filename, int rotation, bool zoomed, QSize
 
 #ifdef WITH_GRAPHICSMAGICK
 
-		if(!zoomed && !dontscale)
-			image.zoom(Magick::Geometry(QString("%1x%2").arg(dispWidth).arg(dispHeight).toStdString()));
-//					image.resize(Magick::Geometry(QString("%1x%2").arg(dispWidth).arg(dispHeight).toStdString()));
 
 		Magick::Blob blob;
-		image.depth(8);
-		image.magick("XPM"); // Set XPM
-		image.write( &blob );
 
+		if(!zoomed && !dontscale) {
+
+			try {
+				image.zoom(Magick::Geometry(QString("%1x%2").arg(dispWidth).arg(dispHeight).toStdString()));
+				image.depth(8);
+				image.magick("XPM"); // Set XPM
+				image.write( &blob );
+			} catch(Magick::Warning &warning) {
+				std::cerr << "CAUGHT Magick++ WARNING: " << warning.what() << std::endl;
+			} catch(Magick::Exception &error) {
+				std::cerr << "CAUGHT Magick++ EXCEPTION: " << error.what() << std::endl;
+			} catch(std::exception &error) {
+				std::cerr << "CAUGHT C++ STD EXCEPTION: " << error.what() << std::endl;
+			} catch( ... ) {
+				std::cerr << "CRITICAL ERROR: unknown reason" << std::endl;
+			}
+		}
 		// Passing Image Buffer to a QPixmap
 		const QByteArray imgData ((char*)(blob.data()));
 		img.loadFromData(imgData);
+
 #endif
 
 	}

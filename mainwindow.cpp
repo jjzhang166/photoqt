@@ -102,11 +102,11 @@ MainWindow::MainWindow(QWidget *parent, bool verbose) : QMainWindow(parent) {
 //	imagemanip = new ImageManip(viewBig);
 
 	// The exif widget
-	exif = new Exif(viewBig,globSet->toSignalOut());
-	connect(exif, SIGNAL(updateSettings(QMap<QString,QVariant>)), globSet, SLOT(settingsUpdated(QMap<QString,QVariant>)));
+	details = new Details(viewBig,globSet->toSignalOut());
+	connect(details, SIGNAL(updateSettings(QMap<QString,QVariant>)), globSet, SLOT(settingsUpdated(QMap<QString,QVariant>)));
 #ifdef WITH_EXIV2
-	connect(exif, SIGNAL(setOrientation(int,bool)), this, SLOT(getOrientationFromExif(int,bool)));
-	connect(exif->rotConf, SIGNAL(blockFunc(bool)), this, SLOT(blockFunc(bool)));
+	connect(details, SIGNAL(setOrientation(int,bool)), this, SLOT(getOrientationFromExif(int,bool)));
+	connect(details->rotConf, SIGNAL(blockFunc(bool)), this, SLOT(blockFunc(bool)));
 #endif
 
 
@@ -191,7 +191,7 @@ void MainWindow::adjustGeometries() {
 
 
 	// exif and set are always setup (the tabs in set aren't initially)
-	exif->setRect(fullscreen);
+	details->setRect(fullscreen);
 	set->setRect(fullscreen);
 
 
@@ -452,11 +452,11 @@ void MainWindow::drawImage() {
 				// If supported, load exiv2 data
 				if(formats.contains(fileformat))
 					// Update the exif data widget
-					exif->updateData(globVar->currentfile,origSize);
+					details->updateData(globVar->currentfile,origSize);
 				// Otherwise set exiv2 to "unsupported"
 				else
 					// Update the exif data widget
-					exif->updateData(globVar->currentfile,origSize,false);
+					details->updateData(globVar->currentfile,origSize,false);
 
 			}
 
@@ -777,7 +777,7 @@ void MainWindow::menuClicked(QString txt, int close) {
 	if(close) menu->animate();
 
 	if(txt == "hideMeta") {
-		menu->allItems["hideMeta"]->setText(exif->isVisible() ? tr("Show Details") : tr("Hide Details"));
+		menu->allItems["hideMeta"]->setText(details->isVisible() ? tr("Show Details") : tr("Hide Details"));
 		menu->allItems["hideMeta"]->setIcon(":/img/exif.png");
 	}
 
@@ -842,14 +842,14 @@ void MainWindow::mouseMoved(int x, int y) {
 
 
 		// Animate exif widget
-		if(x < 10*globSet->menusensitivity && y > exif->y()-3*globSet->menusensitivity && y < exif->y()+exif->height()+globSet->menusensitivity*3 && !exif->isVisible() && globSet->exifenablemousetriggering) {
-			exif->makeShow();
+		if(x < 10*globSet->menusensitivity && y > details->y()-3*globSet->menusensitivity && y < details->y()+details->height()+globSet->menusensitivity*3 && !details->isVisible() && globSet->exifenablemousetriggering) {
+			details->makeShow();
 			menu->allItems["hideMeta"]->setText(tr("Hide Details"));
 			menu->allItems["hideMeta"]->setIcon(":/img/exif.png");
 		}
 
-		if((x > exif->width()+10*globSet->menusensitivity || y < exif->y()-3*globSet->menusensitivity || y > exif->y()+exif->height()+3*globSet->menusensitivity) && exif->isVisible() && !exif->stay->isChecked()) {
-			exif->makeHide();
+		if((x > details->width()+10*globSet->menusensitivity || y < details->y()-3*globSet->menusensitivity || y > details->y()+details->height()+3*globSet->menusensitivity) && details->isVisible() && !details->stay->isChecked()) {
+			details->makeHide();
 			menu->allItems["hideMeta"]->setText(tr("Show Details"));
 			menu->allItems["hideMeta"]->setIcon(":/img/exif.png");
 		}
@@ -1612,12 +1612,12 @@ void MainWindow::shortcutDO(QString key, bool mouseSH) {
 				filehandling->openDialog("move");
 			}
 			if(key == "__hideMeta") {
-				if(!exif->isVisible()) {
-					exif->stay->setChecked(true);
-					exif->makeShow();
+				if(!details->isVisible()) {
+					details->stay->setChecked(true);
+					details->makeShow();
 				} else {
-					exif->stay->setChecked(false);
-					exif->makeHide();
+					details->stay->setChecked(false);
+					details->makeHide();
 				}
 			}
 			if(key == "__gotoFirstThb")
@@ -1776,8 +1776,8 @@ void MainWindow::startSlideShow() {
 	// Hide these possibly shown widgets
 	if(viewThumbs->isVisible())
 		viewThumbs->makeHide();
-	if(exif->isVisible())
-		exif->makeHide();
+	if(details->isVisible())
+		details->makeHide();
 	if(menu->isVisible())
 		menu->makeHide();
 
@@ -1898,12 +1898,12 @@ void MainWindow::systemShortcutDO(QString todo) {
 		}
 
 #ifdef WITH_EXIV2
-		if(exif->rotConf->isShown) {
+		if(details->rotConf->isShown) {
 
 			if(todo == "Enter" || todo == "Return")
-				exif->rotConf->yes->animateClick();
+				details->rotConf->yes->animateClick();
 			else if(todo == "Escape")
-				exif->rotConf->no->animateClick();
+				details->rotConf->no->animateClick();
 
 		}
 #endif
@@ -2001,8 +2001,8 @@ void MainWindow::updateSettings(QMap<QString, QVariant> settings) {
 		set->tabOther->globSet = settings;
 	}
 
-	exif->globSet = settings;
-	exif->updateFontsize();
+	details->globSet = settings;
+	details->updateFontsize();
 
 	graphItem->transitionSetChange(globSet->transition);
 

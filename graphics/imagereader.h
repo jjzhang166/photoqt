@@ -6,6 +6,8 @@
 #include <QImageReader>
 #include <QtDebug>
 
+#include <QMessageBox>
+
 #ifdef WITH_GRAPHICSMAGICK
 #include <GraphicsMagick/Magick++/Image.h>
 #endif

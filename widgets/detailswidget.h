@@ -28,13 +28,13 @@
 #endif
 
 // This class provides a widget for displaying meta (Exif) information
-class Exif : public QWidget {
+class Details : public QWidget {
 
 	Q_OBJECT
 
 public:
-	Exif(QWidget *parent = 0, QMap<QString,QVariant> set = QMap<QString,QVariant>(), bool verbose = false);
-	~Exif();
+	Details(QWidget *parent = 0, QMap<QString,QVariant> set = QMap<QString,QVariant>(), bool verbose = false);
+	~Details();
 
 	bool verbose;
 

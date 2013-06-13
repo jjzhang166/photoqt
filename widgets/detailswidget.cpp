@@ -1,7 +1,7 @@
-#include "exifwidget.h"
+#include "detailswidget.h"
 
 // This class provides a widget for displaying meta (Exif) information
-Exif::Exif(QWidget *parent, QMap<QString, QVariant> set, bool v): QWidget(parent) {
+Details::Details(QWidget *parent, QMap<QString, QVariant> set, bool v): QWidget(parent) {
 
 	verbose = v;
 
@@ -165,7 +165,7 @@ Exif::Exif(QWidget *parent, QMap<QString, QVariant> set, bool v): QWidget(parent
 }
 
 // Setup the labels
-void Exif::setupLabels() {
+void Details::setupLabels() {
 
 	if(verbose) qDebug() << "exif: setting up labels";
 
@@ -305,7 +305,7 @@ void Exif::setupLabels() {
 }
 
 // Update the labels data
-void Exif::updateData(QString currentfile, QSize origSize, bool exiv2Supported) {
+void Details::updateData(QString currentfile, QSize origSize, bool exiv2Supported) {
 
 	if(verbose) qDebug() << "exif: Updating data:" << currentfile << "-" << origSize << "-" << exiv2Supported;
 
@@ -584,7 +584,7 @@ void Exif::updateData(QString currentfile, QSize origSize, bool exiv2Supported) 
 #ifdef WITH_EXIV2
 
 // Format exposure time
-QString Exif::exifExposureTime(QString value) {
+QString Details::exifExposureTime(QString value) {
 
 	QString temp = value;
 
@@ -616,7 +616,7 @@ QString Exif::exifExposureTime(QString value) {
 }
 
 // Format Focal Length
-QString Exif::exifFNumberFLength(QString value) {
+QString Details::exifFNumberFLength(QString value) {
 
 	QString temp = value;
 
@@ -635,7 +635,7 @@ QString Exif::exifFNumberFLength(QString value) {
 }
 
 // Format time the photo was taken
-QString Exif::exifPhotoTaken(QString value) {
+QString Details::exifPhotoTaken(QString value) {
 
 	QString temp = value;
 
@@ -651,7 +651,7 @@ QString Exif::exifPhotoTaken(QString value) {
 }
 
 // Compose GPS data
-QString Exif::exifGps(QString gpsLonRef, QString gpsLon, QString gpsLatRef, QString gpsLat) {
+QString Details::exifGps(QString gpsLonRef, QString gpsLon, QString gpsLatRef, QString gpsLat) {
 
 	QString temp = gpsLat + " " + gpsLatRef + ", " + gpsLon + " " + gpsLonRef;
 
@@ -689,7 +689,7 @@ QString Exif::exifGps(QString gpsLonRef, QString gpsLon, QString gpsLatRef, QStr
 }
 
 // Click on yes
-void Exif::rotConfYes() {
+void Details::rotConfYes() {
 
 	if(verbose) qDebug() << "exif: rotation confirmed";
 
@@ -704,7 +704,7 @@ void Exif::rotConfYes() {
 }
 
 // Click on no
-void Exif::rotConfNo() {
+void Details::rotConfNo() {
 
 	if(verbose) qDebug() << "exif: rotation cancelled";
 
@@ -718,15 +718,15 @@ void Exif::rotConfNo() {
 
 #endif
 
-void Exif::makeShow() {
+void Details::makeShow() {
 	if(!isShown) animate();
 }
 
-void Exif::makeHide() {
+void Details::makeHide() {
 	if(isShown) animate();
 }
 
-void Exif::setRect(QRect rect) {
+void Details::setRect(QRect rect) {
 #ifdef WITH_EXIV2
 	rotConf->setRect(rect);
 #endif
@@ -734,7 +734,7 @@ void Exif::setRect(QRect rect) {
 }
 
 // Animate open/close the widget
-void Exif::animate() {
+void Details::animate() {
 
 	if(verbose) qDebug() << "exif: Animate";
 
@@ -767,7 +767,7 @@ void Exif::animate() {
 }
 
 // Adjust the height of the widget
-void Exif::adjustHeight() {
+void Details::adjustHeight() {
 
 	// The height depends on the amount of labels shown
 	int count = 4;
@@ -795,7 +795,7 @@ void Exif::adjustHeight() {
 
 #ifdef WITH_EXIV2
 // Click on GPS location (opens in online map (google/bing))
-void Exif::gpsClick() {
+void Details::gpsClick() {
 
 	if(verbose) qDebug() << "exif: Click on GPS";
 
@@ -826,7 +826,7 @@ void Exif::gpsClick() {
 #endif
 
 // Change the fontsize of all the labels
-void Exif::updateFontsize() {
+void Details::updateFontsize() {
 
 	labelCSSfontsize = QString("font-size: %1pt;").arg((globSet.value("ExifFontSize").toInt()));
 
@@ -843,7 +843,7 @@ void Exif::updateFontsize() {
 
 
 // Make the widget styleable
-void Exif::paintEvent(QPaintEvent *) {
+void Details::paintEvent(QPaintEvent *) {
 	QStyleOption o;
 	o.initFrom(this);
 	QPainter p(this);
@@ -851,5 +851,5 @@ void Exif::paintEvent(QPaintEvent *) {
 }
 
 
-Exif::~Exif() { }
+Details::~Details() { }
 

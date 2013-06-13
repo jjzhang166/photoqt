@@ -22,7 +22,7 @@ SettingsTabExif::SettingsTabExif(QWidget *parent, QMap<QString, QVariant> set, b
 	scroll->setVerticalScrollBar(scrollbar);
 
 	// The title labels, explaining what can be done here
-	QLabel *title = new QLabel("<center><h1>" + tr("Exif Information") + "</h1></center>" + tr("PhotoQt can display meta (exif) information for images. The widget for this information is on the left outside the screen and slides in when mouse gets close to it and/or when the set shortcut (default Ctrl+E) is triggered. On demand, the triggering by mouse movement can be disabled by checking the box below."));
+	QLabel *title = new QLabel("<center><h1>" + tr("Image Details and Information") + "</h1></center>" + tr("PhotoQt can display different information of and about each image. The widget for this information is on the left outside the screen and slides in when mouse gets close to it and/or when the set shortcut (default Ctrl+E) is triggered. On demand, the triggering by mouse movement can be disabled by checking the box below."));
 	title->setWordWrap(true);
 	lay->addSpacing(10);
 	lay->addWidget(title);
@@ -37,7 +37,7 @@ SettingsTabExif::SettingsTabExif(QWidget *parent, QMap<QString, QVariant> set, b
 	QHBoxLayout *extTrigLay = new QHBoxLayout;
 	extTrigLay->addWidget(extTrig);
 	extTrigLay->addStretch();
-	QLabel *triggerOnMouseLabel = new QLabel("<b><span style=\"font-size: 12pt\">" + tr("Trigger Widget on Mouse Hovering") + "</span></b><br><br>" + tr("Per default the exif widget can be shown two ways: Moving the mouse cursor to the left screen edge to fade it in temporarily (as long as the mouse is hovering it), or permanently by clicking the checkbox (checkbox only stored per session, can't be saved permanently!). Alternatively the widget can also be triggered by shortcut. On demand the mouse triggering can be disabled, so that the widget would only show on shortcut. This can come in handy, if you get annoyed by accidentally opening the widget occasionally."));
+	QLabel *triggerOnMouseLabel = new QLabel("<b><span style=\"font-size: 12pt\">" + tr("Trigger Widget on Mouse Hovering") + "</span></b><br><br>" + tr("Per default the info widget can be shown two ways: Moving the mouse cursor to the left screen edge to fade it in temporarily (as long as the mouse is hovering it), or permanently by clicking the checkbox (checkbox only stored per session, can't be saved permanently!). Alternatively the widget can also be triggered by shortcut. On demand the mouse triggering can be disabled, so that the widget would only show on shortcut. This can come in handy, if you get annoyed by accidentally opening the widget occasionally."));
 	triggerOnMouseLabel->setWordWrap(true);
 	triggerOnMouse = new CustomCheckBox(tr("Turn mouse triggering OFF"));
 	QHBoxLayout *triggerLay = new QHBoxLayout;
@@ -57,7 +57,7 @@ SettingsTabExif::SettingsTabExif(QWidget *parent, QMap<QString, QVariant> set, b
 
 
 
-	QLabel *whichItemShown = new QLabel("<b><span style=\"font-size: 12pt\">" + tr("Which items are shown?") + "</span></b><br><br>" + tr("PhotoQt can display a number of exif information. However, you might not be interested in some of them, hence you can choose to disable some of them here."));
+	QLabel *whichItemShown = new QLabel("<b><span style=\"font-size: 12pt\">" + tr("Which items are shown?") + "</span></b><br><br>" + tr("PhotoQt can display a number of information about the image (often called 'Exif data''). However, you might not be interested in all of them, hence you can choose to disable some of them here."));
 	whichItemShown->setWordWrap(true);
 	lay->addWidget(whichItemShown);
 	lay->addSpacing(10);
@@ -197,7 +197,7 @@ SettingsTabExif::SettingsTabExif(QWidget *parent, QMap<QString, QVariant> set, b
 
 
 	// ALWAYS/NEVER/POSSIBLY ROTATE/FLIP ACCORDING TO EXIF DATA
-	QLabel *rotateFlipLabel = new QLabel("<b><span style=\"font-size: 12pt\">" + tr("Rotating/Flipping Image according to Exif Info") + "</span></b><br><br>" + tr("Some cameras can detect - while taking the photo - whether the camera was turned and might store this information in the image exif data. If PhotoQt finds this information, it can rotate the image accordingly. Per default it's not doing it, but it can be enabled here as desired."));
+	QLabel *rotateFlipLabel = new QLabel("<b><span style=\"font-size: 12pt\">" + tr("Rotating/Flipping Image according to Exif Data") + "</span></b><br><br>" + tr("Some cameras can detect - while taking the photo - whether the camera was turned and might store this information in the image exif data. If PhotoQt finds this information, it can rotate the image accordingly. Per default it's not doing it, but it can be enabled here as desired."));
 	rotateFlipLabel->setWordWrap(true);
 	QButtonGroup *groupRot = new QButtonGroup;
 	exifRotNev = new CustomRadioButton(tr("Never rotate images"));
