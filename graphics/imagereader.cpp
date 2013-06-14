@@ -80,21 +80,13 @@ QImage ImageReader::readImage(QString filename, int rotation, bool zoomed, QSize
 
 		try {
 			image.read(filename.toAscii().data());
-		} catch( Magick::WarningCoder &warning ) {
-			// Process coder warning while loading file
-			std::cerr << "[read] CODER WARNING: " << warning.what() << std::endl;
-		} catch( Magick::ErrorFileOpen &error ) {
-			std::cerr << "[read] ERROR opening file: " << error.what() << std::endl;
-			faultyImage = error.what();
-		} catch(Magick::ErrorMissingDelegate &error) {
-			std::cerr << "[read] DELEGATE ERROR: " << error.what() << std::endl;
-			faultyImage = error.what();
-		} catch(Magick::WarningCorruptImage &error) {
-			std::cerr << "[read] CORUPT IMAGE: " << error.what() << std::endl;
 		} catch( Magick::Warning &warning ) {
 			std::cerr << "[read] WARNING: " << warning.what() << std::endl;
 		} catch(Magick::Exception &error) {
 			std::cerr << "[read] ERROR: " << error.what() << std::endl;
+			faultyImage = error.what();
+		} catch(std::exception &error) {
+			std::cerr << "CAUGHT C++ STD EXCEPTION: " << error.what() << std::endl;
 			faultyImage = error.what();
 		} catch( ... ) {
 			std::cerr << "[read] CRITICAL ERROR: unknown reason" << std::endl;
@@ -104,17 +96,23 @@ QImage ImageReader::readImage(QString filename, int rotation, bool zoomed, QSize
 		readerWidth = image.columns();
 		readerHeight = image.rows();
 
-		origSize = QSize(readerWidth,readerHeight);
-		try {
-			fileformat = QString::fromStdString(image.format());
-		} catch(Magick::Warning &warning) {
-			std::cerr << "[format] ERROR: " << warning.what() << std::endl;
-		} catch(Magick::Exception &error) {
-			std::cerr << "[format] ERROR: " << error.what() << std::endl;
-			faultyImage = error.what();
-		} catch(...) {
-			std::cerr << "[format] ERROR: unknown error" << std::endl;
-			faultyImage = "unknown error";
+		if(faultyImage == "") {
+
+			origSize = QSize(readerWidth,readerHeight);
+			try {
+				fileformat = QString::fromStdString(image.format());
+			} catch(Magick::Warning &warning) {
+				std::cerr << "[format] ERROR: " << warning.what() << std::endl;
+			} catch(Magick::Exception &error) {
+				std::cerr << "[format] ERROR: " << error.what() << std::endl;
+				faultyImage = error.what();
+			} catch(std::exception &error) {
+				std::cerr << "CAUGHT C++ STD EXCEPTION: " << error.what() << std::endl;
+				faultyImage = error.what();
+			} catch(...) {
+				std::cerr << "[format] ERROR: unknown error" << std::endl;
+				faultyImage = "unknown error";
+			}
 		}
 
 #endif
@@ -191,28 +189,29 @@ QImage ImageReader::readImage(QString filename, int rotation, bool zoomed, QSize
 
 		Magick::Blob blob;
 
-		if(!zoomed && !dontscale) {
-
-			try {
-				image.zoom(Magick::Geometry(QString("%1x%2").arg(dispWidth).arg(dispHeight).toStdString()));
-				image.depth(8);
-				image.magick("XPM"); // Set XPM
-				image.write( &blob );
-			} catch(Magick::Warning &warning) {
-				std::cerr << "CAUGHT Magick++ WARNING: " << warning.what() << std::endl;
-			} catch(Magick::Exception &error) {
-				std::cerr << "CAUGHT Magick++ EXCEPTION: " << error.what() << std::endl;
-				faultyImage = error.what();
-			} catch(std::exception &error) {
-				std::cerr << "CAUGHT C++ STD EXCEPTION: " << error.what() << std::endl;
-				faultyImage = error.what();
-			} catch( ... ) {
-				std::cerr << "CRITICAL ERROR: unknown reason" << std::endl;
-				faultyImage = "unknown error";
-			}
-		}
-
 		if(faultyImage == "") {
+
+			if(!zoomed && !dontscale) {
+
+				try {
+					image.zoom(Magick::Geometry(QString("%1x%2").arg(dispWidth).arg(dispHeight).toStdString()));
+					image.depth(8);
+					image.magick("XPM"); // Set XPM
+					image.write( &blob );
+				} catch(Magick::Warning &warning) {
+					std::cerr << "CAUGHT Magick++ WARNING: " << warning.what() << std::endl;
+				} catch(Magick::Exception &error) {
+					std::cerr << "CAUGHT Magick++ EXCEPTION: " << error.what() << std::endl;
+					faultyImage = error.what();
+				} catch(std::exception &error) {
+					std::cerr << "CAUGHT C++ STD EXCEPTION: " << error.what() << std::endl;
+					faultyImage = error.what();
+				} catch( ... ) {
+					std::cerr << "CRITICAL ERROR: unknown reason" << std::endl;
+					faultyImage = "unknown error";
+				}
+			}
+
 
 			// Passing Image Buffer to a QPixmap
 			const QByteArray imgData ((char*)(blob.data()));
