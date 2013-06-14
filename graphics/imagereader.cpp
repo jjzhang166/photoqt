@@ -79,7 +79,12 @@ QImage ImageReader::readImage(QString filename, int rotation, bool zoomed, QSize
 #ifdef WITH_GRAPHICSMAGICK
 
 		try {
+			if(QFileInfo(filename).suffix() == "x")
+				filename = "avs:" + filename;
 			image.read(filename.toAscii().data());
+		} catch( Magick::ErrorFileOpen &error ) {
+			std::cerr << "[read] ERROR: " << error.what() << std::endl;
+			faultyImage = error.what();
 		} catch( Magick::Warning &warning ) {
 			std::cerr << "[read] WARNING: " << warning.what() << std::endl;
 		} catch(Magick::Exception &error) {
@@ -195,21 +200,38 @@ QImage ImageReader::readImage(QString filename, int rotation, bool zoomed, QSize
 
 				try {
 					image.zoom(Magick::Geometry(QString("%1x%2").arg(dispWidth).arg(dispHeight).toStdString()));
-					image.depth(8);
-					image.magick("XPM"); // Set XPM
-					image.write( &blob );
+//					image.depth(8);
+//					image.magick("XPM"); // Set XPM
+//					image.write( &blob );
 				} catch(Magick::Warning &warning) {
-					std::cerr << "CAUGHT Magick++ WARNING: " << warning.what() << std::endl;
+					std::cerr << "[zoom] CAUGHT Magick++ WARNING: " << warning.what() << std::endl;
 				} catch(Magick::Exception &error) {
-					std::cerr << "CAUGHT Magick++ EXCEPTION: " << error.what() << std::endl;
+					std::cerr << "[zoom] CAUGHT Magick++ EXCEPTION: " << error.what() << std::endl;
 					faultyImage = error.what();
 				} catch(std::exception &error) {
-					std::cerr << "CAUGHT C++ STD EXCEPTION: " << error.what() << std::endl;
+					std::cerr << "[zoom] CAUGHT C++ STD EXCEPTION: " << error.what() << std::endl;
 					faultyImage = error.what();
 				} catch( ... ) {
-					std::cerr << "CRITICAL ERROR: unknown reason" << std::endl;
+					std::cerr << "[zoom] CRITICAL ERROR: unknown reason" << std::endl;
 					faultyImage = "unknown error";
 				}
+			}
+
+			try {
+				image.depth(8);
+				image.magick("XPM"); // Set XPM
+				image.write( &blob );
+			} catch(Magick::Warning &warning) {
+				std::cerr << "[blob] CAUGHT Magick++ WARNING: " << warning.what() << std::endl;
+			} catch(Magick::Exception &error) {
+				std::cerr << "[blob] CAUGHT Magick++ EXCEPTION: " << error.what() << std::endl;
+				faultyImage = error.what();
+			} catch(std::exception &error) {
+				std::cerr << "[blob] CAUGHT C++ STD EXCEPTION: " << error.what() << std::endl;
+				faultyImage = error.what();
+			} catch( ... ) {
+				std::cerr << "[blob] CRITICAL ERROR: unknown reason" << std::endl;
+				faultyImage = "unknown error";
 			}
 
 

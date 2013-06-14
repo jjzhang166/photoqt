@@ -7,6 +7,7 @@
 #include <QtDebug>
 #include <QPainter>
 #include <QTextDocument>
+#include <QFileInfo>
 
 #ifdef WITH_GRAPHICSMAGICK
 #include <GraphicsMagick/Magick++/Image.h>
