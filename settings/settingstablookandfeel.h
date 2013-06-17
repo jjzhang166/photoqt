@@ -29,6 +29,9 @@
 #include <QImageReader>
 #include <QToolTip>
 
+#include <QApplication>
+#include <QDesktopWidget>
+
 
 #include <QGraphicsEffect>
 

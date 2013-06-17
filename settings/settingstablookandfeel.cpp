@@ -30,22 +30,32 @@ SettingsTabLookAndFeel::SettingsTabLookAndFeel(QWidget *parent, QMap<QString, QV
 
 
 	// OPTION FOR COMPOSITE
-	compositeBackground = new CustomRadioButton(tr("Enable Composite"));
-	backgroundImageUseScreenshot = new CustomRadioButton(tr("Use Screenshot"));
+	compositeBackground = new CustomRadioButton(tr("Use (half-)transparent background"));
+	backgroundImageUseScreenshot = new CustomRadioButton(tr("Use faked transparency"));
 	backgroundImageUseCustom = new CustomRadioButton(tr("Use custom background image"));
-	noBackgroundImage = new CustomRadioButton(tr("Don't use either"));
-	QLabel *compositeImageLabel = new QLabel("<b><span style=\"font-size: 12pt\">" + tr("Composite or Background Image") + "</span></b><br><br>" + tr("If composite is enabled, then it causes the background of PhotoQt to be real half transparent. Of course, using composite is not a must. When disabled PhotoQt by default uses a screenshot and sets it as a background. However, this is only possible for single-screen setups. On multi-head setups you can only set either a background image (with overlay) or just set some background colour. Of course these two options are also available for setups with a single monitor only."));
+	noBackgroundImage = new CustomRadioButton(tr("Use one-colored, non-transparent background"));
+
+	QString compTxt = tr("The background of PhotoQt is the part, that is not covered by an image. It can be made either real (half-)transparent (using a compositor), or faked teransparent (instead of the actual desktop a screenshot of it is shown), or a custom background image can be set, or none of the above.");
+	if(QApplication::desktop()->numScreens() != 1) compTxt += "<br><b>" + tr("Note: When using multiple monitors, using faked transparency is not supported!");
+	QLabel *compositeImageLabel = new QLabel("<b><span style=\"font-size: 12pt\">" + tr("Background of PhotoQt") + "</span></b><br><br>" + compTxt);
 	compositeImageLabel->setWordWrap(true);
-	QHBoxLayout *compLay = new QHBoxLayout;
-	compLay->addStretch();
-	compLay->addWidget(compositeBackground);
-	compLay->addWidget(backgroundImageUseScreenshot);
-	compLay->addWidget(backgroundImageUseCustom);
-	compLay->addWidget(noBackgroundImage);
-	compLay->addStretch();
+
+	QHBoxLayout *compLay1 = new QHBoxLayout;
+	compLay1->addStretch();
+	compLay1->addWidget(compositeBackground);
+	compLay1->addWidget(backgroundImageUseScreenshot);
+	compLay1->addWidget(backgroundImageUseCustom);
+	compLay1->addStretch();
+
+	QHBoxLayout *compLay2 = new QHBoxLayout;
+	compLay2->addStretch();
+	compLay2->addWidget(noBackgroundImage);
+	compLay2->addStretch();
+
 	lay->addWidget(compositeImageLabel);
 	lay->addSpacing(10);
-	lay->addLayout(compLay);
+	lay->addLayout(compLay1);
+	lay->addLayout(compLay2);
 
 	// OPTION TO SET BACKGROUND IMAGE
 	QWidget *widgetChooseBgImg = new QWidget;

@@ -79,8 +79,7 @@ QImage ImageReader::readImage(QString filename, int rotation, bool zoomed, QSize
 #ifdef WITH_GRAPHICSMAGICK
 
 		try {
-			if(QFileInfo(filename).suffix() == "x")
-				filename = "avs:" + filename;
+			if(QFileInfo(filename).suffix() == "x" || QFileInfo(filename).suffix() == "avs") image.magick("AVS");
 			image.read(filename.toAscii().data());
 		} catch( Magick::ErrorFileOpen &error ) {
 			std::cerr << "[read] ERROR: " << error.what() << std::endl;
