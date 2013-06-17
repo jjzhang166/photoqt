@@ -259,7 +259,7 @@ void MainWindow::applySettings(QMap<QString, bool> applySet, bool justApplyAllOf
 			viewThumbs->setRect(QRect(0,viewH-thbHeight,viewW,thbHeight));
 
 			// Adjust the menu geometry
-			menu->setRect(QRect(viewW-750,0,700,350));
+			menu->setRect(QRect(viewW-450,0,300,250));
 
 
 		// If the thumbnails are supposed to be shown at the top
@@ -269,7 +269,7 @@ void MainWindow::applySettings(QMap<QString, bool> applySet, bool justApplyAllOf
 			viewThumbs->setRect(QRect(0,0,viewBig->width(),thbHeight));
 
 			// Adjust the menu geometry
-			menu->setRect(QRect(viewBig->width()-750,viewBig->height()-350,700,350));
+			menu->setRect(QRect(viewBig->width()-450,viewBig->height()-250,300,250));
 
 		}
 
