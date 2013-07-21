@@ -173,7 +173,10 @@ void SlideShowBar::animate() {
 
 
 	// Open widget
-	if(ani->state() == QPropertyAnimation::Stopped && !isShown && enabled) {
+	if(!isShown && enabled) {
+
+		if(ani->state() != QPropertyAnimation::Stopped)
+			ani->targetObject()->setProperty(ani->propertyName(),ani->endValue());
 
 		if(verbose) qDebug() << "sldb: Animate in";
 
@@ -188,7 +191,10 @@ void SlideShowBar::animate() {
 		this->raise();
 
 	// Close widget
-	} else if(ani->state() == QPropertyAnimation::Stopped && isShown) {
+	} else if(isShown) {
+
+		if(ani->state() != QPropertyAnimation::Stopped)
+			ani->targetObject()->setProperty(ani->propertyName(),ani->endValue());
 
 		if(verbose) qDebug() << "sldb: Animate out";
 

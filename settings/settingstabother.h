@@ -42,6 +42,7 @@ public:
 
 	QWidget *widgetWindow;
 	CustomCheckBox *windowMode;
+	CustomCheckBox *windowDeco;
 
 	QWidget *widgetKnown;
 	// All the known file foormats

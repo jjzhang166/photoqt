@@ -739,7 +739,10 @@ void Details::animate() {
 	if(verbose) qDebug() << "exif: Animate";
 
 	// Open widget
-	if(ani->state() == QPropertyAnimation::Stopped && !isShown) {
+	if(!isShown) {
+
+		if(ani->state() != QPropertyAnimation::Stopped)
+			ani->targetObject()->setProperty(ani->propertyName(),ani->endValue());
 
 		ani->setDuration(600);
 		isShown = true;
@@ -752,7 +755,10 @@ void Details::animate() {
 		this->raise();
 
 	// Close widget
-	} else if(ani->state() == QPropertyAnimation::Stopped && isShown) {
+	} else if(isShown) {
+
+		if(ani->state() != QPropertyAnimation::Stopped)
+			ani->targetObject()->setProperty(ani->propertyName(),ani->endValue());
 
 		ani->setDuration(500);
 		isShown = false;

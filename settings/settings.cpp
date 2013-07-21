@@ -231,7 +231,10 @@ void Settings::animate() {
 	if(verbose) qDebug() << "set: Animating";
 
 	// Open widget
-	if(ani->state() == QPropertyAnimation::Stopped && !isShown) {
+	if(!isShown) {
+
+		if(ani->state() != QPropertyAnimation::Stopped)
+			ani->targetObject()->setProperty(ani->propertyName(),ani->endValue());
 
 		ani->setDuration(600);
 		isShown = true;
@@ -246,7 +249,10 @@ void Settings::animate() {
 		this->raise();
 
 	// Close widget
-	} else if(ani->state() == QPropertyAnimation::Stopped && isShown) {
+	} else if(isShown) {
+
+		if(ani->state() != QPropertyAnimation::Stopped)
+			ani->targetObject()->setProperty(ani->propertyName(),ani->endValue());
 
 		ani->setDuration(300);
 		isShown = false;

@@ -483,6 +483,7 @@ public:
 
 
 	bool windowmode;
+	bool windowDecoration;
 
 
 
@@ -526,6 +527,7 @@ public:
 		map.insert("KnownFileTypes",knownFileTypes);
 
 		map.insert("WindowMode",windowmode);
+		map.insert("WindowDecoration",windowDecoration);
 
 		map.insert("Composite",composite);
 		map.insert("BgColorRed",bgColorRed);
@@ -604,7 +606,9 @@ public:
 
 		fileFormats = new FileFormats;
 		knownFileTypes = "*" + fileFormats->getFormats().join(",*");
+
 		windowmode = false;
+		windowDecoration = false;
 
 		language = "en";
 		bgColorRed = 0;
@@ -710,6 +714,12 @@ public:
 				windowmode = true;
 			else if(all.contains("WindowMode=0"))
 				windowmode = false;
+
+			if(all.contains("WindowDecoration=1"))
+				windowDecoration = true;
+			else if(all.contains("WindowDecoration=0"))
+				windowDecoration = false;
+
 
 			if(all.contains("Composite=1"))
 				composite = true;
@@ -979,6 +989,7 @@ public:
 			QString cont = "Version=" + version + "\n";
 			cont += QString("Language=%1\n").arg(language);
 			cont += QString("WindowMode=%1\n").arg(int(windowmode));
+			cont += QString("WindowDecoration=%1\n").arg(int(windowDecoration));
 //			cont += QString("KnownFileTypes=%1\n").arg(knownFileTypes);
 
 			fileFormats->saveFormats(knownFileTypes);
@@ -1098,6 +1109,11 @@ public slots:
 			windowmode = changedSet.value("WindowMode").toBool();
 			applySet["window"] = true;
 		}
+		if(changedSet.keys().contains("WindowDecoration")) {
+			windowDecoration = changedSet.value("WindowDecoration").toBool();
+			applySet["window"] = true;
+		}
+
 
 		if(changedSet.keys().contains("Language"))
 			language = changedSet.value("Language").toString();

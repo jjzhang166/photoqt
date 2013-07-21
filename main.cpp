@@ -213,6 +213,51 @@ int main(int argc, char *argv[]) {
 			return 0;
 		}
 
+		// This int holds 1 if PhotoQt was updated and 2 if it's newly installed
+		int update = 0;
+		QString settingsFileTxt = "";
+
+		// Check if the settings file exists. If not, create a file with default settings (i.e. empty file, settings and defaults are handled by globalsettings.h)
+		QFile file(QDir::homePath() + "/.photoqt/settings");
+		if(!file.exists()) {
+			if(!file.open(QIODevice::WriteOnly))
+				qDebug() << "ERROR: Couldn't write settings file! Please ensure that you have read&write access to home directory";
+			else {
+				if(verbose) qDebug() << "Creating basic settings file";
+				QTextStream out(&file);
+				out << "Version=" + globVersion + "\n";
+				file.close();
+			}
+
+			update = 2;
+
+		// If file does exist, check if it is from a previous version -> PhotoQt was updated
+		} else {
+			if(!file.open(QIODevice::ReadWrite))
+				qDebug() << "ERROR: Couldn't read settings file! Please ensure that you have read&write access to home directory";
+			else {
+				QTextStream in(&file);
+				settingsFileTxt = in.readAll();
+
+				if(verbose) qDebug() << "Checking if first run of new version";
+
+				// If it doesn't contain current version (some previous version)
+				if(!settingsFileTxt.contains("Version=" + globVersion + "\n")) {
+					file.close();
+					file.remove();
+					file.open(QIODevice::ReadWrite);
+					QStringList allSplit = settingsFileTxt.split("\n");
+					allSplit.removeFirst();
+					QString allFile = "Version=" + globVersion + "\n" + allSplit.join("\n");
+					in << allFile;
+					update = 1;
+				}
+
+				file.close();
+
+			}
+		}
+
 #ifdef WITH_GRAPHICSMAGICK
 		Magick::InitializeMagick(*argv);
 #endif
@@ -254,64 +299,13 @@ int main(int argc, char *argv[]) {
 		// LOAD THE TRANSLATOR
 		QTranslator trans;
 
-		// Check if languaged is changed to one of the possible translations
-		QFile fileSettings(QDir::homePath() + "/.photoqt/settings");
-		if(fileSettings.open(QIODevice::ReadOnly)) {
-			if(verbose) qDebug() << "Checking for translation";
-			QTextStream in(&fileSettings);
-			QString all = in.readAll();
-			if(all.contains("Language=") && !all.contains("Language=en")) {
-				QString code = all.split("Language=").at(1).split("\n").at(0).trimmed();
-				trans.load(":/lang/photoqt_" + code);
-				a.installTranslator(&trans);
-				qDebug() << "Loading Translation:" << code;
-			}
-			fileSettings.close();
-		} else
-			qDebug() << "ERROR! Couldn't read settings file.";
 
-		// This int holds 1 if PhotoQt was updated and 2 if it's newly installed
-		int update = 0;
-
-		// Check if the settings file exists. If not, create a file with default settings (i.e. empty file, settings and defaults are handled by globalsettings.h)
-		QFile file(QDir::homePath() + "/.photoqt/settings");
-		if(!file.exists()) {
-			if(!file.open(QIODevice::WriteOnly))
-				qDebug() << "ERROR: Couldn't write settings file! Please ensure that you have read&write access to home directory";
-			else {
-				if(verbose) qDebug() << "Creating basic settings file";
-				QTextStream out(&file);
-				out << "Version=" + globVersion + "\n";
-				file.close();
-			}
-
-			update = 2;
-
-		// If file does exist, check if it is from a previous version -> PhotoQt was updated
-		} else {
-			if(!file.open(QIODevice::ReadWrite))
-				qDebug() << "ERROR: Couldn't read settings file! Please ensure that you have read&write access to home directory";
-			else {
-				QTextStream in(&file);
-				QString all = in.readAll();
-
-				if(verbose) qDebug() << "Checking if first run of new version";
-
-				// If it doesn't contain current version (some previous version)
-				if(!all.contains("Version=" + globVersion + "\n")) {
-					file.close();
-					file.remove();
-					file.open(QIODevice::ReadWrite);
-					QStringList allSplit = all.split("\n");
-					allSplit.removeFirst();
-					QString allFile = "Version=" + globVersion + "\n" + allSplit.join("\n");
-					in << allFile;
-					update = 1;
-				}
-
-				file.close();
-
-			}
+		if(verbose) qDebug() << "Checking for translation";
+		if(settingsFileTxt.contains("Language=") && !settingsFileTxt.contains("Language=en")) {
+			QString code = settingsFileTxt.split("Language=").at(1).split("\n").at(0).trimmed();
+			trans.load(":/lang/photoqt_" + code);
+			a.installTranslator(&trans);
+			qDebug() << "Loading Translation:" << code;
 		}
 
 		// Check if thumbnail database exists. If not, create it
@@ -369,15 +363,9 @@ int main(int argc, char *argv[]) {
 		MainWindow w(0,verbose);
 		w.show();
 
-		w.setWindowFlags(Qt::FramelessWindowHint);
-
 		if(!startintray) {
-			QFile file(QDir::homePath() + "/.photoqt/settings");
-			if(file.open(QIODevice::ReadOnly)) {
-				QTextStream in(&file);
-				in.readAll().contains("WindowMode=1") ? w.showMaximized() : w.showFullScreen();
-			} else
-				w.showFullScreen();
+			settingsFileTxt.contains("WindowDecoration=0") ? w.setWindowFlags(w.windowFlags() & Qt::FramelessWindowHint) : w.setWindowFlags(w.windowFlags() & ~Qt::FramelessWindowHint);
+			settingsFileTxt.contains("WindowMode=1") ? w.showMaximized() : w.showFullScreen();
 		} else
 			w.hide();
 

@@ -234,7 +234,10 @@ void SlideShow::animate() {
 	QRect shown = QRect(shownX,shownY,shownWidth, shownHeight);
 
 	// Open widget
-	if(ani->state() == QPropertyAnimation::Stopped && !isShown) {
+	if(!isShown) {
+
+		if(ani->state() != QPropertyAnimation::Stopped)
+			ani->targetObject()->setProperty(ani->propertyName(),ani->endValue());
 
 		if(verbose) qDebug() << "slb: Animate in";
 
@@ -265,7 +268,10 @@ void SlideShow::animate() {
 		this->raise();
 
 	// Close widget
-	} else if(ani->state() == QPropertyAnimation::Stopped && isShown) {
+	} else if(isShown) {
+
+		if(ani->state() != QPropertyAnimation::Stopped)
+			ani->targetObject()->setProperty(ani->propertyName(),ani->endValue());
 
 		if(verbose) qDebug() << "slb: Animate out";
 

@@ -159,17 +159,30 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 	widgetWindow = new QLabel;
 	widgetWindow->setObjectName("widgetWindow");
 	widgetWindow->setStyleSheet("QWidget#widgetWindow { background: rgba(255,255,255,20); border-radius: 20px; padding: 20px; }");
-	QLabel *windowModeLabel = new QLabel("<b><span style=\"font-size:12pt\">" + tr("Window Mode") + "</span></b><br><br>" + tr("PhotoQt is designed with the space of a fullscreen app in mind. That's why it by default runs as fullscreen. However, some might prefer to have it as a normal window.") + "<br><b>" + tr("Note: It might be a little awkward to use e.g. the menu when PhotoQt is run in window mode.") + "</b>");
+	QLabel *extWin = new QLabel(tr("Extended Setting"));
+	extWin->setStyleSheet("font-weight: bold; font-size: 10px; font-style: italic");
+	QHBoxLayout *extWinLay = new QHBoxLayout;
+	extWinLay->addWidget(extWin);
+	extWinLay->addStretch();
+	QLabel *windowModeLabel = new QLabel("<b><span style=\"font-size:12pt\">" + tr("Window Mode") + "</span></b><br><br>" + tr("PhotoQt is designed with the space of a fullscreen app in mind. That's why it by default runs as fullscreen. However, some might prefer to have it as a normal window.") + "<br><b>" + tr("Note: It might be a little awkward to use e.g. the menu when PhotoQt is run in a window too small.") + "</b>");
 	windowModeLabel->setWordWrap(true);
 	windowMode = new CustomCheckBox(tr("Run Photo in Window Mode"));
+	windowDeco = new CustomCheckBox(tr("Show Window Decoration"));
 	QHBoxLayout *windowLay = new QHBoxLayout;
 	windowLay->addStretch();
 	windowLay->addWidget(windowMode);
 	windowLay->addStretch();
+	QHBoxLayout *decoLay = new QHBoxLayout;
+	decoLay->addStretch();
+	decoLay->addWidget(windowDeco);
+	decoLay->addStretch();
 	QVBoxLayout *widgetWindowLay = new QVBoxLayout;
+	widgetWindowLay->addLayout(extWinLay);
 	widgetWindowLay->addWidget(windowModeLabel);
 	widgetWindowLay->addSpacing(10);
 	widgetWindowLay->addLayout(windowLay);
+	widgetWindowLay->addSpacing(5);
+	widgetWindowLay->addLayout(decoLay);
 	widgetWindowLay->addSpacing(20);
 	widgetWindow->setLayout(widgetWindowLay);
 	lay->addWidget(widgetWindow);
@@ -229,6 +242,9 @@ void SettingsTabOther::loadSettings() {
 	windowMode->setChecked(globSet.value("WindowMode").toBool());
 	defaults.insert("WindowMode",globSet.value("WindowMode").toBool());
 
+	windowDeco->setChecked(globSet.value("WindowDecoration").toBool());
+	defaults.insert("WindowDecoration",globSet.value("WindowDecoration").toBool());
+
 	knownFile->setText(globSet.value("KnownFileTypes").toString());
 	defaults.insert("KnownFileTypes",globSet.value("KnownFileTypes").toString());
 
@@ -256,6 +272,12 @@ void SettingsTabOther::saveSettings() {
 		updatedSet.insert("WindowMode",windowMode->isChecked());
 		defaults.remove("WindowMode");
 		defaults.insert("WindowMode",windowMode->isChecked());
+	}
+
+	if(defaults.value("WindowDecoration").toBool() != windowDeco->isChecked()) {
+		updatedSet.insert("WindowDecoration",windowDeco->isChecked());
+		defaults.remove("WindowDecoration");
+		defaults.insert("WindowDecoration",windowDeco->isChecked());
 	}
 
 	if(defaults.value("KnownFileTypes").toString() != knownFile->text()) {

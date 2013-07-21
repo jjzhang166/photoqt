@@ -114,7 +114,10 @@ void CustomConfirm::animate() {
 	QRect shown = QRect((rectShown.width()-widgetSize.width())/2,(rectShown.height()-widgetSize.height())/2,widgetSize.width(),widgetSize.height());
 
 	// Open widget
-	if(ani->state() == QPropertyAnimation::Stopped && !isShown) {
+	if(!isShown) {
+
+		if(ani->state() != QPropertyAnimation::Stopped)
+			ani->targetObject()->setProperty(ani->propertyName(),ani->endValue());
 
 		// The background is initially transparent but the geometry is full
 		this->setStyleSheet(QString("#back { background: rgba(0,0,0,0); }"));
@@ -142,7 +145,10 @@ void CustomConfirm::animate() {
 		this->raise();
 
 	// Close widget
-	} else if(ani->state() == QPropertyAnimation::Stopped && isShown) {
+	} else if(isShown) {
+
+		if(ani->state() != QPropertyAnimation::Stopped)
+			ani->targetObject()->setProperty(ani->propertyName(),ani->endValue());
 
 		// Fade background out
 		fadeBack->setDuration(100);

@@ -55,7 +55,10 @@ Thumbnails::Thumbnails(QWidget *parent, bool v, QMap<QString,QVariant> set) : QW
 void Thumbnails::animate() {
 
 	// Open widget
-	if(ani->state() == QPropertyAnimation::Stopped && !isShown) {
+	if(!isShown) {
+
+		if(ani->state() != QPropertyAnimation::Stopped)
+			ani->targetObject()->setProperty(ani->propertyName(),ani->endValue());
 
 		if(verbose) qDebug() << "thb: Animate in";
 
@@ -70,7 +73,10 @@ void Thumbnails::animate() {
 		this->raise();
 
 	// Close widget
-	} else if(ani->state() == QPropertyAnimation::Stopped && isShown) {
+	} else if(isShown) {
+
+		if(ani->state() != QPropertyAnimation::Stopped)
+			ani->targetObject()->setProperty(ani->propertyName(),ani->endValue());
 
 		if(verbose) qDebug() << "thb: Animate out";
 

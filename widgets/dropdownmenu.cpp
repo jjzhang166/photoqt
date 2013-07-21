@@ -142,7 +142,10 @@ void DropDownMenu::makeHide() {
 void DropDownMenu::animate() {
 
 	// Open widget
-	if(ani->state() == QPropertyAnimation::Stopped && !isShown) {
+	if(!isShown) {
+
+		if(ani->state() != QPropertyAnimation::Stopped)
+			ani->targetObject()->setProperty(ani->propertyName(),ani->endValue());
 
 		ani->setDuration(600);
 		isShown = true;
@@ -155,7 +158,10 @@ void DropDownMenu::animate() {
 		this->raise();
 
 	// Close widget
-	} else if(ani->state() == QPropertyAnimation::Stopped && isShown) {
+	} else if(isShown) {
+
+		if(ani->state() != QPropertyAnimation::Stopped)
+			ani->targetObject()->setProperty(ani->propertyName(),ani->endValue());
 
 		ani->setDuration(500);
 		isShown = false;

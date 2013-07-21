@@ -237,7 +237,10 @@ void MainWindow::applySettings(QMap<QString, bool> applySet, bool justApplyAllOf
 
 	if(applySet["window"]) {
 		if(globSet->windowmode) {
+			qDebug() << "WINDOW DECO:" << globSet->windowDecoration;
 			this->showMaximized();
+			globSet->windowDecoration ? this->setWindowFlags(this->windowFlags() & ~Qt::FramelessWindowHint) : this->setWindowFlags(Qt::FramelessWindowHint);
+			QTimer::singleShot(10,this,SLOT(showMaximized()));
 			QTimer::singleShot(200,this,SLOT(showMaximized()));
 		} else
 			this->showFullScreen();

@@ -149,7 +149,10 @@ void StartUpWidget::setRect(QRect rect) {
 void StartUpWidget::animate() {
 
 	// Open widget
-	if(ani->state() == QPropertyAnimation::Stopped && !isShown) {
+	if(!isShown) {
+
+		if(ani->state() != QPropertyAnimation::Stopped)
+			ani->targetObject()->setProperty(ani->propertyName(),ani->endValue());
 
 		ani->setDuration(600);
 		isShown = true;
@@ -162,7 +165,10 @@ void StartUpWidget::animate() {
 		this->raise();
 
 	// Close widget
-	} else if(ani->state() == QPropertyAnimation::Stopped && isShown) {
+	} else if(isShown) {
+
+		if(ani->state() != QPropertyAnimation::Stopped)
+			ani->targetObject()->setProperty(ani->propertyName(),ani->endValue());
 
 		ani->setDuration(300);
 		isShown = false;
