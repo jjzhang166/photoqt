@@ -96,10 +96,8 @@ MainWindow::MainWindow(QWidget *parent, bool verbose) : QMainWindow(parent) {
 	connect(set->sh, SIGNAL(updatedShortcuts()), this, SLOT(setupShortcuts()));
 
 	// The drop-down menu
-	menu = new DropDownMenu(viewBig);
-	connect(menu, SIGNAL(itemClicked(QString,int)), this, SLOT(menuClicked(QString,int)));
-
-//	imagemanip = new ImageManip(viewBig);
+//	menu = new DropDownMenu(viewBig);
+//	connect(menu, SIGNAL(itemClicked(QString,int)), this, SLOT(menuClicked(QString,int)));
 
 	// The exif widget
 	details = new Details(viewBig,globSet->toSignalOut());
@@ -167,7 +165,7 @@ void MainWindow::adjustGeometries() {
 		viewThumbs->setRect(QRect(0,viewH-thbHeight,viewW,thbHeight));
 
 		// Adjust the menu geometry
-		menu->setRect(QRect(viewW-450,0,300,250));
+		if(setupWidgets->menu) menu->setRect(QRect(viewW-450,0,300,250));
 
 
 
@@ -180,7 +178,7 @@ void MainWindow::adjustGeometries() {
 		viewThumbs->setRect(QRect(0,0,viewBig->width(),thbHeight));
 
 		// Adjust the menu geometry
-		menu->setRect(QRect(viewBig->width()-450,viewBig->height()-250,300,250));
+		if(setupWidgets->menu) menu->setRect(QRect(viewBig->width()-450,viewBig->height()-250,300,250));
 
 	}
 
@@ -262,7 +260,7 @@ void MainWindow::applySettings(QMap<QString, bool> applySet, bool justApplyAllOf
 			viewThumbs->setRect(QRect(0,viewH-thbHeight,viewW,thbHeight));
 
 			// Adjust the menu geometry
-			menu->setRect(QRect(viewW-450,0,300,250));
+			if(setupWidgets->menu) menu->setRect(QRect(viewW-450,0,300,250));
 
 
 		// If the thumbnails are supposed to be shown at the top
@@ -272,7 +270,7 @@ void MainWindow::applySettings(QMap<QString, bool> applySet, bool justApplyAllOf
 			viewThumbs->setRect(QRect(0,0,viewBig->width(),thbHeight));
 
 			// Adjust the menu geometry
-			menu->setRect(QRect(viewBig->width()-450,viewBig->height()-250,300,250));
+			if(setupWidgets->menu) menu->setRect(QRect(viewBig->width()-450,viewBig->height()-250,300,250));
 
 		}
 
@@ -289,7 +287,7 @@ void MainWindow::applySettings(QMap<QString, bool> applySet, bool justApplyAllOf
 
 	if(applySet["menu"]) {
 		// Adjusting the menu sensitivity
-		menu->setSensitivity(globSet->menusensitivity*3,globSet->menusensitivity*10);
+		if(setupWidgets->menu) menu->setSensitivity(globSet->menusensitivity*3,globSet->menusensitivity*10);
 	}
 
 	if(applySet["thumb"] || applySet["quickinfo"])
@@ -812,12 +810,16 @@ void MainWindow::mouseMoved(int x, int y) {
 				}
 			}
 
+			int menuX = viewBig->width()-450;
+			int menuW = 300;
+
 			// Animate menu
-			if(x >= menu->x()-globSet->menusensitivity*3 && x <= menu->x()+menu->width()+globSet->menusensitivity*3 && y <= globSet->menusensitivity*10 && !menu->isVisible()) {
+			if(x >= menuX-globSet->menusensitivity*3 && x <= menuX+menuW+globSet->menusensitivity*3 && y <= globSet->menusensitivity*10 && (!setupWidgets->menu || !menu->isVisible())) {
+				if(!setupWidgets->menu) setupWidget("menu");
 				menu->makeShow();
 			}
 
-			if((x < menu->x()-globSet->menusensitivity*3 || x > menu->x()+menu->width()+globSet->menusensitivity*3 || y > menu->height()+globSet->menusensitivity*10) && menu->isVisible()) {
+			if(setupWidgets->menu && (x < menu->x()-globSet->menusensitivity*3 || x > menu->x()+menu->width()+globSet->menusensitivity*3 || y > menu->height()+globSet->menusensitivity*10) && menu->isVisible()) {
 				menu->makeHide();
 			}
 
@@ -835,27 +837,37 @@ void MainWindow::mouseMoved(int x, int y) {
 					viewThumbs->makeHide();
 			}
 
-			// Animate menu
-			if(x >= menu->x()-globSet->menusensitivity*3 && x <= menu->x()+menu->width()+globSet->menusensitivity*3 && y >= menu->y()-globSet->menusensitivity*10 && !menu->isVisible())
-				menu->makeShow();
+			int menuX = viewBig->width()-450;
+			int menuW = 300;
+			int menuY = viewBig->height()-250;
 
-			if((x < menu->x()-globSet->menusensitivity*3 || x > menu->x()+menu->width()+globSet->menusensitivity*3 || y < menu->y()-globSet->menusensitivity*10) && menu->isVisible())
+			// Animate menu
+			if(x >= menuX-globSet->menusensitivity*3 && x <= menuX+menuW+globSet->menusensitivity*3 && y >= menuY-globSet->menusensitivity*10 && (!setupWidgets->menu || !menu->isVisible())) {
+				if(!setupWidgets->menu) setupWidget("menu");
+				menu->makeShow();
+			}
+
+			if(setupWidgets->menu && (x < menu->x()-globSet->menusensitivity*3 || x > menu->x()+menu->width()+globSet->menusensitivity*3 || y < menu->y()-globSet->menusensitivity*10) && menu->isVisible())
 				menu->makeHide();
 
 		}
 
 
-		// Animate exif widget
+		// Animate details widget
 		if(x < 10*globSet->menusensitivity && y > details->y()-3*globSet->menusensitivity && y < details->y()+details->height()+globSet->menusensitivity*3 && !details->isVisible() && globSet->exifenablemousetriggering) {
 			details->makeShow();
-			menu->allItems["hideMeta"]->setText(tr("Hide Details"));
-			menu->allItems["hideMeta"]->setIcon(":/img/exif.png");
+			if(setupWidgets->menu) {
+				menu->allItems["hideMeta"]->setText(tr("Hide Details"));
+				menu->allItems["hideMeta"]->setIcon(":/img/exif.png");
+			}
 		}
 
 		if((x > details->width()+10*globSet->menusensitivity || y < details->y()-3*globSet->menusensitivity || y > details->y()+details->height()+3*globSet->menusensitivity) && details->isVisible() && !details->stay->isChecked()) {
 			details->makeHide();
-			menu->allItems["hideMeta"]->setText(tr("Show Details"));
-			menu->allItems["hideMeta"]->setIcon(":/img/exif.png");
+			if(setupWidgets->menu) {
+				menu->allItems["hideMeta"]->setText(tr("Show Details"));
+				menu->allItems["hideMeta"]->setIcon(":/img/exif.png");
+			}
 		}
 
 
@@ -1372,6 +1384,33 @@ void MainWindow::setupTrayIcon() {
 // Some widgets aren't setup initially (faster startup)
 void MainWindow::setupWidget(QString what) {
 
+	// Set up Menu
+	if(what == "menu" && !setupWidgets->menu) {
+
+		qDebug() << "Setting up menu";
+
+		setupWidgets->menu = true;
+
+		menu = new DropDownMenu(viewBig);
+		connect(menu, SIGNAL(itemClicked(QString,int)), this, SLOT(menuClicked(QString,int)));
+
+		if(globSet->thumbnailposition == "Bottom")
+			menu->setRect(QRect(viewBig->width()-450,0,300,250));
+		else if(globSet->thumbnailposition == "Top")
+			menu->setRect(QRect(viewBig->width()-450,viewBig->height()-250,300,250));
+
+		menu->show();
+
+		menu->setSensitivity(globSet->menusensitivity*3,globSet->menusensitivity*10);
+
+		if(details->isVisible() && details->stay->isChecked()) {
+			menu->allItems["hideMeta"]->setText(tr("Hide Details"));
+			menu->allItems["hideMeta"]->setIcon(":/img/exif.png");
+		}
+
+
+	}
+
 	// Set up filehandling
 	if(what == "filehandling" && !setupWidgets->filehandling) {
 
@@ -1782,7 +1821,7 @@ void MainWindow::startSlideShow() {
 		viewThumbs->makeHide();
 	if(details->isVisible())
 		details->makeHide();
-	if(menu->isVisible())
+	if(setupWidgets->menu && menu->isVisible())
 		menu->makeHide();
 
 	viewBigLay->slideshowHide = slideshow->hideQuickInfo->isChecked();

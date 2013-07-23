@@ -16,8 +16,10 @@ public:
 		slideshowbar = false;
 		settings = false;
 		errormagick = false;
+		menu = false;
 	}
 
+	bool menu;
 	bool filehandling;
 	bool startup;
 	bool about;
