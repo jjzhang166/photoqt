@@ -129,8 +129,8 @@ private:
 	// Adjust all the geometries (QRects and stuff)
 	void adjustGeometries();
 
-	// Draw the big main image
-	void drawImage();
+//	// Draw the big main image
+//	void drawImage();
 
 	// Show the startup widget (after update/fresh install)
 	void showStartupUpdateInstallMsg();
@@ -161,6 +161,12 @@ private:
 
 
 private slots:
+
+	// Draw the big main image
+	void drawImage();
+
+
+
 	// This is called, whenever the settings have changed, and updates all sub-widgets
 	// This function is needed together with the updateSettings() function to avoid a crash on startup
 	void applySettings(QMap<QString,bool> applySet = QMap<QString,bool>(), bool justApplyAllOfThem = false);

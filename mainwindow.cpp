@@ -241,7 +241,7 @@ void MainWindow::applySettings(QMap<QString, bool> applySet, bool justApplyAllOf
 			this->showMaximized();
 			globSet->windowDecoration ? this->setWindowFlags(this->windowFlags() & ~Qt::FramelessWindowHint) : this->setWindowFlags(Qt::FramelessWindowHint);
 			QTimer::singleShot(10,this,SLOT(showMaximized()));
-			QTimer::singleShot(200,this,SLOT(showMaximized()));
+			QTimer::singleShot(500,this,SLOT(showMaximized()));
 		} else
 			this->showFullScreen();
 	}
@@ -505,6 +505,7 @@ void MainWindow::getOrientationFromExif(int degree, bool flipHor) {
 			globVar->rotation += 90;
 			viewBig->rotate(-90);
 			globVar->rotation %= 360;
+			qDebug() << "ROTAT ROTAT ROTAT:" << globVar->rotation;
 			degree -= 90;
 		}
 		drawImage();
@@ -2037,7 +2038,7 @@ void MainWindow::zoom(bool zoomin, QString ignoreBoolean) {
 
 		graphItem->itemZoomed = false;
 
-		viewBig->rotate(globVar->rotation);
+		viewBig->rotate(-globVar->rotation);
 		if(globVar->flipVer)
 			viewBig->scale(1,-1);
 		if(globVar->flipHor)
@@ -2071,7 +2072,7 @@ void MainWindow::zoom(bool zoomin, QString ignoreBoolean) {
 
 			viewBig->centerOn(viewBig->scene()->sceneRect().center());
 
-			viewBig->rotate(globVar->rotation);
+			viewBig->rotate(-globVar->rotation);
 			if(globVar->flipHor)
 				viewBig->scale(-1,1);
 			if(globVar->flipVer)
@@ -2112,7 +2113,7 @@ void MainWindow::zoom(bool zoomin, QString ignoreBoolean) {
 
 			viewBig->setAlignment(Qt::AlignCenter);
 			viewBig->resetMatrix();
-			viewBig->rotate(globVar->rotation);
+			viewBig->rotate(-globVar->rotation);
 			if(globVar->flipHor)
 				viewBig->scale(-1,1);
 			if(globVar->flipVer)
@@ -2121,7 +2122,7 @@ void MainWindow::zoom(bool zoomin, QString ignoreBoolean) {
 
 			QCursor::setPos(QCursor::pos().x()+1,QCursor::pos().y());
 
-		// Zoom out
+			// Zoom out
 		} else if(!zoomin && (viewBig->absoluteScaleFactor == 0 || viewBig->absoluteScaleFactor == 1)) {
 
 			if(globVar->verbose) qDebug() << "Zoom Out";
@@ -2133,7 +2134,7 @@ void MainWindow::zoom(bool zoomin, QString ignoreBoolean) {
 
 			globVar->zoomed = false;
 			viewBig->resetMatrix();
-			viewBig->rotate(globVar->rotation);
+			viewBig->rotate(-globVar->rotation);
 			if(globVar->flipHor)
 				viewBig->scale(-1,1);
 			if(globVar->flipVer)
