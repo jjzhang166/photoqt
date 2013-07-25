@@ -10,23 +10,58 @@ SettingsTabLookAndFeel::SettingsTabLookAndFeel(QWidget *parent, QMap<QString, QV
 	// Style widget
 	this->setStyleSheet("background: transparent; color: white;");
 
-	// the main scroll widget for all content
-	scrollbar = new CustomScrollbar;
-	QScrollArea *scroll = new QScrollArea;
-	QVBoxLayout *lay = new QVBoxLayout(scroll);
-	QWidget *scrollWidg = new QWidget(scroll);
-	scrollWidg->setLayout(lay);
-	scroll->setWidget(scrollWidg);
-	scroll->setWidgetResizable(true);
-	QVBoxLayout *scrollLay = new QVBoxLayout;
-	scrollLay->addWidget(scroll);
-	this->setLayout(scrollLay);
-	scroll->setVerticalScrollBar(scrollbar);
+	tabs = new TabWidget;
+	tabs->expand(false);
+	tabs->setBorderTop("rgba(150,150,150,100)",2);
+	tabs->setBorderBot("rgba(150,150,150,100)",2);
 
-	// The title
-	QLabel *title = new QLabel("<center><h1>" + tr("Look and Feel") + "</h1></center>");
-	lay->addWidget(title);
-	lay->addSpacing(20);
+	QVBoxLayout *mainLay = new QVBoxLayout;
+	mainLay->addWidget(tabs);
+	this->setLayout(mainLay);
+
+	// the main scroll widget for all LOOK content
+	scrollbarLook = new CustomScrollbar;
+	QScrollArea *scrollLook = new QScrollArea;
+	QVBoxLayout *layLook = new QVBoxLayout(scrollLook);
+	QWidget *scrollWidgLook = new QWidget(scrollLook);
+	scrollWidgLook->setLayout(layLook);
+	scrollLook->setWidget(scrollWidgLook);
+	scrollLook->setWidgetResizable(true);
+	scrollLook->setVerticalScrollBar(scrollbarLook);
+
+	// the main scroll widget for all FEEL content
+	scrollbarFeel = new CustomScrollbar;
+	QScrollArea *scrollFeel = new QScrollArea;
+	QVBoxLayout *layFeel = new QVBoxLayout(scrollFeel);
+	QWidget *scrollWidgFeel = new QWidget(scrollFeel);
+	scrollWidgFeel->setLayout(layFeel);
+	scrollFeel->setWidget(scrollWidgFeel);
+	scrollFeel->setWidgetResizable(true);
+	scrollFeel->setVerticalScrollBar(scrollbarFeel);
+
+	tabLook = new QWidget;
+	tabFeel = new QWidget;
+
+	QVBoxLayout *scrollLayLook = new QVBoxLayout;
+	scrollLayLook->addWidget(scrollLook);
+	tabLook->setLayout(scrollLayLook);
+
+	QVBoxLayout *scrollLayFeel = new QVBoxLayout;
+	scrollLayFeel->addWidget(scrollFeel);
+	tabFeel->setLayout(scrollLayFeel);
+
+	tabs->addTab(tabLook,tr("Look"));
+	tabs->addTab(tabFeel,tr("Behaviour"));
+
+
+
+	// The titles
+	QLabel *titleLook = new QLabel("<center><h1>" + tr("Overall Look") + "</h1></center>");
+	layLook->addWidget(titleLook);
+	layLook->addSpacing(20);
+	QLabel *titleFeel = new QLabel("<center><h1>" + tr("Behaviour of PhotoQt") + "</h1></center>");
+	layFeel->addWidget(titleFeel);
+	layFeel->addSpacing(20);
 
 
 	// OPTION FOR COMPOSITE
@@ -52,10 +87,10 @@ SettingsTabLookAndFeel::SettingsTabLookAndFeel(QWidget *parent, QMap<QString, QV
 	compLay2->addWidget(noBackgroundImage);
 	compLay2->addStretch();
 
-	lay->addWidget(compositeImageLabel);
-	lay->addSpacing(10);
-	lay->addLayout(compLay1);
-	lay->addLayout(compLay2);
+	layLook->addWidget(compositeImageLabel);
+	layLook->addSpacing(10);
+	layLook->addLayout(compLay1);
+	layLook->addLayout(compLay2);
 
 	// OPTION TO SET BACKGROUND IMAGE
 	QWidget *widgetChooseBgImg = new QWidget;
@@ -103,43 +138,30 @@ SettingsTabLookAndFeel::SettingsTabLookAndFeel(QWidget *parent, QMap<QString, QV
 	widgetChooseBgImgLay->addLayout(backgroundImageLay);
 	widgetChooseBgImgLay->addSpacing(20);
 	widgetChooseBgImg->setLayout(widgetChooseBgImgLay);
-	lay->addWidget(widgetChooseBgImg);
+	layLook->addWidget(widgetChooseBgImg);
 	connect(backgroundImageUseCustom, SIGNAL(toggled(bool)), widgetChooseBgImg, SLOT(setVisible(bool)));
 	widgetChooseBgImg->hide();
 
-
+	layLook->addSpacing(20);
 
 
 	// OPTION TO ADJUST BACKGROUND COLOR
-	widgetOverlay = new QWidget;
-	widgetOverlay->setObjectName("widgetOverlay");
-	widgetOverlay->setStyleSheet("QWidget#widgetOverlay { background: rgba(255,255,255,20); border-radius: 20px; padding: 20px; }");
-	QLabel *extOver = new QLabel(tr("Extended Setting"));
-	extOver->setStyleSheet("font-weight: bold; font-size: 10px; font-style: italic");
-	QHBoxLayout *extOverLay = new QHBoxLayout;
-	extOverLay->addWidget(extOver);
-	extOverLay->addStretch();
 	background = new QColorDialog;
 	background->setOption(QColorDialog::ShowAlphaChannel);
 	QLabel *backgroundLabel = new QLabel("<b><span style=\"font-size:12pt\">" + tr("Background/Overlay Color") + "</span></b><br><br>" + tr("Here you can adjust the background colour of PhotoQt. When using compositing or a background image, then you can also specify an alpha value, i.e. the transparency of the coloured overlay layer. When neither compositing is enabled nor a background image is set, then this colour will be the background of PhotoQt."));
 	backgroundLabel->setWordWrap(true);
 	selectCol = new CustomPushButton(tr("Click to change color!"));
+	selectCol->setPadding(25);
 	QHBoxLayout *backgroundLay = new QHBoxLayout;
 	backgroundLay->addStretch();
 	backgroundLay->addWidget(selectCol);
 	backgroundLay->addStretch();
 	connect(selectCol, SIGNAL(clicked()), background, SLOT(exec()));
 	connect(background, SIGNAL(colorSelected(QColor)), this, SLOT(newBgColorSelected(QColor)));
-	QVBoxLayout *widgetOverlayLay = new QVBoxLayout;
-	widgetOverlayLay->addLayout(extOverLay);
-	widgetOverlayLay->addWidget(backgroundLabel);
-	widgetOverlayLay->addSpacing(5);
-	widgetOverlayLay->addLayout(backgroundLay);
-	widgetOverlayLay->addSpacing(20);
-	widgetOverlay->setLayout(widgetOverlayLay);
-	lay->addWidget(widgetOverlay);
-	widgetOverlay->hide();
-
+	layLook->addWidget(backgroundLabel);
+	layLook->addSpacing(5);
+	layLook->addLayout(backgroundLay);
+	layLook->addSpacing(20);
 
 
 	// OPTION FOR TRAY ICON USAGE
@@ -150,22 +172,14 @@ SettingsTabLookAndFeel::SettingsTabLookAndFeel(QWidget *parent, QMap<QString, QV
 	trayIconLay->addStretch();
 	trayIconLay->addWidget(trayIcon);
 	trayIconLay->addStretch();
-	lay->addWidget(trayIconLabel);
-	lay->addSpacing(5);
-	lay->addLayout(trayIconLay);
-	lay->addSpacing(20);
+	layFeel->addWidget(trayIconLabel);
+	layFeel->addSpacing(5);
+	layFeel->addLayout(trayIconLay);
+	layFeel->addSpacing(20);
 
 
 
 	// OPTION FOR LOOPING THROUGH FOLDER
-	widgetLoop = new QWidget;
-	widgetLoop->setObjectName("widgetLoop");
-	widgetLoop->setStyleSheet("QWidget#widgetLoop { background: rgba(255,255,255,20); border-radius: 20px; padding: 20px; }");
-	QLabel *extLoop = new QLabel(tr("Extended Setting"));
-	extLoop->setStyleSheet("font-weight: bold; font-size: 10px; font-style: italic");
-	QHBoxLayout *extLoopLay = new QHBoxLayout;
-	extLoopLay->addWidget(extLoop);
-	extLoopLay->addStretch();
 	loopThroughFolder = new CustomCheckBox(tr("Loop Through Folder"));
 	QLabel *loopLabel = new QLabel("<b><span style=\"font-size: 12pt\">" + tr("Looping Through Folder") + "</span></b><hr>" + tr("When you load the last image in a directory and select \"Next\", PhotoQt automatically jumps to the first image (and vice versa: if you select \"Previous\" while having the first image loaded, PhotoQt jumps to the last image). Disabling this option makes PhotoQt stop at the first/last image (i.e. selecting \"Next\"/\"Previous\" will have no effect in these two special cases)."));
 	loopLabel->setWordWrap(true);
@@ -173,15 +187,10 @@ SettingsTabLookAndFeel::SettingsTabLookAndFeel(QWidget *parent, QMap<QString, QV
 	loopLay->addStretch();
 	loopLay->addWidget(loopThroughFolder);
 	loopLay->addStretch();
-	QVBoxLayout *widgetLoopLay = new QVBoxLayout;
-	widgetLoopLay->addLayout(extLoopLay);
-	widgetLoopLay->addWidget(loopLabel);
-	widgetLoopLay->addSpacing(5);
-	widgetLoopLay->addLayout(loopLay);
-	widgetLoopLay->addSpacing(20);
-	widgetLoop->setLayout(widgetLoopLay);
-	lay->addWidget(widgetLoop);
-	widgetLoop->hide();
+	layFeel->addWidget(loopLabel);
+	layFeel->addSpacing(5);
+	layFeel->addLayout(loopLay);
+	layFeel->addSpacing(20);
 
 
 	// OPTION FOR TRANSITIONING BETWEEN IMAGES
@@ -201,23 +210,15 @@ SettingsTabLookAndFeel::SettingsTabLookAndFeel(QWidget *parent, QMap<QString, QV
 	transLay->addWidget(transition);
 	transLay->addWidget(longTrans);
 	transLay->addStretch();
-	lay->addWidget(transLabel);
-	lay->addSpacing(5);
-	lay->addLayout(transLay);
-	lay->addSpacing(20);
+	layFeel->addWidget(transLabel);
+	layFeel->addSpacing(5);
+	layFeel->addLayout(transLay);
+	layFeel->addSpacing(20);
 
 
 
 
 	// OPTION FOR MENU SENSITIVITY
-	widgetMenuSensitivity = new QWidget;
-	widgetMenuSensitivity->setObjectName("widgetMenuSensitivity");
-	widgetMenuSensitivity->setStyleSheet("QWidget#widgetMenuSensitivity { background: rgba(255,255,255,20); border-radius: 20px; padding: 20px; }");
-	QLabel *advMenu = new QLabel(tr("Extended Setting"));
-	advMenu->setStyleSheet("font-weight: bold; font-size: 10px; font-style: italic");
-	QHBoxLayout *advMenuLay = new QHBoxLayout;
-	advMenuLay->addWidget(advMenu);
-	advMenuLay->addStretch();
 	QLabel *menuLabel = new QLabel("<b><span style=\"font-size: 12pt\">" + tr("Menu Sensitivity") + "</span></b><hr>" + tr("Here you can adjust the sensitivity of the drop-down menu. The menu opens when your mouse cursor gets close to the right side of the upper edge. Here you can adjust how close you need to get for it to open."));
 	menuLabel->setWordWrap(true);
 	QHBoxLayout *menuLay = new QHBoxLayout;
@@ -232,27 +233,36 @@ SettingsTabLookAndFeel::SettingsTabLookAndFeel(QWidget *parent, QMap<QString, QV
 	menuLay->addWidget(menu);
 	menuLay->addWidget(menuLabelRight);
 	menuLay->addStretch();
-	QVBoxLayout *widgetMenuSensitivityLay = new QVBoxLayout;
-	widgetMenuSensitivityLay->addLayout(advMenuLay);
-	widgetMenuSensitivityLay->addWidget(menuLabel);
-	widgetMenuSensitivityLay->addSpacing(5);
-	widgetMenuSensitivityLay->addLayout(menuLay);
-	widgetMenuSensitivityLay->addSpacing(20);
-	widgetMenuSensitivity->setLayout(widgetMenuSensitivityLay);
-	lay->addWidget(widgetMenuSensitivity);
-	widgetMenuSensitivity->hide();
+	layFeel->addWidget(menuLabel);
+	layFeel->addSpacing(5);
+	layFeel->addLayout(menuLay);
+	layFeel->addSpacing(20);
+
+
+
+	// Adjust window mode
+	QLabel *windowModeLabel = new QLabel("<b><span style=\"font-size:12pt\">" + tr("Window Mode") + "</span></b><br><br>" + tr("PhotoQt is designed with the space of a fullscreen app in mind. That's why it by default runs as fullscreen. However, some might prefer to have it as a normal window.") + "<br><b>" + tr("Note: It might be a little awkward to use e.g. the menu when PhotoQt is run in a window too small.") + "</b>");
+	windowModeLabel->setWordWrap(true);
+	windowMode = new CustomCheckBox(tr("Run Photo in Window Mode"));
+	windowDeco = new CustomCheckBox(tr("Show Window Decoration"));
+	QHBoxLayout *windowLay = new QHBoxLayout;
+	windowLay->addStretch();
+	windowLay->addWidget(windowMode);
+	windowLay->addStretch();
+	QHBoxLayout *decoLay = new QHBoxLayout;
+	decoLay->addStretch();
+	decoLay->addWidget(windowDeco);
+	decoLay->addStretch();
+	layFeel->addWidget(windowModeLabel);
+	layFeel->addSpacing(10);
+	layFeel->addLayout(windowLay);
+	layFeel->addSpacing(5);
+	layFeel->addLayout(decoLay);
+	layFeel->addSpacing(20);
 
 
 
 	// OPTION FOR CLOSING ON CLICK ON GREY
-	widgetGrey = new QWidget;
-	widgetGrey->setObjectName("widgetMenuSensitivity");
-	widgetGrey->setStyleSheet("QWidget#widgetMenuSensitivity { background: rgba(255,255,255,20); border-radius: 20px; padding: 20px; }");
-	QLabel *advGrey = new QLabel(tr("Extended Setting"));
-	advGrey->setStyleSheet("font-weight: bold; font-size: 10px; font-style: italic");
-	QHBoxLayout *advGreyLay = new QHBoxLayout;
-	advGreyLay->addWidget(advGrey);
-	advGreyLay->addStretch();
 	grey = new CustomCheckBox(tr("Close on Click in empty area"));
 	QLabel *greyLabel = new QLabel("<b><span style=\"font-size: 12pt\">" + tr("Close on Click in empty area") + "</span></b><hr>" + tr("This option makes PhotoQt a bit like the JavaScript image viewers you find on many websites. A click outside of the image on the empty background will close the application. It can be a nice feature, PhotoQt will feel even more like a \"floating layer\". However, you might at times close PhotoQt accidentally.") + "<br><br>" + tr("Note: If you use a mouse click for a shortcut already, then this option wont have any effect!"));
 	greyLabel->setWordWrap(true);
@@ -260,29 +270,14 @@ SettingsTabLookAndFeel::SettingsTabLookAndFeel(QWidget *parent, QMap<QString, QV
 	greyLay->addStretch();
 	greyLay->addWidget(grey);
 	greyLay->addStretch();
-	QVBoxLayout *widgetGreyLay = new QVBoxLayout;
-	widgetGreyLay->addLayout(advGreyLay);
-	widgetGreyLay->addWidget(greyLabel);
-	widgetGreyLay->addSpacing(5);
-	widgetGreyLay->addLayout(greyLay);
-	widgetGreyLay->addSpacing(20);
-	widgetGrey->setLayout(widgetGreyLay);
-	lay->addWidget(widgetGrey);
-	widgetGrey->hide();
-
+	layFeel->addWidget(greyLabel);
+	layFeel->addSpacing(5);
+	layFeel->addLayout(greyLay);
+	layFeel->addSpacing(20);
 
 
 
 	// OPTION FOR ADJUSTING BORDER AROUND MAIN IMAGE
-	widgetBorder = new QWidget;
-	widgetBorder->setObjectName("widgetBorder");
-	widgetBorder->setStyleSheet("QWidget#widgetBorder { background: rgba(255,255,255,20); border-radius: 20px; padding: 20px; }");
-	QLabel *advBorder = new QLabel(tr("Extended Setting"));
-	advBorder->setStyleSheet("font-weight: bold; font-size: 10px; font-style: italic");
-	QHBoxLayout *advBorderLay = new QHBoxLayout;
-	advBorderLay->addWidget(advBorder);
-	advBorderLay->addStretch();
-
 	borderAroundImgSlider = new CustomSlider;
 	borderAroundImgSlider->setMinimum(0);
 	borderAroundImgSlider->setMaximum(50);
@@ -298,18 +293,12 @@ SettingsTabLookAndFeel::SettingsTabLookAndFeel(QWidget *parent, QMap<QString, QV
 	borderLay->addWidget(borderAroundImgSlider);
 	borderLay->addWidget(borderAroundImgSpinBox);
 	borderLay->addStretch();
-
 	connect(borderAroundImgSlider, SIGNAL(valueChanged(int)), borderAroundImgSpinBox, SLOT(setValue(int)));
 	connect(borderAroundImgSpinBox, SIGNAL(valueChanged(int)), borderAroundImgSlider, SLOT(setValue(int)));
-	QVBoxLayout *widgetBorderLay = new QVBoxLayout;
-	widgetBorderLay->addLayout(advBorderLay);
-	widgetBorderLay->addWidget(borderLabel);
-	widgetBorderLay->addSpacing(5);
-	widgetBorderLay->addLayout(borderLay);
-	widgetBorderLay->addSpacing(20);
-	widgetBorder->setLayout(widgetBorderLay);
-	lay->addWidget(widgetBorder);
-	widgetBorder->hide();
+	layLook->addWidget(borderLabel);
+	layLook->addSpacing(5);
+	layLook->addLayout(borderLay);
+	layLook->addSpacing(20);
 
 
 
@@ -329,13 +318,14 @@ SettingsTabLookAndFeel::SettingsTabLookAndFeel(QWidget *parent, QMap<QString, QV
 	hideQuickInfoLay->addStretch();
 	hideQuickInfoLay->addLayout(hideQuickInfoColLay);
 	hideQuickInfoLay->addStretch();
-	lay->addWidget(hideQuickInfoLabel);
-	lay->addSpacing(5);
-	lay->addLayout(hideQuickInfoLay);
-	lay->addSpacing(20);
+	layLook->addWidget(hideQuickInfoLabel);
+	layLook->addSpacing(5);
+	layLook->addLayout(hideQuickInfoLay);
+	layLook->addSpacing(20);
 
 
-	lay->addStretch();
+	layLook->addStretch();
+	layFeel->addStretch();
 
 }
 
@@ -400,8 +390,7 @@ void SettingsTabLookAndFeel::loadSettings() {
 	defaults.insert("BgColorGreen",globSet.value("BgColorGreen").toInt());
 	defaults.insert("BgColorBlue",globSet.value("BgColorBlue").toInt());
 	defaults.insert("BgColorAlpha",globSet.value("BgColorAlpha").toInt());
-
-	selectCol->setStyleSheet(QString("background: rgba(%1,%2,%3,%4); border-radius: 10px; padding: 25px; border: 1px solid white;").arg(r).arg(g).arg(b).arg(a));
+	selectCol->setRGBA(r,g,b,a);
 
 	trayIcon->setChecked(globSet.value("TrayIcon").toBool());
 	defaults.insert("TrayIcon",globSet.value("TrayIcon").toBool());
@@ -417,6 +406,12 @@ void SettingsTabLookAndFeel::loadSettings() {
 
 	menu->setValue(globSet.value("MenuSensitivity").toInt());
 	defaults.insert("MenuSensitivity",globSet.value("MenuSensitivity").toInt());
+
+	windowMode->setChecked(globSet.value("WindowMode").toBool());
+	defaults.insert("WindowMode",globSet.value("WindowMode").toBool());
+
+	windowDeco->setChecked(globSet.value("WindowDecoration").toBool());
+	defaults.insert("WindowDecoration",globSet.value("WindowDecoration").toBool());
 
 	grey->setChecked(globSet.value("CloseOnGrey").toBool());
 	defaults.insert("CloseOnGrey",globSet.value("CloseOnGrey").toBool());
@@ -533,6 +528,18 @@ void SettingsTabLookAndFeel::saveSettings() {
 		defaults.insert("MenuSensitivity",menu->value());
 	}
 
+	if(defaults.value("WindowMode").toBool() != windowMode->isChecked()) {
+		updatedSet.insert("WindowMode",windowMode->isChecked());
+		defaults.remove("WindowMode");
+		defaults.insert("WindowMode",windowMode->isChecked());
+	}
+
+	if(defaults.value("WindowDecoration").toBool() != windowDeco->isChecked()) {
+		updatedSet.insert("WindowDecoration",windowDeco->isChecked());
+		defaults.remove("WindowDecoration");
+		defaults.insert("WindowDecoration",windowDeco->isChecked());
+	}
+
 	if(defaults.value("CloseOnGrey") != grey->isChecked()) {
 		updatedSet.insert("CloseOnGrey",grey->isChecked());
 		defaults.remove("CloseOnGrey");
@@ -637,7 +644,7 @@ void SettingsTabLookAndFeel::newBgColorSelected(QColor col) {
 
 	if(verbose) qDebug() << "lnf: New background color selected:" << col;
 
-	selectCol->setStyleSheet(QString("background: rgba(%1,%2,%3,%4); border-radius: 10px; padding: 25px; border: 1px solid white;").arg(col.red()).arg(col.green()).arg(col.blue()).arg(col.alpha()));
+	selectCol->setRGBA(col.red(),col.green(),col.blue(),col.alpha());
 
 }
 
@@ -686,16 +693,6 @@ void SettingsTabLookAndFeel::backgroundDispType() {
 	}
 
 	setBackgroundImage(backgroundImage->toolTip().remove("<p style=\"background: black\">").remove("</p>"));
-
-}
-
-void SettingsTabLookAndFeel::toggleExtended(bool extended) {
-
-	widgetOverlay->setVisible(extended);
-	widgetLoop->setVisible(extended);
-	widgetMenuSensitivity->setVisible(extended);
-	widgetGrey->setVisible(extended);
-	widgetBorder->setVisible(extended);
 
 }
 

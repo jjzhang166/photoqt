@@ -155,49 +155,8 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 	lay->addLayout(addNewLay);
 	lay->addSpacing(20);
 
-	// Adjust context menu
-	widgetWindow = new QLabel;
-	widgetWindow->setObjectName("widgetWindow");
-	widgetWindow->setStyleSheet("QWidget#widgetWindow { background: rgba(255,255,255,20); border-radius: 20px; padding: 20px; }");
-	QLabel *extWin = new QLabel(tr("Extended Setting"));
-	extWin->setStyleSheet("font-weight: bold; font-size: 10px; font-style: italic");
-	QHBoxLayout *extWinLay = new QHBoxLayout;
-	extWinLay->addWidget(extWin);
-	extWinLay->addStretch();
-	QLabel *windowModeLabel = new QLabel("<b><span style=\"font-size:12pt\">" + tr("Window Mode") + "</span></b><br><br>" + tr("PhotoQt is designed with the space of a fullscreen app in mind. That's why it by default runs as fullscreen. However, some might prefer to have it as a normal window.") + "<br><b>" + tr("Note: It might be a little awkward to use e.g. the menu when PhotoQt is run in a window too small.") + "</b>");
-	windowModeLabel->setWordWrap(true);
-	windowMode = new CustomCheckBox(tr("Run Photo in Window Mode"));
-	windowDeco = new CustomCheckBox(tr("Show Window Decoration"));
-	QHBoxLayout *windowLay = new QHBoxLayout;
-	windowLay->addStretch();
-	windowLay->addWidget(windowMode);
-	windowLay->addStretch();
-	QHBoxLayout *decoLay = new QHBoxLayout;
-	decoLay->addStretch();
-	decoLay->addWidget(windowDeco);
-	decoLay->addStretch();
-	QVBoxLayout *widgetWindowLay = new QVBoxLayout;
-	widgetWindowLay->addLayout(extWinLay);
-	widgetWindowLay->addWidget(windowModeLabel);
-	widgetWindowLay->addSpacing(10);
-	widgetWindowLay->addLayout(windowLay);
-	widgetWindowLay->addSpacing(5);
-	widgetWindowLay->addLayout(decoLay);
-	widgetWindowLay->addSpacing(20);
-	widgetWindow->setLayout(widgetWindowLay);
-	lay->addWidget(widgetWindow);
-	widgetWindow->hide();
-
 
 	// Adjust known file formats
-	widgetKnown = new QLabel;
-	widgetKnown->setObjectName("widgetKnown");
-	widgetKnown->setStyleSheet("QWidget#widgetKnown { background: rgba(255,255,255,20); border-radius: 20px; padding: 20px; }");
-	QLabel *extKnown = new QLabel(tr("Extended Setting"));
-	extKnown->setStyleSheet("font-weight: bold; font-size: 10px; font-style: italic");
-	QHBoxLayout *extKnownLay = new QHBoxLayout;
-	extKnownLay->addWidget(extKnown);
-	extKnownLay->addStretch();
 	QLabel *knownLabel = new QLabel("<b><span style=\"font-size:12pt\">" + tr("Known File Types") + "</span></b><br><br>" + tr("Here you can adjust the list of known image types. Some image types (especially more exotic ones) aren't supported by every Qt installation (depending on which image plugins you've got installed, etc.). If there's any problem with an image type, you can take it out of the list here. If you want to add an image type, simply add it to the list.") + "<br><b>" + tr("Only change the list if you know what you're doing!") + "</b>");
 	knownLabel->setWordWrap(true);
 	knownFile = new CustomLineEdit("Known File Types");
@@ -206,15 +165,10 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 	knownLay->addStretch();
 	knownLay->addWidget(knownFile);
 	knownLay->addStretch();
-	QVBoxLayout *widgetKnownLay = new QVBoxLayout;
-	widgetKnownLay->addLayout(extKnownLay);
-	widgetKnownLay->addWidget(knownLabel);
-	widgetKnownLay->addSpacing(5);
-	widgetKnownLay->addLayout(knownLay);
-	widgetKnownLay->addSpacing(20);
-	widgetKnown->setLayout(widgetKnownLay);
-	lay->addWidget(widgetKnown);
-	widgetKnown->hide();
+	lay->addWidget(knownLabel);
+	lay->addSpacing(5);
+	lay->addLayout(knownLay);
+	lay->addSpacing(20);
 
 
 
@@ -239,12 +193,6 @@ void SettingsTabOther::loadSettings() {
 		}
 	}
 
-	windowMode->setChecked(globSet.value("WindowMode").toBool());
-	defaults.insert("WindowMode",globSet.value("WindowMode").toBool());
-
-	windowDeco->setChecked(globSet.value("WindowDecoration").toBool());
-	defaults.insert("WindowDecoration",globSet.value("WindowDecoration").toBool());
-
 	knownFile->setText(globSet.value("KnownFileTypes").toString());
 	defaults.insert("KnownFileTypes",globSet.value("KnownFileTypes").toString());
 
@@ -268,18 +216,6 @@ void SettingsTabOther::saveSettings() {
 		}
 	}
 
-	if(defaults.value("WindowMode").toBool() != windowMode->isChecked()) {
-		updatedSet.insert("WindowMode",windowMode->isChecked());
-		defaults.remove("WindowMode");
-		defaults.insert("WindowMode",windowMode->isChecked());
-	}
-
-	if(defaults.value("WindowDecoration").toBool() != windowDeco->isChecked()) {
-		updatedSet.insert("WindowDecoration",windowDeco->isChecked());
-		defaults.remove("WindowDecoration");
-		defaults.insert("WindowDecoration",windowDeco->isChecked());
-	}
-
 	if(defaults.value("KnownFileTypes").toString() != knownFile->text()) {
 		updatedSet.insert("KnownFileTypes",knownFile->text());
 		defaults.remove("KnownFileTypes");
@@ -287,13 +223,6 @@ void SettingsTabOther::saveSettings() {
 	}
 
 	context->saveContext();
-
-}
-
-void SettingsTabOther::toggleExtended(bool extended) {
-
-	widgetKnown->setVisible(extended);
-	widgetWindow->setVisible(extended);
 
 }
 

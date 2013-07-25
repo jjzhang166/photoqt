@@ -13,23 +13,60 @@ SettingsTabThumbnail::SettingsTabThumbnail(QWidget *parent, QMap<QString, QVaria
 	// Style the widget
 	this->setStyleSheet("background: transparent; color: white;");
 
-	// The main scroll area
-	scrollbar = new CustomScrollbar;
-	scroll = new QScrollArea;
-	QVBoxLayout *lay = new QVBoxLayout(scroll);
-	scrollWidg = new QWidget(scroll);
-	scrollWidg->setLayout(lay);
-	scroll->setWidget(scrollWidg);
-	scroll->setWidgetResizable(true);
-	QVBoxLayout *scrollLay = new QVBoxLayout;
-	scrollLay->addWidget(scroll);
-	this->setLayout(scrollLay);
-	scroll->setVerticalScrollBar(scrollbar);
 
-	// The title
-	QLabel *title = new QLabel("<center><h1>" + tr("Thumbnails") + "</h1></center>");
-	lay->addWidget(title);
-	lay->addSpacing(20);
+	tabs = new TabWidget;
+	tabs->expand(false);
+	tabs->setBorderTop("rgba(150,150,150,100)",2);
+	tabs->setBorderBot("rgba(150,150,150,100)",2);
+
+	QVBoxLayout *mainLay = new QVBoxLayout;
+	mainLay->addWidget(tabs);
+	this->setLayout(mainLay);
+
+	// the main scroll widget for all LOOK content
+	scrollbarLook = new CustomScrollbar;
+	QScrollArea *scrollLook = new QScrollArea;
+	QVBoxLayout *layLook = new QVBoxLayout(scrollLook);
+	QWidget *scrollWidgLook = new QWidget(scrollLook);
+	scrollWidgLook->setLayout(layLook);
+	scrollLook->setWidget(scrollWidgLook);
+	scrollLook->setWidgetResizable(true);
+	scrollLook->setVerticalScrollBar(scrollbarLook);
+
+	// the main scroll widget for all FEEL content
+	scrollbarTune = new CustomScrollbar;
+	QScrollArea *scrollTune = new QScrollArea;
+	QVBoxLayout *layTune = new QVBoxLayout(scrollTune);
+	QWidget *scrollWidgTune = new QWidget(scrollTune);
+	scrollWidgTune->setLayout(layTune);
+	scrollTune->setWidget(scrollWidgTune);
+	scrollTune->setWidgetResizable(true);
+	scrollTune->setVerticalScrollBar(scrollbarTune);
+
+	tabLook = new QWidget;
+	tabTune = new QWidget;
+
+	QVBoxLayout *scrollLayLook = new QVBoxLayout;
+	scrollLayLook->addWidget(scrollLook);
+	tabLook->setLayout(scrollLayLook);
+
+	QVBoxLayout *scrollLayTune = new QVBoxLayout;
+	scrollLayTune->addWidget(scrollTune);
+	tabTune->setLayout(scrollLayTune);
+
+	tabs->addTab(tabLook,tr("Look"));
+	tabs->addTab(tabTune,tr("Fine-Tuning"));
+
+
+
+	// The titles
+	QLabel *titleLook = new QLabel("<center><h1>" + tr("Thumbnail Look") + "</h1></center>");
+	layLook->addWidget(titleLook);
+	layLook->addSpacing(20);
+	QLabel *titleTune = new QLabel("<center><h1>" + tr("Fine-Tuning of Thumbnails") + "</h1></center>");
+	layTune->addWidget(titleTune);
+	layTune->addSpacing(20);
+
 
 	// OPTION TO CHANGE THUMBNAIL SIZE
 	QLabel *thumbSizeLabel = new QLabel("<b><span style=\"font-size: 12pt\">" + tr("Thumbnail Size") + "</span></b><br><br>" + tr("Here you can adjust the thumbnail size. You can set it to any size between 20 and 256 pixel. Per default it is set to 80 pixel, but with different screen resolutions it might be nice to have them larger/smaller."));
@@ -45,24 +82,16 @@ SettingsTabThumbnail::SettingsTabThumbnail(QWidget *parent, QMap<QString, QVaria
 	thumbSizeLay->addWidget(thumbSizeSlider);
 	thumbSizeLay->addWidget(thumbSizeSpin);
 	thumbSizeLay->addStretch();
-	lay->addWidget(thumbSizeLabel);
-	lay->addSpacing(5);
-	lay->addLayout(thumbSizeLay);
-	lay->addSpacing(20);
+	layLook->addWidget(thumbSizeLabel);
+	layLook->addSpacing(5);
+	layLook->addLayout(thumbSizeLay);
+	layLook->addSpacing(20);
 	connect(thumbSizeSlider, SIGNAL(valueChanged(int)), thumbSizeSpin, SLOT(setValue(int)));
 	connect(thumbSizeSpin, SIGNAL(valueChanged(int)), thumbSizeSlider, SLOT(setValue(int)));
 
 
 
 	// OPTION TO SET BORDER AROUND THUMBNAILS
-	widgetSpacing = new QWidget;
-	widgetSpacing->setObjectName("widgetSpacing");
-	widgetSpacing->setStyleSheet("QWidget#widgetSpacing { background: rgba(255,255,255,20); border-radius: 20px; padding: 20px; }");
-	QLabel *extSpacing = new QLabel(tr("Extended Setting"));
-	extSpacing->setStyleSheet("font-weight: bold; font-size: 10px; font-style: italic");
-	QHBoxLayout *extSpacingLay = new QHBoxLayout;
-	extSpacingLay->addWidget(extSpacing);
-	extSpacingLay->addStretch();
 	borderAroundSlider = new CustomSlider;
 	borderAroundSlider->setMinimum(0);
 	borderAroundSlider->setMaximum(30);
@@ -78,15 +107,10 @@ SettingsTabThumbnail::SettingsTabThumbnail(QWidget *parent, QMap<QString, QVaria
 	thbBorderLay->addWidget(borderAroundSlider);
 	thbBorderLay->addWidget(borderAroundSpin);
 	thbBorderLay->addStretch();
-	QVBoxLayout *widgetSpacingLay = new QVBoxLayout;
-	widgetSpacingLay->addLayout(extSpacingLay);
-	widgetSpacingLay->addWidget(thbBorderAroundLabel);
-	widgetSpacingLay->addSpacing(5);
-	widgetSpacingLay->addLayout(thbBorderLay);
-	widgetSpacingLay->addSpacing(20);
-	widgetSpacing->setLayout(widgetSpacingLay);
-	lay->addWidget(widgetSpacing);
-	widgetSpacing->hide();
+	layLook->addWidget(thbBorderAroundLabel);
+	layLook->addSpacing(5);
+	layLook->addLayout(thbBorderLay);
+	layLook->addSpacing(20);
 	connect(borderAroundSlider, SIGNAL(valueChanged(int)), borderAroundSpin, SLOT(setValue(int)));
 	connect(borderAroundSpin, SIGNAL(valueChanged(int)), borderAroundSlider, SLOT(setValue(int)));
 
@@ -108,10 +132,10 @@ SettingsTabThumbnail::SettingsTabThumbnail(QWidget *parent, QMap<QString, QVaria
 	thbLiftUpLay->addWidget(thbLiftUpSlider);
 	thbLiftUpLay->addWidget(thbLiftUpSpin);
 	thbLiftUpLay->addStretch();
-	lay->addWidget(thbLiftUpLabel);
-	lay->addSpacing(5);
-	lay->addLayout(thbLiftUpLay);
-	lay->addSpacing(20);
+	layLook->addWidget(thbLiftUpLabel);
+	layLook->addSpacing(5);
+	layLook->addLayout(thbLiftUpLay);
+	layLook->addSpacing(20);
 	connect(thbLiftUpSlider, SIGNAL(valueChanged(int)), thbLiftUpSpin, SLOT(setValue(int)));
 	connect(thbLiftUpSpin, SIGNAL(valueChanged(int)), thbLiftUpSlider, SLOT(setValue(int)));
 
@@ -130,10 +154,10 @@ SettingsTabThumbnail::SettingsTabThumbnail(QWidget *parent, QMap<QString, QVaria
 	thbPosLay->addWidget(thbPosTop);
 	thbPosLay->addWidget(thbPosBot);
 	thbPosLay->addStretch();
-	lay->addWidget(thbPosLabel);
-	lay->addSpacing(5);
-	lay->addLayout(thbPosLay);
-	lay->addSpacing(20);
+	layLook->addWidget(thbPosLabel);
+	layLook->addSpacing(5);
+	layLook->addLayout(thbPosLay);
+	layLook->addSpacing(20);
 
 
 
@@ -145,21 +169,13 @@ SettingsTabThumbnail::SettingsTabThumbnail(QWidget *parent, QMap<QString, QVaria
 	thbKeepLay->addStretch();
 	thbKeepLay->addWidget(keepVisible);
 	thbKeepLay->addStretch();
-	lay->addWidget(thbKeepVisibleLabel);
-	lay->addSpacing(5);
-	lay->addLayout(thbKeepLay);
-	lay->addSpacing(20);
+	layTune->addWidget(thbKeepVisibleLabel);
+	layTune->addSpacing(5);
+	layTune->addLayout(thbKeepLay);
+	layTune->addSpacing(20);
 
 
 	// OPTION TO ENABLE DYNAMIC THUMBNAIL CREATION (handy for faster harddrives)
-	widgetDynamic = new QWidget;
-	widgetDynamic->setObjectName("widgetDynamic");
-	widgetDynamic->setStyleSheet("QWidget#widgetDynamic { background: rgba(255,255,255,20); border-radius: 20px; padding: 20px; }");
-	QLabel *extDyn = new QLabel(tr("Extended Setting"));
-	extDyn->setStyleSheet("font-weight: bold; font-size: 10px; font-style: italic");
-	QHBoxLayout *extDynLay = new QHBoxLayout;
-	extDynLay->addWidget(extDyn);
-	extDynLay->addStretch();
 	QLabel *dynamicThumbnailsLabel = new QLabel("<b><span style=\"font-size: 12pt\">" + tr("Dynamic Thumbnail Creation") + "</span></b><br><bR>" + tr("Enable dynamic thumbnail creation."));
 	dynamicThumbnailsLabel->setWordWrap(true);
 	QHBoxLayout *dynamicThbLay = new QHBoxLayout;
@@ -167,15 +183,10 @@ SettingsTabThumbnail::SettingsTabThumbnail(QWidget *parent, QMap<QString, QVaria
 	dynamicThbLay->addStretch();
 	dynamicThbLay->addWidget(dynamicThumbnails);
 	dynamicThbLay->addStretch();
-	QVBoxLayout *widgetDynLay = new QVBoxLayout;
-	widgetDynLay->addLayout(extDynLay);
-	widgetDynLay->addWidget(dynamicThumbnailsLabel);
-	widgetDynLay->addSpacing(5);
-	widgetDynLay->addLayout(dynamicThbLay);
-	widgetDynLay->addSpacing(20);
-	widgetDynamic->setLayout(widgetDynLay);
-	lay->addWidget(widgetDynamic);
-	widgetDynamic->hide();
+	layTune->addWidget(dynamicThumbnailsLabel);
+	layTune->addSpacing(5);
+	layTune->addLayout(dynamicThbLay);
+	layTune->addSpacing(20);
 
 
 
@@ -204,9 +215,12 @@ SettingsTabThumbnail::SettingsTabThumbnail(QWidget *parent, QMap<QString, QVaria
 	filenameSpinSliderLay->addWidget(filenameFontSizeSlider);
 	filenameSpinSliderLay->addWidget(filenameFontSizeSpin);
 	filenameSpinSliderLay->addStretch();
-	QVBoxLayout *filenameLay = new QVBoxLayout;
-	filenameLay->addLayout(filenameCheckLay);
-	filenameLay->addLayout(filenameSpinSliderLay);
+
+	layLook->addWidget(filenameInsteadThbLabel);
+	layLook->addSpacing(5);
+	layLook->addLayout(filenameCheckLay);
+	layLook->addLayout(filenameSpinSliderLay);
+	layLook->addSpacing(20);
 	connect(filenameInsteadThb, SIGNAL(toggled(bool)), filenameFontSizeSlider, SLOT(setEnabled(bool)));
 	connect(filenameInsteadThb, SIGNAL(toggled(bool)), filenameFontSizeSpin, SLOT(setEnabled(bool)));
 	connect(filenameFontSizeSlider, SIGNAL(valueChanged(int)), filenameFontSizeSpin, SLOT(setValue(int)));
@@ -215,14 +229,6 @@ SettingsTabThumbnail::SettingsTabThumbnail(QWidget *parent, QMap<QString, QVaria
 
 
 
-	widgetDisable = new QWidget;
-	widgetDisable->setObjectName("widgetDynamic");
-	widgetDisable->setStyleSheet("QWidget#widgetDynamic { background: rgba(255,255,255,20); border-radius: 20px; padding: 20px; }");
-	QLabel *extDis = new QLabel(tr("Extended Setting"));
-	extDis->setStyleSheet("font-weight: bold; font-size: 10px; font-style: italic");
-	QHBoxLayout *extDisLay = new QHBoxLayout;
-	extDisLay->addWidget(extDis);
-	extDisLay->addStretch();
 	QLabel *thumbnailDisableLabel = new QLabel("<b><span style=\"font-size: 12pt\">" + tr("Disable Thumbnails") + "</span></b><br><bR>" + tr("If you just don't need or don't want any thumbnails whatsoever, then you can disable them here completely. This option can also be toggled remotely via command line (run 'photoqt --help' for more information on that)."));
 	thumbnailDisableLabel->setWordWrap(true);
 	thumbDisable = new CustomCheckBox(tr("Disable Thumbnails altogether"));
@@ -231,26 +237,13 @@ SettingsTabThumbnail::SettingsTabThumbnail(QWidget *parent, QMap<QString, QVaria
 	thumbDisableLay->addStretch();
 	thumbDisableLay->addWidget(thumbDisable);
 	thumbDisableLay->addStretch();
-	QVBoxLayout *widgetDisLay = new QVBoxLayout;
-	widgetDisLay->addLayout(extDisLay);
-	widgetDisLay->addWidget(thumbnailDisableLabel);
-	widgetDisLay->addSpacing(5);
-	widgetDisLay->addLayout(thumbDisableLay);
-	widgetDisLay->addSpacing(20);
-	widgetDisable->setLayout(widgetDisLay);
-	lay->addWidget(widgetDisable);
-	widgetDisable->hide();
+	layTune->addWidget(thumbnailDisableLabel);
+	layTune->addSpacing(5);
+	layTune->addLayout(thumbDisableLay);
+	layTune->addSpacing(20);
 
 
 	// OPTION FOR THUMBNAIL CACHE
-	widgetCache = new QWidget;
-	widgetCache->setObjectName("widgetCache");
-	widgetCache->setStyleSheet("QWidget#widgetCache { background: rgba(255,255,255,20); border-radius: 20px; padding: 20px; }");
-	QLabel *extCache = new QLabel(tr("Extended Setting"));
-	extCache->setStyleSheet("font-weight: bold; font-size: 10px; font-style: italic");
-	QHBoxLayout *extCacheLay = new QHBoxLayout;
-	extCacheLay->addWidget(extCache);
-	extCacheLay->addStretch();
 
 	QLabel *thumbCacheLabel = new QLabel("<b><span style=\"font-size:12pt\">" + tr("Thumbnail Cache") + "</span></b><hr>" + tr("Thumbnails can be cached in two different ways:<br>1) File Caching (following the freedesktop.org standard) or<br>2) Database Caching (better performance and management, default option).") + "<br><br>" + tr("Both ways have their advantages and disadvantages:") + "<br>" + tr("File Caching is done according to the freedesktop.org standard and thus different applications can share the same thumbnail for the same image file. However, it's not possible to check for obsolete thumbnails (thus this may lead to many unneeded thumbnail files).") + "<br>" + tr("Database Caching doesn't have the advantage of sharing thumbnails with other applications (and thus every thumbnails has to be newly created for PhotoQt), but it brings a slightly better performance, and it allows a better handling of existing thumbnails (e.g. deleting obsolete thumbnails).") + "<br><br>" + tr("PhotoQt works with either option, though the second way is set as default.") + "<br><br>" + tr("Although everybody is encouraged to use at least one of the two options, caching can be completely disabled altogether. However, that does affect the performance and usability of PhotoQt, since thumbnails have to be newly re-created every time they are needed."));
 	thumbCacheLabel->setWordWrap(true);
@@ -273,14 +266,12 @@ SettingsTabThumbnail::SettingsTabThumbnail(QWidget *parent, QMap<QString, QVaria
 	cacheOption->addStretch();
 	cacheDatabase->setChecked(true);
 
-	QVBoxLayout *widgetCacheLay = new QVBoxLayout;
-	widgetCacheLay->addLayout(extCacheLay);
-	widgetCacheLay->addWidget(thumbCacheLabel);
-	widgetCacheLay->addSpacing(5);
-	widgetCacheLay->addLayout(thumbCacheLay);
-	widgetCacheLay->addSpacing(5);
-	widgetCacheLay->addLayout(cacheOption);
-	widgetCacheLay->addSpacing(5);
+	layTune->addWidget(thumbCacheLabel);
+	layTune->addSpacing(5);
+	layTune->addLayout(thumbCacheLay);
+	layTune->addSpacing(5);
+	layTune->addLayout(cacheOption);
+	layTune->addSpacing(5);
 
 	connect(thumbCache, SIGNAL(toggled(bool)), cacheFile, SLOT(setEnabled(bool)));
 	connect(thumbCache, SIGNAL(toggled(bool)), cacheDatabase, SLOT(setEnabled(bool)));
@@ -292,7 +283,7 @@ SettingsTabThumbnail::SettingsTabThumbnail(QWidget *parent, QMap<QString, QVaria
 	dbInfoLay->addStretch();
 	dbInfoLay->addWidget(dbInfo);
 	dbInfoLay->addStretch();
-	widgetCacheLay->addLayout(dbInfoLay);
+	layTune->addLayout(dbInfoLay);
 
 	// The database can be cleaned and erased
 	cleanDatabase = new CustomPushButton(tr("CLEAN up Database"));
@@ -305,13 +296,9 @@ SettingsTabThumbnail::SettingsTabThumbnail(QWidget *parent, QMap<QString, QVaria
 	dbLay->addWidget(eraseDatabase);
 	dbLay->addStretch();
 
-	widgetCacheLay->addSpacing(10);
-	widgetCacheLay->addLayout(dbLay);
-	widgetCacheLay->addSpacing(10);
-
-	widgetCache->setLayout(widgetCacheLay);
-	lay->addWidget(widgetCache);
-	widgetCache->hide();
+	layTune->addSpacing(10);
+	layTune->addLayout(dbLay);
+	layTune->addSpacing(10);
 
 	connect(thumbCache, SIGNAL(toggled(bool)), cleanDatabase, SLOT(setEnabled(bool)));
 	connect(thumbCache, SIGNAL(toggled(bool)), eraseDatabase, SLOT(setEnabled(bool)));
@@ -336,7 +323,8 @@ SettingsTabThumbnail::SettingsTabThumbnail(QWidget *parent, QMap<QString, QVaria
 	connect(confirmErase, SIGNAL(confirmed()), this, SLOT(doEraseDatabase()));
 
 
-	lay->addStretch();
+	layLook->addStretch();
+	layTune->addStretch();
 
 }
 
@@ -574,15 +562,6 @@ void SettingsTabThumbnail::doEraseDatabase() {
 
 	// Update database info
 	setDatabaseInfo();
-
-}
-
-void SettingsTabThumbnail::toggleExtended(bool extended) {
-
-	widgetSpacing->setVisible(extended);
-	widgetDynamic->setVisible(extended);
-	widgetDisable->setVisible(extended);
-	widgetCache->setVisible(extended);
 
 }
 

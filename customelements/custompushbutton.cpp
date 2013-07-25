@@ -1,41 +1,66 @@
 #include "custompushbutton.h"
+#include <QtDebug>
 
 CustomPushButton::CustomPushButton(const QString &text, QWidget *parent) : QPushButton(text, parent) {
 
 	noRoundedCorners = false;
-
-	this->setStyleSheet("color: white; background: rgba(0,0,0,150); padding: 4px 8px; border-radius: 8px; border: 1px solid white;");
+	hover = false;
+	enabled = true;
+	padding = 0;
 
 	this->setCursor(Qt::PointingHandCursor);
+
+	this->setMouseTracking(true);
+
+	setCSS();
 
 }
 
 // Per default the button has rounded corners - can be disabled
 void CustomPushButton::removeRoundedCorners() {
-	this->setStyleSheet("color: white; background: rgba(0,0,0,150); padding: 4px 8px; border: 1px solid white; border-radius: 0;");
 	noRoundedCorners = true;
+	setCSS();
 }
 
 // When disabled, we need to adjust some colors to make it visible
-void CustomPushButton::setEnabled(bool enabled) {
+void CustomPushButton::setEnabled(bool e) {
 
-	QString css = "background: rgba(0,0,0,150);";
-	if(enabled)
-		css += "color: white;";
+	enabled = e;
+	setCSS();
+	QPushButton::setEnabled(enabled);
+
+}
+
+void CustomPushButton::setCSS() {
+
+	QString css = "";
+	if(rgba == "")
+		css += hover ? "background: rgba(80,80,80,100);" : "background: rgba(20,20,20,150);";
 	else
-		css += "color: grey;";
-	css += "padding: 4px 8px;";
-	if(enabled)
-		css += "border: 1px solid white;";
-	else
-		css += "border: 1px solid grey;";
-	if(!noRoundedCorners)
-		css += "border-radius: 8px;";
-	else
-		css += "border-radius: 0;";
+		css += "background: " + rgba + ";";
+	enabled ? css += "color: white;" : css += "color: grey;";
+
+	(padding != 0) ? css += QString("padding: %1px;").arg(padding) : css += "padding: 6px 10px;";
+	enabled ? css += "border: 1px solid rgba(100,100,100,100);" : css += "border: 1px solid rgba(50,50,50,100);";
+	(!noRoundedCorners) ? css += "border-radius: 8px;" : css += "border-radius: 0;";
+
 	this->setStyleSheet(css);
 
-	QPushButton::setEnabled(enabled);
+}
+
+void CustomPushButton::enterEvent(QEvent *) {
+
+	hover = true;
+
+	setCSS();
+
+}
+
+void CustomPushButton::leaveEvent(QEvent *) {
+
+	hover = false;
+
+	setCSS();
 
 }
 

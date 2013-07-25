@@ -8,6 +8,7 @@
 #include "../customelements/customspinbox.h"
 #include "../customelements/customradiobutton.h"
 #include "../customelements/customlabel.h"
+#include "../customelements/customtabwidget.h"
 
 #include <QWidget>
 #include <QStyleOption>
@@ -45,19 +46,22 @@ public:
 	SettingsTabLookAndFeel(QWidget *parent = 0, QMap<QString,QVariant> set = QMap<QString,QVariant>(), bool verbose = false);
 	~SettingsTabLookAndFeel();
 
+	TabWidget *tabs;
+	QWidget *tabLook;
+	QWidget *tabFeel;
+
 	bool verbose;
 
 	// The global settings
 	QMap<QString,QVariant> globSet;
 
 	// The scrollbar
-	CustomScrollbar *scrollbar;
+	CustomScrollbar *scrollbarLook;
+	CustomScrollbar *scrollbarFeel;
 
 	// This holds the updated settings when saved
 	QMap<QString,QVariant> updatedSet;
 	QMap<QString,QVariant> defaults;
-
-	void toggleExtended(bool extended);
 
 private:
 
@@ -71,7 +75,6 @@ private:
 	CustomCheckBox *backgroundImgScaleToFit;
 	CustomCheckBox *backgroundImgCenter;
 
-	QWidget *widgetOverlay;
 	// Adjust background overlay color
 	QColorDialog *background;
 	CustomPushButton *selectCol;
@@ -79,23 +82,23 @@ private:
 	// Adjust tray icon usage
 	CustomCheckBox *trayIcon;
 
-	QWidget *widgetLoop;
 	// Adjust looping through the folder
 	CustomCheckBox *loopThroughFolder;
 
 	// Transitioning between images (DISABLED AT THE MOMENT)
 	CustomSlider *transition;
 
-	QWidget *widgetBorder;
 	// Border around main image
 	CustomSlider *borderAroundImgSlider;
 	CustomSpinBox *borderAroundImgSpinBox;
 
-	QWidget *widgetMenuSensitivity;
 	// Menu sensitivity
 	CustomSlider *menu;
 
-	QWidget *widgetGrey;
+	// Window Mode
+	CustomCheckBox *windowMode;
+	CustomCheckBox *windowDeco;
+
 	// Close on click on grey
 	CustomCheckBox *grey;
 

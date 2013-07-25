@@ -7,6 +7,7 @@
 #include "../customelements/customradiobutton.h"
 #include "../customelements/custompushbutton.h"
 #include "../customelements/customspinbox.h"
+#include "../customelements/customtabwidget.h"
 #include "../widgets/customconfirm.h"
 
 #include <QWidget>
@@ -32,7 +33,12 @@ public:
 	SettingsTabThumbnail(QWidget *parent = 0, QMap<QString,QVariant> set = QMap<QString,QVariant>(), bool verbose = false);
 	~SettingsTabThumbnail();
 
-	void toggleExtended(bool extended);
+	TabWidget *tabs;
+	QWidget *tabLook;
+	QWidget *tabTune;
+
+	CustomScrollbar *scrollbarLook;
+	CustomScrollbar *scrollbarTune;
 
 	bool verbose;
 
@@ -42,16 +48,10 @@ public:
 	// the global settings
 	QMap<QString,QVariant> globSet;
 
-	// The main scroll bar
-	QScrollArea *scroll;
-	QWidget *scrollWidg;
-	CustomScrollbar *scrollbar;
-
 	// The size of the thumbnails
 	CustomSlider *thumbSizeSlider;
 	CustomSpinBox *thumbSizeSpin;
 
-	QWidget *widgetSpacing;
 	// The border around the thumbnails
 	CustomSlider *borderAroundSlider;
 	CustomSpinBox *borderAroundSpin;
@@ -67,7 +67,6 @@ public:
 	// Keep thumbnails always visible or fade out
 	CustomCheckBox *keepVisible;
 
-	QWidget *widgetDynamic;
 	// Enable dynamic thumbnails (i.e. only create the ones you need)
 	CustomCheckBox *dynamicThumbnails;
 
@@ -76,11 +75,9 @@ public:
 	CustomSlider *filenameFontSizeSlider;
 	CustomSpinBox *filenameFontSizeSpin;
 
-	QWidget *widgetDisable;
 	// Disable thumbnails
 	CustomCheckBox *thumbDisable;
 
-	QWidget *widgetCache;
 	// Use thumbnail cache
 	CustomCheckBox *thumbCache;
 

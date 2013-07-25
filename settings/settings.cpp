@@ -21,25 +21,18 @@ Settings::Settings(QWidget *parent, QMap<QString, QVariant> glob, bool v) : QWid
 	isShown = false;
 
 	// The tab widget
-	tabs = new QTabWidget;
+	tabs = new TabWidget;
+	tabs->makeBold(true);
 
 	QVBoxLayout *layout = new QVBoxLayout;
 	this->setLayout(layout);
 	layout->addWidget(tabs);
 
-	// Some buttons
-	switchExtended = new CustomCheckBox(tr("&Extended"));
-	switchExtended->setFontColor("grey");
-	switchExtended->setIndicatorImage(":/img/switchon.png",":/img/switchoff.png");
-	switchExtended->setIndicatorSize(40,20);
-	switchExtended->setFontSize(8);
 
 	CustomPushButton *setDefault = new CustomPushButton(tr("Restore Default Settings"));
 	CustomPushButton *saveExit = new CustomPushButton(tr("Save Changes and Exit"));
 	CustomPushButton *cancel = new CustomPushButton(tr("Exit and Discard Changes"));
 	QHBoxLayout *butLay = new QHBoxLayout;
-	butLay->addWidget(switchExtended);
-	butLay->addSpacing(20);
 	butLay->addWidget(setDefault);
 	butLay->addStretch();
 	butLay->addWidget(saveExit);
@@ -50,8 +43,6 @@ Settings::Settings(QWidget *parent, QMap<QString, QVariant> glob, bool v) : QWid
 	// Ask for confirmation of restoring default settings
 	restoreDefaultConfirm = new CustomConfirm(tr("Restore Default Settings?"),tr("Do you really want to get rid of your custom settings and set the default ones? This only resets all settings. A default set of shortcuts can be set in the shortcuts tab.") + "<br><br>" + tr("This step cannot be reversed!"),tr("Yep, I want new stuff"),tr("Um, no, not really"),QSize(400,200),this);
 	restoreDefaultConfirm->showBorder("white",2);
-
-	connect(switchExtended, SIGNAL(clicked()), this, SLOT(toggleExtended()));
 
 	connect(saveExit, SIGNAL(clicked()), this, SLOT(animate()));
 	connect(saveExit, SIGNAL(clicked()), this, SLOT(saveSettings()));
@@ -84,7 +75,7 @@ void Settings::setupTabs() {
 		tabShortcuts->loadUserSetShortcuts();
 
 		// Add the tabs
-		tabs->addTab(tabLookFeel, QIcon(), tr("Look and Feel"));
+		tabs->addTab(tabLookFeel, QIcon(), tr("Look and Behaviour"));
 		tabs->addTab(tabThumb, QIcon(), tr("Thumbnails"));
 		tabs->addTab(tabExif, QIcon(), tr("Details"));
 		tabs->addTab(tabOther, QIcon(), tr("Other Settings"));
@@ -95,41 +86,6 @@ void Settings::setupTabs() {
 		tabThumb->globSet = globSet;
 		tabExif->globSet = globSet;
 		tabOther->globSet = globSet;
-
-		// The cursor changes over the tabbar
-		QList<QTabBar *> tabBar = tabs->findChildren<QTabBar *>();
-		tabBar.at(0)->setCursor(Qt::PointingHandCursor);
-
-		// the tabwidget is majorly styled
-		QString css = "QTabWidget::pane {";
-		css += "border-bottom: 4px double black;";
-		css += "padding: 10px;";
-		css += "padding-top: 20px;";
-		css += "}";
-		css += "QTabBar::tab {";
-		css += "background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #b4b4b4, stop: 1 #080808);";
-		css += "border: 2px solid transparent;";
-		css += "font-weight: bold;";
-		css += "border-bottom-left-radius: 10px;";
-		css += "border-bottom-right-radius: 10px;";
-		css += "min-width: 25ex;";
-		css += "padding: 5px;";
-		css += "}";
-		css += "QTabBar::tab:selected, QTabBar::tab:hover {";
-		css += "background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #ffffff, stop: 1 #a8a8a8);";
-		css += "}";
-		css += "QTabBar::tab:selected {";
-		css += "border-bottom-left-radius: 10px;";
-		css += "border-bottom-right-radius: 10px;";
-		css += "}";
-		css += "QTabWidget::tab-bar {";
-		css += "alignment: center;";
-		css += "}";
-		css += "QTabWidget::pane {";
-		css += "position: absolute;";
-		css += "top: -0.5em;";
-		css += "}";
-		tabs->setStyleSheet(css);
 
 		connect(tabShortcuts, SIGNAL(setDefaultShortcuts()), this, SLOT(restoreDefaultShortcuts()));
 
@@ -323,8 +279,10 @@ void Settings::aniFinished() {
 
 	tabs->setCurrentIndex(0);
 
-	tabLookFeel->scrollbar->setScrollbarShown();
-	tabThumb->scrollbar->setScrollbarShown();
+	tabLookFeel->scrollbarLook->setScrollbarShown();
+	tabLookFeel->scrollbarFeel->setScrollbarShown();
+	tabThumb->scrollbarLook->setScrollbarShown();
+	tabThumb->scrollbarTune->setScrollbarShown();
 	tabShortcuts->scrollbar->setScrollbarShown();
 
 	if(!isShown)
@@ -359,8 +317,10 @@ void Settings::tabChanged() {
 	if(tabs->currentIndex() == 1)
 		tabThumb->setDatabaseInfo();
 
-	tabLookFeel->scrollbar->setValue(0);
-	tabThumb->scrollbar->setValue(0);
+	tabLookFeel->scrollbarLook->setValue(0);
+	tabLookFeel->scrollbarFeel->setValue(0);
+	tabThumb->scrollbarLook->setValue(0);
+	tabThumb->scrollbarTune->setValue(0);
 	tabOther->scrollbar->setValue(0);
 	tabExif->scrollbar->setValue(0);
 	tabShortcuts->scrollbar->setValue(0);
@@ -390,18 +350,6 @@ void Settings::prevTab() {
 		current = 5;
 	--current;
 	tabs->setCurrentIndex(current);
-
-}
-
-void Settings::toggleExtended() {
-
-	switchExtended->setFontColor(switchExtended->isChecked() ? "white" : "grey");
-
-	tabLookFeel->toggleExtended(switchExtended->isChecked());
-	tabThumb->toggleExtended(switchExtended->isChecked());
-	tabExif->toggleExtended(switchExtended->isChecked());
-	tabOther->toggleExtended(switchExtended->isChecked());
-
 
 }
 

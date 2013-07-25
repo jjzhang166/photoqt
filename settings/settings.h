@@ -8,6 +8,8 @@
 #include "settingstabthumbnail.h"
 #include "settingstabshortcuts.h"
 
+#include "../customelements/customtabwidget.h"
+
 #include <QWidget>
 #include <QStyleOption>
 #include <QPainter>
@@ -34,7 +36,7 @@ public:
 	Shortcuts *sh;
 
 	// The tab widget
-	QTabWidget *tabs;
+	TabWidget *tabs;
 
 	// All the tabs
 	SettingsTabOther *tabOther;
@@ -71,8 +73,6 @@ private:
 	// The property animation
 	QPropertyAnimation *ani;
 
-	CustomCheckBox *switchExtended;
-
 private slots:
 	// Animation functions
 	void animate();
@@ -80,8 +80,6 @@ private slots:
 
 	// Called when tab changed
 	void tabChanged();
-
-	void toggleExtended();
 
 public slots:
 

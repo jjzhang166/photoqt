@@ -16,7 +16,7 @@ SET(photoqt_SOURCES ${photoqt_SOURCES} graphics/graphicsview.cpp graphics/graphi
 # widgets/
 SET(photoqt_SOURCES ${photoqt_SOURCES} widgets/aboutwidget.cpp widgets/customconfirm.cpp widgets/dropdownmenu.cpp widgets/dropdownmenuitem.cpp widgets/detailswidget.cpp widgets/filehandling.cpp widgets/startupwidget.cpp)
 # customelements/
-SET(photoqt_SOURCES ${photoqt_SOURCES} customelements/customcheckbox.cpp customelements/customcombobox.cpp customelements/customlineedit.cpp customelements/custompushbutton.cpp customelements/customradiobutton.cpp customelements/customscrollbar.cpp customelements/customslider.cpp customelements/customspinbox.cpp customelements/customlabel.cpp)
+SET(photoqt_SOURCES ${photoqt_SOURCES} customelements/customcheckbox.cpp customelements/customcombobox.cpp customelements/customlineedit.cpp customelements/custompushbutton.cpp customelements/customradiobutton.cpp customelements/customscrollbar.cpp customelements/customslider.cpp customelements/customspinbox.cpp customelements/customlabel.cpp customelements/customtabwidget.cpp)
 # [other]/
 SET(photoqt_SOURCES ${photoqt_SOURCES} slideshow/slideshowbar.cpp slideshow/slideshowsettings.cpp flowlayout/flowlayout.cpp wallpaper/wallpaper.cpp)
 
@@ -32,7 +32,7 @@ SET(photoqt_HEADERS ${photoqt_HEADERS} graphics/graphicsview.h graphics/graphics
 # widgets /
 SET(photoqt_HEADERS ${photoqt_HEADERS} widgets/aboutwidget.h widgets/customconfirm.h widgets/dropdownmenu.h widgets/dropdownmenuitem.h widgets/detailswidget.h widgets/filehandling.h widgets/startupwidget.h)
 # customelements/
-SET(photoqt_HEADERS ${photoqt_HEADERS} customelements/customcheckbox.h customelements/customcombobox.h customelements/customlineedit.h customelements/custompushbutton.h customelements/customradiobutton.h customelements/customscrollbar.h customelements/customslider.h customelements/customspinbox.h customelements/customlabel.h)
+SET(photoqt_HEADERS ${photoqt_HEADERS} customelements/customcheckbox.h customelements/customcombobox.h customelements/customlineedit.h customelements/custompushbutton.h customelements/customradiobutton.h customelements/customscrollbar.h customelements/customslider.h customelements/customspinbox.h customelements/customlabel.h customelements/customtabwidget.h)
 # [other]/
 SET(photoqt_HEADERS ${photoqt_HEADERS} slideshow/slideshowbar.h slideshow/slideshowsettings.h flowlayout/flowlayout.h wallpaper/wallpaper.h)
 
