@@ -53,9 +53,7 @@ Wallpaper::Wallpaper(QMap<QString, QVariant> set, QWidget *parent) : QWidget(par
 
 	// The buttons to proceed or abort are always visible (i.e. not scrolled)
 	ok = new CustomPushButton(tr("Okay, do it!"));
-	ok->removeRoundedCorners();
 	cancel = new CustomPushButton(tr("Nooo, don't!"));
-	cancel->removeRoundedCorners();
 	QHBoxLayout *butLay = new QHBoxLayout;
 	butLay->addStretch();
 	butLay->addWidget(ok);

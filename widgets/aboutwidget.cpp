@@ -24,7 +24,8 @@ About::About(QWidget *parent) : QWidget(parent) {
 
 	// the central widget containing all the information
 	center = new QWidget(this);
-	center->setStyleSheet("background: rgba(0,0,0,200); border-radius: 10px; font-size: 12pt;");
+	center->setObjectName("center");
+	center->setStyleSheet("QWidget#center { background: rgba(0,0,0,200); border-radius: 10px; font-size: 12pt; }");
 
 	// The current animation framework
 	ani = new QPropertyAnimation(center,"geometry");
@@ -80,7 +81,7 @@ About::About(QWidget *parent) : QWidget(parent) {
 
 	QLabel *text = new QLabel(txt);
 	text->setTextInteractionFlags(Qt::TextSelectableByMouse);
-	text->setStyleSheet("color: white");
+	text->setStyleSheet("color: white; font-size: 11pt");
 	text->setWordWrap(true);
 	central->addWidget(text);
 	central->addStretch();
@@ -88,7 +89,6 @@ About::About(QWidget *parent) : QWidget(parent) {
 	// A close button at the bottom
 	//: This string is written onto the "close" button of the about widget
 	close = new CustomPushButton(tr("Okay, I got enough of that..."));
-	close->removeRoundedCorners();
 	QHBoxLayout *closeLay = new QHBoxLayout;
 	closeLay->addStretch();
 	closeLay->addWidget(close);

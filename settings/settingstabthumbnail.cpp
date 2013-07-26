@@ -288,8 +288,6 @@ SettingsTabThumbnail::SettingsTabThumbnail(QWidget *parent, QMap<QString, QVaria
 	// The database can be cleaned and erased
 	cleanDatabase = new CustomPushButton(tr("CLEAN up Database"));
 	eraseDatabase = new CustomPushButton(tr("ERASE Database"));
-	cleanDatabase->removeRoundedCorners();
-	eraseDatabase->removeRoundedCorners();
 	QHBoxLayout *dbLay = new QHBoxLayout;
 	dbLay->addStretch();
 	dbLay->addWidget(cleanDatabase);
