@@ -969,6 +969,7 @@ void MainWindow::openFile() {
 	// Get new filename
 	QString known = globSet->knownFileTypes;
 	known = known.replace(","," ");
+	qDebug() << "OPEN FILE:" << known;
 	QString file = QFileDialog::getOpenFileName(this,tr("Open image file"),opendir,tr("Images") + " (" + known + ")");
 
 	// If a file was chosen (cancel returns an empty string)

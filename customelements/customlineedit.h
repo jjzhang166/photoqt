@@ -13,9 +13,13 @@ public:
 
 	// Minimum width
 	void setMinWidth(int w);
+	void setBorder(QString col, int w);
 
 private:
 	int width;
+	QString borderColor;
+	int borderWidth;
+	void setCSS();
 
 protected:
 	void mouseReleaseEvent(QMouseEvent *);

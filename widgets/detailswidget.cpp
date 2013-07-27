@@ -688,6 +688,8 @@ QString Details::exifGps(QString gpsLonRef, QString gpsLon, QString gpsLatRef, Q
 
 }
 
+#endif
+
 // Click on yes
 void Details::rotConfYes() {
 
@@ -716,7 +718,6 @@ void Details::rotConfNo() {
 
 }
 
-#endif
 
 void Details::makeShow() {
 	if(!isShown) animate();
@@ -799,7 +800,6 @@ void Details::adjustHeight() {
 
 }
 
-#ifdef WITH_EXIV2
 // Click on GPS location (opens in online map (google/bing))
 void Details::gpsClick() {
 
@@ -829,7 +829,6 @@ void Details::gpsClick() {
 	}
 
 }
-#endif
 
 // Change the fontsize of all the labels
 void Details::updateFontsize() {

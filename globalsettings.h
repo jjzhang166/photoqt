@@ -18,376 +18,339 @@ private:
 	bool readonly;
 
 public:
-	QStringList setDefaultFormats() {
 
-		QStringList formats;
+	QStringList formatsQtEnabled;
+	QStringList formatsGmEnabled;
 
-		// Microsoft Windows bitmap
-		formats << ".bmp";
+	void setDefaultFormats() {
 
-		// CompuServe Graphics Interchange Format
-		formats << ".gif";
+		formatsQtEnabled.clear();
+		formatsGmEnabled.clear();
 
-		// Tagged Image File Format
-		formats << ".tif";
-		formats << ".tiff";
 
-		// JPEG-2000 Code Stream Syntax
-		formats << ".jpeg2000";
+		formatsQtEnabled << ".bmp"	// Microsoft Windows bitmap
 
-		// Joint Photographic Experts Group JFIF format
-		formats << ".jpeg";
-		formats << ".jpg";
+				 << ".gif"	// CompuServe Graphics Interchange Format
 
-		// Portable Network Graphics
-		formats << ".png";
+				 << ".tif"	// Tagged Image File Format
+				 << ".tiff"
 
-		// Portable bitmap format (black and white)
-		formats << ".pbm";
+				 << ".jpeg2000"	// JPEG-2000 Code Stream Syntax
 
-		// Portable graymap format (gray scale)
-		formats << ".pgm";
+				 << ".jpeg"	// Joint Photographic Experts Group JFIF format
+				 << ".jpg"
 
-		// Portable pixmap format (color)
-		formats << ".ppm";
+				 << ".png"	// Portable Network Graphics
 
-		// X Windows system bitmap, black and white only
-		formats << ".xbm";
+				 << ".pbm"	// Portable bitmap format (black and white)
 
-		// X Windows system pixmap
-		formats << ".xpm";
+				 << ".pgm"	// Portable graymap format (gray scale)
+
+				 << ".ppm"	// Portable pixmap format (color)
+
+				 << ".xbm"	// X Windows system bitmap, black and white only
+
+				 << ".xpm";	// X Windows system pixmap
 
 #ifdef WITH_GRAPHICSMAGICK
-		// PFS: 1st Publisher
-		formats << ".art";
 
-		//AVS X image
-		formats << ".avs";
-		formats << ".x";
+		formatsGmEnabled << ".art"	// PFS: 1st Publisher
 
-		// Continuous Acquisition and Life-cycle Support Type 1 image
-		formats << ".cals";
+				<< ".avs"	//AVS X image
+				<< ".x"
 
-		// Computer Graphics Metafile
-		formats << ".cgm";
+				<< ".cals"	// Continuous Acquisition and Life-cycle Support Type 1 image
 
-		// Microsoft Cursor Icon
-		formats << ".cur";	// *** UNTESTED, should work
+				<< ".cgm"	// Computer Graphics Metafile
 
-		// DR Halo
-		formats << ".cut";
+				<< ".cur"	// Microsoft Cursor Icon -- UNTESTED, should work
 
-		// Digital Imaging and Communications in Medicine (DICOM) image
-		formats << ".acr";
-		formats << ".dcm";
-		formats << ".dicom";
-		formats << ".dic";
+				<< ".cut"	// DR Halo
 
-		// ZSoft IBM PC multi-page Paintbrush image
-		formats << ".dcx";
+				<< ".acr"	// Digital Imaging and Communications in Medicine (DICOM) image
+				<< ".dcm"
+				<< ".dicom"
+				<< ".dic"
 
-		// Microsoft Windows Device Independent Bitmap
-		formats << ".dib";
+				<< ".dcx"	// ZSoft IBM PC multi-page Paintbrush image
 
-		// Digital Moving Picture Exchange
-		formats << ".dpx";
+				<< ".dib"	// Microsoft Windows Device Independent Bitmap
 
-		// Microsoft Enhanced Metafile (32-bit)
-		formats << ".emf";
+				<< ".dpx"	// Digital Moving Picture Exchange
 
-		// Encapsulated Portable Document Format
-		formats << ".epdf";
+				<< ".emf"	// Microsoft Enhanced Metafile (32-bit)
 
-		// Adobe Encapsulated PostScript Interchange format
-		formats << ".epi";
+				<< ".epdf"	// Encapsulated Portable Document Format
 
-		// Adobe Encapsulated PostScript
-		formats << ".eps";
+				<< ".epi"	// Adobe Encapsulated PostScript Interchange format
 
-		// Adobe Level II Encapsulated PostScript
-		formats << ".eps2";
+				<< ".eps"	// Adobe Encapsulated PostScript
 
-		// Adobe Level III Encapsulated PostScript
-		formats << ".eps3";
+				<< ".eps2"	// Adobe Level II Encapsulated PostScript
 
-		// Adobe Encapsulated PostScript
-		formats << ".epsf";
+				<< ".eps3"	// Adobe Level III Encapsulated PostScript
 
-		// Adobe Encapsulated PostScript Interchange format
-		formats << ".epsi";
+				<< ".epsf"	// Adobe Encapsulated PostScript
 
-		// Adobe Encapsulated PostScript Interchange format with TIFF preview
-		formats << ".ept";
+				<< ".epsi"	// Adobe Encapsulated PostScript Interchange format
 
-		// Group 3 FAX
-		formats << ".fax";
+				<< ".ept"	// Adobe Encapsulated PostScript Interchange format with TIFF preview
 
-		// FIG graphics format
-		formats << ".fig";
+				<< ".fax"	// Group 3 FAX
 
-		// Flexible Image Transport System
-		formats << ".fits";
-		formats << ".fts";
-		formats << ".fit";
+				<< ".fig"	// FIG graphics format
 
-		// FlashPix Format
-		formats << ".fpx";
+				<< ".fits"	// Flexible Image Transport System
+				<< ".fts"
+				<< ".fit"
 
-		// Gnuplot plot files
-		formats << ".gplt";
+				<< ".fpx"	// FlashPix Format
 
-		// Raw gray samples
-//		formats << ".gray";	*** not working yet
+				<< ".gplt"	// Gnuplot plot files
 
-		// HP-GL plotter language
-//		formats << ".hpgl";	*** requires hp2xx
+				<< ".ico"	// Microsoft icon
 
-		// Microsoft icon
-		formats << ".ico";
+				<< ".jbg"	// Joint Bi-level Image experts Group file interchange format
+				<< ".jbig"
 
-		// Joint Bi-level Image experts Group file interchange format
-		formats << ".jbg";
-		formats << ".jbig";
+				<< ".jng"	// JPEG Network Graphics
 
-		// JPEG Network Graphics
-		formats << ".jng";
+				<< ".jp2"	// JPEG-2000 JP2 File Format Syntax
+				<< ".j2k"
+				<< ".jpf"
+				<< ".jpx"
+				<< ".jpm"
+				<< ".mj2"
 
-		// JPEG-2000 JP2 File Format Syntax
-		formats << ".jp2";
-		formats << ".j2k";
-		formats << ".jpf";
-		formats << ".jpx";
-		formats << ".jpm";
-		formats << ".mj2";
+				<< ".jpc"	// JPEG-2000 Code Stream Syntax
 
-		// JPEG-2000 Code Stream Syntax
-		formats << ".jpc";
+				<< ".mat"	// MATLAB image format
 
-		// MATLAB image format
-		formats << ".mat";
+				<< ".miff"	// Magick image file format
 
-		// Magick image file format
-		formats << ".miff";
+				<< ".mng"	// Multiple-image Network Graphics
 
-		// Bi-level bitmap in least-significant-byte first order
-//		formats << ".mono";	*** not working yet
+				<< ".mpc"	// Magick Persistent Cache image file format
 
-		// Multiple-image Network Graphics
-		formats << ".mng";
+				<< ".mtv"	// MTV Raytracing image format
 
-		// Magick Persistent Cache image file format
-		formats << ".mpc";
+				<< ".otb"	// On-the-air Bitmap
 
-		// Magick Scripting Language
-//		formats << ".msl";	*** conversion failed
+				<< ".p7"	// Xv's Visual Schnauzer thumbnail format
 
-		// MTV Raytracing image format
-		formats << ".mtv";
+				<< ".palm"	// Palm pixmap
 
-		// Magick Vector Graphics
-//		formats << ".mvg";	*** conversion failed
+				<< ".pam"	// Portable Arbitrary Map format
 
-		// On-the-air Bitmap
-		formats << ".otb";
+				<< ".pcd"	// Photo CD
+				<< ".pcds"
 
-		// Xv's Visual Schnauzer thumbnail format
-		formats << ".p7";
+				<< ".pcx"	// ZSoft IBM PC Paintbrush file
 
-		// Palm pixmap
-		formats << ".palm";
+				<< ".pdb"	// Palm Database ImageViewer Format
 
-		// Portable Arbitrary Map format
-		formats << ".pam";
+				<< ".pdf"	// Portable Document Format
 
-		// Photo CD
-		formats << ".pcd";
-		formats << ".pcds";
+				<< ".picon"	// Personal Icon
 
-		// HP Page Control Language
-//		formats << ".pcl";	*** external tool needed ("hp2xx")
+				<< ".pict"	// Apple Macintosh QuickDraw /PICT file
+				<< ".pct"
+				<< ".pic"
 
-		// ZSoft IBM PC Paintbrush file
-		formats << ".pcx";
+				<< ".pix"	// Alias/Wavefront RLE image format
 
-		// Palm Database ImageViewer Format
-		formats << ".pdb";
+				<< ".pnm"	// Portable anymap
 
-		// Portable Document Format
-		formats << ".pdf";
+				<< ".ps"	// Adobe PostScript file
 
-		// Postscript Type 1 font (ASCII)
-//		formats << ".pfa";	*** conversion failed
+				<< ".ps2"	// Adobe Level II PostScript file
 
-		// Postscript Type 1 font (binary)
-//		formats << ".pfb";	*** conversion failed
+				<< ".ps3"	// Adobe Level III PostScript file
 
-		// Personal Icon
-		formats << ".picon";
+				<< ".psd"	// Adobe Photoshop bitmap file
 
-		// Apple Macintosh QuickDraw /PICT file
-		formats << ".pict";
-		formats << ".pct";
-		formats << ".pic";
+				<< ".ptif"	// Pyramid encoded TIFF
 
-		// Alias/Wavefront RLE image format
-		formats << ".pix";
+				<< ".ras"	// Sun Raster Image
+				<< ".rast"
 
-		// Portable anymap
-		formats << ".pnm";
+				<< ".rad"	// Radiance image file
 
-		// Adobe PostScript file
-		formats << ".ps";
+				<< ".sgi"	// Irix RGB image
 
-		// Adobe Level II PostScript file
-		formats << ".ps2";
+				<< ".sun"	// SUN Rasterfile
 
-		// Adobe Level III PostScript file
-		formats << ".ps3";
+				<< ".svg"	// Scalable Vector Graphics
 
-		// Adobe Photoshop bitmap file
-		formats << ".psd";
+				<< ".tga"	// Truevision Targa image
 
-		// Pyramid encoded TIFF
-		formats << ".ptif";
+				<< ".vicar"	// VICAR rasterfile format
 
-		// Seattle File Works multi-image file
-//		formats << ".pwp";	*** conversion failed
+				<< ".viff"	// Khoros Visualization Image File Format
 
-		// Sun Raster Image
-		formats << ".ras";
-		formats << ".rast";
+				<< ".wbmp"	// Wireless bitmap
+				<< ".wbm"
 
-		// Radiance image file
-		formats << ".rad";
+				<< ".xcf"	// GIMP image
 
-		// Raw red, green, and blue samples
-//		formats << ".rgb";	*** not working yet
+				<< ".xwd";	// X Windows system window dump
 
-		// Raw red, green, and blue and matte samples
-//		formats << ".rgba";	*** not working yet
 
-		// Alias/Wavefront image file
-//		formats << ".rla";	*** conversion failed
+/*** THE FOLLOWING FILE TYPES ARE DISABLED BY DEFAULT -- NOT ALL ARE WORKING JUST YET ***/
 
-		// Utah Run length encoded image file
-//		formats << ".rle";	*** some tool missing
+//	<< ".gray"	// Raw gray samples -- test failed
 
-		// Scitex Continuous Tone Picture
-//		formats << ".sct";	*** conversion failed
+//	<< ".hpgl"	// HP-GL plotter language -- external tool needed ("hp2xx")
 
-		// Seattle File Works image
-//		formats << ".sfw";	*** conversion failed
+//	<< ".mono"	// Bi-level bitmap in least-significant-byte first order -- test failed
 
-		// Irix RGB image
-		formats << ".sgi";
+//	<< ".msl"	// Magick Scripting Language -- test failed
 
-		// SUN Rasterfile
-		formats << ".sun";
+//	<< ".mvg"	// Magick Vector Graphics -- test failed
 
-		// Scalable Vector Graphics
-		formats << ".svg";
+//	<< ".pcl"	// HP Page Control Language -- external tool needed ("hp2xx")
 
-		// Truevision Targa image
-		formats << ".tga";
+//	<< ".pfa"	// Postscript Type 1 font (ASCII) -- test failed
 
-		// PSX TIM file
-//		formats << ".tim";	*** conversion failed
+//	<< ".pfb"	// Postscript Type 1 font (binary) -- test failed
 
-		// X-Motif UIL table
-//		formats << ".uil";	*** conversion resulted in "Speicherzugriffsfehler"
+//	<< ".pwp"	// Seattle File Works multi-image file -- test failed
 
-		// Interleaved YUV raw image
-//		formats << ".uyvy";	*** not working yet
+//	<< ".rgb"	// Raw red, green, and blue samples -- test failed
 
-		// VICAR rasterfile format
-		formats << ".vicar";
+//	<< ".rgba"	// Raw red, green, and blue and matte samples -- test failed
 
-		// Khoros Visualization Image File Format
-		formats << ".viff";
+//	<< ".rla"	// Alias/Wavefront image file -- test failed
 
-		// Wireless bitmap
-		formats << ".wbmp";
-		formats << ".wbm";
+//	<< ".rle"	// Utah Run length encoded image file -- some tool missing
 
-		// Windows Metafile
-//		formats << ".wmf";	*** conversion failed
+//	<< ".sct"	// Scitex Continuous Tone Picture -- test failed
 
-		// Word Perfect Graphics File
-//		formats << ".wpg";	*** conversion failed
+//	<< ".sfw"	// Seattle File Works image -- test failed
 
-		// GIMP image
-		formats << ".xcf";
+//	<< ".tim"	// PSX TIM file -- test failed
 
-		// X Windows system window dump
-		formats << ".xwd";
+//	<< ".uil"	// X-Motif UIL table -- test failed
 
-		// CCIR 601 4:1:1
-//		formats << ".yuv";	*** not working yet
+//	<< ".uyvy"	// Interleaved YUV raw image -- test failed
+
+//	<< ".wmf"	// Windows Metafile -- test failed
+
+//	<< ".wpg"	// Word Perfect Graphics File -- test failed
+
+//	<< ".yuv";	// CCIR 601 4:1:1 -- test failed
 
 #endif
 
-		return formats;
-
 	}
 
-	QStringList getFormats() {
+	void getFormats() {
 
-		QStringList formats = setDefaultFormats();
+		formatsGmEnabled.clear();
+		formatsQtEnabled.clear();
 
-#ifdef WITH_GRAPHICSMAGICK
+		QFile fileQt(QDir::homePath() + "/.photoqt/fileformatsQt");
+		if(fileQt.exists()) {
 
-//		QFile file(QDir::homePath() + "/.photoqt/fileformats");
-//		if(file.exists()) {
-
-
-//			if(!file.open(QIODevice::ReadOnly))
-//				qDebug() << "ERROR: Can't open image formats file";
-//			else {
-
-//				formats.clear();
-
-//				QTextStream in(&file);
-
-//				QString line = in.readLine();
-//				while (!line.isNull()) {
-//					formats << line.trimmed();
-//					line = in.readLine();
-//				}
-
-//			}
-
-
-//		}
-
-#endif
-
-		return formats;
-
-	}
-
-	void saveFormats(QString newFormats) {
-
-		if(!readonly) {
-
-			QString formats = newFormats.replace(",","\n").replace("*.",".");
-			formats = formats.trimmed();
-
-			QFile file(QDir::homePath() + "/.photoqt/fileformats");
-			if(file.exists()) {
-				if(!file.remove())
-					qDebug() << "ERROR: Cannot replace image formats file";
-			}
-			if(!file.open(QIODevice::WriteOnly))
-				qDebug() << "ERROR: Cannot write to image formats file";
+			if(!fileQt.open(QIODevice::ReadOnly))
+				qDebug() << "ERROR: Can't open Qt image formats file";
 			else {
-				QTextStream out(&file);
-				out << formats;
-				file.close();
+
+				QTextStream in(&fileQt);
+
+				QString line = in.readLine();
+				while (!line.isNull()) {
+					line = line.trimmed();
+
+					if(line.length() != 0 && !formatsQtEnabled.contains(line))
+						formatsQtEnabled.append(line);
+
+					line = in.readLine();
+				}
+
+			}
+
+		} else
+			setDefaultFormats();
+
+#ifdef WITH_GRAPHICSMAGICK
+
+		QFile fileGm(QDir::homePath() + "/.photoqt/fileformatsGm");
+		if(fileGm.exists()) {
+
+			if(!fileGm.open(QIODevice::ReadOnly))
+				qDebug() << "ERROR: Can't open Gm image formats file";
+			else {
+
+				QTextStream in(&fileGm);
+
+				QString line = in.readLine();
+				while (!line.isNull()) {
+					line = line.trimmed();
+
+					if(line.length() != 0 && !formatsGmEnabled.contains(line))
+						formatsGmEnabled.append(line);
+
+					line = in.readLine();
+				}
 
 			}
 
 		}
 
+#endif
+
+	}
+
+	void saveFormats() {
+
+		if(!readonly) {
+
+			QString qtfilecontent = "";
+
+			for(int i = 0; i < formatsQtEnabled.length(); ++i)
+				qtfilecontent += QString("%1\n").arg(formatsQtEnabled.at(i));
+
+			QFile fileQt(QDir::homePath() + "/.photoqt/fileformatsQt");
+			if(fileQt.exists()) {
+				if(!fileQt.remove())
+					qDebug() << "ERROR: Cannot replace Qt image formats file";
+			}
+			if(!fileQt.open(QIODevice::WriteOnly))
+				qDebug() << "ERROR: Cannot write to Qt image formats file";
+			else {
+				QTextStream outQt(&fileQt);
+				outQt << qtfilecontent;
+				fileQt.close();
+
+			}
+
+
+#ifdef WITH_GRAPHICSMAGICK
+
+			QString gmfilecontent = "";
+
+			for(int i = 0; i < formatsGmEnabled.length(); ++i)
+				gmfilecontent += QString("%1\n").arg(formatsGmEnabled.at(i));
+
+			QFile fileGm(QDir::homePath() + "/.photoqt/fileformatsGm");
+			if(fileGm.exists()) {
+				if(!fileGm.remove())
+					qDebug() << "ERROR: Cannot replace Gm image formats file";
+			}
+			if(!fileGm.open(QIODevice::WriteOnly))
+				qDebug() << "ERROR: Cannot write to Gm image formats file";
+			else {
+				QTextStream outGm(&fileGm);
+				outGm << gmfilecontent;
+				fileGm.close();
+
+			}
+
+
+#endif
+
+		}
 
 	}
 
@@ -489,6 +452,10 @@ public:
 
 	// The currently known filetypes
 	FileFormats *fileFormats;
+	QString knownFileTypesQt;
+	QString knownFileTypesQtExtras;
+	QString knownFileTypesGm;
+	QString knownFileTypesGmExtras;
 	QString knownFileTypes;
 
 	// Some exif settings
@@ -525,6 +492,10 @@ public:
 		map.insert("Language",language);
 
 		map.insert("KnownFileTypes",knownFileTypes);
+		map.insert("KnownFileTypesQt",knownFileTypesQt);
+		map.insert("KnownFileTypesQtExtras",knownFileTypesQtExtras);
+		map.insert("KnownFileTypesGm",knownFileTypesGm);
+		map.insert("KnownFileTypesGmExtras",knownFileTypesGmExtras);
 
 		map.insert("WindowMode",windowmode);
 		map.insert("WindowDecoration",windowDecoration);
@@ -605,7 +576,12 @@ public:
 		version = "beta";
 
 		fileFormats = new FileFormats;
-		knownFileTypes = "*" + fileFormats->getFormats().join(",*");
+		fileFormats->getFormats();
+		knownFileTypesQt = "*" + fileFormats->formatsQtEnabled.join(",*");
+		knownFileTypesQtExtras = "";
+		knownFileTypesGm = "*" + fileFormats->formatsGmEnabled.join(",*");
+		knownFileTypesGmExtras = "";
+		knownFileTypes = knownFileTypesQt + "," + knownFileTypesGm;
 
 		windowmode = false;
 		windowDecoration = false;
@@ -702,13 +678,24 @@ public:
 			if(all.contains("Language="))
 				language = all.split("Language=").at(1).split("\n").at(0);
 
-//			if(all.contains("KnownFileTypes=")) {
-//				QString temp = all.split("KnownFileTypes=").at(1).split("\n").at(0);
-//				if(temp.length() > 3)
-//					knownFileTypes = temp;
-//			}
-			knownFileTypes = "*" + fileFormats->getFormats().join(",*");
-			qDebug() << "KFT:" << knownFileTypes;
+			knownFileTypesQt = (fileFormats->formatsQtEnabled.length() != 0) ? "*" + fileFormats->formatsQtEnabled.join(",*") : "";
+			knownFileTypesGm = (fileFormats->formatsGmEnabled.length() != 0) ? "*" + fileFormats->formatsGmEnabled.join(",*") : "";
+
+			if(all.contains("KnownFileTypesQtExtras="))
+				knownFileTypesQtExtras = all.split("KnownFileTypesQtExtras=").at(1).split("\n").at(0);
+			if(all.contains("KnownFileTypesGmExtras="))
+				knownFileTypesGmExtras = all.split("KnownFileTypesGmExtras=").at(1).split("\n").at(0);
+
+			knownFileTypes = "";
+			if(knownFileTypesQt != "")
+				knownFileTypes += "," + knownFileTypesQt;
+			if(knownFileTypesGm != "")
+				knownFileTypes += "," + knownFileTypesGm;
+			if(knownFileTypesQtExtras != "")
+				knownFileTypes += "," + knownFileTypesQtExtras;
+			if(knownFileTypesGmExtras != "")
+				knownFileTypes += "," + knownFileTypesGmExtras;
+			if(knownFileTypes.startsWith(",")) knownFileTypes = knownFileTypes.remove(0,1);
 
 			if(all.contains("WindowMode=1"))
 				windowmode = true;
@@ -990,9 +977,12 @@ public:
 			cont += QString("Language=%1\n").arg(language);
 			cont += QString("WindowMode=%1\n").arg(int(windowmode));
 			cont += QString("WindowDecoration=%1\n").arg(int(windowDecoration));
-//			cont += QString("KnownFileTypes=%1\n").arg(knownFileTypes);
+			cont += QString("KnownFileTypesQtExtras=%1\n").arg(knownFileTypesQtExtras);
+			cont += QString("KnownFileTypesGmExtras=%1\n").arg(knownFileTypesGmExtras);
 
-			fileFormats->saveFormats(knownFileTypes);
+			fileFormats->formatsQtEnabled = knownFileTypesQt.replace("*","").split(",");
+			fileFormats->formatsGmEnabled = knownFileTypesGm.replace("*","").split(",");
+			fileFormats->saveFormats();
 
 			cont += "\n[Look]\n";
 
@@ -1102,8 +1092,30 @@ public slots:
 		if(changedSet.keys().contains("Version"))
 			version = changedSet.value("Version").toString();
 
-//		if(changedSet.keys().contains("KnownFileTypes"))
-//			knownFileTypes = changedSet.value("KnownFileTypes").toString();
+		if(changedSet.keys().contains("KnownFileTypesQtExtras"))
+			knownFileTypesQtExtras = changedSet.value("KnownFileTypesQtExtras").toString();
+
+		if(changedSet.keys().contains("KnownFileTypesGmExtras"))
+			knownFileTypesGmExtras = changedSet.value("KnownFileTypesGmExtras").toString();
+
+		if(changedSet.keys().contains("KnownFileTypesQt"))
+			knownFileTypesQt = changedSet.value("KnownFileTypesQt").toString();
+
+		if(changedSet.keys().contains("KnownFileTypesGm"))
+			knownFileTypesGm = changedSet.value("KnownFileTypesGm").toString();
+
+
+		knownFileTypes = "";
+		if(knownFileTypesQt != "")
+			knownFileTypes += "," + knownFileTypesQt;
+		if(knownFileTypesGm != "")
+			knownFileTypes += "," + knownFileTypesGm;
+		if(knownFileTypesQtExtras != "")
+			knownFileTypes += "," + knownFileTypesQtExtras;
+		if(knownFileTypesGmExtras != "")
+			knownFileTypes += "," + knownFileTypesGmExtras;
+		if(knownFileTypes.startsWith(",")) knownFileTypes = knownFileTypes.remove(0,1);
+
 
 		if(changedSet.keys().contains("WindowMode")) {
 			windowmode = changedSet.value("WindowMode").toBool();

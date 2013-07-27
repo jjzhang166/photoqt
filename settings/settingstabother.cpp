@@ -9,31 +9,69 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 
 	this->setStyleSheet("background: transparent; color: white");
 
-	// the main scroll widget for all content
-	scrollbar = new CustomScrollbar;
-	QScrollArea *scroll = new QScrollArea;
-	QVBoxLayout *lay = new QVBoxLayout(scroll);
-	QWidget *scrollWidg = new QWidget(scroll);
-	scrollWidg->setLayout(lay);
-	scroll->setWidget(scrollWidg);
-	scroll->setWidgetResizable(true);
-	QVBoxLayout *scrollLay = new QVBoxLayout;
-	scrollLay->addWidget(scroll);
-	this->setLayout(scrollLay);
-	scroll->setVerticalScrollBar(scrollbar);
 
-	// The tab title
-	QLabel *title = new QLabel("<h1><center>" + tr("Other Settings") + "</center></h1>");
-	lay->addWidget(title);
-	lay->addSpacing(20);
+
+
+	tabs = new TabWidget;
+	tabs->expand(false);
+	tabs->setBorderTop("rgba(150,150,150,100)",2);
+	tabs->setBorderBot("rgba(150,150,150,100)",2);
+
+	QVBoxLayout *mainLay = new QVBoxLayout;
+	mainLay->addWidget(tabs);
+	this->setLayout(mainLay);
+
+	// the main scroll widget for all LOOK content
+	scrollbarOther = new CustomScrollbar;
+	QScrollArea *scrollOther = new QScrollArea;
+	QVBoxLayout *layOther = new QVBoxLayout(scrollOther);
+	QWidget *scrollWidgOther = new QWidget(scrollOther);
+	scrollWidgOther->setLayout(layOther);
+	scrollOther->setWidget(scrollWidgOther);
+	scrollOther->setWidgetResizable(true);
+	scrollOther->setVerticalScrollBar(scrollbarOther);
+
+	// the main scroll widget for all FEEL content
+	scrollbarFile = new CustomScrollbar;
+	QScrollArea *scrollFile = new QScrollArea;
+	QVBoxLayout *layFile = new QVBoxLayout(scrollFile);
+	QWidget *scrollWidgFile = new QWidget(scrollFile);
+	scrollWidgFile->setLayout(layFile);
+	scrollFile->setWidget(scrollWidgFile);
+	scrollFile->setWidgetResizable(true);
+	scrollFile->setVerticalScrollBar(scrollbarFile);
+
+	tabOther = new QWidget;
+	tabFile = new QWidget;
+
+	QVBoxLayout *scrollLayOther = new QVBoxLayout;
+	scrollLayOther->addWidget(scrollOther);
+	tabOther->setLayout(scrollLayOther);
+
+	QVBoxLayout *scrollLayFile = new QVBoxLayout;
+	scrollLayFile->addWidget(scrollFile);
+	tabFile->setLayout(scrollLayFile);
+
+	tabs->addTab(tabOther,tr("Other"));
+	tabs->addTab(tabFile,tr("File Types"));
+
+
+
+	// The titles
+	QLabel *titleOther = new QLabel("<center><h1>" + tr("Other Settings") + "</h1></center>");
+	layOther->addWidget(titleOther);
+	layOther->addSpacing(20);
+	QLabel *titleFile = new QLabel("<center><h1>" + tr("Known File Types") + "</h1></center>");
+	layFile->addWidget(titleFile);
+	layFile->addSpacing(20);
 
 
 
 	// CHOOSE A LANGUAGE
 	QLabel *langLabel = new QLabel("<b><span style=\"font-size:12pt\">" + tr("Choose Language") + "</span></b><br><br>" + tr("There are a good few different languages available. Thanks to everybody who took the time to translate PhotoQt!"));
 	langLabel->setWordWrap(true);
-	lay->addWidget(langLabel);
-	lay->addSpacing(15);
+	layOther->addWidget(langLabel);
+	layOther->addSpacing(15);
 
 
 	// All the languages available. They are sorted according to their language code (except English)
@@ -131,8 +169,8 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 	langWidgLay->addLayout(langLay);
 	langWidgLay->addSpacing(50);
 
-	lay->addLayout(langWidgLay);
-	lay->addSpacing(30);
+	layOther->addLayout(langWidgLay);
+	layOther->addSpacing(30);
 
 
 	// Adjust context menu
@@ -149,30 +187,162 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 	addNewLay->addStretch();
 	addNewLay->addWidget(addNew);
 	addNewLay->addStretch();
-	lay->addWidget(contextMenuLabel);
-	lay->addSpacing(10);
-	lay->addLayout(contextLay);
-	lay->addLayout(addNewLay);
-	lay->addSpacing(20);
+	layOther->addWidget(contextMenuLabel);
+	layOther->addSpacing(10);
+	layOther->addLayout(contextLay);
+	layOther->addLayout(addNewLay);
+	layOther->addSpacing(20);
+
+
+
+
+
+
+
+	allCheckQt.clear();
+	allCheckGm.clear();
+	allCheckGmUnstable.clear();
 
 
 	// Adjust known file formats
-	QLabel *knownLabel = new QLabel("<b><span style=\"font-size:12pt\">" + tr("Known File Types") + "</span></b><br><br>" + tr("Here you can adjust the list of known image types. Some image types (especially more exotic ones) aren't supported by every Qt installation (depending on which image plugins you've got installed, etc.). If there's any problem with an image type, you can take it out of the list here. If you want to add an image type, simply add it to the list.") + "<br><b>" + tr("Only change the list if you know what you're doing!") + "</b>");
-	knownLabel->setWordWrap(true);
-	knownFile = new CustomLineEdit("Known File Types");
-	knownFile->setMinWidth(600);
-	QHBoxLayout *knownLay = new QHBoxLayout;
-	knownLay->addStretch();
-	knownLay->addWidget(knownFile);
-	knownLay->addStretch();
-	lay->addWidget(knownLabel);
-	lay->addSpacing(5);
-	lay->addLayout(knownLay);
-	lay->addSpacing(20);
+//	QLabel *knownLabel = new QLabel("<b><span style=\"font-size:12pt\">" + tr("Known File Types") + "</span></b><br><br>" + tr("Here you can adjust the list of known image types. Some image types (especially more exotic ones) aren't supported by every Qt installation (depending on which image plugins you've got installed, etc.). If there's any problem with an image type, you can take it out of the list here. If you want to add an image type, simply add it to the list.") + "<br><b>" + tr("Only change the list if you know what you're doing!") + "</b>");
+//	knownLabel->setWordWrap(true);
+
+	QLabel *titleQt = new QLabel("<b><span style=\"font-size:12pt\">" + tr("Qt File Types") + "</span></b><br><br>" + tr("Qt File Types") + "</b>");
+	titleQt->setWordWrap(true);
+
+	QGridLayout *layQt = new QGridLayout;
+	QStringList formatsQt;
+	formatsQt << ".bmp" << ".gif" << ".tif" << ".tiff" << ".jpeg2000" << ".jpeg" << ".jpg" << ".png" << ".pbm" << ".pgm" << ".ppm" << ".xbm" << ".xpm";
+	formatsQt.sort();
+	for(int i = 0; i < formatsQt.length(); ++i) {
+
+		CustomCheckBox *check = new CustomCheckBox(formatsQt.at(i));
+		allCheckQt.insert(formatsQt.at(i),check);
+		layQt->addWidget(check,i/10,i%10);
+
+	}
+
+	QHBoxLayout *layQtBut = new QHBoxLayout;
+	CustomLabel *extraQt = new CustomLabel(tr("Extra File Types:"));
+	extraQtEdit = new CustomLineEdit;
+	CustomPushButton *qtMarkAll = new CustomPushButton(tr("Mark All"));
+	CustomPushButton *qtMarkNone = new CustomPushButton(tr("Mark None"));
+	layQtBut->addWidget(extraQt);
+	layQtBut->addWidget(extraQtEdit);
+	layQtBut->addStretch();
+	layQtBut->addWidget(qtMarkAll);
+	layQtBut->addWidget(qtMarkNone);
+
+	layFile->addWidget(titleQt);
+	layFile->addSpacing(10);
+	layFile->addLayout(layQt);
+	layFile->addSpacing(5);
+	layFile->addLayout(layQtBut);
+	layFile->addSpacing(35);
+
+	QSignalMapper *mapQtMark = new QSignalMapper;
+	mapQtMark->setMapping(qtMarkAll,"qtMark");
+	connect(qtMarkAll, SIGNAL(clicked()), mapQtMark, SLOT(map()));
+	connect(mapQtMark, SIGNAL(mapped(QString)), this, SLOT(markAllNone(QString)));
+
+	QSignalMapper *mapQtNone = new QSignalMapper;
+	mapQtNone->setMapping(qtMarkNone,"qtNone");
+	connect(qtMarkNone, SIGNAL(clicked()), mapQtNone, SLOT(map()));
+	connect(mapQtNone, SIGNAL(mapped(QString)), this, SLOT(markAllNone(QString)));
 
 
 
-	lay->addStretch();
+	QLabel *titleGmWorking = new QLabel("<b><span style=\"font-size:12pt\">" + tr("Gm File Types") + "</span></b><br><br>" + tr("Known to be working Gm File Types") + "</b>");
+
+	QGridLayout *layGm = new QGridLayout;
+	QStringList formatsGm;
+	formatsGm << ".art" << ".avs" << ".x" << ".cals" << ".cgm" << ".cur" << ".cut" << ".acr" << ".dcm" << ".dicom" << ".dic" << ".dcx" << ".dib" << ".dpx" << ".emf" << ".epdf" << ".epi" << ".eps" << ".eps2" << ".eps3" << ".epsf" << ".epsi" << ".ept" << ".fax" << ".fig" << ".fits" << ".fts" << ".fit" << ".fpx" << ".gplt" << ".ico" << ".jbg" << ".jbig" << ".jng" << ".jp2" << ".j2k" << ".jpf" << ".jpx" << ".jpm" << ".mj2" << ".jpc" << ".mat" << ".miff" << ".mng" << ".mpc" << ".mtv" << ".otb" << ".p7" << ".palm" << ".pam" << ".pcd" << ".pcds" << ".pcx" << ".pdb" << ".pdf" << ".picon" << ".pict" << ".pct" << ".pic" << ".pix" << ".pnm" << ".ps" << ".ps2" << ".ps3" << ".psd" << ".ptif" << ".ras" << ".rast" << ".rad" << ".sgi" << ".sun" << ".svg" << ".tga" << ".vicar" << ".viff" << ".wbmp" << ".wbm" << ".xcf" << ".xwd";
+	formatsGm.sort();
+	for(int i = 0; i < formatsGm.length(); ++i) {
+
+		CustomCheckBox *check = new CustomCheckBox(formatsGm.at(i));
+		allCheckGm.insert(formatsGm.at(i),check);
+		layGm->addWidget(check,i/10,i%10);
+
+	}
+
+	QHBoxLayout *layGmBut = new QHBoxLayout;
+	CustomLabel *extraGm = new CustomLabel(tr("Extra File Types:"));
+	extraGmEdit = new CustomLineEdit;
+	CustomPushButton *gmMarkAll = new CustomPushButton(tr("Mark All"));
+	CustomPushButton *gmMarkNone = new CustomPushButton(tr("Mark None"));
+	layGmBut->addWidget(extraGm);
+	layGmBut->addWidget(extraGmEdit);
+	layGmBut->addStretch();
+	layGmBut->addWidget(gmMarkAll);
+	layGmBut->addWidget(gmMarkNone);
+
+	layFile->addWidget(titleGmWorking);
+	layFile->addSpacing(10);
+	layFile->addLayout(layGm);
+	layFile->addSpacing(5);
+	layFile->addLayout(layGmBut);
+	layFile->addSpacing(35);
+
+
+	QSignalMapper *mapGmMark = new QSignalMapper;
+	mapGmMark->setMapping(gmMarkAll,"gmMark");
+	connect(gmMarkAll, SIGNAL(clicked()), mapGmMark, SLOT(map()));
+	connect(mapGmMark, SIGNAL(mapped(QString)), this, SLOT(markAllNone(QString)));
+
+	QSignalMapper *mapGmNone = new QSignalMapper;
+	mapGmNone->setMapping(gmMarkNone,"gmNone");
+	connect(gmMarkNone, SIGNAL(clicked()), mapGmNone, SLOT(map()));
+	connect(mapGmNone, SIGNAL(mapped(QString)), this, SLOT(markAllNone(QString)));
+
+
+
+
+
+	QLabel *titleGmUnstable = new QLabel("<b><span style=\"font-size:12pt\">" + tr("Unstable Gm File Types") + "</span></b><br><br>" + tr("Unstable Gm File Types") + "</b>");
+	titleGmUnstable->setWordWrap(true);
+
+	QGridLayout *layGmUnstable = new QGridLayout;
+	QStringList formatsGmUnstable;
+	formatsGmUnstable << ".gray" << ".hpgl" << ".mono" << ".msl" << ".mvg" << ".pcl" << ".pfa" << ".pfb" << ".pwp" << ".rgb" << ".rgba" << ".rla" << ".rle" << ".sct" << ".sfw" << ".tim" << ".uil" << ".uyvy" << ".wmf" << ".wpg" << ".yuv";
+	formatsGmUnstable.sort();
+	for(int i = 0; i < formatsGmUnstable.length(); ++i) {
+
+		CustomCheckBox *check = new CustomCheckBox(formatsGmUnstable.at(i));
+		allCheckGmUnstable.insert(formatsGmUnstable.at(i),check);
+		layGmUnstable->addWidget(check,i/10,i%10);
+
+	}
+
+	QHBoxLayout *layGmButUnstable = new QHBoxLayout;
+	CustomPushButton *gmMarkAllUnstable = new CustomPushButton(tr("Mark All"));
+	CustomPushButton *gmMarkNoneUnstable = new CustomPushButton(tr("Mark None"));
+	layGmButUnstable->addStretch();
+	layGmButUnstable->addWidget(gmMarkAllUnstable);
+	layGmButUnstable->addWidget(gmMarkNoneUnstable);
+
+	layFile->addWidget(titleGmUnstable);
+	layFile->addSpacing(10);
+	layFile->addLayout(layGmUnstable);
+	layFile->addSpacing(5);
+	layFile->addLayout(layGmButUnstable);
+	layFile->addSpacing(35);
+
+	QSignalMapper *mapGmMarkUnst = new QSignalMapper;
+	mapGmMarkUnst->setMapping(gmMarkAllUnstable,"gmunstMark");
+	connect(gmMarkAllUnstable, SIGNAL(clicked()), mapGmMarkUnst, SLOT(map()));
+	connect(mapGmMarkUnst, SIGNAL(mapped(QString)), this, SLOT(markAllNone(QString)));
+
+	QSignalMapper *mapGmNoneUnst = new QSignalMapper;
+	mapGmNoneUnst->setMapping(gmMarkNoneUnstable,"gmunstNone");
+	connect(gmMarkNoneUnstable, SIGNAL(clicked()), mapGmNoneUnst, SLOT(map()));
+	connect(mapGmNoneUnst, SIGNAL(mapped(QString)), this, SLOT(markAllNone(QString)));
+
+
+
+	layOther->addStretch();
+	layFile->addStretch();
 
 }
 
@@ -193,8 +363,28 @@ void SettingsTabOther::loadSettings() {
 		}
 	}
 
-	knownFile->setText(globSet.value("KnownFileTypes").toString());
-	defaults.insert("KnownFileTypes",globSet.value("KnownFileTypes").toString());
+	QStringList formatsSetQt = globSet.value("KnownFileTypesQt").toString().replace("*","").split(",");
+	QMapIterator<QString, CustomCheckBox*> iterQt(allCheckQt);
+	while (iterQt.hasNext()) {
+		iterQt.next();
+		iterQt.value()->setChecked(formatsSetQt.contains(iterQt.key()) ? true : false);
+	}
+
+	QStringList formatsSetGm = globSet.value("KnownFileTypesGm").toString().replace("*","").split(",");
+	QMapIterator<QString, CustomCheckBox*> iterGm(allCheckGm);
+	while (iterGm.hasNext()) {
+		iterGm.next();
+		iterGm.value()->setChecked(formatsSetGm.contains(iterGm.key()) ? true : false);
+	}
+	QMapIterator<QString, CustomCheckBox*> iterGmUnstable(allCheckGmUnstable);
+	while (iterGmUnstable.hasNext()) {
+		iterGmUnstable.next();
+		iterGmUnstable.value()->setChecked(formatsSetGm.contains(iterGmUnstable.key()) ? true : false);
+	}
+
+	extraQtEdit->setText(globSet.value("KnownFileTypesQtExtras").toString());
+	extraGmEdit->setText(globSet.value("KnownFileTypesGmExtras").toString());
+
 
 }
 
@@ -216,15 +406,68 @@ void SettingsTabOther::saveSettings() {
 		}
 	}
 
-	if(defaults.value("KnownFileTypes").toString() != knownFile->text()) {
-		updatedSet.insert("KnownFileTypes",knownFile->text());
-		defaults.remove("KnownFileTypes");
-		defaults.insert("KnownFileTypes",knownFile->text());
+	QStringList formatsSetQt;
+	QMapIterator<QString, CustomCheckBox*> iterQt(allCheckQt);
+	while (iterQt.hasNext()) {
+		iterQt.next();
+		if(iterQt.value()->isChecked()) formatsSetQt.append("*" + iterQt.key());
 	}
+	updatedSet.insert("KnownFileTypesQt",formatsSetQt.join(","));
+
+	QStringList formatsSetGm;
+	QMapIterator<QString, CustomCheckBox*> iterGm(allCheckGm);
+	while (iterGm.hasNext()) {
+		iterGm.next();
+		if(iterGm.value()->isChecked()) formatsSetGm.append("*" + iterGm.key());
+	}
+	QMapIterator<QString, CustomCheckBox*> iterGmUnstable(allCheckGmUnstable);
+	while (iterGmUnstable.hasNext()) {
+		iterGmUnstable.next();
+		if(iterGmUnstable.value()->isChecked()) formatsSetGm.append("*" + iterGmUnstable.key());
+	}
+	updatedSet.insert("KnownFileTypesGm",formatsSetGm.join(","));
+
+	updatedSet.insert("KnownFileTypesQtExtras",extraQtEdit->text());
+	updatedSet.insert("KnownFileTypesGmExtras",extraGmEdit->text());
 
 	context->saveContext();
 
+	qDebug() << "OTHER SETTINGS:" << updatedSet;
+
 }
+
+
+void SettingsTabOther::markAllNone(QString cat) {
+
+	if(cat.startsWith("qt")) {
+
+		QMapIterator<QString, CustomCheckBox*> iterQt(allCheckQt);
+		while (iterQt.hasNext()) {
+			iterQt.next();
+			iterQt.value()->setChecked(cat.endsWith("Mark") ? true : false);
+		}
+
+	} else if(cat.startsWith("gmunst")) {
+
+		QMapIterator<QString, CustomCheckBox*> iterGmUnstable(allCheckGmUnstable);
+		while (iterGmUnstable.hasNext()) {
+			iterGmUnstable.next();
+			iterGmUnstable.value()->setChecked(cat.endsWith("Mark") ? true : false);
+		}
+
+	} else if(cat.startsWith("gm")) {
+
+		QMapIterator<QString, CustomCheckBox*> iterGm(allCheckGm);
+		while (iterGm.hasNext()) {
+			iterGm.next();
+			iterGm.value()->setChecked(cat.endsWith("Mark") ? true : false);
+		}
+
+	}
+
+}
+
+
 
 void SettingsTabOther::paintEvent(QPaintEvent *) {
 	QStyleOption o;

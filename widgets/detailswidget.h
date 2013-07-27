@@ -125,14 +125,12 @@ private slots:
 	// Adjusting the widget height
 	void adjustHeight();
 
-#ifdef WITH_EXIV2
 	// A click on the GPS coordinates
 	void gpsClick();
 
 	// Yes/No clicked in confirmation widget
 	void rotConfYes();
 	void rotConfNo();
-#endif
 
 signals:
 	// Update orientation of big image

@@ -321,7 +321,8 @@ void Settings::tabChanged() {
 	tabLookFeel->scrollbarFeel->setValue(0);
 	tabThumb->scrollbarLook->setValue(0);
 	tabThumb->scrollbarTune->setValue(0);
-	tabOther->scrollbar->setValue(0);
+	tabOther->scrollbarOther->setValue(0);
+	tabOther->scrollbarFile->setValue(0);
 	tabExif->scrollbar->setValue(0);
 	tabShortcuts->scrollbar->setValue(0);
 

@@ -3,7 +3,9 @@
 
 #include "../customelements/customscrollbar.h"
 #include "../customelements/customlineedit.h"
+#include "../customelements/customlabel.h"
 #include "../customelements/custompushbutton.h"
+#include "../customelements/customtabwidget.h"
 #include "settingstabotherlanguagetiles.h"
 #include "settingstabothercontext.h"
 #include "../flowlayout/flowlayout.h"
@@ -17,6 +19,7 @@
 #include <QButtonGroup>
 #include <QLineEdit>
 #include <QTextEdit>
+#include <QSignalMapper>
 
 class SettingsTabOther: public QWidget {
 
@@ -28,7 +31,30 @@ public:
 
 	bool verbose;
 
-	CustomScrollbar *scrollbar;
+	// The scrollbars
+	CustomScrollbar *scrollbarOther;
+	CustomScrollbar *scrollbarFile;
+
+	// Global Settings
+	QMap<QString, QVariant> globSet;
+	QMap<QString, QVariant> updatedSet;
+	QMap<QString, QVariant> defaults;
+
+	// Load/Save Settings
+	void loadSettings();
+	void saveSettings();
+
+private:
+
+	TabWidget *tabs;
+	QWidget *tabOther;
+	QWidget *tabFile;
+
+	QMap<QString,CustomCheckBox*> allCheckQt;
+	QMap<QString,CustomCheckBox*> allCheckGm;
+	QMap<QString,CustomCheckBox*> allCheckGmUnstable;
+	CustomLineEdit *extraQtEdit;
+	CustomLineEdit *extraGmEdit;
 
 	// The language selection
 	QStringList langDesc;
@@ -41,17 +67,11 @@ public:
 	// All the known file foormats
 	CustomLineEdit *knownFile;
 
-	// Global Settings
-	QMap<QString, QVariant> globSet;
-	QMap<QString, QVariant> updatedSet;
-	QMap<QString, QVariant> defaults;
-
-	// Load/Save Settings
-	void loadSettings();
-	void saveSettings();
-
-private:
 	void paintEvent(QPaintEvent *);
+
+private slots:
+	void markAllNone(QString cat);
+
 };
 
 #endif // SETTINGSTABGENERAL_H

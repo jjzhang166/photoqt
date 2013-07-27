@@ -5,17 +5,10 @@ CustomLineEdit::CustomLineEdit(QString txt, QWidget *parent) : QLineEdit(txt, pa
 	// A value of 0 leaves the default
 	width = 0;
 
-	QString css = "QLineEdit {";
-		css += "border: 2px solid gray;";
-		css += "border-radius: 10px;";
-		css += "padding: 4px 8px;";
-		css += "color: white;";
-		css += "background: rgba(0,0,0,100);";
-		css += "selection-background-color: white;";
-		css += "selection-color: black;";
-	css += "}";
+	borderColor = "rgba(100,100,100,100)";
+	borderWidth = 1;
 
-	this->setStyleSheet(css);
+	setCSS();
 
 }
 
@@ -24,12 +17,24 @@ void CustomLineEdit::setMinWidth(int w) {
 
 	width = w;
 
+	setCSS();
+
+}
+
+void CustomLineEdit::setBorder(QString col, int w) {
+	borderColor = col;
+	borderWidth = w;
+	setCSS();
+}
+
+void CustomLineEdit::setCSS() {
+
 	QString css = "QLineEdit {";
-		css += "border: 2px solid gray;";
+		css += QString("border: %1px solid %2;").arg(borderWidth).arg(borderColor);
 		css += "border-radius: 10px;";
 		css += "padding: 4px 8px;";
 		css += "color: white;";
-		css += QString("min-width: %1px;").arg(width);
+		if(width != 0) css += QString("min-width: %1px;").arg(width);
 		css += "background: rgba(0,0,0,100);";
 		css += "selection-background-color: white;";
 		css += "selection-color: black;";
