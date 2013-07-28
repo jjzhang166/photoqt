@@ -68,6 +68,8 @@ public:
 
 	bool isVisible() { return isShown; }
 
+	static bool compareNamesFileInfo(const QFileInfo &s1fileinfo, const QFileInfo &s2fileinfo);
+
 private:
 
 	bool isShown;
