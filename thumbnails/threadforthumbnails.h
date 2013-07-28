@@ -76,7 +76,7 @@ protected:
 		// If type is not set to be "files" (i.e. set to "database" or not set at all), use database (default)
 		if(typeCache != "files") {
 
-			if(verbose) qDebug() << "thread: Using database cache";
+			if(verbose) std::clog << "thread: Using database cache" << std::endl;
 
 			if(dbName != "thread" && dbName != "open")
 				dbName = "thread";
@@ -88,7 +88,7 @@ protected:
 			db.transaction();
 
 		} else
-			if(verbose) qDebug() << "thread: Using file cache";
+			if(verbose) std::clog << "thread: Using file cache" << std::endl;
 
 
 		// Thumbnail creation starts out from the currently viewed position, alternatingly creating a thumbnail to the left and then to the right.
@@ -170,7 +170,7 @@ protected:
 						// If there exists a thumbnail of the current file already
 						if(QFile(QDir::homePath() + "/.thumbnails/" + td + "/" + md5 + ".png").exists() && cacheEnabled) {
 
-							if(verbose && !amUpdatingData) qDebug() << "thread: Loading existing thumb from file:" << createThisOne;
+							if(verbose && !amUpdatingData) std::clog << "thread: Loading existing thumb from file: " << createThisOne << std::endl;
 
 							p.load(QDir::homePath() + "/.thumbnails/" + td + "/" + md5 + ".png");
 
@@ -193,7 +193,7 @@ protected:
 						if(query.next()) {
 
 							if(!amUpdatingData && query.value(query.record().indexOf("filelastmod")).toInt() == int(allimgs.at(createThisOne).lastModified().toTime_t())) {
-								if(verbose && !amUpdatingData) qDebug() << "thread: Loading existing thumb from db:" << createThisOne;
+								if(verbose && !amUpdatingData) std::clog << "thread: Loading existing thumb from db: " << createThisOne << std::endl;
 								QByteArray b;
 								b = query.value(query.record().indexOf("thumbnail")).toByteArray();
 								p.loadFromData(b);
@@ -211,7 +211,7 @@ protected:
 					// If file wasn't loaded from file or database, then it doesn't exist yet (or isn't up-to-date anymore) and we have to create it
 					if(!loaded) {
 
-						if(verbose && !amUpdatingData) qDebug() << "thread: Creating new thumb:" << createThisOne;
+						if(verbose && !amUpdatingData) std::clog << "thread: Creating new thumb: " << createThisOne << std::endl;
 
 
 						ImageReader image(verbose);
