@@ -51,6 +51,8 @@ Thumbnails::Thumbnails(QWidget *parent, bool v, QMap<QString,QVariant> set) : QW
 
 }
 
+// Algorithm used for sorting a directory using natural sort
+// Credits to: http://www.qtcentre.org/archive/index.php/t-21411.html
 bool Thumbnails::compareNamesFileInfo(const QFileInfo& s1fileinfo,const QFileInfo& s2fileinfo) {
 
 	const QString s1 = s1fileinfo.fileName();
