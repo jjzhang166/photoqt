@@ -11,7 +11,6 @@
 #include <QMap>
 #include <QFileInfo>
 #include <QDir>
-#include <QtDebug>
 #include <QStyleOption>
 #include <QPropertyAnimation>
 #include <QTextDocument>

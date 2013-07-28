@@ -1,4 +1,5 @@
 #include "settings.h"
+#include <iostream>
 
 Settings::Settings(QWidget *parent, QMap<QString, QVariant> glob, bool v) : QWidget(parent) {
 
@@ -28,7 +29,7 @@ Settings::Settings(QWidget *parent, QMap<QString, QVariant> glob, bool v) : QWid
 	this->setLayout(layout);
 	layout->addWidget(tabs);
 
-
+	// Some general buttons
 	CustomPushButton *setDefault = new CustomPushButton(tr("Restore Default Settings"));
 	CustomPushButton *saveExit = new CustomPushButton(tr("Save Changes and Exit"));
 	CustomPushButton *cancel = new CustomPushButton(tr("Exit and Discard Changes"));
@@ -56,6 +57,7 @@ Settings::Settings(QWidget *parent, QMap<QString, QVariant> glob, bool v) : QWid
 
 }
 
+// Set up the tabs (only called once)
 void Settings::setupTabs() {
 
 	if(!tabsSetup) {
@@ -64,7 +66,7 @@ void Settings::setupTabs() {
 
 		tabsSetup = true;
 
-		// All the tabs
+		// Initiate the tabs
 		tabOther = new SettingsTabOther(this,globSet,verbose);
 		tabLookFeel = new SettingsTabLookAndFeel(this,globSet,verbose);
 		tabThumb = new SettingsTabThumbnail(this,globSet,verbose);
@@ -184,8 +186,6 @@ void Settings::setRect(QRect rect) {
 // the animation function
 void Settings::animate() {
 
-	if(verbose) qDebug() << "set: Animating";
-
 	// Open widget
 	if(!isShown) {
 
@@ -227,7 +227,7 @@ void Settings::animate() {
 // Load all settings
 void Settings::loadSettings() {
 
-	if(verbose) qDebug() << "set: Requesting Load Settings";
+	if(verbose) std::clog << "set: Request to Load Settings" << std::endl;
 
 	tabLookFeel->loadSettings();
 	tabThumb->loadSettings();
@@ -239,7 +239,7 @@ void Settings::loadSettings() {
 // Save all settings
 void Settings::saveSettings() {
 
-	if(verbose) qDebug() << "set: Requesting Save Settings and Shortcuts";
+	if(verbose) std::clog << "set: Request to Save Settings and Shortcuts" << std::endl;
 
 	tabShortcuts->saveShortcuts();
 	sh->allKeyShortcuts = tabShortcuts->allKeyShortcutsNEW;
@@ -275,8 +275,6 @@ void Settings::saveSettings() {
 // When the animation has finished
 void Settings::aniFinished() {
 
-	qDebug() << "ANI FINISHED:" << isShown;
-
 	tabs->setCurrentIndex(0);
 
 	tabLookFeel->scrollbarLook->setScrollbarShown();
@@ -292,7 +290,7 @@ void Settings::aniFinished() {
 
 void Settings::restoreDefaultSettings() {
 
-	if(verbose) qDebug() << "set: Request to restore default settings";
+	if(verbose) std::clog << "set: Request to restore default settings" << std::endl;
 
 	emit restoreDefault();
 
@@ -300,7 +298,7 @@ void Settings::restoreDefaultSettings() {
 
 void Settings::restoreDefaultShortcuts() {
 
-	if(verbose) qDebug() << "set: Request to restore default shortcuts";
+	if(verbose) std::clog << "set: Request to restore default shortcuts" << std::endl;
 
 	sh->setDefault();
 	tabShortcuts->allKeyShortcuts = sh->allKeyShortcuts;
@@ -312,7 +310,7 @@ void Settings::restoreDefaultShortcuts() {
 // On Tab Change, scroll to top
 void Settings::tabChanged() {
 
-	if(verbose) qDebug() << "set: Current Tab Changed";
+	if(verbose) std::clog << "set: Current Tab Changed" << std::endl;
 
 	if(tabs->currentIndex() == 1)
 		tabThumb->setDatabaseInfo();
@@ -326,12 +324,16 @@ void Settings::tabChanged() {
 	tabExif->scrollbar->setValue(0);
 	tabShortcuts->scrollbar->setValue(0);
 
+	tabLookFeel->tabs->setCurrentIndex(0);
+	tabThumb->tabs->setCurrentIndex(0);
+	tabOther->tabs->setCurrentIndex(0);
+
 }
 
 // Go to next tab
 void Settings::nextTab() {
 
-	if(verbose) qDebug() << "set: Next Tab";
+	if(verbose) std::clog << "set: Next Tab" << std::endl;
 
 	int current = tabs->currentIndex();
 	if(current == 4)
@@ -344,7 +346,7 @@ void Settings::nextTab() {
 // Go to prev tab
 void Settings::prevTab() {
 
-	if(verbose) qDebug() << "set: Prev Tab";
+	if(verbose) std::clog << "set: Prev Tab" << std::endl;
 
 	int current = tabs->currentIndex();
 	if(current == 0)

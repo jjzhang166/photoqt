@@ -1,4 +1,5 @@
 #include "graphicsviewlay.h"
+#include <iostream>
 
 ViewBigLay::ViewBigLay(QMap<QString, QVariant> set, bool v) : QVBoxLayout() {
 
@@ -106,7 +107,7 @@ void ViewBigLay::setPosition(QString pos) {
 
 void ViewBigLay::updateInfo(QString currentfile, int countpos, int counttot) {
 
-	if(verbose) qDebug() << "Update Quickinfo labels (show/hide)";
+	if(verbose) std::clog << "Update Quickinfo labels (show/hide)" << std::endl;
 
 	// If a slideshow is running and the user disabled all the quickinfos for that
 	if(slideshowRunning && slideshowHide) {
@@ -174,7 +175,7 @@ void ViewBigLay::hideItem() {
 	QMap<QString,QVariant> updateSet;
 
 	QString objName = ((QAction *) sender())->objectName();
-	qDebug() << "Hide quickinfo:" << objName;
+	if(verbose) std::clog << "Hide quickinfo: " << objName.toStdString() << std::endl;
 
 	if(objName.startsWith("quickinfoCounter")) {
 		quickInfoCounterTOP->hide();

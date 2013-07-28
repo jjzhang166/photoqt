@@ -7,7 +7,7 @@
 #include <QDir>
 #include <QTextStream>
 #include <QVariant>
-#include <QtDebug>
+#include <iostream>
 
 class Shortcuts : public QObject {
 
@@ -27,7 +27,7 @@ public:
 	// Load all shortcuts
 	void loadSH() {
 
-		if(verbose) qDebug() << "Loading Shortcuts";
+		if(verbose) std::clog << "Loading Shortcuts" << std::endl;
 
 		allKeyShortcuts.clear();
 		allMouseShortcuts.clear();
@@ -74,7 +74,7 @@ public:
 	// Save the current shortcuts
 	void saveSH() {
 
-		if(verbose) qDebug() << "sh: Save Shortcuts";
+		if(verbose) std::clog << "sh: Save Shortcuts" << std::endl;
 
 		// The version is always the first line
 		QString content = QString("Version=%1\n").arg(version);
@@ -117,7 +117,7 @@ public slots:
 	// Set the set of default shortcuts
 	void setDefault() {
 
-		if(verbose) qDebug() << "sh: Set default shortcuts";
+		if(verbose) std::clog << "sh: Set default shortcuts" << std::endl;
 
 		allKeyShortcuts.clear();
 		allMouseShortcuts.clear();

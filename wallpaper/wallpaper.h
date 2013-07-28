@@ -12,11 +12,8 @@
 #include <QLabel>
 #include <QFileInfo>
 #include <QProcess>
-#include <QtDebug>
 #include <QButtonGroup>
 #include <QDesktopWidget>
-
-//#include <QDir>
 
 #include "../customelements/custompushbutton.h"
 #include "../customelements/customscrollbar.h"
@@ -29,10 +26,12 @@ class Wallpaper : public QWidget {
 	Q_OBJECT
 
 public:
-	Wallpaper(QMap<QString,QVariant> set, QWidget *parent = 0);
+	Wallpaper(QMap<QString,QVariant> set, bool v, QWidget *parent = 0);
 	~Wallpaper();
 
 	QMap<QString,QVariant> globSet;
+
+	bool verbose;
 
 	void setWallpaper(QString file);
 	void dontSetWallpaper();

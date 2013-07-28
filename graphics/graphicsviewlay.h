@@ -7,8 +7,6 @@
 #include <QSignalMapper>
 #include <QMouseEvent>
 #include <QFileInfo>
-#include <QtDebug>
-
 
 // A custom label (the "x" top right corner) for closing PhotoQt
 class QuickInfoLabel : public QLabel {

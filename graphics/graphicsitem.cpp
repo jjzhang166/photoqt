@@ -1,4 +1,5 @@
 #include "graphicsitem.h"
+#include <iostream>
 
 // This item is used for displaying the big image
 GraphicsItem::GraphicsItem(QGraphicsItem *parent, QGraphicsScene *scene) : QGraphicsPixmapItem(parent,scene) {
@@ -180,14 +181,11 @@ void GraphicsItem::composePixmap(int i) {
 
 // Catch movie errors
 void GraphicsItem::movieError(QImageReader::ImageReaderError r) {
-	qDebug() << "ERROR (Animated Image):" << r;
+	std::cerr << "ERROR (Animated Image): " << r << std::endl;
 }
 
 void GraphicsItem::setTransBarHeight(int height) {
-
-
 	addTransBar = height;
-
 }
 
 GraphicsItem::~GraphicsItem() { }

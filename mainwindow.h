@@ -21,13 +21,11 @@
 #include "setupwidgets.h"
 #include "graphics/graphicsviewlay.h"
 
-//#include <QApplication>
 #include <QDesktopWidget>
 #include <QFile>
 #include <QDir>
 #include <QTextStream>
 #include <QDateTime>
-#include <QtDebug>
 #include <QMessageBox>
 #include <QtSql>
 #include <QGraphicsPixmapItem>
@@ -64,9 +62,6 @@ public:
 
 	// The layout of viewBig
 	ViewBigLay *viewBigLay;
-
-public slots:
-	void showErrorFromMagick(const char*);
 
 
 private:
@@ -129,9 +124,6 @@ private:
 	// Adjust all the geometries (QRects and stuff)
 	void adjustGeometries();
 
-//	// Draw the big main image
-//	void drawImage();
-
 	// Show the startup widget (after update/fresh install)
 	void showStartupUpdateInstallMsg();
 
@@ -153,19 +145,7 @@ private:
 	// Setup a widget
 	void setupWidget(QString what);
 
-
-
-	QGraphicsPixmapItem *emptyThumbnailFreeSpace;
-
-	CustomConfirm *errorMagick;
-
-
 private slots:
-
-	// Draw the big main image
-	void drawImage();
-
-
 
 	// This is called, whenever the settings have changed, and updates all sub-widgets
 	// This function is needed together with the updateSettings() function to avoid a crash on startup
@@ -173,6 +153,9 @@ private slots:
 
 	// If a widget (like open or settings) is opened, all other functions are suspended
 	void blockFunc(bool);
+
+	// Draw the big main image
+	void drawImage();
 
 	// Some images store a orientation in their exif data
 	void getOrientationFromExif(int degree, bool flipHor);

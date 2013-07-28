@@ -2,10 +2,10 @@
 #define GRAPHICSVIEW_H
 
 #include "../customelements/customlabel.h"
+#include "../customelements/customscrollbar.h"
 
 #include <QGraphicsView>
 #include <QWheelEvent>
-#include <QtDebug>
 #include <QTimer>
 #include <QDesktopWidget>
 #include <QMenu>

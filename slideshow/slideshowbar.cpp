@@ -1,4 +1,5 @@
 #include "slideshowbar.h"
+#include <iostream>
 
 SlideShowBar::SlideShowBar(QMap<QString, QVariant> set, QWidget *parent, bool v) : QWidget(parent) {
 
@@ -97,7 +98,7 @@ SlideShowBar::SlideShowBar(QMap<QString, QVariant> set, QWidget *parent, bool v)
 void SlideShowBar::togglePlay() {
 
 	if(nextImg->isActive()) {
-		if(verbose) qDebug() << "sldb: Toggle Playback (Play)";
+		if(verbose) std::clog << "sldb: Toggle Playback (Play)" << std::endl;
 		playPause->setText(tr("Play Slideshow"));
 		nextImg->stop();
 #ifdef WITH_PHONON
@@ -105,7 +106,7 @@ void SlideShowBar::togglePlay() {
 			media->play();
 #endif
 	} else {
-		if(verbose) qDebug() << "sldb: Toggle Playback (Pause)";
+		if(verbose) std::clog << "sldb: Toggle Playback (Pause)" << std::endl;
 		playPause->setText(tr("Pause Slideshow"));
 		nextImg->start();
 #ifdef WITH_PHONON
@@ -116,19 +117,19 @@ void SlideShowBar::togglePlay() {
 
 }
 
-
+// Load next image in directory
 void SlideShowBar::loadNextImg() {
 
-	if(verbose) qDebug() << "sldb: Load next img";
+	if(verbose) std::clog << "sldb: Load next img" << std::endl;
 
 	emit moveInDirectory(1);
 
 }
 
-
+// When music is played and the file comes to an end (but the images not)
 void SlideShowBar::endOfMusicFile() {
 
-	if(verbose) qDebug() << "sldb: End of music file";
+	if(verbose) std::clog << "sldb: End of music file" << std::endl;
 
 #ifdef WITH_PHONON
 	media->stop();
@@ -178,8 +179,6 @@ void SlideShowBar::animate() {
 		if(ani->state() != QPropertyAnimation::Stopped)
 			ani->targetObject()->setProperty(ani->propertyName(),ani->endValue());
 
-		if(verbose) qDebug() << "sldb: Animate in";
-
 		ani->setDuration(500);
 		isShown = true;
 
@@ -196,8 +195,6 @@ void SlideShowBar::animate() {
 		if(ani->state() != QPropertyAnimation::Stopped)
 			ani->targetObject()->setProperty(ani->propertyName(),ani->endValue());
 
-		if(verbose) qDebug() << "sldb: Animate out";
-
 		ani->setDuration(500);
 		isShown = false;
 
@@ -212,7 +209,7 @@ void SlideShowBar::animate() {
 
 void SlideShowBar::startSlideShow() {
 
-	if(verbose) qDebug() << "sldb: Start Slideshow";
+	if(verbose) std::clog << "sldb: Start Slideshow" << std::endl;
 #ifdef WITH_PHONON
 	if(musicFile != "") {
 		volume->setEnabled(true);
@@ -232,7 +229,7 @@ void SlideShowBar::startSlideShow() {
 
 void SlideShowBar::stopSlideShow() {
 
-	if(verbose) qDebug() << "sldb: Stop slideshow";
+	if(verbose) std::clog << "sldb: Stop slideshow" << std::endl;
 
 #ifdef WITH_PHONON
 	media->stop();

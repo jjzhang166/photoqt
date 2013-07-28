@@ -1,5 +1,4 @@
 #include "graphicsview.h"
-#include "../customelements/customscrollbar.h"
 
 GraphicsView::GraphicsView(QMap<QString, QVariant> set, QWidget *parent) : QGraphicsView(parent) {
 
@@ -51,7 +50,7 @@ GraphicsView::GraphicsView(QMap<QString, QVariant> set, QWidget *parent) : QGrap
 
 }
 
-// A click on a context menu item
+// A click on a context menu item (QAction)
 void GraphicsView::contextMenuClicked() {
 
 	QAction *action = (QAction *)sender();
@@ -61,6 +60,7 @@ void GraphicsView::contextMenuClicked() {
 
 }
 
+// A click on a context menu item (CustomLabel)
 void GraphicsView::contextMenuClickedWidgetAction() {
 
 	CustomLabel *action = (CustomLabel *)sender();
@@ -105,11 +105,7 @@ void GraphicsView::contextMenuEvent(QContextMenuEvent *event) {
 		menu->clear();
 
 
-		// A disabled option
-		QAction *t = new QAction(tr("Image Context Options"),menu);
-		t->setDisabled(true);
-//		menu->addAction(t);
-
+		// Move in directory
 		QWidgetAction *moveImg = new QWidgetAction(menu);
 		CustomLabel *move = new CustomLabel(tr("Move:"));
 		move->setStyleSheet("QLabel {color: rgba(180,180,180,255); background: transparent; }");
@@ -134,7 +130,6 @@ void GraphicsView::contextMenuEvent(QContextMenuEvent *event) {
 		moveLay->addWidget(moveFirst);
 		moveLay->addSpacing(5);
 		moveLay->addWidget(moveLeft);
-//		moveLay->addSpacing(10);
 		moveLay->addWidget(moveRight);
 		moveLay->addSpacing(5);
 		moveLay->addWidget(moveLast);
@@ -147,6 +142,7 @@ void GraphicsView::contextMenuEvent(QContextMenuEvent *event) {
 		connect(moveRight, SIGNAL(clicked()), this, SLOT(contextMenuClickedWidgetAction()));
 		connect(moveLast, SIGNAL(clicked()), this, SLOT(contextMenuClickedWidgetAction()));
 
+		// Rotate Image
 		QWidgetAction *rotateImg = new QWidgetAction(menu);
 		CustomLabel *rot = new CustomLabel(tr("Rotate:"));
 		rot->setStyleSheet("QLabel {color: rgba(180,180,180,255); background: transparent; }");
@@ -170,6 +166,7 @@ void GraphicsView::contextMenuEvent(QContextMenuEvent *event) {
 		connect(rotLeft, SIGNAL(clicked()), this, SLOT(contextMenuClickedWidgetAction()));
 		connect(rotRight, SIGNAL(clicked()), this, SLOT(contextMenuClickedWidgetAction()));
 
+		// Flip Image
 		QWidgetAction *flipImg = new QWidgetAction(menu);
 		CustomLabel *flip = new CustomLabel(tr("Flip:"));
 		flip->setStyleSheet("QLabel {color: rgba(180,180,180,255); background: transparent; }");
@@ -193,6 +190,7 @@ void GraphicsView::contextMenuEvent(QContextMenuEvent *event) {
 		connect(flipHor, SIGNAL(clicked()), this, SLOT(contextMenuClickedWidgetAction()));
 		connect(flipVer, SIGNAL(clicked()), this, SLOT(contextMenuClickedWidgetAction()));
 
+		// Zoom Image
 		QWidgetAction *zoomImg = new QWidgetAction(menu);
 		CustomLabel *zoom = new CustomLabel(tr("Zoom:"));
 		zoom->setStyleSheet("QLabel {color: rgba(180,180,180,255); background: transparent; }");
@@ -244,7 +242,7 @@ void GraphicsView::contextMenuEvent(QContextMenuEvent *event) {
 
 		menu->addSeparator();
 
-		// Now actually read in the entries from file
+		// Now read in the additional entries from file
 		QFile file(QDir::homePath() + "/.photoqt/contextmenu");
 
 		if(file.open(QIODevice::ReadOnly)) {
@@ -253,7 +251,7 @@ void GraphicsView::contextMenuEvent(QContextMenuEvent *event) {
 
 			QStringList all = in.readAll().split("\n\n");
 
-			// And set up the menu
+			// And set up the rest of the menu
 			for(int i = 0; i < all.length(); ++i) {
 
 				QString cmd = all.at(i).split("\n").at(0);

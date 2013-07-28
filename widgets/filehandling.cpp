@@ -1,5 +1,6 @@
 #include "filehandling.h"
 #include <unistd.h>
+#include <iostream>
 
 FileHandling::FileHandling(QWidget *parent, bool v, QString cf) : QWidget(parent) {
 
@@ -341,7 +342,7 @@ FileHandling::FileHandling(QWidget *parent, bool v, QString cf) : QWidget(parent
 // Open the dialog type 't'
 void FileHandling::openDialog(QString t) {
 
-	if(verbose) qDebug() << "fhd: Open widget:" << t;
+	if(verbose) std::clog << "fhd: Open widget:" << t.toStdString() << std::endl;
 
 	if(currentfile != "") {
 
@@ -398,16 +399,12 @@ void FileHandling::setRect(QRect rect) {
 // The animation function
 void FileHandling::animate() {
 
-	if(verbose) qDebug() << "fhd: Animate";
-
 	QRect shown = QRect();
 
 	if(dialogType == "move" || dialogType == "copy")
 		shown = QRect((rectShown.width()-600)/2,(rectShown.height()-500)/2,600,500);
 	else
 		shown = QRect((rectShown.width()-600)/2,(rectShown.height()-300)/2,600,300);
-
-	qDebug() << "FH:" << isShown << "-" << shown;
 
 	// Open widget
 	if(!isShown) {
@@ -510,7 +507,7 @@ void FileHandling::aniFinished() {
 // Set the rename dialog
 void FileHandling::setRename() {
 
-	if(verbose) qDebug() << "fhd: Set rename layout";
+	if(verbose) std::clog << "fhd: Set rename layout" << std::endl;
 
 	// Update the labels and focus the LineEdit
 	renameOldName->setText("<center>"+ tr("Old name") + ": " + QFileInfo(currentfile).fileName() + "</center>");
@@ -533,7 +530,7 @@ void FileHandling::setRename() {
 // Set the delete dialog
 void FileHandling::setDelete() {
 
-	if(verbose) qDebug() << "fhd: Set delete layout";
+	if(verbose) std::clog << "fhd: Set delete layout" << std::endl;
 
 	// Update old filename
 	deleteFilename->setText("<center>" + QFileInfo(currentfile).fileName() + "</center>");
@@ -548,7 +545,7 @@ void FileHandling::setDelete() {
 // Set the copy dialog
 void FileHandling::setCopy() {
 
-	if(verbose) qDebug() << "fhd: Set copy layout";
+	if(verbose) std::clog << "fhd: Set copy layout" << std::endl;
 
 	QModelIndex first = copyTreeModel->index(QFileInfo(currentfile).absolutePath());
 	copyTree->setCurrentIndex(first);
@@ -572,7 +569,7 @@ void FileHandling::setCopy() {
 // Set the move dialog
 void FileHandling::setMove() {
 
-	if(verbose) qDebug() << "fhd: Set move layout";
+	if(verbose) std::clog << "fhd: Set move layout" << std::endl;
 
 	QModelIndex first = moveTreeModel->index(QFileInfo(currentfile).absolutePath());
 	moveTree->setCurrentIndex(first);
@@ -602,19 +599,19 @@ void FileHandling::doRename() {
 	// The new filename including full path
 	QString newfile = QFileInfo(currentfile).absolutePath() + "/" + renameNewName->text() + renameOldEnding->text().toLower();
 
-	if(verbose) qDebug() << "fhd: Rename:" << currentfile << "-" << newfile;
+	if(verbose) std::clog << "fhd: Rename: " << currentfile.toStdString() << " - " << newfile.toStdString() << std::endl;
 
 	// Do renaming (this first check of existence shouldn't be needed but just to be on the safe side)
 	if(!QFile(newfile).exists()) {
 		if(file.copy(newfile)) {
 			if(!file.remove()) {
-				qDebug() << "ERROR! Couldn't remove the old filename";
+				std::cerr << "ERROR! Couldn't remove the old filename" << std::endl;
 			}
 			animate();
 			currentfile = newfile;
 			emit reloadDir("rename");
 		} else {
-			qDebug() << "ERROR! Couldn't rename file";
+			std::cerr << "ERROR! Couldn't rename file" << std::endl;
 			animate();
 		}
 
@@ -629,7 +626,7 @@ void FileHandling::doDelete(int harddelete) {
 
 	if(harddelete == 0) {
 
-		if(verbose) qDebug() << "fhd: Move to trash";
+		if(verbose) std::clog << "fhd: Move to trash" << std::endl;
 
 		QString filepath = currentfile;
 
@@ -690,7 +687,7 @@ void FileHandling::doDelete(int harddelete) {
 
 				// And remove the old file
 				if(!f.remove())
-					qDebug() << "ERROR: Old file couldn't be removed!";
+					std::cerr << "ERROR: Old file couldn't be removed!" << std::endl;
 
 				// Write the .trashinfo file
 				QFile i(baseTrash + "info/" + QFileInfo(trashFile).fileName() + ".trashinfo");
@@ -699,21 +696,21 @@ void FileHandling::doDelete(int harddelete) {
 					out << info;
 					i.close();
 				} else
-					qDebug() << "ERROR: *.trashinfo file couldn't be created!";
+					std::cerr << "ERROR: *.trashinfo file couldn't be created!" << std::endl;
 
 				emit reloadDir("delete");
 
 			} else
-				qDebug() << "ERROR: File couldn't be deleted (moving file failed)";
+				std::cerr << "ERROR: File couldn't be deleted (moving file failed)" << std::endl;
 
 		} else
-			qDebug() << "ERROR: File '" + filepath + "' doesn't exist";
+			std::cerr << "ERROR: File '" << filepath.toStdString() << "' doesn't exist...?" << std::endl;
 
 		animate();
 
 	} else {
 
-		if(verbose) qDebug() << "fhd: Hard delete file";
+		if(verbose) std::clog << "fhd: Hard delete file" << std::endl;
 
 		// current file
 		QFile file(currentfile);
@@ -727,14 +724,14 @@ void FileHandling::doDelete(int harddelete) {
 
 		} else {
 			animate();
-			qDebug() << "ERROR! File doesn't exist...?";
+			std::cerr << "ERROR! File '" << currentfile.toStdString() << "' doesn't exist...?" << std::endl;
 		}
 
 	}
 
 #else
 
-	if(verbose) qDebug() << "fhd: Delete file";
+	if(verbose) std::clog << "fhd: Delete file" << std::endl;
 
 	// current file
 	QFile file(currentfile);
@@ -748,7 +745,7 @@ void FileHandling::doDelete(int harddelete) {
 
 	} else {
 		animate();
-		qDebug() << "ERROR! File doesn't exist...?";
+		std::cerr << "ERROR! File doesn't exist...?" << std::endl;
 	}
 
 
@@ -761,14 +758,14 @@ void FileHandling::doMove() {
 
 	QString newfilename = moveTreeModel->filePath(moveTree->selectionModel()->selectedIndexes().at(0)) + "/" + moveNewName->text() + moveNewNameEnding->text();
 
-	if(verbose) qDebug() << "fhd: Move file:" << currentfile << "-" << newfilename;
+	if(verbose) std::clog << "fhd: Move file: " << currentfile.toStdString() << " - " << newfilename.toStdString() << std::endl;
 
 	QFile file(currentfile);
 
 	if(file.copy(newfilename)) {
 		if(!file.remove()) {
 			animate();
-			qDebug() << "ERROR: Couldn't remove old file";
+			std::cerr << "ERROR: Couldn't remove old file" << std::endl;
 			if(QFileInfo(newfilename).absolutePath() == QFileInfo(currentfile).absolutePath())
 				emit reloadDir("rename");
 		} else {
@@ -781,7 +778,7 @@ void FileHandling::doMove() {
 
 	} else {
 		animate();
-		qDebug() << "ERROR: Couldn't move file";
+		std::cerr << "ERROR: Couldn't move file" << std::endl;
 	}
 
 }
@@ -790,7 +787,7 @@ void FileHandling::doCopy() {
 
 	QString newfilename = copyTreeModel->filePath(copyTree->selectionModel()->selectedIndexes().at(0)) + "/" + copyNewName->text() + copyNewNameEnding->text();
 
-	if(verbose) qDebug() << "fhd: Copy file:" << currentfile << "-" << newfilename;
+	if(verbose) std::clog << "fhd: Copy file: " << currentfile.toStdString() << " - " << newfilename.toStdString() << std::endl;
 
 	QFile file(currentfile);
 
@@ -802,7 +799,7 @@ void FileHandling::doCopy() {
 
 	} else {
 		animate();
-		qDebug() << "ERROR: Couldn't copy file";
+		std::clog << "ERROR: Couldn't copy file" << std::endl;
 	}
 
 }

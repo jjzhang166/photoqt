@@ -8,7 +8,6 @@
 #include <QLineEdit>
 #include <QPushButton>
 #include <QPropertyAnimation>
-#include <QtDebug>
 #include <QStyleOption>
 #include <QPainter>
 #include <QVBoxLayout>

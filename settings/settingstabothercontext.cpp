@@ -1,4 +1,5 @@
 #include "settingstabothercontext.h"
+#include <iostream>
 
 Context::Context(QWidget *parent, bool v) : QScrollArea(parent) {
 
@@ -51,7 +52,7 @@ void Context::mousePressEvent(QMouseEvent *e) {
 	// Start dragging
 	if(e->button() == Qt::LeftButton) {
 
-		if(verbose) qDebug() << "setOC: Start dragging";
+		if(verbose) std::clog << "setOC: Start dragging" << std::endl;
 
 		QDrag *drag = new QDrag(this);
 		QMimeData *mimeData = new QMimeData;
@@ -96,7 +97,7 @@ void Context::dropEvent(QDropEvent *e) {
 	if(newIndex == -1)
 		newIndex = lay->indexOf(this->childAt(e->pos())->parentWidget());
 
-	if(verbose) qDebug() << "setOC: Item dropped:" << oldIndex << "-" << newIndex;
+	if(verbose) std::clog << "setOC: Item dropped: " << oldIndex << " - " << newIndex << std::endl;
 
 	// If a valid tile was dragged onto another valid tile, move it
 	if(newIndex != -1 && newIndex != 0 && oldIndex != -1 && oldIndex != 0 && this->childAt(e->pos()) != 0) {
@@ -112,7 +113,7 @@ void Context::dropEvent(QDropEvent *e) {
 // Load the context menu entries
 void Context::loadContext() {
 
-	if(verbose) qDebug() << "setOC: Load context menu from file";
+	if(verbose) std::clog << "setOC: Load context menu from file" << std::endl;
 
 	// First delete all existing tiles
 	for(int i = 0; i < allTiles.length(); ++i) {
@@ -151,7 +152,7 @@ void Context::loadContext() {
 // Add a new entry at the end
 void Context::addNewEntry() {
 
-	if(verbose) qDebug() << "setOC: Add new entry";
+	if(verbose) std::clog << "setOC: Add new entry" << std::endl;
 
 	ContextTile *tile = new ContextTile("exe","text",this);
 	tile->index = lay->count()-1;
@@ -168,7 +169,7 @@ void Context::addNewEntry() {
 // Save context menu
 void Context::saveContext() {
 
-	if(verbose) qDebug() << "setOC: Save context menu";
+	if(verbose) std::clog << "setOC: Save context menu" << std::endl;
 
 	// This map is sorted according to the tiles order in the widget (possibly changed by user)
 	QMap<int,QStringList> items;
@@ -205,17 +206,17 @@ void Context::saveContext() {
 			file.close();
 
 		} else
-			qDebug() << "ERROR: Couldn't write contextmenu file.";
+			std::cerr << "ERROR: Couldn't write contextmenu file." << std::endl;
 
 	} else
-		qDebug() << "ERROR: Couldn't remove old contextmenu file";
+		std::cerr << "ERROR: Couldn't remove old contextmenu file" << std::endl;
 
 }
 
 // Delete an existing entry
 void Context::deleteTile(int index) {
 
-	if(verbose) qDebug() << "setOC: Delete tile:" << index;
+	if(verbose) std::clog << "setOC: Delete tile: " << index << std::endl;
 
 	int newIndex = 0;
 

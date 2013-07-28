@@ -16,12 +16,12 @@
 class ImageReader : public QObject {
 
 public:
-	ImageReader();
+	ImageReader(bool v);
 	~ImageReader();
 
-	QImage imageRead;
+	bool verbose;
 
-//	void readThisImage(QString filename);
+	QImage imageRead;
 
 	QImage readImage(QString filename, int rotation, bool zoomed, QSize maxSize, bool dontscale = false);
 

@@ -3,12 +3,11 @@
 
 #include <QThread>
 #include <QImageWriter>
-#include <QImageReader>
-#include <QtDebug>
 #include <QDateTime>
 #include <QDir>
 #include <QCryptographicHash>
 #include <QtSql>
+#include <iostream>
 
 #include "../graphics/imagereader.h"
 
@@ -104,7 +103,7 @@ protected:
 		if(!dynamicThumbs || numberThbs > counttot)
 			numberThbs = counttot;
 
-		qDebug() << "THB_thread: Started! verbose:" << verbose << "- currentPox:" << currentPos << "- amountCreated:" << amountCreated << "- numberThumbs:" << numberThbs << "- amUpdatingData:" << amUpdatingData;
+		if(verbose) std::clog << "Thumbnail thread started! v: " << verbose << " - curPos: " << currentPos << " - amountCreated: " << amountCreated << " - numberThumbs: " << numberThbs << " - amUpdatingData: " << amUpdatingData << std::endl;
 
 		// We add all thumbnails up and stop when we reach the total number
 		while(amountCreated < numberThbs || amUpdatingData) {
@@ -127,14 +126,14 @@ protected:
 						++rightNextThb;
 						if(leftNextThb < 0 && numberThbs != counttot)
 							++amountCreated;
-						qDebug() << "RIGHT THB";
+						if(verbose) std::clog << "Creating RIGHT thumbnails" << std::endl;
 					// Next thumbnail to the left
 					} else if((createThisOne >= currentPos && leftNextThb >= 0) || rightNextThb >= counttot) {
 						createThisOne = leftNextThb;
 						--leftNextThb;
 						if(rightNextThb >= counttot && numberThbs != counttot)
 							++amountCreated;
-						qDebug() << "LEFT THB";
+						if(verbose) std::clog << "Creating LEFT thumbnails" << std::endl;
 					}
 
 				}
@@ -215,28 +214,8 @@ protected:
 						if(verbose && !amUpdatingData) qDebug() << "thread: Creating new thumb:" << createThisOne;
 
 
-						ImageReader image;
+						ImageReader image(verbose);
 						p = image.readImage(allimgs.at(createThisOne).absoluteFilePath(),0,false,QSize(ts,ts));
-
-//						QImageReader reader;
-//						if(!amUpdatingData) reader.setFileName(allimgs.at(createThisOne).absoluteFilePath());
-//						int readerWidth = reader.size().width();
-//						int readerHeight = reader.size().height();
-
-//						if(readerWidth > ts) {
-//							float q = ts/(readerWidth*1.0);
-//							readerWidth *= q;
-//							readerHeight *= q;
-//						}
-//						if(readerHeight > ts) {
-//							float q = ts/(readerHeight*1.0);
-//							readerWidth *= q;
-//							readerHeight *= q;
-//						}
-
-//						if(!amUpdatingData) reader.setScaledSize(QSize(readerWidth,readerHeight));
-
-//						if(!amUpdatingData) p = reader.read();
 
 						if(typeCache == "files") {
 
@@ -257,7 +236,7 @@ protected:
 									QFile(QDir::homePath() + "/.thumbnails/" + td + "/" + md5 + ".png").remove();
 
 								if(!QFile(QDir::tempPath() + "/" + md5 + "__photo.png").copy(QDir::homePath() + "/.thumbnails/" + td + "/" + md5 + ".png"))
-									qDebug() << "ERROR CREATING NEW THUMBNAIL FILE";
+									std::cerr << "ERROR creating new thumbnail file!" << std::endl;
 								// Delete temporary file
 								QFile(QDir::tempPath() + "/" + md5 + "__photo.png").remove();
 
@@ -292,7 +271,7 @@ protected:
 							query2.bindValue(":crt",QDateTime::currentMSecsSinceEpoch());
 							if(!amUpdatingData) query2.exec();
 							if(!amUpdatingData && query2.lastError().text().trimmed().length())
-								qDebug() << "ERR" << createThisOne << ":" << query2.lastError().text().trimmed();
+								std::cerr << "ERROR #" << createThisOne << ": " << query2.lastError().text().trimmed().toStdString() << std::endl;
 							query2.clear();
 
 						}

@@ -3,7 +3,6 @@
 
 #include <QGraphicsPixmapItem>
 #include <QMovie>
-#include <QtDebug>
 #include <QTimer>
 #include <QImageReader>
 #include <QTimeLine>

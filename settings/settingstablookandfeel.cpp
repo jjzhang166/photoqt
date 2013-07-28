@@ -1,4 +1,5 @@
 #include "settingstablookandfeel.h"
+#include <iostream>
 
 SettingsTabLookAndFeel::SettingsTabLookAndFeel(QWidget *parent, QMap<QString, QVariant> set, bool v) : QWidget(parent) {
 
@@ -332,7 +333,7 @@ SettingsTabLookAndFeel::SettingsTabLookAndFeel(QWidget *parent, QMap<QString, QV
 // Load the settings
 void SettingsTabLookAndFeel::loadSettings() {
 
-	if(verbose) qDebug() << "Load Settings (Look And Feel)";
+	if(verbose) std::clog << "Load Settings (Look And Feel)" << std::endl;
 
 	defaults.clear();
 
@@ -431,7 +432,7 @@ void SettingsTabLookAndFeel::loadSettings() {
 // Save all settings
 void SettingsTabLookAndFeel::saveSettings() {
 
-	if(verbose) qDebug() << "Save Settings (Look and Feel)";
+	if(verbose) std::clog << "Save Settings (Look and Feel)" << std::endl;
 
 	updatedSet.clear();
 
@@ -572,7 +573,7 @@ void SettingsTabLookAndFeel::saveSettings() {
 // Set a background image into the preview square
 void SettingsTabLookAndFeel::setBackgroundImage(QString path, bool empty) {
 
-	if(verbose) qDebug() << "lnf: Set background image:" << path << "-" << empty;
+	if(verbose) std::clog << "lnf: Set background image: " << path.toStdString() << " - " << empty << std::endl;
 
 	// Empty background
 	if(empty) {
@@ -592,14 +593,14 @@ void SettingsTabLookAndFeel::setBackgroundImage(QString path, bool empty) {
 
 		// Stretch Image to fit screen dimensions
 		if(backgroundImgStretchToFit->isChecked()) {
-			if(verbose) qDebug() << "lnf: Set background image: StretchToFit";
+			if(verbose) std::clog << "lnf: Set background image: StretchToFit" << std::endl;
 			backgroundImage->setAlignment(Qt::AlignLeft);
 			backgroundImage->setAlignment(Qt::AlignTop);
 			iw = 200;
 			ih = 150;
 		// Scale image to fit width of screen
 		} else if(backgroundImgScaleToFit->isChecked()) {
-			if(verbose) qDebug() << "lnf: Set background image: ScaleToFit";
+			if(verbose) std::clog << "lnf: Set background image: ScaleToFit" << std::endl;
 			backgroundImage->setAlignment(Qt::AlignLeft);
 			backgroundImage->setAlignment(Qt::AlignTop);
 			if(iw != 200) {
@@ -611,7 +612,7 @@ void SettingsTabLookAndFeel::setBackgroundImage(QString path, bool empty) {
 			}
 		// Center image
 		} else {
-			if(verbose) qDebug() << "lnf: Set background image: Center";
+			if(verbose) std::clog << "lnf: Set background image: Center" << std::endl;
 			if(backgroundImgCenter->isChecked())
 				backgroundImage->setAlignment(Qt::AlignCenter);
 			else {
@@ -642,7 +643,7 @@ void SettingsTabLookAndFeel::setBackgroundImage(QString path, bool empty) {
 // A new background color selected
 void SettingsTabLookAndFeel::newBgColorSelected(QColor col) {
 
-	if(verbose) qDebug() << "lnf: New background color selected:" << col;
+	if(verbose) std::clog << "lnf: New background color selected: " << QString("RGB: %1, %2, %3").arg(col.red()).arg(col.green()).arg(col.blue()).toStdString() << std::endl;
 
 	selectCol->setRGBA(col.red(),col.green(),col.blue(),col.alpha());
 
@@ -651,7 +652,7 @@ void SettingsTabLookAndFeel::newBgColorSelected(QColor col) {
 // Browse for a new background image
 void SettingsTabLookAndFeel::changeBackgroundImage() {
 
-	if(verbose) qDebug() << "lnf: Change background image.";
+	if(verbose) std::clog << "lnf: Change background image." << std::endl;
 
 	QString dir = QDir::homePath();
 
@@ -675,19 +676,19 @@ void SettingsTabLookAndFeel::backgroundDispType() {
 	QString objName = ((CustomCheckBox *)sender())->objectName();
 
 	if(backgroundImgScaleToFit->isChecked() && objName == "scale") {
-		if(verbose) qDebug() << "lnf: Set background image: scale";
+		if(verbose) std::clog << "lnf: Set background image: scale" << std::endl;
 		backgroundImgStretchToFit->setChecked(false);
 		backgroundImgCenter->setChecked(false);
 	}
 
 	if(backgroundImgStretchToFit->isChecked() && objName == "stretch") {
-		if(verbose) qDebug() << "lnf: Set background image: stretch";
+		if(verbose) std::clog << "lnf: Set background image: stretch" << std::endl;
 		backgroundImgScaleToFit->setChecked(false);
 		backgroundImgCenter->setChecked(false);
 	}
 
 	if(backgroundImgCenter->isChecked() && objName == "center") {
-		if(verbose) qDebug() << "lnf: Set background image: center";
+		if(verbose) std::clog << "lnf: Set background image: center" << std::endl;
 		backgroundImgScaleToFit->setChecked(false);
 		backgroundImgStretchToFit->setChecked(false);
 	}

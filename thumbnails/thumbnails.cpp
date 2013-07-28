@@ -60,8 +60,6 @@ void Thumbnails::animate() {
 		if(ani->state() != QPropertyAnimation::Stopped)
 			ani->targetObject()->setProperty(ani->propertyName(),ani->endValue());
 
-		if(verbose) qDebug() << "thb: Animate in";
-
 		ani->setDuration(500);
 		isShown = true;
 
@@ -78,8 +76,6 @@ void Thumbnails::animate() {
 		if(ani->state() != QPropertyAnimation::Stopped)
 			ani->targetObject()->setProperty(ani->propertyName(),ani->endValue());
 
-		if(verbose) qDebug() << "thb: Animate out";
-
 		ani->setDuration(500);
 		isShown = false;
 
@@ -92,9 +88,6 @@ void Thumbnails::animate() {
 }
 
 void Thumbnails::aniFinished() {
-
-//	if(animateInAndOut && isShown)
-//		QTimer::singleShot(400, this, SLOT(animate()));
 
 	animateInAndOut = false;
 
@@ -124,7 +117,7 @@ void Thumbnails::loadDir() {
 	else
 		currentdir = currentfile;
 
-	if(verbose) qDebug() << "thb: Load directory:" << currentdir << "- nothb:" << noThumbs;
+	if(verbose) std::clog << "thb: Load directory: " << currentdir.toStdString() << " - nothb: " << noThumbs << std::endl;
 
 	// Get QDir instance
 	QDir *dir = new QDir(currentdir);
@@ -194,7 +187,7 @@ void Thumbnails::loadDir() {
 			paint2.drawPixmap(spacing/2,0,normsqu,normsqu,f.pixmap(normsqu,normsqu));
 			if(filenameInsteadThumb) {
 
-				if(verbose) qDebug() << "thb: Use filename thumbs";
+				if(verbose) std::clog << "thb: Use filename thumbs" << std::endl;
 
 				txt.setHtml(QString("<center><div style=\"text-align: center; font-size: %1pt; font-wight: bold; color: white; background: none;\">" + allImgsInfo.at(i).fileName() + "</div></center>").arg(filenameInsteadFontSize));
 				txt.setTextWidth(normsqu);
@@ -241,7 +234,7 @@ void Thumbnails::startThread() {
 
 		newlyLoadedDir = false;
 
-		if(verbose) qDebug() << "thb: Start loading thumbs";
+		if(verbose) std::clog << "thb: Start loading thumbs" << std::endl;
 
 		view->thbWidth = globSet.value("ThumbnailSize").toInt();
 
@@ -306,7 +299,7 @@ void Thumbnails::stopThbCreation() {
 // Update a thumbnail
 void Thumbnails::updateThumb(QImage img, QString path, int pos) {
 
-	if(verbose) qDebug() << "thb: Update thumb:" << pos << "-" << path;
+	if(verbose) std::clog << "thb: Update thumb: " << pos << " - " << path.toStdString();
 
 	// Default size
 	int size = globSet.value("ThumbnailSize").toInt();
@@ -384,7 +377,7 @@ void Thumbnails::updateThumb(QImage img, QString path, int pos) {
 // Got a click on an item
 void Thumbnails::gotClick(QString path) {
 
-	if(verbose) qDebug() << "thb: gotClick:" << path;
+	if(verbose) std::clog << "thb: gotClick:" << path.toStdString() << std::endl;
 
 	updateThbViewHoverNormPix(currentfile,path);
 
@@ -416,7 +409,7 @@ void Thumbnails::updateThbViewHoverNormPix(QString oldpath, QString newpath) {
 // Jump to first/last image in list
 void Thumbnails::gotoFirstLast(QString side) {
 
-	if(verbose) qDebug() << "thb: Got to first/Last:" << side;
+	if(verbose) std::clog << "thb: Got to first/Last: " << side.toStdString() << std::endl;
 
 	if(allImgsPath.length()) {
 
@@ -438,16 +431,12 @@ void Thumbnails::setRect(QRect rect) {
 	else
 		rectHidden = QRect(0,0,rect.width(),-rect.height());
 
-	qDebug() << rectShown << "-" << rectHidden << isShown;
-
 	if(isShown) this->setGeometry(rectShown);
 	else this->setGeometry(rectHidden);
 
 }
 
 void Thumbnails::makeShow() {
-
-	qDebug() << "SHOW" << isShown;
 
 	if(!isShown)
 		animate();
@@ -478,8 +467,6 @@ void Thumbnails::scrolledView() {
 		newpos = allImgsPath.indexOf(pixPath);
 
 		++i;
-
-		qDebug() << i << "-" << pixPath << "-" << newpos;
 	}
 
 	// And submit data to thread

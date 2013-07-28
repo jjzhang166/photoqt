@@ -10,7 +10,6 @@
 #include <QPropertyAnimation>
 #include <QVBoxLayout>
 #include <QPainter>
-#include <QtDebug>
 #include <QLineEdit>
 #include <QLabel>
 #include <QFileDialog>

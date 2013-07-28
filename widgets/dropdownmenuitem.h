@@ -2,7 +2,6 @@
 #define MAINMENUITEM_H
 
 #include <QLabel>
-#include <QtDebug>
 #include <QEvent>
 
 // A custom MenuItem used for the Menu

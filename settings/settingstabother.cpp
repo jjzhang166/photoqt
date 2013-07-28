@@ -1,4 +1,5 @@
 #include "settingstabother.h"
+#include <iostream>
 
 SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set, bool v) : QWidget(parent) {
 
@@ -8,9 +9,6 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 	verbose = v;
 
 	this->setStyleSheet("background: transparent; color: white");
-
-
-
 
 	tabs = new TabWidget;
 	tabs->expand(false);
@@ -195,10 +193,6 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 
 
 
-
-
-
-
 	allCheckQt.clear();
 	allCheckGm.clear();
 	allCheckGmUnstable.clear();
@@ -349,7 +343,7 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 // Load the settings
 void SettingsTabOther::loadSettings() {
 
-	if(verbose) qDebug() << "Load Settings (Other)";
+	if(verbose) std::clog << "Load Settings (Other)" << std::endl;
 
 	context->loadContext();
 
@@ -391,7 +385,7 @@ void SettingsTabOther::loadSettings() {
 // Save the settings
 void SettingsTabOther::saveSettings() {
 
-	if(verbose) qDebug() << "Save Settings (Other)";
+	if(verbose) std::clog << "Save Settings (Other)" << std::endl;
 
 	updatedSet.clear();
 
@@ -431,8 +425,6 @@ void SettingsTabOther::saveSettings() {
 	updatedSet.insert("KnownFileTypesGmExtras",extraGmEdit->text());
 
 	context->saveContext();
-
-	qDebug() << "OTHER SETTINGS:" << updatedSet;
 
 }
 

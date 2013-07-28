@@ -1,4 +1,5 @@
 #include "slideshowsettings.h"
+#include <iostream>
 
 SlideShow::SlideShow(QMap<QString, QVariant> set, QWidget *parent, bool v) : QWidget(parent) {
 
@@ -162,7 +163,7 @@ SlideShow::SlideShow(QMap<QString, QVariant> set, QWidget *parent, bool v) : QWi
 	central->addStretch();
 
 
-	// Start or don't slideshow
+	// Start or don't start slideshow
 	CustomPushButton *ok = new CustomPushButton(tr("Okay, lets start"));
 	CustomPushButton *cancel = new CustomPushButton(tr("Maybe later"));
 	QHBoxLayout *butLay = new QHBoxLayout;
@@ -181,7 +182,7 @@ SlideShow::SlideShow(QMap<QString, QVariant> set, QWidget *parent, bool v) : QWi
 // Adjust the geometries of the widgets
 void SlideShow::adjustGeometries() {
 
-	if(verbose) qDebug() << "slb: adjust geometries";
+	if(verbose) std::clog << "slb: adjust geometries" << std::endl;
 
 	if(this->isShown) {
 		this->setGeometry(rectShown);
@@ -239,8 +240,6 @@ void SlideShow::animate() {
 		if(ani->state() != QPropertyAnimation::Stopped)
 			ani->targetObject()->setProperty(ani->propertyName(),ani->endValue());
 
-		if(verbose) qDebug() << "slb: Animate in";
-
 		// The background is initially transparent but the geometry is full
 		this->setStyleSheet(QString("background: rgba(0,0,0,0);"));
 		this->setGeometry(rectShown);
@@ -273,8 +272,6 @@ void SlideShow::animate() {
 		if(ani->state() != QPropertyAnimation::Stopped)
 			ani->targetObject()->setProperty(ani->propertyName(),ani->endValue());
 
-		if(verbose) qDebug() << "slb: Animate out";
-
 		// Fade background out
 		fadeBack->setDuration(100);
 		fadeBack->setLoopCount(5);
@@ -301,8 +298,6 @@ void SlideShow::animate() {
 
 // Every fade step for the background
 void SlideShow::fadeStep() {
-
-	if(verbose) qDebug() << "slb: Fade Step";
 
 	// Fade in
 	if(fadeBackIN) {
@@ -344,13 +339,13 @@ void SlideShow::mouseReleaseEvent(QMouseEvent *e) {
 void SlideShow::browseForMusic() {
 
 #ifdef WITH_PHONON
-	if(verbose) qDebug() << "slb: Browse for music file";
+	if(verbose) std::clog << "slb: Browse for music file" << std::endl;
 
 	QString oldPath = QDir::homePath();
 	if(musicPath->text() != "" && QFileInfo(musicPath->text()).exists())
 		oldPath = musicPath->text();
 
-	QString newFile = QFileDialog::getOpenFileName(0,"Select Music File",oldPath);
+	QString newFile = QFileDialog::getOpenFileName(0,tr("Select Music File"),oldPath);
 
 	if(newFile != "")
 		musicPath->setText(newFile);

@@ -2,20 +2,6 @@
 
 MainWindow::MainWindow(QWidget *parent, bool verbose) : QMainWindow(parent) {
 
-#ifdef WITH_PHONON
-	qDebug() << "PHONON IS BEING USED!!!!!!! :-)";
-#endif
-
-#ifdef WITH_GRAPHICSMAGICK
-	qDebug() << "GRAPHICSMAGICK IS BEING USED!!!!!!! :-)";
-#endif
-
-#ifdef WITH_EXIV2
-	qDebug() << "EXIV2 IS BEING USED!!!!!!! :-)";
-#endif
-
-	this->setMinimumSize(800,600);
-
 	// Make a screenshot
 	screenshot = QPixmap::grabWindow(QApplication::desktop()->winId());
 
@@ -23,6 +9,9 @@ MainWindow::MainWindow(QWidget *parent, bool verbose) : QMainWindow(parent) {
 	this->setObjectName("mainwindow");
 	this->setStyleSheet("#mainwindow { background: black; }");
 	this->setMouseTracking(true);
+
+	// If the user switched to window mode, then we need to have a minimum window size
+	this->setMinimumSize(800,600);
 
 	// Instance for global variables
 	globVar = new GlobalVariables;
@@ -82,8 +71,9 @@ MainWindow::MainWindow(QWidget *parent, bool verbose) : QMainWindow(parent) {
 	viewThumbs = new Thumbnails(viewBig,globSet->verbose,globSet->toSignalOut());
 	connect(viewThumbs, SIGNAL(loadNewImg(QString)), this, SLOT(loadNewImgFromThumbs(QString)));
 
-	// An ImageReader combining QImageReader and GraphicsMagic
-	imageReader = new ImageReader;
+
+	// An ImageReader combining QImageReader and GraphicsMagic (if not disabled)
+	imageReader = new ImageReader(globVar->verbose);
 
 
 	// The settings widget
@@ -95,9 +85,6 @@ MainWindow::MainWindow(QWidget *parent, bool verbose) : QMainWindow(parent) {
 	set->sh->version = globSet->version;
 	connect(set->sh, SIGNAL(updatedShortcuts()), this, SLOT(setupShortcuts()));
 
-	// The drop-down menu
-//	menu = new DropDownMenu(viewBig);
-//	connect(menu, SIGNAL(itemClicked(QString,int)), this, SLOT(menuClicked(QString,int)));
 
 	// The exif widget
 	details = new Details(viewBig,globSet->toSignalOut());
@@ -149,7 +136,7 @@ MainWindow::MainWindow(QWidget *parent, bool verbose) : QMainWindow(parent) {
 // Adjust the geometries (if applicable)
 void MainWindow::adjustGeometries() {
 
-	if(globVar->verbose) qDebug() << "Adjusting geometries";
+	if(globVar->verbose) std::clog << "Adjusting geometries" << std::endl;
 
 	// The thumbnail hight for later use
 	int thbHeight = globSet->thumbnailsize + globSet->thumbnailLiftUp + 30;
@@ -159,7 +146,7 @@ void MainWindow::adjustGeometries() {
 	// If the thumbnail bar is shown at the bottom
 	if(globSet->thumbnailposition == "Bottom") {
 
-		if(globVar->verbose) qDebug() << "Thumbnails at the bottom";
+		if(globVar->verbose) std::clog << "Thumbnails at the bottom" << std::endl;
 
 		// Adjust the thumbnail geometry
 		viewThumbs->setRect(QRect(0,viewH-thbHeight,viewW,thbHeight));
@@ -172,7 +159,7 @@ void MainWindow::adjustGeometries() {
 	// And if the thumbnail bar is shown at the top
 	} else if(globSet->thumbnailposition == "Top") {
 
-		if(globVar->verbose) qDebug() << "Thumbnails at the top";
+		if(globVar->verbose) std::clog << "Thumbnails at the top" << std::endl;
 
 		// Adjust the thumbnail geometry
 		viewThumbs->setRect(QRect(0,0,viewBig->width(),thbHeight));
@@ -185,13 +172,14 @@ void MainWindow::adjustGeometries() {
 	// Fullscreen Rect
 	QRect fullscreen = QRect(0,0,viewW,viewH);
 
-	if(globVar->verbose) qDebug() << "Adjusting Geometries:" << fullscreen;
-
+	if(globVar->verbose) std::clog << "Adjusting Geometries: " << QString("QRect, topleft: %1:%2, size: %3x%4").arg(fullscreen.left()).arg(fullscreen.top()).arg(fullscreen.width()).arg(fullscreen.height()).toStdString() << std::endl;
 
 	// exif and set are always setup (the tabs in set aren't initially)
 	details->setRect(fullscreen);
 	set->setRect(fullscreen);
 
+
+	// Update the rects for all set up widgets
 
 	if(setupWidgets->filehandling) filehandling->setRect(fullscreen);
 
@@ -215,11 +203,11 @@ void MainWindow::adjustGeometries() {
 // This function is needed together with the updateSettings() function to avoid a crash on startup
 void MainWindow::applySettings(QMap<QString, bool> applySet, bool justApplyAllOfThem) {
 
-	if(globVar->verbose) qDebug() << "Applying settings:" << applySet;
+	if(globVar->verbose) std::clog << "Applying settings..." << std::endl;
 
 	// If all the settings have to be (re-)applied
 	if(justApplyAllOfThem) {
-		if(globVar->verbose) qDebug() << "Simply apply all settings";
+		if(globVar->verbose) std::clog << "Simply apply all settings" << std::endl;
 		QMap<QString, bool> newApplySet;
 		QMapIterator<QString, bool> i(applySet);
 		while (i.hasNext()) {
@@ -233,9 +221,9 @@ void MainWindow::applySettings(QMap<QString, bool> applySet, bool justApplyAllOf
 	if(applySet["background"])
 		setBackground();
 
+	// Update window for window mode/fullscreen
 	if(applySet["window"]) {
 		if(globSet->windowmode) {
-			qDebug() << "WINDOW DECO:" << globSet->windowDecoration;
 			this->showMaximized();
 			globSet->windowDecoration ? this->setWindowFlags(this->windowFlags() & ~Qt::FramelessWindowHint) : this->setWindowFlags(Qt::FramelessWindowHint);
 			QTimer::singleShot(10,this,SLOT(showMaximized()));
@@ -303,7 +291,7 @@ void MainWindow::applySettings(QMap<QString, bool> applySet, bool justApplyAllOf
 // If a widget (like about or settings) is opened, all other functions are suspended
 void MainWindow::blockFunc(bool bl) {
 
-	if(globVar->verbose) qDebug() << "Blocking Interface:" << bl;
+	if(globVar->verbose) std::clog << "Blocking Interface:" << bl << std::endl;
 
 	globVar->blocked = bl;
 }
@@ -314,7 +302,7 @@ void MainWindow::closeEvent(QCloseEvent *e) {
 	// If a widget (like settings or about) is open, then this close event only closes this widget (like escape)
 	if(globVar->blocked) {
 
-		if(globVar->verbose) qDebug() << "Ignoring event, sending 'Escape' shortcut";
+		if(globVar->verbose) std::clog << "Ignoring closeEvent, sending 'Escape' shortcut" << std::endl;
 
 		e->ignore();
 
@@ -332,7 +320,7 @@ void MainWindow::closeEvent(QCloseEvent *e) {
 				set->makeHide();
 			globVar->restoringFromTrayNoResize = QDateTime::currentDateTime().toTime_t();
 			this->hide();
-			if(globVar->verbose) qDebug() << "Hiding to System Tray.";
+			if(globVar->verbose) std::clog << "Hiding to System Tray." << std::endl;
 			e->ignore();
 
 		// Quit
@@ -342,7 +330,7 @@ void MainWindow::closeEvent(QCloseEvent *e) {
 
 			e->accept();
 
-			qDebug() << "Goodbye.";
+			std::cout << "Goodbye!" << std::endl;
 		}
 
 	}
@@ -355,7 +343,7 @@ void MainWindow::drawImage() {
 	// The slideshow also sets the globVar->blocked bool, but nevertheless, the image has to be drawn in that specific case
 	if(!globVar->blocked || (setupWidgets->slideshowbar && slideshowbar->isEnabled())) {
 
-		if(globVar->verbose) qDebug() << "Drawing Image";
+		if(globVar->verbose) std::clog << "Drawing Image" << std::endl;
 
 		// the alignment of the image is always center. If the thumbnails are kept visible, we simply add a tranparent bar to the bottom of the image (happening just a couple lines below)
 		viewBig->setAlignment(Qt::AlignCenter);
@@ -363,9 +351,9 @@ void MainWindow::drawImage() {
 		// No file loaded yet,...
 		if(globVar->currentfile == "") {
 
-			if(globVar->verbose) qDebug() << "Ask for filename";
+			if(globVar->verbose) std::clog << "Ask for filename" << std::endl;
 
-			// ..., so open "open file" widget
+			// ..., so open a new file
 			openFile();
 
 		// Load image
@@ -374,14 +362,13 @@ void MainWindow::drawImage() {
 			// Display busy cursor
 			qApp->setOverrideCursor(Qt::WaitCursor);
 
-			if(globVar->verbose) qDebug() << "Got filename:" << globVar->currentfile;
+			if(globVar->verbose) std::cout << "Got filename:" << globVar->currentfile.toStdString() << std::endl;
 
 			// Tell the filehandling widget the new filename
 			if(setupWidgets->filehandling) filehandling->currentfile = globVar->currentfile;
 
 			// If the current directory info hasn't been loaded yet
 			if(viewThumbs->counttot == 0) {
-				qDebug() << "Draw: Loading dir";
 				viewThumbs->currentfile = globVar->currentfile;
 				viewThumbs->noThumbs = globSet->thumbnailDisable;
 				viewThumbs->loadDir();
@@ -410,7 +397,7 @@ void MainWindow::drawImage() {
 			QString fileformat = imageReader->fileformat;
 			QSize origSize = imageReader->origSize;
 
-
+			// If the thumbnails are kept visible we need to add a transparent bar to the main image so that they don't overlap
 			graphItem->setTransBarHeight((!globVar->zoomed && globSet->thumbnailKeepVisible) ? viewThumbs->height() : 0);
 			// Is it an animated image?
 			if(imageReader->animatedImg)
@@ -423,18 +410,12 @@ void MainWindow::drawImage() {
 			if(img.width() < viewBig->width()) {
 				// Set the right position of the main image
 				int graphItemX = (viewBig->width()-img.width())/2.0;
-	//			int graphItemY = (viewBig->height()-(globSet->thumbnailKeepVisible ? viewThumbs->height() : 0)-img.height())/2.0;
 				graphItem->setX(graphItemX);
 			}
 			if(img.height() < viewBig->height()) {
 				int graphItemY = (viewBig->height()-img.height())/2.0;
 				graphItem->setY(graphItemY);
 			}
-			qDebug() << "POSPOSPOS:" << graphItem->pos();
-
-			// These formats known by Photo are supported by exiv2
-			QStringList formats;
-			formats << "bmp" << "gif" << "tiff" << "jpg" << "jpeg" << "png";
 
 			// Update the current position of the image in the directory
 			viewThumbs->countpos = viewThumbs->allImgsPath.indexOf(globVar->currentfile);
@@ -445,10 +426,14 @@ void MainWindow::drawImage() {
 			// If exif isn't read yet
 			if(!globVar->exifRead) {
 
-				if(globVar->verbose) qDebug() << "Requesting Exif Info";
+				if(globVar->verbose) std::clog << "Requesting Exif Info" << std::endl;
 
 				// Exif info read
 				globVar->exifRead = true;
+
+				// These formats known by Photo are supported by exiv2
+				QStringList formats;
+				formats << "bmp" << "gif" << "tiff" << "jpg" << "jpeg" << "png";
 
 				// If supported, load exiv2 data
 				if(formats.contains(fileformat))
@@ -464,9 +449,6 @@ void MainWindow::drawImage() {
 			// Restore normal cursor
 			qApp->restoreOverrideCursor();
 
-			qDebug() << "Thb LoadedThourhgClick:" << viewThumbs->thumbLoadedThroughClick;
-
-
 			// Ensure the active thumbnail is shown
 			// We only do that when the thumbnail was NOT loaded through a click on it. The reason is, that otherwise the thumbnailview might move a little (ensuring the thumbnail is visible) although it already IS visible.
 			if(viewThumbs->allImgsPath.indexOf(globVar->currentfile) != -1 && !globSet->thumbnailDisable && !viewThumbs->thumbLoadedThroughClick) {
@@ -478,13 +460,8 @@ void MainWindow::drawImage() {
 				if(!globSet->thumbnailKeepVisible && viewThumbs->isVisible() && !viewThumbs->thumbLoadedThroughClick)
 					viewThumbs->makeHide();
 				viewThumbs->startThread();
-				// Making sure the thumbnails load
-				QTimer::singleShot(1000,viewThumbs,SLOT(scrolledView()));
 			} else if(viewThumbs->thumbLoadedThroughClick)
 				viewThumbs->thumbLoadedThroughClick = false;
-
-
-			qDebug() << "END of draw";
 
 		}
 
@@ -495,7 +472,7 @@ void MainWindow::drawImage() {
 // When the Exif data dictates an orientation
 void MainWindow::getOrientationFromExif(int degree, bool flipHor) {
 
-	if(globVar->verbose) qDebug() << "Exif Rotate/Flip:" << degree << "-" << flipHor;
+	if(globVar->verbose) std::clog << "Exif Rotate/Flip:" << degree << "-" << flipHor << std::endl;
 
 	// And rotate
 	if(degree > 0) {
@@ -503,7 +480,6 @@ void MainWindow::getOrientationFromExif(int degree, bool flipHor) {
 			globVar->rotation += 90;
 			viewBig->rotate(-90);
 			globVar->rotation %= 360;
-			qDebug() << "ROTAT ROTAT ROTAT:" << globVar->rotation;
 			degree -= 90;
 		}
 		drawImage();
@@ -529,7 +505,7 @@ void MainWindow::globalRunningProgTimerTimeout() {
 		out << QDateTime::currentMSecsSinceEpoch();
 		t.close();
 	} else
-		qDebug() << "ERROR! Unable to write to file '~/.photoqt/running' - unable to control this instance through command line.";
+		std::cerr << "ERROR! Unable to write to file '~/.photoqt/running' - unable to control this instance through command line." << std::endl;
 
 	// Checks the "cmd" file for commands to be executed
 	QFile cmd(QDir::homePath() + "/.photoqt/cmd");
@@ -546,7 +522,7 @@ void MainWindow::globalRunningProgTimerTimeout() {
 	// If the file exists
 	if(cmd.exists() && cmd.open(QIODevice::ReadWrite)) {
 
-		if(globVar->verbose) qDebug() << "Got passed on commands";
+		if(globVar->verbose) std::clog << "Got passed on commands" << std::endl;
 
 		QTextStream in(&cmd);
 
@@ -570,14 +546,12 @@ void MainWindow::globalRunningProgTimerTimeout() {
 			if(line.startsWith("-f-"))
 				doNewFile = line.remove(0,3).toUtf8();
 
-			qDebug() << line;
-
 		} while (!line.isNull());
 
 		cmd.close();
 
 	} else if(cmd.exists())
-		qDebug() << "ERROR! Can't read '~/.photoqt/cmd'.";
+		std::cerr << "ERROR! Can't read '~/.photoqt/cmd'." << std::endl;
 
 	// Remove file after command is read in
 	cmd.remove();
@@ -662,7 +636,7 @@ void MainWindow::globalRunningProgTimerTimeout() {
 // A click onto the main graphicsview
 void MainWindow::gotViewBigClick(QPoint p) {
 
-	if(globVar->verbose) qDebug() << "Click received:" << p;
+	if(globVar->verbose) std::clog << "Click received:" << QString("x:y: %1:%2").arg(p.x()).arg(p.y()).toStdString() << std::endl;
 
 	QPointF point = viewBig->mapToScene(p);
 
@@ -687,7 +661,7 @@ void MainWindow::gotViewBigClick(QPoint p) {
 // Enabling the key detection by the shortcuts
 void MainWindow::keyReleaseEvent(QKeyEvent *e) {
 
-	if(globVar->verbose) qDebug() << "Got Key Event:" << e->key();
+	if(globVar->verbose) std::clog << "Got Key Event:" << e->key() << std::endl;
 
 	if(set->tabsSetup && set->tabShortcuts->detect->isShown && set->tabShortcuts->detect->keyShortcut->isChecked())
 		set->tabShortcuts->detect->analyseKeyEvent(e);
@@ -699,7 +673,7 @@ void MainWindow::keyReleaseEvent(QKeyEvent *e) {
 // Load a new image from the open file dialog
 void MainWindow::loadNewImgFromOpen(QString path) {
 
-	if(globVar->verbose) qDebug() << "Load from Open:" << path;
+	if(globVar->verbose) std::clog << "Load from Open:" << path.toStdString() << std::endl;
 
 	// We need this later to update the thumbnail view
 	QString temp = globVar->currentfile;
@@ -718,13 +692,9 @@ void MainWindow::loadNewImgFromOpen(QString path) {
 	globVar->exifRead = false;
 
 	// When a new image is loaded we reset any zooming, rotation, flipping
-	qDebug() << 1;
 	zoom(true,"resetNoDraw");
-	qDebug() << 2;
 	rotateFlip(true,"resetNoDraw");
-	qDebug() << 3;
 	rotateFlip(false, "reset");
-	qDebug() << 4;
 
 	// Draw new image
 	drawImage();
@@ -743,7 +713,7 @@ void MainWindow::loadNewImgFromOpen(QString path) {
 // Load a new image in current dir from the thumbnail view
 void MainWindow::loadNewImgFromThumbs(QString path) {
 
-	if(globVar->verbose) qDebug() << "Load from Thumbs:" << path;
+	if(globVar->verbose) std::clog << "Load from Thumbs:" << path.toStdString() << std::endl;
 
 	// Reset zooming parameter
 	globVar->zoomedImgAtLeastOnce = false;
@@ -771,7 +741,7 @@ void MainWindow::loadNewImgFromThumbs(QString path) {
 // A menuitem has been clicked
 void MainWindow::menuClicked(QString txt, int close) {
 
-	if(globVar->verbose) qDebug() << "Menu clicked:" << close << "-" << txt;
+	if(globVar->verbose) std::clog << "Menu clicked: " << close << " - " << txt.toStdString() << std::endl;
 
 	globVar->zoomedImgAtLeastOnce = false;
 
@@ -899,7 +869,7 @@ void MainWindow::mouseMoved(int x, int y) {
 // Move in the current directory (1=right, 0=left)
 void MainWindow::moveInDirectory(int direction) {
 
-	if(globVar->verbose) qDebug() << "Move in directory:" << direction;
+	if(globVar->verbose) std::clog << "Move in directory: " << direction << std::endl;
 
 	// When a new image is loaded we reset any zooing, rotation, flipping
 	zoom(true,"resetNoDraw");
@@ -956,7 +926,7 @@ void MainWindow::moveInDirectory(int direction) {
 // Open a new file. I had to remove (temporarily) PhotoQt's custom Open File Dialog, because it just wasn't working right yet. It has to be completely re-done from scratch in a different way (using a model/view)
 void MainWindow::openFile() {
 
-	if(globVar->verbose) qDebug() << "Request to open new file";
+	if(globVar->verbose) std::clog << "Got request to open new file" << std::endl;
 
 	// Stopping a possibly running thread
 	viewThumbs->stopThbCreation();
@@ -969,7 +939,6 @@ void MainWindow::openFile() {
 	// Get new filename
 	QString known = globSet->knownFileTypes;
 	known = known.replace(","," ");
-	qDebug() << "OPEN FILE:" << known;
 	QString file = QFileDialog::getOpenFileName(this,tr("Open image file"),opendir,tr("Images") + " (" + known + ")");
 
 	// If a file was chosen (cancel returns an empty string)
@@ -982,7 +951,7 @@ void MainWindow::openFile() {
 // After a file has been manipulated (renamed, deleted, moved), the current dir is reloaded
 void MainWindow::reloadDir(QString t) {
 
-	if(globVar->verbose) qDebug() << "Reload current directory:" << t;
+	if(globVar->verbose) std::clog << "Reload current directory:" << t.toStdString() << std::endl;
 
 	// If file was renamed, simply reload renamed file
 	if(t == "rename" && setupWidgets->filehandling) {
@@ -1024,7 +993,7 @@ void MainWindow::reloadDir(QString t) {
 // The resize event
 void MainWindow::resizeEvent(QResizeEvent *) {
 
-	if(globVar->verbose) qDebug() << "Window resized";
+	if(globVar->verbose) std::clog << "Window resized" << std::endl;
 
 	// When PhotoQt is minimised and is restored, then the widget actually isn't resized, so the stuff in this function doesn't need to be done
 
@@ -1053,7 +1022,7 @@ void MainWindow::resizeEvent(QResizeEvent *) {
 // Restore the default settings
 void MainWindow::restoreDefaultSettings() {
 
-	if(globVar->verbose) qDebug() << "Restoring default settings";
+	if(globVar->verbose) std::clog << "Restoring default settings" << std::endl;
 
 	globSet->setDefault();
 	globSet->saveSettings();
@@ -1063,7 +1032,7 @@ void MainWindow::restoreDefaultSettings() {
 // This function flips the current big image vertically/horizontally
 void MainWindow::rotateFlip(bool rotateNotFlipped, QString direction) {
 
-	if(globVar->verbose) qDebug() << "Rotate and Flip:" << rotateNotFlipped << "-" << direction;
+	if(globVar->verbose) std::clog << "Rotate and Flip: " << rotateNotFlipped << " - " << direction.toStdString();
 
 	if(rotateNotFlipped) {
 
@@ -1138,12 +1107,12 @@ void MainWindow::rotateFlip(bool rotateNotFlipped, QString direction) {
 // Set the background of PhotoQt
 void MainWindow::setBackground() {
 
-	if(globVar->verbose) qDebug() << "Set the background";
+	if(globVar->verbose) std::clog << "Set the background" << std::endl;
 
 	// If compositing is enabled, then we'll use it (for the mainwindow background)
 	if(globSet->composite) {
 
-		if(globVar->verbose) qDebug() << "Composite enabled";
+		if(globVar->verbose) std::clog << "Composite enabled" << std::endl;
 
 		this->setAttribute(Qt::WA_TranslucentBackground);
 		bglabel->setStyleSheet(QString("background-color: rgba(%1, %2, %3, %4)").arg(globSet->bgColorRed).arg(globSet->bgColorGreen).arg(globSet->bgColorBlue).arg(globSet->bgColorAlpha));
@@ -1160,7 +1129,7 @@ void MainWindow::setBackground() {
 		// SET SCREENSHOT AS BACKGROUND (single-screen setups only)
 		if(globSet->backgroundImageScreenshot && QApplication::desktop()->numScreens() == 1) {
 
-			if(globVar->verbose) qDebug() << "Setting screenshot as background";
+			if(globVar->verbose) std::clog << "Setting screenshot as background" << std::endl;
 
 			QPixmap bg(screenshot.size());
 			bg.fill(Qt::transparent);
@@ -1195,7 +1164,7 @@ void MainWindow::setBackground() {
 		// Set a background image
 		} else if(globSet->backgroundImageUse) {
 
-			if(globVar->verbose) qDebug() << "Use background image";
+			if(globVar->verbose) std::clog << "Use background image" << std::endl;
 
 			// That's the background image
 			QImageReader reader(globSet->backgroundImagePath);
@@ -1262,7 +1231,7 @@ void MainWindow::setBackground() {
 
 		} else {
 
-			if(globVar->verbose) qDebug() << "Use background colour";
+			if(globVar->verbose) std::clog << "Use background colour" << std::endl;
 
 			bglabel->setPixmap(QPixmap());
 
@@ -1278,7 +1247,7 @@ void MainWindow::setBackground() {
 // Setup the shortcuts
 void MainWindow::setupShortcuts() {
 
-	if(globVar->verbose) qDebug() << "Setup Shortcuts";
+	if(globVar->verbose) std::clog << "Setup Shortcuts" << std::endl;
 
 	// Leave the systemkeys enabled (needed!), but set them to an empty list
 	QMapIterator<QString, QList<QVariant> > i0(systemKeySHdo);
@@ -1339,12 +1308,12 @@ void MainWindow::setupShortcuts() {
 // Setup the Tray Icon
 void MainWindow::setupTrayIcon() {
 
-	if(globVar->verbose) qDebug() << "Setup Tray Icon";
+	if(globVar->verbose) std::clog << "Setup Tray Icon" << std::endl;
 
 	// The Tray Icon
 	trayIcon = new QSystemTrayIcon(this);
 	trayIcon->setIcon(QIcon(":/img/logo.png"));
-	trayIcon->setToolTip(tr("PhotoQt - Image Viewer"));
+	trayIcon->setToolTip("PhotoQt - " + tr("Image Viewer"));
 
 	// A context menu for the tray icon
 	trayIconMenu = new QMenu(this);
@@ -1388,7 +1357,7 @@ void MainWindow::setupWidget(QString what) {
 	// Set up Menu
 	if(what == "menu" && !setupWidgets->menu) {
 
-		qDebug() << "Setting up menu";
+		if(globVar->verbose) std::clog << "Setting up menu" << std::endl;
 
 		setupWidgets->menu = true;
 
@@ -1415,7 +1384,7 @@ void MainWindow::setupWidget(QString what) {
 	// Set up filehandling
 	if(what == "filehandling" && !setupWidgets->filehandling) {
 
-		qDebug() << "Setting up filehandling";
+		if(globVar->verbose) std::clog << "Setting up filehandling" << std::endl;
 
 		setupWidgets->filehandling = true;
 
@@ -1435,7 +1404,7 @@ void MainWindow::setupWidget(QString what) {
 	// Set up about
 	if(what == "about" && !setupWidgets->about) {
 
-		qDebug() << "Setting up about";
+		if(globVar->verbose) std::clog << "Setting up about" << std::endl;
 
 		setupWidgets->about = true;
 
@@ -1451,11 +1420,11 @@ void MainWindow::setupWidget(QString what) {
 	// Set up wallpaper
 	if(what == "wallpaper" && !setupWidgets->wallpaper) {
 
-		qDebug() << "Setting up wallpaper";
+		if(globVar->verbose) std::clog << "Setting up wallpaper" << std::endl;
 
 		setupWidgets->wallpaper = true;
 
-		wallpaper = new Wallpaper(globSet->toSignalOut(),viewBig);
+		wallpaper = new Wallpaper(globSet->toSignalOut(),globVar->verbose,viewBig);
 		wallpaper->globSet = globSet->toSignalOut();
 		wallpaper->setRect(QRect(0,0,viewBig->width(),viewBig->height()));
 		wallpaper->show();
@@ -1467,7 +1436,7 @@ void MainWindow::setupWidget(QString what) {
 	// Set up slideshow
 	if(what == "slideshow" && !setupWidgets->slideshow) {
 
-		qDebug() << "Setting up slideshow";
+		if(globVar->verbose) std::clog << "Setting up slideshow" << std::endl;
 
 		setupWidgets->slideshow = true;
 
@@ -1484,7 +1453,7 @@ void MainWindow::setupWidget(QString what) {
 	// Set up slideshowbar
 	if(what == "slideshowbar" && !setupWidgets->slideshowbar) {
 
-		qDebug() << "Setting up slideshowbar";
+		if(globVar->verbose) std::clog << "Setting up slideshowbar" << std::endl;
 
 		setupWidgets->slideshowbar = true;
 
@@ -1497,16 +1466,6 @@ void MainWindow::setupWidget(QString what) {
 
 	}
 
-	if(what == "magickerror" && !setupWidgets->errormagick) {
-
-		qDebug() << "Setting up error infobox for Magick";
-
-		setupWidgets->errormagick = true;
-
-		errorMagick = new CustomConfirm("Error reading file","I'm sorry, I wasn't able to succesfully load and display the image '%1'.<br><br>Please let me know (Lukas@photoqt.org), so that we can find a solution to this. Thanks :)","Close","",QSize(600,400),viewBig);
-
-	}
-
 }
 
 // Called by shortcuts to execute something
@@ -1514,6 +1473,7 @@ void MainWindow::shortcutDO(QString key, bool mouseSH) {
 
 	if(!globVar->blocked) {
 
+		// These are sent from the context menu
 		if(key.startsWith("__CTX__")) {
 
 			if(key == "__CTX__openinfm")
@@ -1555,7 +1515,7 @@ void MainWindow::shortcutDO(QString key, bool mouseSH) {
 		if(key == "")
 			key = ((QShortcut *) sender())->objectName();
 
-		if(globVar->verbose) qDebug() << "DO shortcut:" << mouseSH << "-" << key;
+		if(globVar->verbose) std::clog << "Execute shortcut: " << mouseSH << " - " << key.toStdString() << std::endl;
 
 		QString c = "";
 
@@ -1676,15 +1636,7 @@ void MainWindow::shortcutDO(QString key, bool mouseSH) {
 
 		}
 	} else
-		if(globVar->verbose) qDebug() << "DO shortcut (blocked)";
-
-}
-
-void MainWindow::showErrorFromMagick(const char *) {
-
-	if(!setupWidgets->errormagick) setupWidget("errormagick");
-
-	errorMagick->animate();
+		if(globVar->verbose) std::clog << "Execution of shortcuts blocked" << std::endl;
 
 }
 
@@ -1698,7 +1650,7 @@ void MainWindow::showStartupUpdateInstallMsg() {
 		setupWidgets->startup = true;
 		startup->setRect(QRect(0,0,viewBig->width(),viewBig->height()));
 
-		if(globVar->verbose) qDebug() << "Show Update Message";
+		if(globVar->verbose) std::clog << "Show Update Message" << std::endl;
 
 		startup->setUpdateMsg();
 
@@ -1716,7 +1668,7 @@ void MainWindow::showStartupUpdateInstallMsg() {
 		setupWidgets->startup = true;
 		startup->setRect(QRect(0,0,viewBig->width(),viewBig->height()));
 
-		if(globVar->verbose) qDebug() << "Show Install Message";
+		if(globVar->verbose) std::clog << "Show Install Message" << std::endl;
 
 		startup->setInstallMsg();
 
@@ -1734,7 +1686,7 @@ void MainWindow::showStartupUpdateInstallMsg() {
 // The startup/fresh install message has been closed
 void MainWindow::startupInstallUpdateMsgClosed() {
 
-	if(globVar->verbose) qDebug() << "Startup Message closed";
+	if(globVar->verbose) std::clog << "Startup Message closed" << std::endl;
 
 	blockFunc(false);
 	globVar->startupMessageInstallUpdateShown = 0;
@@ -1749,12 +1701,12 @@ void MainWindow::startuptimer() {
 
 		// Show startup message (if it has to be shown and isn't shown yet)
 		if(globVar->startupMessageInstallUpdateShown != 0 && !setupWidgets->startup) {
-			if(globVar->verbose) qDebug() << "Startup timer ended (message)";
+			if(globVar->verbose) std::clog << "Startup timer ended (message)" << std::endl;
 			showStartupUpdateInstallMsg();
 		// Start PhotoQt
 		} else if(globVar->startupMessageInstallUpdateShown == 0) {
 
-			if(globVar->verbose) qDebug() << "Startup timer ended (load)";
+			if(globVar->verbose) std::clog << "Startup timer ended (load)" << std::endl;
 
 			startUpTimer->stop();
 
@@ -1779,7 +1731,7 @@ void MainWindow::startSlideShow() {
 	if(!setupWidgets->slideshow)
 		setupWidget("slideshow");
 
-	if(globVar->verbose) qDebug() << "Start slideshow";
+	if(globVar->verbose) std::clog << "Start slideshow" << std::endl;
 
 	// Set some global parameters
 	globSet->slideShowTime = slideshow->timeSlider->value();
@@ -1834,7 +1786,7 @@ void MainWindow::startSlideShow() {
 // Stop Slideshowbar
 void MainWindow::stopSlideShow() {
 
-	if(globVar->verbose) qDebug() << "Stop slideshow";
+	if(globVar->verbose) std::clog << "Stop slideshow" << std::endl;
 
 	// Animate slideshowbar in (if not shown already) and out
 	slideshowbar->animateInAndOut = true;
@@ -1865,7 +1817,7 @@ void MainWindow::systemShortcutDO(QString todo) {
 
 	if(globVar->blocked) {
 
-		if(globVar->verbose) qDebug() << "Shortcut received (blockd):" << todo;
+		if(globVar->verbose) std::clog << "Shortcut received (blockd):" << todo.toStdString() << std::endl;
 
 		if(set->isVisible() && !set->tabShortcuts->detect->isShown) {
 
@@ -1979,7 +1931,7 @@ void MainWindow::systemShortcutDO(QString todo) {
 	// If functions are not blocked, then check if there's a user shortcut set for it
 	} else {
 
-		if(globVar->verbose) qDebug() << "Shortcut received";
+		if(globVar->verbose) std::clog << "(Possible) system shortcut received" << std::endl;
 
 		QList<QVariant> emp;
 		emp.clear();
@@ -1995,7 +1947,7 @@ void MainWindow::systemShortcutDO(QString todo) {
 // Click on a tray icon menu item
 void MainWindow::trayAcDo(QSystemTrayIcon::ActivationReason rsn) {
 
-	if(globVar->verbose) qDebug() << "Tray Action triggered:" << rsn;
+	if(globVar->verbose) std::clog << "Tray Action triggered: " << rsn << std::endl;
 
 	QAction *s = (QAction *) sender();
 	if(s->objectName() == "open") {
@@ -2022,14 +1974,14 @@ void MainWindow::trayAcDo(QSystemTrayIcon::ActivationReason rsn) {
 
 // Update scene rect (called from graphicsitem.cpp)
 void MainWindow::updateSceneBigRect() {
-	if(globVar->verbose) qDebug() << "Update Scene Rect";
+	if(globVar->verbose) std::clog << "Update Scene Rect" << std::endl;
 	viewBig->scene()->setSceneRect(viewBig->scene()->itemsBoundingRect());
 }
 
 // The settings have been updated, so the map is passed to sub-widgets
 void MainWindow::updateSettings(QMap<QString, QVariant> settings) {
 
-	if(globVar->verbose) qDebug() << "Pass updated settings to subclasses";
+	if(globVar->verbose) std::clog << "Passing updated settings to subclasses" << std::endl;
 
 	viewThumbs->globSet = settings;
 	viewThumbs->view->globSet = settings;
@@ -2061,12 +2013,12 @@ void MainWindow::updateSettings(QMap<QString, QVariant> settings) {
 // Zoom the current image; if a string is set, the boolean is ignored
 void MainWindow::zoom(bool zoomin, QString ignoreBoolean) {
 
-	if(globVar->verbose) qDebug() << "Zoom:" << zoomin << "-" << ignoreBoolean;
+	if(globVar->verbose) std::clog << "Zoom: " << zoomin << " - " << ignoreBoolean.toStdString() << std::endl;
 
 	// Reset zoom
 	if(ignoreBoolean.startsWith("reset")) {
 
-		if(globVar->verbose) qDebug() << "Reset Zoom";
+		if(globVar->verbose) std::clog << "Reset Zoom" << std::endl;
 
 		globVar->zoomToActualSize = false;
 		globVar->zoomed = false;
@@ -2090,15 +2042,12 @@ void MainWindow::zoom(bool zoomin, QString ignoreBoolean) {
 	// zoom to actual size (toggle)
 	} else if(ignoreBoolean == "actualsize") {
 
-		if(globVar->verbose) qDebug() << "Zoom to actual size";
+		if(globVar->verbose) std::clog << "Zoom to actual size" << std::endl;
 
 		// If at actual size -> reset
 		if(globVar->zoomToActualSize || globVar->zoomed)
 			zoom(true,"reset");
 		else {
-
-			qDebug() << "SET TO ACTUAL SIZE";
-
 			viewBig->resetMatrix();
 			viewBig->resetTransform();
 			// These need to be set to true for drawImg() not to scale the image
@@ -2149,7 +2098,7 @@ void MainWindow::zoom(bool zoomin, QString ignoreBoolean) {
 		// Zoom in
 		if(zoomin && viewBig->absoluteScaleFactor == 0) {
 
-			if(globVar->verbose) qDebug() << "Zoom In";
+			if(globVar->verbose) std::clog << "Zoom In" << std::endl;
 
 			viewBig->setAlignment(Qt::AlignCenter);
 			viewBig->resetMatrix();
@@ -2165,7 +2114,7 @@ void MainWindow::zoom(bool zoomin, QString ignoreBoolean) {
 			// Zoom out
 		} else if(!zoomin && (viewBig->absoluteScaleFactor == 0 || viewBig->absoluteScaleFactor == 1)) {
 
-			if(globVar->verbose) qDebug() << "Zoom Out";
+			if(globVar->verbose) std::clog << "Zoom Out" << std::endl;
 
 			if(viewBig->absoluteScaleFactor == 1)
 				graphItem->itemZoomed = true;

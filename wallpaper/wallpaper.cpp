@@ -1,6 +1,10 @@
 #include "wallpaper.h"
+#include <iostream>
 
-Wallpaper::Wallpaper(QMap<QString, QVariant> set, QWidget *parent) : QWidget(parent) {
+Wallpaper::Wallpaper(QMap<QString, QVariant> set, bool v, QWidget *parent) : QWidget(parent) {
+
+	verbose = v;
+	globSet = set;
 
 	// The different QRects
 	rectShown = QRect();
@@ -304,6 +308,7 @@ Wallpaper::Wallpaper(QMap<QString, QVariant> set, QWidget *parent) : QWidget(par
 
 }
 
+// Show settings for feh/nitrogen
 void Wallpaper::swapFehNitrogen() {
 
 	if(otherFeh->isChecked()) {
@@ -350,7 +355,7 @@ void Wallpaper::setWallpaper(QString file) {
 
 	if(file != "") {
 
-		qDebug() << "Wallpaper request:" << file;
+		if(verbose) std::clog << "Wallpaper request: " << file.toStdString() << std::endl;
 
 		// Set filename to label
 		filename = file;
@@ -594,13 +599,13 @@ void Wallpaper::goAheadAndSetWallpaper() {
 // The program should never reach this function (since a selection of "KDE" will disable the OK button, but it is included as a placeholder for a future implementation
 void Wallpaper::setKDE() {
 
-	qDebug() << "KDE -- not yet supported";
+	std::cerr << "KDE -- not yet supported";
 
 }
 
 void Wallpaper::setGNOME() {
 
-	qDebug() << "GNOME";
+	if(verbose) std::clog << "Set Gnome wallpaper." << std::endl;
 
 	QProcess proc;
 	proc.execute(QString("gsettings set org.gnome.desktop.background picture-options %1").arg(gnomeButGrp->checkedButton()->text()));
@@ -610,7 +615,7 @@ void Wallpaper::setGNOME() {
 
 void Wallpaper::setXFCE() {
 
-	qDebug() << "XFCE";
+	if(verbose) std::clog << "Set XFCE wallpaper." << std::endl;
 
 	QStringList xfcePicOpts;
 	xfcePicOpts << "automatic";
@@ -634,24 +639,24 @@ void Wallpaper::setXFCE() {
 			if(proc.execute(QString("xfconf-query -c xfce4-desktop -p /backdrop/screen0/monitor%1/image-style -s %2").arg(i).arg(xfcePicOpts.indexOf(xfceButGrp->checkedButton()->text())))) {
 
 				// If we don't succeed, then the property most likely doesn't exist
-				qDebug() << "image-style property not found, trying to create it";
+				if(verbose) std::clog << "image-style property not found, trying to create it" << std::endl;
 
 
 				// Create Property
 				if(proc.execute(QString("xfconf-query -c xfce4-desktop -n -p /backdrop/screen0/monitor%1/image-style -t int -s 0").arg(i)) == 1)
-					qDebug() << QString("ERROR: Unable to create property '/backdrop/screen0/monitor%1/image-style'!").arg(i);
+					std::cerr << QString("ERROR: Unable to create property '/backdrop/screen0/monitor%1/image-style'!").arg(i).toStdString() << std::endl;
 				else {
 
 					// Trying to set image style again
 					if(proc.execute(QString("xfconf-query -c xfce4-desktop -p /backdrop/screen0/monitor%1/image-style -s %2").arg(i).arg(i3.key())) == 1)
-						qDebug() << "ERROR: Couldn't set image-style!";
+						std::cerr << "ERROR: Couldn't set image-style!" << std::endl;
 					else
-						qDebug() << "Image style set...";
+						if(verbose) std::clog << "Image style set..." << std::endl;
 
 				}
 
 			} else
-				qDebug() << "image-style set";
+				if(verbose) std::clog << "image-style set" << std::endl;
 
 
 
@@ -659,24 +664,24 @@ void Wallpaper::setXFCE() {
 			if(proc.execute(QString("xfconf-query -c xfce4-desktop -p /backdrop/screen0/monitor%1/image-path -s \"%2\"").arg(i).arg(filename)) == 1) {
 
 				// If we don't succeed, then the property most likely doesn't exist
-				qDebug() << "image-path property not found, trying to create it";
+				if(verbose) std::clog << "image-path property not found, trying to create it" << std::endl;
 
 				// Create Property
 				if(proc.execute(QString("xfconf-query -c xfce4-desktop -n -p /backdrop/screen0/monitor%1/image-path -t string -s ''").arg(i)) == 1)
-					qDebug() << QString("ERROR: Unable to create property '/backdrop/screen0/monitor%1/image-path'!").arg(i);
+					std::cerr << QString("ERROR: Unable to create property '/backdrop/screen0/monitor%1/image-path'!").arg(i).toStdString() << std::endl;
 				else {
 
 					// And try again setting wallpaper
 					if(proc.execute(QString("xfconf-query -c xfce4-desktop -p /backdrop/screen0/monitor%1/image-path -s \"%2\"").arg(i).arg(filename)) == 1)
-						qDebug() << QString("ERROR: Unable to create property '/backdrop/screen0/monitor%1image-path' needed to set background!").arg(i);
+						std::cerr << QString("ERROR: Unable to create property '/backdrop/screen0/monitor%1image-path' needed to set background!").arg(i).toStdString() << std::endl;
 					else
-						qDebug() << "Image set...";
+						if(verbose) std::clog << "Image set..." << std::endl;
 				}
 			}
-				qDebug() << "Property found, image set...";
+			if(verbose) std::clog << "Property found, image set..." << std::endl;
 
 		} else
-			qDebug() << "Monitor #" << i << "not checked...";
+			if(verbose) std::clog << "Monitor #" << i << " not checked..." << std::endl;
 
 		++i;
 
@@ -687,13 +692,13 @@ void Wallpaper::setXFCE() {
 // Razor doesn't provide functionality yet
 void Wallpaper::setRazor() {
 
-	qDebug() << "RAZOR";
+	std::cerr << "RAZOR not yet supported" << std::endl;
 
 }
 
 void Wallpaper::setOTHER() {
 
-	qDebug() << "OTHER";
+	if(verbose) std::clog << "Set OTHER wallpaper." << std::endl;
 
 	if(otherFeh->isChecked()) {
 

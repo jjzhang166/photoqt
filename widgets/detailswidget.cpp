@@ -167,7 +167,7 @@ Details::Details(QWidget *parent, QMap<QString, QVariant> set, bool v): QWidget(
 // Setup the labels
 void Details::setupLabels() {
 
-	if(verbose) qDebug() << "exif: setting up labels";
+	if(verbose) std::clog << "exif: setting up labels" << std::endl;
 
 	// This QMap stores the exiv2 key and the connected internal ids
 	keyVal.clear();
@@ -292,7 +292,7 @@ void Details::setupLabels() {
 	central->addSpacing(8);
 
 	// This pushbutton enabled an option for triggering "stay open" state
-	stay = new CustomCheckBox("Keep Open");
+	stay = new CustomCheckBox(tr("Keep Open"));
 	stay->setIndicatorSize(10);
 	stay->setFontSize(8);
 	QHBoxLayout *stayLay = new QHBoxLayout;
@@ -307,7 +307,7 @@ void Details::setupLabels() {
 // Update the labels data
 void Details::updateData(QString currentfile, QSize origSize, bool exiv2Supported) {
 
-	if(verbose) qDebug() << "exif: Updating data:" << currentfile << "-" << origSize << "-" << exiv2Supported;
+	if(verbose) std::clog << "exif: Updating data: " << currentfile.toStdString() << " - " << QString("%1 x %2").arg(origSize.width()).arg(origSize.height()).toStdString() << " - " << exiv2Supported << std::endl;
 
 	// This button is only shown when mouse triggering is enabled
 	if(mouseTrickerEnable)
@@ -550,7 +550,7 @@ void Details::updateData(QString currentfile, QSize origSize, bool exiv2Supporte
 	// If image format isn't supported
 	} else {
 
-		if(verbose) qDebug() << "exif: Current file format not supported";
+		if(verbose) std::clog << "exif: Current file format not supported" << std::endl;
 
 		QMapIterator<QString,QString> i(keyVal);
 
@@ -609,7 +609,7 @@ QString Details::exifExposureTime(QString value) {
 
 	}
 
-	if(verbose) qDebug() << "exif: exposuretime:" << temp << "-" << value;
+	if(verbose) std::clog << "exif: exposuretime: " << temp.toStdString() << " - " << value.toStdString() << std::endl;
 
 	return value;
 
@@ -628,7 +628,7 @@ QString Details::exifFNumberFLength(QString value) {
 		value = QString("%1").arg(t1);
 	}
 
-	if(verbose) qDebug() << "exif: fnumberlength:" << temp << "-" << value;
+	if(verbose) std::clog << "exif: fnumberlength: " << temp.toStdString() << " - " << value.toStdString() << std::endl;
 
 	return value;
 
@@ -644,7 +644,7 @@ QString Details::exifPhotoTaken(QString value) {
        if(split.length() > 1 && split2.length() > 2)
 	       value = split2.at(2) + "/" + split2.at(1) + "/" + split2.at(0) + ", " + split.at(1);
 
-       if(verbose) qDebug() << "exif: phototaken:" << temp << "-" << value;
+       if(verbose) std::clog << "exif: phototaken: " << temp.toStdString() << " - " << value.toStdString() << std::endl;
 
        return value;
 
@@ -680,8 +680,8 @@ QString Details::exifGps(QString gpsLonRef, QString gpsLon, QString gpsLatRef, Q
 
 	QString value = gpsLat + " " + gpsLatRef + ", " + gpsLon + " " + gpsLonRef;
 
-	if(verbose) qDebug() << "exif: gps (1):" << temp;
-	if(verbose) qDebug() << "exif: gps (2):" << value;
+	if(verbose) std::clog << "exif: gps (1): " << temp.toStdString() << std::endl;
+	if(verbose) std::clog << "exif: gps (2): " << value.toStdString() << std::endl;
 
 	// Compose all the gps data into one string
 	return value;
@@ -693,7 +693,7 @@ QString Details::exifGps(QString gpsLonRef, QString gpsLon, QString gpsLatRef, Q
 // Click on yes
 void Details::rotConfYes() {
 
-	if(verbose) qDebug() << "exif: rotation confirmed";
+	if(verbose) std::clog << "exif: rotation confirmed" << std::endl;
 
 	emit setOrientation(rotationDeg, flipHor);
 
@@ -708,7 +708,7 @@ void Details::rotConfYes() {
 // Click on no
 void Details::rotConfNo() {
 
-	if(verbose) qDebug() << "exif: rotation cancelled";
+	if(verbose) std::clog << "exif: rotation cancelled" << std::endl;
 
 	if(rotConf->dontShowAgain->isChecked()) {
 		QMap<QString,QVariant> set;
@@ -736,8 +736,6 @@ void Details::setRect(QRect rect) {
 
 // Animate open/close the widget
 void Details::animate() {
-
-	if(verbose) qDebug() << "exif: Animate";
 
 	// Open widget
 	if(!isShown) {
@@ -789,7 +787,7 @@ void Details::adjustHeight() {
 	rectShown = QRect(rectShown.x(),(this->parentWidget()->height()-count*(200/fsize))/4,41*fsize,count*fsize*2.8);
 	rectHidden = QRect(-rectShown.width(),rectShown.y(),rectShown.width(),rectShown.height());
 
-	if(verbose) qDebug() << "exif: Adjusting height:" << rectShown;
+	if(verbose) std::clog << "exif: Adjusting height: " << QString("%1:%2 - %3 x %4").arg(rectShown.x()).arg(rectShown.y()).arg(rectShown.width()).arg(rectShown.height()).toStdString() << std::endl;
 
 	// Set the appropriate QRect
 	if(isShown)
@@ -803,7 +801,7 @@ void Details::adjustHeight() {
 // Click on GPS location (opens in online map (google/bing))
 void Details::gpsClick() {
 
-	if(verbose) qDebug() << "exif: Click on GPS";
+	if(verbose) std::clog << "exif: Click on GPS" << std::endl;
 
 	QStringList temp = items["Gps"]->text().split(":");
 	temp.removeFirst();
@@ -815,16 +813,16 @@ void Details::gpsClick() {
 
 		QUrl url;
 		if(onlineservice == "bing.com/maps") {
-			if(verbose) qDebug() << "exif: clickGPS: Using bing maps";
+			if(verbose) std::clog << "exif: clickGPS: Using bing maps" << std::endl;
 			url.setUrl("http://www.bing.com/maps/?sty=b&q=" + loc);
 		} else {
-			if(verbose) qDebug() << "exif: clickGPS: Using google maps";
+			if(verbose) std::clog << "exif: clickGPS: Using google maps" << std::endl;
 			url.setUrl("http://maps.google.com/maps?t=h&q=" + loc);
 		}
 
 
 		if(!QDesktopServices::openUrl(QUrl(url)))
-			qDebug() << "ERROR: Couldn't open URL...";
+			std::cerr << "ERROR: Couldn't open URL..." << std::endl;
 
 	}
 
@@ -835,7 +833,7 @@ void Details::updateFontsize() {
 
 	labelCSSfontsize = QString("font-size: %1pt;").arg((globSet.value("ExifFontSize").toInt()));
 
-	if(verbose) qDebug() << "exif: Updating font size:" << labelCSSfontsize;
+	if(verbose) std::clog << "exif: Updating font size: " << labelCSSfontsize.toStdString() << std::endl;
 
 	for(int i = 0; i < labelsId.size(); ++i) {
 

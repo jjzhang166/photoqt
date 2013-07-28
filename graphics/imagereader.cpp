@@ -1,8 +1,9 @@
 #include "imagereader.h"
-
 #include <iostream>
 
-ImageReader::ImageReader() : QObject() {
+ImageReader::ImageReader(bool v) : QObject() {
+
+	verbose = v;
 
 }
 
@@ -46,10 +47,10 @@ QImage ImageReader::readImage(QString filename, int rotation, bool zoomed, QSize
 
 	QImageReader reader;
 
-	qDebug() << "ZOOMED:" << zoomed;
+	if(verbose) std::clog << "[reader] zoomed: " << zoomed << std::endl;
 
 	bool useMagick = doIUseMagick(filename);
-	qDebug() << "Using Graphicsengine:" << (useMagick ? "Magick" : "ImageReader");
+	if(verbose) std::clog << "Using Graphicsengine: " << (useMagick ? "Magick" : "ImageReader") << std::endl;
 
 	origSize = QSize();
 	fileformat = "";
@@ -181,7 +182,7 @@ QImage ImageReader::readImage(QString filename, int rotation, bool zoomed, QSize
 		// Eventually load the image
 		img = reader.read();
 
-		qDebug() << "READER:" << img.width() << "-" << img.height() << "z:" << zoomed;
+		if(verbose) std::clog << "[read] image: " << img.width() << " - " << img.height() << " - z: " << zoomed;
 
 		if(reader.supportsAnimation() && reader.imageCount() > 1)
 			animatedImg = true;
@@ -199,9 +200,6 @@ QImage ImageReader::readImage(QString filename, int rotation, bool zoomed, QSize
 
 				try {
 					image.zoom(Magick::Geometry(QString("%1x%2").arg(dispWidth).arg(dispHeight).toStdString()));
-//					image.depth(8);
-//					image.magick("XPM"); // Set XPM
-//					image.write( &blob );
 				} catch(Magick::Warning &warning) {
 					std::cerr << "[zoom] CAUGHT Magick++ WARNING: " << warning.what() << std::endl;
 				} catch(Magick::Exception &error) {

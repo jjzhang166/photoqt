@@ -3,8 +3,6 @@
 
 #include <QGraphicsView>
 #include <QWheelEvent>
-#include <QtDebug>
-#include <QSignalMapper>
 #include "../customelements/customscrollbar.h"
 
 // We translate a vertical scrolling into a horizontal one

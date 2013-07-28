@@ -9,7 +9,6 @@
 #include <QTimeLine>
 #include <QStyleOption>
 #include <QPainter>
-#include <QtDebug>
 #include <QVBoxLayout>
 #include <QScrollArea>
 #include <QLabel>

@@ -4,9 +4,9 @@
 #include <QObject>
 #include <QFile>
 #include <QDir>
-#include <QtDebug>
-#include <QColor>
+#include <QTextStream>
 #include <QStringList>
+#include <iostream>
 
 #if defined(Q_WS_X11)
 #include <QX11Info>
@@ -19,6 +19,7 @@ private:
 
 public:
 
+	// Per default enabled image formats
 	QStringList formatsQtEnabled;
 	QStringList formatsGmEnabled;
 
@@ -244,16 +245,24 @@ public:
 
 	}
 
+	// Read formats from file (if available)
 	void getFormats() {
 
 		formatsGmEnabled.clear();
 		formatsQtEnabled.clear();
 
+		// If both files don't exist, then we set the default formats
 		QFile fileQt(QDir::homePath() + "/.photoqt/fileformatsQt");
+		QFile fileGm(QDir::homePath() + "/.photoqt/fileformatsGm");
+		if(!fileQt.exists() && !fileGm.exists())
+			setDefaultFormats();
+
+
+		// Read Qt formats
 		if(fileQt.exists()) {
 
 			if(!fileQt.open(QIODevice::ReadOnly))
-				qDebug() << "ERROR: Can't open Qt image formats file";
+				std::cerr << "ERROR: Can't open Qt image formats file" << std::endl;
 			else {
 
 				QTextStream in(&fileQt);
@@ -270,16 +279,15 @@ public:
 
 			}
 
-		} else
-			setDefaultFormats();
+		}
 
 #ifdef WITH_GRAPHICSMAGICK
 
-		QFile fileGm(QDir::homePath() + "/.photoqt/fileformatsGm");
+		// Read Gm formats
 		if(fileGm.exists()) {
 
 			if(!fileGm.open(QIODevice::ReadOnly))
-				qDebug() << "ERROR: Can't open Gm image formats file";
+				std::cerr << "ERROR: Can't open Gm image formats file" << std::endl;
 			else {
 
 				QTextStream in(&fileGm);
@@ -302,6 +310,7 @@ public:
 
 	}
 
+	// Save all enabled formats to file
 	void saveFormats() {
 
 		if(!readonly) {
@@ -314,10 +323,10 @@ public:
 			QFile fileQt(QDir::homePath() + "/.photoqt/fileformatsQt");
 			if(fileQt.exists()) {
 				if(!fileQt.remove())
-					qDebug() << "ERROR: Cannot replace Qt image formats file";
+					std::cerr << "ERROR: Cannot replace Qt image formats file" << std::endl;
 			}
 			if(!fileQt.open(QIODevice::WriteOnly))
-				qDebug() << "ERROR: Cannot write to Qt image formats file";
+				std::cerr << "ERROR: Cannot write to Qt image formats file" << std::endl;
 			else {
 				QTextStream outQt(&fileQt);
 				outQt << qtfilecontent;
@@ -336,10 +345,10 @@ public:
 			QFile fileGm(QDir::homePath() + "/.photoqt/fileformatsGm");
 			if(fileGm.exists()) {
 				if(!fileGm.remove())
-					qDebug() << "ERROR: Cannot replace Gm image formats file";
+					std::cerr << "ERROR: Cannot replace Gm image formats file" << std::endl;
 			}
 			if(!fileGm.open(QIODevice::WriteOnly))
-				qDebug() << "ERROR: Cannot write to Gm image formats file";
+				std::cerr << "ERROR: Cannot write to Gm image formats file" << std::endl;
 			else {
 				QTextStream outGm(&fileGm);
 				outGm << gmfilecontent;
@@ -418,6 +427,7 @@ public:
 	QString slideShowMusicFile;
 	bool slideShowHideQuickinfo;
 
+	// Some wallpaper settings
 	QString wallpaperAlignment;
 	QString wallpaperScale;
 
@@ -443,12 +453,10 @@ public:
 	// Thumbnails can be disabled altogether
 	bool thumbnailDisable;
 
-
-
+	// Window Mode
 	bool windowmode;
+	// w/ or w/o decoration
 	bool windowDecoration;
-
-
 
 	// The currently known filetypes
 	FileFormats *fileFormats;
@@ -665,11 +673,11 @@ public:
 
 		if(!file.open(QIODevice::ReadOnly))
 
-			qDebug() << "ERROR reading settings";
+			std::cerr << "ERROR reading settings" << std::endl;
 
 		else {
 
-			if(verbose) qDebug() << "Read Settings from File";
+			if(verbose) std::clog << "Read Settings from File" << std::endl;
 
 			// Read file
 			QTextStream in(&file);
@@ -961,11 +969,11 @@ public:
 
 		if(!file.open(QIODevice::ReadWrite))
 
-			qDebug() << "ERROR saving settings";
+			std::cerr << "ERROR saving settings" << std::endl;
 
 		else {
 
-			if(verbose) qDebug() << "Save Settings";
+			if(verbose) std::clog << "Save Settings" << std::endl;
 
 			file.close();
 			file.remove();
@@ -1361,8 +1369,6 @@ public slots:
 			exifgpsmapservice = changedSet.value("ExifGPSMapService").toString();
 			applySet["exif"] = true;
 		}
-
-		if(verbose) qDebug() << "Settings changed:" << applySet;
 
 		saveSettings(applySet);
 

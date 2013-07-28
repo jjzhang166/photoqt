@@ -14,9 +14,6 @@
 #include <QFileInfo>
 #include <QDateTime>
 #include <QPropertyAnimation>
-#include <QtDebug>
-#include <QPushButton>
-#include <QMessageBox>
 #include <QMap>
 #include <QVariant>
 #include <QDesktopServices>

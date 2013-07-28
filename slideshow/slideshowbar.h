@@ -4,8 +4,6 @@
 #include "../customelements/custompushbutton.h"
 
 #include <QWidget>
-#include <QMap>
-#include <QtDebug>
 #include <QPropertyAnimation>
 #include <QStyleOption>
 #include <QPainter>

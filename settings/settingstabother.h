@@ -31,6 +31,8 @@ public:
 
 	bool verbose;
 
+	TabWidget *tabs;
+
 	// The scrollbars
 	CustomScrollbar *scrollbarOther;
 	CustomScrollbar *scrollbarFile;
@@ -45,8 +47,6 @@ public:
 	void saveSettings();
 
 private:
-
-	TabWidget *tabs;
 	QWidget *tabOther;
 	QWidget *tabFile;
 

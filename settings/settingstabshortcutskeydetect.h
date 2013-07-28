@@ -12,7 +12,6 @@
 #include <QTimeLine>
 #include <QLabel>
 #include <QVBoxLayout>
-#include <QtDebug>
 #include <QKeyEvent>
 #include <QComboBox>
 

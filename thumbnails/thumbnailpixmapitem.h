@@ -2,7 +2,6 @@
 #define THUMBNAILPIXMAPITEM_H
 
 #include <QGraphicsPixmapItem>
-#include <QtDebug>
 #include <QGraphicsSceneMouseEvent>
 #include <QCursor>
 

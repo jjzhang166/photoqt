@@ -1,4 +1,5 @@
 #include "settingstabexif.h"
+#include <iostream>
 
 SettingsTabExif::SettingsTabExif(QWidget *parent, QMap<QString, QVariant> set, bool v) : QWidget(parent) {
 
@@ -224,7 +225,7 @@ void SettingsTabExif::disEnableAll() {
 	if(pushed == "disable")
 		en = false;
 
-	if(verbose) qDebug() << "Dis-/Enable all exif:" << en;
+	if(verbose) std::clog << "Dis-/Enable all exif: " << en << std::endl;
 
 	for(int i = 0; i < allTiles.length(); ++i)
 		allTiles.at(i)->setChecked(en);
@@ -234,7 +235,7 @@ void SettingsTabExif::disEnableAll() {
 // Load the settings
 void SettingsTabExif::loadSettings() {
 
-	if(verbose) qDebug() << "Load Settings (Exif)";
+	if(verbose) std::clog << "Load Settings (Exif)" << std::endl;
 
 	defaults.clear();
 
@@ -277,7 +278,7 @@ void SettingsTabExif::loadSettings() {
 // Save the settings (if changed)
 void SettingsTabExif::saveSettings() {
 
-	if(verbose) qDebug() << "Save Settings (Exif)";
+	if(verbose) std::clog << "Save Settings (Exif)" << std::endl;
 
 	updatedSet.clear();
 

@@ -5,8 +5,6 @@
 
 int main(int argc, char *argv[]) {
 
-	qDebug() << QDateTime::currentMSecsSinceEpoch();
-
 	QApplication::setApplicationName("photoqt");
 
 	// This string holds the current version
@@ -85,7 +83,10 @@ int main(int argc, char *argv[]) {
 	// If an instance of PhotoQt is running, we check for command line arguments
 	} else if(QDateTime::currentMSecsSinceEpoch() - all.toLongLong() < qint64(520)) {
 
-		qDebug() << "Running instance of PhotoQt detected...";
+		// We need to initiate it here to, because we check for the applicationFilePath() later-on
+		QApplication a(argc, argv);
+
+		std::cout << "Running instance of PhotoQt detected..." << std::endl;
 
 		// This is the content of the file used to communicate with running PhotoQt instance
 		QString cont = "";
@@ -96,16 +97,18 @@ int main(int argc, char *argv[]) {
 		for(int i = 1; i < allArgs.length(); ++i) {
 
 			// We ignore the verbose switch when an instance is already running
-			if(knownArgs.contains(allArgs.at(i)) && allArgs.at(i) != "--v" && allArgs.at(i) != "--verbose")
-				cont += allArgs.at(i) + "\n";
-			else if(allArgs.at(i).startsWith("-"))
-				err = true;
-			else {
-				QString filename = allArgs.at(i);
-				if(!filename.startsWith("/"))
-					filename = QFileInfo(filename).absoluteFilePath();
-				if(filename != QApplication::applicationFilePath())
-					cont += "-f-" + filename;
+			if(allArgs.at(i) != "--v" && allArgs.at(i) != "--verbose") {
+				if(knownArgs.contains(allArgs.at(i)))
+					cont += allArgs.at(i) + "\n";
+				else if(allArgs.at(i).startsWith("-")) {
+					err = true;
+				} else {
+					QString filename = allArgs.at(i);
+					if(!filename.startsWith("/"))
+						filename = QFileInfo(filename).absoluteFilePath();
+					if(filename != a.applicationFilePath())
+						cont += "-f-" + filename;
+				}
 			}
 
 		}
@@ -124,7 +127,7 @@ int main(int argc, char *argv[]) {
 				out << cont;
 				f.close();
 			} else
-				qDebug() << "ERROR! Couldn't write to file '~/.photoqt/cmd'. Unable to communicate with running process";
+				std::cerr << "ERROR! Couldn't write to file '~/.photoqt/cmd'. Unable to communicate with running process" << std::endl;
 
 		// If an uncorrect argument was used
 		} else
@@ -138,12 +141,12 @@ int main(int argc, char *argv[]) {
 
 		bool verbose = (allArgs.contains("--v") || allArgs.contains("--verbose") || QFile(QDir::homePath() + "./photoqt/verbose").exists() || (!QDir(QDir::homePath() + "/.photoqt").exists() && QFile(QDir::homePath() + "/.photo/verbose").exists()));
 
-		// Ensure that the config folder exists
+		// Ensure that the config folder exists, and move from ~/.photo to ~/.photoqt
 		QDir dir(QDir::homePath() + "/.photoqt");
 		if(!dir.exists()) {
 			QDir dir_old(QDir::homePath() + "/.photo");
 			if(dir_old.exists()) {
-				if(verbose) qDebug() << "Moving ~/.photo to ~/.photoqt";
+				if(verbose) std::clog << "Moving ~/.photo to ~/.photoqt" << std::endl;
 				dir.mkdir(QDir::homePath() + "/.photoqt");
 
 				QFile file(QDir::homePath() + "/.photo/contextmenu");
@@ -193,7 +196,7 @@ int main(int argc, char *argv[]) {
 
 
 			} else {
-				if(verbose) qDebug() << "Creating ~/.photoqt/";
+				if(verbose) std::clog << "Creating ~/.photoqt/" << std::endl;
 				dir.mkdir(QDir::homePath() + "/.photoqt");
 			}
 		}
@@ -221,9 +224,9 @@ int main(int argc, char *argv[]) {
 		QFile file(QDir::homePath() + "/.photoqt/settings");
 		if(!file.exists()) {
 			if(!file.open(QIODevice::WriteOnly))
-				qDebug() << "ERROR: Couldn't write settings file! Please ensure that you have read&write access to home directory";
+				std::cerr << "ERROR: Couldn't write settings file! Please ensure that you have read&write access to home directory" << std::endl;
 			else {
-				if(verbose) qDebug() << "Creating basic settings file";
+				if(verbose) std::clog << "Creating basic settings file" << std::endl;
 				QTextStream out(&file);
 				out << "Version=" + globVersion + "\n";
 				file.close();
@@ -234,12 +237,12 @@ int main(int argc, char *argv[]) {
 		// If file does exist, check if it is from a previous version -> PhotoQt was updated
 		} else {
 			if(!file.open(QIODevice::ReadWrite))
-				qDebug() << "ERROR: Couldn't read settings file! Please ensure that you have read&write access to home directory";
+				std::cerr << "ERROR: Couldn't read settings file! Please ensure that you have read&write access to home directory" << std::endl;
 			else {
 				QTextStream in(&file);
 				settingsFileTxt = in.readAll();
 
-				if(verbose) qDebug() << "Checking if first run of new version";
+				if(verbose) std::clog << "Checking if first run of new version" << std::endl;
 
 				// If it doesn't contain current version (some previous version)
 				if(!settingsFileTxt.contains("Version=" + globVersion + "\n")) {
@@ -270,7 +273,7 @@ int main(int argc, char *argv[]) {
 
 		// If PhotoQt is supposed to be started minimized in system tray
 		if(startintray) {
-			if(verbose) qDebug() << "Starting minimised to tray";
+			if(verbose) std::clog << "Starting minimised to tray" << std::endl;
 			// If the option "Use Tray Icon" in the settings is not set, we set it
 			QFile set(QDir::homePath() + "/.photoqt/settings");
 			if(set.open(QIODevice::ReadOnly)) {
@@ -284,14 +287,14 @@ int main(int argc, char *argv[]) {
 					set.close();
 					set.remove();
 					if(!set.open(QIODevice::WriteOnly))
-						qDebug() << "ERROR: Can't enable tray icon setting!";
+						std::cerr << "ERROR: Can't enable tray icon setting!" << std::endl;
 					QTextStream out(&set);
 					out << all;
 					set.close();
 				} else
 					set.close();
 			} else
-				qDebug() << "Unable to ensure TrayIcon is enabled - make sure it is enabled!!";
+				std::cerr << "Unable to ensure TrayIcon is enabled - make sure it is enabled!!" << std::endl;
 		}
 
 		QApplication a(argc, argv);
@@ -300,38 +303,38 @@ int main(int argc, char *argv[]) {
 		QTranslator trans;
 
 
-		if(verbose) qDebug() << "Checking for translation";
+		if(verbose) std::clog << "Checking for translation" << std::endl;
 		if(settingsFileTxt.contains("Language=") && !settingsFileTxt.contains("Language=en")) {
 			QString code = settingsFileTxt.split("Language=").at(1).split("\n").at(0).trimmed();
 			trans.load(":/lang/photoqt_" + code);
 			a.installTranslator(&trans);
-			qDebug() << "Loading Translation:" << code;
+			std::clog << "Loading Translation:" << code.toStdString() << std::endl;
 		}
 
 		// Check if thumbnail database exists. If not, create it
 		QFile database(QDir::homePath() + "/.photoqt/thumbnails");
 		if(!database.exists()) {
 
-			if(verbose) qDebug() << "Create Thumbnail Database";
+			if(verbose) std::clog << "Create Thumbnail Database" << std::endl;
 
 			QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE", "thumbDB");
 			db.setDatabaseName(QDir::homePath() + "/.photoqt/thumbnails");
-			if(!db.open()) qDebug() << "ERROR: Couldn't open thumbnail database:" << db.lastError().text().trimmed();
+			if(!db.open()) std::cerr << "ERROR: Couldn't open thumbnail database:" << db.lastError().text().trimmed().toStdString() << std::endl;
 			QSqlQuery query(db);
 			query.prepare("CREATE TABLE Thumbnails (filepath TEXT,thumbnail BLOB, filelastmod INT, thumbcreated INT)");
 			query.exec();
-			if(query.lastError().text().trimmed().length()) qDebug() << "ERROR (Creating Thumbnail Datbase):" << query.lastError().text().trimmed();
+			if(query.lastError().text().trimmed().length()) std::cerr << "ERROR (Creating Thumbnail Datbase):" << query.lastError().text().trimmed().toStdString() << std::endl;
 			query.clear();
 
 
 		} else {
 
-			if(verbose) qDebug() << "Opening Thumbnail Database";
+			if(verbose) std::clog << "Opening Thumbnail Database" << std::endl;
 
 			// Opening the thumbnail database
 			QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE","thumbDB");
 			db.setDatabaseName(QDir::homePath() + "/.photoqt/thumbnails");
-			if(!db.open()) qDebug() << "ERROR: Couldn't open thumbnail database:" << db.lastError().text().trimmed();
+			if(!db.open()) std::cerr << "ERROR: Couldn't open thumbnail database:" << db.lastError().text().trimmed().toStdString() << std::endl;
 
 		}
 
@@ -343,7 +346,7 @@ int main(int argc, char *argv[]) {
 		QFile contextmenu(QDir::homePath() + "/.photoqt/contextmenu");
 		if(!contextmenu.exists()) {
 
-			if(verbose) qDebug() << "Create basic context menu file";
+			if(verbose) std::clog << "Create basic context menu file" << std::endl;
 
 			if(contextmenu.open(QIODevice::WriteOnly)) {
 
@@ -355,7 +358,7 @@ int main(int argc, char *argv[]) {
 				contextmenu.close();
 
 			} else
-				qDebug() << "ERROR: Couldn't create contextmenu file";
+				std::cerr << "ERROR: Couldn't create contextmenu file" << std::endl;
 		}
 
 
@@ -377,7 +380,7 @@ int main(int argc, char *argv[]) {
 				QString filename = allArgs.at(i);
 				filename = QFileInfo(filename).absoluteFilePath();
 				if(filename != QApplication::applicationFilePath()) {
-					if(verbose) qDebug() << "Filename submitted:" << filename;
+					if(verbose) std::clog << "Filename submitted:" << filename.toStdString() << std::endl;
 					file_str = filename;
 					break;
 				}
@@ -387,7 +390,7 @@ int main(int argc, char *argv[]) {
 
 		// Possibly disable thumbnails
 		if(allArgs.contains("--no-thumbs")) {
-			if(verbose) qDebug() << "Disabling Thumbnails";
+			if(verbose) std::clog << "Disabling Thumbnails" << std::endl;
 			QMap<QString,QVariant> upd;
 			upd.insert("ThumbnailDisable",true);
 			w.globSet->settingsUpdated(upd);
@@ -401,8 +404,6 @@ int main(int argc, char *argv[]) {
 
 		if(!startintray)
 			w.startUpTimer->start();
-
-		qDebug() << QDateTime::currentMSecsSinceEpoch();
 
 		return a.exec();
 

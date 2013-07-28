@@ -1,4 +1,5 @@
 #include "settingstabthumbnail.h"
+#include <iostream>
 
 SettingsTabThumbnail::SettingsTabThumbnail(QWidget *parent, QMap<QString, QVariant> set, bool v) : QWidget(parent) {
 
@@ -228,7 +229,7 @@ SettingsTabThumbnail::SettingsTabThumbnail(QWidget *parent, QMap<QString, QVaria
 
 
 
-
+	// OPTION TO DISABLE THUMBNAILS ALLTOGETHER
 	QLabel *thumbnailDisableLabel = new QLabel("<b><span style=\"font-size: 12pt\">" + tr("Disable Thumbnails") + "</span></b><br><bR>" + tr("If you just don't need or don't want any thumbnails whatsoever, then you can disable them here completely. This option can also be toggled remotely via command line (run 'photoqt --help' for more information on that)."));
 	thumbnailDisableLabel->setWordWrap(true);
 	thumbDisable = new CustomCheckBox(tr("Disable Thumbnails altogether"));
@@ -329,7 +330,7 @@ SettingsTabThumbnail::SettingsTabThumbnail(QWidget *parent, QMap<QString, QVaria
 // Load all settings
 void SettingsTabThumbnail::loadSettings() {
 
-	if(verbose) qDebug() << "Load Settings (Thumb)";
+	if(verbose) std::clog << "Load Settings (Thumb)" << std::endl;
 
 	defaults.clear();
 
@@ -381,7 +382,7 @@ void SettingsTabThumbnail::loadSettings() {
 // Save all settings
 void SettingsTabThumbnail::saveSettings() {
 
-	if(verbose) qDebug() << "Save Settings (Thumb)";
+	if(verbose) std::clog << "Save Settings (Thumb)" << std::endl;
 
 	updatedSet.clear();
 
@@ -457,12 +458,12 @@ void SettingsTabThumbnail::saveSettings() {
 // Set some basic database info (is loaded when tab is activated)
 void SettingsTabThumbnail::setDatabaseInfo() {
 
-	if(verbose) qDebug() << "thb: Setting Database Info";
+	if(verbose) std::clog << "thb: Setting Database Info" << std::endl;
 
 	QSqlQuery query(db);
 	query.exec("SELECT COUNT(filepath) AS c FROM Thumbnails");
 	if(query.lastError().text().trimmed().length())
-		qDebug() << "ERROR: (Count)" << query.lastError().text().trimmed();
+		std::cerr << "ERROR: (Count) " << query.lastError().text().trimmed().toStdString() << std::endl;
 	query.next();
 
 	noOfEntriesInDb = query.value(query.record().indexOf("c")).toInt();
@@ -476,7 +477,7 @@ void SettingsTabThumbnail::setDatabaseInfo() {
 // Clean the database
 void SettingsTabThumbnail::doCleanDatabase() {
 
-	if(verbose) qDebug() << "thb: Clean database";
+	if(verbose) std::clog << "thb: Clean database" << std::endl;
 
 	QSqlQuery query(db);
 
@@ -515,14 +516,14 @@ void SettingsTabThumbnail::doCleanDatabase() {
 		query2.bindValue(":path",toDel.at(i).at(0));
 		query2.exec();
 		if(query2.lastError().text().trimmed().length())
-			qDebug() << "ERROR (del):" << query2.lastError().text().trimmed();
+			std::cerr << "ERROR (del): " << query2.lastError().text().trimmed().toStdString() << std::endl;
 		query2.clear();
 
 	}
 
 	// Error catching
 	if(db.lastError().text().trimmed().length())
-		qDebug() << "ERROR (after del):" << db.lastError().text().trimmed();
+		std::cerr << "ERROR (after del): " << db.lastError().text().trimmed().toStdString() << std::endl;
 
 
 	// Compress database
@@ -530,7 +531,7 @@ void SettingsTabThumbnail::doCleanDatabase() {
 	query3.prepare("VACUUM");
 	query3.exec();
 	if(query3.lastError().text().trimmed().length())
-		qDebug() << "ERROR: (Vacuum)" << query3.lastError().text().trimmed();
+		std::cerr << "ERROR: (Vacuum) " << query3.lastError().text().trimmed().toStdString() << std::endl;
 	query3.clear();
 
 	// Update database info
@@ -541,7 +542,7 @@ void SettingsTabThumbnail::doCleanDatabase() {
 // Erase the entire database
 void SettingsTabThumbnail::doEraseDatabase() {
 
-	if(verbose) qDebug() << "thb: Erase database";
+	if(verbose) std::clog << "thb: Erase database" << std::endl;
 
 	QFile(QDir::homePath() + "/.photoqt/thumbnails").remove();
 
@@ -550,12 +551,12 @@ void SettingsTabThumbnail::doEraseDatabase() {
 	QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE", "thumbDB");
 	db.setDatabaseName(QDir::homePath() + "/.photoqt/thumbnails");
 	if(!db.open())
-		qDebug() << "ERROR: Couldn't open thumbnail database:" << db.lastError().text().trimmed();
+		std::cerr << "ERROR: Couldn't open thumbnail database: " << db.lastError().text().trimmed().toStdString() << std::endl;
 	QSqlQuery query(db);
 	query.prepare("CREATE TABLE Thumbnails (filepath TEXT,thumbnail BLOB, filelastmod INT, thumbcreated INT)");
 	query.exec();
 	if(query.lastError().text().trimmed().length())
-		qDebug() << "ERROR (Creating Thumbnail Datbase):" << query.lastError().text().trimmed();
+		std::cerr << "ERROR (Creating Thumbnail Datbase): " << query.lastError().text().trimmed().toStdString() << std::endl;
 	query.clear();
 
 	// Update database info
