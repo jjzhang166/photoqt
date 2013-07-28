@@ -199,21 +199,18 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 
 
 	// Adjust known file formats
-//	QLabel *knownLabel = new QLabel("<b><span style=\"font-size:12pt\">" + tr("Known File Types") + "</span></b><br><br>" + tr("Here you can adjust the list of known image types. Some image types (especially more exotic ones) aren't supported by every Qt installation (depending on which image plugins you've got installed, etc.). If there's any problem with an image type, you can take it out of the list here. If you want to add an image type, simply add it to the list.") + "<br><b>" + tr("Only change the list if you know what you're doing!") + "</b>");
-//	knownLabel->setWordWrap(true);
-
-	QLabel *titleQt = new QLabel("<b><span style=\"font-size:12pt\">" + tr("Qt File Types") + "</span></b><br><br>" + tr("Qt File Types") + "</b>");
+	QLabel *titleQt = new QLabel("<b><span style=\"font-size:12pt\">" + tr("Qt File Types") + "</span></b><br><br>" + tr("These are the standard file types supported by Qt. Depending on your system, this list can vary a little.") + "<br>" + tr("If you want to add a file type not in the list, you can add them in the text box below. You have to enter the formats like '*.ending', all seperated by commas.") + "</b>");
 	titleQt->setWordWrap(true);
 
-	QGridLayout *layQt = new QGridLayout;
+	FlowLayout *layQt = new FlowLayout;
 	QStringList formatsQt;
 	formatsQt << ".bmp" << ".gif" << ".tif" << ".tiff" << ".jpeg2000" << ".jpeg" << ".jpg" << ".png" << ".pbm" << ".pgm" << ".ppm" << ".xbm" << ".xpm";
 	formatsQt.sort();
 	for(int i = 0; i < formatsQt.length(); ++i) {
 
-		CustomCheckBox *check = new CustomCheckBox(formatsQt.at(i));
+		SettingsTabOtherFileTypesTiles *check = new SettingsTabOtherFileTypesTiles(formatsQt.at(i));
 		allCheckQt.insert(formatsQt.at(i),check);
-		layQt->addWidget(check,i/10,i%10);
+		layQt->addWidget(check);
 
 	}
 
@@ -247,17 +244,18 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 
 
 
-	QLabel *titleGmWorking = new QLabel("<b><span style=\"font-size:12pt\">" + tr("Gm File Types") + "</span></b><br><br>" + tr("Known to be working Gm File Types") + "</b>");
+	QLabel *titleGmWorking = new QLabel("<b><span style=\"font-size:12pt\">" + tr("GraphicsMagick File Types") + "</span></b><br><br>" + tr("PhotoQt makes use of GraphicsMagick for support of many different file types. Not all of the formats supported by GraphicsMagick make sense in an image viewer. There are some that aren't quite working at the moment, you can find them in the 'Unstable' category below.") + "<br>" + tr("If you want to add a file type not in the list, you can add them in the text box below. You have to enter the formats like '*.ending', all seperated by commas.") + "</b>");
+	titleGmWorking->setWordWrap(true);
 
-	QGridLayout *layGm = new QGridLayout;
+	FlowLayout *layGm = new FlowLayout;
 	QStringList formatsGm;
 	formatsGm << ".art" << ".avs" << ".x" << ".cals" << ".cgm" << ".cur" << ".cut" << ".acr" << ".dcm" << ".dicom" << ".dic" << ".dcx" << ".dib" << ".dpx" << ".emf" << ".epdf" << ".epi" << ".eps" << ".eps2" << ".eps3" << ".epsf" << ".epsi" << ".ept" << ".fax" << ".fig" << ".fits" << ".fts" << ".fit" << ".fpx" << ".gplt" << ".ico" << ".jbg" << ".jbig" << ".jng" << ".jp2" << ".j2k" << ".jpf" << ".jpx" << ".jpm" << ".mj2" << ".jpc" << ".mat" << ".miff" << ".mng" << ".mpc" << ".mtv" << ".otb" << ".p7" << ".palm" << ".pam" << ".pcd" << ".pcds" << ".pcx" << ".pdb" << ".pdf" << ".picon" << ".pict" << ".pct" << ".pic" << ".pix" << ".pnm" << ".ps" << ".ps2" << ".ps3" << ".psd" << ".ptif" << ".ras" << ".rast" << ".rad" << ".sgi" << ".sun" << ".svg" << ".tga" << ".vicar" << ".viff" << ".wbmp" << ".wbm" << ".xcf" << ".xwd";
 	formatsGm.sort();
 	for(int i = 0; i < formatsGm.length(); ++i) {
 
-		CustomCheckBox *check = new CustomCheckBox(formatsGm.at(i));
+		SettingsTabOtherFileTypesTiles *check = new SettingsTabOtherFileTypesTiles(formatsGm.at(i));
 		allCheckGm.insert(formatsGm.at(i),check);
-		layGm->addWidget(check,i/10,i%10);
+		layGm->addWidget(check);
 
 	}
 
@@ -294,18 +292,18 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 
 
 
-	QLabel *titleGmUnstable = new QLabel("<b><span style=\"font-size:12pt\">" + tr("Unstable Gm File Types") + "</span></b><br><br>" + tr("Unstable Gm File Types") + "</b>");
+	QLabel *titleGmUnstable = new QLabel("<b><span style=\"font-size:12pt\">" + tr("Unstable Gm File Types") + "</span></b><br><br>" + tr("The following file types are supported by GraphicsMagick, but aren't quite working in PhotoQt just yet. If you want to experiment around a little, feel free to enable some of them. They shouldn't cause PhotoQt to crash, but you might see an error image instead of the actual image.") + "</b>");
 	titleGmUnstable->setWordWrap(true);
 
-	QGridLayout *layGmUnstable = new QGridLayout;
+	FlowLayout *layGmUnstable = new FlowLayout;
 	QStringList formatsGmUnstable;
 	formatsGmUnstable << ".gray" << ".hpgl" << ".mono" << ".msl" << ".mvg" << ".pcl" << ".pfa" << ".pfb" << ".pwp" << ".rgb" << ".rgba" << ".rla" << ".rle" << ".sct" << ".sfw" << ".tim" << ".uil" << ".uyvy" << ".wmf" << ".wpg" << ".yuv";
 	formatsGmUnstable.sort();
 	for(int i = 0; i < formatsGmUnstable.length(); ++i) {
 
-		CustomCheckBox *check = new CustomCheckBox(formatsGmUnstable.at(i));
+		SettingsTabOtherFileTypesTiles *check = new SettingsTabOtherFileTypesTiles(formatsGmUnstable.at(i));
 		allCheckGmUnstable.insert(formatsGmUnstable.at(i),check);
-		layGmUnstable->addWidget(check,i/10,i%10);
+		layGmUnstable->addWidget(check);
 
 	}
 
@@ -358,19 +356,19 @@ void SettingsTabOther::loadSettings() {
 	}
 
 	QStringList formatsSetQt = globSet.value("KnownFileTypesQt").toString().replace("*","").split(",");
-	QMapIterator<QString, CustomCheckBox*> iterQt(allCheckQt);
+	QMapIterator<QString, SettingsTabOtherFileTypesTiles*> iterQt(allCheckQt);
 	while (iterQt.hasNext()) {
 		iterQt.next();
 		iterQt.value()->setChecked(formatsSetQt.contains(iterQt.key()) ? true : false);
 	}
 
 	QStringList formatsSetGm = globSet.value("KnownFileTypesGm").toString().replace("*","").split(",");
-	QMapIterator<QString, CustomCheckBox*> iterGm(allCheckGm);
+	QMapIterator<QString, SettingsTabOtherFileTypesTiles*> iterGm(allCheckGm);
 	while (iterGm.hasNext()) {
 		iterGm.next();
 		iterGm.value()->setChecked(formatsSetGm.contains(iterGm.key()) ? true : false);
 	}
-	QMapIterator<QString, CustomCheckBox*> iterGmUnstable(allCheckGmUnstable);
+	QMapIterator<QString, SettingsTabOtherFileTypesTiles*> iterGmUnstable(allCheckGmUnstable);
 	while (iterGmUnstable.hasNext()) {
 		iterGmUnstable.next();
 		iterGmUnstable.value()->setChecked(formatsSetGm.contains(iterGmUnstable.key()) ? true : false);
@@ -401,7 +399,7 @@ void SettingsTabOther::saveSettings() {
 	}
 
 	QStringList formatsSetQt;
-	QMapIterator<QString, CustomCheckBox*> iterQt(allCheckQt);
+	QMapIterator<QString, SettingsTabOtherFileTypesTiles*> iterQt(allCheckQt);
 	while (iterQt.hasNext()) {
 		iterQt.next();
 		if(iterQt.value()->isChecked()) formatsSetQt.append("*" + iterQt.key());
@@ -409,12 +407,12 @@ void SettingsTabOther::saveSettings() {
 	updatedSet.insert("KnownFileTypesQt",formatsSetQt.join(","));
 
 	QStringList formatsSetGm;
-	QMapIterator<QString, CustomCheckBox*> iterGm(allCheckGm);
+	QMapIterator<QString, SettingsTabOtherFileTypesTiles*> iterGm(allCheckGm);
 	while (iterGm.hasNext()) {
 		iterGm.next();
 		if(iterGm.value()->isChecked()) formatsSetGm.append("*" + iterGm.key());
 	}
-	QMapIterator<QString, CustomCheckBox*> iterGmUnstable(allCheckGmUnstable);
+	QMapIterator<QString, SettingsTabOtherFileTypesTiles*> iterGmUnstable(allCheckGmUnstable);
 	while (iterGmUnstable.hasNext()) {
 		iterGmUnstable.next();
 		if(iterGmUnstable.value()->isChecked()) formatsSetGm.append("*" + iterGmUnstable.key());
@@ -433,7 +431,7 @@ void SettingsTabOther::markAllNone(QString cat) {
 
 	if(cat.startsWith("qt")) {
 
-		QMapIterator<QString, CustomCheckBox*> iterQt(allCheckQt);
+		QMapIterator<QString, SettingsTabOtherFileTypesTiles*> iterQt(allCheckQt);
 		while (iterQt.hasNext()) {
 			iterQt.next();
 			iterQt.value()->setChecked(cat.endsWith("Mark") ? true : false);
@@ -441,7 +439,7 @@ void SettingsTabOther::markAllNone(QString cat) {
 
 	} else if(cat.startsWith("gmunst")) {
 
-		QMapIterator<QString, CustomCheckBox*> iterGmUnstable(allCheckGmUnstable);
+		QMapIterator<QString, SettingsTabOtherFileTypesTiles*> iterGmUnstable(allCheckGmUnstable);
 		while (iterGmUnstable.hasNext()) {
 			iterGmUnstable.next();
 			iterGmUnstable.value()->setChecked(cat.endsWith("Mark") ? true : false);
@@ -449,7 +447,7 @@ void SettingsTabOther::markAllNone(QString cat) {
 
 	} else if(cat.startsWith("gm")) {
 
-		QMapIterator<QString, CustomCheckBox*> iterGm(allCheckGm);
+		QMapIterator<QString, SettingsTabOtherFileTypesTiles*> iterGm(allCheckGm);
 		while (iterGm.hasNext()) {
 			iterGm.next();
 			iterGm.value()->setChecked(cat.endsWith("Mark") ? true : false);

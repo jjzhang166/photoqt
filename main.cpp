@@ -367,8 +367,15 @@ int main(int argc, char *argv[]) {
 		w.show();
 
 		if(!startintray) {
-			settingsFileTxt.contains("WindowDecoration=0") ? w.setWindowFlags(w.windowFlags() & Qt::FramelessWindowHint) : w.setWindowFlags(w.windowFlags() & ~Qt::FramelessWindowHint);
-			settingsFileTxt.contains("WindowMode=1") ? w.showMaximized() : w.showFullScreen();
+//			settingsFileTxt.contains("WindowDecoration=0") ? w.setWindowFlags(w.windowFlags() & Qt::FramelessWindowHint) : w.setWindowFlags(w.windowFlags() & ~Qt::FramelessWindowHint);
+//			settingsFileTxt.contains("WindowMode=1") ? w.showMaximized() : w.showFullScreen();
+			if(settingsFileTxt.contains("WindowMode=1")) {
+				w.showMaximized();
+				settingsFileTxt.contains("WindowDecoration=1") ? w.setWindowFlags(w.windowFlags() & ~Qt::FramelessWindowHint) : w.setWindowFlags(Qt::FramelessWindowHint);
+				QTimer::singleShot(10,&w,SLOT(showMaximized()));
+				QTimer::singleShot(500,&w,SLOT(showMaximized()));
+			} else
+				w.showFullScreen();
 		} else
 			w.hide();
 

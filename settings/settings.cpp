@@ -257,18 +257,19 @@ void Settings::saveSettings() {
 	allnewsets << tabExif->updatedSet;
 	allnewsets << tabOther->updatedSet;
 
+	QMap<QString,QVariant> updatedSet;
+
 	for(int j = 0; j < allnewsets.length(); ++j) {
 
 		QMapIterator<QString, QVariant> i(allnewsets.at(j));
 		while (i.hasNext()) {
 			i.next();
-			globSet[i.key()] = i.value();
+			updatedSet[i.key()] = i.value();
 		}
 
 	}
 
-	emit updateSettings(globSet);
-
+	emit updateSettings(updatedSet);
 
 }
 

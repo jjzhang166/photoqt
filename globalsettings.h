@@ -1124,7 +1124,6 @@ public slots:
 			knownFileTypes += "," + knownFileTypesGmExtras;
 		if(knownFileTypes.startsWith(",")) knownFileTypes = knownFileTypes.remove(0,1);
 
-
 		if(changedSet.keys().contains("WindowMode")) {
 			windowmode = changedSet.value("WindowMode").toBool();
 			applySet["window"] = true;

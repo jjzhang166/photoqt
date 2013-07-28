@@ -149,7 +149,7 @@ SettingsTabLookAndFeel::SettingsTabLookAndFeel(QWidget *parent, QMap<QString, QV
 	// OPTION TO ADJUST BACKGROUND COLOR
 	background = new QColorDialog;
 	background->setOption(QColorDialog::ShowAlphaChannel);
-	QLabel *backgroundLabel = new QLabel("<b><span style=\"font-size:12pt\">" + tr("Background/Overlay Color") + "</span></b><br><br>" + tr("Here you can adjust the background colour of PhotoQt. When using compositing or a background image, then you can also specify an alpha value, i.e. the transparency of the coloured overlay layer. When neither compositing is enabled nor a background image is set, then this colour will be the background of PhotoQt."));
+	QLabel *backgroundLabel = new QLabel("<b><span style=\"font-size:12pt\">" + tr("Background/Overlay Color") + "</span></b><br><br>" + tr("Here you can adjust the background colour of PhotoQt (of the part not covered by an image). When using compositing or a background image, then you can also specify an alpha value, i.e. the transparency of the coloured overlay layer. When neither compositing is enabled nor a background image is set, then this colour will be the non-transparent background of PhotoQt."));
 	backgroundLabel->setWordWrap(true);
 	selectCol = new CustomPushButton(tr("Click to change color!"));
 	selectCol->setPadding(25);
@@ -242,10 +242,11 @@ SettingsTabLookAndFeel::SettingsTabLookAndFeel(QWidget *parent, QMap<QString, QV
 
 
 	// Adjust window mode
-	QLabel *windowModeLabel = new QLabel("<b><span style=\"font-size:12pt\">" + tr("Window Mode") + "</span></b><br><br>" + tr("PhotoQt is designed with the space of a fullscreen app in mind. That's why it by default runs as fullscreen. However, some might prefer to have it as a normal window.") + "<br><b>" + tr("Note: It might be a little awkward to use e.g. the menu when PhotoQt is run in a window too small.") + "</b>");
+	QLabel *windowModeLabel = new QLabel("<b><span style=\"font-size:12pt\">" + tr("Window Mode") + "</span></b><br><br>" + tr("PhotoQt is designed with the space of a fullscreen app in mind. That's why it by default runs as fullscreen. However, some might prefer to have it as a normal window, e.g. so that they can see the panel.") + "<br><b></b>");
 	windowModeLabel->setWordWrap(true);
 	windowMode = new CustomCheckBox(tr("Run Photo in Window Mode"));
 	windowDeco = new CustomCheckBox(tr("Show Window Decoration"));
+	windowDeco->hide();
 	QHBoxLayout *windowLay = new QHBoxLayout;
 	windowLay->addStretch();
 	windowLay->addWidget(windowMode);
@@ -260,12 +261,13 @@ SettingsTabLookAndFeel::SettingsTabLookAndFeel(QWidget *parent, QMap<QString, QV
 	layFeel->addSpacing(5);
 	layFeel->addLayout(decoLay);
 	layFeel->addSpacing(20);
+	connect(windowMode, SIGNAL(toggled(bool)), windowDeco, SLOT(setVisible(bool)));
 
 
 
 	// OPTION FOR CLOSING ON CLICK ON GREY
 	grey = new CustomCheckBox(tr("Close on Click in empty area"));
-	QLabel *greyLabel = new QLabel("<b><span style=\"font-size: 12pt\">" + tr("Close on Click in empty area") + "</span></b><hr>" + tr("This option makes PhotoQt a bit like the JavaScript image viewers you find on many websites. A click outside of the image on the empty background will close the application. It can be a nice feature, PhotoQt will feel even more like a \"floating layer\". However, you might at times close PhotoQt accidentally.") + "<br><br>" + tr("Note: If you use a mouse click for a shortcut already, then this option wont have any effect!"));
+	QLabel *greyLabel = new QLabel("<b><span style=\"font-size: 12pt\">" + tr("Close on Click in empty area") + "</span></b><hr>" + tr("This option makes PhotoQt behave a bit like the JavaScript image viewers you find on many websites. A click outside of the image on the empty background will close the application. It can be a nice feature, PhotoQt will feel even more like a \"floating layer\". However, you might at times close PhotoQt accidentally.") + "<br><br>" + tr("Note: If you use a mouse click for a shortcut already, then this option wont have any effect!"));
 	greyLabel->setWordWrap(true);
 	QHBoxLayout *greyLay = new QHBoxLayout;
 	greyLay->addStretch();
@@ -287,7 +289,7 @@ SettingsTabLookAndFeel::SettingsTabLookAndFeel(QWidget *parent, QMap<QString, QV
 	borderAroundImgSpinBox->setMinimum(0);
 	borderAroundImgSpinBox->setMaximum(50);
 	borderAroundImgSpinBox->setSuffix(" px");
-	QLabel *borderLabel = new QLabel("<b><span style=\"font-size: 12pt\">" + tr("Border Around Image") + "</span></b><br><hr>" + tr("Whenever you load an image, the image is per default not shown completely in fullscreen, i.e. it's not stretching from screen edge to screen edge. Instead there is a small margin around the image of a couple pixels (for optical reasons). Here you can adjust the width of this border or disable it altogether. Note, that this only works when the thumbnails are floating."));
+	QLabel *borderLabel = new QLabel("<b><span style=\"font-size: 12pt\">" + tr("Border Around Image") + "</span></b><br><hr>" + tr("Whenever you load an image, the image is per default not shown completely in fullscreen, i.e. it's not stretching from screen edge to screen edge. Instead there is a small margin around the image of a couple pixels (looks better). Here you can adjust the width of this margin (set to 0 to disable it)."));
 	borderLabel->setWordWrap(true);
 	QHBoxLayout *borderLay = new QHBoxLayout;
 	borderLay->addStretch();

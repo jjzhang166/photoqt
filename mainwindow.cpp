@@ -362,7 +362,7 @@ void MainWindow::drawImage() {
 			// Display busy cursor
 			qApp->setOverrideCursor(Qt::WaitCursor);
 
-			if(globVar->verbose) std::cout << "Got filename:" << globVar->currentfile.toStdString() << std::endl;
+			if(globVar->verbose) std::clog << "Got filename:" << globVar->currentfile.toStdString() << std::endl;
 
 			// Tell the filehandling widget the new filename
 			if(setupWidgets->filehandling) filehandling->currentfile = globVar->currentfile;

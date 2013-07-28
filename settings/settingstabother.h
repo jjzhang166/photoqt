@@ -8,6 +8,7 @@
 #include "../customelements/customtabwidget.h"
 #include "settingstabotherlanguagetiles.h"
 #include "settingstabothercontext.h"
+#include "settingstabotherfiletypestiles.h"
 #include "../flowlayout/flowlayout.h"
 
 #include <QWidget>
@@ -50,9 +51,9 @@ private:
 	QWidget *tabOther;
 	QWidget *tabFile;
 
-	QMap<QString,CustomCheckBox*> allCheckQt;
-	QMap<QString,CustomCheckBox*> allCheckGm;
-	QMap<QString,CustomCheckBox*> allCheckGmUnstable;
+	QMap<QString,SettingsTabOtherFileTypesTiles*> allCheckQt;
+	QMap<QString,SettingsTabOtherFileTypesTiles*> allCheckGm;
+	QMap<QString,SettingsTabOtherFileTypesTiles*> allCheckGmUnstable;
 	CustomLineEdit *extraQtEdit;
 	CustomLineEdit *extraGmEdit;
 

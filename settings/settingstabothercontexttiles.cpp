@@ -34,7 +34,7 @@ ContextTile::ContextTile(QString cmdTxt, QString descTxt, QWidget *parent) : QWi
 
 	// The command (editable)
 	cmd = new QLineEdit(cmdTxt);
-	cmd->setStyleSheet("background: transparent");
+	cmd->setStyleSheet("background: transparent; border-bottom: 1px solid rgb(50,50,50,100); border-radius: none;");
 	cmd->setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Preferred);
 	lay->addWidget(cmd);
 
@@ -45,7 +45,7 @@ ContextTile::ContextTile(QString cmdTxt, QString descTxt, QWidget *parent) : QWi
 
 	// The menu text (editable)
 	desc = new QLineEdit(descTxt);
-	desc->setStyleSheet("background: transparent");
+	desc->setStyleSheet("background: transparent; border-bottom: 1px solid rgb(50,50,50,100); border-radius: none;");
 	desc->setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Preferred);
 	lay->addWidget(desc);
 

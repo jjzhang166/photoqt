@@ -92,7 +92,7 @@ SettingsTabThumbnail::SettingsTabThumbnail(QWidget *parent, QMap<QString, QVaria
 
 
 
-	// OPTION TO SET BORDER AROUND THUMBNAILS
+	// OPTION TO SET SPACING BETWEEN THUMBNAILS
 	borderAroundSlider = new CustomSlider;
 	borderAroundSlider->setMinimum(0);
 	borderAroundSlider->setMaximum(30);
@@ -101,7 +101,7 @@ SettingsTabThumbnail::SettingsTabThumbnail(QWidget *parent, QMap<QString, QVaria
 	borderAroundSpin->setMinimum(0);
 	borderAroundSpin->setMaximum(30);
 	borderAroundSpin->setSuffix(" px");
-	QLabel *thbBorderAroundLabel = new QLabel("<b><span style=\"font-size: 12pt\">" + tr("Spacing Between Thumbnail Images") + "</span></b><br><br>" + tr("The thumbnails are shown in a row at the lower or upper edge (depending on your setup). They are lined up side by side. Here you can adjust the spacing in between (or remove spacing altogether)."));
+	QLabel *thbBorderAroundLabel = new QLabel("<b><span style=\"font-size: 12pt\">" + tr("Spacing Between Thumbnail Images") + "</span></b><br><br>" + tr("The thumbnails are shown in a row at the lower or upper edge (depending on your setup). They are lined up side by side. Per default, there's no empty space between them, however exactly that can be changed here."));
 	thbBorderAroundLabel->setWordWrap(true);
 	QHBoxLayout *thbBorderLay = new QHBoxLayout;
 	thbBorderLay->addStretch();
@@ -163,7 +163,7 @@ SettingsTabThumbnail::SettingsTabThumbnail(QWidget *parent, QMap<QString, QVaria
 
 
 	// OPTION TO KEEP THUMBNAILS VISIBLE OR FADE THEM OUT
-	QLabel *thbKeepVisibleLabel = new QLabel("<b><span style=\"font-size: 12pt\">" + tr("Keep Thumbnails Visible") + "</span></b><br><bR>" + tr("Per default the Thumbnails slide out over the edge of the screen. Here you can force them to stay visible. The big image is shrunk to fit into the empty space. Note, that the thumbnails will be hidden (and shown on mouse hovering) once you zoomed the image in/out. Resetting the zoom restores the original visibility of the thumbnails."));
+	QLabel *thbKeepVisibleLabel = new QLabel("<b><span style=\"font-size: 12pt\">" + tr("Keep Thumbnails Visible") + "</span></b><br><bR>" + tr("Per default the Thumbnails slide out over the edge of the screen. Here you can force them to stay visible. The big image is shrunk to fit into the empty space. Note, that the thumbnails will be hidden (and only shown on mouse hovering) once you zoomed the image in/out. Resetting the zoom restores the original visibility of the thumbnails."));
 	thbKeepVisibleLabel->setWordWrap(true);
 	QHBoxLayout *thbKeepLay = new QHBoxLayout;
 	keepVisible = new CustomCheckBox(tr("Keep Thumbnails Visible"));
@@ -177,7 +177,7 @@ SettingsTabThumbnail::SettingsTabThumbnail(QWidget *parent, QMap<QString, QVaria
 
 
 	// OPTION TO ENABLE DYNAMIC THUMBNAIL CREATION (handy for faster harddrives)
-	QLabel *dynamicThumbnailsLabel = new QLabel("<b><span style=\"font-size: 12pt\">" + tr("Dynamic Thumbnail Creation") + "</span></b><br><bR>" + tr("Enable dynamic thumbnail creation."));
+	QLabel *dynamicThumbnailsLabel = new QLabel("<b><span style=\"font-size: 12pt\">" + tr("Dynamic Thumbnail Creation") + "</span></b><br><bR>" + tr("Dynamic thumbnail creation means, that PhotoQt only sets up those thumbnail images that are actually needed, i.e. it stops once it reaches the end of the visible area and sits idle until you scroll left/right.") + "<br><br>" + tr("This feature is very handy, especially if you have bigger directories, since it doesn't occupy the CPU too long, and it doesn't create thumbnails that might never be needed."));
 	dynamicThumbnailsLabel->setWordWrap(true);
 	QHBoxLayout *dynamicThbLay = new QHBoxLayout;
 	dynamicThumbnails = new CustomCheckBox(tr("Enable Dynamic Thumbnails"));
@@ -185,14 +185,14 @@ SettingsTabThumbnail::SettingsTabThumbnail(QWidget *parent, QMap<QString, QVaria
 	dynamicThbLay->addWidget(dynamicThumbnails);
 	dynamicThbLay->addStretch();
 	layTune->addWidget(dynamicThumbnailsLabel);
-	layTune->addSpacing(5);
+	layTune->addSpacing(10);
 	layTune->addLayout(dynamicThbLay);
 	layTune->addSpacing(20);
 
 
 
 	// OPTION TO ONLY USE FILENAME AND NO ACTUAL THUMBNAIL
-	QLabel *filenameInsteadThbLabel = new QLabel("<b><span style=\"font-size: 12pt\">" + tr("Use file-name-only Thumbnails") + "</span></b><br><bR>" + tr("If you don't want PhotoQt to always load the thumbnails in the background, but you still want to have something for better navigating, then you can set a file-name-only thumbnail, i.e. PhotoQt wont load any thumbnail images but simply puts the file name into the box. You can also adjust the font size of this text."));
+	QLabel *filenameInsteadThbLabel = new QLabel("<b><span style=\"font-size: 12pt\">" + tr("Use file-name-only Thumbnails") + "</span></b><br><bR>" + tr("If you don't want PhotoQt to always load the actualy image thumbnail in the background, but you still want to have something for better navigating, then you can set a file-name-only thumbnail, i.e. PhotoQt wont load any thumbnail images but simply puts the file name into the box. You can also adjust the font size of this text."));
 	filenameInsteadThbLabel->setWordWrap(true);
 	filenameInsteadThb = new CustomCheckBox(tr("Use file-name-only Thumbnail"));
 	filenameInsteadThb->setChecked(false);
@@ -230,7 +230,7 @@ SettingsTabThumbnail::SettingsTabThumbnail(QWidget *parent, QMap<QString, QVaria
 
 
 	// OPTION TO DISABLE THUMBNAILS ALLTOGETHER
-	QLabel *thumbnailDisableLabel = new QLabel("<b><span style=\"font-size: 12pt\">" + tr("Disable Thumbnails") + "</span></b><br><bR>" + tr("If you just don't need or don't want any thumbnails whatsoever, then you can disable them here completely. This option can also be toggled remotely via command line (run 'photoqt --help' for more information on that)."));
+	QLabel *thumbnailDisableLabel = new QLabel("<b><span style=\"font-size: 12pt\">" + tr("Disable Thumbnails") + "</span></b><br><bR>" + tr("If you just don't need or don't want any thumbnails whatsoever, then you can disable them here completely. This option can also be toggled remotely via command line (run 'photoqt --help' for more information on that). This might increase the speed of PhotoQt a good bit, however, navigating through a folder might be a little harder without thumbnails."));
 	thumbnailDisableLabel->setWordWrap(true);
 	thumbDisable = new CustomCheckBox(tr("Disable Thumbnails altogether"));
 	thumbDisable->setChecked(false);
@@ -306,12 +306,12 @@ SettingsTabThumbnail::SettingsTabThumbnail(QWidget *parent, QMap<QString, QVaria
 
 
 	// We ask for confirmation before cleaning up the database
-	confirmClean = new CustomConfirm(tr("Clean Database"),tr("Do you really want to clean up the database? This removes all obsolete thumbnails, thus possibly making PhotoQt a little faster.") + "<bR><br>" + tr("This process might take a little while."),tr("Yes, clean is good"),tr("No, don't have time for that"),QSize(400,200),this->parentWidget());
+	confirmClean = new CustomConfirm(tr("Clean Database"),tr("Do you really want to clean up the database? This removes all obsolete thumbnails, thus possibly making PhotoQt a little faster.") + "<bR><br>" + tr("This process might take a little while."),tr("Yes, clean is good"),tr("No, don't have time for that"),QSize(450,250),this->parentWidget());
 	confirmClean->showBorder("white",2);
 	confirmClean->show();
 
 	// We ask for confirmation before erasing the entire database
-	confirmErase = new CustomConfirm(tr("Erase Database"),tr("Do you really want to ERASE the entire database? This removes every single item in the database! This step should never really be necessarily. After that, every thumbnail has to be newly re-created. This step cannot be reversed!"),tr("Yes, get rid of it all"),tr("No, I want to keep it"),QSize(400,200),this->parentWidget());
+	confirmErase = new CustomConfirm(tr("Erase Database"),tr("Do you really want to ERASE the entire database? This removes every single item in the database! This step should never really be necessarily. After that, every thumbnail has to be newly re-created. This step cannot be reversed!"),tr("Yes, get rid of it all"),tr("No, I want to keep it"),QSize(450,250),this->parentWidget());
 	confirmErase->showBorder("white",2);
 	confirmErase->show();
 

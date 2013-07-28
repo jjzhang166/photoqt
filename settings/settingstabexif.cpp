@@ -23,7 +23,7 @@ SettingsTabExif::SettingsTabExif(QWidget *parent, QMap<QString, QVariant> set, b
 	scroll->setVerticalScrollBar(scrollbar);
 
 	// The title labels, explaining what can be done here
-	QLabel *title = new QLabel("<center><h1>" + tr("Image Details and Information") + "</h1></center>" + tr("PhotoQt can display different information of and about each image. The widget for this information is on the left outside the screen and slides in when mouse gets close to it and/or when the set shortcut (default Ctrl+E) is triggered. On demand, the triggering by mouse movement can be disabled by checking the box below."));
+	QLabel *title = new QLabel("<center><h1>" + tr("Image Details and Information") + "</h1></center><br><br>" + tr("PhotoQt can display different information of and about each image. The widget for this information is on the left outside the screen and slides in when mouse gets close to it and/or when the set shortcut (default Ctrl+E) is triggered. On demand, the triggering by mouse movement can be disabled by checking the box below."));
 	title->setWordWrap(true);
 	lay->addSpacing(10);
 	lay->addWidget(title);

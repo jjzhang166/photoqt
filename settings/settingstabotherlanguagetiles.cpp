@@ -16,6 +16,8 @@ SettingsTabOtherLanguageTiles::SettingsTabOtherLanguageTiles(QString lang, QStri
 	back->setWordWrap(true);
 	langCode = code;
 
+	this->setToolTip(lang);
+
 	// Button to select language
 	button = new CustomRadioButton;
 	connect(button,SIGNAL(toggled(bool)), this, SLOT(buttonToggled(bool)));

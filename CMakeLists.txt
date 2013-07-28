@@ -8,7 +8,7 @@ FIND_PACKAGE(Qt4 REQUIRED)
 # toplevel
 SET(photoqt_SOURCES main.cpp mainwindow.cpp globalsettings.h globalvariables.h setupwidgets.h)
 # settings/
-SET(photoqt_SOURCES ${photoqt_SOURCES} settings/settings.cpp settings/settingstabexif.cpp settings/settingstabexiftiles.cpp settings/settingstablookandfeel.cpp settings/settingstabother.cpp settings/settingstabothercontext.cpp settings/settingstabothercontexttiles.cpp settings/settingstabotherlanguagetiles.cpp settings/settingstabshortcuts.cpp settings/settingstabshortcutschangecommand.cpp settings/settingstabshortcutskeydetect.cpp settings/settingstabshortcutstiles.cpp settings/settingstabthumbnail.cpp settings/shortcuts.h)
+SET(photoqt_SOURCES ${photoqt_SOURCES} settings/settings.cpp settings/settingstabexif.cpp settings/settingstabexiftiles.cpp settings/settingstablookandfeel.cpp settings/settingstabother.cpp settings/settingstabothercontext.cpp settings/settingstabothercontexttiles.cpp settings/settingstabotherlanguagetiles.cpp settings/settingstabshortcuts.cpp settings/settingstabshortcutschangecommand.cpp settings/settingstabshortcutskeydetect.cpp settings/settingstabshortcutstiles.cpp settings/settingstabthumbnail.cpp settings/shortcuts.h settings/settingstabotherfiletypestiles.cpp)
 # thumbnails/
 SET(photoqt_SOURCES ${photoqt_SOURCES} thumbnails/thumbnailpixmapitem.cpp thumbnails/thumbnails.cpp thumbnails/thumbnailview.cpp thumbnails/threadforthumbnails.h)
 # graphics/
@@ -24,7 +24,7 @@ SET(photoqt_SOURCES ${photoqt_SOURCES} slideshow/slideshowbar.cpp slideshow/slid
 # toplevel
 SET(photoqt_HEADERS mainwindow.h globalsettings.h globalvariables.h setupwidgets.h)
 # settings/
-SET(photoqt_HEADERS ${photoqt_HEADERS} settings/shortcuts.h settings/settings.h settings/settingstabexif.h settings/settingstabexiftiles.h settings/settingstablookandfeel.h settings/settingstabother.h settings/settingstabothercontext.h settings/settingstabothercontexttiles.h settings/settingstabotherlanguagetiles.h settings/settingstabshortcuts.h settings/settingstabshortcutschangecommand.h settings/settingstabshortcutskeydetect.h settings/settingstabshortcutstiles.h settings/settingstabthumbnail.h)
+SET(photoqt_HEADERS ${photoqt_HEADERS} settings/shortcuts.h settings/settings.h settings/settingstabexif.h settings/settingstabexiftiles.h settings/settingstablookandfeel.h settings/settingstabother.h settings/settingstabothercontext.h settings/settingstabothercontexttiles.h settings/settingstabotherlanguagetiles.h settings/settingstabshortcuts.h settings/settingstabshortcutschangecommand.h settings/settingstabshortcutskeydetect.h settings/settingstabshortcutstiles.h settings/settingstabthumbnail.h settings/settingstabotherfiletypestiles.h)
 # thumbnails/
 SET(photoqt_HEADERS ${photoqt_HEADERS} thumbnails/threadforthumbnails.h thumbnails/thumbnailpixmapitem.h thumbnails/thumbnails.h thumbnails/thumbnailview.h)
 # graphics/

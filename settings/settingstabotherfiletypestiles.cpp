@@ -1,6 +1,6 @@
-#include "settingstabexiftiles.h"
+#include "settingstabotherfiletypestiles.h"
 
-SettingsTabExifTiles::SettingsTabExifTiles(QString exifTxt, QString exifIntern, QWidget *parent) : QWidget(parent) {
+SettingsTabOtherFileTypesTiles::SettingsTabOtherFileTypesTiles(QString ftype, QWidget *parent) : QWidget(parent) {
 
 	// The standard default stylesheet
 	css = "font-weight: bold; color: black; border-radius: 5px; padding: 1px; font-size: 8pt;";
@@ -20,10 +20,10 @@ SettingsTabExifTiles::SettingsTabExifTiles(QString exifTxt, QString exifIntern, 
 	this->setCursor(Qt::PointingHandCursor);
 
 	// Store the exif key value
-	intern = exifIntern;
+	filetype = ftype;
 
 	// The back label is being styled
-	back = new QLabel("<center>" + exifTxt + "</center>");
+	back = new QLabel("<center>*" + ftype + "</center>");
 	back->setWordWrap(true);
 	back->setStyleSheet("background: transparent");
 
@@ -36,7 +36,7 @@ SettingsTabExifTiles::SettingsTabExifTiles(QString exifTxt, QString exifIntern, 
 	enabledLay->addStretch();
 	connect(enabled, SIGNAL(clicked()), this, SLOT(checkboxClicked()));
 
-	this->setFixedSize(90,90);
+	this->setFixedSize(80,60);
 
 	lay->addWidget(back);
 	lay->addSpacing(10);
@@ -49,7 +49,7 @@ SettingsTabExifTiles::SettingsTabExifTiles(QString exifTxt, QString exifIntern, 
 }
 
 // Set this tile checked
-void SettingsTabExifTiles::setChecked(bool chkd) {
+void SettingsTabOtherFileTypesTiles::setChecked(bool chkd) {
 
 	if(chkd) {
 		this->setStyleSheet(css + cssBackgroundNorm);
@@ -62,7 +62,7 @@ void SettingsTabExifTiles::setChecked(bool chkd) {
 }
 
 // Click on the checkbox
-void SettingsTabExifTiles::checkboxClicked() {
+void SettingsTabOtherFileTypesTiles::checkboxClicked() {
 
 	if(enabled->isChecked())
 		this->setStyleSheet(css + cssBackgroundNorm);
@@ -71,7 +71,7 @@ void SettingsTabExifTiles::checkboxClicked() {
 
 }
 
-void SettingsTabExifTiles::mouseMoveEvent(QMouseEvent *) {
+void SettingsTabOtherFileTypesTiles::mouseMoveEvent(QMouseEvent *) {
 
 	if(enabled->isChecked())
 		this->setStyleSheet(css + cssBackgroundHov);
@@ -80,7 +80,7 @@ void SettingsTabExifTiles::mouseMoveEvent(QMouseEvent *) {
 
 }
 
-void SettingsTabExifTiles::enterEvent(QEvent *) {
+void SettingsTabOtherFileTypesTiles::enterEvent(QEvent *) {
 
 	if(enabled->isChecked())
 		this->setStyleSheet(css + cssBackgroundHov);
@@ -89,7 +89,7 @@ void SettingsTabExifTiles::enterEvent(QEvent *) {
 
 }
 
-void SettingsTabExifTiles::leaveEvent(QEvent *) {
+void SettingsTabOtherFileTypesTiles::leaveEvent(QEvent *) {
 
 	if(enabled->isChecked())
 		this->setStyleSheet(css + cssBackgroundNorm);
@@ -98,7 +98,7 @@ void SettingsTabExifTiles::leaveEvent(QEvent *) {
 
 }
 
-void SettingsTabExifTiles::mousePressEvent(QMouseEvent *) {
+void SettingsTabOtherFileTypesTiles::mousePressEvent(QMouseEvent *) {
 
 	enabled->setChecked(!enabled->isChecked());
 	if(enabled->isChecked())
@@ -109,11 +109,11 @@ void SettingsTabExifTiles::mousePressEvent(QMouseEvent *) {
 }
 
 
-void SettingsTabExifTiles::paintEvent(QPaintEvent *) {
+void SettingsTabOtherFileTypesTiles::paintEvent(QPaintEvent *) {
 	QStyleOption o;
 	o.initFrom(this);
 	QPainter p(this);
 	style()->drawPrimitive(QStyle::PE_Widget, &o, &p, this);
 }
 
-SettingsTabExifTiles::~SettingsTabExifTiles() { }
+SettingsTabOtherFileTypesTiles::~SettingsTabOtherFileTypesTiles() { }
