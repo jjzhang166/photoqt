@@ -70,8 +70,9 @@ About::About(QWidget *parent) : QWidget(parent) {
 
 	// The main text block
 	QString txt = tr("PhotoQt is a simple image viewer, designed to be good looking, highly configurable, yet easy to use and fast.") +  "<br><br>";
-	txt += tr("\"PhotoQt\" is not a very creative name for an image viewer. There are so many better names possible. So why is PhotoQt called \"PhotoQt\"? Well, as I started out programming what should become version 0.1, I never really thought of actually developing it as far as it is now. I actually wasn't sure if I should upload it somewhere at all. I eventually decided to give it a go, and I uploaded it at qt-apps.org. And, well, of course, if you want to upload a project there (as probably everywhere else too), you need to give it a name. And the first thing that came to my mind was \"PhotoQt\", just to satisfy the upload form of qt-apps.org...") + "<br><br>";
-	txt += tr("I'm not a trained programmer. I'm a simple Maths student that loves doing stuff like this. All I know about programming I taught myself over the years. So PhotoQt is certainly not done in the best of ways. Many things could probably be improved (from a programming point of view). But it's as good as I can do it. And I'm constantly learning and improving things. So you sometimes have to be a little patient with me :)") + "<br><br>";
+	txt += tr("Up until version 0.9.1, PhotoQt used to be called simply 'Photo'. But Photo isn't quite a unique and creative name (born simply out of the need to give it some name). Searching the web for it was close to impossible. Whether PhotoQt is a much more creative name than Photo is debatable, but it certainly is a little more unique. Simply searching the web for 'photoqt' results in some (more or less) relevant websites amongst the top results. On top of it, quite often the name of this application was thought to already be PhotoQt (or Photo-Qt), a confusion probably mainly caused by its website being photoqt.org.") + "<br>";
+	txt += tr("Well, long story short, starting version 1.0, its name is PhotoQt.") + "<br><br>";
+	txt += tr("I'm not a trained programmer. I'm a simple Maths student that loves doing stuff like this. All I know about programming I taught myself over the years. So PhotoQt might not be done in the best of ways, several things could probably be improved (from a programming point of view). But it's as good as I can do it, and I'm constantly learning and improving things.") + "<br><br>";
 	txt += tr("I heard a number of times people saying, that PhotoQt is a \"copy\" of Picasa's image viewer. Well, it's not. In fact, I myself have never used Picasa. I have seen it in use though by others, and I can't deny that it influenced the basic design idea a little. But I'm not trying to do something \"like Picasa\". I try to do my own thing, and to do it as good as I can. If some consider it to be a replacement for Picasa, well, I feel a little honoured (since Picasa is created by \"proper\" programmers).") + "<br><bR>";
 	txt += tr("Don't forget to check out the website:") + " http://PhotoQt.org<br><br><br>";
 	txt += tr("If there's one thing I want to achieve with PhotoQt, then it is, that you find it useful. If I accomplished that, then I'm glad. There's no other reason I'm doing that. I don't want money or anything, but just be helpful.") + "<br><br><br><br>";
@@ -106,7 +107,7 @@ About::About(QWidget *parent) : QWidget(parent) {
 // Set the license with version (called from mainwindow.cpp)
 void About::setLicense(QString version) {
 
-	license->setText("<div style=\"font-size: 8pt\">" + tr("PhotoQt %1, by Lukas Spies, 2013 (Lukas@photoqt.org)").arg(version) + " &ndash; " + tr("website:") + " photoqt.org &ndash; " + tr("Licensed under GPL, without any guarantee") + "</div>");
+	license->setText("<div style=\"font-size: 8pt\">PhotoQt " + version + ", Lukas Spies, 2013 (Lukas@photoqt.org)" + " &ndash; " + tr("website:") + " photoqt.org &ndash; " + tr("Licensed under GPLv2 or later, without any guarantee") + "</div>");
 
 }
 

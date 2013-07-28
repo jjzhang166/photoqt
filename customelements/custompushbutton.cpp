@@ -6,6 +6,7 @@ CustomPushButton::CustomPushButton(const QString &text, QWidget *parent) : QPush
 	hover = false;
 	enabled = true;
 	padding = 0;
+	fontsize = 0;
 
 	this->setCursor(Qt::PointingHandCursor);
 
@@ -36,6 +37,7 @@ void CustomPushButton::setCSS() {
 	(padding != 0) ? css += QString("padding: %1px;").arg(padding) : css += "padding: 6px 10px;";
 	enabled ? css += "border: 1px solid rgba(100,100,100,100);" : css += "border: 1px solid rgba(50,50,50,100);";
 	css += "border-radius: 0;";
+	if(fontsize != 0) css += QString("font-size: %1pt;").arg(fontsize);
 
 	this->setStyleSheet(css);
 

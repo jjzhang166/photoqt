@@ -311,7 +311,7 @@ SettingsTabThumbnail::SettingsTabThumbnail(QWidget *parent, QMap<QString, QVaria
 	confirmClean->show();
 
 	// We ask for confirmation before erasing the entire database
-	confirmErase = new CustomConfirm(tr("Erase Database"),tr("Do you really want to ERASE the entire database? This removes every single item in the database! This step should never really be necessarily. After that, every thumbnail has to be newly re-created. This step cannot be reversed!"),tr("Yes, get rid of it all"),tr("No, I want to keep it"),QSize(450,250),this->parentWidget());
+	confirmErase = new CustomConfirm(tr("Erase Database"),tr("Do you really want to ERASE the entire database? This removes every single item in the database! This step should never really be necessarily. After that, every thumbnail has to be newly re-created. This step cannot be reversed!"),tr("Yes, get rid of it all"),tr("Nooo, I want to keep it"),QSize(450,250),this->parentWidget());
 	confirmErase->showBorder("white",2);
 	confirmErase->show();
 

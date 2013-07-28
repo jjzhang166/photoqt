@@ -18,9 +18,9 @@ Context::Context(QWidget *parent, bool v) : QScrollArea(parent) {
 	// The header widget
 	QWidget *header = new QWidget(this);
 	header->setStyleSheet("background: white; color: black; font-weight: bold; font-style: italic");
-	QLabel *exeHeader = new QLabel("Executeable");
+	QLabel *exeHeader = new QLabel(tr("Executeable"));
 	exeHeader->setAlignment(Qt::AlignCenter);
-	QLabel *descHeader = new QLabel("Menu Text");
+	QLabel *descHeader = new QLabel(tr("Menu Text"));
 	descHeader->setAlignment(Qt::AlignCenter);
 	QHBoxLayout *headerLay = new QHBoxLayout;
 	headerLay->addSpacing(130);

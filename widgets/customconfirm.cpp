@@ -46,27 +46,10 @@ CustomConfirm::CustomConfirm(QString title, QString text, QString yesText, QStri
 	lay->addWidget(t);
 	lay->addSpacing(12);
 
-	// And the description
-//	QTextEdit *desc = new QTextEdit(text);
-//	desc->setObjectName("desc");
-//	desc->setAlignment(Qt::AlignCenter);
-//	desc->setReadOnly(true);
-//	desc->setTextInteractionFlags(Qt::NoTextInteraction);
-//	desc->setSizePolicy(QSizePolicy::Preferred,QSizePolicy::Maximum);
-//	desc->viewport()->setCursor(Qt::ArrowCursor);
-//	desc->setCursor(Qt::ArrowCursor);
-//	desc->setStyleSheet("#desc {color: white; background: transparent; line-height: 2pt; }");
-//	lay->addWidget(desc);
-//	lay->addSpacing(7);
-
 	QLabel *desc = new QLabel(text);
 	desc->setWordWrap(true);
 	desc->setObjectName("desc");
 	desc->setAlignment(Qt::AlignCenter);
-//	desc->setReadOnly(true);
-//	desc->setTextInteractionFlags(Qt::NoTextInteraction);
-//	desc->setSizePolicy(QSizePolicy::Preferred,QSizePolicy::Maximum);
-//	desc->viewport()->setCursor(Qt::ArrowCursor);
 	desc->setCursor(Qt::ArrowCursor);
 	desc->setStyleSheet("#desc {color: white; background: transparent; line-height: 2pt; }");
 	lay->addWidget(desc);

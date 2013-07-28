@@ -15,11 +15,13 @@ public:
 	// Per default the button has rounded corners - can be disabled
 	void setPadding(int pad) { padding = pad; setCSS(); }
 	void setRGBA(int r, int g, int b, int a) { rgba = QString("rgba(%1,%2,%3,%4)").arg(r).arg(g).arg(b).arg(a); setCSS(); }
+	void setFontSize(int fs) { fontsize = fs; setCSS(); }
 
 private:
 	bool hover;
 	bool enabled;
 	int padding;
+	int fontsize;
 	QString rgba;
 
 	void setCSS();

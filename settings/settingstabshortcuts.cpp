@@ -141,7 +141,7 @@ SettingsTabShortcuts::SettingsTabShortcuts(QWidget *parent, bool v) : QWidget(pa
 
 	// This is the order in which the categories are to be displayed
 	QStringList tmp;
-	tmp << "Navigation" << "Image" << "File" << "Other" << "Extern";
+	tmp << tr("Navigation") << tr("Image") << tr("File") << tr("Other") << tr("Extern");
 
 	for(int i = 0; i < tmp.length(); ++i) {
 
@@ -424,7 +424,7 @@ void SettingsTabShortcuts::analyseKeyCombo(QString category, QString identificat
 	allTiles[category][identification]->shortcut->setText(newKey);
 
 	if(category == "extern")
-		changeCommand->animateCmd("<select>",identification);
+		changeCommand->animateCmd("<" + tr("select") + ">",identification);
 
 
 }

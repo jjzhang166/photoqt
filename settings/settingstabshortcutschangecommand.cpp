@@ -37,7 +37,7 @@ ShortcutChangeCommand::ShortcutChangeCommand(QWidget *parent) : QWidget(parent) 
 	title->setStyleSheet("font-size: 15pt; color: white; font-weight: bold; background: transparent");
 
 	// A description of what's to be done here
-	QLabel *desc = new QLabel(tr("Here you can change the executeable. A click on the button allows you to browse for one.") + "<br>" + tr("You can use two placeholders:<br>%f = current file, %d = current directory"));
+	QLabel *desc = new QLabel(tr("Here you can change the executeable. A click on the button allows you to browse for one.") + "<br>" + tr("You can use two placeholders: %f = current file, %d = current directory"));
 	desc->setWordWrap(true);
 	desc->setStyleSheet("color: white; background: transparent;");
 
@@ -51,7 +51,7 @@ ShortcutChangeCommand::ShortcutChangeCommand(QWidget *parent) : QWidget(parent) 
 
 	// Ok/Cancel
 	CustomPushButton *ok = new CustomPushButton(tr("Okay, set it!"));
-	CustomPushButton *cancel = new CustomPushButton(tr("Don't set anything!"));
+	CustomPushButton *cancel = new CustomPushButton(tr("Stop, I changed my mind!"));
 	QHBoxLayout *butLay = new QHBoxLayout;
 	butLay->addStretch();
 	butLay->addWidget(ok);

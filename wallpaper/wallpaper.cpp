@@ -72,7 +72,7 @@ Wallpaper::Wallpaper(QMap<QString, QVariant> set, bool v, QWidget *parent) : QWi
 
 
 	// the widget title
-	QLabel *title = new QLabel("<center><span style=\"font-size: 30pt; font-weight: bold\">Set as Wallpaper</span></center>");
+	QLabel *title = new QLabel("<center><span style=\"font-size: 30pt; font-weight: bold\">" + tr("Set as Wallpaper") + "</span></center>");
 	title->setStyleSheet("color: white");
 	central->addWidget(title);
 	central->addSpacing(10);
@@ -226,10 +226,10 @@ Wallpaper::Wallpaper(QMap<QString, QVariant> set, bool v, QWidget *parent) : QWi
 
 	///////// OTHER SETTINGS ///////////
 
-	otherFeh = new CustomRadioButton("Use 'feh'");
+	otherFeh = new CustomRadioButton(tr("Use 'feh'"));
 	otherFeh->setIndicatorImage(":/img/checkbox_checked.png",":/img/checkbox_unchecked.png");
 	otherFeh->setChecked(true);
-	otherNitrogen = new CustomRadioButton("Use 'nitrogen'");
+	otherNitrogen = new CustomRadioButton(tr("Use 'nitrogen'"));
 	otherNitrogen->setIndicatorImage(":/img/checkbox_checked.png",":/img/checkbox_unchecked.png");
 
 	QButtonGroup *otherGrp = new QButtonGroup;
@@ -434,7 +434,7 @@ void Wallpaper::wmSelected() {
 	// RAZOR
 	} else if(current == 3) {
 
-		wmMessage->setText(tr("Sorry, Razor-Qt doesn't yet support this feature (except possibly a debug build)... hopefully that'll change soon!"));
+		wmMessage->setText(tr("Sorry, Razor-Qt doesn't yet support this feature... hopefully that'll change soon!"));
 		wmMessage->setStyleSheet("color: red; font-weight: bold");
 
 		ok->setEnabled(false);
