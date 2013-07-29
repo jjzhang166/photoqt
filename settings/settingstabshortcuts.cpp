@@ -141,13 +141,15 @@ SettingsTabShortcuts::SettingsTabShortcuts(QWidget *parent, bool v) : QWidget(pa
 
 	// This is the order in which the categories are to be displayed
 	QStringList tmp;
-	tmp << tr("Navigation") << tr("Image") << tr("File") << tr("Other") << tr("Extern");
+	tmp << "Navigation" << "Image" << "File" << "Other" << "Extern";
+	QStringList tmpTranslated;
+	tmpTranslated << tr("Navigation") << tr("Image") << tr("File") << tr("Other") << tr("Extern");
 
 	for(int i = 0; i < tmp.length(); ++i) {
 
 		// Category title
 		QLabel *catTitle = new QLabel;
-		catTitle->setText(QString("<center>" + tr("Category:") + " %1</center>").arg(tmp.at(i)));
+		catTitle->setText(QString("<center>" + tr("Category:") + " %1</center>").arg(tmpTranslated.at(i)));
 		catTitle->setStyleSheet("font-weight: bold;");
 
 		// The scrollwidget for the user set shortcuts

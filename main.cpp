@@ -261,8 +261,6 @@ int main(int argc, char *argv[]) {
 			}
 		}
 
-		update = 2;
-
 #ifdef WITH_GRAPHICSMAGICK
 		Magick::InitializeMagick(*argv);
 #endif

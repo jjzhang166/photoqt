@@ -199,7 +199,7 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 
 
 	// Adjust known file formats
-	QLabel *titleQt = new QLabel("<b><span style=\"font-size:12pt\">" + tr("Qt File Types") + "</span></b><br><br>" + tr("These are the standard file types supported by Qt. Depending on your system, this list can vary a little.") + "<br>" + tr("If you want to add a file type not in the list, you can add them in the text box below. You have to enter the formats like '*.ending', all seperated by commas.") + "</b>");
+	QLabel *titleQt = new QLabel("<b><span style=\"font-size:12pt\">" + tr("File Types - Qt") + "</span></b><br><br>" + tr("These are the standard file types supported by Qt. Depending on your system, this list can vary a little.") + "<br>" + tr("If you want to add a file type not in the list, you can add them in the text box below. You have to enter the formats like '*.ending', all seperated by commas.") + "</b>");
 	titleQt->setWordWrap(true);
 
 	FlowLayout *layQt = new FlowLayout;
@@ -244,7 +244,7 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 
 
 
-	QLabel *titleGmWorking = new QLabel("<b><span style=\"font-size:12pt\">" + tr("GraphicsMagick File Types") + "</span></b><br><br>" + tr("PhotoQt makes use of GraphicsMagick for support of many different file types. Not all of the formats supported by GraphicsMagick make sense in an image viewer. There are some that aren't quite working at the moment, you can find them in the 'Unstable' category below.") + "<br>" + tr("If you want to add a file type not in the list, you can add them in the text box below. You have to enter the formats like '*.ending', all seperated by commas.") + "</b>");
+	QLabel *titleGmWorking = new QLabel("<b><span style=\"font-size:12pt\">" + tr("File Types - GraphicsMagick") + "</span></b><br><br>" + tr("PhotoQt makes use of GraphicsMagick for support of many different file types. Not all of the formats supported by GraphicsMagick make sense in an image viewer. There are some that aren't quite working at the moment, you can find them in the 'Unstable' category below.") + "<br>" + tr("If you want to add a file type not in the list, you can add them in the text box below. You have to enter the formats like '*.ending', all seperated by commas.") + "</b>");
 	titleGmWorking->setWordWrap(true);
 
 	FlowLayout *layGm = new FlowLayout;
@@ -292,7 +292,7 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 
 
 
-	QLabel *titleGmUnstable = new QLabel("<b><span style=\"font-size:12pt\">" + tr("Unstable Gm File Types") + "</span></b><br><br>" + tr("The following file types are supported by GraphicsMagick, but aren't quite working in PhotoQt just yet. If you want to experiment around a little, feel free to enable some of them. They shouldn't cause PhotoQt to crash, but you might see an error image instead of the actual image.") + "</b>");
+	QLabel *titleGmUnstable = new QLabel("<b><span style=\"font-size:12pt\">" + tr("File Types - GraphicsMagick (Unstable)") + "</span></b><br><br>" + tr("The following file types are supported by GraphicsMagick, but aren't quite working in PhotoQt just yet. If you want to experiment around a little, feel free to enable some of them. They shouldn't cause PhotoQt to crash, but you might see an error image instead of the actual image.") + "</b>");
 	titleGmUnstable->setWordWrap(true);
 
 	FlowLayout *layGmUnstable = new FlowLayout;

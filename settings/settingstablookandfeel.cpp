@@ -244,7 +244,7 @@ SettingsTabLookAndFeel::SettingsTabLookAndFeel(QWidget *parent, QMap<QString, QV
 	// Adjust window mode
 	QLabel *windowModeLabel = new QLabel("<b><span style=\"font-size:12pt\">" + tr("Window Mode") + "</span></b><br><br>" + tr("PhotoQt is designed with the space of a fullscreen app in mind. That's why it by default runs as fullscreen. However, some might prefer to have it as a normal window, e.g. so that they can see the panel.") + "<br><b></b>");
 	windowModeLabel->setWordWrap(true);
-	windowMode = new CustomCheckBox(tr("Run Photo in Window Mode"));
+	windowMode = new CustomCheckBox(tr("Run PhotoQt in Window Mode"));
 	windowDeco = new CustomCheckBox(tr("Show Window Decoration"));
 	windowDeco->hide();
 	QHBoxLayout *windowLay = new QHBoxLayout;
