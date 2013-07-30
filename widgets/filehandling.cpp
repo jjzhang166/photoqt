@@ -219,6 +219,7 @@ FileHandling::FileHandling(QWidget *parent, bool v, QString cf) : QWidget(parent
 	moveTree->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 	moveTree->setHeaderHidden(true);
 	moveScrollbar = new CustomScrollbar;
+	moveScrollbar->keepAlwaysVisible(true);
 	moveTree->setVerticalScrollBar(moveScrollbar);
 	moveTreeModel = new QFileSystemModel;
 	moveTreeModel->setRootPath(QDir::rootPath());
@@ -248,11 +249,11 @@ FileHandling::FileHandling(QWidget *parent, bool v, QString cf) : QWidget(parent
 
 	moveSave = new CustomPushButton(tr("Move"));
 	moveSave->setPadding(10);
-	moveSave->setFontSize("13pt");
+	moveSave->setFontSize("11pt");
 	moveSave->setBold(true);
 	moveCancel = new CustomPushButton(tr("Cancel"));
 	moveCancel->setPadding(10);
-	moveCancel->setFontSize("13pt");
+	moveCancel->setFontSize("11pt");
 	moveCancel->setBold(true);
 
 	QHBoxLayout *moveButLay = new QHBoxLayout;
@@ -294,6 +295,7 @@ FileHandling::FileHandling(QWidget *parent, bool v, QString cf) : QWidget(parent
 	copyTree->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 	copyTree->setHeaderHidden(true);
 	copyScrollbar = new CustomScrollbar;
+	copyScrollbar->keepAlwaysVisible(true);
 	copyTree->setVerticalScrollBar(copyScrollbar);
 	copyTreeModel = new QFileSystemModel;
 	copyTreeModel->setRootPath(QDir::rootPath());
@@ -322,11 +324,11 @@ FileHandling::FileHandling(QWidget *parent, bool v, QString cf) : QWidget(parent
 	copyNewNameLay->addStretch();
 
 	copySave = new CustomPushButton(tr("Copy"));
-	copySave->setFontSize("10pt");
+	copySave->setFontSize("11pt");
 	copySave->setPadding(10);
 	copySave->setBold(true);
 	copyCancel = new CustomPushButton(tr("Cancel"));
-	copyCancel->setFontSize("10pt");
+	copyCancel->setFontSize("11pt");
 	copyCancel->setPadding(10);
 	copyCancel->setBold(true);
 
@@ -850,6 +852,7 @@ void FileHandling::validateRenameFilename() {
 
 	// No change, i.e. save button is disabled
 	} else {
+		renameNewNameExists->setText(" ");
 		renameSave->setEnabled(false);
 		renameSave->setToolTip(tr("You need to specify a different name"));
 	}
@@ -875,6 +878,7 @@ void FileHandling::validateMoveAndCopyFilename() {
 			}
 
 		} else {
+			moveNewNameExists->setText(" ");
 			moveSave->setEnabled(false);
 			moveSave->setToolTip(tr("You need to specify a different file/name"));
 		}
