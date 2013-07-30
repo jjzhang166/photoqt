@@ -8,7 +8,7 @@ StartUpWidget::StartUpWidget(QWidget *parent) : QWidget(parent) {
 
 	// A close button to close widget
 	CustomPushButton *close = new CustomPushButton(tr("Okay, I got enough now. Lets start!"));
-	close->setFontSize(12);
+	close->setFontSize("12pt");
 	QHBoxLayout *butLay = new QHBoxLayout;
 	butLay->setMargin(8);
 	butLay->addStretch();

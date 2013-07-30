@@ -2,6 +2,7 @@
 #define FILEHANDLING_H
 
 #include "../customelements/customscrollbar.h"
+#include "../customelements/custompushbutton.h"
 
 #include <QWidget>
 #include <QLabel>
@@ -47,18 +48,18 @@ public:
 	void setMove();
 	void setCopy();
 
-	QPushButton *renameSave;
-	QPushButton *renameCancel;
+	CustomPushButton *renameSave;
+	CustomPushButton *renameCancel;
 
-	QPushButton *deleteYes;
-	QPushButton *deleteYesHard;
-	QPushButton *deleteNo;
+	CustomPushButton *deleteYes;
+	CustomPushButton *deleteYesHard;
+	CustomPushButton *deleteNo;
 
-	QPushButton *moveSave;
-	QPushButton *moveCancel;
+	CustomPushButton *moveSave;
+	CustomPushButton *moveCancel;
 
-	QPushButton *copySave;
-	QPushButton *copyCancel;
+	CustomPushButton *copySave;
+	CustomPushButton *copyCancel;
 
 	void makeHide();
 	void makeShow();
@@ -97,7 +98,6 @@ private:
 	QLineEdit *renameNewName;
 	QLabel *renameOldEnding;
 	QLabel *renameNewNameExists;
-	QString renameSaveCSS;
 
 
 
@@ -124,7 +124,6 @@ private:
 	QLabel *moveNewNameLabel;
 	QLineEdit *moveNewName;
 	QLabel *moveNewNameEnding;
-	QString moveSaveCSS;
 
 	/********************************
 	/////////// COPY ////////////////
@@ -139,7 +138,6 @@ private:
 	QLabel *copyNewNameLabel;
 	QLineEdit *copyNewName;
 	QLabel *copyNewNameEnding;
-	QString copySaveCSS;
 
 
 public slots:

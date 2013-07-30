@@ -68,7 +68,7 @@ FileHandling::FileHandling(QWidget *parent, bool v, QString cf) : QWidget(parent
 
 	renameLay = new QVBoxLayout;
 	renameTitle = new QLabel("<center>" + tr("Rename File") + "</center>");
-	renameTitle->setStyleSheet("font-size: 50pt; font-weight: bold; color: white; background: transparent;");
+	renameTitle->setStyleSheet("font-size: 25pt; font-weight: bold; color: white; background: transparent;");
 	renameOldName = new QLabel;
 	renameOldName->setStyleSheet("font-size: 15pt; font-style: italic; color: grey; background: transparent; padding: 10px;");
 	QHBoxLayout *renameNewLay = new QHBoxLayout;
@@ -85,13 +85,15 @@ FileHandling::FileHandling(QWidget *parent, bool v, QString cf) : QWidget(parent
 	renameNewNameExists = new QLabel(" ");
 	renameNewNameExists->setStyleSheet("color: red; font-weight: bold; background: none");
 
-	renameSave = new QPushButton(tr("Save"));
-	renameSaveCSS = "background: rgba(0,0,0,80); padding: 10px; font-size: 13pt; font-weight: bold;";
-	renameSave->setStyleSheet("color: white;" + renameSaveCSS);
-	renameSave->setCursor(Qt::PointingHandCursor);
-	renameCancel = new QPushButton(tr("Cancel"));
-	renameCancel->setStyleSheet("color: white; background: rgba(0,0,0,80); padding: 10px; font-size: 13pt; font-weight: bold;");
-	renameCancel->setCursor(Qt::PointingHandCursor);
+	renameSave = new CustomPushButton(tr("Save"));
+	renameSave->setPadding(10);
+	renameSave->setFontSize("13pt");
+	renameSave->setBold(true);
+
+	renameCancel = new CustomPushButton(tr("Cancel"));
+	renameCancel->setPadding(10);
+	renameCancel->setFontSize("13pt");
+	renameCancel->setBold(true);
 
 	renameLay->addStretch();
 	renameLay->addWidget(renameTitle);
@@ -126,7 +128,7 @@ FileHandling::FileHandling(QWidget *parent, bool v, QString cf) : QWidget(parent
 
 	deleteLay = new QVBoxLayout;
 	deleteTitle = new QLabel("<center>" + tr("Delete File") + "</center>");
-	deleteTitle->setStyleSheet("font-size: 50pt; font-weight: bold; color: white; background: transparent;");
+	deleteTitle->setStyleSheet("font-size: 25pt; font-weight: bold; color: white; background: transparent;");
 	deleteFilename = new QLabel(" ");
 	deleteFilename->setStyleSheet("font-size: 15pt; font-style: italic; color: grey; background: transparent; padding: 10px;");
 	deleteQuestion = new QLabel("<center>" + tr("Do you really want to delete this file?") +"</center>");
@@ -134,22 +136,29 @@ FileHandling::FileHandling(QWidget *parent, bool v, QString cf) : QWidget(parent
 
 
 
-	deleteYesHard = new QPushButton(tr("Delete permanently"));
-	deleteYesHard->setStyleSheet("color: rgb(180,180,180); background: rgba(0,0,0,80); padding: 6px; font-size: 10pt; font-weight: bold;");
-	deleteYesHard->setCursor(Qt::PointingHandCursor);
+	deleteYesHard = new CustomPushButton(tr("Delete permanently"));
+	deleteYesHard->setPadding(6);
+#if defined(Q_WS_X11)
+	deleteYesHard->setFontSize("10pt");
+#else
+	deleteYesHard->setFontSize("13pt");
+	deleteYesHard->setBold(true);
+#endif
 
 #if defined(Q_WS_X11)
-	deleteYes = new QPushButton(tr("Move to Trash"));
-	deleteYes->setStyleSheet("color: white; background: rgba(0,0,0,80); padding: 10px; font-size: 13pt; font-weight: bold;");
-	deleteYes->setCursor(Qt::PointingHandCursor);
+	deleteYes = new CustomPushButton(tr("Move to Trash"));
+	deleteYes->setPadding(6);
+	deleteYes->setFontSize("13pt");
+	deleteYes->setBold(true);
 #else
 	deleteYes = new QPushButton;
 	deleteYes->hide();
 #endif
 
-	deleteNo = new QPushButton(tr("Cancel"));
-	deleteNo->setStyleSheet("color: white; background: rgba(0,0,0,80); padding: 10px; font-size: 13pt; font-weight: bold;");
-	deleteNo->setCursor(Qt::PointingHandCursor);
+	deleteNo = new CustomPushButton(tr("Cancel"));
+	deleteNo->setPadding(6);
+	deleteNo->setFontSize("13pt");
+	deleteNo->setBold(true);
 
 	QHBoxLayout *deleteButLay = new QHBoxLayout;
 	deleteButLay->addStretch();
@@ -237,12 +246,14 @@ FileHandling::FileHandling(QWidget *parent, bool v, QString cf) : QWidget(parent
 	moveNewNameLay->addWidget(moveNewNameEnding);
 	moveNewNameLay->addStretch();
 
-	moveSaveCSS = "background: rgba(0,0,0,80); padding: 10px; font-size: 13pt; font-weight: bold;";
-
-	moveSave = new QPushButton(tr("Move"));
-	moveSave->setStyleSheet("color: white;" + moveSaveCSS);
-	moveCancel = new QPushButton(tr("Cancel"));
-	moveCancel->setStyleSheet("color: white; background: rgba(0,0,0,80); padding: 10px; font-size: 13pt; font-weight: bold;");
+	moveSave = new CustomPushButton(tr("Move"));
+	moveSave->setPadding(10);
+	moveSave->setFontSize("13pt");
+	moveSave->setBold(true);
+	moveCancel = new CustomPushButton(tr("Cancel"));
+	moveCancel->setPadding(10);
+	moveCancel->setFontSize("13pt");
+	moveCancel->setBold(true);
 
 	QHBoxLayout *moveButLay = new QHBoxLayout;
 	moveButLay->addStretch();
@@ -261,6 +272,7 @@ FileHandling::FileHandling(QWidget *parent, bool v, QString cf) : QWidget(parent
 	connect(moveCancel, SIGNAL(clicked()), this, SLOT(animate()));
 	connect(moveSave, SIGNAL(clicked()), this, SLOT(doMove()));
 	connect(moveNewName, SIGNAL(textEdited(QString)), this, SLOT(validateMoveAndCopyFilename()));
+	connect(moveTree, SIGNAL(clicked(QModelIndex)), this, SLOT(validateMoveAndCopyFilename()));
 
 	moveWidget->setLayout(moveLay);
 
@@ -309,12 +321,14 @@ FileHandling::FileHandling(QWidget *parent, bool v, QString cf) : QWidget(parent
 	copyNewNameLay->addWidget(copyNewNameEnding);
 	copyNewNameLay->addStretch();
 
-	copySaveCSS = "background: rgba(0,0,0,80); padding: 10px; font-size: 13pt; font-weight: bold;";
-
-	copySave = new QPushButton(tr("Copy"));
-	copySave->setStyleSheet("color: white;" + copySaveCSS);
-	copyCancel = new QPushButton(tr("Cancel"));
-	copyCancel->setStyleSheet("color: white; background: rgba(0,0,0,80); padding: 10px; font-size: 13pt; font-weight: bold;");
+	copySave = new CustomPushButton(tr("Copy"));
+	copySave->setFontSize("10pt");
+	copySave->setPadding(10);
+	copySave->setBold(true);
+	copyCancel = new CustomPushButton(tr("Cancel"));
+	copyCancel->setFontSize("10pt");
+	copyCancel->setPadding(10);
+	copyCancel->setBold(true);
 
 	QHBoxLayout *copyButLay = new QHBoxLayout;
 	copyButLay->addStretch();
@@ -333,6 +347,7 @@ FileHandling::FileHandling(QWidget *parent, bool v, QString cf) : QWidget(parent
 	connect(copyCancel, SIGNAL(clicked()), this, SLOT(animate()));
 	connect(copySave, SIGNAL(clicked()), this, SLOT(doCopy()));
 	connect(copyNewName, SIGNAL(textEdited(QString)), this, SLOT(validateMoveAndCopyFilename()));
+	connect(copyTree, SIGNAL(clicked(QModelIndex)), this, SLOT(validateMoveAndCopyFilename()));
 
 	copyWidget->setLayout(copyLay);
 
@@ -500,6 +515,15 @@ void FileHandling::aniFinished() {
 			renameNewName->setEnabled(false);
 		else if(dialogType == "move")
 			moveNewName->setEnabled(false);
+	}
+
+	if(isShown) {
+
+		if(dialogType == "move")
+			moveTree->scrollTo(moveTree->selectionModel()->selectedIndexes().at(0));
+		if(dialogType == "copy")
+			copyTree->scrollTo(copyTree->selectionModel()->selectedIndexes().at(0));
+
 	}
 
 }
@@ -817,17 +841,17 @@ void FileHandling::validateRenameFilename() {
 		if(QFile(newfile).exists()) {
 			renameNewNameExists->setText("<center>" + tr("File with this name already exists!") + "</center>");
 			renameSave->setEnabled(false);
-			renameSave->setStyleSheet("color: grey;" + renameSaveCSS);
+			renameSave->setToolTip(tr("File with this name already exists!"));
 		} else {
 			renameNewNameExists->setText(" ");
 			renameSave->setEnabled(true);
-			renameSave->setStyleSheet("color: white;" + renameSaveCSS);
+			renameSave->setToolTip(tr("Rename file"));
 		}
 
 	// No change, i.e. save button is disabled
 	} else {
 		renameSave->setEnabled(false);
-		renameSave->setStyleSheet("color: grey;" + renameSaveCSS);
+		renameSave->setToolTip(tr("You need to specify a different name"));
 	}
 
 }
@@ -843,16 +867,16 @@ void FileHandling::validateMoveAndCopyFilename() {
 			if(QFile(newfilename).exists()) {
 				moveNewNameExists->setText("<center>" + tr("File with this name already exists!") + "</center>");
 				moveSave->setEnabled(false);
-				moveSave->setStyleSheet("color: grey;" + moveSaveCSS);
+				moveSave->setToolTip(tr("File with this name already exists!"));
 			} else {
 				moveNewNameExists->setText(" ");
 				moveSave->setEnabled(true);
-				moveSave->setStyleSheet("color: white;" + moveSaveCSS);
+				moveSave->setToolTip(tr("Move File"));
 			}
 
 		} else {
 			moveSave->setEnabled(false);
-			moveSave->setStyleSheet("color: grey;" + moveSaveCSS);
+			moveSave->setToolTip(tr("You need to specify a different file/name"));
 		}
 
 	} else if(dialogType == "copy") {
@@ -864,16 +888,17 @@ void FileHandling::validateMoveAndCopyFilename() {
 			if(QFile(newfilename).exists()) {
 				copyNewNameExists->setText("<center>" + tr("File with this name already exists!") + "</center>");
 				copySave->setEnabled(false);
-				copySave->setStyleSheet("color: grey;" + copySaveCSS);
+				copySave->setToolTip(tr("File with this name already exists!"));
 			} else {
 				copyNewNameExists->setText(" ");
 				copySave->setEnabled(true);
-				copySave->setStyleSheet("color: white;" + copySaveCSS);
+				copySave->setToolTip(tr("Copy File"));
 			}
 
 		} else {
 			copySave->setEnabled(false);
-			copySave->setStyleSheet("color: grey;" + copySaveCSS);
+			copyNewNameExists->setText(" ");
+			copySave->setToolTip(tr("You need to specify a different file/name"));
 		}
 
 	}
