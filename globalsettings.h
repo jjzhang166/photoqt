@@ -1,6 +1,9 @@
 #ifndef GLOBALSETTINGS_H
 #define GLOBALSETTINGS_H
 
+// THIS IS THE GLOBAL VERSION STRING, ONCE DEFINED HERE
+#define VERSION "1.0beta"
+
 #include <QObject>
 #include <QFile>
 #include <QDir>
@@ -581,7 +584,7 @@ public:
 	// Set the default settings
 	void setDefault() {
 
-		version = "beta";
+		version = QString::fromStdString(VERSION);
 
 		fileFormats = new FileFormats;
 		fileFormats->getFormats();

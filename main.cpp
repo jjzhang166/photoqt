@@ -2,13 +2,14 @@
 #include "mainwindow.h"
 #include <iostream>
 #include <QTranslator>
+#include <string>
 
 int main(int argc, char *argv[]) {
 
 	QApplication::setApplicationName("photoqt");
 
 	// This string holds the current version
-	QString globVersion = "beta";
+	QString globVersion = QString::fromStdString(VERSION);
 
 	// A help message for the command line
 	QString hlp = "\nPhotoQt v" + globVersion + " - created by Lukas Spies (photoQt@ymail.com) - License: GPL\n";
