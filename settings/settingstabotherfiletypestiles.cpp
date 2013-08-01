@@ -77,6 +77,34 @@ void SettingsTabOtherFileTypesTiles::setChecked(bool chkd) {
 
 }
 
+void SettingsTabOtherFileTypesTiles::setEnabled(bool en) {
+
+	if(!en) {
+		enabled->setEnabled(false);
+
+		cssBackgroundNorm = "background: rgba(255,255,255,100);";
+		cssBackgroundHov = "background: rgba(255,255,255,100);";
+
+		cssBackgroundOffNorm = "background: rgba(255,255,255,100);";
+		cssBackgroundOffHov = "background: rgba(255,255,255,100);";
+
+		this->setCursor(Qt::ArrowCursor);
+	} else {
+
+		enabled->setEnabled(true);
+
+		cssBackgroundNorm = "background: rgba(255,255,255,150);";
+		cssBackgroundHov = "background: rgba(255,255,255,200);";
+
+		cssBackgroundOffNorm = "background: rgba(255,255,255,100);";
+		cssBackgroundOffHov = "background: rgba(255,255,255,150);";
+
+		this->setCursor(Qt::PointingHandCursor);
+
+	}
+
+}
+
 // Click on the checkbox
 void SettingsTabOtherFileTypesTiles::checkboxClicked() {
 
@@ -115,6 +143,8 @@ void SettingsTabOtherFileTypesTiles::leaveEvent(QEvent *) {
 }
 
 void SettingsTabOtherFileTypesTiles::mousePressEvent(QMouseEvent *) {
+
+	if(!enabled->isEnabled()) return;
 
 	enabled->setChecked(!enabled->isChecked());
 	if(enabled->isChecked())

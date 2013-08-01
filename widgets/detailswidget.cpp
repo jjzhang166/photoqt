@@ -15,6 +15,7 @@
  */
 
 #include "detailswidget.h"
+#include <iostream>
 
 // This class provides a widget for displaying meta (Exif) information
 Details::Details(QWidget *parent, QMap<QString, QVariant> set, bool v): QWidget(parent) {
@@ -709,6 +710,10 @@ QString Details::exifGps(QString gpsLonRef, QString gpsLon, QString gpsLatRef, Q
 // Click on yes
 void Details::rotConfYes() {
 
+	// We need to keep the function in any case, otherwise there'll be a connect error in mainwindow.cpp
+
+#ifdef WITH_EXIV2
+
 	if(verbose) std::clog << "exif: rotation confirmed" << std::endl;
 
 	emit setOrientation(rotationDeg, flipHor);
@@ -719,10 +724,16 @@ void Details::rotConfYes() {
 		emit updateSettings(set);
 	}
 
+#endif
+
 }
 
 // Click on no
 void Details::rotConfNo() {
+
+	// We need to keep the function in any case, otherwise there'll be a connect error in mainwindow.cpp
+
+#ifdef WITH_EXIV2
 
 	if(verbose) std::clog << "exif: rotation cancelled" << std::endl;
 
@@ -731,6 +742,8 @@ void Details::rotConfNo() {
 		set.insert("ExifRotation","Never");
 		emit updateSettings(set);
 	}
+
+#endif
 
 }
 
@@ -817,6 +830,10 @@ void Details::adjustHeight() {
 // Click on GPS location (opens in online map (google/bing))
 void Details::gpsClick() {
 
+	// We need to keep the function in any case, otherwise there'll be a connect error in mainwindow.cpp
+
+#ifdef WITH_EXIV2
+
 	if(verbose) std::clog << "exif: Click on GPS" << std::endl;
 
 	QStringList temp = items["Gps"]->text().split(":");
@@ -841,6 +858,8 @@ void Details::gpsClick() {
 			std::cerr << "ERROR: Couldn't open URL: " << url.toString().toStdString() << std::endl;
 
 	}
+
+#endif
 
 }
 

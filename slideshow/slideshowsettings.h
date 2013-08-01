@@ -7,6 +7,7 @@
 #include "../customelements/customcheckbox.h"
 #include "../customelements/customlineedit.h"
 #include "../customelements/custompushbutton.h"
+#include "../customelements/customlabel.h"
 
 #include <QWidget>
 #include <QPropertyAnimation>

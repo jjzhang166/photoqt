@@ -7,6 +7,7 @@
 #include "../customelements/customradiobutton.h"
 #include "../customelements/customslider.h"
 #include "../customelements/customspinbox.h"
+#include "../customelements/customlabel.h"
 #include "settingstabexiftiles.h"
 #include "../flowlayout/flowlayout.h"
 

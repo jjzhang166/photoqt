@@ -113,6 +113,9 @@ void CustomRadioButton::setCSS() {
 		css += "width: 15px;";
 		css += "height: 15px;";
 	css += "}";
+	css += "QRadioButton:disabled {";
+		css += "color: grey;";
+	css += "}";
 
 	this->setStyleSheet(css);
 

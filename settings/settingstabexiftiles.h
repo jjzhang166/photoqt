@@ -29,6 +29,8 @@ public:
 	// Set this checkbox checked
 	void setChecked(bool chkd);
 
+	void setEnabled(bool);
+
 private:
 	// Different css styles
 	QString css;

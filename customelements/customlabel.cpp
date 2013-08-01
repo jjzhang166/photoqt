@@ -18,7 +18,7 @@
 
 CustomLabel::CustomLabel(const QString &text, QWidget *parent) : QLabel(text, parent) {
 
-	fontsize = "10pt";
+	fontsize = "9pt";
 
 	setCSS();
 

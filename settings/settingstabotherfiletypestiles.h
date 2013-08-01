@@ -28,6 +28,7 @@ public:
 	// Set this checkbox checked
 	void setChecked(bool chkd);
 	bool isChecked() { return enabled->isChecked(); }
+	void setEnabled(bool);
 
 private:
 	// Different css styles

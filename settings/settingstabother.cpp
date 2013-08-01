@@ -258,9 +258,12 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 	connect(qtMarkNone, SIGNAL(clicked()), mapQtNone, SLOT(map()));
 	connect(mapQtNone, SIGNAL(mapped(QString)), this, SLOT(markAllNone(QString)));
 
+#ifndef WITH_GRAPHICSMAGICK
+	CustomLabel *gmDisabled = new CustomLabel("<b><i>" + tr("Use of GraphicsMagick has been disabled as PhotoQt was compiled/installed!") + "</i></b>");
+	gmDisabled->setWordWrap(true);
+#endif
 
-
-	QLabel *titleGmWorking = new QLabel("<b><span style=\"font-size:12pt\">" + tr("File Types - GraphicsMagick") + "</span></b><br><br>" + tr("PhotoQt makes use of GraphicsMagick for support of many different file types. Not all of the formats supported by GraphicsMagick make sense in an image viewer. There are some that aren't quite working at the moment, you can find them in the 'Unstable' category below.") + "<br>" + tr("If you want to add a file type not in the list, you can add them in the text box below. You have to enter the formats like '*.ending', all seperated by commas.") + "</b>");
+	CustomLabel *titleGmWorking = new CustomLabel("<b><span style=\"font-size:12pt\">" + tr("File Types - GraphicsMagick") + "</span></b><br><br>" + tr("PhotoQt makes use of GraphicsMagick for support of many different file types. Not all of the formats supported by GraphicsMagick make sense in an image viewer. There are some that aren't quite working at the moment, you can find them in the 'Unstable' category below.") + "<br>" + tr("If you want to add a file type not in the list, you can add them in the text box below. You have to enter the formats like '*.ending', all seperated by commas.") + "</b>");
 	titleGmWorking->setWordWrap(true);
 
 	FlowLayout *layGm = new FlowLayout;
@@ -272,6 +275,9 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 		SettingsTabOtherFileTypesTiles *check = new SettingsTabOtherFileTypesTiles(formatsGm.at(i));
 		allCheckGm.insert(formatsGm.at(i),check);
 		layGm->addWidget(check);
+#ifndef WITH_GRAPHICSMAGICK
+		check->setEnabled(false);
+#endif
 
 	}
 
@@ -286,6 +292,16 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 	layGmBut->addWidget(gmMarkAll);
 	layGmBut->addWidget(gmMarkNone);
 
+#ifndef WITH_GRAPHICSMAGICK
+	titleGmWorking->setEnabled(false);
+	gmMarkAll->setEnabled(false);
+	gmMarkNone->setEnabled(false);
+	extraGm->setEnabled(false);
+	extraGmEdit->setEnabled(false);
+
+	layFile->addWidget(gmDisabled);
+	layFile->addSpacing(10);
+#endif
 	layFile->addWidget(titleGmWorking);
 	layFile->addSpacing(10);
 	layFile->addLayout(layGm);
@@ -308,7 +324,7 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 
 
 
-	QLabel *titleGmUnstable = new QLabel("<b><span style=\"font-size:12pt\">" + tr("File Types - GraphicsMagick (Unstable)") + "</span></b><br><br>" + tr("The following file types are supported by GraphicsMagick, but aren't quite working in PhotoQt just yet. If you want to experiment around a little, feel free to enable some of them. They shouldn't cause PhotoQt to crash, but you might see an error image instead of the actual image.") + "</b>");
+	CustomLabel *titleGmUnstable = new CustomLabel("<b><span style=\"font-size:12pt\">" + tr("File Types - GraphicsMagick (Unstable)") + "</span></b><br><br>" + tr("The following file types are supported by GraphicsMagick, but aren't quite working in PhotoQt just yet. If you want to experiment around a little, feel free to enable some of them. They shouldn't cause PhotoQt to crash, but you might see an error image instead of the actual image.") + "</b>");
 	titleGmUnstable->setWordWrap(true);
 
 	FlowLayout *layGmUnstable = new FlowLayout;
@@ -320,6 +336,9 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 		SettingsTabOtherFileTypesTiles *check = new SettingsTabOtherFileTypesTiles(formatsGmUnstable.at(i));
 		allCheckGmUnstable.insert(formatsGmUnstable.at(i),check);
 		layGmUnstable->addWidget(check);
+#ifndef WITH_GRAPHICSMAGICK
+		check->setEnabled(false);
+#endif
 
 	}
 
@@ -336,6 +355,12 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 	layFile->addSpacing(5);
 	layFile->addLayout(layGmButUnstable);
 	layFile->addSpacing(35);
+
+#ifndef WITH_GRAPHICSMAGICK
+	titleGmUnstable->setEnabled(false);
+	gmMarkAllUnstable->setEnabled(false);
+	gmMarkNoneUnstable->setEnabled(false);
+#endif
 
 	QSignalMapper *mapGmMarkUnst = new QSignalMapper;
 	mapGmMarkUnst->setMapping(gmMarkAllUnstable,"gmunstMark");
@@ -378,6 +403,7 @@ void SettingsTabOther::loadSettings() {
 		iterQt.value()->setChecked(formatsSetQt.contains(iterQt.key()) ? true : false);
 	}
 
+#ifdef WITH_GRAPHICSMAGICK
 	QStringList formatsSetGm = globSet.value("KnownFileTypesGm").toString().replace("*","").split(",");
 	QMapIterator<QString, SettingsTabOtherFileTypesTiles*> iterGm(allCheckGm);
 	while (iterGm.hasNext()) {
@@ -389,6 +415,7 @@ void SettingsTabOther::loadSettings() {
 		iterGmUnstable.next();
 		iterGmUnstable.value()->setChecked(formatsSetGm.contains(iterGmUnstable.key()) ? true : false);
 	}
+#endif
 
 	extraQtEdit->setText(globSet.value("KnownFileTypesQtExtras").toString());
 	extraGmEdit->setText(globSet.value("KnownFileTypesGmExtras").toString());

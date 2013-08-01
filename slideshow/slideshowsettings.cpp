@@ -174,6 +174,12 @@ SlideShow::SlideShow(QMap<QString, QVariant> set, QWidget *parent, bool v) : QWi
 	central->addLayout(musicPathLay);
 	connect(musicEnable, SIGNAL(toggled(bool)), musicPath, SLOT(setEnabled(bool)));
 	connect(musicPath, SIGNAL(clicked()), this, SLOT(browseForMusic()));
+#else
+	CustomLabel *phononDisabled = new CustomLabel("<b><i>" + tr("Music support not available; Phonon has been disabled as PhotoQt was compiled/installed.") + "</i></b>");
+	phononDisabled->setWordWrap(true);
+	central->addSpacing(10);
+	central->addWidget(phononDisabled);
+	central->addSpacing(10);
 #endif
 
 	central->addStretch();

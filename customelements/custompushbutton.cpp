@@ -19,8 +19,6 @@
 
 CustomPushButton::CustomPushButton(const QString &text, QWidget *parent) : QPushButton(text, parent) {
 
-	this->setObjectName("pushbutton");
-
 	hover = false;
 	enabled = true;
 	padding = 0;
@@ -46,7 +44,7 @@ void CustomPushButton::setEnabled(bool e) {
 
 void CustomPushButton::setCSS() {
 
-	QString css = "#pushbutton {";
+	QString css = "QPushButton {";
 	if(rgba == "")
 		css += hover ? (enabled ? "background: rgba(80,80,80,100);" : "background: rgba(40,40,40,100);") : "background: rgba(20,20,20,150);";
 	else

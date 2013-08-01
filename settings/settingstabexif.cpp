@@ -23,7 +23,8 @@ SettingsTabExif::SettingsTabExif(QWidget *parent, QMap<QString, QVariant> set, b
 
 	globSet = set;
 
-	this->setStyleSheet("background: transparent; color: white;");
+	this->setObjectName("tabother");
+	this->setStyleSheet("#tabother { background: transparent; color: white; }");
 
 	// the main scroll widget for all content
 	scrollbar = new CustomScrollbar;
@@ -39,14 +40,14 @@ SettingsTabExif::SettingsTabExif(QWidget *parent, QMap<QString, QVariant> set, b
 	scroll->setVerticalScrollBar(scrollbar);
 
 	// The title labels, explaining what can be done here
-	QLabel *title = new QLabel("<center><h1>" + tr("Image Details and Information") + "</h1></center><br><br>" + tr("PhotoQt can display different information of and about each image. The widget for this information is on the left outside the screen and slides in when mouse gets close to it and/or when the set shortcut (default Ctrl+E) is triggered. On demand, the triggering by mouse movement can be disabled by checking the box below."));
+	CustomLabel *title = new CustomLabel("<center><h1>" + tr("Image Details and Information") + "</h1></center><br><br>" + tr("PhotoQt can display different information of and about each image. The widget for this information is on the left outside the screen and slides in when mouse gets close to it and/or when the set shortcut (default Ctrl+E) is triggered. On demand, the triggering by mouse movement can be disabled by checking the box below."));
 	title->setWordWrap(true);
 	lay->addSpacing(10);
 	lay->addWidget(title);
 	lay->addSpacing(15);
 
 	// Triggering on mouse movement
-	QLabel *triggerOnMouseLabel = new QLabel("<b><span style=\"font-size: 12pt\">" + tr("Trigger Widget on Mouse Hovering") + "</span></b><br><br>" + tr("Per default the info widget can be shown two ways: Moving the mouse cursor to the left screen edge to fade it in temporarily (as long as the mouse is hovering it), or permanently by clicking the checkbox (checkbox only stored per session, can't be saved permanently!). Alternatively the widget can also be triggered by shortcut. On demand the mouse triggering can be disabled, so that the widget would only show on shortcut. This can come in handy, if you get annoyed by accidentally opening the widget occasionally."));
+	CustomLabel *triggerOnMouseLabel = new CustomLabel("<b><span style=\"font-size: 12pt\">" + tr("Trigger Widget on Mouse Hovering") + "</span></b><br><br>" + tr("Per default the info widget can be shown two ways: Moving the mouse cursor to the left screen edge to fade it in temporarily (as long as the mouse is hovering it), or permanently by clicking the checkbox (checkbox only stored per session, can't be saved permanently!). Alternatively the widget can also be triggered by shortcut. On demand the mouse triggering can be disabled, so that the widget would only show on shortcut. This can come in handy, if you get annoyed by accidentally opening the widget occasionally."));
 	triggerOnMouseLabel->setWordWrap(true);
 	triggerOnMouse = new CustomCheckBox(tr("Turn mouse triggering OFF"));
 	QHBoxLayout *triggerLay = new QHBoxLayout;
@@ -59,9 +60,18 @@ SettingsTabExif::SettingsTabExif(QWidget *parent, QMap<QString, QVariant> set, b
 	lay->addSpacing(20);
 
 
+#ifndef WITH_EXIV2
+	CustomLabel *exifDisabled = new CustomLabel("<b><i>" + tr("Use of Exiv2 has been disabled as PhotoQt was compiled/installed!") + "</i></b>");
+	exifDisabled->setWordWrap(true);
+#endif
 
-	QLabel *whichItemShown = new QLabel("<b><span style=\"font-size: 12pt\">" + tr("Which items are shown?") + "</span></b><br><br>" + tr("PhotoQt can display a number of information about the image (often called 'Exif data''). However, you might not be interested in all of them, hence you can choose to disable some of them here."));
+	CustomLabel *whichItemShown = new CustomLabel("<b><span style=\"font-size: 12pt\">" + tr("Which items are shown?") + "</span></b><br><br>" + tr("PhotoQt can display a number of information about the image (often called 'Exif data''). However, you might not be interested in all of them, hence you can choose to disable some of them here."));
 	whichItemShown->setWordWrap(true);
+#ifndef WITH_EXIV2
+	whichItemShown->setEnabled(false);
+	lay->addWidget(exifDisabled);
+	lay->addSpacing(10);
+#endif
 	lay->addWidget(whichItemShown);
 	lay->addSpacing(10);
 
@@ -78,12 +88,17 @@ SettingsTabExif::SettingsTabExif(QWidget *parent, QMap<QString, QVariant> set, b
 	lay->addSpacing(10);
 	connect(enableAll, SIGNAL(clicked()), this, SLOT(disEnableAll()));
 	connect(disableALL, SIGNAL(clicked()), this, SLOT(disEnableAll()));
+#ifndef WITH_EXIV2
+	enableAll->setEnabled(false);
+	disableALL->setEnabled(false);
+#endif
 
 	// The scrollwidget for all the tiles
 	CustomScrollbar *scrollbarExif = new CustomScrollbar;
 	scrollbarExif->keepAlwaysVisible(true);
 	QScrollArea *exifWidg = new QScrollArea;
-	exifWidg->setStyleSheet("background: transparent; border-radius: 5px;");
+	exifWidg->setObjectName("exifWidg");
+	exifWidg->setStyleSheet("#exifWidg { background: transparent; border-radius: 5px; }");
 	flow = new FlowLayout(exifWidg);
 	flow->setAlignment(Qt::AlignCenter);
 	exifWidg->setFixedWidth(600);
@@ -156,6 +171,9 @@ SettingsTabExif::SettingsTabExif(QWidget *parent, QMap<QString, QVariant> set, b
 		SettingsTabExifTiles *tile = new SettingsTabExifTiles(allItems.at(i),allItemsShort.at(i));
 		allTiles.append(tile);
 		flow->addWidget(tile);
+#ifndef WITH_EXIV2
+		tile->setEnabled(false);
+#endif
 
 	}
 
@@ -163,7 +181,7 @@ SettingsTabExif::SettingsTabExif(QWidget *parent, QMap<QString, QVariant> set, b
 
 
 	// Adjust Font Size of Labels
-	QLabel *fontSizelabel = new QLabel("<b><span style=\"font-size: 12pt\">" + tr("Adjusting Font Size") + "</span></b><br><br>" + tr("Computers can have very different resolutions. On some of them, it might be nice to increase the font size of the labels to have them easier readable. Often, a size of 8 or 9 should be working quite well..."));
+	CustomLabel *fontSizelabel = new CustomLabel("<b><span style=\"font-size: 12pt\">" + tr("Adjusting Font Size") + "</span></b><br><br>" + tr("Computers can have very different resolutions. On some of them, it might be nice to increase the font size of the labels to have them easier readable. Often, a size of 8 or 9 should be working quite well..."));
 	fontSizelabel->setWordWrap(true);
 	setFontSizeSlider = new CustomSlider;
 	setFontSizeSlider->setMinimum(7);
@@ -171,8 +189,8 @@ SettingsTabExif::SettingsTabExif(QWidget *parent, QMap<QString, QVariant> set, b
 	setFontSizeSlider->setValue(globSet.value("ExifFontSize").toInt());
 	setFontSizeSlider->setTickPosition(QSlider::TicksBelow);
 	setFontSizeSlider->setTickInterval(1);
-	QLabel *fsizeleft = new QLabel(tr("Smallest size"));
-	QLabel *fsizeright = new QLabel(tr("Biggest size"));
+	CustomLabel *fsizeleft = new CustomLabel(tr("Smallest size"));
+	CustomLabel *fsizeright = new CustomLabel(tr("Biggest size"));
 	QHBoxLayout *fsizeLay = new QHBoxLayout;
 	fsizeLay->addStretch();
 	fsizeLay->addWidget(fsizeleft);
@@ -187,7 +205,7 @@ SettingsTabExif::SettingsTabExif(QWidget *parent, QMap<QString, QVariant> set, b
 
 
 	// ALWAYS/NEVER/POSSIBLY ROTATE/FLIP ACCORDING TO EXIF DATA
-	QLabel *rotateFlipLabel = new QLabel("<b><span style=\"font-size: 12pt\">" + tr("Rotating/Flipping Image according to Exif Data") + "</span></b><br><br>" + tr("Some cameras can detect - while taking the photo - whether the camera was turned and might store this information in the image exif data. If PhotoQt finds this information, it can rotate the image accordingly. Per default it's not doing it, but it can be enabled here as desired."));
+	CustomLabel *rotateFlipLabel = new CustomLabel("<b><span style=\"font-size: 12pt\">" + tr("Rotating/Flipping Image according to Exif Data") + "</span></b><br><br>" + tr("Some cameras can detect - while taking the photo - whether the camera was turned and might store this information in the image exif data. If PhotoQt finds this information, it can rotate the image accordingly. Per default it's not doing it, but it can be enabled here as desired."));
 	rotateFlipLabel->setWordWrap(true);
 	QButtonGroup *groupRot = new QButtonGroup;
 	exifRotNev = new CustomRadioButton(tr("Never rotate images"));
@@ -206,10 +224,16 @@ SettingsTabExif::SettingsTabExif(QWidget *parent, QMap<QString, QVariant> set, b
 	lay->addSpacing(5);
 	lay->addLayout(rotFlipLay);
 	lay->addSpacing(20);
+#ifndef WITH_EXIV2
+	rotateFlipLabel->setEnabled(false);
+	exifRotNev->setEnabled(false);
+	exifRotAlw->setEnabled(false);
+	exifRotAsk->setEnabled(false);
+#endif
 
 
 	// Select the online map service to be used for displaying GPS location
-	QLabel *exifGpsLabel = new QLabel("<b><span style=\"font-size: 12pt\">" + tr("Online map for GPS") + "</span></b><br><br>" + tr("If you're image includes a GPS location, then a click on the location text will load this location in an online map using your default external browser. Here you can choose which online service to use (suggestions for other online maps always welcome)."));
+	CustomLabel *exifGpsLabel = new CustomLabel("<b><span style=\"font-size: 12pt\">" + tr("Online map for GPS") + "</span></b><br><br>" + tr("If you're image includes a GPS location, then a click on the location text will load this location in an online map using your default external browser. Here you can choose which online service to use (suggestions for other online maps always welcome)."));
 	exifGpsLabel->setWordWrap(true);
 	QButtonGroup *groupMap = new QButtonGroup;
 	radioGoogle = new CustomRadioButton("maps.google.com");
@@ -226,6 +250,12 @@ SettingsTabExif::SettingsTabExif(QWidget *parent, QMap<QString, QVariant> set, b
 	lay->addSpacing(5);
 	lay->addLayout(tileGpsLay);
 	lay->addSpacing(20);
+
+#ifndef WITH_EXIV2
+	exifGpsLabel->setEnabled(false);
+	radioGoogle->setEnabled(false);
+	radioBing->setEnabled(false);
+#endif
 
 
 	lay->addStretch();
@@ -258,6 +288,7 @@ void SettingsTabExif::loadSettings() {
 	triggerOnMouse->setChecked(!globSet.value("ExifEnableMouseTriggering").toBool());
 	defaults.insert("ExifEnableMouseTriggering",!globSet.value("ExifEnableMouseTriggering").toBool());
 
+#ifdef WITH_EXIV2
 	for(int i = 0; i < allTiles.length(); ++i) {
 
 		QString id = allTiles.at(i)->intern;
@@ -266,6 +297,7 @@ void SettingsTabExif::loadSettings() {
 		defaults.insert("Exif" + id,globSet.value("Exif" + id).toBool());
 
 	}
+#endif
 
 	setFontSizeSlider->setValue(globSet.value("ExifFontSize").toInt());
 	defaults.insert("ExifFontSize",globSet.value("ExifFontSize").toInt());
