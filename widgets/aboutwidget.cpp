@@ -64,7 +64,7 @@ About::About(QWidget *parent) : QWidget(parent) {
 	center->setLayout(scCentral);
 	scCentral->addWidget(scroll);
 
-	CustomScrollbar *scrollbar = new CustomScrollbar;
+	scrollbar = new CustomScrollbar;
 	scroll->setVerticalScrollBar(scrollbar);
 
 	// The string right at the top, giving the license and author information
@@ -260,8 +260,11 @@ void About::fadeStep() {
 void About::aniFinished() {
 
 	// Move widget out of screen
-	if(!isShown)
+	if(!isShown) {
 		this->setGeometry(rectHidden);
+		scrollbar->setValue(0);
+	} else
+		scrollbar->setScrollbarShown();
 
 
 }

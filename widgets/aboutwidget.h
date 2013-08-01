@@ -34,6 +34,7 @@ public:
 private:
 	// The central widget
 	QWidget *center;
+	CustomScrollbar *scrollbar;
 
 	// A button to close the widget
 	CustomPushButton *close;
