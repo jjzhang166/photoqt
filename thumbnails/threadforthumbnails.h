@@ -35,6 +35,8 @@ public:
 
 	int currentPos;
 
+	QMap<QString,QVariant> globSet;
+
 	// These are used in the thread, and are re-set when scrolling
 	int createThisOne;
 	int leftNextThb;
@@ -222,7 +224,19 @@ protected:
 						if(verbose && !amUpdatingData) std::clog << "thread: Creating new thumb: " << createThisOne << std::endl;
 
 
+						QString qtfiles = globSet.value("KnownFileTypesQt").toString();
+						QString qtfilesextras = globSet.value("KnownFileTypesQtExtras").toString();
+						if(qtfiles != "" && qtfilesextras != "") qtfiles += ",";
+						qtfiles += qtfilesextras;
+
+						QString gmfiles = globSet.value("KnownFileTypesGm").toString();
+						QString gmfilesextras = globSet.value("KnownFileTypesGmExtras").toString();
+						if(gmfiles != "" && gmfilesextras != "") gmfiles += ",";
+						gmfiles += gmfilesextras;
+
 						ImageReader image(verbose);
+						image.qtfiles = qtfiles;
+						image.gmfiles = gmfiles;
 						p = image.readImage(allimgs.at(createThisOne).absoluteFilePath(),0,false,QSize(ts,ts));
 
 						origwidth = image.origSize.width();

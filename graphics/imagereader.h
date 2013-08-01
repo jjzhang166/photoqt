@@ -21,6 +21,9 @@ public:
 
 	bool verbose;
 
+	QString qtfiles;
+	QString gmfiles;
+
 	QImage imageRead;
 
 	QImage readImage(QString filename, int rotation, bool zoomed, QSize maxSize, bool dontscale = false);

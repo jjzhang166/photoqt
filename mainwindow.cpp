@@ -88,6 +88,7 @@ MainWindow::MainWindow(QWidget *parent, bool verbose) : QMainWindow(parent) {
 	connect(viewThumbs, SIGNAL(loadNewImg(QString)), this, SLOT(loadNewImgFromThumbs(QString)));
 
 
+
 	// An ImageReader combining QImageReader and GraphicsMagic (if not disabled)
 	imageReader = new ImageReader(globVar->verbose);
 
@@ -302,6 +303,20 @@ void MainWindow::applySettings(QMap<QString, bool> applySet, bool justApplyAllOf
 
 	if(applySet["redrawimg"])
 		drawImage();
+
+
+	QString qtfiles = globSet->knownFileTypesQt;
+	QString qtfilesextras = globSet->knownFileTypesQtExtras;
+	if(qtfiles != "" && qtfilesextras != "") qtfiles += ",";
+	qtfiles += qtfilesextras;
+
+	QString gmfiles = globSet->knownFileTypesGm;
+	QString gmfilesextras = globSet->knownFileTypesGmExtras;
+	if(gmfiles != "" && gmfilesextras != "") gmfiles += ",";
+	gmfiles += gmfilesextras;
+
+	imageReader->gmfiles = gmfiles;
+	imageReader->qtfiles = qtfiles;
 
 }
 

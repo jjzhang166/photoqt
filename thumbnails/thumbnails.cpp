@@ -52,7 +52,7 @@ Thumbnails::Thumbnails(QWidget *parent, bool v, QMap<QString,QVariant> set) : QW
 	rectHidden = QRect(0,0,10,10);
 
 	// The thumbnail thread
-	thumbThread = new ThumbThread;
+	thumbThread = new ThumbThread();
 	thumbThread->verbose = verbose;
 	connect(thumbThread, SIGNAL(updateThb(QImage,QString,int,int,int)), this, SLOT(updateThumb(QImage,QString,int,int,int)));
 
@@ -360,6 +360,7 @@ void Thumbnails::startThread() {
 		thumbThread->verbose = verbose;
 		// Set and start the thumbnail thread
 		thumbThread->counttot = allImgsPath.length();
+		thumbThread->globSet = globSet;
 		thumbThread->allimgs.clear();
 		thumbThread->allimgs.append(allImgsInfo);
 		thumbThread->viewWidth = this->width();
@@ -655,7 +656,7 @@ void Thumbnails::scrolledView() {
 
 	if(pixPath == "") {
 		QPoint center = view->viewport()->visibleRegion().boundingRect().center();
-		QPoint customCenter = QPoint(center.x()+globSet.value("ThumbnailSpacingBetween").toInt()+1,center.y());
+		QPoint customCenter = QPoint(center.x()+2*(globSet.value("ThumbnailSpacingBetween").toInt()+2),center.y());
 		// We get the position of the item in view center
 		QGraphicsItem *pix = (QGraphicsItem*)view->itemAt(customCenter);
 		pixPath = pix->data(1).toString();

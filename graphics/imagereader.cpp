@@ -21,25 +21,15 @@ ImageReader::ImageReader(bool v) : QObject() {
 
 	verbose = v;
 
+	gmfiles = "";
+	qtfiles = "";
+
 }
 
 bool ImageReader::doIUseMagick(QString filename) {
 
 #ifdef WITH_GRAPHICSMAGICK
-	QStringList qtFiles;
-	qtFiles << ".bmp";
-	qtFiles << ".gif";
-	qtFiles << ".tif";
-	qtFiles << ".tiff";
-	qtFiles << ".jpg";
-	qtFiles << ".jpeg";
-	qtFiles << ".jpeg2000";
-	qtFiles << ".pbm";
-	qtFiles << ".pgm";
-	qtFiles << ".ppm";
-	qtFiles << ".png";
-	qtFiles << ".xbm";
-	qtFiles << ".xpm";
+	QStringList qtFiles = qtfiles.replace("*","").split(",");
 
 	for(int i = 0; i < qtFiles.length(); ++i) {
 		if(filename.toLower().endsWith(qtFiles.at(i)))
