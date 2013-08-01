@@ -838,7 +838,7 @@ void Details::gpsClick() {
 
 
 		if(!QDesktopServices::openUrl(QUrl(url)))
-			std::cerr << "ERROR: Couldn't open URL..." << std::endl;
+			std::cerr << "ERROR: Couldn't open URL: " << url.toString().toStdString() << std::endl;
 
 	}
 

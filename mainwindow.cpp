@@ -1328,7 +1328,7 @@ void MainWindow::setupTrayIcon() {
 
 	// The Tray Icon
 	trayIcon = new QSystemTrayIcon(this);
-	trayIcon->setIcon(QIcon(":/img/logo.png"));
+	trayIcon->setIcon(QIcon(":/img/icon.png"));
 	trayIcon->setToolTip("PhotoQt - " + tr("Image Viewer"));
 
 	// A context menu for the tray icon

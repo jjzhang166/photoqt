@@ -3,6 +3,7 @@
 
 #include "../customelements/customscrollbar.h"
 #include "../customelements/custompushbutton.h"
+#include "../customelements/customlabel.h"
 
 #include <QWidget>
 #include <QPropertyAnimation>
@@ -12,6 +13,8 @@
 #include <QVBoxLayout>
 #include <QScrollArea>
 #include <QLabel>
+#include <QDesktopServices>
+#include <QUrl>
 
 class About : public QWidget {
 
@@ -62,6 +65,8 @@ private slots:
 
 	// Each fade step calls this function
 	void fadeStep();
+
+	void openWebsite();
 
 signals:
 	// Block all function in mainwindow and activate system keys

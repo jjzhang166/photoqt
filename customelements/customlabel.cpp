@@ -18,9 +18,9 @@
 
 CustomLabel::CustomLabel(const QString &text, QWidget *parent) : QLabel(text, parent) {
 
-	css = "QLabel {color: white; } QLabel:disabled { color: grey; }";
+	fontsize = "10pt";
 
-	this->setStyleSheet(css);
+	setCSS();
 
 }
 
@@ -40,13 +40,15 @@ void CustomLabel::setEnabled(bool e) {
 
 }
 
-void CustomLabel::setCSS(QString c) {
+void CustomLabel::setCSS() {
 
-	css = c;
-	if(this->isEnabled())
-		this->setStyleSheet(css + "QLabel { background: rgba(255,255,255,200); }");
-	else
-		this->setStyleSheet(css + "QLabel { background: transparent; }");
+	QString css = "";
+
+	css += "color: " + QString(this->isEnabled() ? "white" : "grey") + ";";
+	css += "background: transparent;";
+	css += "font-size: " + fontsize + ";";
+
+	this->setStyleSheet(css);
 
 }
 

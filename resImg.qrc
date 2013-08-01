@@ -21,7 +21,6 @@
         <file>img/rotateLeft.png</file>
         <file>img/rotateRight.png</file>
         <file>img/setup.png</file>
-        <file>img/splash.png</file>
         <file>img/toggle.png</file>
         <file>img/radiobutton_checked.png</file>
         <file>img/radiobutton_unchecked.png</file>
@@ -30,7 +29,6 @@
         <file>img/empty.png</file>
         <file>img/nothumb.png</file>
         <file>img/emptybackground.png</file>
-        <file>img/splashwithoutversion.png</file>
         <file>img/startupthumbs.png</file>
         <file>img/startupfileaction.png</file>
         <file>img/startupfileformats.png</file>
@@ -48,5 +46,6 @@
         <file>img/lastSmall.png</file>
         <file>img/slideshow.png</file>
         <file>img/plainerrorimg.png</file>
+        <file>img/icon.png</file>
     </qresource>
 </RCC>

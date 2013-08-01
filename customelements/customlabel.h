@@ -11,10 +11,11 @@ public:
 	CustomLabel(const QString &text = "", QWidget *parent = 0);
 	~CustomLabel();
 
-	void setCSS(QString);
+	void setFontSize(QString fs) { fontsize = fs; setCSS(); }
 
 private:
-	QString css;
+	void setCSS();
+	QString fontsize;
 
 public slots:
 	void setEnabled(bool);
