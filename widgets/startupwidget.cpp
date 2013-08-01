@@ -61,8 +61,7 @@ StartUpWidget::StartUpWidget(QWidget *parent) : QWidget(parent) {
 
 	// The logo
 	QLabel *logo = new QLabel;
-	QPixmap splash(":/img/splashwithoutversion.png");
-	splash = splash.scaledToHeight(100);
+	QPixmap splash(":/img/logo.png");
 	logo->setPixmap(splash);
 	logo->setAlignment(Qt::AlignCenter);
 
