@@ -635,7 +635,7 @@ public:
 		thumbnailSpacingBetween = 0;
 		thumbnailLiftUp = 10;
 		thumbnailKeepVisible = false;
-		thumbnailDynamic = false;
+		thumbnailDynamic = true;
 		thumbnailDisable = false;
 		thumbnailWriteFilename = true;
 		thumbnailWriteResolution = false;
