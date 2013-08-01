@@ -165,6 +165,8 @@ int main(int argc, char *argv[]) {
 
 		bool verbose = (allArgs.contains("--v") || allArgs.contains("--verbose") || QFile(QDir::homePath() + "./photoqt/verbose").exists() || (!QDir(QDir::homePath() + "/.photoqt").exists() && QFile(QDir::homePath() + "/.photo/verbose").exists()));
 
+		bool migrated = false;
+
 		// Ensure that the config folder exists, and move from ~/.photo to ~/.photoqt
 		QDir dir(QDir::homePath() + "/.photoqt");
 		if(!dir.exists()) {
@@ -217,6 +219,7 @@ int main(int argc, char *argv[]) {
 
 				dir_old.rmdir(dir_old.absolutePath());
 
+				migrated = true;
 
 
 			} else {
@@ -345,7 +348,7 @@ int main(int argc, char *argv[]) {
 			db.setDatabaseName(QDir::homePath() + "/.photoqt/thumbnails");
 			if(!db.open()) std::cerr << "ERROR: Couldn't open thumbnail database:" << db.lastError().text().trimmed().toStdString() << std::endl;
 			QSqlQuery query(db);
-			query.prepare("CREATE TABLE Thumbnails (filepath TEXT,thumbnail BLOB, filelastmod INT, thumbcreated INT)");
+			query.prepare("CREATE TABLE Thumbnails (filepath TEXT,thumbnail BLOB, filelastmod INT, thumbcreated INT, origwidth INT, origheight INT)");
 			query.exec();
 			if(query.lastError().text().trimmed().length()) std::cerr << "ERROR (Creating Thumbnail Datbase):" << query.lastError().text().trimmed().toStdString() << std::endl;
 			query.clear();
@@ -359,6 +362,18 @@ int main(int argc, char *argv[]) {
 			QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE","thumbDB");
 			db.setDatabaseName(QDir::homePath() + "/.photoqt/thumbnails");
 			if(!db.open()) std::cerr << "ERROR: Couldn't open thumbnail database:" << db.lastError().text().trimmed().toStdString() << std::endl;
+
+			if(migrated) {
+				QSqlQuery query(db);
+				query.prepare("ALTER TABLE Thumbnails ADD COLUMN origwidth INT");
+				query.exec();
+				if(query.lastError().text().trimmed().length()) std::cerr << "ERROR (Adding origwidth to Thumbnail Database):" << query.lastError().text().trimmed().toStdString() << std::endl;
+				query.clear();
+				query.prepare("ALTER TABLE Thumbnails ADD COLUMN origheight INT");
+				query.exec();
+				if(query.lastError().text().trimmed().length()) std::cerr << "ERROR (Adding origheight to Thumbnail Database):" << query.lastError().text().trimmed().toStdString() << std::endl;
+				query.clear();
+			}
 
 		}
 

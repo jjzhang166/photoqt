@@ -33,7 +33,7 @@ Thumbnails::Thumbnails(QWidget *parent, bool v, QMap<QString,QVariant> set) : QW
 	currentfile = "";
 
 	// The view and scene
-	view = new ThumbnailView(globSet);
+	view = new ThumbnailView(v, globSet);
 	view->setDragMode(QGraphicsView::ScrollHandDrag);
 	view->setMouseTracking(true);
 	this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
@@ -54,7 +54,7 @@ Thumbnails::Thumbnails(QWidget *parent, bool v, QMap<QString,QVariant> set) : QW
 	// The thumbnail thread
 	thumbThread = new ThumbThread;
 	thumbThread->verbose = verbose;
-	connect(thumbThread, SIGNAL(updateThb(QImage,QString,int)), this, SLOT(updateThumb(QImage,QString,int)));
+	connect(thumbThread, SIGNAL(updateThb(QImage,QString,int,int,int)), this, SLOT(updateThumb(QImage,QString,int,int,int)));
 
 	layout->addWidget(view);
 
@@ -185,7 +185,7 @@ void Thumbnails::aniFinished() {
 }
 
 // Load the directory
-void Thumbnails::loadDir() {
+void Thumbnails::loadDir(bool amReloadingDir) {
 
 	// Clear the scene
 	view->scene.clear();
@@ -315,6 +315,11 @@ void Thumbnails::loadDir() {
 
 		newlyLoadedDir = true;
 
+		if(amReloadingDir) {
+			if(verbose) std::clog << "Calling scrolledView()" << std::endl;
+			QTimer::singleShot(200,this,SLOT(scrolledView()));
+		}
+
 	}
 
 }
@@ -391,7 +396,84 @@ void Thumbnails::stopThbCreation() {
 // Update a thumbnail
 void Thumbnails::updateThumb(QImage img, QString path, int pos) {
 
-	if(verbose) std::clog << "thb: Update thumb: " << pos << " - " << path.toStdString();
+//	if(verbose) std::clog << "thb: Update thumb: " << pos << " - " << path.toStdString();
+
+//	// Default size
+//	int size = globSet.value("ThumbnailSize").toInt();
+//	int spacing = globSet.value("ThumbnailSpacingBetween").toInt();
+//	int liftup = globSet.value("ThumbnailLiftUp").toInt();
+
+//	// The thumbnail image
+//	QPixmap pix(img.width(),img.height());
+//	pix = QPixmap::fromImage(img);
+//	if(pix.height() > size)
+//		pix = pix.scaledToHeight(size);
+//	if(pix.width() > size)
+//		pix = pix.scaledToWidth(size);
+
+//	// The normal image
+//	QPixmap imgNorm(size+spacing,size+liftup);
+//	imgNorm.fill(Qt::transparent);
+//	QPainter paint(&imgNorm);
+//	paint.setCompositionMode(QPainter::CompositionMode_SourceOver);
+//	int xPix = (size-pix.width())/2;
+//	int yPix = (size-pix.height())/2;
+//	int wPix = pix.width();
+//	int hPix = pix.height();
+//	if(globSet.value("ThumbnailPosition") == "Bottom") {
+//		paint.fillRect(0,liftup,size+spacing,size,QColor::fromRgba(qRgba(0,0,0,150)));
+//		paint.drawPixmap(xPix+spacing/2,liftup+yPix,wPix,hPix,pix);
+//	} else if(globSet.value("ThumbnailPosition") == "Top") {
+//		paint.fillRect(0,0,size+spacing,size,QColor::fromRgba(qRgba(0,0,0,150)));
+//		paint.drawPixmap(xPix+spacing/2,yPix,wPix,hPix,pix);
+//	}
+//	QTextDocument txt;
+//	txt.setHtml("<center><div style=\"text-align: center; font-size: 7pt; font-wight: bold; color: white; background: rgba(0,0,0,150); border-radius: 10px\">" + QFileInfo(path).fileName() + "</div></center>");
+//	txt.setTextWidth(size);
+//	if(globSet.value("ThumbnailPosition") == "Bottom")
+//		paint.translate(0,size*3/4.0);
+//	else if(globSet.value("ThumbnailPosition") == "Top")
+//		paint.translate(0,size/8.0);
+//	txt.drawContents(&paint);
+//	paint.end();
+
+//	// The hover image
+//	QPixmap imgHov(size+spacing,size+liftup);
+//	imgHov.fill(Qt::transparent);
+//	QPainter paintSel(&imgHov);
+//	paintSel.setCompositionMode(QPainter::CompositionMode_SourceOver);
+//	int xSel = (size-pix.width())/2;
+//	int ySel = (size-pix.height())/2;
+//	int wSel = pix.width();
+//	int hSel = pix.height();
+//	if(globSet.value("ThumbnailPosition") == "Bottom") {
+//		paintSel.fillRect(0,0,size+spacing,size,QColor::fromRgba(qRgba(0,0,0,150)));
+//		paintSel.drawPixmap(xSel+spacing/2,ySel,wSel,hSel,pix);
+//	} else if(globSet.value("ThumbnailPosition") == "Top") {
+//		paintSel.fillRect(0,liftup,size+spacing,size,QColor::fromRgba(qRgba(0,0,0,150)));
+//		paintSel.drawPixmap(xSel+spacing/2,ySel+liftup,wSel,hSel,pix);
+//	}
+//	if(globSet.value("ThumbnailPosition") == "Bottom")
+//		paintSel.translate(0,size*3/4.0);
+//	else if(globSet.value("ThumbnailPosition") == "Top")
+//		paintSel.translate(0,size/8.0);
+//	txt.drawContents(&paintSel);
+//	paintSel.end();
+
+//	if(allPixmaps.length() >= pos) {
+//		if(allPixmaps.at(pos)->path == currentfile)
+//			allPixmaps.at(pos)->presented = true;
+//		else
+//			allPixmaps.at(pos)->presented = false;
+//		allPixmaps.at(pos)->setPixmap(imgNorm,imgHov);
+//		allPixmaps.at(pos)->path = path;
+//	}
+
+}
+
+void Thumbnails::updateThumb(QImage img, QString path, int origwidth, int origheight, int pos) {
+
+	if(verbose) std::clog << "thb: Update thumb: " << pos << " - " << path.toStdString() << std::endl;
 
 	// Default size
 	int size = globSet.value("ThumbnailSize").toInt();
@@ -422,14 +504,27 @@ void Thumbnails::updateThumb(QImage img, QString path, int pos) {
 		paint.fillRect(0,0,size+spacing,size,QColor::fromRgba(qRgba(0,0,0,150)));
 		paint.drawPixmap(xPix+spacing/2,yPix,wPix,hPix,pix);
 	}
+
+	bool showFilename = globSet.value("ThumbnailWriteFilename").toBool();
+	bool showDimensions = globSet.value("ThumbnailWriteDimensions").toBool();
 	QTextDocument txt;
-	txt.setHtml("<center><div style=\"text-align: center; font-size: 7pt; font-wight: bold; color: white; background: rgba(0,0,0,150); border-radius: 10px\">" + QFileInfo(path).fileName() + "</div></center>");
-	txt.setTextWidth(size);
-	if(globSet.value("ThumbnailPosition") == "Bottom")
-		paint.translate(0,size*3/4.0);
-	else if(globSet.value("ThumbnailPosition") == "Top")
-		paint.translate(0,size/8.0);
-	txt.drawContents(&paint);
+
+	if(showFilename || showDimensions) {
+
+		QString textdocTXT = "<center><div style=\"text-align: center; font-size: 7pt; font-wight: bold; color: white; background: rgba(0,0,0,150); border-radius: 10px\">";
+		if(showFilename && showDimensions) textdocTXT += QFileInfo(path).fileName() + "<br><i>(" + QString("%1:%2").arg(origwidth).arg(origheight) + ")</i>";
+		else if(showFilename) textdocTXT += QFileInfo(path).fileName();
+		else if(showDimensions) textdocTXT += QString("%1:%2").arg(origwidth).arg(origheight);
+		textdocTXT += "</div></center>";
+
+		txt.setHtml(textdocTXT);
+		txt.setTextWidth(size);
+		if(globSet.value("ThumbnailPosition") == "Bottom")
+			paint.translate(0,size*((showFilename && showDimensions) ? 0.5 : 0.75));
+		else if(globSet.value("ThumbnailPosition") == "Top")
+			paint.translate(0,size/8.0);
+		txt.drawContents(&paint);
+	}
 	paint.end();
 
 	// The hover image
@@ -448,11 +543,13 @@ void Thumbnails::updateThumb(QImage img, QString path, int pos) {
 		paintSel.fillRect(0,liftup,size+spacing,size,QColor::fromRgba(qRgba(0,0,0,150)));
 		paintSel.drawPixmap(xSel+spacing/2,ySel+liftup,wSel,hSel,pix);
 	}
-	if(globSet.value("ThumbnailPosition") == "Bottom")
-		paintSel.translate(0,size*3/4.0);
-	else if(globSet.value("ThumbnailPosition") == "Top")
-		paintSel.translate(0,size/8.0);
-	txt.drawContents(&paintSel);
+	if(showFilename || showDimensions) {
+		if(globSet.value("ThumbnailPosition") == "Bottom")
+			paintSel.translate(0,size*((showFilename && showDimensions) ? 0.5 : 0.75));
+		else if(globSet.value("ThumbnailPosition") == "Top")
+			paintSel.translate(0,size/8.0);
+		txt.drawContents(&paintSel);
+	}
 	paintSel.end();
 
 	if(allPixmaps.length() >= pos) {
@@ -547,19 +644,27 @@ void Thumbnails::scrolledView() {
 
 	QString pixPath = "";
 	int newpos = -1;
-	int i = 0;
 
-	while(pixPath == "" && i < 10) {
 
+	QPoint center = view->viewport()->visibleRegion().boundingRect().center();
+	QPoint customCenter = QPoint(center.x(),center.y());
+	// We get the position of the item in view center
+	QGraphicsItem *pix = (QGraphicsItem*)view->itemAt(customCenter);
+	pixPath = pix->data(1).toString();
+	newpos = allImgsPath.indexOf(pixPath);
+
+	if(pixPath == "") {
 		QPoint center = view->viewport()->visibleRegion().boundingRect().center();
-		QPoint customCenter = QPoint(center.x()+i*5,center.y());
+		QPoint customCenter = QPoint(center.x()+globSet.value("ThumbnailSpacingBetween").toInt()+1,center.y());
 		// We get the position of the item in view center
 		QGraphicsItem *pix = (QGraphicsItem*)view->itemAt(customCenter);
 		pixPath = pix->data(1).toString();
 		newpos = allImgsPath.indexOf(pixPath);
-
-		++i;
 	}
+
+	if(pixPath == "") std::cerr << "ERROR! Couldn't locate central item!" << std::endl;
+	if(verbose) std::clog << "Central item: " << pixPath.toStdString() << std::endl;
+
 
 	// And submit data to thread
 	// The amUpdatingData bool is true as long as data is updated, and the thread is sitting idle in that time

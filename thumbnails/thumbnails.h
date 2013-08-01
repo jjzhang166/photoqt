@@ -36,7 +36,7 @@ public:
 	ThumbnailView *view;
 
 	// Load the current directory
-	void loadDir();
+	void loadDir(bool amReloadingDir = false);
 
 	// The current filepath
 	QString currentfile;
@@ -108,6 +108,7 @@ private slots:
 
 	// Update a thumbnail
 	void updateThumb(QImage img, QString path, int pos);
+	void updateThumb(QImage img, QString path, int origwidth, int origheight, int pos);
 
 
 protected:

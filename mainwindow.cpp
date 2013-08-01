@@ -280,7 +280,7 @@ void MainWindow::applySettings(QMap<QString, bool> applySet, bool justApplyAllOf
 
 		// (Re-)Load dir
 		if(globVar->currentfile != "")
-			viewThumbs->loadDir();
+			viewThumbs->loadDir(true);
 
 		// Keep Thumbs visible?
 		if(globSet->thumbnailKeepVisible && !viewThumbs->isVisible())
@@ -1569,7 +1569,7 @@ void MainWindow::shortcutDO(QString key, bool mouseSH) {
 			if(key == "__prev")
 				moveInDirectory(0);
 			if(key == "__reloadThb")
-				viewThumbs->loadDir();
+				viewThumbs->loadDir(true);
 			if(key == "__about") {
 				if(!setupWidgets->about)
 					setupWidget("about");

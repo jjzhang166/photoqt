@@ -11,10 +11,12 @@ class ThumbnailView : public QGraphicsView {
 	Q_OBJECT
 
 public:
-	ThumbnailView(QMap<QString,QVariant> set);
+	ThumbnailView(bool v, QMap<QString,QVariant> set);
 	~ThumbnailView();
 
 	QMap<QString,QVariant> globSet;
+
+	bool verbose;
 
 	// The scene
 	QGraphicsScene scene;

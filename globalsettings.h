@@ -456,6 +456,9 @@ public:
 	// Thumbnails can be disabled altogether
 	bool thumbnailDisable;
 
+	bool thumbnailWriteFilename;
+	bool thumbnailWriteDimensions;
+
 	// Window Mode
 	bool windowmode;
 	// w/ or w/o decoration
@@ -547,6 +550,8 @@ public:
 		map.insert("ThumbnailFilenameInstead",thumbnailFilenameInstead);
 		map.insert("ThumbnailFilenameInsteadFontSize",thumbnailFilenameInsteadFontSize);
 		map.insert("ThumbnailDisable",thumbnailDisable);
+		map.insert("ThumbnailWriteFilename",thumbnailWriteFilename);
+		map.insert("ThumbnailWriteDimensions",thumbnailWriteDimensions);
 
 		map.insert("SlideShowTime",slideShowTime);
 		map.insert("SlideShowTransition",slideShowTransition);
@@ -632,6 +637,8 @@ public:
 		thumbnailKeepVisible = false;
 		thumbnailDynamic = false;
 		thumbnailDisable = false;
+		thumbnailWriteFilename = true;
+		thumbnailWriteDimensions = false;
 
 		thumbnailFilenameInstead = false;
 		thumbnailFilenameInsteadFontSize = 8;
@@ -816,7 +823,7 @@ public:
 
 			if(all.contains("ThumbnailSpacingBetween="))
 				thumbnailSpacingBetween = all.split("ThumbnailSpacingBetween=").at(1).split("\n").at(0).toInt();
-			// That below the old property
+			// That below is the old property
 			else if(all.contains("ThumbnailBorderAround="))
 				thumbnailSpacingBetween = all.split("ThumbnailBorderAround=").at(1).split("\n").at(0).toInt();
 
@@ -845,6 +852,16 @@ public:
 				thumbnailDisable = true;
 			else if(all.contains("ThumbnailDisable=0"))
 				thumbnailDisable = false;
+
+			if(all.contains("ThumbnailWriteFilename=1"))
+				thumbnailWriteFilename = true;
+			else if(all.contains("ThumbnailWriteFilename=0"))
+				thumbnailWriteFilename = false;
+
+			if(all.contains("ThumbnailWriteDimensions=1"))
+				thumbnailWriteDimensions = true;
+			else if(all.contains("ThumbnailWriteDimensions=0"))
+				thumbnailWriteDimensions = false;
 
 
 			if(all.contains("SlideShowTime="))
@@ -1037,7 +1054,9 @@ public:
 			cont += QString("ThumbnailDynamic=%1\n").arg(thumbnailDynamic);
 			cont += QString("ThumbnailFilenameInstead=%1\n").arg(int(thumbnailFilenameInstead));
 			cont += QString("ThumbnailFilenameInsteadFontSize=%1\n").arg(thumbnailFilenameInsteadFontSize);
-			cont += QString("ThumbnailDisable=%1\n").arg(thumbnailDisable);
+			cont += QString("ThumbnailDisable=%1\n").arg(int(thumbnailDisable));
+			cont += QString("ThumbnailWriteFilename=%1\n").arg(int(thumbnailWriteFilename));
+			cont += QString("ThumbnailWriteDimensions=%1\n").arg(int(thumbnailWriteDimensions));
 
 			cont += "\n[Slideshow]\n";
 
@@ -1265,6 +1284,14 @@ public slots:
 		}
 		if(changedSet.keys().contains("ThumbnailDisable")) {
 			thumbnailDisable = changedSet.value("ThumbnailDisable").toBool();
+			applySet["thumb"] = true;
+		}
+		if(changedSet.keys().contains("ThumbnailWriteFilename")) {
+			thumbnailWriteFilename = changedSet.value("ThumbnailWriteFilename").toBool();
+			applySet["thumb"] = true;
+		}
+		if(changedSet.keys().contains("ThumbnailWriteDimensions")) {
+			thumbnailWriteDimensions = changedSet.value("ThumbnailWriteDimensions").toBool();
 			applySet["thumb"] = true;
 		}
 

@@ -160,6 +160,11 @@ void ViewBigLay::updateInfo(QString currentfile, int countpos, int counttot) {
 			quickInfoFilenameTOP->show();
 		}
 
+		quickInfoFilenameBOT->hide();
+		quickInfoCounterBOT->hide();
+		quickInfoSepBOT->hide();
+		quickInfoFilenameBOT->hide();
+
 	} else if(globSet.value("ThumbnailPosition").toString() == "Top") {
 
 		if(currentfile != "") {
@@ -181,6 +186,11 @@ void ViewBigLay::updateInfo(QString currentfile, int countpos, int counttot) {
 			quickInfoSepBOT->hide();
 			quickInfoFilenameBOT->show();
 		}
+
+		quickInfoFilenameTOP->hide();
+		quickInfoCounterTOP->hide();
+		quickInfoSepTOP->hide();
+		quickInfoFilenameTOP->hide();
 
 	}
 

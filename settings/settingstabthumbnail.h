@@ -8,6 +8,7 @@
 #include "../customelements/custompushbutton.h"
 #include "../customelements/customspinbox.h"
 #include "../customelements/customtabwidget.h"
+#include "../customelements/customlabel.h"
 #include "../widgets/customconfirm.h"
 
 #include <QWidget>
@@ -81,12 +82,15 @@ public:
 	// Use thumbnail cache
 	CustomCheckBox *thumbCache;
 
+	CustomCheckBox *writeFilename;
+	CustomCheckBox *writeDimensions;
+
 	// Type of cache
 	CustomRadioButton *cacheFile;
 	CustomRadioButton *cacheDatabase;
 
 	// A label displaying some info about the database
-	QLabel *dbInfo;
+	CustomLabel *dbInfo;
 
 	// Clean or rebuild database
 	CustomPushButton *cleanDatabase;

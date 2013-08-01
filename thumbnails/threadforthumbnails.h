@@ -67,6 +67,7 @@ public:
 signals:
 	// Whenever a thumbnail is succesfully created, send it to main thread
 	void updateThb(QImage img,QString path, int pos);
+	void updateThb(QImage img,QString path, int dimensionWidth, int dimensionHeight, int pos);
 
 protected:
 	void run() {
@@ -96,6 +97,8 @@ protected:
 		createThisOne = -1;
 		leftNextThb = -1;
 		rightNextThb = -1;
+
+		posCreated.clear();
 
 		// The actual number of thumbnail we have to create (plus 4, 2 for safety on either site)
 		int numberThbs = viewWidth/thbWidth + 4;
@@ -161,6 +164,9 @@ protected:
 						td = "normal";
 					}
 
+					int origwidth;
+					int origheight;
+
 					bool loaded = false;
 					bool wasoncecreated = false;
 
@@ -189,7 +195,7 @@ protected:
 						ts = 256;
 
 						QSqlQuery query(db);
-						if(!amUpdatingData) query.exec(QString("SELECT thumbnail,filelastmod FROM Thumbnails WHERE filepath='%1'").arg(allimgs.at(createThisOne).absoluteFilePath()));
+						if(!amUpdatingData) query.exec(QString("SELECT thumbnail,filelastmod,origwidth,origheight FROM Thumbnails WHERE filepath='%1'").arg(allimgs.at(createThisOne).absoluteFilePath()));
 						if(query.next()) {
 
 							if(!amUpdatingData && query.value(query.record().indexOf("filelastmod")).toInt() == int(allimgs.at(createThisOne).lastModified().toTime_t())) {
@@ -197,6 +203,8 @@ protected:
 								QByteArray b;
 								b = query.value(query.record().indexOf("thumbnail")).toByteArray();
 								p.loadFromData(b);
+								origwidth = query.value(query.record().indexOf("origwidth")).toInt();
+								origheight = query.value(query.record().indexOf("origheight")).toInt();
 								loaded = true;
 							}
 
@@ -216,6 +224,9 @@ protected:
 
 						ImageReader image(verbose);
 						p = image.readImage(allimgs.at(createThisOne).absoluteFilePath(),0,false,QSize(ts,ts));
+
+						origwidth = image.origSize.width();
+						origheight = image.origSize.height();
 
 						if(typeCache == "files") {
 
@@ -261,14 +272,16 @@ protected:
 
 							// If it was once created, i.e. if the file changed (i.e. if last mod date changed), then we have to update it
 							if(wasoncecreated)
-								query2.prepare("UPDATE Thumbnails SET filepath=:path,thumbnail=:thb,filelastmod=:mod,thumbcreated=:crt WHERE filepath=:path");
+								query2.prepare("UPDATE Thumbnails SET filepath=:path,thumbnail=:thb,filelastmod=:mod,thumbcreated=:crt,origwidth=:origw,origheight=:origh WHERE filepath=:path");
 							else
-								query2.prepare("INSERT INTO Thumbnails(filepath,thumbnail,filelastmod,thumbcreated) VALUES(:path,:thb,:mod,:crt)");
+								query2.prepare("INSERT INTO Thumbnails(filepath,thumbnail,filelastmod,thumbcreated,origwidth,origheight) VALUES(:path,:thb,:mod,:crt,:origw,:origh)");
 
 							if(!amUpdatingData) query2.bindValue(":path",allimgs.at(createThisOne).absoluteFilePath());
-							query2.bindValue(":thb",b);
+							if(!amUpdatingData) query2.bindValue(":thb",b);
 							if(!amUpdatingData) query2.bindValue(":mod",allimgs.at(createThisOne).lastModified().toTime_t());
-							query2.bindValue(":crt",QDateTime::currentMSecsSinceEpoch());
+							if(!amUpdatingData) query2.bindValue(":crt",QDateTime::currentMSecsSinceEpoch());
+							if(!amUpdatingData) query2.bindValue(":origw",origwidth);
+							if(!amUpdatingData) query2.bindValue(":origh",origheight);
 							if(!amUpdatingData) query2.exec();
 							if(!amUpdatingData && query2.lastError().text().trimmed().length())
 								std::cerr << "ERROR #" << createThisOne << ": " << query2.lastError().text().trimmed().toStdString() << std::endl;
@@ -280,7 +293,7 @@ protected:
 
 					// Send out signal with all the data
 					if(!breakme && !amUpdatingData)
-						emit updateThb(p,allimgs.at(createThisOne).absoluteFilePath(),createThisOne);
+						emit updateThb(p,allimgs.at(createThisOne).absoluteFilePath(),origwidth,origheight,createThisOne);
 
 				}
 

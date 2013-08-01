@@ -198,7 +198,7 @@ QImage ImageReader::readImage(QString filename, int rotation, bool zoomed, QSize
 		// Eventually load the image
 		img = reader.read();
 
-		if(verbose) std::clog << "[read] image: " << img.width() << " - " << img.height() << " - z: " << zoomed;
+		if(verbose) std::clog << "[read] image: " << img.width() << " - " << img.height() << " - z: " << zoomed << std::endl;
 
 		if(reader.supportsAnimation() && reader.imageCount() > 1)
 			animatedImg = true;

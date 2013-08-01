@@ -15,10 +15,13 @@
  */
 
 #include "thumbnailview.h"
+#include <iostream>
 
-ThumbnailView::ThumbnailView(QMap<QString, QVariant> set) : QGraphicsView() {
+ThumbnailView::ThumbnailView(bool v, QMap<QString, QVariant> set) : QGraphicsView() {
 
 	globSet = set;
+
+	verbose = v;
 
 	this->setMouseTracking(true);
 
@@ -79,6 +82,8 @@ void ThumbnailView::scrollbarValueChanged(int) {
 
 // The timer has timed out, i.e. the user stopped scrolling
 void ThumbnailView::scrollUpdateTimeout() {
+
+	if(verbose) std::clog << "Scrollbar value changed - update thumbnail view" << std::endl;
 
 	emit movedScroll();
 
