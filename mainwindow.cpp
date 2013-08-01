@@ -100,6 +100,7 @@ MainWindow::MainWindow(QWidget *parent, bool verbose) : QMainWindow(parent) {
 	connect(set, SIGNAL(restoreDefault()), this, SLOT(restoreDefaultSettings()));
 	set->sh->version = globSet->version;
 	connect(set->sh, SIGNAL(updatedShortcuts()), this, SLOT(setupShortcuts()));
+	connect(set, SIGNAL(settingsClosed()), this, SLOT(settingsClosed()));
 
 
 	// The exif widget

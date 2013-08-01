@@ -104,6 +104,9 @@ signals:
 	// Ask mainwindow.cpp to restore default settings
 	void restoreDefault();
 
+	// Emitted when the window has closed
+	void settingsClosed();
+
 
 
 };

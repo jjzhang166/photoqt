@@ -184,6 +184,11 @@ private slots:
 	// Restore default settings
 	void restoreDefaultSettings();
 
+	// After the settings window is closed we might have to call openFile().
+	// We cannot use one of the already existing functions, since this call is only to
+	// be done if the settings window has been open and closed!
+	void settingsClosed() { if(globVar->currentfile == "") openFile(); }
+
 	// Setup the shortcuts
 	void setupShortcuts();
 

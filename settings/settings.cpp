@@ -300,8 +300,10 @@ void Settings::aniFinished() {
 	tabThumb->scrollbarTune->setScrollbarShown();
 	tabShortcuts->scrollbar->setScrollbarShown();
 
-	if(!isShown)
+	if(!isShown) {
 		this->setGeometry(rectHidden);
+		emit settingsClosed();
+	}
 
 }
 
