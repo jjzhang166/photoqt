@@ -457,7 +457,7 @@ public:
 	bool thumbnailDisable;
 
 	bool thumbnailWriteFilename;
-	bool thumbnailWriteDimensions;
+	bool thumbnailWriteResolution;
 
 	// Window Mode
 	bool windowmode;
@@ -551,7 +551,7 @@ public:
 		map.insert("ThumbnailFilenameInsteadFontSize",thumbnailFilenameInsteadFontSize);
 		map.insert("ThumbnailDisable",thumbnailDisable);
 		map.insert("ThumbnailWriteFilename",thumbnailWriteFilename);
-		map.insert("ThumbnailWriteDimensions",thumbnailWriteDimensions);
+		map.insert("ThumbnailWriteResolution",thumbnailWriteResolution);
 
 		map.insert("SlideShowTime",slideShowTime);
 		map.insert("SlideShowTransition",slideShowTransition);
@@ -638,7 +638,7 @@ public:
 		thumbnailDynamic = false;
 		thumbnailDisable = false;
 		thumbnailWriteFilename = true;
-		thumbnailWriteDimensions = false;
+		thumbnailWriteResolution = false;
 
 		thumbnailFilenameInstead = false;
 		thumbnailFilenameInsteadFontSize = 8;
@@ -858,10 +858,10 @@ public:
 			else if(all.contains("ThumbnailWriteFilename=0"))
 				thumbnailWriteFilename = false;
 
-			if(all.contains("ThumbnailWriteDimensions=1"))
-				thumbnailWriteDimensions = true;
-			else if(all.contains("ThumbnailWriteDimensions=0"))
-				thumbnailWriteDimensions = false;
+			if(all.contains("ThumbnailWriteResolution=1"))
+				thumbnailWriteResolution = true;
+			else if(all.contains("ThumbnailWriteResolution=0"))
+				thumbnailWriteResolution = false;
 
 
 			if(all.contains("SlideShowTime="))
@@ -1056,7 +1056,7 @@ public:
 			cont += QString("ThumbnailFilenameInsteadFontSize=%1\n").arg(thumbnailFilenameInsteadFontSize);
 			cont += QString("ThumbnailDisable=%1\n").arg(int(thumbnailDisable));
 			cont += QString("ThumbnailWriteFilename=%1\n").arg(int(thumbnailWriteFilename));
-			cont += QString("ThumbnailWriteDimensions=%1\n").arg(int(thumbnailWriteDimensions));
+			cont += QString("ThumbnailWriteResolution=%1\n").arg(int(thumbnailWriteResolution));
 
 			cont += "\n[Slideshow]\n";
 
@@ -1290,8 +1290,8 @@ public slots:
 			thumbnailWriteFilename = changedSet.value("ThumbnailWriteFilename").toBool();
 			applySet["thumb"] = true;
 		}
-		if(changedSet.keys().contains("ThumbnailWriteDimensions")) {
-			thumbnailWriteDimensions = changedSet.value("ThumbnailWriteDimensions").toBool();
+		if(changedSet.keys().contains("ThumbnailWriteResolution")) {
+			thumbnailWriteResolution = changedSet.value("ThumbnailWriteResolution").toBool();
 			applySet["thumb"] = true;
 		}
 

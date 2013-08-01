@@ -506,7 +506,7 @@ void Thumbnails::updateThumb(QImage img, QString path, int origwidth, int orighe
 	}
 
 	bool showFilename = globSet.value("ThumbnailWriteFilename").toBool();
-	bool showDimensions = globSet.value("ThumbnailWriteDimensions").toBool();
+	bool showDimensions = globSet.value("ThumbnailWriteResolution").toBool();
 	QTextDocument txt;
 
 	if(showFilename || showDimensions) {
