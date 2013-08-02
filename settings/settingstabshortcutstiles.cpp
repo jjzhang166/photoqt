@@ -114,9 +114,17 @@ ShortcutsTiles::ShortcutsTiles(QString exeCmd, QString exeDesc, QString category
 		back->setStyleSheet(css + cssBackgroundNorm);
 		add->setStyleSheet(css + cssBackgroundNorm);
 
-	} else if(type == "exist")
+		back->setToolTip(exeDesc);
+		add->setToolTip(exeDesc);
+
+	} else if(type == "exist") {
 
 		this->setStyleSheet(css + cssBackgroundNorm);
+		this->setToolTip(exeDesc);
+
+	}
+
+
 
 }
 

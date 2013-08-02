@@ -95,7 +95,7 @@ ShortcutChangeCommand::ShortcutChangeCommand(QWidget *parent) : QWidget(parent) 
 // The animation function
 void ShortcutChangeCommand::animate() {
 
-	QRect shown = QRect((rectShown.width()-400)/2,(rectShown.height()-200)/2,400,200);
+	QRect shown = QRect((rectShown.width()-500)/2,(rectShown.height()-220)/2,500,220);
 
 	// Open widget
 	if(ani->state() == QPropertyAnimation::Stopped && !isShown) {

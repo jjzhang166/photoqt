@@ -521,6 +521,7 @@ void SettingsTabShortcuts::analyseChangedCommand(QString id, QString cmd) {
 	markForChange();
 
 	allTiles["extern"][id]->back->setText(cmd);
+	allTiles["extern"][id]->setToolTip(cmd);
 
 }
 

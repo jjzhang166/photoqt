@@ -391,7 +391,7 @@ int main(int argc, char *argv[]) {
 
 				QTextStream out(&contextmenu);
 
-				QString def = "gimp %f\nEdit with Gimp\n\ngwenview %f\nOpen in GwenView";
+				QString def = "gimp %f\n" + QObject::tr("Edit with Gimp") + "\n\ngwenview %f\n" + QObject::tr("Open in GwenView");
 				out << def;
 
 				contextmenu.close();

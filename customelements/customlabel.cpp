@@ -21,6 +21,12 @@ CustomLabel::CustomLabel(const QString &text, QWidget *parent) : QLabel(text, pa
 	this->setWordWrap(true);
 
 	fontsize = "9pt";
+	fontcolorEnabled = "white";
+	fontcolorDisabled = "grey";
+	tooltipColor = "white";
+	bold = false;
+
+	this->setMouseTracking(true);
 
 	setCSS();
 
@@ -44,11 +50,14 @@ void CustomLabel::setEnabled(bool e) {
 
 void CustomLabel::setCSS() {
 
-	QString css = "";
+	QString css = "QLabel { ";
 
-	css += "color: " + QString(this->isEnabled() ? "white" : "grey") + ";";
+	css += "color: " + QString(this->isEnabled() ? fontcolorEnabled : fontcolorDisabled) + ";";
 	css += "background: transparent;";
 	css += "font-size: " + fontsize + ";";
+	if(bold) css += "font-weight: bold;";
+	css += "}";
+	css += "QToolTip { padding: 1px; opacity: 250; color: " + tooltipColor +"; }";
 
 	this->setStyleSheet(css);
 

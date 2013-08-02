@@ -38,7 +38,7 @@ ContextTile::ContextTile(QString cmdTxt, QString descTxt, QWidget *parent) : QWi
 	index = -1;
 
 	// A label for dragging
-	dragLabel = new QLabel("Click here to drag");
+	dragLabel = new QLabel(tr("Click here to drag"));
 	dragLabel->setCursor(Qt::SizeAllCursor);
 	dragLabel->setStyleSheet("background: transparent; color: #333333;");
 	lay->addWidget(dragLabel);

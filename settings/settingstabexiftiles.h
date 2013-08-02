@@ -2,6 +2,7 @@
 #define SETTINGSTABEXIFTILES_H
 
 #include "../customelements/customcheckbox.h"
+#include "../customelements/customlabel.h"
 
 #include <QWidget>
 #include <QStyleOption>
@@ -21,7 +22,7 @@ public:
 	QString intern;
 
 	// The label that's being styled
-	QLabel *back;
+	CustomLabel *back;
 
 	// And the checkbox to enable or disable this tile
 	CustomCheckBox *enabled;

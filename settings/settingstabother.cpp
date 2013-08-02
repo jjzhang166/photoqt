@@ -225,6 +225,7 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 	for(int i = 0; i < formatsQt.length(); ++i) {
 
 		SettingsTabOtherFileTypesTiles *check = new SettingsTabOtherFileTypesTiles(formatsQt.at(i));
+		check->setToolTip(formatsQt.at(i));
 		allCheckQt.insert(formatsQt.at(i),check);
 		layQt->addWidget(check);
 
@@ -232,6 +233,7 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 
 	QHBoxLayout *layQtBut = new QHBoxLayout;
 	CustomLabel *extraQt = new CustomLabel(tr("Extra File Types:"));
+	extraQt->setWordWrap(false);
 	extraQtEdit = new CustomLineEdit;
 	CustomPushButton *qtMarkAll = new CustomPushButton(tr("Mark All"));
 	CustomPushButton *qtMarkNone = new CustomPushButton(tr("Mark None"));
@@ -274,6 +276,7 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 
 		SettingsTabOtherFileTypesTiles *check = new SettingsTabOtherFileTypesTiles(formatsGm.at(i));
 		allCheckGm.insert(formatsGm.at(i),check);
+		check->setToolTip(formatsGm.at(i));
 		layGm->addWidget(check);
 #ifndef WITH_GRAPHICSMAGICK
 		check->setEnabled(false);
@@ -283,6 +286,7 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 
 	QHBoxLayout *layGmBut = new QHBoxLayout;
 	CustomLabel *extraGm = new CustomLabel(tr("Extra File Types:"));
+	extraGm->setWordWrap(false);
 	extraGmEdit = new CustomLineEdit;
 	CustomPushButton *gmMarkAll = new CustomPushButton(tr("Mark All"));
 	CustomPushButton *gmMarkNone = new CustomPushButton(tr("Mark None"));
@@ -334,6 +338,7 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 	for(int i = 0; i < formatsGmUnstable.length(); ++i) {
 
 		SettingsTabOtherFileTypesTiles *check = new SettingsTabOtherFileTypesTiles(formatsGmUnstable.at(i));
+		check->setToolTip(formatsGmUnstable.at(i));
 		allCheckGmUnstable.insert(formatsGmUnstable.at(i),check);
 		layGmUnstable->addWidget(check);
 #ifndef WITH_GRAPHICSMAGICK

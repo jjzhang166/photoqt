@@ -15,12 +15,13 @@
  */
 
 #include "settingstabexiftiles.h"
+#include <iostream>
 
 SettingsTabExifTiles::SettingsTabExifTiles(QString exifTxt, QString exifIntern, QWidget *parent) : QWidget(parent) {
 
 	// The standard default stylesheet
-	css = "font-weight: bold; color: black; border-radius: 5px; padding: 1px; font-size: 8pt;";
-	cssOff = "font-weight: bold; color: rgb(30,30,30); border-radius: 5px; padding: 1px; font-size: 8pt;";
+	css = "border-radius: 5px; padding: 1px;";
+	cssOff = "border-radius: 5px; padding: 1px; font-size: 7pt;";
 
 	// Some special stylesheet for hovered and normal
 	cssBackgroundNorm = "background: rgba(255,255,255,150);";
@@ -39,9 +40,12 @@ SettingsTabExifTiles::SettingsTabExifTiles(QString exifTxt, QString exifIntern, 
 	intern = exifIntern;
 
 	// The back label is being styled
-	back = new QLabel("<center>" + exifTxt + "</center>");
-	back->setWordWrap(true);
-	back->setStyleSheet("background: transparent");
+	back = new CustomLabel("<center>" + exifTxt + "</center>");
+	back->setFontColor("black","rgb(30,30,30)");
+	back->setFontSize("7pt");
+	back->setBold(true);
+	back->setToolTipColor("black");
+	back->setToolTip(exifTxt);
 
 	// The checkbox for diabling or enabling this tile
 	enabled = new CustomCheckBox;
