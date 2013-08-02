@@ -331,11 +331,17 @@ int main(int argc, char *argv[]) {
 
 
 		if(verbose) std::clog << "Checking for translation" << std::endl;
-		if(settingsFileTxt.contains("Language=") && !settingsFileTxt.contains("Language=en")) {
-			QString code = settingsFileTxt.split("Language=").at(1).split("\n").at(0).trimmed();
+		QString code = "";
+		if(settingsFileTxt.contains("Language=") && !settingsFileTxt.contains("Language=en"))
+			code = settingsFileTxt.split("Language=").at(1).split("\n").at(0).trimmed();
+		else {
+			code = QLocale::system().name().split("_").at(0);
+			if(verbose) std::clog << "Detected following system language: " << code.toStdString() << std::endl;
+		}
+		if(QFile(":/lang/photoqt_" + code + ".qm").exists()) {
+			std::clog << "Loading Translation:" << code.toStdString() << std::endl;
 			trans.load(":/lang/photoqt_" + code);
 			a.installTranslator(&trans);
-			std::clog << "Loading Translation:" << code.toStdString() << std::endl;
 		}
 
 		// Check if thumbnail database exists. If not, create it

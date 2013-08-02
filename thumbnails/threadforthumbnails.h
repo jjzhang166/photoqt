@@ -68,7 +68,6 @@ public:
 
 signals:
 	// Whenever a thumbnail is succesfully created, send it to main thread
-	void updateThb(QImage img,QString path, int pos);
 	void updateThb(QImage img,QString path, int dimensionWidth, int dimensionHeight, int pos);
 
 protected:

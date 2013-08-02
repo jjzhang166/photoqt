@@ -107,7 +107,6 @@ private slots:
 	void gotClick(QString path);
 
 	// Update a thumbnail
-	void updateThumb(QImage img, QString path, int pos);
 	void updateThumb(QImage img, QString path, int origwidth, int origheight, int pos);
 
 
