@@ -338,7 +338,7 @@ int main(int argc, char *argv[]) {
 		if(settingsFileTxt.contains("Language=") && !settingsFileTxt.contains("Language=en")) {
 			code1 = settingsFileTxt.split("Language=").at(1).split("\n").at(0).trimmed();
 			code2 = settingsFileTxt.split("Language=").at(1).split("\n").at(0).trimmed();
-		} else {
+		} else if(!settingsFileTxt.contains("Language=en")) {
 			code1 = QLocale::system().name();
 			code2 = QLocale::system().name().split("_").at(0);
 			if(verbose) std::clog << "Detected following system language: " << code1.toStdString() << std::endl;
