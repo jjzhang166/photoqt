@@ -156,6 +156,7 @@ public slots:
 		allKeyShortcuts.insert("End",QList<QVariant>() << false << "__gotoLastThb");
 		allKeyShortcuts.insert("M", QList<QVariant>() << false << "__slideshow");
 		allKeyShortcuts.insert("Shift+M", QList<QVariant>() << false << "__slideshowQuick");
+		allKeyShortcuts.insert("W", QList<QVariant>() << false << "__wallpaper");
 
 		allMouseShortcuts.insert("[M] Ctrl+Wheel Down",QList<QVariant>() << false << "__zoomOut");
 		allMouseShortcuts.insert("[M] Ctrl+Wheel Up",QList<QVariant>() << false << "__zoomIn");

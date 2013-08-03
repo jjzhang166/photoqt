@@ -438,7 +438,6 @@ void MainWindow::drawImage() {
 			else
 				graphItem->setPixmap(QPixmap::fromImage(img));
 
-
 			if(img.width() < viewBig->width()) {
 				// Set the right position of the main image
 				int graphItemX = (viewBig->width()-img.width())/2.0;
@@ -724,7 +723,7 @@ void MainWindow::loadNewImgFromOpen(QString path) {
 	globVar->exifRead = false;
 
 	// When a new image is loaded we reset any zooming, rotation, flipping
-	zoom(true,"resetNoDraw");
+	zoom(true,globVar->zoomToActualSize ? "reset" : "resetNoDraw");
 	rotateFlip(true,"resetNoDraw");
 	rotateFlip(false, "reset");
 
@@ -751,7 +750,7 @@ void MainWindow::loadNewImgFromThumbs(QString path) {
 	globVar->zoomedImgAtLeastOnce = false;
 
 	// When a new image is loaded we reset any zooing, rotation, flipping
-	zoom(true,"resetNoDraw");
+	zoom(true,globVar->zoomToActualSize ? "reset" : "resetNoDraw");
 	rotateFlip(true,"resetNoDraw");
 	rotateFlip(false, "reset");
 
@@ -904,7 +903,7 @@ void MainWindow::moveInDirectory(int direction) {
 	if(globVar->verbose) std::clog << "Move in directory: " << direction << std::endl;
 
 	// When a new image is loaded we reset any zooing, rotation, flipping
-	zoom(true,"resetNoDraw");
+	zoom(true,globVar->zoomToActualSize ? "reset" : "resetNoDraw");
 	rotateFlip(true,"resetNoDraw");
 	rotateFlip(false, "reset");
 
@@ -2052,6 +2051,7 @@ void MainWindow::zoom(bool zoomin, QString ignoreBoolean) {
 
 		if(globVar->verbose) std::clog << "Reset Zoom" << std::endl;
 
+		bool wasZoomToActual = globVar->zoomToActualSize;
 		globVar->zoomToActualSize = false;
 		globVar->zoomed = false;
 		viewBig->resetMatrix();
@@ -2068,8 +2068,21 @@ void MainWindow::zoom(bool zoomin, QString ignoreBoolean) {
 		if(globVar->flipHor)
 			viewBig->scale(-1,1);
 
-		if(ignoreBoolean != "resetNoDraw" || (ignoreBoolean != "resetNoDraw" && globSet->transition != 0))
+		// We need to disable temporarily transition globally if image was zoomed to actual size, since in that case the scene scale, etc. would mess everything up
+		int origTrans = 0;
+		if(wasZoomToActual) {
+			origTrans = globSet->transition;
+			globSet->transition = 0;
+			globSet->saveSettings();
+		}
+
+		if(ignoreBoolean != "resetNoDraw")
 			drawImage();
+
+		if(origTrans != 0) {
+			globSet->transition = origTrans;
+			globSet->saveSettings();
+		}
 
 	// zoom to actual size (toggle)
 	} else if(ignoreBoolean == "actualsize") {

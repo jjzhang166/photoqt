@@ -285,8 +285,8 @@ void Details::setupLabels() {
 
 		if(labels.at(i) != "") {
 			if(labelsId.at(i) != "Gps") {
-				QLabel *l = new QLabel("<b>" + labels.at(i) + "</b>");
-				l->setStyleSheet(labelCSS + labelCSSfontsize);
+				CustomLabel *l = new CustomLabel("<b>" + labels.at(i) + "</b>");
+				l->setFontSize(QString("%1pt").arg(globSet.value("ExifFontSize").toInt()));
 				items.insert(labelsId.at(i),l);
 				central->addWidget(l);
 				l->hide();
@@ -295,7 +295,7 @@ void Details::setupLabels() {
 				l->setCursor(Qt::PointingHandCursor);
 				l->setText("<b>" + labels.at(i) + "</b>");
 				connect(l, SIGNAL(clicked()), this, SLOT(gpsClick()));
-				l->setStyleSheet(labelCSS + labelCSSfontsize);
+				l->setFontSize(QString("%1pt").arg(globSet.value("ExifFontSize").toInt()));
 				items.insert(labelsId.at(i),l);
 				central->addWidget(l);
 				l->hide();
