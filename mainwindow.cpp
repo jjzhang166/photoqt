@@ -2069,20 +2069,17 @@ void MainWindow::zoom(bool zoomin, QString ignoreBoolean) {
 			viewBig->scale(-1,1);
 
 		// We need to disable temporarily transition globally if image was zoomed to actual size, since in that case the scene scale, etc. would mess everything up
-		int origTrans = 0;
 		if(wasZoomToActual) {
-			origTrans = globSet->transition;
-			globSet->transition = 0;
-			globSet->saveSettings();
+			QMap<QString, QVariant> s = globSet->toSignalOut();
+			s["Transition"] = 0;
+			updateSettings(s);
 		}
 
 		if(ignoreBoolean != "resetNoDraw")
 			drawImage();
 
-		if(origTrans != 0) {
-			globSet->transition = origTrans;
-			globSet->saveSettings();
-		}
+		if(wasZoomToActual)
+			updateSettings(globSet->toSignalOut());
 
 	// zoom to actual size (toggle)
 	} else if(ignoreBoolean == "actualsize") {
