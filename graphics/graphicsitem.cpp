@@ -76,10 +76,6 @@ void GraphicsItem::setPixmap(const QPixmap &pixmap, bool dontStopMov, bool smoot
 
 	QPixmap thisPixmap = this->pixmap();
 
-	QPixmap em(this->pixmap().size());
-	em.fill(Qt::transparent);
-	QGraphicsPixmapItem::setPixmap(em);
-
 	// For every frame in a transition, we do add a bar to each (that would cause the image to slide down every time a little more).
 	QPixmap pix(pixmap);
 	if(!transitionUpdate) {
