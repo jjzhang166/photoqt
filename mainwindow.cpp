@@ -723,7 +723,7 @@ void MainWindow::loadNewImgFromOpen(QString path) {
 	globVar->exifRead = false;
 
 	// When a new image is loaded we reset any zooming, rotation, flipping
-	zoom(true,globVar->zoomToActualSize ? "reset" : "resetNoDraw");
+	zoom(true,((globVar->zoomToActualSize || globVar->zoomed) && globSet->transition != 0) ? "reset" : "resetNoDraw");
 	rotateFlip(true,"resetNoDraw");
 	rotateFlip(false, "reset");
 
@@ -750,7 +750,7 @@ void MainWindow::loadNewImgFromThumbs(QString path) {
 	globVar->zoomedImgAtLeastOnce = false;
 
 	// When a new image is loaded we reset any zooing, rotation, flipping
-	zoom(true,globVar->zoomToActualSize ? "reset" : "resetNoDraw");
+	zoom(true,((globVar->zoomToActualSize || globVar->zoomed) && globSet->transition != 0) ? "reset" : "resetNoDraw");
 	rotateFlip(true,"resetNoDraw");
 	rotateFlip(false, "reset");
 
@@ -903,7 +903,7 @@ void MainWindow::moveInDirectory(int direction) {
 	if(globVar->verbose) std::clog << "Move in directory: " << direction << std::endl;
 
 	// When a new image is loaded we reset any zooing, rotation, flipping
-	zoom(true,globVar->zoomToActualSize ? "reset" : "resetNoDraw");
+	zoom(true,((globVar->zoomToActualSize || globVar->zoomed) && globSet->transition != 0) ? "reset" : "resetNoDraw");
 	rotateFlip(true,"resetNoDraw");
 	rotateFlip(false, "reset");
 
