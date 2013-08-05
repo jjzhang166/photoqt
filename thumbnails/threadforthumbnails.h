@@ -240,7 +240,7 @@ protected:
 						if(typeCache == "files") {
 
 							// If the file itself wasn't read from the thumbnails folder, is not a temporary file, and if the original file isn't at thumbnail size itself
-							if(!amUpdatingData && cacheEnabled & !allimgs.at(createThisOne).absoluteFilePath().startsWith(QDir::homePath() + "/.thumbnails/") && !allimgs.at(createThisOne).absoluteFilePath().startsWith(QDir::tempPath()) && (p.height() > 127 || p.width() > 127)) {
+							if(!amUpdatingData && cacheEnabled && !allimgs.at(createThisOne).absoluteFilePath().startsWith(QDir::homePath() + "/.thumbnails/") && !allimgs.at(createThisOne).absoluteFilePath().startsWith(QDir::tempPath()) && (p.height() > 127 || p.width() > 127)) {
 
 								// We use a QImageWriter (faster, metainfo support) - the path is a temporary path (for reason, see below)
 								QImageWriter writer(QDir::tempPath() + "/" + md5 + "__photo.png","png");
@@ -262,7 +262,7 @@ protected:
 
 							}
 
-						} else {
+						} else if(cacheEnabled) {
 
 							db.close();
 							db.open();
