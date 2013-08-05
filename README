@@ -15,7 +15,8 @@ Phonon
 GraphicsMagick
 
 
-Note: On some systems you also need the *-dev package for compiling (e.g. exiv2-dev - names can vary slightly depending
+**Note**
+On some systems you also need the *-dev package for compiling (e.g. exiv2-dev - names can vary slightly depending
 on your distribution). These files usually can be removed again after compilation is done.
 
 
@@ -49,7 +50,7 @@ INSTALL
 
 4) (as root) make install  # This (i) installs the desktop file to share/applications/
 				(ii) moves some icons to icons/hicolor/
-				(iii) moves the binary to bin
+				(iii) moves the binary to bin/
 
 
 

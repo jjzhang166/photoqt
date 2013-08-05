@@ -585,7 +585,10 @@ void Thumbnails::scrolledView() {
 		newpos = allImgsPath.indexOf(pixPath);
 	}
 
-	if(pixPath == "") std::cerr << "ERROR! Couldn't locate central item!" << std::endl;
+	// Sometimes PhotoQt wont find a central image.
+	// When the thumbnail view is hidden, it doesn't always get updated.
+	// But as soon as they are shown, then they will start to load, so everything's fine.
+
 	if(verbose) std::clog << "Central item: " << pixPath.toStdString() << std::endl;
 
 
