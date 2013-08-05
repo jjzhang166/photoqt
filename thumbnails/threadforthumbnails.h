@@ -16,6 +16,11 @@ class ThumbThread : public QThread {
 	Q_OBJECT
 
 public:
+
+	ThumbThread() {
+		db = QSqlDatabase::database("thumbDB");
+	}
+
 	bool verbose;
 
 	// Dynamic thumbnails?
@@ -27,8 +32,6 @@ public:
 	int height;
 	int breakme;
 	bool cacheEnabled;
-
-	QString dbName;
 
 	QSqlDatabase db;
 	QString typeCache;
@@ -79,13 +82,6 @@ protected:
 		if(typeCache != "files") {
 
 			if(verbose) std::clog << "thread: Using database cache" << std::endl;
-
-			if(dbName != "thread" && dbName != "open")
-				dbName = "thread";
-
-			dbName += QString("%1").arg(QDateTime::currentMSecsSinceEpoch());
-
-			db = QSqlDatabase::database("thumbDB");
 
 			db.transaction();
 
