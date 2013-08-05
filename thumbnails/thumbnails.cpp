@@ -374,7 +374,6 @@ void Thumbnails::startThread() {
 		else
 			thumbThread->cacheEnabled = false;
 		thumbThread->breakme = false;
-		thumbThread->dbName = "thumb";
 		if(globSet.value("ThbCacheFile").toBool())
 			thumbThread->typeCache = "files";
 		else
