@@ -429,7 +429,7 @@ void Thumbnails::updateThumb(QImage img, QString path, int origwidth, int orighe
 	}
 
 	bool showFilename = globSet.value("ThumbnailWriteFilename").toBool();
-	bool showDimensions = globSet.value("ThumbnailWriteResolution").toBool();
+	bool showDimensions = (globSet.value("ThumbnailWriteResolution").toBool() && origwidth != 0 && origheight != 0);
 	QTextDocument txt;
 
 	if(showFilename || showDimensions) {
@@ -443,7 +443,7 @@ void Thumbnails::updateThumb(QImage img, QString path, int origwidth, int orighe
 		txt.setHtml(textdocTXT);
 		txt.setTextWidth(size);
 		if(globSet.value("ThumbnailPosition") == "Bottom")
-			paint.translate(0,size*((showFilename && showDimensions) ? 0.5 : 0.75));
+			paint.translate(0,size*((showFilename && showDimensions) ? 0.55 : 0.70));
 		else if(globSet.value("ThumbnailPosition") == "Top")
 			paint.translate(0,size/8.0);
 		txt.drawContents(&paint);
@@ -468,7 +468,7 @@ void Thumbnails::updateThumb(QImage img, QString path, int origwidth, int orighe
 	}
 	if(showFilename || showDimensions) {
 		if(globSet.value("ThumbnailPosition") == "Bottom")
-			paintSel.translate(0,size*((showFilename && showDimensions) ? 0.5 : 0.75));
+			paintSel.translate(0,size*((showFilename && showDimensions) ? 0.55 : 0.70));
 		else if(globSet.value("ThumbnailPosition") == "Top")
 			paintSel.translate(0,size/8.0);
 		txt.drawContents(&paintSel);
