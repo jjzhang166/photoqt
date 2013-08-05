@@ -51,7 +51,7 @@ GraphicsItem::GraphicsItem(QGraphicsItem *parent, QGraphicsScene *scene) : QGrap
 void GraphicsItem::transitionSetChange(int t) {
 
 	transitionSetting = t;
-	trans->setDuration(t*100);
+	trans->setDuration(t > 0 ? t*100 : 1);
 
 }
 
