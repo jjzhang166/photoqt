@@ -475,12 +475,9 @@ void Thumbnails::updateThumb(QImage img, QString path, int origwidth, int orighe
 	paintSel.end();
 
 	if(allPixmaps.length() >= pos) {
-		if(allPixmaps.at(pos)->path == currentfile)
-			allPixmaps.at(pos)->presented = true;
-		else
-			allPixmaps.at(pos)->presented = false;
-		allPixmaps.at(pos)->setPixmap(imgNorm,imgHov);
 		allPixmaps.at(pos)->path = path;
+		allPixmaps.at(pos)->presented = (path == currentfile);
+		allPixmaps.at(pos)->setPixmap(imgNorm,imgHov);
 	}
 
 }

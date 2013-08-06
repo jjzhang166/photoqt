@@ -15,6 +15,7 @@
  */
 
 #include "thumbnailpixmapitem.h"
+#include <iostream>
 
 ThumbnailPixmapItem::ThumbnailPixmapItem(QGraphicsItem *parent, QGraphicsScene *scene) : QGraphicsPixmapItem(parent,scene) {
 
@@ -37,11 +38,7 @@ void ThumbnailPixmapItem::setPixmap(const QPixmap &pixmapNorm, const QPixmap &pi
 	norm = pixmapNorm;
 	hov = pixmapHov;
 
-	if(presented)
-		QGraphicsPixmapItem::setPixmap(hov);
-	else
-		QGraphicsPixmapItem::setPixmap(norm);
-
+	QGraphicsPixmapItem::setPixmap(presented ? hov : norm);
 
 }
 
@@ -50,7 +47,7 @@ bool ThumbnailPixmapItem::sceneEvent(QEvent *event) {
 
 	if(event->type() == QEvent::GraphicsSceneHoverLeave && presented == false) {
 		QGraphicsPixmapItem::setPixmap(norm);
-	} else if(event->type() == QEvent::GraphicsSceneHoverEnter || event->type() == QEvent::GraphicsSceneMouseMove) {
+	} else if(event->type() == QEvent::GraphicsSceneHoverEnter || event->type() == QEvent::GraphicsSceneHoverMove) {
 		QGraphicsPixmapItem::setPixmap(hov);
 	}
 
