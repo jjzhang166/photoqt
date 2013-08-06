@@ -108,7 +108,7 @@ void SettingsTabOtherFileTypesTiles::setEnabled(bool en) {
 // Click on the checkbox
 void SettingsTabOtherFileTypesTiles::checkboxClicked() {
 
-	if(enabled->isChecked())
+	if(!enabled->isChecked())
 		this->setStyleSheet(css + cssBackgroundNorm);
 	else
 		setChecked(true);

@@ -112,7 +112,7 @@ void SettingsTabExifTiles::setEnabled(bool en) {
 // Click on the checkbox
 void SettingsTabExifTiles::checkboxClicked() {
 
-	if(enabled->isChecked())
+	if(!enabled->isChecked())
 		this->setStyleSheet(css + cssBackgroundNorm);
 	else
 		setChecked(true);

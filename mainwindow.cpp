@@ -503,6 +503,7 @@ void MainWindow::drawImage() {
 					viewThumbs->view->centerOn(viewThumbs->allPixmaps.at(viewThumbs->allImgsPath.indexOf(globVar->currentfile)));
 				else
 					viewThumbs->view->ensureVisible(viewThumbs->allPixmaps.at(viewThumbs->allImgsPath.indexOf(globVar->currentfile)));
+				// We also have to check here where the cursor is, cause sometimes the app reaches these statements here when auto rotate is active (exif)
 				if(!globSet->thumbnailKeepVisible && viewThumbs->isVisible() && !viewThumbs->thumbLoadedThroughClick && !viewThumbs->areaShown().contains(QCursor::pos()))
 					viewThumbs->makeHide();
 				viewThumbs->startThread();
