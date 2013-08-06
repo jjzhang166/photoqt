@@ -13,14 +13,17 @@ public:
 
 	void setBold(bool b) { bold = b; setCSS(); }
 	void setFontSize(QString fs) { fontsize = fs; setCSS(); }
-	void setToolTipColor(QString ttcol) { tooltipColor = ttcol; setCSS(); }
 	void setFontColor(QString col) { fontcolor = col; setCSS(); }
+	void setBackgroundColor(QString col) { backgroundcolor = col; setCSS(); }
+	void setBorder(int width, QString col) { borderwidth = width; bordercolor = col; setCSS(); }
 
 private:
 	void setCSS();
 	QString fontsize;
 	QString fontcolor;
-	QString tooltipColor;
+	QString backgroundcolor;
+	int borderwidth;
+	QString bordercolor;
 	bool bold;
 
 public slots:

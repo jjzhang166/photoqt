@@ -23,6 +23,9 @@ private:
 
 	void setCSS();
 
+private slots:
+	void updateToolTip(QString);
+
 public slots:
 	// When disabled, we need to adjust some colors to make it visible
 	void setEnabled(bool);

@@ -2,6 +2,7 @@
 #define CUSTOMSPINBOX_H
 
 #include <QSpinBox>
+#include <QGraphicsOpacityEffect>
 
 // A custom (styled) spinbox
 class CustomSpinBox : public QSpinBox {
@@ -11,6 +12,12 @@ class CustomSpinBox : public QSpinBox {
 public:
 	explicit CustomSpinBox(QWidget *parent = 0);
 	~CustomSpinBox();
+
+public slots:
+	void setEnabled(bool);
+
+private:
+	void setCSS();
 
 };
 

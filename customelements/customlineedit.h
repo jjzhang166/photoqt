@@ -15,6 +15,9 @@ public:
 	void setMinWidth(int w);
 	void setBorder(QString col, int w);
 
+public slots:
+	void setEnabled(bool);
+
 private:
 	int width;
 	QString borderColor;

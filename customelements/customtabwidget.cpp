@@ -40,6 +40,7 @@ TabWidget::TabWidget(QWidget *parent) : QTabWidget(parent) {
 	css += "position: absolute;";
 	css += "top: -0.5em;";
 	css += "}";
+	css += "QToolTip {font-weight: bold; color: black; border-radius: 5px; padding: 1px; font-size: 8pt; background: rgba(255,255,255,200); }";
 
 	this->setStyleSheet(css);
 

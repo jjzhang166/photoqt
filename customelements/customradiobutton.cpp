@@ -37,6 +37,9 @@ CustomRadioButton::CustomRadioButton(const QString &text, QWidget *parent) : QRa
 
 	connect(this, SIGNAL(toggled(bool)), this, SLOT(checkToggle()));
 
+	setCSS();
+	this->setToolTip(text);
+
 }
 
 void CustomRadioButton::checkToggle() {
@@ -126,6 +129,7 @@ void CustomRadioButton::setCSS() {
 	css += "QRadioButton:disabled {";
 		css += "color: grey;";
 	css += "}";
+	css += "QToolTip {font-weight: bold; color: black; border-radius: 5px; padding: 1px; font-size: 8pt; background: rgba(255,255,255,200); }";
 
 	this->setStyleSheet(css);
 

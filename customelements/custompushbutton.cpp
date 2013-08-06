@@ -30,6 +30,7 @@ CustomPushButton::CustomPushButton(const QString &text, QWidget *parent) : QPush
 	this->setMouseTracking(true);
 
 	setCSS();
+	this->setToolTip(text);
 
 }
 
@@ -59,7 +60,7 @@ void CustomPushButton::setCSS() {
 
 	css += "}";
 
-	css += "QToolTip { padding: 1px; opacity: 150; color: white; }";
+	css += "QToolTip {font-weight: bold; color: black; border-radius: 5px; padding: 1px; font-size: 8pt; background: rgba(255,255,255,200); }";
 
 	this->setStyleSheet(css);
 

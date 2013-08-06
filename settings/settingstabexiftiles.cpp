@@ -44,7 +44,6 @@ SettingsTabExifTiles::SettingsTabExifTiles(QString exifTxt, QString exifIntern, 
 	back->setFontColor("black");
 	back->setFontSize("7pt");
 	back->setBold(true);
-	back->setToolTipColor("black");
 	back->setToolTip(exifTxt);
 
 	// The checkbox for diabling or enabling this tile

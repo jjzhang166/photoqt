@@ -26,6 +26,8 @@ CustomComboBox::CustomComboBox(QWidget *parent) : QComboBox(parent) {
 
 	setCSS();
 
+	connect(this, SIGNAL(currentIndexChanged(QString)), this, SLOT(updateToolTip(QString)));
+
 }
 
 void CustomComboBox::setEnabled(bool e) {
@@ -90,8 +92,15 @@ void CustomComboBox::setCSS() {
 	css += "QComboBox::drop-down::down-arrow:on {";
 		css += "image: url(:/img/empty.png);";
 	css += "}";
+	css += "QToolTip {font-weight: bold; color: black; border-radius: 5px; padding: 1px; font-size: 8pt; background: rgba(255,255,255,200); }";
 
 	this->setStyleSheet(css);
+
+}
+
+void CustomComboBox::updateToolTip(QString t) {
+
+	this->setToolTip(t);
 
 }
 

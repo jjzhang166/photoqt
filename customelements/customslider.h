@@ -2,6 +2,7 @@
 #define CUSTOMSLIDER_H
 
 #include <QSlider>
+#include <QGraphicsOpacityEffect>
 
 // A custom (styled) slider
 class CustomSlider : public QSlider {
@@ -11,6 +12,12 @@ class CustomSlider : public QSlider {
 public:
 	explicit CustomSlider(Qt::Orientation orientation = Qt::Horizontal, QWidget *parent = 0);
 	~CustomSlider();
+
+public slots:
+	void setEnabled(bool);
+
+private:
+	void setCSS();
 
 protected:
 	void mousePressEvent(QMouseEvent *ev);

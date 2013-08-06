@@ -21,13 +21,30 @@ CustomSpinBox::CustomSpinBox(QWidget *parent) : QSpinBox(parent) {
 	this->setCursor(Qt::PointingHandCursor);
 	this->setButtonSymbols(QSpinBox::NoButtons);
 
+	setCSS();
+
+}
+
+void CustomSpinBox::setCSS() {
+
 	QString css = "QSpinBox {";
 		css += "selection-background-color: transparent;";
 		css += "color: white;";
 	css += "}";
+	css += "QToolTip {font-weight: bold; color: black; border-radius: 5px; padding: 1px; font-size: 8pt; background: rgba(255,255,255,200); }";
 
 
 	this->setStyleSheet(css);
+
+}
+
+void CustomSpinBox::setEnabled(bool b) {
+
+	QGraphicsOpacityEffect *eff = new QGraphicsOpacityEffect;
+	eff->setOpacity(b ? 1 : 0.5);
+	this->setGraphicsEffect(eff);
+
+	QSpinBox::setEnabled(b);
 
 }
 

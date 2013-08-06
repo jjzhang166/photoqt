@@ -18,10 +18,21 @@
 
 CustomSlider::CustomSlider(Qt::Orientation orientation, QWidget *parent) : QSlider(orientation,parent) {
 
+
+	this->setCursor(Qt::OpenHandCursor);
+
+	this->setTickPosition(QSlider::TicksBelow);
+
+	setCSS();
+
+}
+
+void CustomSlider::setCSS() {
+
 	QString css = "QSlider::groove:horizontal {";
 		css += "border: 1px solid #000000;";
 		css += "height: 6px;";
-		css += "background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #ededed, stop:1 #ffffff);";
+		css += "background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #" + QString(this->isEnabled() ? "ededed" : "505050") + ", stop:1 #" + QString(this->isEnabled() ? "ffffff" : "7a7a7a") + ");";
 		css += "margin: 2px 0;";
 	css += "}";
 
@@ -32,11 +43,21 @@ CustomSlider::CustomSlider(Qt::Orientation orientation, QWidget *parent) : QSlid
 		css += "margin: -2px 0;";
 		css += "border-radius: 3px;";
 	css += "}";
+	css += "QToolTip {font-weight: bold; color: black; border-radius: 5px; padding: 1px; font-size: 8pt; background: rgba(255,255,255,200); }";
 
 	this->setStyleSheet(css);
-	this->setCursor(Qt::OpenHandCursor);
 
-	this->setTickPosition(QSlider::TicksBelow);
+}
+
+void CustomSlider::setEnabled(bool e) {
+
+	QGraphicsOpacityEffect *eff = new QGraphicsOpacityEffect;
+	eff->setOpacity(e ? 1 : 0.5);
+	this->setGraphicsEffect(eff);
+
+	QSlider::setEnabled(e);
+
+	setCSS();
 
 }
 

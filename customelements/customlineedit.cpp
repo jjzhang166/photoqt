@@ -49,15 +49,24 @@ void CustomLineEdit::setCSS() {
 		css += QString("border: %1px solid %2;").arg(borderWidth).arg(borderColor);
 		css += "border-radius: 10px;";
 		css += "padding: 4px 8px;";
-		css += "color: white;";
+		css += "color: " + QString(this->isEnabled() ? "white" : "grey") + ";";
 		if(width != 0) css += QString("min-width: %1px;").arg(width);
-		css += "background: rgba(0,0,0,100);";
+		css += "background: " + QString(this->isEnabled() ? "rgba(0,0,0,100)" : "rgba(25,25,25,100)") + ";";
 		css += "selection-background-color: white;";
 		css += "selection-color: black;";
 	css += "}";
+	css += "QToolTip {font-weight: bold; color: black; border-radius: 5px; padding: 1px; font-size: 8pt; background: rgba(255,255,255,200); }";
 
 
 	this->setStyleSheet(css);
+
+}
+
+void CustomLineEdit::setEnabled(bool e) {
+
+	QLineEdit::setEnabled(e);
+
+	setCSS();
 
 }
 
