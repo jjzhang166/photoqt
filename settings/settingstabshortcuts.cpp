@@ -92,6 +92,14 @@ SettingsTabShortcuts::SettingsTabShortcuts(QWidget *parent, bool v) : QWidget(pa
 	navigation.insert("__open",tr("Open New File"));
 	navigation.insert("__prev",tr("Previous Image"));
 	navigation.insert("__close",tr("Quit PhotoQt"));
+	QList<QString> navigationOrder;
+	navigationOrder << "__gotoFirstThb"
+			<< "__gotoLastThb"
+			<< "__hide"
+			<< "__next"
+			<< "__open"
+			<< "__prev"
+			<< "__close";
 
 	// A map for all internal functions in the category "image"
 	QMap<QString, QString> image;
@@ -104,6 +112,18 @@ SettingsTabShortcuts::SettingsTabShortcuts(QWidget *parent, bool v) : QWidget(pa
 	image.insert("__rotate0",tr("Reset Rotation"));
 	image.insert("__flipH",tr("Flip Horizontally"));
 	image.insert("__flipV",tr("Flip Vertically"));
+	image.insert("__flipR",tr("Reset Flip"));
+	QList<QString> imageOrder;
+	imageOrder << "__zoomIn"
+			<< "__zoomOut"
+			<< "__zoomActual"
+			<< "__zoomReset"
+			<< "__rotateR"
+			<< "__rotateL"
+			<< "__rotate0"
+			<< "__flipH"
+			<< "__flipV"
+			<< "__flipR";
 
 	// A map for all internal functions in the category "file"
 	QMap<QString,QString> file;
@@ -111,6 +131,11 @@ SettingsTabShortcuts::SettingsTabShortcuts(QWidget *parent, bool v) : QWidget(pa
 	file.insert("__delete",tr("Delete File"));
 	file.insert("__copy",tr("Copy File to a New Location"));
 	file.insert("__move",tr("Move File to a New Location"));
+	QList<QString> fileOrder;
+	fileOrder << "__rename"
+			<< "__delete"
+			<< "__copy"
+			<< "__move";
 
 	// A map for all internal functions in the category "other"
 	QMap<QString,QString> other;
@@ -122,12 +147,25 @@ SettingsTabShortcuts::SettingsTabShortcuts(QWidget *parent, bool v) : QWidget(pa
 	other.insert("__slideshowQuick",tr("Start Slideshow (Quickstart)"));
 	other.insert("__about",tr("About PhotoQt"));
 	other.insert("__wallpaper",tr("Set as Wallpaper"));
+	QList<QString> otherOrder;
+	otherOrder << "__stopThb"
+			<< "__reloadThb"
+			<< "__hideMeta"
+			<< "__settings"
+			<< "__slideshow"
+			<< "__slideshowQuick"
+			<< "__about"
+			<< "__wallpaper";
 
 	// Add them to the main QMap
 	internFunctions.insert("navigation",navigation);
 	internFunctions.insert("image",image);
 	internFunctions.insert("file",file);
 	internFunctions.insert("other",other);
+	internFunctionsOrder.insert("navigation",navigationOrder);
+	internFunctionsOrder.insert("image",imageOrder);
+	internFunctionsOrder.insert("file",fileOrder);
+	internFunctionsOrder.insert("other",otherOrder);
 
 
 	// All the flowlayouts holding the tiles - USER SET
@@ -362,15 +400,15 @@ void SettingsTabShortcuts::loadAvailShortcuts() {
 
 	if(verbose) std::clog << "setSH: Load possible shortcuts" << std::endl;
 
-	QMapIterator<QString, QMap<QString,QString> > i(internFunctions);
+	QMapIterator<QString, QList<QString> > i(internFunctionsOrder);
 	while(i.hasNext()) {
 
 		i.next();
 
-		for(int j = 0; j < i.value().keys().length(); ++j) {
+		for(int j = 0; j < i.value().length(); ++j) {
 
-			QString cmd = i.value().keys().at(j);
-			QString desc = i.value().value(i.value().keys().at(j));
+			QString cmd = i.value().at(j);
+			QString desc = internFunctions[i.key()].value(i.value().at(j));
 			ShortcutsTiles *tile = new ShortcutsTiles(cmd,desc,i.key(),"avail",this);
 			allLayoutsAVAIL.value(i.key())->addWidget(tile);
 			connect(tile, SIGNAL(addShortcut(QString,QString)), this, SLOT(addNewTile(QString,QString)));

@@ -29,6 +29,7 @@ public:
 
 	// The internal functions
 	QMap<QString,QMap<QString,QString> > internFunctions;
+	QMap<QString,QList<QString> > internFunctionsOrder;
 	// All the flowlayouts for exisiting and available shortcuts
 	QMap<QString, FlowLayout*> allLayoutsSET;
 	QMap<QString, FlowLayout*> allLayoutsAVAIL;
