@@ -243,10 +243,10 @@ Wallpaper::Wallpaper(QMap<QString, QVariant> set, bool v, QWidget *parent) : QWi
 	///////// OTHER SETTINGS ///////////
 
 	otherFeh = new CustomRadioButton(tr("Use 'feh'"));
-	otherFeh->setIndicatorImage(":/img/checkbox_checked.png",":/img/checkbox_unchecked.png");
+	otherFeh->setIndicatorImage(":/img/checkbox_checked.png",":/img/checkbox_checked.png",":/img/checkbox_unchecked.png",":/img/checkbox_unchecked.png");
 	otherFeh->setChecked(true);
 	otherNitrogen = new CustomRadioButton(tr("Use 'nitrogen'"));
-	otherNitrogen->setIndicatorImage(":/img/checkbox_checked.png",":/img/checkbox_unchecked.png");
+	otherNitrogen->setIndicatorImage(":/img/checkbox_checked.png",":/img/checkbox_checked.png",":/img/checkbox_unchecked.png",":/img/checkbox_unchecked.png");
 
 	QButtonGroup *otherGrp = new QButtonGroup;
 	otherGrp->addButton(otherFeh);

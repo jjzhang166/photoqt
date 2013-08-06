@@ -21,8 +21,7 @@ CustomLabel::CustomLabel(const QString &text, QWidget *parent) : QLabel(text, pa
 	this->setWordWrap(true);
 
 	fontsize = "9pt";
-	fontcolorEnabled = "white";
-	fontcolorDisabled = "grey";
+	fontcolor = "white";
 	tooltipColor = "white";
 	bold = false;
 
@@ -36,15 +35,13 @@ void CustomLabel::setEnabled(bool e) {
 
 	QGraphicsOpacityEffect *eff = new QGraphicsOpacityEffect;
 
-	if(e)
-		eff->setOpacity(1);
-	else
-		eff->setOpacity(0.3);
+	eff->setOpacity(e ? 1 : 0.5);
 
 	this->setGraphicsEffect(eff);
 
-
 	QLabel::setEnabled(e);
+
+	setCSS();
 
 }
 
@@ -52,7 +49,7 @@ void CustomLabel::setCSS() {
 
 	QString css = "QLabel { ";
 
-	css += "color: " + QString(this->isEnabled() ? fontcolorEnabled : fontcolorDisabled) + ";";
+	css += "color: " + fontcolor + ";";
 	css += "background: transparent;";
 	css += "font-size: " + fontsize + ";";
 	if(bold) css += "font-weight: bold;";

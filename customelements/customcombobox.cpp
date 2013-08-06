@@ -36,6 +36,10 @@ void CustomComboBox::setEnabled(bool e) {
 
 	setCSS();
 
+	QGraphicsOpacityEffect *eff = new QGraphicsOpacityEffect;
+	eff->setOpacity(e ? 1 : 0.5);
+	this->setGraphicsEffect(eff);
+
 }
 
 void CustomComboBox::setFontSize(int fsize) {
@@ -57,7 +61,7 @@ void CustomComboBox::setBorder(int width, QString colour) {
 void CustomComboBox::setCSS() {
 
 	QString css = "QComboBox {";
-	css += QString("border: %1px solid %2;").arg(borderWidth).arg(borderColour);
+	css += QString("border: %1px solid %2;").arg(borderWidth).arg(enabled ? borderColour : "grey");
 		css += "background-color: rgb(0,0,0);";
 		css += "border-radius: 0px;";
 		css += "min-width: 130px;";

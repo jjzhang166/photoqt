@@ -27,7 +27,9 @@ CustomRadioButton::CustomRadioButton(const QString &text, QWidget *parent) : QRa
 	hoveringEnabled = false;
 
 	imgUnchkd = ":/img/radiobutton_unchecked.png";
+	imgUnchkdDis = ":/img/radiobutton_unchecked_disabled.png";
 	imgChkd = ":/img/radiobutton_checked.png";
+	imgChkdDis = ":/img/radiobutton_checked_disabled.png";
 
 	setBackgroundColor("");
 
@@ -94,20 +96,28 @@ void CustomRadioButton::setBorderRadius(int rad) {
 
 }
 
+void CustomRadioButton::setEnabled(bool b) {
+
+	QRadioButton::setEnabled(b);
+
+	setCSS();
+
+}
+
 void CustomRadioButton::setCSS() {
 
 
 	QString css = "QRadioButton {";
 		css += QString("color: %1;").arg(colour);
-		css += QString("background-color: %1;").arg((hovering && hoveringEnabled) ? hoverColour: bgColour);
+		css += QString("background-color: %1;").arg((hovering && hoveringEnabled) ? hoverColour : bgColour);
 		css += QString("padding: %1px;").arg(padding);
 		css += QString("border-radius: %1px;").arg(borderRadius);
 	css += "}";
 	css += "QRadioButton::indicator:unchecked {";
-		css += QString("image: url(%1);").arg(imgUnchkd);
+		css += QString("image: url(%1);").arg(this->isEnabled() ? imgUnchkd : imgUnchkdDis);
 	css += "}";
 	css += "QRadioButton::indicator:checked {";
-		css += QString("image: url(%1);").arg(imgChkd);
+		css += QString("image: url(%1);").arg(this->isEnabled() ? imgChkd : imgChkdDis);
 	css += "}";
 	css += "QRadioButton::indicator {";
 		css += "width: 15px;";
@@ -122,10 +132,12 @@ void CustomRadioButton::setCSS() {
 }
 
 // change indicator image
-void CustomRadioButton::setIndicatorImage(QString chkd, QString unchkd) {
+void CustomRadioButton::setIndicatorImage(QString chkd, QString chkdDis, QString unchkd, QString unchkDis) {
 
 	imgChkd = chkd;
+	imgChkdDis = chkdDis;
 	imgUnchkd = unchkd;
+	imgUnchkdDis = unchkDis;
 
 	setCSS();
 

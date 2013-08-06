@@ -2,6 +2,7 @@
 #define CUSTOMCHECKBOX_H
 
 #include <QCheckBox>
+#include <QGraphicsOpacityEffect>
 
 // A custom styled checkbox
 class CustomCheckBox : public QCheckBox {
@@ -24,6 +25,10 @@ public:
 
 	// The font size can be adjusted
 	void setFontSize(int size);
+
+public slots:
+	void setEnabled(bool e);
+	void setDisabled(bool b) { setEnabled(!b); }
 
 
 private:

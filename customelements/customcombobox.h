@@ -2,6 +2,7 @@
 #define CUSTOMCOMBOBOX_H
 
 #include <QComboBox>
+#include <QGraphicsOpacityEffect>
 
 // A custom styled combobox
 class CustomComboBox : public QComboBox {

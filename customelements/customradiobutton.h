@@ -17,7 +17,10 @@ public:
 	void setPadding(int pad);
 	void setBorderRadius(int rad);
 	void setHoverEffect(QString hovCol);
-	void setIndicatorImage(QString chkd, QString unchkd);
+	void setIndicatorImage(QString chkd, QString chkdDis, QString unchkd, QString unchkDis);
+
+public slots:
+	void setEnabled(bool);
 
 private:
 	QString css;
@@ -30,7 +33,9 @@ private:
 	int borderRadius;
 
 	QString imgChkd;
+	QString imgChkdDis;
 	QString imgUnchkd;
+	QString imgUnchkdDis;
 
 	void setCSS();
 

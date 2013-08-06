@@ -262,22 +262,24 @@ SettingsTabLookAndFeel::SettingsTabLookAndFeel(QWidget *parent, QMap<QString, QV
 	windowModeLabel->setWordWrap(true);
 	windowMode = new CustomCheckBox(tr("Run PhotoQt in Window Mode"));
 	windowDeco = new CustomCheckBox(tr("Show Window Decoration"));
-	windowDeco->hide();
+	windowDeco->setEnabled(false);
 	QHBoxLayout *windowLay = new QHBoxLayout;
 	windowLay->addStretch();
 	windowLay->addWidget(windowMode);
+	windowLay->addSpacing(10);
+	windowLay->addWidget(windowDeco);
 	windowLay->addStretch();
-	QHBoxLayout *decoLay = new QHBoxLayout;
-	decoLay->addStretch();
-	decoLay->addWidget(windowDeco);
-	decoLay->addStretch();
+//	QHBoxLayout *decoLay = new QHBoxLayout;
+//	decoLay->addStretch();
+//	decoLay->addWidget(windowDeco);
+//	decoLay->addStretch();
 	layFeel->addWidget(windowModeLabel);
 	layFeel->addSpacing(10);
 	layFeel->addLayout(windowLay);
-	layFeel->addSpacing(5);
-	layFeel->addLayout(decoLay);
+//	layFeel->addSpacing(5);
+//	layFeel->addLayout(decoLay);
 	layFeel->addSpacing(20);
-	connect(windowMode, SIGNAL(toggled(bool)), windowDeco, SLOT(setVisible(bool)));
+	connect(windowMode, SIGNAL(toggled(bool)), windowDeco, SLOT(setEnabled(bool)));
 
 
 

@@ -14,18 +14,18 @@ public:
 	void setBold(bool b) { bold = b; setCSS(); }
 	void setFontSize(QString fs) { fontsize = fs; setCSS(); }
 	void setToolTipColor(QString ttcol) { tooltipColor = ttcol; setCSS(); }
-	void setFontColor(QString colEnabled, QString colDisabled) { fontcolorEnabled = colEnabled; fontcolorDisabled = colDisabled; setCSS(); }
+	void setFontColor(QString col) { fontcolor = col; setCSS(); }
 
 private:
 	void setCSS();
 	QString fontsize;
-	QString fontcolorEnabled;
-	QString fontcolorDisabled;
+	QString fontcolor;
 	QString tooltipColor;
 	bool bold;
 
 public slots:
 	void setEnabled(bool);
+	void setDisabled(bool b) { setEnabled(!b); }
 
 protected:
 	void mouseReleaseEvent(QMouseEvent *e) {

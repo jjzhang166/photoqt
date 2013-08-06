@@ -307,8 +307,7 @@ SettingsTabThumbnail::SettingsTabThumbnail(QWidget *parent, QMap<QString, QVaria
 	layTune->addLayout(cacheOption);
 	layTune->addSpacing(5);
 
-	connect(thumbCache, SIGNAL(toggled(bool)), cacheFile, SLOT(setEnabled(bool)));
-	connect(thumbCache, SIGNAL(toggled(bool)), cacheDatabase, SLOT(setEnabled(bool)));
+	connect(thumbCache, SIGNAL(toggled(bool)), this, SLOT(updateCacheStuff()));
 
 	// Some info about database
 	QHBoxLayout *dbInfoLay = new QHBoxLayout;
@@ -332,10 +331,9 @@ SettingsTabThumbnail::SettingsTabThumbnail(QWidget *parent, QMap<QString, QVaria
 	layTune->addLayout(dbLay);
 	layTune->addSpacing(10);
 
-	connect(thumbCache, SIGNAL(toggled(bool)), cleanDatabase, SLOT(setEnabled(bool)));
-	connect(thumbCache, SIGNAL(toggled(bool)), eraseDatabase, SLOT(setEnabled(bool)));
 	connect(cacheDatabase, SIGNAL(toggled(bool)), cleanDatabase, SLOT(setEnabled(bool)));
 	connect(cacheDatabase, SIGNAL(toggled(bool)), eraseDatabase, SLOT(setEnabled(bool)));
+	connect(cacheDatabase, SIGNAL(toggled(bool)), dbInfo, SLOT(setEnabled(bool)));
 
 
 	// We ask for confirmation before cleaning up the database
@@ -522,6 +520,24 @@ void SettingsTabThumbnail::setDatabaseInfo() {
 	dbInfo->setText(tr("Current database filesize: %1 KB").arg(QFileInfo(QDir::homePath() + "/.photoqt/thumbnails").size()/1024) + "<br>" + tr("Entries in database: %2").arg(noOfEntriesInDb));
 
 	query.clear();
+
+}
+
+void SettingsTabThumbnail::updateCacheStuff() {
+
+	if(thumbCache->isChecked()) {
+		cacheDatabase->setEnabled(true);
+		cacheFile->setEnabled(true);
+		dbInfo->setEnabled(cacheDatabase->isChecked());
+		cleanDatabase->setEnabled(cacheDatabase->isChecked());
+		eraseDatabase->setEnabled(cacheDatabase->isChecked());
+	} else {
+		dbInfo->setEnabled(false);
+		cleanDatabase->setEnabled(false);
+		eraseDatabase->setEnabled(false);
+		cacheDatabase->setEnabled(false);
+		cacheFile->setEnabled(false);
+	}
 
 }
 

@@ -43,11 +43,22 @@ public:
 
 	bool verbose;
 
-	// The database to do some operation on it
-	QSqlDatabase db;
-
 	// the global settings
 	QMap<QString,QVariant> globSet;
+
+	// Confirmation dialogs
+	CustomConfirm *confirmClean;
+	CustomConfirm *confirmErase;
+
+	// In here are the updated settings stored
+	QMap<QString,QVariant> updatedSet;
+
+	void setDatabaseInfo();
+
+private:
+
+	// The database to do some operation on it
+	QSqlDatabase db;
 
 	// The size of the thumbnails
 	CustomSlider *thumbSizeSlider;
@@ -96,23 +107,20 @@ public:
 	CustomPushButton *cleanDatabase;
 	CustomPushButton *eraseDatabase;
 
-	// In here are the updated settings stored
-	QMap<QString,QVariant> updatedSet;
 	QMap<QString, QVariant> defaults;
 
 	// Set some database info
-	void setDatabaseInfo();
 	int noOfEntriesInDb;
-
-	// Confirmation dialogs
-	CustomConfirm *confirmClean;
-	CustomConfirm *confirmErase;
 
 public slots:
 
 	// Load and save settings
 	void loadSettings();
 	void saveSettings();
+
+	void updateCacheStuff();
+
+private slots:
 
 	// clean and erase database
 	void doCleanDatabase();

@@ -134,5 +134,17 @@ void CustomCheckBox::setIndicatorImage(QString chkd, QString unchkd) {
 
 }
 
+void CustomCheckBox::setEnabled(bool e) {
+
+	QGraphicsOpacityEffect *eff = new QGraphicsOpacityEffect;
+
+	eff->setOpacity(e ? 1 : 0.5);
+
+	this->setGraphicsEffect(eff);
+
+	QCheckBox::setEnabled(e);
+
+}
+
 
 CustomCheckBox::~CustomCheckBox() { }
