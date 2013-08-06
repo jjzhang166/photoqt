@@ -105,7 +105,7 @@ int main(int argc, char *argv[]) {
 		return 0;
 
 	// If an instance of PhotoQt is running, we check for command line arguments
-	} else if(QDateTime::currentMSecsSinceEpoch() - all.toLongLong() < qint64(520)) {
+	} else if(QDateTime::currentMSecsSinceEpoch() - all.toLongLong() < qint64(320)) {
 
 		// We need to initiate it here to, because we check for the applicationFilePath() later-on
 		QApplication a(argc, argv);

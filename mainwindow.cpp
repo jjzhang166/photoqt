@@ -139,7 +139,7 @@ MainWindow::MainWindow(QWidget *parent, bool verbose) : QMainWindow(parent) {
 
 	// The global timer ensuring only one instance of Photo runs at a time
 	globalRunningProgTimer = new QTimer;
-	globalRunningProgTimer->setInterval(500);
+	globalRunningProgTimer->setInterval(300);
 	connect(globalRunningProgTimer, SIGNAL(timeout()), this, SLOT(globalRunningProgTimerTimeout()));
 	globalRunningProgTimer->start();
 
@@ -622,6 +622,7 @@ void MainWindow::globalRunningProgTimerTimeout() {
 			this->showFullScreen();
 		this->activateWindow();
 		this->raise();
+//		this->window()->raise();
 		doHide = false;
 		if(globVar->currentfile == "" && doNewFile == "")
 			openFile();
