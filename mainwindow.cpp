@@ -145,7 +145,7 @@ MainWindow::MainWindow(QWidget *parent, bool verbose) : QMainWindow(parent) {
 
 	// A startup-timer (started from main.cpp)
 	startUpTimer = new QTimer;
-	startUpTimer->setInterval(500);
+	startUpTimer->setInterval(300);
 	connect(startUpTimer, SIGNAL(timeout()), this, SLOT(startuptimer()));
 
 
@@ -622,7 +622,6 @@ void MainWindow::globalRunningProgTimerTimeout() {
 			this->showFullScreen();
 		this->activateWindow();
 		this->raise();
-//		this->window()->raise();
 		doHide = false;
 		if(globVar->currentfile == "" && doNewFile == "")
 			openFile();
