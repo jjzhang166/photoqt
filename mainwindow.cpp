@@ -1067,6 +1067,15 @@ void MainWindow::rotateFlip(bool rotateNotFlipped, QString direction) {
 
 	if(rotateNotFlipped) {
 
+		// We need to reverse direction if image was flipped once
+		// (since the flipping also reverts direction once)
+		if((globVar->flipHor || globVar->flipVer) && !(globVar->flipHor && globVar->flipVer)) {
+			if(direction == "clock")
+				direction = "anticlock";
+			else if(direction == "anticlock")
+				direction = "clock";
+		}
+
 		// ROTATE
 
 		if(direction == "clock") {
