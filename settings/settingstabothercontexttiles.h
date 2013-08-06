@@ -1,6 +1,8 @@
 #ifndef SETTINGSTABOTHERCONTEXTTILES_H
 #define SETTINGSTABOTHERCONTEXTTILES_H
 
+#include "../customelements/customlabel.h"
+
 #include <QWidget>
 #include <QHBoxLayout>
 #include <QLineEdit>
@@ -31,7 +33,7 @@ public:
 	QString cssBackgroundHov;
 
 	// A label for dragging
-	QLabel *dragLabel;
+	CustomLabel *dragLabel;
 
 public slots:
 	// When user requested deletion

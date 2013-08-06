@@ -19,16 +19,20 @@
 
 SettingsTabExifTiles::SettingsTabExifTiles(QString exifTxt, QString exifIntern, QWidget *parent) : QWidget(parent) {
 
+	this->setObjectName("tile");
+
 	// The standard default stylesheet
-	css = "border-radius: 5px; padding: 1px;";
-	cssOff = "border-radius: 5px; padding: 1px; font-size: 7pt;";
+	css = "#tile { border-radius: 5px; padding: 1px;";
+	cssOff = "#tile { border-radius: 5px; padding: 1px; font-size: 8pt;";
 
 	// Some special stylesheet for hovered and normal
-	cssBackgroundNorm = "background: rgba(255,255,255,150);";
-	cssBackgroundHov = "background: rgba(255,255,255,200);";
+	cssBackgroundNorm = "background: rgba(255,255,255,150); }";
+	cssBackgroundHov = "background: rgba(255,255,255,200); }";
 
-	cssBackgroundOffNorm = "background: rgba(255,255,255,100);";
-	cssBackgroundOffHov = "background: rgba(255,255,255,150);";
+	cssBackgroundOffNorm = "background: rgba(255,255,255,100); }";
+	cssBackgroundOffHov = "background: rgba(255,255,255,150); }";
+
+	cssToolTip = "QToolTip {font-weight: bold; color: black; border-radius: 5px; padding: 1px; font-size: 8pt; background: rgba(255,255,255,200); }";
 
 	// Main Layout
 	QVBoxLayout *lay = new QVBoxLayout;
@@ -63,7 +67,7 @@ SettingsTabExifTiles::SettingsTabExifTiles(QString exifTxt, QString exifIntern, 
 	this->setLayout(lay);
 
 	// Default css
-	this->setStyleSheet(cssOff + cssBackgroundOffNorm);
+	this->setStyleSheet(cssOff + cssBackgroundOffNorm + cssToolTip);
 
 }
 
@@ -71,9 +75,9 @@ SettingsTabExifTiles::SettingsTabExifTiles(QString exifTxt, QString exifIntern, 
 void SettingsTabExifTiles::setChecked(bool chkd) {
 
 	if(chkd) {
-		this->setStyleSheet(css + cssBackgroundNorm);
+		this->setStyleSheet(css + cssBackgroundNorm + cssToolTip);
 	} else {
-		this->setStyleSheet(cssOff + cssBackgroundOffNorm);
+		this->setStyleSheet(cssOff + cssBackgroundOffNorm + cssToolTip);
 	}
 
 	enabled->setChecked(chkd);
@@ -112,7 +116,7 @@ void SettingsTabExifTiles::setEnabled(bool en) {
 void SettingsTabExifTiles::checkboxClicked() {
 
 	if(!enabled->isChecked())
-		this->setStyleSheet(css + cssBackgroundNorm);
+		this->setStyleSheet(css + cssBackgroundNorm + cssToolTip);
 	else
 		setChecked(true);
 
@@ -121,27 +125,27 @@ void SettingsTabExifTiles::checkboxClicked() {
 void SettingsTabExifTiles::mouseMoveEvent(QMouseEvent *) {
 
 	if(enabled->isChecked())
-		this->setStyleSheet(css + cssBackgroundHov);
+		this->setStyleSheet(css + cssBackgroundHov + cssToolTip);
 	else
-		this->setStyleSheet(cssOff + cssBackgroundOffHov);
+		this->setStyleSheet(cssOff + cssBackgroundOffHov + cssToolTip);
 
 }
 
 void SettingsTabExifTiles::enterEvent(QEvent *) {
 
 	if(enabled->isChecked())
-		this->setStyleSheet(css + cssBackgroundHov);
+		this->setStyleSheet(css + cssBackgroundHov + cssToolTip);
 	else
-		this->setStyleSheet(cssOff + cssBackgroundOffHov);
+		this->setStyleSheet(cssOff + cssBackgroundOffHov + cssToolTip);
 
 }
 
 void SettingsTabExifTiles::leaveEvent(QEvent *) {
 
 	if(enabled->isChecked())
-		this->setStyleSheet(css + cssBackgroundNorm);
+		this->setStyleSheet(css + cssBackgroundNorm + cssToolTip);
 	else
-		this->setStyleSheet(cssOff + cssBackgroundOffNorm);
+		this->setStyleSheet(cssOff + cssBackgroundOffNorm + cssToolTip);
 
 }
 
@@ -151,9 +155,9 @@ void SettingsTabExifTiles::mousePressEvent(QMouseEvent *) {
 
 	enabled->setChecked(!enabled->isChecked());
 	if(enabled->isChecked())
-		this->setStyleSheet(css + cssBackgroundHov);
+		this->setStyleSheet(css + cssBackgroundHov + cssToolTip);
 	else
-		this->setStyleSheet(css + cssBackgroundNorm);
+		this->setStyleSheet(css + cssBackgroundNorm + cssToolTip);
 
 }
 

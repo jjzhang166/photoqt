@@ -100,7 +100,7 @@ void CustomComboBox::setCSS() {
 
 void CustomComboBox::updateToolTip(QString t) {
 
-	this->setToolTip(t);
+	this->setToolTip(t + " ");
 
 }
 

@@ -2,12 +2,12 @@
 #define SETTINGSTABOTHERFILETYPESTILES_H
 
 #include "../customelements/customcheckbox.h"
+#include "../customelements/customlabel.h"
 
 #include <QWidget>
 #include <QStyleOption>
 #include <QPainter>
 #include <QVBoxLayout>
-#include <QLabel>
 
 class SettingsTabOtherFileTypesTiles : public QWidget {
 
@@ -20,7 +20,7 @@ public:
 	QString filetype;
 
 	// The label that's being styled
-	QLabel *back;
+	CustomLabel *back;
 
 	// And the checkbox to enable or disable this tile
 	CustomCheckBox *enabled;
@@ -38,6 +38,7 @@ private:
 	QString cssBackgroundOffNorm;
 	QString cssBackgroundHov;
 	QString cssBackgroundOffHov;
+	QString cssToolTip;
 
 private slots:
 	// A click on a checkbox

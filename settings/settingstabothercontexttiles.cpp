@@ -38,9 +38,10 @@ ContextTile::ContextTile(QString cmdTxt, QString descTxt, QWidget *parent) : QWi
 	index = -1;
 
 	// A label for dragging
-	dragLabel = new QLabel(tr("Click here to drag"));
+	dragLabel = new CustomLabel(tr("Click here to drag"));
+	dragLabel->setToolTip(tr("Click here to drag"));
 	dragLabel->setCursor(Qt::SizeAllCursor);
-	dragLabel->setStyleSheet("background: transparent; color: #333333;");
+	dragLabel->setFontColor("#333333");
 	lay->addWidget(dragLabel);
 
 	// A seperator
@@ -73,8 +74,9 @@ ContextTile::ContextTile(QString cmdTxt, QString descTxt, QWidget *parent) : QWi
 	// Delete entry
 	QPushButton *x = new QPushButton("x ");
 	x->setFlat(true);
+	x->setToolTip(tr("Delete Entry"));
 	x->setCursor(Qt::PointingHandCursor);
-	x->setStyleSheet("background: transparent");
+	x->setStyleSheet("QPushButton { background: transparent; } QToolTip {font-weight: bold; color: black; border-radius: 5px; padding: 1px; font-size: 8pt; background: rgba(255,255,255,200); }");
 	lay->addWidget(x);
 	connect(x, SIGNAL(clicked()), this, SLOT(pleaseDeleteMe()));
 

@@ -40,6 +40,7 @@ private:
 	QString cssBackgroundOffNorm;
 	QString cssBackgroundHov;
 	QString cssBackgroundOffHov;
+	QString cssToolTip;
 
 private slots:
 	// A click on a checkbox

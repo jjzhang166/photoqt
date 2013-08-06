@@ -24,7 +24,8 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 
 	verbose = v;
 
-	this->setStyleSheet("background: transparent; color: white");
+	this->setObjectName("tabother");
+	this->setStyleSheet("#tabother { background: transparent; color: white; }");
 
 	tabs = new TabWidget;
 	tabs->expand(false);
@@ -72,17 +73,17 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 
 
 	// The titles
-	QLabel *titleOther = new QLabel("<center><h1>" + tr("Other Settings") + "</h1></center>");
+	CustomLabel *titleOther = new CustomLabel("<center><h1>" + tr("Other Settings") + "</h1></center>");
 	layOther->addWidget(titleOther);
 	layOther->addSpacing(20);
-	QLabel *titleFile = new QLabel("<center><h1>" + tr("Known File Types") + "</h1></center>");
+	CustomLabel *titleFile = new CustomLabel("<center><h1>" + tr("Known File Types") + "</h1></center>");
 	layFile->addWidget(titleFile);
 	layFile->addSpacing(20);
 
 
 
 	// CHOOSE A LANGUAGE
-	QLabel *langLabel = new QLabel("<b><span style=\"font-size:12pt\">" + tr("Choose Language") + "</span></b><br><br>" + tr("There are a good few different languages available. Thanks to everybody who took the time to translate PhotoQt!"));
+	CustomLabel *langLabel = new CustomLabel("<b><span style=\"font-size:12pt\">" + tr("Choose Language") + "</span></b><br><br>" + tr("There are a good few different languages available. Thanks to everybody who took the time to translate PhotoQt!"));
 	langLabel->setWordWrap(true);
 	layOther->addWidget(langLabel);
 	layOther->addSpacing(15);
@@ -188,7 +189,7 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 
 
 	// Adjust context menu
-	QLabel *contextMenuLabel = new QLabel("<b><span style=\"font-size:12pt\">" + tr("Adjust Context Menu") + "</span></b><br><br>" + tr("Here you can adjust the context menu. You can simply drag and drop the entries, edit them, add a new one and remove an existing one."));
+	CustomLabel *contextMenuLabel = new CustomLabel("<b><span style=\"font-size:12pt\">" + tr("Adjust Context Menu") + "</span></b><br><br>" + tr("Here you can adjust the context menu. You can simply drag and drop the entries, edit them, add a new one and remove an existing one."));
 	contextMenuLabel->setWordWrap(true);
 	context = new Context;
 	QHBoxLayout *contextLay = new QHBoxLayout;
@@ -215,7 +216,7 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 
 
 	// Adjust known file formats
-	QLabel *titleQt = new QLabel("<b><span style=\"font-size:12pt\">" + tr("File Types - Qt") + "</span></b><br><br>" + tr("These are the standard file types supported by Qt. Depending on your system, this list can vary a little.") + "<br>" + tr("If you want to add a file type not in the list, you can add them in the text box below. You have to enter the formats like '*.ending', all seperated by commas.") + "</b>");
+	CustomLabel *titleQt = new CustomLabel("<b><span style=\"font-size:12pt\">" + tr("File Types - Qt") + "</span></b><br><br>" + tr("These are the standard file types supported by Qt. Depending on your system, this list can vary a little.") + "<br>" + tr("If you want to add a file type not in the list, you can add them in the text box below. You have to enter the formats like '*.ending', all seperated by commas.") + "</b>");
 	titleQt->setWordWrap(true);
 
 	FlowLayout *layQt = new FlowLayout;

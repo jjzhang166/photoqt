@@ -18,16 +18,20 @@
 
 SettingsTabOtherFileTypesTiles::SettingsTabOtherFileTypesTiles(QString ftype, QWidget *parent) : QWidget(parent) {
 
+	this->setObjectName("tile");
+
 	// The standard default stylesheet
-	css = "font-weight: bold; color: black; border-radius: 5px; padding: 1px; font-size: 8pt;";
-	cssOff = "font-weight: bold; color: rgb(30,30,30); border-radius: 5px; padding: 1px; font-size: 8pt;";
+	css = "#tile { font-weight: bold; color: black; border-radius: 5px; padding: 1px; font-size: 8pt;";
+	cssOff = "#tile { font-weight: bold; color: rgb(30,30,30); border-radius: 5px; padding: 1px; font-size: 8pt;";
 
 	// Some special stylesheet for hovered and normal
-	cssBackgroundNorm = "background: rgba(255,255,255,150);";
-	cssBackgroundHov = "background: rgba(255,255,255,200);";
+	cssBackgroundNorm = "background: rgba(255,255,255,150); }";
+	cssBackgroundHov = "background: rgba(255,255,255,200); }";
 
-	cssBackgroundOffNorm = "background: rgba(255,255,255,100);";
-	cssBackgroundOffHov = "background: rgba(255,255,255,150);";
+	cssBackgroundOffNorm = "background: rgba(255,255,255,100); }";
+	cssBackgroundOffHov = "background: rgba(255,255,255,150); }";
+
+	cssToolTip = "QToolTip {font-weight: bold; color: black; border-radius: 5px; padding: 1px; font-size: 8pt; background: rgba(255,255,255,200); }";
 
 	// Main Layout
 	QVBoxLayout *lay = new QVBoxLayout;
@@ -39,9 +43,9 @@ SettingsTabOtherFileTypesTiles::SettingsTabOtherFileTypesTiles(QString ftype, QW
 	filetype = ftype;
 
 	// The back label is being styled
-	back = new QLabel("<center>*" + ftype + "</center>");
-	back->setWordWrap(true);
-	back->setStyleSheet("background: transparent");
+	back = new CustomLabel("<center>*" + ftype + "</center>");
+	back->setFontColor("black");
+	back->setBold(true);
 
 	// The checkbox for diabling or enabling this tile
 	enabled = new CustomCheckBox;
@@ -60,7 +64,7 @@ SettingsTabOtherFileTypesTiles::SettingsTabOtherFileTypesTiles(QString ftype, QW
 	this->setLayout(lay);
 
 	// Default css
-	this->setStyleSheet(cssOff + cssBackgroundOffNorm);
+	this->setStyleSheet(cssOff + cssBackgroundOffNorm + cssToolTip);
 
 }
 
@@ -68,9 +72,9 @@ SettingsTabOtherFileTypesTiles::SettingsTabOtherFileTypesTiles(QString ftype, QW
 void SettingsTabOtherFileTypesTiles::setChecked(bool chkd) {
 
 	if(chkd) {
-		this->setStyleSheet(css + cssBackgroundNorm);
+		this->setStyleSheet(css + cssBackgroundNorm + cssToolTip);
 	} else {
-		this->setStyleSheet(cssOff + cssBackgroundOffNorm);
+		this->setStyleSheet(cssOff + cssBackgroundOffNorm + cssToolTip);
 	}
 
 	enabled->setChecked(chkd);
@@ -109,7 +113,7 @@ void SettingsTabOtherFileTypesTiles::setEnabled(bool en) {
 void SettingsTabOtherFileTypesTiles::checkboxClicked() {
 
 	if(!enabled->isChecked())
-		this->setStyleSheet(css + cssBackgroundNorm);
+		this->setStyleSheet(css + cssBackgroundNorm + cssToolTip);
 	else
 		setChecked(true);
 
@@ -118,27 +122,27 @@ void SettingsTabOtherFileTypesTiles::checkboxClicked() {
 void SettingsTabOtherFileTypesTiles::mouseMoveEvent(QMouseEvent *) {
 
 	if(enabled->isChecked())
-		this->setStyleSheet(css + cssBackgroundHov);
+		this->setStyleSheet(css + cssBackgroundHov + cssToolTip);
 	else
-		this->setStyleSheet(cssOff + cssBackgroundOffHov);
+		this->setStyleSheet(cssOff + cssBackgroundOffHov + cssToolTip);
 
 }
 
 void SettingsTabOtherFileTypesTiles::enterEvent(QEvent *) {
 
 	if(enabled->isChecked())
-		this->setStyleSheet(css + cssBackgroundHov);
+		this->setStyleSheet(css + cssBackgroundHov + cssToolTip);
 	else
-		this->setStyleSheet(cssOff + cssBackgroundOffHov);
+		this->setStyleSheet(cssOff + cssBackgroundOffHov + cssToolTip);
 
 }
 
 void SettingsTabOtherFileTypesTiles::leaveEvent(QEvent *) {
 
 	if(enabled->isChecked())
-		this->setStyleSheet(css + cssBackgroundNorm);
+		this->setStyleSheet(css + cssBackgroundNorm + cssToolTip);
 	else
-		this->setStyleSheet(cssOff + cssBackgroundOffNorm);
+		this->setStyleSheet(cssOff + cssBackgroundOffNorm + cssToolTip);
 
 }
 
@@ -148,9 +152,9 @@ void SettingsTabOtherFileTypesTiles::mousePressEvent(QMouseEvent *) {
 
 	enabled->setChecked(!enabled->isChecked());
 	if(enabled->isChecked())
-		this->setStyleSheet(css + cssBackgroundHov);
+		this->setStyleSheet(css + cssBackgroundHov + cssToolTip);
 	else
-		this->setStyleSheet(css + cssBackgroundNorm);
+		this->setStyleSheet(css + cssBackgroundNorm + cssToolTip);
 
 }
 

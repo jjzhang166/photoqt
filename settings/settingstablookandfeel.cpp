@@ -114,7 +114,6 @@ SettingsTabLookAndFeel::SettingsTabLookAndFeel(QWidget *parent, QMap<QString, QV
 	QWidget *widgetChooseBgImg = new QWidget;
 
 	backgroundImage = new CustomLabel;
-//	backgroundImage->setBackgroundColor("rgba(0,0,0,150)");
 	backgroundImage->setBorder(1,"white");
 	backgroundImage->setPixmap(QPixmap(":/img/emptybackground.png"));
 	backgroundImage->setFixedSize(200,150);
