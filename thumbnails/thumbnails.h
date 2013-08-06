@@ -70,6 +70,8 @@ public:
 
 	static bool compareNamesFileInfo(const QFileInfo &s1fileinfo, const QFileInfo &s2fileinfo);
 
+	QRect areaShown() { return rectShown; }
+
 private:
 
 	bool isShown;

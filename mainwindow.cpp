@@ -414,9 +414,8 @@ void MainWindow::drawImage() {
 				subtractThumbnailHeight = viewThumbs->height();
 			int maxH = viewBig->height()-2*globSet->borderAroundImg-subtractThumbnailHeight;
 
-			std::cout << "ROTATION: " << globVar->rotation << std::endl;
+			// In the two cases below we need to swap dimensions, otherwise the image doesn't fit
 			if((globVar->rotation == -270 || globVar->rotation == -90)) {
-				std::cout << "SWAP DIMENSION" << std::endl;
 				int t = maxW;
 				maxW = maxH;
 				maxH = t;
@@ -504,7 +503,7 @@ void MainWindow::drawImage() {
 					viewThumbs->view->centerOn(viewThumbs->allPixmaps.at(viewThumbs->allImgsPath.indexOf(globVar->currentfile)));
 				else
 					viewThumbs->view->ensureVisible(viewThumbs->allPixmaps.at(viewThumbs->allImgsPath.indexOf(globVar->currentfile)));
-				if(!globSet->thumbnailKeepVisible && viewThumbs->isVisible() && !viewThumbs->thumbLoadedThroughClick)
+				if(!globSet->thumbnailKeepVisible && viewThumbs->isVisible() && !viewThumbs->thumbLoadedThroughClick && !viewThumbs->areaShown().contains(QCursor::pos()))
 					viewThumbs->makeHide();
 				viewThumbs->startThread();
 			} else if(viewThumbs->thumbLoadedThroughClick)
