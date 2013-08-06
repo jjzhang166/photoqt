@@ -196,11 +196,16 @@ void DropDownMenu::animate() {
 void DropDownMenu::menuClicked() {
 
 	MainMenuItem *item = (MainMenuItem*) sender();
-	QString txt = item->data;
 
-	int close = item->close;
+	if(item->isEnabled()) {
 
-	emit itemClicked(txt,close);
+		QString txt = item->data;
+
+		int close = item->close;
+
+		emit itemClicked(txt,close);
+
+	}
 
 }
 

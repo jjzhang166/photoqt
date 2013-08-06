@@ -318,6 +318,9 @@ void MainWindow::applySettings(QMap<QString, bool> applySet, bool justApplyAllOf
 	imageReader->gmfiles = gmfiles;
 	imageReader->qtfiles = qtfiles;
 
+
+	if(setupWidgets->menu) menu->allItems["hide"]->setEnabled(globSet->trayicon);
+
 }
 
 // If a widget (like about or settings) is opened, all other functions are suspended
@@ -1425,6 +1428,8 @@ void MainWindow::setupWidget(QString what) {
 			menu->allItems["hideMeta"]->setText(tr("Hide Details"));
 			menu->allItems["hideMeta"]->setIcon(":/img/exif.png");
 		}
+
+		menu->allItems["hide"]->setEnabled(globSet->trayicon);
 
 
 	}

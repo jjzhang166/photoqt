@@ -24,8 +24,8 @@ MainMenuItem::MainMenuItem(QString txt, QString icon, QString setData, int close
 	// Enable mouse tracking for hover effect
 	this->setMouseTracking(true);
 
-	ssNormal = "QLabel { background: transparent; border: none; color: grey; } QLabel:disabled { color: white; font-weight: bold }";
-	ssHover = "QLabel { background: transparent; border: none; color: white; } QLabel:disabled { color: white; font-weight: bold; }";
+	ssNormal = "QLabel { background: transparent; border: none; color: grey; } QLabel:disabled { color: rgb(80,80,80); font-weight: bold }";
+	ssHover = "QLabel { background: transparent; border: none; color: white; } QLabel:disabled { color: rgb(80,80,80); font-weight: bold; }";
 
 	// Set the default stylesheet
 	MainMenuItem::setStyleSheet(ssNormal);
