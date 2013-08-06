@@ -414,6 +414,14 @@ void MainWindow::drawImage() {
 				subtractThumbnailHeight = viewThumbs->height();
 			int maxH = viewBig->height()-2*globSet->borderAroundImg-subtractThumbnailHeight;
 
+			std::cout << "ROTATION: " << globVar->rotation << std::endl;
+			if((globVar->rotation == -270 || globVar->rotation == -90)) {
+				std::cout << "SWAP DIMENSION" << std::endl;
+				int t = maxW;
+				maxW = maxH;
+				maxH = t;
+			}
+
 			// Get the image
 			QImage img = imageReader->readImage(globVar->currentfile,globVar->rotation,globVar->zoomed,QSize(maxW,maxH),true);
 
@@ -438,13 +446,21 @@ void MainWindow::drawImage() {
 			else
 				graphItem->setPixmap(QPixmap::fromImage(img));
 
-			if(img.width() < viewBig->width()) {
+			int imgWidth = img.width();
+			int imgHeight = img.height();
+			if((globVar->rotation == -270 || globVar->rotation == -90)) {
+				int t = imgWidth;
+				imgWidth = imgHeight;
+				imgHeight = t;
+			}
+
+			if(imgWidth < viewBig->width()) {
 				// Set the right position of the main image
-				int graphItemX = (viewBig->width()-img.width())/2.0;
+				int graphItemX = (viewBig->width()-imgWidth)/2.0;
 				graphItem->setX(graphItemX);
 			}
-			if(img.height() < viewBig->height()) {
-				int graphItemY = (viewBig->height()-img.height())/2.0;
+			if(imgHeight < viewBig->height()) {
+				int graphItemY = (viewBig->height()-imgHeight)/2.0;
 				graphItem->setY(graphItemY);
 			}
 
@@ -1063,7 +1079,7 @@ void MainWindow::restoreDefaultSettings() {
 // This function flips the current big image vertically/horizontally
 void MainWindow::rotateFlip(bool rotateNotFlipped, QString direction) {
 
-	if(globVar->verbose) std::clog << "Rotate and Flip: " << rotateNotFlipped << " - " << direction.toStdString();
+	if(globVar->verbose) std::clog << "Rotate and Flip: " << rotateNotFlipped << " - " << direction.toStdString() << std::endl;
 
 	if(rotateNotFlipped) {
 
@@ -1622,14 +1638,15 @@ void MainWindow::shortcutDO(QString key, bool mouseSH) {
 				rotateFlip(true,"anticlock");
 			if(key == "__rotateR")
 				rotateFlip(true,"clock");
-			if(key == "__rotate0")
+			if(key == "__rotate0") {
+			// Since rotation and flipping overlap each other, they both are reset at the same time
+				rotateFlip(false, "reset");
 				rotateFlip(true,"reset");
+			}
 			if(key == "__flipH")
 				rotateFlip(false, "hor");
 			if(key == "__flipV")
 				rotateFlip(false, "ver");
-			if(key == "__flipR")
-				rotateFlip(false, "reset");
 			if(key == "__rename") {
 				if(!setupWidgets->filehandling)
 					setupWidget("filehandling");

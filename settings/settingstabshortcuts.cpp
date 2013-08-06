@@ -112,7 +112,6 @@ SettingsTabShortcuts::SettingsTabShortcuts(QWidget *parent, bool v) : QWidget(pa
 	image.insert("__rotate0",tr("Reset Rotation"));
 	image.insert("__flipH",tr("Flip Horizontally"));
 	image.insert("__flipV",tr("Flip Vertically"));
-	image.insert("__flipR",tr("Reset Flip"));
 	QList<QString> imageOrder;
 	imageOrder << "__zoomIn"
 			<< "__zoomOut"
@@ -122,8 +121,7 @@ SettingsTabShortcuts::SettingsTabShortcuts(QWidget *parent, bool v) : QWidget(pa
 			<< "__rotateL"
 			<< "__rotate0"
 			<< "__flipH"
-			<< "__flipV"
-			<< "__flipR";
+			<< "__flipV";
 
 	// A map for all internal functions in the category "file"
 	QMap<QString,QString> file;

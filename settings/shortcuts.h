@@ -140,7 +140,6 @@ public slots:
 		allKeyShortcuts.insert("Ctrl+0",QList<QVariant>() << false << "__rotate0");
 		allKeyShortcuts.insert("Ctrl+H",QList<QVariant>() << false << "__flipH");
 		allKeyShortcuts.insert("Ctrl+V",QList<QVariant>() << false << "__flipV");
-		allKeyShortcuts.insert("Ctrl+Shift+0",QList<QVariant>() << false << "__flipR");
 		allKeyShortcuts.insert("Ctrl+E",QList<QVariant>() << false << "__hideMeta");
 		allKeyShortcuts.insert("E",QList<QVariant>() << false << "__settings");
 		allKeyShortcuts.insert("F2",QList<QVariant>() << false << "__rename");
