@@ -67,7 +67,7 @@ SlideShowBar::SlideShowBar(QMap<QString, QVariant> set, QWidget *parent, bool v)
 	playPause = new CustomPushButton(tr("Pause Slideshow"),this);
 	connect(playPause, SIGNAL(clicked()), this, SLOT(togglePlay()));
 
-#ifdef WITH_PHONON
+#ifdef PHONON
 	audio = new Phonon::AudioOutput(Phonon::MusicCategory, this);
 	media = new Phonon::MediaObject(this);
 	Phonon::createPath(media,audio);
@@ -89,7 +89,7 @@ SlideShowBar::SlideShowBar(QMap<QString, QVariant> set, QWidget *parent, bool v)
 	central->addStretch();
 	central->addWidget(playPause);
 	central->addSpacing(20);
-#ifdef WITH_PHONON
+#ifdef PHONON
 	central->addWidget(volumeLabel);
 	central->addWidget(volume);
 #endif
@@ -102,7 +102,7 @@ SlideShowBar::SlideShowBar(QMap<QString, QVariant> set, QWidget *parent, bool v)
 	nextImg = new QTimer;
 	connect(nextImg, SIGNAL(timeout()), this, SLOT(loadNextImg()));
 
-#ifdef WITH_PHONON
+#ifdef PHONON
 	// At the end of the music file we restart it if the slideshow is still running
 	connect(media, SIGNAL(aboutToFinish()), this, SLOT(endOfMusicFile()));
 #endif
@@ -117,7 +117,7 @@ void SlideShowBar::togglePlay() {
 		if(verbose) std::clog << "sldb: Toggle Playback (Play)" << std::endl;
 		playPause->setText(tr("Play Slideshow"));
 		nextImg->stop();
-#ifdef WITH_PHONON
+#ifdef PHONON
 		if(musicFile != "")
 			media->play();
 #endif
@@ -125,7 +125,7 @@ void SlideShowBar::togglePlay() {
 		if(verbose) std::clog << "sldb: Toggle Playback (Pause)" << std::endl;
 		playPause->setText(tr("Pause Slideshow"));
 		nextImg->start();
-#ifdef WITH_PHONON
+#ifdef PHONON
 		if(musicFile != "")
 			media->pause();
 #endif
@@ -147,7 +147,7 @@ void SlideShowBar::endOfMusicFile() {
 
 	if(verbose) std::clog << "sldb: End of music file" << std::endl;
 
-#ifdef WITH_PHONON
+#ifdef PHONON
 	media->stop();
 	media->play();
 #endif
@@ -226,7 +226,7 @@ void SlideShowBar::animate() {
 void SlideShowBar::startSlideShow() {
 
 	if(verbose) std::clog << "sldb: Start Slideshow" << std::endl;
-#ifdef WITH_PHONON
+#ifdef PHONON
 	if(musicFile != "") {
 		volume->setEnabled(true);
 		volumeLabel->setEnabled(true);
@@ -247,7 +247,7 @@ void SlideShowBar::stopSlideShow() {
 
 	if(verbose) std::clog << "sldb: Stop slideshow" << std::endl;
 
-#ifdef WITH_PHONON
+#ifdef PHONON
 	media->stop();
 #endif
 

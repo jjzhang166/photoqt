@@ -40,7 +40,7 @@ public:
 	// Adjust transition
 	CustomSlider *trans;
 
-#ifdef WITH_PHONON
+#ifdef PHONON
 	// Adjust music
 	CustomCheckBox *musicEnable;
 	CustomLineEdit *musicPath;

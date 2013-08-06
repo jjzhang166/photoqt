@@ -60,14 +60,14 @@ SettingsTabExif::SettingsTabExif(QWidget *parent, QMap<QString, QVariant> set, b
 	lay->addSpacing(20);
 
 
-#ifndef WITH_EXIV2
+#ifndef EXIV2
 	CustomLabel *exifDisabled = new CustomLabel("<b><i>" + tr("Use of Exiv2 has been disabled as PhotoQt was compiled/installed!") + "</i></b>");
 	exifDisabled->setWordWrap(true);
 #endif
 
 	CustomLabel *whichItemShown = new CustomLabel("<b><span style=\"font-size: 12pt\">" + tr("Which items are shown?") + "</span></b><br><br>" + tr("PhotoQt can display a number of information about the image (often called 'Exif data''). However, you might not be interested in all of them, hence you can choose to disable some of them here."));
 	whichItemShown->setWordWrap(true);
-#ifndef WITH_EXIV2
+#ifndef EXIV2
 	whichItemShown->setEnabled(false);
 	lay->addWidget(exifDisabled);
 	lay->addSpacing(10);
@@ -88,7 +88,7 @@ SettingsTabExif::SettingsTabExif(QWidget *parent, QMap<QString, QVariant> set, b
 	lay->addSpacing(10);
 	connect(enableAll, SIGNAL(clicked()), this, SLOT(disEnableAll()));
 	connect(disableALL, SIGNAL(clicked()), this, SLOT(disEnableAll()));
-#ifndef WITH_EXIV2
+#ifndef EXIV2
 	enableAll->setEnabled(false);
 	disableALL->setEnabled(false);
 #endif
@@ -171,7 +171,7 @@ SettingsTabExif::SettingsTabExif(QWidget *parent, QMap<QString, QVariant> set, b
 		SettingsTabExifTiles *tile = new SettingsTabExifTiles(allItems.at(i),allItemsShort.at(i));
 		allTiles.append(tile);
 		flow->addWidget(tile);
-#ifndef WITH_EXIV2
+#ifndef EXIV2
 		tile->setEnabled(false);
 #endif
 
@@ -224,7 +224,7 @@ SettingsTabExif::SettingsTabExif(QWidget *parent, QMap<QString, QVariant> set, b
 	lay->addSpacing(5);
 	lay->addLayout(rotFlipLay);
 	lay->addSpacing(20);
-#ifndef WITH_EXIV2
+#ifndef EXIV2
 	rotateFlipLabel->setEnabled(false);
 	exifRotNev->setEnabled(false);
 	exifRotAlw->setEnabled(false);
@@ -251,7 +251,7 @@ SettingsTabExif::SettingsTabExif(QWidget *parent, QMap<QString, QVariant> set, b
 	lay->addLayout(tileGpsLay);
 	lay->addSpacing(20);
 
-#ifndef WITH_EXIV2
+#ifndef EXIV2
 	exifGpsLabel->setEnabled(false);
 	radioGoogle->setEnabled(false);
 	radioBing->setEnabled(false);
@@ -288,7 +288,7 @@ void SettingsTabExif::loadSettings() {
 	triggerOnMouse->setChecked(!globSet.value("ExifEnableMouseTriggering").toBool());
 	defaults.insert("ExifEnableMouseTriggering",!globSet.value("ExifEnableMouseTriggering").toBool());
 
-#ifdef WITH_EXIV2
+#ifdef EXIV2
 	for(int i = 0; i < allTiles.length(); ++i) {
 
 		QString id = allTiles.at(i)->intern;

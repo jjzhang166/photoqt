@@ -62,7 +62,7 @@ Details::Details(QWidget *parent, QMap<QString, QVariant> set, bool v): QWidget(
 	// Setup the labels
 	setupLabels();
 
-#ifdef WITH_EXIV2
+#ifdef EXIV2
 
 	onlineservice = "maps.google.com";
 
@@ -205,7 +205,7 @@ void Details::setupLabels() {
 	labels << tr("Dimensions");
 	labelsId << "Dimensions";
 
-#ifdef WITH_EXIV2
+#ifdef EXIV2
 
 	labels << "";
 	labelsId << "";
@@ -386,7 +386,7 @@ void Details::updateData(QString currentfile, QSize origSize, bool exiv2Supporte
 	else
 		items["Dimensions"]->hide();
 
-#ifdef WITH_EXIV2
+#ifdef EXIV2
 
 	// If image format is supported
 	if(exiv2Supported) {
@@ -598,7 +598,7 @@ void Details::updateData(QString currentfile, QSize origSize, bool exiv2Supporte
 
 }
 
-#ifdef WITH_EXIV2
+#ifdef EXIV2
 
 // Format exposure time
 QString Details::exifExposureTime(QString value) {
@@ -712,7 +712,7 @@ void Details::rotConfYes() {
 
 	// We need to keep the function in any case, otherwise there'll be a connect error in mainwindow.cpp
 
-#ifdef WITH_EXIV2
+#ifdef EXIV2
 
 	if(verbose) std::clog << "exif: rotation confirmed" << std::endl;
 
@@ -733,7 +733,7 @@ void Details::rotConfNo() {
 
 	// We need to keep the function in any case, otherwise there'll be a connect error in mainwindow.cpp
 
-#ifdef WITH_EXIV2
+#ifdef EXIV2
 
 	if(verbose) std::clog << "exif: rotation cancelled" << std::endl;
 
@@ -757,7 +757,7 @@ void Details::makeHide() {
 }
 
 void Details::setRect(QRect rect) {
-#ifdef WITH_EXIV2
+#ifdef EXIV2
 	rotConf->setRect(rect);
 #endif
 
@@ -832,7 +832,7 @@ void Details::gpsClick() {
 
 	// We need to keep the function in any case, otherwise there'll be a connect error in mainwindow.cpp
 
-#ifdef WITH_EXIV2
+#ifdef EXIV2
 
 	if(verbose) std::clog << "exif: Click on GPS" << std::endl;
 

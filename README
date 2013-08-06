@@ -34,16 +34,16 @@ INSTALL
    # If you're storing them in a different place, you need to tell cmake:
    cmake -DQT_PHONON_INCLUDE_DIR=/path/to/phonon/include/dir ..
    
-   # PhotoQt makes use of different libraries: exiv2, phonon, graphicsmagick.
+   # PhotoQt makes use of different libraries: Exiv2, Phonon, GraphicsMagick ("gm").
    # You can en-/disable them with the following options:
    # (if you don't specify anything, it asumes the default values)
-   -DWITH_EXIV2=OFF		# default: ON
-   -DWITH_PHONON=OFF		# default: ON
-   -DWITH_GRAPHICSMAGICK=OFF	# default: ON
+   -DEXIV2=OFF			# default: ON
+   -DPHONON=OFF			# default: ON
+   -DGM=OFF			# default: ON
    # You can combine them in any way you want.
    # The following option equates to setting the three above options to OFF
-   -DWITH_QTONLY=ON		# default: OFF
-   # Note: -DWITH_QTONLY overwrites the three individual options above!
+   -DQTONLY=ON			# default: OFF
+   # Note: -DQTONLY overwrites the three individual options above!
    
 
 3) make  # This creates an executeable photoqt binary located in the ./build/ folder

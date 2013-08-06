@@ -56,7 +56,7 @@ public:
 
 				 << ".xpm";	// X Windows system pixmap
 
-#ifdef WITH_GRAPHICSMAGICK
+#ifdef GM
 
 		formatsGmEnabled << ".art"	// PFS: 1st Publisher
 
@@ -284,7 +284,7 @@ public:
 
 		}
 
-#ifdef WITH_GRAPHICSMAGICK
+#ifdef GM
 
 		// Read Gm formats
 		if(fileGm.exists()) {
@@ -338,7 +338,7 @@ public:
 			}
 
 
-#ifdef WITH_GRAPHICSMAGICK
+#ifdef GM
 
 			QString gmfilecontent = "";
 

@@ -260,7 +260,7 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 	connect(qtMarkNone, SIGNAL(clicked()), mapQtNone, SLOT(map()));
 	connect(mapQtNone, SIGNAL(mapped(QString)), this, SLOT(markAllNone(QString)));
 
-#ifndef WITH_GRAPHICSMAGICK
+#ifndef GM
 	CustomLabel *gmDisabled = new CustomLabel("<b><i>" + tr("Use of GraphicsMagick has been disabled as PhotoQt was compiled/installed!") + "</i></b>");
 	gmDisabled->setWordWrap(true);
 #endif
@@ -278,7 +278,7 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 		allCheckGm.insert(formatsGm.at(i),check);
 		check->setToolTip(formatsGm.at(i));
 		layGm->addWidget(check);
-#ifndef WITH_GRAPHICSMAGICK
+#ifndef GM
 		check->setEnabled(false);
 #endif
 
@@ -296,7 +296,7 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 	layGmBut->addWidget(gmMarkAll);
 	layGmBut->addWidget(gmMarkNone);
 
-#ifndef WITH_GRAPHICSMAGICK
+#ifndef GM
 	titleGmWorking->setEnabled(false);
 	gmMarkAll->setEnabled(false);
 	gmMarkNone->setEnabled(false);
@@ -341,7 +341,7 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 		check->setToolTip(formatsGmUnstable.at(i));
 		allCheckGmUnstable.insert(formatsGmUnstable.at(i),check);
 		layGmUnstable->addWidget(check);
-#ifndef WITH_GRAPHICSMAGICK
+#ifndef GM
 		check->setEnabled(false);
 #endif
 
@@ -361,7 +361,7 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 	layFile->addLayout(layGmButUnstable);
 	layFile->addSpacing(35);
 
-#ifndef WITH_GRAPHICSMAGICK
+#ifndef GM
 	titleGmUnstable->setEnabled(false);
 	gmMarkAllUnstable->setEnabled(false);
 	gmMarkNoneUnstable->setEnabled(false);
@@ -408,7 +408,7 @@ void SettingsTabOther::loadSettings() {
 		iterQt.value()->setChecked(formatsSetQt.contains(iterQt.key()) ? true : false);
 	}
 
-#ifdef WITH_GRAPHICSMAGICK
+#ifdef GM
 	QStringList formatsSetGm = globSet.value("KnownFileTypesGm").toString().replace("*","").split(",");
 	QMapIterator<QString, SettingsTabOtherFileTypesTiles*> iterGm(allCheckGm);
 	while (iterGm.hasNext()) {

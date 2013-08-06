@@ -19,7 +19,7 @@
 #include <QDesktopServices>
 #include <QUrl>
 
-#ifdef WITH_EXIV2
+#ifdef EXIV2
 #include "exiv2/image.hpp"
 #include "exiv2/exif.hpp"
 #endif
@@ -48,7 +48,7 @@ public:
 	void setRect(QRect rect);
 	void updateFontsize();
 
-#ifdef WITH_EXIV2
+#ifdef EXIV2
 	CustomConfirm *rotConf;
 #endif
 
@@ -90,7 +90,7 @@ private:
 	// This boolean stores if mouse triggering is en-/disabled
 	bool mouseTrickerEnable;
 
-#ifdef WITH_EXIV2
+#ifdef EXIV2
 
 	// The online map service opened when clicked on GPS coordinates in the exif window
 	QString onlineservice;

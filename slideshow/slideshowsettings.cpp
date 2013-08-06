@@ -148,7 +148,7 @@ SlideShow::SlideShow(QMap<QString, QVariant> set, QWidget *parent, bool v) : QWi
 	central->addLayout(hideQuickLay);
 	central->addSpacing(10);
 
-#ifdef WITH_PHONON
+#ifdef PHONON
 	// Adjust music
 	musicEnable = new CustomCheckBox(tr("Enable Music"));
 	musicEnable->setChecked(globSet.value("SlideShowMusicFile").toString() != "");
@@ -360,7 +360,7 @@ void SlideShow::mouseReleaseEvent(QMouseEvent *e) {
 // browse for a music file
 void SlideShow::browseForMusic() {
 
-#ifdef WITH_PHONON
+#ifdef PHONON
 	if(verbose) std::clog << "slb: Browse for music file" << std::endl;
 
 	QString oldPath = QDir::homePath();

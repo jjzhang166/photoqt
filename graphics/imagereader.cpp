@@ -28,7 +28,7 @@ ImageReader::ImageReader(bool v) : QObject() {
 
 bool ImageReader::doIUseMagick(QString filename) {
 
-#ifdef WITH_GRAPHICSMAGICK
+#ifdef GM
 	QStringList qtFiles = qtfiles.replace("*","").split(",");
 
 	for(int i = 0; i < qtFiles.length(); ++i) {
@@ -46,7 +46,7 @@ bool ImageReader::doIUseMagick(QString filename) {
 
 QImage ImageReader::readImage(QString filename, int rotation, bool zoomed, QSize maxSize, bool dontscale) {
 
-#ifdef WITH_GRAPHICSMAGICK
+#ifdef GM
 	Magick::Image image;
 	QString faultyImage = "";
 #endif
@@ -83,7 +83,7 @@ QImage ImageReader::readImage(QString filename, int rotation, bool zoomed, QSize
 
 	} else {
 
-#ifdef WITH_GRAPHICSMAGICK
+#ifdef GM
 
 		try {
 			if(QFileInfo(filename).suffix() == "x" || QFileInfo(filename).suffix() == "avs") image.magick("AVS");
@@ -195,7 +195,7 @@ QImage ImageReader::readImage(QString filename, int rotation, bool zoomed, QSize
 
 	} else {
 
-#ifdef WITH_GRAPHICSMAGICK
+#ifdef GM
 
 
 		Magick::Blob blob;

@@ -11,7 +11,7 @@
 #include <QLabel>
 #include <QHBoxLayout>
 
-#ifdef WITH_PHONON
+#ifdef PHONON
 #include <phonon/AudioOutput>
 #include <phonon/MediaObject>
 #include <phonon/VolumeSlider>
@@ -63,7 +63,7 @@ private:
 	// Is a slideshow running?
 	bool enabled;
 
-#ifdef WITH_PHONON
+#ifdef PHONON
 	// The Phonon Objects for the possibly set music file
 	Phonon::AudioOutput *audio;
 	Phonon::MediaObject *media;
@@ -72,7 +72,7 @@ private:
 	// A button to play/pause the slideshow
 	CustomPushButton *playPause;
 
-#ifdef WITH_PHONON
+#ifdef PHONON
 	// Adjusting the volume
 	Phonon::VolumeSlider *volume;
 	QLabel *volumeLabel;

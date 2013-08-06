@@ -9,7 +9,7 @@
 #include <QTextDocument>
 #include <QFileInfo>
 
-#ifdef WITH_GRAPHICSMAGICK
+#ifdef GM
 #include <GraphicsMagick/Magick++/Image.h>
 #endif
 

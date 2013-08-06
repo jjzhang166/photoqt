@@ -197,7 +197,7 @@ void GraphicsView::contextMenuEvent(QContextMenuEvent *event) {
 		flipLay->addWidget(flip);
 		flipLay->addSpacing(5);
 		flipLay->addWidget(flipHor);
-		flipLay->addSpacing(10);
+		flipLay->addSpacing(5);
 		flipLay->addWidget(flipVer);
 		flipLay->addStretch();
 		flipWid->setLayout(flipLay);

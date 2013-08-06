@@ -107,7 +107,7 @@ MainWindow::MainWindow(QWidget *parent, bool verbose) : QMainWindow(parent) {
 	// The exif widget
 	details = new Details(viewBig,globSet->toSignalOut());
 	connect(details, SIGNAL(updateSettings(QMap<QString,QVariant>)), globSet, SLOT(settingsUpdated(QMap<QString,QVariant>)));
-#ifdef WITH_EXIV2
+#ifdef EXIV2
 	connect(details, SIGNAL(setOrientation(int,bool)), this, SLOT(getOrientationFromExif(int,bool)));
 	connect(details->rotConf, SIGNAL(blockFunc(bool)), this, SLOT(blockFunc(bool)));
 #endif
@@ -1067,18 +1067,11 @@ void MainWindow::rotateFlip(bool rotateNotFlipped, QString direction) {
 
 	if(rotateNotFlipped) {
 
-		if((globVar->flipHor || globVar->flipVer) && !(globVar->flipHor && globVar->flipVer)) {
-			if(direction == "clock")
-				direction = "anticlock";
-			else if(direction == "anticlock")
-				direction = "clock";
-		}
-
 		// ROTATE
 
 		if(direction == "clock") {
 
-			globVar->rotation += 90;
+			globVar->rotation -= 90;
 
 			viewBig->rotate(90);
 
@@ -1089,8 +1082,7 @@ void MainWindow::rotateFlip(bool rotateNotFlipped, QString direction) {
 
 		} else if(direction == "anticlock") {
 
-			globVar->rotation -= 90;
-			globVar->rotation += 360;
+			globVar->rotation += 90;
 
 			viewBig->rotate(-90);
 
@@ -1101,7 +1093,7 @@ void MainWindow::rotateFlip(bool rotateNotFlipped, QString direction) {
 
 		} else if(direction.startsWith("reset")) {
 
-			viewBig->rotate(-globVar->rotation);
+			viewBig->rotate(globVar->rotation);
 			globVar->rotation = 0;
 
 			if(direction != "resetNoDraw" && !globVar->zoomed)
@@ -1924,7 +1916,7 @@ void MainWindow::systemShortcutDO(QString todo) {
 
 		}
 
-#ifdef WITH_EXIV2
+#ifdef EXIV2
 		if(details->rotConf->isShown) {
 
 			if(todo == "Enter" || todo == "Return")
@@ -2144,7 +2136,8 @@ void MainWindow::zoom(bool zoomin, QString ignoreBoolean) {
 
 			viewBig->setAlignment(Qt::AlignCenter);
 			viewBig->resetMatrix();
-			viewBig->rotate(-globVar->rotation);
+			viewBig->rotate(globVar->rotation%180 != 0 ? globVar->rotation+180 : globVar->rotation);
+
 			if(globVar->flipHor)
 				viewBig->scale(-1,1);
 			if(globVar->flipVer)
@@ -2165,7 +2158,8 @@ void MainWindow::zoom(bool zoomin, QString ignoreBoolean) {
 
 			globVar->zoomed = false;
 			viewBig->resetMatrix();
-			viewBig->rotate(-globVar->rotation);
+			viewBig->rotate(globVar->rotation%180 != 0 ? globVar->rotation+180 : globVar->rotation);
+
 			if(globVar->flipHor)
 				viewBig->scale(-1,1);
 			if(globVar->flipVer)
