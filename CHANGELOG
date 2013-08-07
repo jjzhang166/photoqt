@@ -1,13 +1,26 @@
 Changelog PhotoQt v1.0beta  - Copyright (C) 2013, Lukas Spies (Lukas@photoqt.org), License: GPLv2 (or later)
 ------------------------------------------------------------------------------------------------------------
 
-This is the changelog of the last *stable* release, i.e. v0.9.1!!
-
-
-Release 1.0beta1
+Release 1.0
 ----------------------------
-- Renamed Photo to PhotoQt
-- [coming soon]
+- Photo renamed to PhotoQt
+- New Logo (made necessary by name change)
+- Use of GraphicsMagick (hence support of 80+ filetypes)
+- Possibility at compilation time to disable use of GraphicsMagick, Exiv2, Phonon
+- Significantly faster start-up (on average more than 7 times as fast)
+- Revamped style of most widgets a little
+- Added Window Mode (with and without decoration)
+- Set-as-Wallpaper function
+- Dropdown-Menu updated and image manipulation functions moved to image context menu
+- Smart Context Menu options
+- Improved thumbnail handling and view
+- Dynamic thumbnail creation (only create those thumbnails currently needed)
+- Posibility to write resolution on thumbnails (in order to use this you have to remove thumbnails of older versions)
+- Faster image and directory loading
+- Improved fading between images
+- Locale detection when no language is set
+- Many code improvements 'under the hub' for better, faster and more reliable image handling
+- ... and a lot more that I don't think of right now ...
 
 
 Release 0.9.1 - 22/01/2013
