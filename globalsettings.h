@@ -1,8 +1,12 @@
 #ifndef GLOBALSETTINGS_H
 #define GLOBALSETTINGS_H
 
-// THIS IS THE GLOBAL VERSION STRING, ONCE DEFINED HERE
+//******************************************************//
+// THIS IS THE GLOBAL VERSION STRING, ONCE DEFINED HERE //
+//******************************************************//
 #define VERSION "1.0beta"
+//******************************************************//
+//******************************************************//
 
 #include <QObject>
 #include <QFile>
@@ -198,51 +202,6 @@ public:
 				<< ".xcf"	// GIMP image
 
 				<< ".xwd";	// X Windows system window dump
-
-
-/*** THE FOLLOWING FILE TYPES ARE DISABLED BY DEFAULT -- NOT ALL ARE WORKING JUST YET ***/
-
-//	<< ".gray"	// Raw gray samples -- test failed
-
-//	<< ".hpgl"	// HP-GL plotter language -- external tool needed ("hp2xx")
-
-//	<< ".mono"	// Bi-level bitmap in least-significant-byte first order -- test failed
-
-//	<< ".msl"	// Magick Scripting Language -- test failed
-
-//	<< ".mvg"	// Magick Vector Graphics -- test failed
-
-//	<< ".pcl"	// HP Page Control Language -- external tool needed ("hp2xx")
-
-//	<< ".pfa"	// Postscript Type 1 font (ASCII) -- test failed
-
-//	<< ".pfb"	// Postscript Type 1 font (binary) -- test failed
-
-//	<< ".pwp"	// Seattle File Works multi-image file -- test failed
-
-//	<< ".rgb"	// Raw red, green, and blue samples -- test failed
-
-//	<< ".rgba"	// Raw red, green, and blue and matte samples -- test failed
-
-//	<< ".rla"	// Alias/Wavefront image file -- test failed
-
-//	<< ".rle"	// Utah Run length encoded image file -- some tool missing
-
-//	<< ".sct"	// Scitex Continuous Tone Picture -- test failed
-
-//	<< ".sfw"	// Seattle File Works image -- test failed
-
-//	<< ".tim"	// PSX TIM file -- test failed
-
-//	<< ".uil"	// X-Motif UIL table -- test failed
-
-//	<< ".uyvy"	// Interleaved YUV raw image -- test failed
-
-//	<< ".wmf"	// Windows Metafile -- test failed
-
-//	<< ".wpg"	// Word Perfect Graphics File -- test failed
-
-//	<< ".yuv";	// CCIR 601 4:1:1 -- test failed
 
 #endif
 
