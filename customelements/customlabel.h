@@ -31,7 +31,7 @@ public slots:
 	void setDisabled(bool b) { setEnabled(!b); }
 
 protected:
-	void mouseReleaseEvent(QMouseEvent *e) {
+	void mouseReleaseEvent(QMouseEvent *) {
 		emit clicked();
 	}
 signals:
