@@ -69,11 +69,11 @@ private:
 	QVBoxLayout *central;
 
 	// All the labels for displaying exif info
-	QMap<QString,QLabel*> items;
+	QMap<QString,CustomLabel*> items;
 	void setupLabels();
 
 	// A label displaying an "Nothing loaded" message
-	QLabel *empty;
+	CustomLabel *empty;
 
 	// The animation class
 	QPropertyAnimation *ani;
@@ -105,10 +105,6 @@ private:
 	// Rotation/Flipping values
 	int rotationDeg;
 	bool flipHor;
-
-	// Fontsize can be adjusted
-	QString labelCSS;
-	QString labelCSSfontsize;
 
 public slots:
 	// Update the label data

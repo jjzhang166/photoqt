@@ -62,4 +62,18 @@ void CustomLabel::setCSS() {
 
 }
 
+void CustomLabel::setToolTipNoWrap(bool b) {
+
+	tooltipNoWrap = b;
+	setToolTip(this->toolTip());
+
+}
+
+void CustomLabel::setToolTip(QString t) {
+
+	if(tooltipNoWrap) t = "<p style='white-space:pre'>" + t + "</p>";
+	QLabel::setToolTip(t);
+
+}
+
 CustomLabel::~CustomLabel() { }

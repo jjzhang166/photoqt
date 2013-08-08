@@ -17,6 +17,9 @@ public:
 	void setBackgroundColor(QString col) { backgroundcolor = col; setCSS(); }
 	void setBorder(int width, QString col) { borderwidth = width; bordercolor = col; setCSS(); }
 
+	void setToolTip(QString t);
+	void setToolTipNoWrap(bool b);
+
 private:
 	void setCSS();
 	QString fontsize;
@@ -25,6 +28,7 @@ private:
 	int borderwidth;
 	QString bordercolor;
 	bool bold;
+	bool tooltipNoWrap;
 
 public slots:
 	void setEnabled(bool);

@@ -26,8 +26,7 @@ Details::Details(QWidget *parent, QMap<QString, QVariant> set, bool v): QWidget(
 	globSet = set;
 
 	// style widget
-	this->setObjectName("exif");
-	this->setStyleSheet("QWidget#exif { border-radius: 8px; border-bottom-left-radius: 0px; border-top-left-radius: 0px; background-color: rgba(0, 0, 0, 200); }");
+	this->setStyleSheet("QWidget { border-radius: 8px; border-bottom-left-radius: 0px; border-top-left-radius: 0px; background-color: rgba(0, 0, 0, 200); }");
 	this->setContentsMargins(10,10,10,10);
 
 	// Initiate and set layout
@@ -54,9 +53,8 @@ Details::Details(QWidget *parent, QMap<QString, QVariant> set, bool v): QWidget(
 	this->setGeometry(rectHidden);
 
 	// This widget is shown when no file is loaded
-	empty = new QLabel("<center><h1>" + tr("No file loaded") + "</h1></center>");
-	empty->setStyleSheet("background: transparent; color: rgb(135,135,135);");
-	empty->setWordWrap(true);
+	empty = new CustomLabel("<center><h1>" + tr("No file loaded") + "</h1></center>");
+	empty->setFontColor("rgb(135,135,135)");
 	central->addWidget(empty);
 
 	// Setup the labels
@@ -277,9 +275,6 @@ void Details::setupLabels() {
 
 #endif
 
-	labelCSS = "color: white; background: rgba(0,0,0,100); padding: 2px; border-radius: 4px;";
-	labelCSSfontsize = QString("font-size: %1pt;").arg(globSet.value("ExifFontSize").toInt());
-
 	// Eventually set up the labels
 	for(int i = 0; i < labels.length(); ++i) {
 
@@ -287,6 +282,8 @@ void Details::setupLabels() {
 			if(labelsId.at(i) != "Gps") {
 				CustomLabel *l = new CustomLabel("<b>" + labels.at(i) + "</b>");
 				l->setFontSize(QString("%1pt").arg(globSet.value("ExifFontSize").toInt()));
+				l->setBackgroundColor("rgba(0,0,0,80)");
+				l->setToolTipNoWrap(true);
 				items.insert(labelsId.at(i),l);
 				central->addWidget(l);
 				l->hide();
@@ -296,6 +293,8 @@ void Details::setupLabels() {
 				l->setText("<b>" + labels.at(i) + "</b>");
 				connect(l, SIGNAL(clicked()), this, SLOT(gpsClick()));
 				l->setFontSize(QString("%1pt").arg(globSet.value("ExifFontSize").toInt()));
+				l->setBackgroundColor("rgba(0,0,0,80)");
+				l->setToolTipNoWrap(true);
 				items.insert(labelsId.at(i),l);
 				central->addWidget(l);
 				l->hide();
@@ -866,14 +865,14 @@ void Details::gpsClick() {
 // Change the fontsize of all the labels
 void Details::updateFontsize() {
 
-	labelCSSfontsize = QString("font-size: %1pt;").arg((globSet.value("ExifFontSize").toInt()));
+	QString labelCSSfontsize = QString("%1pt").arg((globSet.value("ExifFontSize").toInt()));
 
 	if(verbose) std::clog << "exif: Updating font size: " << labelCSSfontsize.toStdString() << std::endl;
 
 	for(int i = 0; i < labelsId.size(); ++i) {
 
 		if(labelsId.at(i) != "")
-			items[labelsId.at(i)]->setStyleSheet(labelCSS + labelCSSfontsize);
+			items[labelsId.at(i)]->setFontSize(labelCSSfontsize);
 
 	}
 
