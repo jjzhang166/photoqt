@@ -5,11 +5,11 @@ Release 1.0
 ----------------------------
 - Photo renamed to PhotoQt
 - New Logo (made necessary by name change)
-- Use of GraphicsMagick (hence support of 80+ filetypes)
+- Use of GraphicsMagick (hence support of 80+ file types)
 - Possibility at compilation time to disable use of GraphicsMagick, Exiv2, Phonon
-- Significantly faster start-up (on average more than 7 times as fast)
-- Revamped style of most widgets a little
-- Added Window Mode (with and without decoration)
+- Significantly faster start-up (on average more than 7 times faster)
+- Revamped style of most widgets
+- Added Window Mode (with and without window decoration)
 - Set-as-Wallpaper function
 - Dropdown-Menu updated and image manipulation functions moved to image context menu
 - Smart Context Menu options
