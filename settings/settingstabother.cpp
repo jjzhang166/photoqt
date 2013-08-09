@@ -90,25 +90,26 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 
 
 	// All the languages available. They are sorted according to their language code (except English)
+	// A GOOD FEW OF THE TRANSLATIONS HAVEN'T BEEN UPDATED IN A LONG TIME AND ARE STANDING AT 0-5%
 
 	langDesc << "English";
 	langShort << "en";
 
 	// Arabic
-	langDesc << QString::fromUtf8("العربية (Amar Tahaif)");
-	langShort << "ar";
+//	langDesc << QString::fromUtf8("العربية (Amar Tahaif)");
+//	langShort << "ar";
 
 	// Czech
-	langDesc << QString::fromUtf8("Čeština (Tomáš Bartl)");
-	langShort << "cs";
+//	langDesc << QString::fromUtf8("Čeština (Tomáš Bartl)");
+//	langShort << "cs";
 
 	// German
 	langDesc << "Deutsch (Lukas Spies)";
 	langShort << "de";
 
 	// Greek
-	langDesc << QString::fromUtf8("Ελληνικά (Dimitrios Glentadakis)");
-	langShort << "el";
+//	langDesc << QString::fromUtf8("Ελληνικά (Dimitrios Glentadakis)");
+//	langShort << "el";
 
 	// Spanish
 	langDesc << QString::fromUtf8("Español (Manuel E. Gutierrez)");
@@ -119,20 +120,20 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 	langShort << "fr";
 
 	// Hungarian
-	langDesc << QString::fromUtf8("Magyar (Zoltan Hoppár)");
-	langShort << "hu";
+//	langDesc << QString::fromUtf8("Magyar (Zoltan Hoppár)");
+//	langShort << "hu";
 
 	// Italian
-	langDesc << "Italiano (Vincenzo Cerminara)";
-	langShort << "it";
+//	langDesc << "Italiano (Vincenzo Cerminara)";
+//	langShort << "it";
 
 	// Norwegian Bokmal
-	langDesc << QString::fromUtf8("Bokmål (Ola Haugen Havrevoll)");
-	langShort << "nb_NO";
+//	langDesc << QString::fromUtf8("Bokmål (Ola Haugen Havrevoll)");
+//	langShort << "nb_NO";
 
 	// Norwegian Nynorsk
-	langDesc << "Nynorsk (Ola Haugen Havrevoll)";
-	langShort << "nn_NO";
+//	langDesc << "Nynorsk (Ola Haugen Havrevoll)";
+//	langShort << "nn_NO";
 
 	// Polish
 	langDesc << "Polski (Daniel Korbel)";
@@ -147,28 +148,29 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 	langShort << "sk";
 
 	// Serbian
-	langDesc << QString::fromUtf8("српски екавски (Mladen Pejaković)");
-	langShort << "sr_RS";
+//	langDesc << QString::fromUtf8("српски екавски (Mladen Pejaković)");
+//	langShort << "sr_RS";
 
 	// Turkish
-	langDesc << QString::fromUtf8("Türkçe (Onuralp SEZER)");
-	langShort << "tr";
+//	langDesc << QString::fromUtf8("Türkçe (Onuralp SEZER)");
+//	langShort << "tr";
 
 	// Ukrainian
-	langDesc << QString::fromUtf8("Українська (Yuriy Tkach)");
-	langShort << "uk_UA";
+//	langDesc << QString::fromUtf8("Українська (Yuriy Tkach)");
+//	langShort << "uk_UA";
 
 	// Viatnemese
-	langDesc << QString::fromUtf8("Tiếng Việt (Nguyễn Hữu Tài)");
-	langShort << "vi";
+//	langDesc << QString::fromUtf8("Tiếng Việt (Nguyễn Hữu Tài)");
+//	langShort << "vi";
 
-	// The Chinese translation hasn't been updated in a long time, and only 3% are currently translated. It's removed for now from the PhotoQt app, but remains at Transifex, and if somebody starts updating it again, it'll get included again.
 	// Chinese
 //	langDesc << "Chinese (Dianjin Wang)";
 //	langShort << "zh_CN";
 
-	FlowLayout *langLay = new FlowLayout;
+	QHBoxLayout *langLay = new QHBoxLayout;
 	QButtonGroup *langButGrp = new QButtonGroup;
+
+	langLay->addStretch();
 
 	for(int i = 0; i < langDesc.length(); ++i) {
 
@@ -178,6 +180,8 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 		langLay->addWidget(tile);
 
 	}
+
+	langLay->addStretch();
 
 	QHBoxLayout *langWidgLay = new QHBoxLayout;
 	langWidgLay->addSpacing(50);

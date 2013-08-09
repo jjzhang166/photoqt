@@ -1,22 +1,10 @@
 <RCC>
     <qresource prefix="/">
-        <file>lang/photoqt_ar.qm</file>
-        <file>lang/photoqt_cs.qm</file>
         <file>lang/photoqt_de.qm</file>
-        <file>lang/photoqt_el.qm</file>
         <file>lang/photoqt_es_ES.qm</file>
         <file>lang/photoqt_fr.qm</file>
-        <file>lang/photoqt_hu.qm</file>
-        <file>lang/photoqt_it.qm</file>
-        <file>lang/photoqt_nb_NO.qm</file>
-        <file>lang/photoqt_nn_NO.qm</file>
         <file>lang/photoqt_pl.qm</file>
         <file>lang/photoqt_ru_RU.qm</file>
         <file>lang/photoqt_sk.qm</file>
-        <file>lang/photoqt_sr_RS.qm</file>
-        <file>lang/photoqt_tr.qm</file>
-        <file>lang/photoqt_uk_UA.qm</file>
-        <file>lang/photoqt_vi.qm</file>
-        <file>lang/photoqt_zh_CN.qm</file>
     </qresource>
 </RCC>
