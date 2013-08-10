@@ -3,6 +3,7 @@
 
 #include "../customelements/custompushbutton.h"
 #include "../customelements/customcheckbox.h"
+#include "../customelements/customlabel.h"
 
 #include <QWidget>
 #include <QPropertyAnimation>

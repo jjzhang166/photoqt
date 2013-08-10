@@ -70,7 +70,6 @@ SettingsTabShortcuts::SettingsTabShortcuts(QWidget *parent, bool v) : QWidget(pa
 	lay->addLayout(setDefLay);
 	lay->addSpacing(10);
 	setDefaultConfirm = new CustomConfirm(tr("Set default shortcuts?"), tr("This reverses all changes to the shortcuts and sets the set of default ones.") + "<br><br>" + tr("This step cannot be reversed!"), tr("Give me defaults"), tr("Hm, maybe not now"),QSize(400,200),this->parentWidget());
-	setDefaultConfirm->showBorder("white",2);
 	setDefaultConfirm->show();
 	connect(setDefault, SIGNAL(clicked()), setDefaultConfirm, SLOT(animate()));
 	connect(setDefaultConfirm, SIGNAL(confirmed()), this, SIGNAL(setDefaultShortcuts()));

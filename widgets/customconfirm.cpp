@@ -29,7 +29,7 @@ CustomConfirm::CustomConfirm(QString title, QString text, QString yesText, QStri
 	// The central widget containing all the contents
 	center = new QWidget(this);
 	center->setObjectName("center");
-	center->setStyleSheet("#center { background: rgba(0,0,0,200); border-radius: 20px; }");
+	center->setStyleSheet("#center { background: rgba(0,0,0,200); border-radius: 20px; border: 2px solid rgb(130,130,130); }");
 
 	// The animation instances
 	ani = new QPropertyAnimation(center, "geometry");
@@ -54,20 +54,16 @@ CustomConfirm::CustomConfirm(QString title, QString text, QString yesText, QStri
 	lay->addSpacing(10);
 
 	// The title of the widget with user set text
-	QLabel *t = new QLabel(title);
-	t->setObjectName("title");
-	t->setWordWrap(true);
-	t->setStyleSheet("#title { color: white; background: transparent; font-size: 15pt; font-weight: bold; }");
+	CustomLabel *t = new CustomLabel(title);
+	t->setFontSize("15pt");
+	t->setBold(true);
 	t->setAlignment(Qt::AlignCenter);
 	lay->addWidget(t);
 	lay->addSpacing(12);
 
-	QLabel *desc = new QLabel(text);
-	desc->setWordWrap(true);
-	desc->setObjectName("desc");
+	CustomLabel *desc = new CustomLabel(text);
 	desc->setAlignment(Qt::AlignCenter);
-	desc->setCursor(Qt::ArrowCursor);
-	desc->setStyleSheet("#desc {color: white; background: transparent; line-height: 2pt; }");
+	desc->setLineHeight("2pt");
 	lay->addWidget(desc);
 	lay->addSpacing(7);
 

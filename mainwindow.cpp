@@ -375,145 +375,140 @@ void MainWindow::closeEvent(QCloseEvent *e) {
 // Draw the big main image
 void MainWindow::drawImage() {
 
-	// The slideshow also sets the globVar->blocked bool, but nevertheless, the image has to be drawn in that specific case
-	if(!globVar->blocked || (setupWidgets->slideshowbar && slideshowbar->isEnabled())) {
+	if(globVar->verbose) std::clog << "Drawing Image" << std::endl;
 
-		if(globVar->verbose) std::clog << "Drawing Image" << std::endl;
+	// the alignment of the image is always center. If the thumbnails are kept visible, we simply add a tranparent bar to the bottom of the image (happening just a couple lines below)
+	viewBig->setAlignment(Qt::AlignCenter);
 
-		// the alignment of the image is always center. If the thumbnails are kept visible, we simply add a tranparent bar to the bottom of the image (happening just a couple lines below)
-		viewBig->setAlignment(Qt::AlignCenter);
+	// No file loaded yet,...
+	if(globVar->currentfile == "") {
 
-		// No file loaded yet,...
-		if(globVar->currentfile == "") {
+		if(globVar->verbose) std::clog << "Ask for filename" << std::endl;
 
-			if(globVar->verbose) std::clog << "Ask for filename" << std::endl;
-
-			// ..., so open a new file
-			openFile();
+		// ..., so open a new file
+		openFile();
 
 		// Load image
-		} else {
+	} else {
 
-			// Display busy cursor
-			qApp->setOverrideCursor(Qt::WaitCursor);
+		// Display busy cursor
+		qApp->setOverrideCursor(Qt::WaitCursor);
 
-			if(globVar->verbose) std::clog << "Got filename:" << globVar->currentfile.toStdString() << std::endl;
+		if(globVar->verbose) std::clog << "Got filename:" << globVar->currentfile.toStdString() << std::endl;
 
-			// Tell the filehandling widget the new filename
-			if(setupWidgets->filehandling) filehandling->currentfile = globVar->currentfile;
+		// Tell the filehandling widget the new filename
+		if(setupWidgets->filehandling) filehandling->currentfile = globVar->currentfile;
 
-			// If the current directory info hasn't been loaded yet
-			if(viewThumbs->counttot == 0) {
-				viewThumbs->currentfile = globVar->currentfile;
-				viewThumbs->noThumbs = globSet->thumbnailDisable;
-				viewThumbs->loadDir();
-			}
+		// If the current directory info hasn't been loaded yet
+		if(viewThumbs->counttot == 0) {
+			viewThumbs->currentfile = globVar->currentfile;
+			viewThumbs->noThumbs = globSet->thumbnailDisable;
+			viewThumbs->loadDir();
+		}
 
 
-			// Get the maximum possible dimensions of the main image
-			int maxW = viewBig->width()-globSet->borderAroundImg*2;
-			int subtractThumbnailHeight = 0;
-			if(globSet->thumbnailKeepVisible)
-				subtractThumbnailHeight = viewThumbs->height();
-			int maxH = viewBig->height()-2*globSet->borderAroundImg-subtractThumbnailHeight;
+		// Get the maximum possible dimensions of the main image
+		int maxW = viewBig->width()-globSet->borderAroundImg*2;
+		int subtractThumbnailHeight = 0;
+		if(globSet->thumbnailKeepVisible)
+			subtractThumbnailHeight = viewThumbs->height();
+		int maxH = viewBig->height()-2*globSet->borderAroundImg-subtractThumbnailHeight;
 
-			// In the two cases below we need to swap dimensions, otherwise the image doesn't fit
-			if((globVar->rotation == -270 || globVar->rotation == -90)) {
-				int t = maxW;
-				maxW = maxH;
-				maxH = t;
-			}
+		// In the two cases below we need to swap dimensions, otherwise the image doesn't fit
+		if((globVar->rotation == -270 || globVar->rotation == -90)) {
+			int t = maxW;
+			maxW = maxH;
+			maxH = t;
+		}
 
-			// Get the image
-			QImage img = imageReader->readImage(globVar->currentfile,globVar->rotation,globVar->zoomed,QSize(maxW,maxH),true);
+		// Get the image
+		QImage img = imageReader->readImage(globVar->currentfile,globVar->rotation,globVar->zoomed,QSize(maxW,maxH),true);
 
-			if(!globVar->zoomToActualSize) {
-				// The imagereader stores two possible scaling factors
-				if(imageReader->scaleImg1 != -1)
-					viewBig->scale(imageReader->scaleImg1,imageReader->scaleImg1);
-				if(imageReader->scaleImg2 != -1)
-					viewBig->scale(imageReader->scaleImg2,imageReader->scaleImg2);
-			}
+		if(!globVar->zoomToActualSize) {
+			// The imagereader stores two possible scaling factors
+			if(imageReader->scaleImg1 != -1)
+				viewBig->scale(imageReader->scaleImg1,imageReader->scaleImg1);
+			if(imageReader->scaleImg2 != -1)
+				viewBig->scale(imageReader->scaleImg2,imageReader->scaleImg2);
+		}
 
-			// Get the fileformat and the original size
-			QString fileformat = imageReader->fileformat;
-			QSize origSize = imageReader->origSize;
+		// Get the fileformat and the original size
+		QString fileformat = imageReader->fileformat;
+		QSize origSize = imageReader->origSize;
 
-			// If the thumbnails are kept visible we need to add a transparent bar to the main image so that they don't overlap
-			graphItem->setTransBarHeight((!globVar->zoomed && globSet->thumbnailKeepVisible) ? viewThumbs->height() : 0);
-			// Is it an animated image?
-			if(imageReader->animatedImg)
-				graphItem->setMovie(globVar->currentfile,origSize.width(),origSize.height());
-			// Otherwise do the normal setPixmap()
+		// If the thumbnails are kept visible we need to add a transparent bar to the main image so that they don't overlap
+		graphItem->setTransBarHeight((!globVar->zoomed && globSet->thumbnailKeepVisible) ? viewThumbs->height() : 0);
+		// Is it an animated image?
+		if(imageReader->animatedImg)
+			graphItem->setMovie(globVar->currentfile,origSize.width(),origSize.height());
+		// Otherwise do the normal setPixmap()
+		else
+			graphItem->setPixmap(QPixmap::fromImage(img));
+
+		int imgWidth = img.width();
+		int imgHeight = img.height();
+		if((globVar->rotation == -270 || globVar->rotation == -90)) {
+			int t = imgWidth;
+			imgWidth = imgHeight;
+			imgHeight = t;
+		}
+
+		if(imgWidth < viewBig->width()) {
+			// Set the right position of the main image
+			int graphItemX = (viewBig->width()-imgWidth)/2.0;
+			graphItem->setX(graphItemX);
+		}
+		if(imgHeight < viewBig->height()) {
+			int graphItemY = (viewBig->height()-imgHeight)/2.0;
+			graphItem->setY(graphItemY);
+		}
+
+		// Update the current position of the image in the directory
+		viewThumbs->countpos = viewThumbs->allImgsPath.indexOf(globVar->currentfile);
+
+		// Adjust scene rect
+		viewBig->scene()->setSceneRect(viewBig->scene()->itemsBoundingRect());
+
+		// If exif isn't read yet
+		if(!globVar->exifRead) {
+
+			if(globVar->verbose) std::clog << "Requesting Exif Info" << std::endl;
+
+			// Exif info read
+			globVar->exifRead = true;
+
+			// These formats known by Photo are supported by exiv2
+			QStringList formats;
+			formats << "bmp" << "gif" << "tiff" << "jpg" << "jpeg" << "png";
+
+			// If supported, load exiv2 data
+			if(formats.contains(fileformat))
+				// Update the exif data widget
+				details->updateData(globVar->currentfile,origSize);
+			// Otherwise set exiv2 to "unsupported"
 			else
-				graphItem->setPixmap(QPixmap::fromImage(img));
-
-			int imgWidth = img.width();
-			int imgHeight = img.height();
-			if((globVar->rotation == -270 || globVar->rotation == -90)) {
-				int t = imgWidth;
-				imgWidth = imgHeight;
-				imgHeight = t;
-			}
-
-			if(imgWidth < viewBig->width()) {
-				// Set the right position of the main image
-				int graphItemX = (viewBig->width()-imgWidth)/2.0;
-				graphItem->setX(graphItemX);
-			}
-			if(imgHeight < viewBig->height()) {
-				int graphItemY = (viewBig->height()-imgHeight)/2.0;
-				graphItem->setY(graphItemY);
-			}
-
-			// Update the current position of the image in the directory
-			viewThumbs->countpos = viewThumbs->allImgsPath.indexOf(globVar->currentfile);
-
-			// Adjust scene rect
-			viewBig->scene()->setSceneRect(viewBig->scene()->itemsBoundingRect());
-
-			// If exif isn't read yet
-			if(!globVar->exifRead) {
-
-				if(globVar->verbose) std::clog << "Requesting Exif Info" << std::endl;
-
-				// Exif info read
-				globVar->exifRead = true;
-
-				// These formats known by Photo are supported by exiv2
-				QStringList formats;
-				formats << "bmp" << "gif" << "tiff" << "jpg" << "jpeg" << "png";
-
-				// If supported, load exiv2 data
-				if(formats.contains(fileformat))
-					// Update the exif data widget
-					details->updateData(globVar->currentfile,origSize);
-				// Otherwise set exiv2 to "unsupported"
-				else
-					// Update the exif data widget
-					details->updateData(globVar->currentfile,origSize,false);
-
-			}
-
-			// Restore normal cursor
-			qApp->restoreOverrideCursor();
-
-			// Ensure the active thumbnail is shown
-			// We only do that when the thumbnail was NOT loaded through a click on it. The reason is, that otherwise the thumbnailview might move a little (ensuring the thumbnail is visible) although it already IS visible.
-			if(viewThumbs->allImgsPath.indexOf(globVar->currentfile) != -1 && !globSet->thumbnailDisable && !viewThumbs->thumbLoadedThroughClick) {
-				// We center on the image if it's a newly loaded dir
-				if(viewThumbs->newlyLoadedDir)
-					viewThumbs->view->centerOn(viewThumbs->allPixmaps.at(viewThumbs->allImgsPath.indexOf(globVar->currentfile)));
-				else
-					viewThumbs->view->ensureVisible(viewThumbs->allPixmaps.at(viewThumbs->allImgsPath.indexOf(globVar->currentfile)));
-				// We also have to check here where the cursor is, cause sometimes the app reaches these statements here when auto rotate is active (exif)
-				if(!globSet->thumbnailKeepVisible && viewThumbs->isVisible() && !viewThumbs->thumbLoadedThroughClick && !viewThumbs->areaShown().contains(QCursor::pos()))
-					viewThumbs->makeHide();
-				viewThumbs->startThread();
-			} else if(viewThumbs->thumbLoadedThroughClick)
-				viewThumbs->thumbLoadedThroughClick = false;
+				// Update the exif data widget
+				details->updateData(globVar->currentfile,origSize,false);
 
 		}
+
+		// Restore normal cursor
+		qApp->restoreOverrideCursor();
+
+		// Ensure the active thumbnail is shown
+		// We only do that when the thumbnail was NOT loaded through a click on it. The reason is, that otherwise the thumbnailview might move a little (ensuring the thumbnail is visible) although it already IS visible.
+		if(viewThumbs->allImgsPath.indexOf(globVar->currentfile) != -1 && !globSet->thumbnailDisable && !viewThumbs->thumbLoadedThroughClick) {
+			// We center on the image if it's a newly loaded dir
+			if(viewThumbs->newlyLoadedDir)
+				viewThumbs->view->centerOn(viewThumbs->allPixmaps.at(viewThumbs->allImgsPath.indexOf(globVar->currentfile)));
+			else
+				viewThumbs->view->ensureVisible(viewThumbs->allPixmaps.at(viewThumbs->allImgsPath.indexOf(globVar->currentfile)));
+			// We also have to check here where the cursor is, cause sometimes the app reaches these statements here when auto rotate is active (exif)
+			if(!globSet->thumbnailKeepVisible && viewThumbs->isVisible() && !viewThumbs->thumbLoadedThroughClick && !viewThumbs->areaShown().contains(QCursor::pos()))
+				viewThumbs->makeHide();
+			viewThumbs->startThread();
+		} else if(viewThumbs->thumbLoadedThroughClick)
+			viewThumbs->thumbLoadedThroughClick = false;
 
 	}
 
@@ -1878,6 +1873,8 @@ void MainWindow::systemShortcutDO(QString todo) {
 			if(todo == "Escape") {
 				if(set->tabShortcuts->changeCommand->isShown)
 					set->tabShortcuts->changeCommand->animate();
+				else if(set->tabShortcuts->setDefaultConfirm->isShown)
+					set->tabShortcuts->setDefaultConfirm->animate();
 				else if(set->tabThumb->confirmClean->isShown)
 					set->tabThumb->confirmClean->no->animateClick();
 				else if(set->tabThumb->confirmErase->isShown)
