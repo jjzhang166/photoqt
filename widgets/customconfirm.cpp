@@ -222,6 +222,13 @@ void CustomConfirm::setDontShowAgain() {
 
 }
 
+// Hide window on click on background
+void CustomConfirm::mouseReleaseEvent(QMouseEvent *) {
+
+	if(isShown) animate();
+
+}
+
 void CustomConfirm::paintEvent(QPaintEvent *) {
 	QStyleOption o;
 	o.initFrom(this);

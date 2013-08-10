@@ -75,6 +75,7 @@ signals:
 
 protected:
 	void paintEvent(QPaintEvent *);
+	void mouseReleaseEvent(QMouseEvent *);
 
 };
 
