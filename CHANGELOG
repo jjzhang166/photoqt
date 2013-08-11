@@ -1,7 +1,7 @@
-Changelog PhotoQt v1.0beta  - Copyright (C) 2013, Lukas Spies (Lukas@photoqt.org), License: GPLv2 (or later)
+Changelog PhotoQt v1.0  - Copyright (C) 2013, Lukas Spies (Lukas@photoqt.org), License: GPLv2 (or later)
 ------------------------------------------------------------------------------------------------------------
 
-Release 1.0
+Release 1.0 - 11/08/2013
 ----------------------------
 - Photo renamed to PhotoQt
 - New logo (made necessary by name change)
@@ -21,7 +21,7 @@ Release 1.0
 - Locale detection when no language is set
 - Natural sort of images (i.e. image10.jpg comes after image9.jpg)
 - Many code improvements 'under the hub' for better, faster and more reliable image handling
-- ... and a lot more that I don't think of right now ...
+- ... and a few more things that I can't think of anymore ...
 
 
 Release 0.9.1 - 22/01/2013

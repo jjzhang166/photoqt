@@ -150,9 +150,19 @@ void Settings::makeHide() {
 
 void Settings::makeShow() {
 
-	if(!isShown) animate();
+	if(!isShown) {
+		if(!tabsSetup) setupTabs();
 
-	if(!tabsSetup) setupTabs();
+		animate();
+
+		tabs->setCurrentIndex(0);
+
+		tabLookFeel->scrollbarLook->setScrollbarShown();
+		tabLookFeel->scrollbarFeel->setScrollbarShown();
+		tabThumb->scrollbarLook->setScrollbarShown();
+		tabThumb->scrollbarTune->setScrollbarShown();
+		tabShortcuts->scrollbar->setScrollbarShown();
+	}
 
 }
 
@@ -291,14 +301,6 @@ void Settings::saveSettings() {
 
 // When the animation has finished
 void Settings::aniFinished() {
-
-	tabs->setCurrentIndex(0);
-
-	tabLookFeel->scrollbarLook->setScrollbarShown();
-	tabLookFeel->scrollbarFeel->setScrollbarShown();
-	tabThumb->scrollbarLook->setScrollbarShown();
-	tabThumb->scrollbarTune->setScrollbarShown();
-	tabShortcuts->scrollbar->setScrollbarShown();
 
 	if(!isShown) {
 		this->setGeometry(rectHidden);
