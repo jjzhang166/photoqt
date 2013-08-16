@@ -623,8 +623,16 @@ void MainWindow::globalRunningProgTimerTimeout() {
 
 	// Open a new file
 	if(doOpen) {
-		if(this->isHidden())
-			this->show();
+		if(this->isHidden()) {
+			if(globVar->windowMaximised) {
+				this->showMaximized();
+				QTimer::singleShot(100,this,SLOT(showMaximized()));
+				globVar->windowMaximised = true;
+			} else {
+				this->showNormal();
+				globVar->windowMaximised = false;
+			}
+		}
 		doShow = false;
 		doHide = false;
 		openFile();
@@ -633,7 +641,14 @@ void MainWindow::globalRunningProgTimerTimeout() {
 	// Show PhotoQt
 	if(doShow) {
 		if(this->isHidden())
-			this->showFullScreen();
+			if(globVar->windowMaximised) {
+				this->showMaximized();
+				QTimer::singleShot(100,this,SLOT(showMaximized()));
+				globVar->windowMaximised = true;
+			} else {
+				this->showNormal();
+				globVar->windowMaximised = false;
+			}
 		this->activateWindow();
 		this->raise();
 		doHide = false;
@@ -1059,8 +1074,10 @@ void MainWindow::resizeEvent(QResizeEvent *) {
 	viewBig->scene()->setSceneRect(viewBig->scene()->itemsBoundingRect());
 
 	// And if an image is loaded, redraw it
-	if(globVar->currentfile != "" && !globVar->zoomed && (QDateTime::currentDateTime().toTime_t() - globVar->restoringFromTrayNoResize) > 1)
+	if((globVar->currentfile != "" && !globVar->zoomed && (QDateTime::currentDateTime().toTime_t() - globVar->restoringFromTrayNoResize) > 1) || (globVar->currentfile != "" && !globVar->zoomed && globVar->windowMaximised != this->isMaximized()))
 		drawImage();
+
+	globVar->windowMaximised = this->isMaximized();
 
 }
 
@@ -1746,7 +1763,7 @@ void MainWindow::startupInstallUpdateMsgClosed() {
 void MainWindow::startuptimer() {
 
 
-	if(this->centralWidget()->height()-viewBig->height() < 25 && this->centralWidget()->width()-viewBig->width() < 25 && viewBig->width() > 500 && viewBig->height() > 500) {
+	if(this->height()-viewBig->height() < 25 && this->width()-viewBig->width() < 25 && viewBig->width() > 500 && viewBig->height() > 500) {
 
 		// Show startup message (if it has to be shown and isn't shown yet)
 		if(globVar->startupMessageInstallUpdateShown != 0 && !setupWidgets->startup) {
@@ -2003,8 +2020,15 @@ void MainWindow::trayAcDo(QSystemTrayIcon::ActivationReason rsn) {
 	QAction *s = (QAction *) sender();
 	if(s->objectName() == "open") {
 		globVar->restoringFromTrayNoResize = QDateTime::currentDateTime().toTime_t();
-		if(this->isHidden())
-			this->showFullScreen();
+		if(this->isHidden()) {
+			if(globSet->windowmode) {
+				this->showMaximized();
+				globSet->windowDecoration ? this->setWindowFlags(this->windowFlags() & ~Qt::FramelessWindowHint) : this->setWindowFlags(Qt::FramelessWindowHint);
+				QTimer::singleShot(10,this,SLOT(showMaximized()));
+				QTimer::singleShot(500,this,SLOT(showMaximized()));
+			} else
+				this->showFullScreen();
+		}
 		openFile();
 	} else if(s->objectName() == "quit") {
 		globVar->skipTrayIcon = true;
@@ -2014,7 +2038,18 @@ void MainWindow::trayAcDo(QSystemTrayIcon::ActivationReason rsn) {
 			this->hide();
 		else {
 			globVar->restoringFromTrayNoResize = QDateTime::currentDateTime().toTime_t();
-			this->showFullScreen();
+			if(globSet->windowmode) {
+				globSet->windowDecoration ? this->setWindowFlags(this->windowFlags() & ~Qt::FramelessWindowHint) : this->setWindowFlags(Qt::FramelessWindowHint);
+				if(globVar->windowMaximised) {
+					this->showMaximized();
+					QTimer::singleShot(100,this,SLOT(showMaximized()));
+					globVar->windowMaximised = true;
+				} else {
+					this->showNormal();
+					globVar->windowMaximised = false;
+				}
+			} else
+				this->showFullScreen();
 			if(globVar->currentfile == "--start-in-tray" || globVar->currentfile == "") {
 				openFile();
 			}

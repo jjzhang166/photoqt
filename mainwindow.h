@@ -63,7 +63,6 @@ public:
 	// The layout of viewBig
 	ViewBigLay *viewBigLay;
 
-
 private:
 	// The current screenshot
 	QPixmap screenshot;
@@ -142,8 +141,12 @@ private:
 	// Zoom the current image; if a string is set, the boolean is ignored
 	void zoom(bool zoomin, QString ignoreBoolean = "");
 
-	// Setup a widget
+	// Setup a widget	
 	void setupWidget(QString what);
+
+
+
+	bool setWindowFlagsBool;
 
 private slots:
 

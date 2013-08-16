@@ -52,6 +52,8 @@ public:
 	// Is the startup message shown (displayed after update/fresh install)
 	int startupMessageInstallUpdateShown;
 
+	bool windowMaximised;
+
 
 	// Set the default values
 	void setVariables() {
@@ -59,6 +61,8 @@ public:
 		rotation = 0;
 
 		skipTrayIcon = false;
+
+		windowMaximised = true;
 
 		blocked = false;
 

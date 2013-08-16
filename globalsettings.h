@@ -14,6 +14,7 @@
 #include <QTextStream>
 #include <QStringList>
 #include <iostream>
+#include <QMap>
 
 #if defined(Q_WS_X11)
 #include <QX11Info>
