@@ -8,6 +8,8 @@
 #include <QMouseEvent>
 #include <QFileInfo>
 
+#include "../customelements/customlabel.h"
+
 // A custom label (the "x" top right corner) for closing PhotoQt
 class QuickInfoLabel : public QLabel {
 	Q_OBJECT
@@ -60,14 +62,14 @@ private:
 	QMap<QString,QVariant> globSet;
 
 	QuickInfoLabel *quickInfoCounterBOT;
-	QLabel *quickInfoSepBOT;
+	CustomLabel *quickInfoSepBOT;
 	QuickInfoLabel *quickInfoFilenameBOT;
 
 	QuickInfoLabel *quickInfoCounterTOP;
 	QuickInfoLabel *quickInfoFilenameTOP;
 	QuickInfoLabel *closeWindowX;
 
-	QLabel *quickInfoSepTOP;
+	CustomLabel *quickInfoSepTOP;
 
 signals:
 	void clickOnX(QString);

@@ -62,8 +62,6 @@ Details::Details(QWidget *parent, QMap<QString, QVariant> set, bool v): QWidget(
 
 #ifdef EXIV2
 
-	onlineservice = "maps.google.com";
-
 	// Confirm a rotation
 	rotConf = new CustomConfirm(tr("Rotate Image?"), tr("The Exif data of this image says, that this image is supposed to be rotated.") + "<br><br>" + tr("Do you want to apply the rotation?"), tr("Okay, do it"), tr("What? No!"),QSize(450,210), this->parentWidget());
 	rotConf->setDontShowAgain();
@@ -499,15 +497,20 @@ void Details::updateData(QString currentfile, QSize origSize, bool exiv2Supporte
 
 		// Default: not set
 		QString gps = "<i>[" + tr("not set") + "]</i>";
+		QString gpsDecimal = "";
 
 		// If however set, compose it and store in 'gps'
-		if(gpsLonRef != "" && gpsLon != "" && gpsLatRef != "" && gpsLat != "")
-			gps = exifGps(gpsLonRef, gpsLon, gpsLatRef, gpsLat);
+		if(gpsLonRef != "" && gpsLon != "" && gpsLatRef != "" && gpsLat != "") {
+			QStringList bothFormats = exifGps(gpsLonRef, gpsLon, gpsLatRef, gpsLat);
+			gps = bothFormats.at(0);
+			gpsDecimal = bothFormats.at(1);
+		}
 		temp = items["Gps"]->text();
 		if(items["Gps"]->text().contains(":"))
 			temp = items["Gps"]->text().split(":").at(0);
 		items["Gps"]->setText(temp + ": " + gps);
 		items["Gps"]->setToolTip(items["Gps"]->text());
+		items["Gps"]->setData(gpsDecimal);
 		if(globSet.value("ExifGps").toBool())
 			items["Gps"]->show();
 		else
@@ -667,7 +670,7 @@ QString Details::exifPhotoTaken(QString value) {
 }
 
 // Compose GPS data
-QString Details::exifGps(QString gpsLonRef, QString gpsLon, QString gpsLatRef, QString gpsLat) {
+QStringList Details::exifGps(QString gpsLonRef, QString gpsLon, QString gpsLatRef, QString gpsLat) {
 
 	QString temp = gpsLat + " " + gpsLatRef + ", " + gpsLon + " " + gpsLonRef;
 
@@ -683,6 +686,11 @@ QString Details::exifGps(QString gpsLonRef, QString gpsLon, QString gpsLatRef, Q
 	}
 	gpsLat = split.at(0) + "&deg;" + split.at(1) + "'" + split.at(2) + "''";
 
+	float secL = (split.at(1).toFloat()*60+split.at(2).toFloat())/3600.0;
+	float left = split.at(0).toFloat() + secL;
+	if(gpsLatRef == "S") left *= -1;
+
+
 	// Format the longitude string
 	split = gpsLon.split(" ");
 	for(int i = 0; i < split.length(); ++i) {
@@ -694,13 +702,20 @@ QString Details::exifGps(QString gpsLonRef, QString gpsLon, QString gpsLatRef, Q
 	}
 	gpsLon = split.at(0) + "&deg;" + split.at(1) + "'" + split.at(2) + "''";
 
+	float secR = (split.at(1).toFloat()*60+split.at(2).toFloat())/3600.0;
+	float right = split.at(0).toFloat() + secR;
+	if(gpsLonRef == "W") right *= -1;
+
 	QString value = gpsLat + " " + gpsLatRef + ", " + gpsLon + " " + gpsLonRef;
 
 	if(verbose) std::clog << "exif: gps (1): " << temp.toStdString() << std::endl;
 	if(verbose) std::clog << "exif: gps (2): " << value.toStdString() << std::endl;
 
+	QStringList allVal;
+	allVal << value << QString("%1 %2").arg(left).arg(right);
+
 	// Compose all the gps data into one string
-	return value;
+	return allVal;
 
 }
 
@@ -841,15 +856,20 @@ void Details::gpsClick() {
 
 	if(!loc.contains("[") && !loc.contains("]")) {
 
-		loc.replace("&deg;",QString::fromUtf8("°"));
+		QString onlineservice = globSet.value("ExifGPSMapService").toString();
 
 		QUrl url;
 		if(onlineservice == "bing.com/maps") {
+			loc.replace("&deg;",QString::fromUtf8("°"));
 			if(verbose) std::clog << "exif: clickGPS: Using bing maps" << std::endl;
 			url.setUrl("http://www.bing.com/maps/?sty=b&q=" + loc);
-		} else {
+		} else if(onlineservice == "maps.google.com") {
+			loc.replace("&deg;",QString::fromUtf8("°"));
 			if(verbose) std::clog << "exif: clickGPS: Using google maps" << std::endl;
 			url.setUrl("http://maps.google.com/maps?t=h&q=" + loc);
+		} else {
+			if(verbose) std::clog << "exif: clickGPS: Using openstreetmap.org" << std::endl;
+			url.setUrl(QString("http://www.openstreetmap.org/#map=16/%1/%2").arg(items["Gps"]->getData().split(" ").at(0)).arg(items["Gps"]->getData().split(" ").at(1)));
 		}
 
 

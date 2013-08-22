@@ -238,10 +238,13 @@ SettingsTabExif::SettingsTabExif(QWidget *parent, QMap<QString, QVariant> set, b
 	QButtonGroup *groupMap = new QButtonGroup;
 	radioGoogle = new CustomRadioButton("maps.google.com");
 	radioBing = new CustomRadioButton("bing.com/maps");
+	radioOSM = new CustomRadioButton("openstreetmap.org");
+	groupMap->addButton(radioOSM);
 	groupMap->addButton(radioGoogle);
 	groupMap->addButton(radioBing);
 	QHBoxLayout *tileGpsLay = new QHBoxLayout;
 	tileGpsLay->addStretch();
+	tileGpsLay->addWidget(radioOSM);
 	tileGpsLay->addWidget(radioGoogle);
 	tileGpsLay->addWidget(radioBing);
 	tileGpsLay->addStretch();
@@ -313,10 +316,13 @@ void SettingsTabExif::loadSettings() {
 		defaults.insert("ExifRotation","Never");
 	}
 
-	if(globSet.value("ExifGPSMapService").toString() == "maps.google.com") {
+	if(globSet.value("ExifGPSMapService").toString() == "openstreetmap.org") {
+		radioOSM->setChecked(true);
+		defaults.insert("ExifGPSMapService","openstreetmap.org");
+	} else if(globSet.value("ExifGPSMapService").toString() == "maps.google.com") {
 		radioGoogle->setChecked(true);
 		defaults.insert("ExifGPSMapService","maps.google.com");
-	} else  if(globSet.value("ExifGPSMapService").toString() == "bing.com/maps") {
+	} else if(globSet.value("ExifGPSMapService").toString() == "bing.com/maps") {
 		radioBing->setChecked(true);
 		defaults.insert("ExifGPSMapService","bing.com/maps");
 	}
@@ -368,7 +374,11 @@ void SettingsTabExif::saveSettings() {
 		defaults.insert("ExifRotation","Never");
 	}
 
-	if(radioGoogle->isChecked() && defaults.value("ExifGPSMapService").toString() != "maps.google.com") {
+	if(radioOSM->isChecked() && defaults.value("ExifGPSMapService").toString() != "openstreetmap.org") {
+		updatedSet.insert("ExifGPSMapService","openstreetmap.org");
+		defaults.remove("ExifGPSMapService");
+		defaults.insert("ExifGPSMapService","openstreetmap.org");
+	} else if(radioGoogle->isChecked() && defaults.value("ExifGPSMapService").toString() != "maps.google.com") {
 		updatedSet.insert("ExifGPSMapService","maps.google.com");
 		defaults.remove("ExifGPSMapService");
 		defaults.insert("ExifGPSMapService","maps.google.com");

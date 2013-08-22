@@ -18,6 +18,8 @@
 
 CustomLabel::CustomLabel(const QString &text, QWidget *parent) : QLabel(text, parent) {
 
+	data = "";
+
 	this->setWordWrap(true);
 
 	fontsize = "9pt";

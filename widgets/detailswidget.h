@@ -92,14 +92,11 @@ private:
 
 #ifdef EXIV2
 
-	// The online map service opened when clicked on GPS coordinates in the exif window
-	QString onlineservice;
-
 	// Functions to manipulate data a little
 	QString exifExposureTime(QString value);
 	QString exifFNumberFLength(QString value);
 	QString exifPhotoTaken(QString value);
-	QString exifGps(QString gpsLonRef, QString gpsLon, QString gpsLatRef, QString gpsLat);
+	QStringList exifGps(QString gpsLonRef, QString gpsLon, QString gpsLatRef, QString gpsLat);
 #endif
 
 	// Rotation/Flipping values

@@ -305,6 +305,11 @@ void MainWindow::applySettings(QMap<QString, bool> applySet, bool justApplyAllOf
 		drawImage();
 
 
+	if(applySet["exif"])
+		details->updateFontsize();
+
+
+
 	QString qtfiles = globSet->knownFileTypesQt;
 	QString qtfilesextras = globSet->knownFileTypesQtExtras;
 	if(qtfiles != "" && qtfilesextras != "") qtfiles += ",";
@@ -2084,7 +2089,6 @@ void MainWindow::updateSettings(QMap<QString, QVariant> settings) {
 	}
 
 	details->globSet = settings;
-	details->updateFontsize();
 
 	graphItem->transitionSetChange(globSet->transition);
 

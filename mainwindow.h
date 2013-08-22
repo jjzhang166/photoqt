@@ -144,10 +144,6 @@ private:
 	// Setup a widget	
 	void setupWidget(QString what);
 
-
-
-	bool setWindowFlagsBool;
-
 private slots:
 
 	// This is called, whenever the settings have changed, and updates all sub-widgets

@@ -64,6 +64,7 @@ private:
 	// Online map for GPS location
 	CustomRadioButton *radioGoogle;
 	CustomRadioButton *radioBing;
+	CustomRadioButton *radioOSM;
 
 	// The default settings (for detecting user changed)
 	QMap<QString, QVariant> defaults;

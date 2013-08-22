@@ -631,7 +631,7 @@ public:
 		exiflightsource = true;
 		exifgps = true;
 		exifrotation = "Never";
-		exifgpsmapservice = "bing.com/maps";
+		exifgpsmapservice = "openstreetmap.org";
 	}
 
 	// Read the current settings

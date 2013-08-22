@@ -21,6 +21,10 @@ public:
 	void setToolTip(QString t);
 	void setToolTipNoWrap(bool b);
 
+	void setData(QString d) { data = d; }
+	QString getData() { return data; }
+
+
 private:
 	void setCSS();
 	QString fontsize;
@@ -31,6 +35,9 @@ private:
 	bool bold;
 	bool tooltipNoWrap;
 	QString lineheight;
+
+
+	QString data;
 
 public slots:
 	void setEnabled(bool);
