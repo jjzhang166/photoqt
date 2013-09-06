@@ -645,7 +645,7 @@ void MainWindow::globalRunningProgTimerTimeout() {
 
 	// Show PhotoQt
 	if(doShow) {
-		if(this->isHidden())
+		if(this->isHidden()) {
 			if(globVar->windowMaximised) {
 				this->showMaximized();
 				QTimer::singleShot(100,this,SLOT(showMaximized()));
@@ -654,6 +654,7 @@ void MainWindow::globalRunningProgTimerTimeout() {
 				this->showNormal();
 				globVar->windowMaximised = false;
 			}
+		}
 		this->activateWindow();
 		this->raise();
 		doHide = false;
@@ -1807,7 +1808,7 @@ void MainWindow::startSlideShow() {
 	// Set some global parameters
 	globSet->slideShowTime = slideshow->timeSlider->value();
 	globSet->slideShowTransition = slideshow->trans->value();
-#ifndef Q_OS_UNIX
+#ifdef PHONON
 	QString musicFilePath = slideshow->musicPath->text();
 	if(!slideshow->musicEnable->isChecked())
 		musicFilePath = "";
@@ -1829,7 +1830,7 @@ void MainWindow::startSlideShow() {
 	// update the quickinfo
 	viewBigLay->updateInfo(globVar->currentfile,viewThumbs->countpos,viewThumbs->counttot);
 
-#ifndef Q_OS_UNIX
+#ifdef PHONON
 	// set the music file to bar
 	slideshowbar->musicFile = musicFilePath;
 #endif
