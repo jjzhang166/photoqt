@@ -167,7 +167,7 @@ FileHandling::FileHandling(QWidget *parent, bool v, QString cf) : QWidget(parent
 	deleteYes->setFontSize("13pt");
 	deleteYes->setBold(true);
 #else
-	deleteYes = new QPushButton;
+	deleteYes = new CustomPushButton;
 	deleteYes->hide();
 #endif
 
