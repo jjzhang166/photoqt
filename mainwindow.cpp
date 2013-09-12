@@ -1781,6 +1781,8 @@ void MainWindow::startuptimer() {
 			if(globVar->verbose) std::clog << "Startup timer ended (load)" << std::endl;
 
 			startUpTimer->stop();
+			
+			if(globVar->currentfile != "") viewBig->imgLoaded = true;
 
 			drawImage();
 
