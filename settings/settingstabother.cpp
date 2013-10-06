@@ -91,6 +91,7 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 
 	// All the languages available. They are sorted according to their language code (except English)
 	// A GOOD FEW OF THE TRANSLATIONS HAVEN'T BEEN UPDATED IN A LONG TIME AND ARE STANDING AT 0-5%
+	// These translations are NOT included!
 
 	langDesc << "English";
 	langShort << "en";
