@@ -1,9 +1,12 @@
 <RCC>
     <qresource prefix="/">
+        <file>lang/photoqt_cs.qm</file>
         <file>lang/photoqt_de.qm</file>
         <file>lang/photoqt_es_ES.qm</file>
+        <file>lang/photoqt_fi.qm</file>
         <file>lang/photoqt_fr.qm</file>
-        <file>lang/photoqt_pl.qm</file>
+        <file>lang/photoqt_pt_BR.qm</file>
+        <file>lang/photoqt_pt_PT.qm</file>
         <file>lang/photoqt_ru_RU.qm</file>
         <file>lang/photoqt_sk.qm</file>
     </qresource>

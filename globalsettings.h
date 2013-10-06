@@ -568,7 +568,7 @@ public:
 		bgColorBlue = 0;
 		bgColorAlpha = 190;
 
-		backgroundImageScreenshot = false;
+		backgroundImageScreenshot = true;
 		backgroundImageUse = false;
 		backgroundImagePath = "";
 		backgroundImageScale = false;

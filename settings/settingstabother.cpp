@@ -100,8 +100,8 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 //	langShort << "ar";
 
 	// Czech
-//	langDesc << QString::fromUtf8("Čeština (Tomáš Bartl)");
-//	langShort << "cs";
+	langDesc << QString::fromUtf8("Čeština (Robin Herink & Petr Šimáček)");
+	langShort << "cs";
 
 	// German
 	langDesc << "Deutsch (Lukas Spies)";
@@ -112,8 +112,12 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 //	langShort << "el";
 
 	// Spanish
-	langDesc << QString::fromUtf8("Español (Manuel E. Gutierrez)");
+	langDesc << QString::fromUtf8("Español (Victoria Pires & Julian Unrrein & Manuel E. Gutierrez)");
 	langShort << "es_ES";
+
+	// Finnish
+	langDesc << QString::fromUtf8("Suomen kieli (Jiri Grönroos)");
+	langShort << "fi";
 
 	// French
 	langDesc << QString::fromUtf8("Français (Mathieu Marache & Olivier Devineau)");
@@ -136,14 +140,22 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 //	langShort << "nn_NO";
 
 	// Polish
-	langDesc << "Polski (Daniel Korbel)";
-	langShort << "pl";
+//	langDesc << "Polski (Daniel Korbel)";
+//	langShort << "pl";
+
+	// Portugal (BRazil)
+	langDesc << QString::fromUtf8("Português (Brasil) (Rafael Neri)");
+	langShort << "pt_BR";
+
+	// Portugal (Portugal)
+	langDesc << QString::fromUtf8("Português (Portugal) (Sérgio Marques)");
+	langShort << "pt_PT";
 
 	// Russian
 	langDesc << QString::fromUtf8("Pусский (Yuriy Tkach)");
 	langShort << "ru_RU";
 
-	//Slovakian
+	//Slovak
 	langDesc << QString::fromUtf8("Slovenčina (Lukáš Dobránsky)");
 	langShort << "sk";
 

@@ -18,6 +18,7 @@
 #include "widgets/startupwidget.h"
 #include "wallpaper/wallpaper.h"
 #include "graphics/imagereader.h"
+#include "graphics/imagereader2.h"
 #include "setupwidgets.h"
 #include "graphics/graphicsviewlay.h"
 
@@ -118,6 +119,7 @@ private:
 
 	// imagereader combining QImageReader and GraphicsMagic
 	ImageReader *imageReader;
+	ImageReader2 *imageReader2;
 
 
 	// Adjust all the geometries (QRects and stuff)
