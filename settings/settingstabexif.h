@@ -18,6 +18,7 @@
 #include <QScrollArea>
 #include <QLabel>
 #include <QButtonGroup>
+#include <QVariant>
 
 class SettingsTabExif : public QWidget {
 
