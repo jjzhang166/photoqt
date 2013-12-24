@@ -97,31 +97,31 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 	langShort << "en";
 
 	// Arabic
-//	langDesc << QString::fromUtf8("العربية (Amar Tahaif)");
+//	langDesc << QString::fromUtf8("العربية (Amar T.)");
 //	langShort << "ar";
 
 	// Czech
-	langDesc << QString::fromUtf8("Čeština (Robin Herink & Petr Šimáček)");
+	langDesc << QString::fromUtf8("Čeština (Robin H. & Petr Š.)");
 	langShort << "cs";
 
 	// German
-	langDesc << "Deutsch (Lukas Spies)";
+	langDesc << "Deutsch (Lukas S.)";
 	langShort << "de";
 
 	// Greek
-//	langDesc << QString::fromUtf8("Ελληνικά (Dimitrios Glentadakis)");
+//	langDesc << QString::fromUtf8("Ελληνικά (Dimitrios G.)");
 //	langShort << "el";
 
 	// Spanish
-	langDesc << QString::fromUtf8("Español (Victoria Pires & Julian Unrrein & Manuel E. Gutierrez)");
+	langDesc << QString::fromUtf8("Español (Victoria P. & Julian U. & Manuel G. & Hector C.)");
 	langShort << "es_ES";
 
 	// Finnish
-	langDesc << QString::fromUtf8("Suomen kieli (Jiri Grönroos)");
+	langDesc << QString::fromUtf8("Suomen kieli (Jiri G.)");
 	langShort << "fi";
 
 	// French
-	langDesc << QString::fromUtf8("Français (Mathieu Marache & Olivier Devineau)");
+	langDesc << QString::fromUtf8("Français (Mathieu M. & Olivier D.)");
 	langShort << "fr";
 
 	// Hungarian
@@ -145,19 +145,19 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 //	langShort << "pl";
 
 	// Portugal (BRazil)
-	langDesc << QString::fromUtf8("Português (Brasil) (Rafael Neri)");
+	langDesc << QString::fromUtf8("Português (Brasil) (Rafael N.)");
 	langShort << "pt_BR";
 
 	// Portugal (Portugal)
-	langDesc << QString::fromUtf8("Português (Portugal) (Sérgio Marques)");
+	langDesc << QString::fromUtf8("Português (Portugal) (Sérgio M.)");
 	langShort << "pt_PT";
 
 	// Russian
-	langDesc << QString::fromUtf8("Pусский (Yuriy Tkach)");
+	langDesc << QString::fromUtf8("Pусский (Yuriy T.)");
 	langShort << "ru_RU";
 
 	//Slovak
-	langDesc << QString::fromUtf8("Slovenčina (Lukáš Dobránsky)");
+	langDesc << QString::fromUtf8("Slovenčina (Lukáš D.)");
 	langShort << "sk";
 
 	// Serbian
