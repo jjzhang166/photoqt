@@ -676,14 +676,29 @@ QStringList Details::exifGps(QString gpsLonRef, QString gpsLon, QString gpsLatRe
 
 	// Format the latitude string
 	QStringList split = gpsLat.split(" ");
+	// Some photos have the GPS minutes stored as decimal. That needs to be converted into:
+	// - Integer value for minute
+	// - Decimal value *60 for seconds
+	// This float holds the decimal value (if any)
+	float calcSecs = 0;
 	for(int i = 0; i < split.length(); ++i) {
 		if(split.at(i).contains("/")) {
 			float t1 = split.at(i).split("/").at(0).toFloat();
 			float t2 = split.at(i).split("/").at(1).toFloat();
-			split.replace(i,QString("%1").arg(t1/t2));
+			float division = t1/t2;
+			// If there's a decimal value...
+			if(i == 1 && t2 > 1) {
+				calcSecs = division-int(division);
+				division = int(division);
+			}
+			split.replace(i,QString("%1").arg(division));
 		}
 
 	}
+	// And calculate seconds and set them into third position
+	if(calcSecs > 0 && split.length() >= 3)
+		split.replace(2,QString::number(split.at(2).toFloat()+calcSecs*60));
+
 	gpsLat = split.at(0) + "&deg;" + split.at(1) + "'" + split.at(2) + "''";
 
 	float secL = (split.at(1).toFloat()*60+split.at(2).toFloat())/3600.0;
@@ -693,13 +708,24 @@ QStringList Details::exifGps(QString gpsLonRef, QString gpsLon, QString gpsLatRe
 
 	// Format the longitude string
 	split = gpsLon.split(" ");
+	// See above for this float's role
+	calcSecs = 0;
 	for(int i = 0; i < split.length(); ++i) {
 		if(split.at(i).contains("/")) {
 			float t1 = split.at(i).split("/").at(0).toFloat();
 			float t2 = split.at(i).split("/").at(1).toFloat();
-			split.replace(i,QString("%1").arg(t1/t2));
+			float division = t1/t2;
+			// If there's a decimal value...
+			if(i == 1 && t2 > 1) {
+				calcSecs = division-int(division);
+				division = int(division);
+			}
+			split.replace(i,QString("%1").arg(division));
 		}
 	}
+	// And calculate seconds and set them into third position
+	if(calcSecs > 0 && split.length() >= 3)
+		split.replace(2,QString::number(split.at(2).toFloat()+calcSecs*60));
 	gpsLon = split.at(0) + "&deg;" + split.at(1) + "'" + split.at(2) + "''";
 
 	float secR = (split.at(1).toFloat()*60+split.at(2).toFloat())/3600.0;
