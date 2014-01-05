@@ -109,8 +109,8 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 	langShort << "de";
 
 	// Greek
-//	langDesc << QString::fromUtf8("Ελληνικά (Dimitrios G.)");
-//	langShort << "el";
+	langDesc << QString::fromUtf8("Ελληνικά (Dimitrios G.)");
+	langShort << "el";
 
 	// Spanish
 	langDesc << QString::fromUtf8("Español (Victoria P. & Julian U. & Manuel G. & Hector C.)");
@@ -169,8 +169,8 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 //	langShort << "tr";
 
 	// Ukrainian
-//	langDesc << QString::fromUtf8("Українська (Yuriy Tkach)");
-//	langShort << "uk_UA";
+	langDesc << QString::fromUtf8("Українська (Yuriy T., zubr139, neeesdfsdf)");
+	langShort << "uk_UA";
 
 	// Viatnemese
 //	langDesc << QString::fromUtf8("Tiếng Việt (Nguyễn Hữu Tài)");
