@@ -12,7 +12,7 @@ SET(photoqt_SOURCES ${photoqt_SOURCES} settings/settings.cpp settings/settingsta
 # thumbnails/
 SET(photoqt_SOURCES ${photoqt_SOURCES} thumbnails/thumbnailpixmapitem.cpp thumbnails/thumbnails.cpp thumbnails/thumbnailview.cpp thumbnails/threadforthumbnails.h)
 # graphics/
-SET(photoqt_SOURCES ${photoqt_SOURCES} graphics/graphicsview.cpp graphics/graphicsitem.cpp graphics/imagereader.cpp graphics/graphicsviewlay.cpp graphics/imagereader2.cpp)
+SET(photoqt_SOURCES ${photoqt_SOURCES} graphics/graphicsview.cpp graphics/graphicsitem.cpp graphics/imagereader.cpp graphics/graphicsviewlay.cpp)
 # widgets/
 SET(photoqt_SOURCES ${photoqt_SOURCES} widgets/aboutwidget.cpp widgets/customconfirm.cpp widgets/dropdownmenu.cpp widgets/dropdownmenuitem.cpp widgets/detailswidget.cpp widgets/filehandling.cpp widgets/startupwidget.cpp)
 # customelements/
@@ -28,7 +28,7 @@ SET(photoqt_HEADERS ${photoqt_HEADERS} settings/shortcuts.h settings/settings.h 
 # thumbnails/
 SET(photoqt_HEADERS ${photoqt_HEADERS} thumbnails/threadforthumbnails.h thumbnails/thumbnailpixmapitem.h thumbnails/thumbnails.h thumbnails/thumbnailview.h)
 # graphics/
-SET(photoqt_HEADERS ${photoqt_HEADERS} graphics/graphicsview.h graphics/graphicsitem.h graphics/imagereader.h graphics/graphicsviewlay.h graphics/imagereader2.h)
+SET(photoqt_HEADERS ${photoqt_HEADERS} graphics/graphicsview.h graphics/graphicsitem.h graphics/imagereader.h graphics/graphicsviewlay.h)
 # widgets /
 SET(photoqt_HEADERS ${photoqt_HEADERS} widgets/aboutwidget.h widgets/customconfirm.h widgets/dropdownmenu.h widgets/dropdownmenuitem.h widgets/detailswidget.h widgets/filehandling.h widgets/startupwidget.h)
 # customelements/
@@ -98,9 +98,8 @@ if(NOT QTONLY)
 
         if(GM)
                 if(UNIX)
-                        SET(GM_INCLUDE_DIR /usr/include/GraphicsMagick)
-                        INCLUDE_DIRECTORIES(/usr/include/GraphicsMagick)
-                endif(UNIX)
+                        INCLUDE_DIRECTORIES("/usr/include/GraphicsMagick/")
+		endif(UNIX)
                 TARGET_LINK_LIBRARIES(photoqt "GraphicsMagick++")
                 ADD_DEFINITIONS(-DGM)
                 message("** Graphicsmagick enabled")

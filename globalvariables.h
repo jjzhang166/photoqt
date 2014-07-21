@@ -24,10 +24,6 @@ public:
 	bool zoomed;
 	bool zoomedByMouse;
 
-	int zoomCounter;
-	int zoomStep;
-	bool zoomCounterIn;
-
 	// Is a widget opened?
 	bool blocked;
 
@@ -62,8 +58,6 @@ public:
 	// Set the default values
 	void setVariables() {
 
-		zoomStep = 300;
-
 		rotation = 0;
 
 		skipTrayIcon = false;
@@ -75,9 +69,6 @@ public:
 		zoomed = false;
 		zoomedByMouse = true;
 		zoomedImgAtLeastOnce = false;
-
-		zoomCounter = 0;
-		zoomCounterIn = false;
 
 		systemSh << "Escape" << "Enter" << "Return" << "Ctrl+s" << "Left" << "Right" << "Up" << "Down" << "Alt+Up" << "Alt+Left" << "Alt+Right" << "Alt+1" << "Alt+2" << "Alt+3" << "Alt+4" << "Alt+5" << "Ctrl+Tab" << "Ctrl+Shift+Tab";
 

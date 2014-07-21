@@ -24,7 +24,6 @@ public:
 	void setData(QString d) { data = d; }
 	QString getData() { return data; }
 
-
 private:
 	void setCSS();
 	QString fontsize;
@@ -35,7 +34,6 @@ private:
 	bool bold;
 	bool tooltipNoWrap;
 	QString lineheight;
-
 
 	QString data;
 

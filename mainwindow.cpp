@@ -91,7 +91,6 @@ MainWindow::MainWindow(QWidget *parent, bool verbose) : QMainWindow(parent) {
 
 	// An ImageReader combining QImageReader and GraphicsMagic (if not disabled)
 	imageReader = new ImageReader(globVar->verbose);
-	imageReader2 = new ImageReader2(globVar->verbose);
 
 
 	// The settings widget
@@ -310,7 +309,6 @@ void MainWindow::applySettings(QMap<QString, bool> applySet, bool justApplyAllOf
 		details->updateFontsize();
 
 
-
 	QString qtfiles = globSet->knownFileTypesQt;
 	QString qtfilesextras = globSet->knownFileTypesQtExtras;
 	if(qtfiles != "" && qtfilesextras != "") qtfiles += ",";
@@ -323,9 +321,6 @@ void MainWindow::applySettings(QMap<QString, bool> applySet, bool justApplyAllOf
 
 	imageReader->gmfiles = gmfiles;
 	imageReader->qtfiles = qtfiles;
-
-	imageReader2->gmfiles = gmfiles;
-	imageReader2->qtfiles = qtfiles;
 
 
 	if(setupWidgets->menu) menu->allItems["hide"]->setEnabled(globSet->trayicon);
@@ -400,22 +395,28 @@ void MainWindow::drawImage() {
 		// Load image
 	} else {
 
-//		QPointF origPos = graphItem->pos();
-//		origPos.setY(origPos.y()+globVar->zoomCounter*globVar->zoomStep/2);
-//		origPos.setX(origPos.x()+globVar->zoomCounter*globVar->zoomStep/2);
-
-//		float scrollVertPos = float(viewBig->verticalScrollBar()->value())/float(viewBig->verticalScrollBar()->maximum());
-//		float scrollHorPos = float(viewBig->horizontalScrollBar()->value())/float(viewBig->horizontalScrollBar()->maximum());
-
 		// Display busy cursor
 		qApp->setOverrideCursor(Qt::WaitCursor);
 
+		if(globVar->verbose) std::clog << "Got filename:" << globVar->currentfile.toStdString() << std::endl;
+
+		// Tell the filehandling widget the new filename
+		if(setupWidgets->filehandling) filehandling->currentfile = globVar->currentfile;
+
+		// If the current directory info hasn't been loaded yet
+		if(viewThumbs->counttot == 0) {
+			viewThumbs->currentfile = globVar->currentfile;
+			viewThumbs->noThumbs = globSet->thumbnailDisable;
+			viewThumbs->loadDir();
+		}
+
+
 		// Get the maximum possible dimensions of the main image
-		int maxW = viewBig->width()-globSet->borderAroundImg*2 - 8;
+		int maxW = viewBig->width()-globSet->borderAroundImg*2;
 		int subtractThumbnailHeight = 0;
 		if(globSet->thumbnailKeepVisible)
 			subtractThumbnailHeight = viewThumbs->height();
-		int maxH = viewBig->height()-2*globSet->borderAroundImg-subtractThumbnailHeight - 8;
+		int maxH = viewBig->height()-2*globSet->borderAroundImg-subtractThumbnailHeight;
 
 		// In the two cases below we need to swap dimensions, otherwise the image doesn't fit
 		if((globVar->rotation == -270 || globVar->rotation == -90)) {
@@ -424,65 +425,29 @@ void MainWindow::drawImage() {
 			maxH = t;
 		}
 
-		if(globVar->currentfile != imageReader2->loadedImagePath) {
+		// Get the image
+		QImage img = imageReader->readImage(globVar->currentfile,globVar->rotation,globVar->zoomed,QSize(maxW,maxH),true);
 
-			if(globVar->verbose) std::clog << "Got filename:" << globVar->currentfile.toStdString() << std::endl;
-
-			// Tell the filehandling widget the new filename
-			if(setupWidgets->filehandling) filehandling->currentfile = globVar->currentfile;
-
-			// If the current directory info hasn't been loaded yet
-			if(viewThumbs->counttot == 0) {
-				viewThumbs->currentfile = globVar->currentfile;
-				viewThumbs->noThumbs = globSet->thumbnailDisable;
-				viewThumbs->loadDir();
-			}
-
-
-
-
-			// Get the image
-			globVar->zoomCounter = 0;
-			imageReader2->loadImage(globVar->currentfile);
+		if(!globVar->zoomToActualSize) {
+			// The imagereader stores two possible scaling factors
+			if(imageReader->scaleImg1 != -1)
+				viewBig->scale(imageReader->scaleImg1,imageReader->scaleImg1);
+			if(imageReader->scaleImg2 != -1)
+				viewBig->scale(imageReader->scaleImg2,imageReader->scaleImg2);
 		}
 
-
-		QImage img = imageReader2->getImageWithSize(QSize(maxW, maxH),QSize(maxW+globVar->zoomCounter*globVar->zoomStep, maxH+globVar->zoomCounter*globVar->zoomStep));
-
-//		if(!globVar->zoomToActualSize) {
-			// The imagereader stores two possible scaling factors
-//			if(imageReader->scaleImg1 != -1)
-//				viewBig->scale(imageReader->scaleImg1,imageReader->scaleImg1);
-//			if(imageReader->scaleImg2 != -1)
-//				viewBig->scale(imageReader->scaleImg2,imageReader->scaleImg2);
-//		}
-
-
-
-//		QPoint center = viewBig->mapToParent(QCursor::pos());
-//		QPointF center = graphItem->mapFromParent(viewBig->mapFromGlobal(QCursor::pos()));
-//		center.setX(center.x()+globVar->zoomCounter*globVar->zoomStep);
-//		center.setY(center.y()+globVar->zoomCounter*globVar->zoomStep);
-
 		// Get the fileformat and the original size
-		QString fileformat = imageReader2->loadedImageFileFormat;
-		QSize origSize = imageReader2->loadedImageSize;
+		QString fileformat = imageReader->fileformat;
+		QSize origSize = imageReader->origSize;
 
 		// If the thumbnails are kept visible we need to add a transparent bar to the main image so that they don't overlap
 		graphItem->setTransBarHeight((!globVar->zoomed && globSet->thumbnailKeepVisible) ? viewThumbs->height() : 0);
 		// Is it an animated image?
-		if(imageReader2->loadedImageAnimated)
+		if(imageReader->animatedImg)
 			graphItem->setMovie(globVar->currentfile,origSize.width(),origSize.height());
 		// Otherwise do the normal setPixmap()
 		else
 			graphItem->setPixmap(QPixmap::fromImage(img));
-
-//		if(globVar->zoomCounter != 0) viewBig->centerOn(center);
-
-//		viewBig->verticalScrollBar()->setValue(scrollVertPos * viewBig->verticalScrollBar()->maximum());
-//		viewBig->horizontalScrollBar()->setValue(scrollHorPos * viewBig->horizontalScrollBar()->maximum());
-//		qDebug() << "HOR:" << scrollHorPos * viewBig->horizontalScrollBar()->maximum() << "- MAX:" << viewBig->horizontalScrollBar()->maximum();
-//		qDebug() << "VER:" << scrollVertPos * viewBig->verticalScrollBar()->maximum() << "- MAX:" << viewBig->verticalScrollBar()->maximum();
 
 		int imgWidth = img.width();
 		int imgHeight = img.height();
@@ -500,14 +465,6 @@ void MainWindow::drawImage() {
 		if(imgHeight < viewBig->height()) {
 			int graphItemY = (viewBig->height()-imgHeight)/2.0;
 			graphItem->setY(graphItemY);
-		}
-
-		if(globVar->zoomCounterIn && globVar->zoomCounter != 0) {
-			graphItem->setX(graphItem->x()-globVar->zoomStep*0.5);
-			graphItem->setY(graphItem->y()-globVar->zoomStep*0.5);
-		} else if(!globVar->zoomCounterIn && globVar->zoomCounter != 0) {
-			graphItem->setX(graphItem->x()+globVar->zoomStep*0.5);
-			graphItem->setY(graphItem->y()+globVar->zoomStep*0.5);
 		}
 
 		// Update the current position of the image in the directory
@@ -800,7 +757,7 @@ void MainWindow::loadNewImgFromOpen(QString path) {
 	globVar->exifRead = false;
 
 	// When a new image is loaded we reset any zooming, rotation, flipping
-//	zoom(true,((globVar->zoomToActualSize || globVar->zoomed) && globSet->transition != 0) ? "reset" : "resetNoDraw");
+	zoom(true,((globVar->zoomToActualSize || globVar->zoomed) && globSet->transition != 0) ? "reset" : "resetNoDraw");
 	rotateFlip(true,"resetNoDraw");
 	rotateFlip(false, "reset");
 
@@ -827,7 +784,7 @@ void MainWindow::loadNewImgFromThumbs(QString path) {
 	globVar->zoomedImgAtLeastOnce = false;
 
 	// When a new image is loaded we reset any zooing, rotation, flipping
-//	zoom(true,((globVar->zoomToActualSize || globVar->zoomed) && globSet->transition != 0) ? "reset" : "resetNoDraw");
+	zoom(true,((globVar->zoomToActualSize || globVar->zoomed) && globSet->transition != 0) ? "reset" : "resetNoDraw");
 	rotateFlip(true,"resetNoDraw");
 	rotateFlip(false, "reset");
 
@@ -1122,7 +1079,7 @@ void MainWindow::resizeEvent(QResizeEvent *) {
 	viewBig->scene()->setSceneRect(viewBig->scene()->itemsBoundingRect());
 
 	// And if an image is loaded, redraw it
-	if((globVar->currentfile != "" && !globVar->zoomed && (QDateTime::currentDateTime().toTime_t() - globVar->restoringFromTrayNoResize) > 1) || (globVar->currentfile != "" && !globVar->zoomed && globVar->windowMaximised != this->isMaximized()))
+	if(globVar->currentfile != "" && !globVar->zoomed && (QDateTime::currentDateTime().toTime_t() - globVar->restoringFromTrayNoResize) > 1)
 		drawImage();
 
 	globVar->windowMaximised = this->isMaximized();
@@ -1811,7 +1768,7 @@ void MainWindow::startupInstallUpdateMsgClosed() {
 void MainWindow::startuptimer() {
 
 
-	if(this->height()-viewBig->height() < 25 && this->width()-viewBig->width() < 25 && viewBig->width() > 500 && viewBig->height() > 500) {
+	if(this->centralWidget()->height()-viewBig->height() < 25 && this->centralWidget()->width()-viewBig->width() < 25 && viewBig->width() > 500 && viewBig->height() > 500) {
 
 		// Show startup message (if it has to be shown and isn't shown yet)
 		if(globVar->startupMessageInstallUpdateShown != 0 && !setupWidgets->startup) {
@@ -1823,10 +1780,6 @@ void MainWindow::startuptimer() {
 			if(globVar->verbose) std::clog << "Startup timer ended (load)" << std::endl;
 
 			startUpTimer->stop();
-			
-			if(globVar->currentfile != "") viewBig->imgLoaded = true;
-
-			if(globVar->currentfile != "") viewBig->imgLoaded = true;
 
 			drawImage();
 
@@ -2136,6 +2089,7 @@ void MainWindow::updateSettings(QMap<QString, QVariant> settings) {
 	}
 
 	details->globSet = settings;
+	details->updateFontsize();
 
 	graphItem->transitionSetChange(globSet->transition);
 
@@ -2152,199 +2106,170 @@ void MainWindow::zoom(bool zoomin, QString ignoreBoolean) {
 
 	if(globVar->verbose) std::clog << "Zoom: " << zoomin << " - " << ignoreBoolean.toStdString() << std::endl;
 
-	int criteriaCheck = imageReader2->loadedImageSizeCurrentlyDisplayed.width();
-	int criteria = imageReader2->loadedImageSize.width();
-	if(imageReader2->loadedImageSize.height() > imageReader2->loadedImageSize.width()) {
-		criteriaCheck = imageReader2->loadedImageSizeCurrentlyDisplayed.height();
-		criteria = imageReader2->loadedImageSize.height();
-	}
-	qDebug() << "CriteriaCheck:" << criteriaCheck << "- Criteria:" << criteria;
-	if(criteriaCheck > criteria*2 && criteriaCheck > 2500 || criteriaCheck < globVar->zoomStep) return;
-
-	if((globVar->zoomCounter > 15 && zoomin) || (globVar->zoomCounter < -15 && !zoomin)) return;
-
-
+	// Reset zoom
 	if(ignoreBoolean.startsWith("reset")) {
-		globVar->zoomCounter = 0;
-		drawImage();
-		return;
-	}
 
-	globVar->zoomCounter += zoomin ? 1 : -1;
-	globVar->zoomCounterIn = zoomin;
+		if(globVar->verbose) std::clog << "Reset Zoom" << std::endl;
 
-	qDebug() << "ZOOM counter:" << globVar->zoomCounter;
-
-	drawImage();
-
-//	viewBig->verticalScrollBar()->setValue(viewBig->verticalScrollBar()->value()+(zoomin ? (globVar->zoomStep/2) : -(globVar->zoomStep/2)));
-//	viewBig->horizontalScrollBar()->setValue(viewBig->horizontalScrollBar()->value()+(zoomin ? (globVar->zoomStep/2) : -(globVar->zoomStep/2)));
-	viewBig->centerOn(QCursor::pos());
-
-//	// Reset zoom
-//	if(ignoreBoolean.startsWith("reset")) {
-
-//		if(globVar->verbose) std::clog << "Reset Zoom" << std::endl;
-
-//		bool wasZoomToActual = globVar->zoomToActualSize;
-//		globVar->zoomToActualSize = false;
-//		globVar->zoomed = false;
-//		viewBig->resetMatrix();
-//		globVar->zoomedImgAtLeastOnce = false;
-//		if(globSet->thumbnailKeepVisible)
-//			viewThumbs->makeShow();
+		bool wasZoomToActual = globVar->zoomToActualSize;
+		globVar->zoomToActualSize = false;
+		globVar->zoomed = false;
+		viewBig->resetMatrix();
+		globVar->zoomedImgAtLeastOnce = false;
+		if(globSet->thumbnailKeepVisible)
+			viewThumbs->makeShow();
 
 
-//		graphItem->itemZoomed = false;
+		graphItem->itemZoomed = false;
 
-//		viewBig->rotate(-globVar->rotation);
-//		if(globVar->flipVer)
-//			viewBig->scale(1,-1);
-//		if(globVar->flipHor)
-//			viewBig->scale(-1,1);
+		viewBig->rotate(-globVar->rotation);
+		if(globVar->flipVer)
+			viewBig->scale(1,-1);
+		if(globVar->flipHor)
+			viewBig->scale(-1,1);
 
-//		// We need to disable temporarily transition globally if image was zoomed to actual size, since in that case the scene scale, etc. would mess everything up
-//		if(wasZoomToActual) {
-//			QMap<QString, QVariant> s = globSet->toSignalOut();
-//			s["Transition"] = 0;
-//			updateSettings(s);
-//		}
+		// We need to disable temporarily transition globally if image was zoomed to actual size, since in that case the scene scale, etc. would mess everything up
+		if(wasZoomToActual) {
+			QMap<QString, QVariant> s = globSet->toSignalOut();
+			s["Transition"] = 0;
+			updateSettings(s);
+		}
 
-//		if(ignoreBoolean != "resetNoDraw")
-//			drawImage();
+		if(ignoreBoolean != "resetNoDraw")
+			drawImage();
 
-//		if(wasZoomToActual)
-//			updateSettings(globSet->toSignalOut());
+		if(wasZoomToActual)
+			updateSettings(globSet->toSignalOut());
 
-//	// zoom to actual size (toggle)
-//	} else if(ignoreBoolean == "actualsize") {
+	// zoom to actual size (toggle)
+	} else if(ignoreBoolean == "actualsize") {
 
-//		if(globVar->verbose) std::clog << "Zoom to actual size" << std::endl;
+		if(globVar->verbose) std::clog << "Zoom to actual size" << std::endl;
 
-//		// If at actual size -> reset
-//		if(globVar->zoomToActualSize || globVar->zoomed)
-//			zoom(true,"reset");
-//		else {
-//			viewBig->resetMatrix();
-//			viewBig->resetTransform();
-//			// These need to be set to true for drawImg() not to scale the image
-//			globVar->zoomed = true;
-//			graphItem->itemZoomed = true;
-//			globVar->zoomedImgAtLeastOnce = true;
+		// If at actual size -> reset
+		if(globVar->zoomToActualSize || globVar->zoomed)
+			zoom(true,"reset");
+		else {
+			viewBig->resetMatrix();
+			viewBig->resetTransform();
+			// These need to be set to true for drawImg() not to scale the image
+			globVar->zoomed = true;
+			graphItem->itemZoomed = true;
+			globVar->zoomedImgAtLeastOnce = true;
 
-//			globVar->zoomToActualSize = true;
+			globVar->zoomToActualSize = true;
 
-//			drawImage();
+			drawImage();
 
-//			viewBig->centerOn(viewBig->scene()->sceneRect().center());
+			viewBig->centerOn(viewBig->scene()->sceneRect().center());
 
-//			viewBig->rotate(-globVar->rotation);
-//			if(globVar->flipHor)
-//				viewBig->scale(-1,1);
-//			if(globVar->flipVer)
-//				viewBig->scale(1,-1);
+			viewBig->rotate(-globVar->rotation);
+			if(globVar->flipHor)
+				viewBig->scale(-1,1);
+			if(globVar->flipVer)
+				viewBig->scale(1,-1);
 
-//			if(globSet->thumbnailKeepVisible && viewThumbs->isVisible())
-//				viewThumbs->makeHide();
+			if(globSet->thumbnailKeepVisible && viewThumbs->isVisible())
+				viewThumbs->makeHide();
 
-//		}
+		}
 
-//	} else {
+	} else {
 
 		// Else Adjust alignment of graphicsview
-//		globVar->zoomToActualSize = false;
+		globVar->zoomToActualSize = false;
 
-//		viewBig->setAlignment(Qt::AlignCenter);
-//		globVar->zoomedImgAtLeastOnce = true;
+		viewBig->setAlignment(Qt::AlignCenter);
+		globVar->zoomedImgAtLeastOnce = true;
 
-//		// Set anchor
-//		if(globVar->zoomedByMouse)
-//			viewBig->setTransformationAnchor(viewBig->AnchorUnderMouse);
-//		else
-//			viewBig->setTransformationAnchor(viewBig->AnchorViewCenter);
+		// Set anchor
+		if(globVar->zoomedByMouse)
+			viewBig->setTransformationAnchor(viewBig->AnchorUnderMouse);
+		else
+			viewBig->setTransformationAnchor(viewBig->AnchorViewCenter);
 
-//		// Set them to true
-//		globVar->zoomed = true;
-//		graphItem->itemZoomed = true;
+		// Set them to true
+		globVar->zoomed = true;
+		graphItem->itemZoomed = true;
 
-//		// And possibly draw full unscaled image (if image isn't zoomed and user wants to zoom in)
-//		if(!globVar->zoomed && zoomin) {
-//			drawImage();
-//		}
+		// And possibly draw full unscaled image (if image isn't zoomed and user wants to zoom in)
+		if(!globVar->zoomed && zoomin) {
+			drawImage();
+		}
 
 		// Zoom in
-//		if(zoomin && viewBig->absoluteScaleFactor == 0) {
+		if(zoomin && viewBig->absoluteScaleFactor == 0) {
 
-//			if(globVar->verbose) std::clog << "Zoom In" << std::endl;
+			if(globVar->verbose) std::clog << "Zoom In" << std::endl;
 
-//			viewBig->setAlignment(Qt::AlignCenter);
-//			viewBig->resetMatrix();
-//			viewBig->rotate(globVar->rotation%180 != 0 ? globVar->rotation+180 : globVar->rotation);
+			viewBig->setAlignment(Qt::AlignCenter);
+			viewBig->resetMatrix();
+			viewBig->rotate(globVar->rotation%180 != 0 ? globVar->rotation+180 : globVar->rotation);
 
-//			if(globVar->flipHor)
-//				viewBig->scale(-1,1);
-//			if(globVar->flipVer)
-//				viewBig->scale(1,-1);
-//			drawImage();
+			if(globVar->flipHor)
+				viewBig->scale(-1,1);
+			if(globVar->flipVer)
+				viewBig->scale(1,-1);
+			drawImage();
 
-//			QCursor::setPos(QCursor::pos().x()+1,QCursor::pos().y());
+			QCursor::setPos(QCursor::pos().x()+1,QCursor::pos().y());
 
-//			// Zoom out
-//		} else if(!zoomin && (viewBig->absoluteScaleFactor == 0 || viewBig->absoluteScaleFactor == 1)) {
+			// Zoom out
+		} else if(!zoomin && (viewBig->absoluteScaleFactor == 0 || viewBig->absoluteScaleFactor == 1)) {
 
-//			if(globVar->verbose) std::clog << "Zoom Out" << std::endl;
+			if(globVar->verbose) std::clog << "Zoom Out" << std::endl;
 
-//			if(viewBig->absoluteScaleFactor == 1)
-//				graphItem->itemZoomed = true;
-//			else
-//				graphItem->itemZoomed = false;
+			if(viewBig->absoluteScaleFactor == 1)
+				graphItem->itemZoomed = true;
+			else
+				graphItem->itemZoomed = false;
 
-//			globVar->zoomed = false;
-//			viewBig->resetMatrix();
-//			viewBig->rotate(globVar->rotation%180 != 0 ? globVar->rotation+180 : globVar->rotation);
+			globVar->zoomed = false;
+			viewBig->resetMatrix();
+			viewBig->rotate(globVar->rotation%180 != 0 ? globVar->rotation+180 : globVar->rotation);
 
-//			if(globVar->flipHor)
-//				viewBig->scale(-1,1);
-//			if(globVar->flipVer)
-//				viewBig->scale(1,-1);
-//			drawImage();
-//			if(viewBig->absoluteScaleFactor == 1) {
-//				viewBig->scale(1.1,1.1);
-//				globVar->zoomed = true;
-//			}
+			if(globVar->flipHor)
+				viewBig->scale(-1,1);
+			if(globVar->flipVer)
+				viewBig->scale(1,-1);
+			drawImage();
+			if(viewBig->absoluteScaleFactor == 1) {
+				viewBig->scale(1.1,1.1);
+				globVar->zoomed = true;
+			}
 
-//			QCursor::setPos(QCursor::pos().x()+1,QCursor::pos().y());
+			QCursor::setPos(QCursor::pos().x()+1,QCursor::pos().y());
 
-//		}
+		}
 
-//		if(zoomin) {
-//			viewBig->scale(1.1,1.1);
-//			viewBig->absoluteScaleFactor += 1;
-//		} else {
-//			viewBig->scale(0.90909090,0.90909090);
-//			viewBig->absoluteScaleFactor -= 1;
-//		}
+		if(zoomin) {
+			viewBig->scale(1.1,1.1);
+			viewBig->absoluteScaleFactor += 1;
+		} else {
+			viewBig->scale(0.90909090,0.90909090);
+			viewBig->absoluteScaleFactor -= 1;
+		}
 
-//		if(viewBig->absoluteScaleFactor == 0 && globSet->thumbnailKeepVisible && !viewThumbs->isVisible()) {
-//			globVar->zoomToActualSize = false;
-//			globVar->zoomed = false;
-//			viewBig->resetMatrix();
-//			viewBig->rotate(globVar->rotation);
-//			globVar->rotation = 0;
-//			if(globVar->flipHor)
-//				viewBig->scale(-1,1);
-//			globVar->flipHor = false;
-//			if(globVar->flipVer)
-//				viewBig->scale(1,-1);
-//			globVar->flipVer = false;
-//			globVar->zoomedImgAtLeastOnce = false;
-//			if(globSet->thumbnailKeepVisible)
-//				// We need to use timer, since it might not yet be faded out completely
-//				QTimer::singleShot(500,viewThumbs, SLOT(makeShow()));
+		if(viewBig->absoluteScaleFactor == 0 && globSet->thumbnailKeepVisible && !viewThumbs->isVisible()) {
+			globVar->zoomToActualSize = false;
+			globVar->zoomed = false;
+			viewBig->resetMatrix();
+			viewBig->rotate(globVar->rotation);
+			globVar->rotation = 0;
+			if(globVar->flipHor)
+				viewBig->scale(-1,1);
+			globVar->flipHor = false;
+			if(globVar->flipVer)
+				viewBig->scale(1,-1);
+			globVar->flipVer = false;
+			globVar->zoomedImgAtLeastOnce = false;
+			if(globSet->thumbnailKeepVisible)
+				// We need to use timer, since it might not yet be faded out completely
+				QTimer::singleShot(500,viewThumbs, SLOT(makeShow()));
 
-//		}
+		}
 
-//	}
+	}
 
 }
 

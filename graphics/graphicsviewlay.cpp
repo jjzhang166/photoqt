@@ -32,11 +32,14 @@ ViewBigLay::ViewBigLay(QMap<QString, QVariant> set, bool v) : QVBoxLayout() {
 
 	// We have labels for the top and for the bottom. So there's no need to restart PhotoQt when switching thumbnails from top to bottom or vice versa
 	quickInfoCounterTOP = new QuickInfoLabel(0,"quickinfoCounterTOP",verbose);
+	quickInfoCounterTOP->setStyleSheet("color: white");
 	quickInfoCounterTOP->hide();
 	quickInfoSepTOP = new CustomLabel("--");
+	quickInfoSepTOP->setStyleSheet("color:white");
 	quickInfoSepTOP->hide();
 	quickInfoFilenameTOP = new QuickInfoLabel(0,"quickinfoFilenameTOP",verbose);
 	quickInfoFilenameTOP->setText(tr("Open File to Begin."));
+	quickInfoFilenameTOP->setStyleSheet("color: white");
 	quickInfoFilenameTOP->hide();
 	quickInfoFilenameTOP->globSet = globSet;
 	closeWindowX = new QuickInfoLabel(0,"closewindowXTOP",verbose);
@@ -64,11 +67,14 @@ ViewBigLay::ViewBigLay(QMap<QString, QVariant> set, bool v) : QVBoxLayout() {
 	QHBoxLayout *quickInfoBOT = new QHBoxLayout;
 
 	quickInfoCounterBOT = new QuickInfoLabel(0,"quickinfoCounterBOT",verbose);
+	quickInfoCounterBOT->setStyleSheet("color: white");
 	quickInfoCounterBOT->hide();
 	quickInfoSepBOT = new CustomLabel("--");
+	quickInfoSepBOT->setStyleSheet("color:white");
 	quickInfoSepBOT->hide();
 	quickInfoFilenameBOT = new QuickInfoLabel(0,"quickinfoFilenameBOT",verbose);
 	quickInfoFilenameBOT->setText(tr("Open File to Begin."));
+	quickInfoFilenameBOT->setStyleSheet("color: white");
 	quickInfoFilenameBOT->hide();
 	quickInfoFilenameBOT->globSet = globSet;
 	connect(quickInfoCounterBOT->dohide, SIGNAL(triggered()), this, SLOT(hideItem()));

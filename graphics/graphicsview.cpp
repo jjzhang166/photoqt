@@ -52,7 +52,7 @@ GraphicsView::GraphicsView(QMap<QString, QVariant> set, QWidget *parent) : QGrap
 	mouseSh.clear();
 
 	// Set some render hints for better quality
-	this->setRenderHints(QPainter::Antialiasing | QPainter::SmoothPixmapTransform);
+	this->setRenderHints(QPainter::Antialiasing | QPainter::SmoothPixmapTransform | QPainter::HighQualityAntialiasing);
 
 	// The context menu
 	menu = new QMenu(this);
@@ -357,8 +357,6 @@ void GraphicsView::wheelEvent(QWheelEvent *event) {
 
 		// execute the command
 		emit shMouseDo(toemit, true);
-
-		event->ignore();
 
 	} else
 		QGraphicsView::wheelEvent(event);

@@ -18,7 +18,6 @@
 #include "widgets/startupwidget.h"
 #include "wallpaper/wallpaper.h"
 #include "graphics/imagereader.h"
-#include "graphics/imagereader2.h"
 #include "setupwidgets.h"
 #include "graphics/graphicsviewlay.h"
 
@@ -119,7 +118,6 @@ private:
 
 	// imagereader combining QImageReader and GraphicsMagic
 	ImageReader *imageReader;
-	ImageReader2 *imageReader2;
 
 
 	// Adjust all the geometries (QRects and stuff)
@@ -143,7 +141,7 @@ private:
 	// Zoom the current image; if a string is set, the boolean is ignored
 	void zoom(bool zoomin, QString ignoreBoolean = "");
 
-	// Setup a widget	
+	// Setup a widget
 	void setupWidget(QString what);
 
 private slots:
