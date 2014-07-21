@@ -95,7 +95,7 @@ About::About(QWidget *parent) : QWidget(parent) {
 	QString txt3 = tr("If there's one thing I want to achieve with PhotoQt, then it is, that you find it useful. If I accomplished that, then I'm glad. There's no other reason I'm doing that. I don't want money or anything, but just be helpful.") + "<br><br><br><br>";
 	txt3 += tr("If you find a bug or if you have a question or suggestion, tell me. I'm open to any feedback I get :)") + "<br><br>";
 	txt3 += "<center><h2>" + tr("Thanks to everybody who<br>contributed to PhotoQt<br>and/or translated PhotoQt to another language!<br><br>You guys rock!! :-)") + "</h2></center><br><br>";
-	txt3 += tr("You want to join the team and do something, e.g. translating PhotoQt to another language? Drop me and email (Lukas@photoqt.org), and for translations, check the project page on Transifex: http://transifex.com/p/photoqt.") + "<br><br><br>";
+	txt3 += tr("You want to join the team and do something, e.g. translating PhotoQt to another language? Drop me and email (Lukas@photoqt.org), and for translations, check the project page on Transifex: http://transifex.com/p/photo.") + "<br><br><br>";
 
 	CustomLabel *text = new CustomLabel(txt);
 	CustomLabel *text2 = new CustomLabel(txt2);
