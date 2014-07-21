@@ -75,9 +75,9 @@ int main(int argc, char *argv[]) {
 
 	// Set proper encoding. This is needed e.g. for files with special characters like accents or umlaute in the file name/path
 	QTextCodec *utf8Codec=QTextCodec::codecForName("UTF-8");
-	QTextCodec::setCodecForCStrings(utf8Codec);
+//	QTextCodec::setCodecForCStrings(utf8Codec);
 	QTextCodec::setCodecForLocale(utf8Codec);
-	QTextCodec::setCodecForTr(utf8Codec);
+//	QTextCodec::setCodecForTr(utf8Codec);
 
 	QStringList allArgs;
 	for(int i = 0; i < argc; ++i)
@@ -164,6 +164,7 @@ int main(int argc, char *argv[]) {
 	} else {
 
 		bool verbose = (allArgs.contains("--v") || allArgs.contains("--verbose") || QFile(QDir::homePath() + "./photoqt/verbose").exists() || (!QDir(QDir::homePath() + "/.photoqt").exists() && QFile(QDir::homePath() + "/.photo/verbose").exists()));
+		verbose = true;
 
 		bool migrated = false;
 

@@ -23,7 +23,8 @@ MainWindow::MainWindow(QWidget *parent, bool verbose) : QMainWindow(parent) {
 
 	// Black Background
 	this->setObjectName("mainwindow");
-	this->setStyleSheet("#mainwindow { background: black; }");
+	this->setAttribute(Qt::WA_TranslucentBackground);
+	this->setStyleSheet("#mainwindow { background-color: rgba(0,0,0,0); }");
 	this->setMouseTracking(true);
 
 	// If the user switched to window mode, then we need to have a minimum window size
@@ -47,7 +48,8 @@ MainWindow::MainWindow(QWidget *parent, bool verbose) : QMainWindow(parent) {
 
 	// Central Widget
 	QWidget *central = new QWidget;
-	central->setStyleSheet("border: none; background:transparent");
+	central->setObjectName("central");
+	central->setStyleSheet("#central { border: none; background-color:rgba(0,0,0,0); }");
 	QVBoxLayout *bglayout = new QVBoxLayout;
 	bglayout->setMargin(0);
 	bglabel = new QLabel;
@@ -58,7 +60,6 @@ MainWindow::MainWindow(QWidget *parent, bool verbose) : QMainWindow(parent) {
 	QVBoxLayout *centralLayout = new QVBoxLayout;
 	centralLayout->setMargin(0);
 	bglabel->setLayout(centralLayout);
-
 
 	// The main GraphicViews
 	viewBig = new GraphicsView(globSet->toSignalOut(),bglabel);
@@ -1228,6 +1229,7 @@ void MainWindow::setBackground() {
 		// We set to bglabel an empty pixmap. We can't simply hide it, because it contains every widget in the app
 		bglabel->setPixmap(QPixmap());
 
+
 	// If compositing is disabled, then we'll simply take a screenshot and simulate some sort of compositing
 	} else {
 
@@ -1343,7 +1345,7 @@ void MainWindow::setBackground() {
 
 			bglabel->setPixmap(QPixmap());
 
-			bglabel->setStyleSheet(QString("background-color: rgba(%1, %2, %3, %4)").arg(globSet->bgColorRed).arg(globSet->bgColorGreen).arg(globSet->bgColorBlue).arg(globSet->bgColorAlpha));
+			bglabel->setStyleSheet(QString("background-color: rgb(%1, %2, %3)").arg(globSet->bgColorRed).arg(globSet->bgColorGreen).arg(globSet->bgColorBlue));
 
 		}
 

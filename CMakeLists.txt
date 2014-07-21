@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 2.8)
 PROJECT(photoqt)
 
 ### POSSIBLY NEEDED: SET(QT_QMAKE_EXECUTABLE qmake-qt4)
-FIND_PACKAGE(Qt4 REQUIRED)
+FIND_PACKAGE(Qt5Widgets REQUIRED)
 
 #### SOURCES ####
 # toplevel
@@ -37,78 +37,72 @@ SET(photoqt_HEADERS ${photoqt_HEADERS} customelements/customcheckbox.h customele
 SET(photoqt_HEADERS ${photoqt_HEADERS} slideshow/slideshowbar.h slideshow/slideshowsettings.h flowlayout/flowlayout.h wallpaper/wallpaper.h)
 
 
-# Set sources
-SET(photoqt_RESOURCES resLang.qrc resImg.qrc)
-# and add sql
-SET(QT_USE_QTSQL TRUE)
-
-
-
 OPTION(PHONON "Use Phonon" ON)
 OPTION(EXIV2 "Use exiv2 library" ON)
 OPTION(GM "Use graphicsmagick library" ON)
 OPTION(QTONLY "ONLY USE QT-ONLY FEATURES" OFF)
-
-if(NOT QTONLY AND PHONON)
-        SET(QT_USE_PHONON TRUE)
-endif(NOT QTONLY AND PHONON)
-
 
 ###################################
 ###### REMOVE BEFORE RELEASE ######
 ###################################
 SET(CMAKE_BUILD_TYPE Debug)
 
+# Set sources
+SET(photoqt_RESOURCES resLang.qrc resImg.qrc)
+
+# add resource file
+QT5_ADD_RESOURCES(photoqt_RESOURCES_RCC ${photoqt_RESOURCES})
+
 # moc files
-QT4_WRAP_CPP(photoqt_HEADERS_MOC ${photoqt_HEADERS})
-QT4_ADD_RESOURCES(photoqt_RESOURCES_RCC ${photoqt_RESOURCES})
+QT5_WRAP_CPP(photoqt_HEADERS_MOC ${photoqt_HEADERS})
 
 # include, add defiunitions and include dirs
-INCLUDE(${QT_USE_FILE})
-ADD_DEFINITIONS(${QT_DEFINITIONS})
+#INCLUDE(${Qt5Widgets_INCLUDE_DIRS})
+include_directories(${Qt5Widgets_INCLUDES})
+ADD_DEFINITIONS(${Qt5Widgets_DEFINITIONS})
 INCLUDE_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR})
 
 # And add the executeable
-ADD_EXECUTABLE(photoqt ${photoqt_SOURCES} ${photoqt_HEADERS_MOC} ${photoqt_RESOURCES_RCC})
-TARGET_LINK_LIBRARIES(photoqt ${QT_LIBRARIES})
+ADD_EXECUTABLE(photoqt WIN32 ${photoqt_SOURCES} ${photoqt_HEADERS_MOC} ${photoqt_RESOURCES_RCC})
+qt5_use_modules(photoqt Core Sql Widgets)
 
 
 message("")
 
 if(NOT QTONLY)
 
-        if(EXIV2)
-                # Link Exiv Libraries
+	if(EXIV2)
+		# Link Exiv Libraries
 		TARGET_LINK_LIBRARIES(photoqt "exiv2")
-                ADD_DEFINITIONS(-DEXIV2)
-                message("** Exiv2 enabled")
-        elseif(NOT EXIV2)
-                message("** Exiv2 DISABLED")
-        endif(EXIV2)
+		ADD_DEFINITIONS(-DEXIV2)
+		message("** Exiv2 enabled")
+	elseif(NOT EXIV2)
+		message("** Exiv2 DISABLED")
+	endif(EXIV2)
 
-        if(PHONON)
-                ADD_DEFINITIONS(-DPHONON)
-                if(UNIX)
-                        SET(QT_PHONON_INCLUDE_DIR /usr/include/phonon)
-                endif(UNIX)
-                message("** Phonon enabled")
-        elseif(NOT PHONON)
-                message("** Phonon DISABLED")
-        endif(PHONON)
-
-        if(GM)
-                if(UNIX)
-                        INCLUDE_DIRECTORIES("/usr/include/GraphicsMagick/")
+	if(PHONON)
+		ADD_DEFINITIONS(-DPHONON)
+		if(UNIX)
+			SET(QT_PHONON_INCLUDE_DIR /usr/include/phonon)
 		endif(UNIX)
-                TARGET_LINK_LIBRARIES(photoqt "GraphicsMagick++")
-                ADD_DEFINITIONS(-DGM)
-                message("** Graphicsmagick enabled")
-        elseif(NOT GM)
-                message("** Graphicsmagick DISABLED")
-        endif(GM)
+		message("** Phonon enabled")
+	elseif(NOT PHONON)
+		message("** Phonon DISABLED")
+	endif(PHONON)
+
+	if(GM)
+		if(UNIX)
+			INCLUDE_DIRECTORIES("/usr/include/GraphicsMagick/")
+		endif(UNIX)
+		TARGET_LINK_LIBRARIES(photoqt "GraphicsMagick++")
+		ADD_DEFINITIONS(-DGM)
+		message("** Graphicsmagick enabled")
+	elseif(NOT GM)
+		message("** Graphicsmagick DISABLED")
+	endif(GM)
 
 elseif(QTONLY)
-        message("** All non-Qt features DISABLED")
+	message("** All non-Qt features DISABLED")
 endif(NOT QTONLY)
 
 message("")
@@ -122,36 +116,36 @@ if(UNIX)
 
 	# Install executeable
 	INSTALL(
-                TARGETS photoqt
+		TARGETS photoqt
 		DESTINATION bin/
 	)
 
 	# Install desktop file
 	INSTALL(
-                FILES photoqt.desktop
+		FILES photoqt.desktop
 		DESTINATION share/applications
 	)
 
 	# And install all the icons
 	INSTALL(
-                FILES icons/16x16/apps/photoqt.png
+		FILES icons/16x16/apps/photoqt.png
 		DESTINATION share/icons/hicolor/16x16/apps/
 	)
 	INSTALL(
-                FILES icons/32x32/apps/photoqt.png
-                DESTINATION share/icons/hicolor/32x32/apps/
+		FILES icons/32x32/apps/photoqt.png
+		DESTINATION share/icons/hicolor/32x32/apps/
 	)
 	INSTALL(
-                FILES icons/48x48/apps/photoqt.png
-                DESTINATION share/icons/hicolor/48x48/apps/
+		FILES icons/48x48/apps/photoqt.png
+		DESTINATION share/icons/hicolor/48x48/apps/
 	)
 	INSTALL(
-                FILES icons/64x64/apps/photoqt.png
-                DESTINATION share/icons/hicolor/64x64/apps/
+		FILES icons/64x64/apps/photoqt.png
+		DESTINATION share/icons/hicolor/64x64/apps/
 	)
 	INSTALL(
-                FILES icons/128x128/apps/photoqt.png
-                DESTINATION share/icons/hicolor/128x128/apps/
+		FILES icons/128x128/apps/photoqt.png
+		DESTINATION share/icons/hicolor/128x128/apps/
 	)
 endif(UNIX)
 
@@ -163,4 +157,4 @@ configure_file(
 
 add_custom_target(uninstall
     COMMAND ${CMAKE_COMMAND} -P ${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake)
-    
+

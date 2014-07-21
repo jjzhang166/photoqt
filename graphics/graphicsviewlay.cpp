@@ -46,7 +46,7 @@ ViewBigLay::ViewBigLay(QMap<QString, QVariant> set, bool v) : QVBoxLayout() {
 	closeWindowX->setText("x");
 	closeWindowX->setStyleSheet("color: white; padding: 5px");
 	closeWindowX->setCursor(Qt::PointingHandCursor);
-	closeWindowX->setShown(!globSet.value("HideX").toBool());
+	closeWindowX->setVisible(!globSet.value("HideX").toBool());
 	QSignalMapper *mapperXTOP = new QSignalMapper;
 	mapperXTOP->setMapping(closeWindowX,"0:::::__hide");
 	connect(closeWindowX, SIGNAL(clicked()), mapperXTOP, SLOT(map()));
@@ -149,10 +149,10 @@ void ViewBigLay::updateInfo(QString currentfile, int countpos, int counttot) {
 			else
 				quickInfoFilenameTOP->setText(currentfile);
 
-			quickInfoCounterTOP->setShown(!globSet.value("HideCounter").toBool());
-			quickInfoFilenameTOP->setShown(!globSet.value("HideFilename").toBool());
-			closeWindowX->setShown(!globSet.value("HideX").toBool());
-			quickInfoSepTOP->setShown((globSet.value("HideFilename").toBool() == globSet.value("HideCounter").toBool()) && !globSet.value("HideCounter").toBool());
+			quickInfoCounterTOP->setVisible(!globSet.value("HideCounter").toBool());
+			quickInfoFilenameTOP->setVisible(!globSet.value("HideFilename").toBool());
+			closeWindowX->setVisible(!globSet.value("HideX").toBool());
+			quickInfoSepTOP->setVisible((globSet.value("HideFilename").toBool() == globSet.value("HideCounter").toBool()) && !globSet.value("HideCounter").toBool());
 		} else {
 			quickInfoFilenameTOP->setText(tr("Open File to Begin."));
 			quickInfoCounterTOP->hide();
@@ -176,10 +176,10 @@ void ViewBigLay::updateInfo(QString currentfile, int countpos, int counttot) {
 			else
 				quickInfoFilenameBOT->setText(currentfile);
 
-			quickInfoCounterBOT->setShown(!globSet.value("HideCounter").toBool());
-			quickInfoFilenameBOT->setShown(!globSet.value("HideFilename").toBool());
-			closeWindowX->setShown(!globSet.value("HideX").toBool());
-			quickInfoSepBOT->setShown(!globSet.value("HideFilename").toBool() && !globSet.value("HideCounter").toBool());
+			quickInfoCounterBOT->setVisible(!globSet.value("HideCounter").toBool());
+			quickInfoFilenameBOT->setVisible(!globSet.value("HideFilename").toBool());
+			closeWindowX->setVisible(!globSet.value("HideX").toBool());
+			quickInfoSepBOT->setVisible(!globSet.value("HideFilename").toBool() && !globSet.value("HideCounter").toBool());
 		} else {
 			quickInfoFilenameBOT->setText(tr("Open File to Begin."));
 			quickInfoCounterBOT->hide();

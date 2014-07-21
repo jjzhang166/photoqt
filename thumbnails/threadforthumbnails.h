@@ -146,7 +146,7 @@ protected:
 
 					// Create the md5 hash for the thumbnail file
 					QByteArray path = "";
-					if(!amUpdatingData) path = "file://" + allimgs.at(createThisOne).absoluteFilePath().toAscii();
+					if(!amUpdatingData) path = "file://" + allimgs.at(createThisOne).absoluteFilePath().toLatin1();
 
 					QByteArray md5 = QCryptographicHash::hash(path,QCryptographicHash::Md5).toHex();
 

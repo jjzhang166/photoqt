@@ -68,19 +68,19 @@ SlideShowBar::SlideShowBar(QMap<QString, QVariant> set, QWidget *parent, bool v)
 	connect(playPause, SIGNAL(clicked()), this, SLOT(togglePlay()));
 
 #ifdef PHONON
-	audio = new Phonon::AudioOutput(Phonon::MusicCategory, this);
-	media = new Phonon::MediaObject(this);
-	Phonon::createPath(media,audio);
-	volume = new Phonon::VolumeSlider(audio,this);
-	volume->setStyleSheet(css);
-	volume->setCursor(Qt::PointingHandCursor);
-	volume->setOrientation(Qt::Horizontal);
-	volume->setMaximumWidth(200);
-	volume->setTracking(true);
-	volume->setMuteVisible(false);
+//	audio = new Phonon::AudioOutput(Phonon::MusicCategory, this);
+//	media = new Phonon::MediaObject(this);
+//	Phonon::createPath(media,audio);
+//	volume = new Phonon::VolumeSlider(audio,this);
+//	volume->setStyleSheet(css);
+//	volume->setCursor(Qt::PointingHandCursor);
+//	volume->setOrientation(Qt::Horizontal);
+//	volume->setMaximumWidth(200);
+//	volume->setTracking(true);
+//	volume->setMuteVisible(false);
 
-	volumeLabel = new QLabel(tr("Music Volume:"));
-	volumeLabel->setStyleSheet("QLabel { color: white; background: none; } QLabel:disabled { color: grey; } ");
+//	volumeLabel = new QLabel(tr("Music Volume:"));
+//	volumeLabel->setStyleSheet("QLabel { color: white; background: none; } QLabel:disabled { color: grey; } ");
 
 #endif
 
@@ -90,8 +90,8 @@ SlideShowBar::SlideShowBar(QMap<QString, QVariant> set, QWidget *parent, bool v)
 	central->addWidget(playPause);
 	central->addSpacing(20);
 #ifdef PHONON
-	central->addWidget(volumeLabel);
-	central->addWidget(volume);
+//	central->addWidget(volumeLabel);
+//	central->addWidget(volume);
 #endif
 	central->addStretch();
 	central->addWidget(cancel);
@@ -104,7 +104,7 @@ SlideShowBar::SlideShowBar(QMap<QString, QVariant> set, QWidget *parent, bool v)
 
 #ifdef PHONON
 	// At the end of the music file we restart it if the slideshow is still running
-	connect(media, SIGNAL(aboutToFinish()), this, SLOT(endOfMusicFile()));
+//	connect(media, SIGNAL(aboutToFinish()), this, SLOT(endOfMusicFile()));
 #endif
 
 
@@ -118,16 +118,16 @@ void SlideShowBar::togglePlay() {
 		playPause->setText(tr("Play Slideshow"));
 		nextImg->stop();
 #ifdef PHONON
-		if(musicFile != "")
-			media->play();
+//		if(musicFile != "")
+//			media->play();
 #endif
 	} else {
 		if(verbose) std::clog << "sldb: Toggle Playback (Pause)" << std::endl;
 		playPause->setText(tr("Pause Slideshow"));
 		nextImg->start();
 #ifdef PHONON
-		if(musicFile != "")
-			media->pause();
+//		if(musicFile != "")
+//			media->pause();
 #endif
 	}
 
@@ -148,8 +148,8 @@ void SlideShowBar::endOfMusicFile() {
 	if(verbose) std::clog << "sldb: End of music file" << std::endl;
 
 #ifdef PHONON
-	media->stop();
-	media->play();
+//	media->stop();
+//	media->play();
 #endif
 
 }
@@ -227,15 +227,15 @@ void SlideShowBar::startSlideShow() {
 
 	if(verbose) std::clog << "sldb: Start Slideshow" << std::endl;
 #ifdef PHONON
-	if(musicFile != "") {
-		volume->setEnabled(true);
-		volumeLabel->setEnabled(true);
-		media->setCurrentSource(Phonon::MediaSource(musicFile));
-		media->play();
-	} else {
-		volume->setEnabled(false);
-		volumeLabel->setEnabled(false);
-	}
+//	if(musicFile != "") {
+//		volume->setEnabled(true);
+//		volumeLabel->setEnabled(true);
+//		media->setCurrentSource(Phonon::MediaSource(musicFile));
+//		media->play();
+//	} else {
+//		volume->setEnabled(false);
+//		volumeLabel->setEnabled(false);
+//	}
 #endif
 
 	nextImg->start();
@@ -248,7 +248,7 @@ void SlideShowBar::stopSlideShow() {
 	if(verbose) std::clog << "sldb: Stop slideshow" << std::endl;
 
 #ifdef PHONON
-	media->stop();
+//	media->stop();
 #endif
 
 	nextImg->stop();

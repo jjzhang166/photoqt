@@ -8,6 +8,8 @@
 #include <QScrollArea>
 #include <QVBoxLayout>
 #include <QDir>
+#include <QDrag>
+#include <QMimeData>
 
 class Context : public QScrollArea {
 

@@ -18,7 +18,7 @@
 #include <iostream>
 
 // This item is used for displaying the big image
-GraphicsItem::GraphicsItem(QGraphicsItem *parent, QGraphicsScene *scene) : QGraphicsPixmapItem(parent,scene) {
+GraphicsItem::GraphicsItem(QGraphicsItem *parent) : QGraphicsPixmapItem(parent) {
 
 	// This movie is used for animated images
 	mov = new QMovie;

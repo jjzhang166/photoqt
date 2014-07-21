@@ -16,7 +16,7 @@ class GraphicsItem : public QObject, public QGraphicsPixmapItem {
 	Q_OBJECT
 
 public:
-	GraphicsItem(QGraphicsItem *parent = 0, QGraphicsScene *scene = 0);
+	GraphicsItem(QGraphicsItem *parent = 0);
 	~GraphicsItem();
 
 	// This movie is used for animated images

@@ -17,7 +17,7 @@
 #include "thumbnailpixmapitem.h"
 #include <iostream>
 
-ThumbnailPixmapItem::ThumbnailPixmapItem(QGraphicsItem *parent, QGraphicsScene *scene) : QGraphicsPixmapItem(parent,scene) {
+ThumbnailPixmapItem::ThumbnailPixmapItem(QGraphicsItem *parent) : QGraphicsPixmapItem(parent) {
 
 	// needed for effects
 	this->setAcceptHoverEvents(true);

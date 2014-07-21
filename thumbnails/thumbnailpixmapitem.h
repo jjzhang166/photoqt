@@ -11,7 +11,7 @@ class ThumbnailPixmapItem : public QObject, public QGraphicsPixmapItem {
 	Q_OBJECT
 
 public:
-	ThumbnailPixmapItem(QGraphicsItem *parent = 0, QGraphicsScene *scene = 0);
+	ThumbnailPixmapItem(QGraphicsItem *parent = 0);
 	~ThumbnailPixmapItem();
 
 	// The normal and hovered pixmap

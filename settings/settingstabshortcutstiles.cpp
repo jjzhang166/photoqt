@@ -197,7 +197,7 @@ void ShortcutsTiles::shButClkd() {
 void ShortcutsTiles::makeMouseShortcut(bool m) {
 
 	isMouseShortcut = m;
-	mouse->setShown(m);
+	mouse->setVisible(m);
 
 }
 
