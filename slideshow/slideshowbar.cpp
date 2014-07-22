@@ -145,7 +145,7 @@ void SlideShowBar::loadNextImg() {
 // When music is played and the file comes to an end (but the images not)
 void SlideShowBar::mediaStateChanged(QMediaPlayer::MediaStatus state) {
 
-	std::clog << "sldb: Media State changed... New state: " << state << std::endl;
+	if(verbose) std::clog << "sldb: Media State changed... New state: " << state << std::endl;
 
 	if(state == QMediaPlayer::EndOfMedia) {
 		player->stop();
@@ -234,6 +234,7 @@ void SlideShowBar::animate() {
 void SlideShowBar::startSlideShow() {
 
 	if(verbose) std::clog << "sldb: Start Slideshow" << std::endl;
+
 	if(musicFile != "") {
 		player->setMedia(QUrl::fromLocalFile(musicFile));
 		player->play();

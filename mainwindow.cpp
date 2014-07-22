@@ -474,8 +474,9 @@ void MainWindow::drawImage() {
 		// Adjust scene rect
 		viewBig->scene()->setSceneRect(viewBig->scene()->itemsBoundingRect());
 
-		// If exif isn't read yet
-		if(!globVar->exifRead) {
+		// If exif isn't read yet AND we also don't need to get this data while a slideshow is running
+		// (if we check, then it asking if user wants photo rotated can lead to undefined behaviour)
+		if(!globVar->exifRead && !globVar->slideshowRunning) {
 
 			if(globVar->verbose) std::clog << "Requesting Exif Info" << std::endl;
 
@@ -1846,6 +1847,8 @@ void MainWindow::startSlideShow() {
 
 	if(globVar->verbose) std::clog << "Start slideshow" << std::endl;
 
+	globVar->slideshowRunning = true;
+
 	// Set some global parameters
 	globSet->slideShowTime = slideshow->timeSlider->value();
 	globSet->slideShowTransition = slideshow->trans->value();
@@ -1897,6 +1900,8 @@ void MainWindow::stopSlideShow() {
 
 	if(globVar->verbose) std::clog << "Stop slideshow" << std::endl;
 
+	globVar->slideshowRunning = false;
+
 	// Animate slideshowbar in (if not shown already) and out
 	slideshowbar->animateInAndOut = true;
 	slideshowbar->animate();
@@ -1918,6 +1923,9 @@ void MainWindow::stopSlideShow() {
 
 	viewBigLay->slideshowRunning = false;
 	viewBigLay->updateInfo(globVar->currentfile,viewThumbs->countpos,viewThumbs->counttot);
+
+	// We simply redraw the image for, e.g., getting the exif data
+	drawImage();
 
 }
 
