@@ -1,7 +1,6 @@
 cmake_minimum_required(VERSION 2.8)
 PROJECT(photoqt)
 
-### POSSIBLY NEEDED: SET(QT_QMAKE_EXECUTABLE qmake-qt4)
 FIND_PACKAGE(Qt5Widgets REQUIRED)
 
 #### SOURCES ####
@@ -37,7 +36,6 @@ SET(photoqt_HEADERS ${photoqt_HEADERS} customelements/customcheckbox.h customele
 SET(photoqt_HEADERS ${photoqt_HEADERS} slideshow/slideshowbar.h slideshow/slideshowsettings.h flowlayout/flowlayout.h wallpaper/wallpaper.h)
 
 
-OPTION(PHONON "Use Phonon" ON)
 OPTION(EXIV2 "Use exiv2 library" ON)
 OPTION(GM "Use graphicsmagick library" ON)
 OPTION(QTONLY "ONLY USE QT-ONLY FEATURES" OFF)
@@ -64,7 +62,7 @@ INCLUDE_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR})
 
 # And add the executeable
 ADD_EXECUTABLE(photoqt WIN32 ${photoqt_SOURCES} ${photoqt_HEADERS_MOC} ${photoqt_RESOURCES_RCC})
-qt5_use_modules(photoqt Core Sql Widgets)
+qt5_use_modules(photoqt Core Sql Widgets Multimedia)
 
 
 message("")
@@ -79,16 +77,6 @@ if(NOT QTONLY)
 	elseif(NOT EXIV2)
 		message("** Exiv2 DISABLED")
 	endif(EXIV2)
-
-	if(PHONON)
-		ADD_DEFINITIONS(-DPHONON)
-		if(UNIX)
-			SET(QT_PHONON_INCLUDE_DIR /usr/include/phonon)
-		endif(UNIX)
-		message("** Phonon enabled")
-	elseif(NOT PHONON)
-		message("** Phonon DISABLED")
-	endif(PHONON)
 
 	if(GM)
 		if(UNIX)

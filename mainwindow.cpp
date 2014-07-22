@@ -1849,12 +1849,10 @@ void MainWindow::startSlideShow() {
 	// Set some global parameters
 	globSet->slideShowTime = slideshow->timeSlider->value();
 	globSet->slideShowTransition = slideshow->trans->value();
-#ifdef PHONON
 	QString musicFilePath = slideshow->musicPath->text();
 	if(!slideshow->musicEnable->isChecked())
 		musicFilePath = "";
 	globSet->slideShowMusicFile = musicFilePath;
-#endif
 	globSet->saveSettings();
 
 	// Block all functions
@@ -1871,10 +1869,8 @@ void MainWindow::startSlideShow() {
 	// update the quickinfo
 	viewBigLay->updateInfo(globVar->currentfile,viewThumbs->countpos,viewThumbs->counttot);
 
-#ifdef PHONON
 	// set the music file to bar
 	slideshowbar->musicFile = musicFilePath;
-#endif
 
 	// set the interval
 	slideshowbar->nextImg->setInterval(slideshow->timeSlider->value()*1000);

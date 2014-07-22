@@ -50,6 +50,10 @@ SlideShowBar::SlideShowBar(QMap<QString, QVariant> set, QWidget *parent, bool v)
 		css += "margin: 2px 0;";
 	css += "}";
 
+	css += "QSlider {";
+		css += "background: transparent;";
+	css += "}";
+
 	css += "QSlider::groove:disabled {";
 		css += "background: grey;";
 	css += "}";
@@ -64,49 +68,49 @@ SlideShowBar::SlideShowBar(QMap<QString, QVariant> set, QWidget *parent, bool v)
 
 	QHBoxLayout *central = new QHBoxLayout;
 
+	// Play and pause the whole slideshow (pictures and music)
 	playPause = new CustomPushButton(tr("Pause Slideshow"),this);
 	connect(playPause, SIGNAL(clicked()), this, SLOT(togglePlay()));
 
-#ifdef PHONON
-//	audio = new Phonon::AudioOutput(Phonon::MusicCategory, this);
-//	media = new Phonon::MediaObject(this);
-//	Phonon::createPath(media,audio);
-//	volume = new Phonon::VolumeSlider(audio,this);
-//	volume->setStyleSheet(css);
-//	volume->setCursor(Qt::PointingHandCursor);
-//	volume->setOrientation(Qt::Horizontal);
-//	volume->setMaximumWidth(200);
-//	volume->setTracking(true);
-//	volume->setMuteVisible(false);
+	// A mediaplayer to play an audiofile
+	player = new QMediaPlayer;
+	connect(player, SIGNAL(stateChanged(QMediaPlayer::State)), this, SLOT(stateChanged(QMediaPlayer::State)));
+	connect(player, SIGNAL(mediaStatusChanged(QMediaPlayer::MediaStatus)), this, SLOT(mediaStateChanged(QMediaPlayer::MediaStatus)));
+	player->setVolume(80);
 
-//	volumeLabel = new QLabel(tr("Music Volume:"));
-//	volumeLabel->setStyleSheet("QLabel { color: white; background: none; } QLabel:disabled { color: grey; } ");
+	// volume slider and percentage display
+	volume = new QSlider;
+	volume->setMinimum(0);
+	volume->setMaximum(100);
+	volume->setValue(80);
+	volume->setCursor(Qt::OpenHandCursor);
+	volume->setStyleSheet(css);
+	volume->setMaximumWidth(200);
+	volume->setOrientation(Qt::Horizontal);
+	connect(volume, SIGNAL(valueChanged(int)), this, SLOT(volumeChanged()));
+	volumeLabel = new QLabel(tr("Music Volume:"));
+	volumeLabel->setStyleSheet("QLabel { color: white; background: none; } QLabel:disabled { color: grey; } ");
+	volumePercentage = new QLabel("80%");
+	volumePercentage->setStyleSheet("background: transparent; color: white");
+	volumePercentage->setFixedWidth(50);
 
-#endif
-
+	// button to quit the slideshow
 	cancel = new CustomPushButton(tr("Exit Slideshow"));
 
-	central->addStretch();
+	// Add all elements to layout
 	central->addWidget(playPause);
-	central->addSpacing(20);
-#ifdef PHONON
-//	central->addWidget(volumeLabel);
-//	central->addWidget(volume);
-#endif
+	central->addStretch();
+	central->addWidget(volumeLabel);
+	central->addWidget(volume);
+	central->addWidget(volumePercentage);
 	central->addStretch();
 	central->addWidget(cancel);
 
 	this->setLayout(central);
 
-
+	// Every x seconds (set by user) we show the next image
 	nextImg = new QTimer;
 	connect(nextImg, SIGNAL(timeout()), this, SLOT(loadNextImg()));
-
-#ifdef PHONON
-	// At the end of the music file we restart it if the slideshow is still running
-//	connect(media, SIGNAL(aboutToFinish()), this, SLOT(endOfMusicFile()));
-#endif
-
 
 }
 
@@ -117,18 +121,14 @@ void SlideShowBar::togglePlay() {
 		if(verbose) std::clog << "sldb: Toggle Playback (Play)" << std::endl;
 		playPause->setText(tr("Play Slideshow"));
 		nextImg->stop();
-#ifdef PHONON
-//		if(musicFile != "")
-//			media->play();
-#endif
+		if(musicFile != "")
+			player->pause();
 	} else {
 		if(verbose) std::clog << "sldb: Toggle Playback (Pause)" << std::endl;
 		playPause->setText(tr("Pause Slideshow"));
 		nextImg->start();
-#ifdef PHONON
-//		if(musicFile != "")
-//			media->pause();
-#endif
+		if(musicFile != "")
+			player->play();
 	}
 
 }
@@ -143,14 +143,22 @@ void SlideShowBar::loadNextImg() {
 }
 
 // When music is played and the file comes to an end (but the images not)
-void SlideShowBar::endOfMusicFile() {
+void SlideShowBar::mediaStateChanged(QMediaPlayer::MediaStatus state) {
 
-	if(verbose) std::clog << "sldb: End of music file" << std::endl;
+	std::clog << "sldb: Media State changed... New state: " << state << std::endl;
 
-#ifdef PHONON
-//	media->stop();
-//	media->play();
-#endif
+	if(state == QMediaPlayer::EndOfMedia) {
+		player->stop();
+		player->play();
+	}
+
+}
+
+// Update the volume
+void SlideShowBar::volumeChanged() {
+
+	volumePercentage->setText(QString("%1%").arg(volume->value()));
+	player->setVolume(volume->value());
 
 }
 
@@ -226,17 +234,10 @@ void SlideShowBar::animate() {
 void SlideShowBar::startSlideShow() {
 
 	if(verbose) std::clog << "sldb: Start Slideshow" << std::endl;
-#ifdef PHONON
-//	if(musicFile != "") {
-//		volume->setEnabled(true);
-//		volumeLabel->setEnabled(true);
-//		media->setCurrentSource(Phonon::MediaSource(musicFile));
-//		media->play();
-//	} else {
-//		volume->setEnabled(false);
-//		volumeLabel->setEnabled(false);
-//	}
-#endif
+	if(musicFile != "") {
+		player->setMedia(QUrl::fromLocalFile(musicFile));
+		player->play();
+	}
 
 	nextImg->start();
 
@@ -247,9 +248,7 @@ void SlideShowBar::stopSlideShow() {
 
 	if(verbose) std::clog << "sldb: Stop slideshow" << std::endl;
 
-#ifdef PHONON
-//	media->stop();
-#endif
+	player->stop();
 
 	nextImg->stop();
 

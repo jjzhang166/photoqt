@@ -164,7 +164,6 @@ int main(int argc, char *argv[]) {
 	} else {
 
 		bool verbose = (allArgs.contains("--v") || allArgs.contains("--verbose") || QFile(QDir::homePath() + "./photoqt/verbose").exists() || (!QDir(QDir::homePath() + "/.photoqt").exists() && QFile(QDir::homePath() + "/.photo/verbose").exists()));
-		verbose = true;
 
 		bool migrated = false;
 

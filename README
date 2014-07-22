@@ -11,7 +11,6 @@ cmake (needed for building PhotoQt)
 
 >> Dependencies, that are needed by default, but can be disabled via cmake (see INSTALL section):
 exiv2
-Phonon
 GraphicsMagick
 
 
@@ -30,20 +29,15 @@ INSTALL
    # To install PhotoQt into e.g. /usr/{bin,share}, run:
    cmake -DCMAKE_INSTALL_PREFIX=/usr ..
    
-   # CMake expects the phonon libs to be in /usr/include/phonon.
-   # If you're storing them in a different place, you need to tell cmake:
-   cmake -DQT_PHONON_INCLUDE_DIR=/path/to/phonon/include/dir ..
-   
-   # PhotoQt makes use of different libraries: Exiv2, Phonon, GraphicsMagick ("gm").
+   # PhotoQt makes use of different libraries: Exiv2, GraphicsMagick ("gm").
    # You can en-/disable them with the following options:
    # (if you don't specify anything, it asumes the default values)
    -DEXIV2=OFF			# default: ON
-   -DPHONON=OFF			# default: ON
    -DGM=OFF			# default: ON
    # You can combine them in any way you want.
-   # The following option equates to setting the three above options to OFF
+   # The following option equates to setting the two above options to OFF
    -DQTONLY=ON			# default: OFF
-   # Note: -DQTONLY overwrites the three individual options above!
+   # Note: -DQTONLY overwrites the two individual options above!
    
 
 3) make  # This creates an executeable photoqt binary located in the ./build/ folder

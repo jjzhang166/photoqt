@@ -10,12 +10,9 @@
 #include <QTimer>
 #include <QLabel>
 #include <QHBoxLayout>
+#include <QFile>
 
-#ifdef PHONON
-//#include <phonon/AudioOutput>
-//#include <phonon/MediaObject>
-//#include <phonon/VolumeSlider>
-#endif
+#include <QtMultimedia/QMediaPlayer>
 
 class SlideShowBar : public QWidget {
 
@@ -63,20 +60,14 @@ private:
 	// Is a slideshow running?
 	bool enabled;
 
-#ifdef PHONON
-	// The Phonon Objects for the possibly set music file
-//	Phonon::AudioOutput *audio;
-//	Phonon::MediaObject *media;
-#endif
+
+	QMediaPlayer *player;
 
 	// A button to play/pause the slideshow
 	CustomPushButton *playPause;
-
-#ifdef PHONON
-	// Adjusting the volume
-//	Phonon::VolumeSlider *volume;
-//	QLabel *volumeLabel;
-#endif
+	QSlider *volume;
+	QLabel *volumeLabel;
+	QLabel *volumePercentage;
 
 public slots:
 	// Animation functions
@@ -94,7 +85,10 @@ public slots:
 	void togglePlay();
 
 	// When the music is at the end, but the slideshow isn't, then the music is restarted
-	void endOfMusicFile();
+	void mediaStateChanged(QMediaPlayer::MediaStatus state);
+
+	// When the volume slider is moved, we update the percentage label
+	void volumeChanged();
 
 protected:
 	void paintEvent(QPaintEvent *);

@@ -148,7 +148,6 @@ SlideShow::SlideShow(QMap<QString, QVariant> set, QWidget *parent, bool v) : QWi
 	central->addLayout(hideQuickLay);
 	central->addSpacing(10);
 
-#ifdef PHONON
 	// Adjust music
 	musicEnable = new CustomCheckBox(tr("Enable Music"));
 	musicEnable->setChecked(globSet.value("SlideShowMusicFile").toString() != "");
@@ -174,13 +173,6 @@ SlideShow::SlideShow(QMap<QString, QVariant> set, QWidget *parent, bool v) : QWi
 	central->addLayout(musicPathLay);
 	connect(musicEnable, SIGNAL(toggled(bool)), musicPath, SLOT(setEnabled(bool)));
 	connect(musicPath, SIGNAL(clicked()), this, SLOT(browseForMusic()));
-#else
-	CustomLabel *phononDisabled = new CustomLabel("<b><i>" + tr("Music support not available; Phonon has been disabled as PhotoQt was compiled/installed.") + "</i></b>");
-	phononDisabled->setWordWrap(true);
-	central->addSpacing(10);
-	central->addWidget(phononDisabled);
-	central->addSpacing(10);
-#endif
 
 	central->addStretch();
 
@@ -360,7 +352,6 @@ void SlideShow::mouseReleaseEvent(QMouseEvent *e) {
 // browse for a music file
 void SlideShow::browseForMusic() {
 
-#ifdef PHONON
 	if(verbose) std::clog << "slb: Browse for music file" << std::endl;
 
 	QString oldPath = QDir::homePath();
@@ -371,7 +362,6 @@ void SlideShow::browseForMusic() {
 
 	if(newFile != "")
 		musicPath->setText(newFile);
-#endif
 
 }
 

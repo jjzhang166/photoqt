@@ -40,11 +40,9 @@ public:
 	// Adjust transition
 	CustomSlider *trans;
 
-#ifdef PHONON
 	// Adjust music
 	CustomCheckBox *musicEnable;
 	CustomLineEdit *musicPath;
-#endif
 
 	// Adjust quickinfo labels
 	CustomCheckBox *hideQuickInfo;
