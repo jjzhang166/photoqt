@@ -1738,6 +1738,8 @@ void MainWindow::shortcutDO(QString key, bool mouseSH) {
 					details->makeHide();
 				}
 			}
+			if(key == "__showContext")
+				viewBig->showContext();
 			if(key == "__gotoFirstThb")
 				viewThumbs->gotoFirstLast("first");
 			if(key == "__gotoLastThb")

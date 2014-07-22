@@ -139,6 +139,7 @@ SettingsTabShortcuts::SettingsTabShortcuts(QWidget *parent, bool v) : QWidget(pa
 	other.insert("__stopThb",tr("Interrupt Thumbnail Creation"));
 	other.insert("__reloadThb",tr("Reload Thumbnails"));
 	other.insert("__hideMeta",tr("Hide/Show Exif Info"));
+	other.insert("__showContext", tr("Show Context Menu"));
 	other.insert("__settings",tr("Show Settings"));
 	other.insert("__slideshow",tr("Start Slideshow"));
 	other.insert("__slideshowQuick",tr("Start Slideshow (Quickstart)"));
@@ -148,6 +149,7 @@ SettingsTabShortcuts::SettingsTabShortcuts(QWidget *parent, bool v) : QWidget(pa
 	otherOrder << "__stopThb"
 			<< "__reloadThb"
 			<< "__hideMeta"
+			<< "__showContext"
 			<< "__settings"
 			<< "__slideshow"
 			<< "__slideshowQuick"

@@ -25,13 +25,22 @@ public:
 	GraphicsView(QMap<QString,QVariant> set, QWidget *parent = 0);
 	~GraphicsView();
 
+	// All the global settings
+	QMap<QString,QVariant> globSet;
+
+	// The absolute current scale factor
+	int absoluteScaleFactor;
+
+	bool imgLoaded;
+
+	void showContext() { setupContextMenu(); menu->popup(QCursor::pos()); }
+
+private:
+
 	QGraphicsScene sceneBig;
 
 	// The timer checks at startup in short intervals if the graphicsscene is correctly set up, and whenever that's the case it's calling the drawImg() function (see mainwindow.cpp)
 	QTimer *t;
-
-	// All the global settings
-	QMap<QString,QVariant> globSet;
 
 	// These two maps hold all the mouse shortcuts set
 	QMap<QString,QString> mouseSh;
@@ -41,9 +50,6 @@ public:
 	bool mousedragged;
 	bool buttonpressed;
 
-	// The absolute current scale factor
-	int absoluteScaleFactor;
-
 	// The context menu
 	QMenu *menu;
 
@@ -51,12 +57,13 @@ public:
 	bool menuSetup;
 	qint64 menuLastChange;
 
-	bool imgLoaded;
+	void setupContextMenu();
 
 public slots:
 	// Set a mouse shortcut
 	void setShortcut(QString key, bool close, QString id);
 
+private slots:
 	// A click on a context menu item
 	void contextMenuClicked();
 	void contextMenuClickedWidgetAction();
@@ -67,7 +74,7 @@ protected:
 	void mouseMoveEvent(QMouseEvent *event);
 	void mouseReleaseEvent(QMouseEvent *event);
 	void mousePressEvent(QMouseEvent *event);
-	void contextMenuEvent(QContextMenuEvent *event);
+//	void contextMenuEvent(QContextMenuEvent *event);
 
 
 signals:

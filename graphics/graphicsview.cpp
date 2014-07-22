@@ -22,7 +22,7 @@ GraphicsView::GraphicsView(QMap<QString, QVariant> set, QWidget *parent) : QGrap
 
 	imgLoaded = false;
 
-	this->setRenderHints(QPainter::Antialiasing | QPainter::SmoothPixmapTransform | QPainter::HighQualityAntialiasing);
+	this->setRenderHints(QPainter::Antialiasing | QPainter::SmoothPixmapTransform);
 	this->setObjectName("viewBig");
 	this->setScene(&sceneBig);
 	this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -52,7 +52,7 @@ GraphicsView::GraphicsView(QMap<QString, QVariant> set, QWidget *parent) : QGrap
 	mouseSh.clear();
 
 	// Set some render hints for better quality
-	this->setRenderHints(QPainter::Antialiasing | QPainter::SmoothPixmapTransform | QPainter::HighQualityAntialiasing);
+	this->setRenderHints(QPainter::Antialiasing | QPainter::SmoothPixmapTransform);
 
 	// The context menu
 	menu = new QMenu(this);
@@ -104,9 +104,18 @@ void GraphicsView::setShortcut(QString key, bool close, QString id) {
 }
 
 // Show (and possibly set up) the context menu
-void GraphicsView::contextMenuEvent(QContextMenuEvent *event) {
+//void GraphicsView::contextMenuEvent(QContextMenuEvent *event) {
 
-	if(!imgLoaded) return;
+//	if(!imgLoaded) return;
+
+//	setupContextMenu();
+
+//	// Show the menu
+//	menu->popup(event->globalPos());
+
+//}
+
+void GraphicsView::setupContextMenu() {
 
 	// Get the last modification date
 	qint64 secs = QFileInfo(QDir::homePath() + "/.photoqt/contextmenu").lastModified().toMSecsSinceEpoch();
@@ -290,9 +299,6 @@ void GraphicsView::contextMenuEvent(QContextMenuEvent *event) {
 		}
 
 	}
-
-	// Show the menu
-	menu->popup(event->globalPos());
 
 }
 

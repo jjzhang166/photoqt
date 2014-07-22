@@ -20,6 +20,8 @@
 // This item is used for displaying the big image
 GraphicsItem::GraphicsItem(QGraphicsItem *parent) : QGraphicsPixmapItem(parent) {
 
+	this->setTransformationMode(Qt::SmoothTransformation);
+
 	// This movie is used for animated images
 	mov = new QMovie;
 
