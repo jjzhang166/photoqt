@@ -75,9 +75,7 @@ int main(int argc, char *argv[]) {
 
 	// Set proper encoding. This is needed e.g. for files with special characters like accents or umlaute in the file name/path
 	QTextCodec *utf8Codec=QTextCodec::codecForName("UTF-8");
-//	QTextCodec::setCodecForCStrings(utf8Codec);
 	QTextCodec::setCodecForLocale(utf8Codec);
-//	QTextCodec::setCodecForTr(utf8Codec);
 
 	QStringList allArgs;
 	for(int i = 0; i < argc; ++i)

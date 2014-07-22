@@ -499,8 +499,8 @@ void MainWindow::drawImage() {
 
 		// The rotation/flipping is stored temporarily for each session
 		// We reset the rotation/flipping after the image has changed
-		if(store_rotation.keys().contains(globVar->currentfile) && store_rotation[globVar->currentfile] != 0 && store_rotation[globVar->currentfile] != globVar->rotation) {
-			int val = store_rotation[globVar->currentfile];
+		if(globVar->store_rotation.keys().contains(globVar->currentfile) && globVar->store_rotation[globVar->currentfile] != 0 && globVar->store_rotation[globVar->currentfile] != globVar->rotation) {
+			int val = globVar->store_rotation[globVar->currentfile];
 			QString clock = "anticlock";
 			if(val < 0) {
 				clock = "clock";
@@ -508,9 +508,9 @@ void MainWindow::drawImage() {
 			}
 			rotateFlip(true,clock,val);
 		}
-		if(store_flipHor[globVar->currentfile] && store_flipHor[globVar->currentfile] != globVar->flipHor)
+		if(globVar->store_flipHor[globVar->currentfile] && globVar->store_flipHor[globVar->currentfile] != globVar->flipHor)
 			rotateFlip(false,"hor");
-		if(store_flipVer[globVar->currentfile] && store_flipVer[globVar->currentfile] != globVar->flipVer)
+		if(globVar->store_flipVer[globVar->currentfile] && globVar->store_flipVer[globVar->currentfile] != globVar->flipVer)
 			rotateFlip(false,"ver");
 
 		// Restore normal cursor
@@ -777,9 +777,9 @@ void MainWindow::loadNewImgFromOpen(QString path) {
 	zoom(true,((globVar->zoomToActualSize || globVar->zoomed) && globSet->transition != 0) ? "reset" : "resetNoDraw");
 	rotateFlip(true,"resetNoDraw");
 	rotateFlip(false, "reset");
-	store_rotation.clear();
-	store_flipHor.clear();
-	store_flipVer.clear();
+	globVar->store_rotation.clear();
+	globVar->store_flipHor.clear();
+	globVar->store_flipVer.clear();
 
 	// Draw new image
 	drawImage();
@@ -804,15 +804,15 @@ void MainWindow::loadNewImgFromThumbs(QString path) {
 	globVar->zoomedImgAtLeastOnce = false;
 
 	// When a new image is loaded we reset any zooing, rotation, flipping
-	QMap<QString,int> tmp_rotation = store_rotation;
-	QMap<QString,bool> tmp_flipHor = store_flipHor;
-	QMap<QString,bool> tmp_flipVer = store_flipVer;
+	QMap<QString,int> tmp_rotation = globVar->store_rotation;
+	QMap<QString,bool> tmp_flipHor = globVar->store_flipHor;
+	QMap<QString,bool> tmp_flipVer = globVar->store_flipVer;
 	zoom(true,((globVar->zoomToActualSize || globVar->zoomed) && globSet->transition != 0) ? "reset" : "resetNoDraw");
 	rotateFlip(true,"resetNoDraw");
 	rotateFlip(false, "reset");
-	store_rotation = tmp_rotation;
-	store_flipHor = tmp_flipHor;
-	store_flipVer = tmp_flipVer;
+	globVar->store_rotation = tmp_rotation;
+	globVar->store_flipHor = tmp_flipHor;
+	globVar->store_flipVer = tmp_flipVer;
 
 	viewBig->absoluteScaleFactor = 0;
 	globVar->zoomed = false;
@@ -963,15 +963,15 @@ void MainWindow::moveInDirectory(int direction) {
 	if(globVar->verbose) std::clog << "Move in directory: " << direction << std::endl;
 
 	// When a new image is loaded we reset any zooing, rotation, flipping
-	QMap<QString,int> tmp_rotation = store_rotation;
-	QMap<QString,bool> tmp_flipHor = store_flipHor;
-	QMap<QString,bool> tmp_flipVer = store_flipVer;
+	QMap<QString,int> tmp_rotation = globVar->store_rotation;
+	QMap<QString,bool> tmp_flipHor = globVar->store_flipHor;
+	QMap<QString,bool> tmp_flipVer = globVar->store_flipVer;
 	zoom(true,((globVar->zoomToActualSize || globVar->zoomed) && globSet->transition != 0) ? "reset" : "resetNoDraw");
 	rotateFlip(true,"resetNoDraw");
 	rotateFlip(false, "reset");
-	store_rotation = tmp_rotation;
-	store_flipHor = tmp_flipHor;
-	store_flipVer = tmp_flipVer;
+	globVar->store_rotation = tmp_rotation;
+	globVar->store_flipHor = tmp_flipHor;
+	globVar->store_flipVer = tmp_flipVer;
 
 
 	// Reset these parameters
@@ -1155,7 +1155,7 @@ void MainWindow::rotateFlip(bool rotateNotFlipped, QString direction, int rotate
 			viewBig->rotate(rot);
 			globVar->rotation %= 360;
 
-			store_rotation[globVar->currentfile] = globVar->rotation;
+			globVar->store_rotation[globVar->currentfile] = globVar->rotation;
 
 			if(!globVar->zoomed)
 				drawImage();
@@ -1166,7 +1166,7 @@ void MainWindow::rotateFlip(bool rotateNotFlipped, QString direction, int rotate
 			viewBig->rotate(-rot);
 			globVar->rotation %= 360;
 
-			store_rotation[globVar->currentfile] = globVar->rotation;
+			globVar->store_rotation[globVar->currentfile] = globVar->rotation;
 
 			if(!globVar->zoomed)
 				drawImage();
@@ -1176,7 +1176,7 @@ void MainWindow::rotateFlip(bool rotateNotFlipped, QString direction, int rotate
 			viewBig->rotate(globVar->rotation);
 			globVar->rotation = 0;
 
-			store_rotation[globVar->currentfile] = globVar->rotation;
+			globVar->store_rotation[globVar->currentfile] = globVar->rotation;
 
 			if(direction != "resetNoDraw" && !globVar->zoomed)
 				drawImage();
@@ -1191,11 +1191,11 @@ void MainWindow::rotateFlip(bool rotateNotFlipped, QString direction, int rotate
 		if(direction == "hor") {
 			viewBig->scale(-1,1);
 			globVar->flipHor = !globVar->flipHor;
-			store_flipHor[globVar->currentfile] = globVar->flipHor;
+			globVar->store_flipHor[globVar->currentfile] = globVar->flipHor;
 		} else if(direction == "ver") {
 			viewBig->scale(1,-1);
 			globVar->flipVer = !globVar->flipVer;
-			store_flipVer[globVar->currentfile] = globVar->flipVer;
+			globVar->store_flipVer[globVar->currentfile] = globVar->flipVer;
 		} else if(direction == "reset") {
 			if(globVar->flipHor)
 				viewBig->scale(-1,1);
@@ -1203,8 +1203,8 @@ void MainWindow::rotateFlip(bool rotateNotFlipped, QString direction, int rotate
 				viewBig->scale(1,-1);
 			globVar->flipHor = false;
 			globVar->flipVer = false;
-			store_flipHor[globVar->currentfile] = false;
-			store_flipVer[globVar->currentfile] = false;
+			globVar->store_flipHor[globVar->currentfile] = false;
+			globVar->store_flipVer[globVar->currentfile] = false;
 		}
 
 

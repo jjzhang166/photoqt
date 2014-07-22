@@ -119,11 +119,6 @@ private:
 	// imagereader combining QImageReader and GraphicsMagic
 	ImageReader *imageReader;
 
-	// These two QMap's store the rotation/flipping of each image while it's being displayed (nothing changed permanently)
-	QMap<QString,int> store_rotation;
-	QMap<QString,bool> store_flipHor;
-	QMap<QString,bool> store_flipVer;
-
 
 	// Adjust all the geometries (QRects and stuff)
 	void adjustGeometries();

@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QRect>
+#include <QMap>
 
 // Some global variables
 class GlobalVariables {
@@ -54,6 +55,11 @@ public:
 
 	bool windowMaximised;
 
+	// These two QMap's store the rotation/flipping of each image while it's being displayed (nothing changed permanently)
+	QMap<QString,int> store_rotation;
+	QMap<QString,bool> store_flipHor;
+	QMap<QString,bool> store_flipVer;
+
 
 	// Set the default values
 	void setVariables() {
@@ -82,6 +88,10 @@ public:
 		restoringFromTrayNoResize = 0;
 
 		startupMessageInstallUpdateShown = 0;
+
+		store_rotation.clear();
+		store_flipHor.clear();
+		store_flipVer.clear();
 
 	}
 
