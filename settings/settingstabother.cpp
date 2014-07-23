@@ -109,7 +109,7 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 	langShort << "de";
 
 	// Greek
-	langDesc << QString::fromUtf8("Ελληνικά (Dimitrios G.)");
+	langDesc << QString::fromUtf8("Ελληνικά (Dimitrios G. & Evropi)");
 	langShort << "el";
 
 	// Spanish
@@ -129,8 +129,12 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 //	langShort << "hu";
 
 	// Italian
-//	langDesc << "Italiano (Vincenzo Cerminara)";
-//	langShort << "it";
+	langDesc << "Italiano (Vincenzo C. & Fabio M.)";
+	langShort << "it";
+
+	// Japanese
+	langDesc << QString::fromUtf8("日本語 (Obytetest)");
+	langShort << "ja";
 
 	// Norwegian Bokmal
 //	langDesc << QString::fromUtf8("Bokmål (Ola Haugen Havrevoll)");
@@ -144,12 +148,12 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 //	langDesc << "Polski (Daniel Korbel)";
 //	langShort << "pl";
 
-	// Portugal (BRazil)
-	langDesc << QString::fromUtf8("Português (Brasil) (Rafael N.)");
+	// Portugal (Brazil)
+	langDesc << QString::fromUtf8("Português (Brasil) (Rafael N. & Everton)");
 	langShort << "pt_BR";
 
 	// Portugal (Portugal)
-	langDesc << QString::fromUtf8("Português (Portugal) (Sérgio M.)");
+	langDesc << QString::fromUtf8("Português (Portugal) (Sérgio M. & Manuela S & Willow)");
 	langShort << "pt_PT";
 
 	// Russian
@@ -169,16 +173,16 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 //	langShort << "tr";
 
 	// Ukrainian
-	langDesc << QString::fromUtf8("Українська (Yuriy T., zubr139, neeesdfsdf)");
+	langDesc << QString::fromUtf8("Українська (Yuriy T. & zubr139 & neeesdfsdf & Birdie & Stanislav & Troyane)");
 	langShort << "uk_UA";
 
 	// Viatnemese
 //	langDesc << QString::fromUtf8("Tiếng Việt (Nguyễn Hữu Tài)");
 //	langShort << "vi";
 
-	// Chinese
-//	langDesc << "Chinese (Dianjin Wang)";
-//	langShort << "zh_CN";
+	// Chinese (China)
+	langDesc << QString::fromUtf8("中文 (Dianjin W.)");
+	langShort << "zh_CN";
 
 	QHBoxLayout *langLay = new QHBoxLayout;
 	QButtonGroup *langButGrp = new QButtonGroup;
