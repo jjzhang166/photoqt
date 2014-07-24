@@ -40,7 +40,7 @@ Thumbnails::Thumbnails(QWidget *parent, bool v, QMap<QString,QVariant> set) : QW
 	// Load needed thumbnails (dynamic thumbnail creation)
 	connect(view, SIGNAL(movedScroll()), this, SLOT(scrolledView()));
 
-	this->setStyleSheet("background: transparent");
+	this->setStyleSheet("#viewThumbs { background: rgba(0,0,0,100); }");
 
 	// The animation instances
 	ani = new QPropertyAnimation(this,"geometry");
