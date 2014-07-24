@@ -128,6 +128,10 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 //	langDesc << QString::fromUtf8("Magyar (Zoltan Hoppár)");
 //	langShort << "hu";
 
+	// Hebrew
+	langDesc << QString::fromUtf8("עברית (GenghisKhan)");
+	langShort << "he";
+
 	// Italian
 	langDesc << "Italiano (Vincenzo C. & Fabio M.)";
 	langShort << "it";
@@ -184,10 +188,10 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 	langDesc << QString::fromUtf8("中文 (Dianjin W.)");
 	langShort << "zh_CN";
 
-	QHBoxLayout *langLay = new QHBoxLayout;
+	FlowLayout *langLay = new FlowLayout;
 	QButtonGroup *langButGrp = new QButtonGroup;
 
-	langLay->addStretch();
+//	langLay->addStretch();
 
 	for(int i = 0; i < langDesc.length(); ++i) {
 
@@ -198,7 +202,7 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 
 	}
 
-	langLay->addStretch();
+//	langLay->addStretch();
 
 	QHBoxLayout *langWidgLay = new QHBoxLayout;
 	langWidgLay->addSpacing(50);
