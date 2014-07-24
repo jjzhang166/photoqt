@@ -89,15 +89,17 @@ SettingsTabShortcuts::SettingsTabShortcuts(QWidget *parent, bool v) : QWidget(pa
 	navigation.insert("__hide",tr("Hide to System Tray"));
 	navigation.insert("__next",tr("Next Image"));
 	navigation.insert("__open",tr("Open New File"));
+	navigation.insert("__filterImages",tr("Filter Images in Folder"));
 	navigation.insert("__prev",tr("Previous Image"));
 	navigation.insert("__close",tr("Quit PhotoQt"));
 	QList<QString> navigationOrder;
-	navigationOrder << "__gotoFirstThb"
+	navigationOrder << "__open"
+			<< "__filterImages"
+			<< "__next"
+			<< "__prev"
+			<< "__gotoFirstThb"
 			<< "__gotoLastThb"
 			<< "__hide"
-			<< "__next"
-			<< "__open"
-			<< "__prev"
 			<< "__close";
 
 	// A map for all internal functions in the category "image"
