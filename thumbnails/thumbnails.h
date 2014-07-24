@@ -72,6 +72,8 @@ public:
 
 	QRect areaShown() { return rectShown; }
 
+	void setFilter(QStringList filter) { imageFilter = filter; }
+
 private:
 
 	bool isShown;
@@ -87,6 +89,8 @@ private:
 	ThumbThread *thumbThread;
 
 	bool animateInAndOut;
+
+	QStringList imageFilter;
 
 public slots:
 	void makeShow();

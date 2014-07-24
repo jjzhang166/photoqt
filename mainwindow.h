@@ -20,6 +20,8 @@
 #include "graphics/imagereader.h"
 #include "setupwidgets.h"
 #include "graphics/graphicsviewlay.h"
+#include "filterimages/filterimagessetup.h"
+#include "filterimages/filterimagesdisplay.h"
 
 #include <QDesktopWidget>
 #include <QFile>
@@ -116,6 +118,10 @@ private:
 	// Wallpaper settings
 	Wallpaper *wallpaper;
 
+	// Image filtering
+	FilterImagesSetup *filterImagesSetup;
+	FilterImagesDisplay *filterImagesDisplay;
+
 	// imagereader combining QImageReader and GraphicsMagic
 	ImageReader *imageReader;
 
@@ -127,7 +133,7 @@ private:
 	void showStartupUpdateInstallMsg();
 
 	// Load a new image from the open file dialog
-	void loadNewImgFromOpen(QString path);
+	void loadNewImgFromOpen(QString path, bool hideImageFilterLabel = true);
 
 	// Open a new file
 	void openFile();
@@ -182,6 +188,10 @@ private slots:
 
 	// Restore default settings
 	void restoreDefaultSettings();
+
+	// Filter images
+	void removeImageFilter();
+	void setImageFilter(QStringList filter);
 
 	// After the settings window is closed we might have to call openFile().
 	// We cannot use one of the already existing functions, since this call is only to

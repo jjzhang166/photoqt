@@ -38,6 +38,7 @@ public:
 
 
 		formatsQtEnabled << ".bmp"	// Microsoft Windows bitmap
+				 << ".bitmap"
 
 				 << ".gif"	// CompuServe Graphics Interchange Format
 

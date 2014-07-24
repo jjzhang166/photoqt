@@ -9,6 +9,40 @@
 class GlobalVariables {
 
 public:
+	GlobalVariables() {
+
+		rotation = 0;
+
+		skipTrayIcon = false;
+
+		windowMaximised = true;
+
+		blocked = false;
+
+		zoomed = false;
+		zoomedByMouse = true;
+		zoomedImgAtLeastOnce = false;
+
+		systemSh << "Escape" << "Enter" << "Return" << "Ctrl+s" << "Left" << "Right" << "Up" << "Down" << "Alt+Up" << "Alt+Left" << "Alt+Right" << "Alt+1" << "Alt+2" << "Alt+3" << "Alt+4" << "Alt+5" << "Ctrl+Tab" << "Ctrl+Shift+Tab";
+
+		flipVer = false;
+		flipHor = false;
+
+		exifRead = false;
+
+		zoomToActualSize = false;
+
+		restoringFromTrayNoResize = 0;
+
+		startupMessageInstallUpdateShown = 0;
+
+		store_rotation.clear();
+		store_flipHor.clear();
+		store_flipVer.clear();
+
+		fileBeforeEmptyFilter = "";
+
+	}
 
 	bool verbose;
 
@@ -60,40 +94,7 @@ public:
 	QMap<QString,bool> store_flipHor;
 	QMap<QString,bool> store_flipVer;
 
-
-	// Set the default values
-	void setVariables() {
-
-		rotation = 0;
-
-		skipTrayIcon = false;
-
-		windowMaximised = true;
-
-		blocked = false;
-
-		zoomed = false;
-		zoomedByMouse = true;
-		zoomedImgAtLeastOnce = false;
-
-		systemSh << "Escape" << "Enter" << "Return" << "Ctrl+s" << "Left" << "Right" << "Up" << "Down" << "Alt+Up" << "Alt+Left" << "Alt+Right" << "Alt+1" << "Alt+2" << "Alt+3" << "Alt+4" << "Alt+5" << "Ctrl+Tab" << "Ctrl+Shift+Tab";
-
-		flipVer = false;
-		flipHor = false;
-
-		exifRead = false;
-
-		zoomToActualSize = false;
-
-		restoringFromTrayNoResize = 0;
-
-		startupMessageInstallUpdateShown = 0;
-
-		store_rotation.clear();
-		store_flipHor.clear();
-		store_flipVer.clear();
-
-	}
+	QString fileBeforeEmptyFilter;
 
 };
 

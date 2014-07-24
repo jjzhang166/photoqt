@@ -49,5 +49,6 @@
         <file>img/icon.png</file>
         <file>img/radiobutton_checked_disabled.png</file>
         <file>img/radiobutton_unchecked_disabled.png</file>
+        <file>img/noresults.png</file>
     </qresource>
 </RCC>

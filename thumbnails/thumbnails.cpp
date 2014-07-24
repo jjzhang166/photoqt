@@ -215,14 +215,30 @@ void Thumbnails::loadDir(bool amReloadingDir) {
 
 	// These are the images known by PhotoQt
 	QStringList flt = globSet.value("KnownFileTypes").toString().split(",");
-	dir->setNameFilters(flt);
+	if(imageFilter.empty())
+		dir->setNameFilters(flt);
+	else {
+		QStringList flt_approved;
+		foreach(QString f, flt) {
+			if(imageFilter.contains(f.remove(0,2)))
+				flt_approved.append("*." + f);
+		}
+		std::clog << "FILTER: " << flt_approved.join(", ").toStdString() << std::endl;
+		dir->setNameFilters(flt_approved);
+	}
 
 	// Store a QFileInfoList and a QStringList with the filenames
 	allImgsInfo = dir->entryInfoList(QDir::NoFilter,QDir::IgnoreCase);
 	qSort(allImgsInfo.begin(),allImgsInfo.end(),compareNamesFileInfo);
 
-	for(int i = 0; i < allImgsInfo.length(); ++i)
-		allImgsPath << allImgsInfo.at(i).absoluteFilePath();
+	QFileInfoList tmp_AllImgsInfo;
+	for(int i = 0; i < allImgsInfo.length(); ++i) {
+		if(allImgsInfo.at(i).isFile() && allImgsInfo.at(i).exists()) {
+			allImgsPath << allImgsInfo.at(i).absoluteFilePath();
+			tmp_AllImgsInfo << allImgsInfo.at(i);
+		}
+	}
+	allImgsInfo = tmp_AllImgsInfo;
 
 	// Storing number of images
 	counttot = allImgsPath.length();
@@ -321,6 +337,8 @@ void Thumbnails::loadDir(bool amReloadingDir) {
 		}
 
 	}
+
+	if(!imageFilter.isEmpty()) imageFilter.clear();
 
 }
 

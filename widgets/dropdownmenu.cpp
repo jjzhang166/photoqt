@@ -49,6 +49,7 @@ DropDownMenu::DropDownMenu(QWidget *parent) : QWidget(parent) {
 	setStandard(tr("Settings"), ":/img/setup.png","settings", 1);
 	setStandard(tr("Set as Wallpaper"), ":/img/setup.png","wallpaper", 1);
 	setSlideshow();
+	setStandard(tr("Filter images in folder"),"","filterImages", 1);
 	setStandard(tr("Show Details"), ":/img/exif.png","hideMeta", 0);
 	setStandard(tr("About PhotoQt"), ":/img/about.png","about", 1);
 	setStandard(tr("Hide (System Tray)"), ":/img/quit.png","hide", 1);

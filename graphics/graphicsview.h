@@ -74,7 +74,6 @@ protected:
 	void mouseMoveEvent(QMouseEvent *event);
 	void mouseReleaseEvent(QMouseEvent *event);
 	void mousePressEvent(QMouseEvent *event);
-//	void contextMenuEvent(QContextMenuEvent *event);
 
 
 signals:

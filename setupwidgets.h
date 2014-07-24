@@ -12,6 +12,7 @@ public:
 		startup = false;
 		about = false;
 		wallpaper = false;
+		filterimages = false;
 		slideshow = false;
 		slideshowbar = false;
 		settings = false;
@@ -24,6 +25,7 @@ public:
 	bool startup;
 	bool about;
 	bool wallpaper;
+	bool filterimages;
 	bool slideshow;
 	bool slideshowbar;
 	bool settings;

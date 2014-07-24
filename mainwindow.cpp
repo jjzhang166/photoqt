@@ -33,7 +33,6 @@ MainWindow::MainWindow(QWidget *parent, bool verbose) : QMainWindow(parent) {
 	// Instance for global variables
 	globVar = new GlobalVariables;
 	globVar->verbose = verbose;
-	globVar->setVariables();
 
 	// Instance for global settings
 	globSet = new GlobalSettings;
@@ -754,9 +753,11 @@ void MainWindow::keyReleaseEvent(QKeyEvent *e) {
 }
 
 // Load a new image from the open file dialog
-void MainWindow::loadNewImgFromOpen(QString path) {
+void MainWindow::loadNewImgFromOpen(QString path, bool hideImageFilterLabel) {
 
 	if(globVar->verbose) std::clog << "Load from Open:" << path.toStdString() << std::endl;
+
+	if(setupWidgets->filterimages && hideImageFilterLabel) filterImagesDisplay->setVisible(false);
 
 	// We need this later to update the thumbnail view
 	QString temp = globVar->currentfile;
@@ -1355,6 +1356,53 @@ void MainWindow::setBackground() {
 
 }
 
+void MainWindow::removeImageFilter() {
+
+	if(globVar->currentfile == "")
+		loadNewImgFromOpen(globVar->fileBeforeEmptyFilter);
+	else
+		loadNewImgFromOpen(globVar->currentfile);
+	globVar->fileBeforeEmptyFilter = "";
+
+}
+
+// Filter images in current directory
+void MainWindow::setImageFilter(QStringList filter) {
+
+	filterImagesDisplay->showFilter(filter);
+	std::clog << filter.join(", ").toStdString() << std::endl;
+
+	viewThumbs->setFilter(filter);
+
+	QString path = "";
+	for(int i = 0; i < viewThumbs->allImgsInfo.length(); ++i) {
+		if(filter.contains(viewThumbs->allImgsInfo.at(i).completeSuffix().toLower())) {
+			path = viewThumbs->allImgsInfo.at(i).absoluteFilePath();
+			break;
+		}
+	}
+	if(path != "")
+		loadNewImgFromOpen(path, false);
+	else {
+		globVar->fileBeforeEmptyFilter = globVar->currentfile;
+
+		viewThumbs->view->scene.clear();
+		viewThumbs->counttot = 0;
+		viewThumbs->countpos = 0;
+		viewThumbs->allImgsInfo.clear();
+		viewThumbs->allImgsPath.clear();
+		globVar->currentfile = "";
+		viewThumbs->currentfile = "";
+		if(setupWidgets->filehandling) filehandling->currentfile = "";
+		viewBigLay->updateInfo("",-1,-1);
+		viewBig->scene()->setSceneRect(viewBig->scene()->itemsBoundingRect());
+		graphItem->setPixmap(QPixmap(":/img/noresults.png"));
+		rotateFlip(true,"resetNoDraw");
+		rotateFlip(false,"reset");
+	}
+
+}
+
 // Setup the shortcuts
 void MainWindow::setupShortcuts() {
 
@@ -1546,6 +1594,25 @@ void MainWindow::setupWidget(QString what) {
 
 	}
 
+	if(what == "filterimages" && !setupWidgets->filterimages) {
+
+		if(globVar->verbose) std::clog << "Setting up FilterImages" << std::endl;
+
+		setupWidgets->filterimages = true;
+
+		filterImagesSetup = new FilterImagesSetup(viewBig);
+		filterImagesSetup->setRect(QRect(0,0,viewBig->width(),viewBig->height()));
+		filterImagesSetup->show();
+
+		filterImagesDisplay = new FilterImagesDisplay(viewThumbs);
+		filterImagesDisplay->show();
+
+		connect(filterImagesSetup, SIGNAL(blockFunc(bool)), this, SLOT(blockFunc(bool)));
+		connect(filterImagesSetup, SIGNAL(setFilter(QStringList)), this, SLOT(setImageFilter(QStringList)));
+		connect(filterImagesDisplay, SIGNAL(removeImageFilter()), this, SLOT(removeImageFilter()));
+
+	}
+
 	// Set up slideshow
 	if(what == "slideshow" && !setupWidgets->slideshow) {
 
@@ -1678,6 +1745,10 @@ void MainWindow::shortcutDO(QString key, bool mouseSH) {
 						setupWidget("slideshow");
 					slideshow->makeShow();
 				}
+			}
+			if(key == "__filterImages") {
+				if(!setupWidgets->filterimages) setupWidget("filterimages");
+				filterImagesSetup->makeShow();
 			}
 			if(key == "__slideshowQuick") {
 				if(globVar->currentfile != "")
@@ -2047,6 +2118,15 @@ void MainWindow::systemShortcutDO(QString todo) {
 				wallpaper->dontSetWallpaper();
 			if(todo == "Enter" || todo == "Return")
 				wallpaper->accept();
+		}
+
+		if(setupWidgets->filterimages && filterImagesSetup->isVisible()) {
+
+			if(todo == "Escape")
+				filterImagesSetup->cancel->animateClick();
+			if(todo == "Enter" || todo == "Return")
+				filterImagesSetup->enter->animateClick();
+
 		}
 
 	// If functions are not blocked, then check if there's a user shortcut set for it

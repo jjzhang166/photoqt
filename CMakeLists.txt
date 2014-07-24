@@ -14,6 +14,8 @@ SET(photoqt_SOURCES ${photoqt_SOURCES} thumbnails/thumbnailpixmapitem.cpp thumbn
 SET(photoqt_SOURCES ${photoqt_SOURCES} graphics/graphicsview.cpp graphics/graphicsitem.cpp graphics/imagereader.cpp graphics/graphicsviewlay.cpp)
 # widgets/
 SET(photoqt_SOURCES ${photoqt_SOURCES} widgets/aboutwidget.cpp widgets/customconfirm.cpp widgets/dropdownmenu.cpp widgets/dropdownmenuitem.cpp widgets/detailswidget.cpp widgets/filehandling.cpp widgets/startupwidget.cpp)
+# filterimages/
+SET(photoqt_SOURCES ${photoqt_SOURCES} filterimages/filterimagessetup.cpp filterimages/filterimagesdisplay.cpp)
 # customelements/
 SET(photoqt_SOURCES ${photoqt_SOURCES} customelements/customcheckbox.cpp customelements/customcombobox.cpp customelements/customlineedit.cpp customelements/custompushbutton.cpp customelements/customradiobutton.cpp customelements/customscrollbar.cpp customelements/customslider.cpp customelements/customspinbox.cpp customelements/customlabel.cpp customelements/customtabwidget.cpp)
 # [other]/
@@ -30,6 +32,8 @@ SET(photoqt_HEADERS ${photoqt_HEADERS} thumbnails/threadforthumbnails.h thumbnai
 SET(photoqt_HEADERS ${photoqt_HEADERS} graphics/graphicsview.h graphics/graphicsitem.h graphics/imagereader.h graphics/graphicsviewlay.h)
 # widgets /
 SET(photoqt_HEADERS ${photoqt_HEADERS} widgets/aboutwidget.h widgets/customconfirm.h widgets/dropdownmenu.h widgets/dropdownmenuitem.h widgets/detailswidget.h widgets/filehandling.h widgets/startupwidget.h)
+# filterimages/
+SET(photoqt_HEADERS ${photoqt_HEADERS} filterimages/filterimagessetup.h filterimages/filterimagesdisplay.h)
 # customelements/
 SET(photoqt_HEADERS ${photoqt_HEADERS} customelements/customcheckbox.h customelements/customcombobox.h customelements/customlineedit.h customelements/custompushbutton.h customelements/customradiobutton.h customelements/customscrollbar.h customelements/customslider.h customelements/customspinbox.h customelements/customlabel.h customelements/customtabwidget.h)
 # [other]/

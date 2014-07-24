@@ -154,7 +154,7 @@ void ViewBigLay::updateInfo(QString currentfile, int countpos, int counttot) {
 			closeWindowX->setVisible(!globSet.value("HideX").toBool());
 			quickInfoSepTOP->setVisible((globSet.value("HideFilename").toBool() == globSet.value("HideCounter").toBool()) && !globSet.value("HideCounter").toBool());
 		} else {
-			quickInfoFilenameTOP->setText(tr("Open File to Begin."));
+			quickInfoFilenameTOP->setText((countpos == -1 && counttot == -1) ? tr("No images match current filter") : tr("Open File to Begin."));
 			quickInfoCounterTOP->hide();
 			quickInfoSepTOP->hide();
 			quickInfoFilenameTOP->show();
@@ -181,7 +181,7 @@ void ViewBigLay::updateInfo(QString currentfile, int countpos, int counttot) {
 			closeWindowX->setVisible(!globSet.value("HideX").toBool());
 			quickInfoSepBOT->setVisible(!globSet.value("HideFilename").toBool() && !globSet.value("HideCounter").toBool());
 		} else {
-			quickInfoFilenameBOT->setText(tr("Open File to Begin."));
+			quickInfoFilenameBOT->setText((countpos == -1 && counttot == -1) ? tr("No images match current filter") : tr("Open File to Begin."));
 			quickInfoCounterBOT->hide();
 			quickInfoSepBOT->hide();
 			quickInfoFilenameBOT->show();

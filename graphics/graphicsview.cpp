@@ -103,18 +103,6 @@ void GraphicsView::setShortcut(QString key, bool close, QString id) {
 
 }
 
-// Show (and possibly set up) the context menu
-//void GraphicsView::contextMenuEvent(QContextMenuEvent *event) {
-
-//	if(!imgLoaded) return;
-
-//	setupContextMenu();
-
-//	// Show the menu
-//	menu->popup(event->globalPos());
-
-//}
-
 void GraphicsView::setupContextMenu() {
 
 	// Get the last modification date
