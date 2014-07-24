@@ -45,58 +45,74 @@ FilterImagesSetup::FilterImagesSetup(QWidget *parent) : QWidget(parent) {
 	fadeBackIN = true;
 	connect(fadeBack, SIGNAL(valueChanged(qreal)), this, SLOT(fadeStep()));
 
-	// set layout to center
-	QVBoxLayout *lay = new QVBoxLayout;
-
+	// Title
 	QLabel *title = new QLabel(tr("Filter Images in Current Directory"));
 	title->setAlignment(Qt::AlignCenter);
 	title->setStyleSheet("background: transparent; color: white; font-size: 15pt");
 	title->setWordWrap(true);
 
+	// A short description
 	QLabel *desc = new QLabel(tr("Enter here the <b>extension</b> of the files you want to show. Seperate multiple extensions by a space."));
 	desc->setAlignment(Qt::AlignCenter);
 	desc->setStyleSheet("background: transparent; color: white");
 	desc->setWordWrap(true);
 
+	// LineEdit to enter extensions
 	edit = new CustomLineEdit;
 
+	// Different buttons
 	enter = new CustomPushButton(tr("Filter"));
 	enter->setEnabled(false);	// only enabled if text entered
 	cancel = new CustomPushButton(tr("Cancel"));
+	CustomPushButton *remove = new CustomPushButton(tr("Remove Filter"));
+	remove->setFontSize("7pt");
+
+	// Connect some buttons
 	connect(enter, SIGNAL(clicked()), this, SLOT(okayClicked()));
 	connect(edit, SIGNAL(returnPressed()), enter, SIGNAL(clicked()));
 	connect(edit, SIGNAL(textEdited(QString)), this, SLOT(editTextChanged()));
 	connect(cancel, SIGNAL(clicked()), this, SLOT(animate()));
+	connect(remove, SIGNAL(clicked()), this, SIGNAL(removeFilter()));
+	connect(remove, SIGNAL(clicked()), cancel, SLOT(animateClick()));
+
+	// Add buttons to layout
 	QHBoxLayout *butLay = new QHBoxLayout;
 	butLay->addStretch();
 	butLay->addWidget(enter);
 	butLay->addWidget(cancel);
+	butLay->addSpacing(20);
+	butLay->addWidget(remove);
 	butLay->addStretch();
 
+	// main layout
+	QVBoxLayout *lay = new QVBoxLayout;
 	lay->addWidget(title);
 	lay->addWidget(desc);
 	lay->addWidget(edit);
 	lay->addLayout(butLay);
 
+	// Set layout to central widget
 	center->setLayout(lay);
 
 
 }
 
+// Disable enter button if nothing entered (no filter possible)
 void FilterImagesSetup::editTextChanged() {
 
 	enter->setEnabled(edit->text().trimmed().length() > 0);
 
 }
 
+// Set filter and reload directory
 void FilterImagesSetup::okayClicked() {
 
 	emit setFilter(edit->text().toLower().split(" ",QString::SkipEmptyParts));
-
 	animate();
 
 }
 
+// Set rect's
 void FilterImagesSetup::setRect(QRect rect) {
 
 	rectShown = rect;
@@ -109,15 +125,11 @@ void FilterImagesSetup::setRect(QRect rect) {
 }
 
 void FilterImagesSetup::makeHide() {
-
 	if(isShown) animate();
-
 }
 
 void FilterImagesSetup::makeShow() {
-
 	if(!isShown) animate();
-
 }
 
 // The animation function
@@ -192,8 +204,10 @@ void FilterImagesSetup::aniFinished() {
 	if(!isShown) {
 		edit->setEnabled(false);
 		this->setGeometry(rectHidden);
-	} else
+	} else {
 		edit->setFocus();
+		edit->selectAll();
+	}
 
 }
 

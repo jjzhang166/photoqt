@@ -11,23 +11,19 @@
 #include <QMouseEvent>
 #include <QVBoxLayout>
 
+// Label in thumbnail view to display filter (if set)
 class FilterImagesDisplay : public QWidget {
 
 	Q_OBJECT
 
 public:
-	// This class is used a couple times to have a quick and easy way of displaying a confirmation widget
 	FilterImagesDisplay(QWidget *parent = 0);
 	~FilterImagesDisplay();
-
-	void makeHide();
-	void makeShow();
 
 	void showFilter(QStringList filter);
 
 private:
 	bool isShown;
-
 	CustomLabel *display;
 
 private slots:
@@ -35,7 +31,7 @@ private slots:
 
 signals:
 	void removeImageFilter();
-
+	void changeFilter();
 
 protected:
 	void paintEvent(QPaintEvent *);

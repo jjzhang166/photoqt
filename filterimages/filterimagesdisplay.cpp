@@ -18,8 +18,10 @@
 
 FilterImagesDisplay::FilterImagesDisplay(QWidget *parent) : QWidget(parent) {
 
+	// No background, visible but ss non-obstrusive as possible
 	this->setStyleSheet("background: none");
 
+	// Quick way to remove filter
 	CustomLabel *removeFilter = new CustomLabel(" x ");
 	removeFilter->setToolTip(tr("Remove Image Filter"));
 	removeFilter->setCursor(Qt::PointingHandCursor);
@@ -27,8 +29,15 @@ FilterImagesDisplay::FilterImagesDisplay(QWidget *parent) : QWidget(parent) {
 	removeFilter->setSizePolicy(QSizePolicy::Maximum,QSizePolicy::Maximum);
 	connect(removeFilter, SIGNAL(clicked()), this, SLOT(removeClicked()));
 
+	// Display visible extensions
 	display = new CustomLabel("---");
 	display->setSizePolicy(QSizePolicy::Maximum,QSizePolicy::Maximum);
+	display->setToolTip(tr("Click to change filter"));
+	display->setWordWrap(false);
+	display->setCursor(Qt::PointingHandCursor);
+	connect(display, SIGNAL(clicked()), SIGNAL(changeFilter()));
+
+	// Put everything into layout
 	QHBoxLayout *lay = new QHBoxLayout;
 	lay->addWidget(removeFilter);
 	lay->addWidget(display);
@@ -37,6 +46,7 @@ FilterImagesDisplay::FilterImagesDisplay(QWidget *parent) : QWidget(parent) {
 
 }
 
+// Remove filter
 void FilterImagesDisplay::removeClicked() {
 
 	this->setVisible(false);
@@ -44,23 +54,12 @@ void FilterImagesDisplay::removeClicked() {
 
 }
 
+// Display a filter
 void FilterImagesDisplay::showFilter(QStringList filter) {
 
 	display->setText(filter.join(", "));
-	display->setToolTip(tr("Filter") + ": " + filter.join(", "));
 	this->setVisible(true);
-
-}
-
-void FilterImagesDisplay::makeHide() {
-
-	this->setVisible(false);
-
-}
-
-void FilterImagesDisplay::makeShow() {
-
-	this->setVisible(true);
+	this->adjustSize();
 
 }
 

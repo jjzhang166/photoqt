@@ -65,6 +65,8 @@ Thumbnails::Thumbnails(QWidget *parent, bool v, QMap<QString,QVariant> set) : QW
 	} else
 		this->setGeometry(rectHidden);
 
+	imageFilter.clear();
+
 }
 
 // Algorithm used for sorting a directory using natural sort
@@ -215,7 +217,7 @@ void Thumbnails::loadDir(bool amReloadingDir) {
 
 	// These are the images known by PhotoQt
 	QStringList flt = globSet.value("KnownFileTypes").toString().split(",");
-	if(imageFilter.empty())
+	if(imageFilter.join("").trimmed().length() == 0)
 		dir->setNameFilters(flt);
 	else {
 		QStringList flt_approved;
@@ -223,7 +225,6 @@ void Thumbnails::loadDir(bool amReloadingDir) {
 			if(imageFilter.contains(f.remove(0,2)))
 				flt_approved.append("*." + f);
 		}
-		std::clog << "FILTER: " << flt_approved.join(", ").toStdString() << std::endl;
 		dir->setNameFilters(flt_approved);
 	}
 
@@ -337,8 +338,6 @@ void Thumbnails::loadDir(bool amReloadingDir) {
 		}
 
 	}
-
-	if(!imageFilter.isEmpty()) imageFilter.clear();
 
 }
 

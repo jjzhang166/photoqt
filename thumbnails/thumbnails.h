@@ -73,6 +73,7 @@ public:
 	QRect areaShown() { return rectShown; }
 
 	void setFilter(QStringList filter) { imageFilter = filter; }
+	void removeFilter() { imageFilter.clear(); }
 
 private:
 

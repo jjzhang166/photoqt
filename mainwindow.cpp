@@ -767,6 +767,7 @@ void MainWindow::loadNewImgFromOpen(QString path, bool hideImageFilterLabel) {
 	viewThumbs->currentfile = path;
 
 	// Load thumbnails
+	if(hideImageFilterLabel) viewThumbs->removeFilter();
 	viewThumbs->counttot = 0;
 	viewThumbs->countpos = 0;
 	viewThumbs->allImgsInfo.clear();
@@ -961,6 +962,8 @@ void MainWindow::mouseMoved(int x, int y) {
 
 // Move in the current directory (1=right, 0=left)
 void MainWindow::moveInDirectory(int direction) {
+
+	if(setupWidgets->filterimages && filterImagesDisplay->isVisible() && viewThumbs->counttot == 0) return;
 
 	if(globVar->verbose) std::clog << "Move in directory: " << direction << std::endl;
 
@@ -1358,6 +1361,8 @@ void MainWindow::setBackground() {
 
 void MainWindow::removeImageFilter() {
 
+	viewThumbs->removeFilter();
+
 	if(globVar->currentfile == "")
 		loadNewImgFromOpen(globVar->fileBeforeEmptyFilter);
 	else
@@ -1369,22 +1374,35 @@ void MainWindow::removeImageFilter() {
 // Filter images in current directory
 void MainWindow::setImageFilter(QStringList filter) {
 
+	if(filter.isEmpty()) return;
+
 	filterImagesDisplay->showFilter(filter);
-	std::clog << filter.join(", ").toStdString() << std::endl;
 
 	viewThumbs->setFilter(filter);
 
 	QString path = "";
-	for(int i = 0; i < viewThumbs->allImgsInfo.length(); ++i) {
-		if(filter.contains(viewThumbs->allImgsInfo.at(i).completeSuffix().toLower())) {
-			path = viewThumbs->allImgsInfo.at(i).absoluteFilePath();
-			break;
+	if(viewThumbs->allImgsInfo.length() == 0 && filterImagesDisplay->isVisible()) {
+		QStringList filterMe;
+		for(int i = 0; i < filter.length(); ++i)
+			filterMe.append("*." + filter.at(i));
+		QDir dir(QFileInfo(globVar->fileBeforeEmptyFilter).absoluteDir());
+		QFileInfoList l = dir.entryInfoList(filterMe);
+		if(l.length() != 0)
+			path = l.at(0).absoluteFilePath();
+	} else {
+		for(int i = 0; i < viewThumbs->allImgsInfo.length(); ++i) {
+			if(filter.contains(viewThumbs->allImgsInfo.at(i).completeSuffix().toLower())) {
+				path = viewThumbs->allImgsInfo.at(i).absoluteFilePath();
+				break;
+			}
 		}
 	}
+
 	if(path != "")
 		loadNewImgFromOpen(path, false);
 	else {
-		globVar->fileBeforeEmptyFilter = globVar->currentfile;
+		if(globVar->currentfile != "")
+			globVar->fileBeforeEmptyFilter = globVar->currentfile;
 
 		viewThumbs->view->scene.clear();
 		viewThumbs->counttot = 0;
@@ -1606,10 +1624,13 @@ void MainWindow::setupWidget(QString what) {
 
 		filterImagesDisplay = new FilterImagesDisplay(viewThumbs);
 		filterImagesDisplay->show();
+		filterImagesDisplay->setVisible(false);
 
 		connect(filterImagesSetup, SIGNAL(blockFunc(bool)), this, SLOT(blockFunc(bool)));
 		connect(filterImagesSetup, SIGNAL(setFilter(QStringList)), this, SLOT(setImageFilter(QStringList)));
+		connect(filterImagesSetup, SIGNAL(removeFilter()), this, SLOT(removeImageFilter()));
 		connect(filterImagesDisplay, SIGNAL(removeImageFilter()), this, SLOT(removeImageFilter()));
+		connect(filterImagesDisplay, SIGNAL(changeFilter()), filterImagesSetup, SLOT(makeShow()));
 
 	}
 
@@ -1747,8 +1768,10 @@ void MainWindow::shortcutDO(QString key, bool mouseSH) {
 				}
 			}
 			if(key == "__filterImages") {
-				if(!setupWidgets->filterimages) setupWidget("filterimages");
-				filterImagesSetup->makeShow();
+				if(globVar->currentfile != "" || filterImagesDisplay->isVisible()) {
+					if(!setupWidgets->filterimages) setupWidget("filterimages");
+					filterImagesSetup->makeShow();
+				}
 			}
 			if(key == "__slideshowQuick") {
 				if(globVar->currentfile != "")

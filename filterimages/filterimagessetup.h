@@ -19,17 +19,19 @@ class FilterImagesSetup : public QWidget {
 	Q_OBJECT
 
 public:
-	// This class is used a couple times to have a quick and easy way of displaying a confirmation widget
+	// Widget to set an image filter (by extension)
 	FilterImagesSetup(QWidget *parent = 0);
 	~FilterImagesSetup();
 
-	void makeHide();
-	void makeShow();
 	bool isVisible() { return isShown; }
 	void setRect(QRect);
 
 	CustomPushButton *enter;
 	CustomPushButton *cancel;
+
+public slots:
+	void makeHide();
+	void makeShow();
 
 private:
 	// These are the dimensions
@@ -37,6 +39,7 @@ private:
 	QRect rectHidden;
 	QRect rectAni;
 
+	// Boolean if visible
 	bool isShown;
 
 	// The animation instance
@@ -67,7 +70,9 @@ signals:
 	// Widget blocks the rest of photo as long as it's open
 	void blockFunc(bool block);
 
+	// Set/Remove filter
 	void setFilter(QStringList);
+	void removeFilter();
 
 protected:
 	void paintEvent(QPaintEvent *);
