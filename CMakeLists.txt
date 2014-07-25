@@ -7,17 +7,23 @@ FIND_PACKAGE(Qt5Widgets REQUIRED)
 # toplevel
 SET(photoqt_SOURCES main.cpp mainwindow.cpp globalsettings.h globalvariables.h setupwidgets.h)
 # settings/
-SET(photoqt_SOURCES ${photoqt_SOURCES} settings/settings.cpp settings/settingstabexif.cpp settings/settingstabexiftiles.cpp settings/settingstablookandfeel.cpp settings/settingstabother.cpp settings/settingstabothercontext.cpp settings/settingstabothercontexttiles.cpp settings/settingstabotherlanguagetiles.cpp settings/settingstabshortcuts.cpp settings/settingstabshortcutschangecommand.cpp settings/settingstabshortcutskeydetect.cpp settings/settingstabshortcutstiles.cpp settings/settingstabthumbnail.cpp settings/shortcuts.h settings/settingstabotherfiletypestiles.cpp)
+set(p "settings")
+SET(photoqt_SOURCES ${photoqt_SOURCES} ${p}/settings.cpp ${p}/settingstabexif.cpp ${p}/settingstabexiftiles.cpp ${p}/settingstablookandfeel.cpp ${p}/settingstabother.cpp ${p}/settingstabothercontext.cpp ${p}/settingstabothercontexttiles.cpp ${p}/settingstabotherlanguagetiles.cpp ${p}/settingstabshortcuts.cpp ${p}/settingstabshortcutschangecommand.cpp ${p}/settingstabshortcutskeydetect.cpp ${p}/settingstabshortcutstiles.cpp ${p}/settingstabthumbnail.cpp ${p}/shortcuts.h ${p}/settingstabotherfiletypestiles.cpp)
 # thumbnails/
-SET(photoqt_SOURCES ${photoqt_SOURCES} thumbnails/thumbnailpixmapitem.cpp thumbnails/thumbnails.cpp thumbnails/thumbnailview.cpp thumbnails/threadforthumbnails.h)
+set(p "thumbnails")
+SET(photoqt_SOURCES ${photoqt_SOURCES} ${p}/thumbnailpixmapitem.cpp ${p}/thumbnails.cpp ${p}/thumbnailview.cpp ${p}/threadforthumbnails.h)
 # graphics/
-SET(photoqt_SOURCES ${photoqt_SOURCES} graphics/graphicsview.cpp graphics/graphicsitem.cpp graphics/imagereader.cpp graphics/graphicsviewlay.cpp)
+set(p "graphics")
+SET(photoqt_SOURCES ${photoqt_SOURCES} ${p}/graphicsview.cpp ${p}/graphicsitem.cpp ${p}/imagereader.cpp ${p}/graphicsviewlay.cpp)
 # widgets/
-SET(photoqt_SOURCES ${photoqt_SOURCES} widgets/aboutwidget.cpp widgets/customconfirm.cpp widgets/dropdownmenu.cpp widgets/dropdownmenuitem.cpp widgets/detailswidget.cpp widgets/filehandling.cpp widgets/startupwidget.cpp)
+set(p "widgets")
+SET(photoqt_SOURCES ${photoqt_SOURCES} ${p}/aboutwidget.cpp ${p}/customconfirm.cpp ${p}/dropdownmenu.cpp ${p}/dropdownmenuitem.cpp ${p}/detailswidget.cpp ${p}/filehandling.cpp ${p}/startupwidget.cpp)
 # filterimages/
-SET(photoqt_SOURCES ${photoqt_SOURCES} filterimages/filterimagessetup.cpp filterimages/filterimagesdisplay.cpp)
+set(p "filterimages")
+SET(photoqt_SOURCES ${photoqt_SOURCES} ${p}/filterimagessetup.cpp ${p}/filterimagesdisplay.cpp)
 # customelements/
-SET(photoqt_SOURCES ${photoqt_SOURCES} customelements/customcheckbox.cpp customelements/customcombobox.cpp customelements/customlineedit.cpp customelements/custompushbutton.cpp customelements/customradiobutton.cpp customelements/customscrollbar.cpp customelements/customslider.cpp customelements/customspinbox.cpp customelements/customlabel.cpp customelements/customtabwidget.cpp)
+set(p "customelements")
+SET(photoqt_SOURCES ${photoqt_SOURCES} ${p}/customcheckbox.cpp ${p}/customcombobox.cpp ${p}/customlineedit.cpp ${p}/custompushbutton.cpp ${p}/customradiobutton.cpp ${p}/customscrollbar.cpp ${p}/customslider.cpp ${p}/customspinbox.cpp ${p}/customlabel.cpp ${p}/customtabwidget.cpp)
 # [other]/
 SET(photoqt_SOURCES ${photoqt_SOURCES} slideshow/slideshowbar.cpp slideshow/slideshowsettings.cpp flowlayout/flowlayout.cpp wallpaper/wallpaper.cpp)
 
@@ -25,17 +31,23 @@ SET(photoqt_SOURCES ${photoqt_SOURCES} slideshow/slideshowbar.cpp slideshow/slid
 # toplevel
 SET(photoqt_HEADERS mainwindow.h globalsettings.h globalvariables.h setupwidgets.h)
 # settings/
-SET(photoqt_HEADERS ${photoqt_HEADERS} settings/shortcuts.h settings/settings.h settings/settingstabexif.h settings/settingstabexiftiles.h settings/settingstablookandfeel.h settings/settingstabother.h settings/settingstabothercontext.h settings/settingstabothercontexttiles.h settings/settingstabotherlanguagetiles.h settings/settingstabshortcuts.h settings/settingstabshortcutschangecommand.h settings/settingstabshortcutskeydetect.h settings/settingstabshortcutstiles.h settings/settingstabthumbnail.h settings/settingstabotherfiletypestiles.h)
+set(p "settings")
+SET(photoqt_HEADERS ${photoqt_HEADERS} ${p}/shortcuts.h ${p}/settings.h ${p}/settingstabexif.h ${p}/settingstabexiftiles.h ${p}/settingstablookandfeel.h ${p}/settingstabother.h ${p}/settingstabothercontext.h ${p}/settingstabothercontexttiles.h ${p}/settingstabotherlanguagetiles.h ${p}/settingstabshortcuts.h ${p}/settingstabshortcutschangecommand.h ${p}/settingstabshortcutskeydetect.h ${p}/settingstabshortcutstiles.h ${p}/settingstabthumbnail.h ${p}/settingstabotherfiletypestiles.h)
 # thumbnails/
-SET(photoqt_HEADERS ${photoqt_HEADERS} thumbnails/threadforthumbnails.h thumbnails/thumbnailpixmapitem.h thumbnails/thumbnails.h thumbnails/thumbnailview.h)
+set(p "thumbnails")
+SET(photoqt_HEADERS ${photoqt_HEADERS} ${p}/threadforthumbnails.h ${p}/thumbnailpixmapitem.h ${p}/thumbnails.h ${p}/thumbnailview.h)
 # graphics/
-SET(photoqt_HEADERS ${photoqt_HEADERS} graphics/graphicsview.h graphics/graphicsitem.h graphics/imagereader.h graphics/graphicsviewlay.h)
-# widgets /
-SET(photoqt_HEADERS ${photoqt_HEADERS} widgets/aboutwidget.h widgets/customconfirm.h widgets/dropdownmenu.h widgets/dropdownmenuitem.h widgets/detailswidget.h widgets/filehandling.h widgets/startupwidget.h)
+set(p "graphics")
+SET(photoqt_HEADERS ${photoqt_HEADERS} ${p}/graphicsview.h ${p}/graphicsitem.h ${p}/imagereader.h ${p}/graphicsviewlay.h)
+# widgets/
+set(p "widgets")
+SET(photoqt_HEADERS ${photoqt_HEADERS} ${p}/aboutwidget.h ${p}/customconfirm.h ${p}/dropdownmenu.h ${p}/dropdownmenuitem.h ${p}/detailswidget.h ${p}/filehandling.h ${p}/startupwidget.h)
 # filterimages/
-SET(photoqt_HEADERS ${photoqt_HEADERS} filterimages/filterimagessetup.h filterimages/filterimagesdisplay.h)
+set(p "filterimages")
+SET(photoqt_HEADERS ${photoqt_HEADERS} ${p}/filterimagessetup.h ${p}/filterimagesdisplay.h)
 # customelements/
-SET(photoqt_HEADERS ${photoqt_HEADERS} customelements/customcheckbox.h customelements/customcombobox.h customelements/customlineedit.h customelements/custompushbutton.h customelements/customradiobutton.h customelements/customscrollbar.h customelements/customslider.h customelements/customspinbox.h customelements/customlabel.h customelements/customtabwidget.h)
+set(p "customelements")
+SET(photoqt_HEADERS ${photoqt_HEADERS} ${p}/customcheckbox.h ${p}/customcombobox.h ${p}/customlineedit.h ${p}/custompushbutton.h ${p}/customradiobutton.h ${p}/customscrollbar.h ${p}/customslider.h ${p}/customspinbox.h ${p}/customlabel.h ${p}/customtabwidget.h)
 # [other]/
 SET(photoqt_HEADERS ${photoqt_HEADERS} slideshow/slideshowbar.h slideshow/slideshowsettings.h flowlayout/flowlayout.h wallpaper/wallpaper.h)
 
