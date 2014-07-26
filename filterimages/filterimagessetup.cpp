@@ -18,7 +18,7 @@
 
 FilterImagesSetup::FilterImagesSetup(QWidget *parent) : MyWidget("rgb(130,130,130)",parent) {
 
-	this->setVisibleArea(QSize(450,220));
+	this->setVisibleArea(QSize(500,260));
 
 	// Title
 	CustomLabel *title = new CustomLabel(tr("Filter Images in Current Directory"));
@@ -28,7 +28,7 @@ FilterImagesSetup::FilterImagesSetup(QWidget *parent) : MyWidget("rgb(130,130,13
 	title->setWordWrap(true);
 
 	// A short description
-	CustomLabel *desc = new CustomLabel(tr("Enter here the <b>extension</b> of the files you want to show. Seperate multiple extensions by a space."));
+	CustomLabel *desc = new CustomLabel(tr("Enter here the extension of the files you want to show. Seperate multiple extensions by a space."));
 	desc->setAlignment(Qt::AlignCenter);
 	desc->setWordWrap(true);
 
@@ -85,7 +85,7 @@ void FilterImagesSetup::editTextChanged() {
 void FilterImagesSetup::okayClicked() {
 
 	emit setFilter(edit->text().toLower().split(" ",QString::SkipEmptyParts));
-	makeShow();
+	makeHide();
 
 }
 

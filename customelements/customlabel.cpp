@@ -26,6 +26,7 @@ CustomLabel::CustomLabel(const QString &text, QWidget *parent) : QLabel(text, pa
 	fontcolor = "white";
 	backgroundcolor = "transparent";
 	bold = false;
+	italic = false;
 	lineheight = "";
 
 	borderwidth = 0;
