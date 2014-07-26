@@ -12,6 +12,7 @@ public:
 	~CustomLabel();
 
 	void setBold(bool b) { bold = b; setCSS(); }
+	void setItalic(bool i) { italic = i; setCSS(); }
 	void setFontSize(QString fs) { fontsize = fs; setCSS(); }
 	void setFontColor(QString col) { fontcolor = col; setCSS(); }
 	void setBackgroundColor(QString col) { backgroundcolor = col; setCSS(); }
@@ -32,6 +33,7 @@ private:
 	int borderwidth;
 	QString bordercolor;
 	bool bold;
+	bool italic;
 	bool tooltipNoWrap;
 	QString lineheight;
 

@@ -58,6 +58,7 @@ void CustomLabel::setCSS() {
 	if(borderwidth != 0) css += QString("border: %1px solid %2;").arg(borderwidth).arg(bordercolor);
 	css += "font-size: " + fontsize + ";";
 	if(bold) css += "font-weight: bold;";
+	if(italic) css += "font-style: italic;";
 	if(lineheight != "") css += QString("line-height: %1;").arg(lineheight);
 	css += "}";
 	css += "QToolTip { font-weight: bold; color: black; border-radius: 5px; padding: 1px; font-size: 8pt; background: rgba(255,255,255,200); }";
