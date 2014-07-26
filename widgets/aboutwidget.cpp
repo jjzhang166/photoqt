@@ -17,61 +17,17 @@
 #include "aboutwidget.h"
 #include <iostream>
 
-About::About(QWidget *parent) : QWidget(parent) {
+About::About(QWidget *parent) : MyWidget(parent) {
 
-	// The different QRects
-	rectShown = QRect();
-	rectHidden = QRect(0,-10,10,10);
-	rectAni = QRect();
+	this->setBorderArea(100,50);
 
-	// The current geometry and position
-	isShown = false;
-	this->setGeometry(rectHidden);
-
-	// Some variables
-	fadeBack = new QTimeLine;
-	fadeBack->setLoopCount(5);
-	backAlphaShow = 130;
-	backAlphaCur = 0;
-	fadeBackIN = true;
-	connect(fadeBack, SIGNAL(valueChanged(qreal)), this, SLOT(fadeStep()));
-
-	// The current widget look
-	this->setStyleSheet(QString("background: rgba(0,0,0,%1);").arg(backAlphaShow));
-
-	// the central widget containing all the information
-	center = new QWidget(this);
-	center->setObjectName("center");
-	center->setStyleSheet("QWidget#center { background: rgba(0,0,0,200); border-radius: 10px; font-size: 12pt; }");
-
-	// The current animation framework
-	ani = new QPropertyAnimation(center,"geometry");
-	connect(ani, SIGNAL(finished()), this, SLOT(aniFinished()));
-
-	// Create and set the scrollarea with main layout
-	QVBoxLayout *central = new QVBoxLayout;
-	central->setMargin(10);
-	QScrollArea *scroll = new QScrollArea(this);
-	scroll->setObjectName("scrollWidget");
-	scroll->setStyleSheet("QWidget#scrollWidget { background: transparent;border-bottom: 1px solid white; padding-bottom: 3px; border-radius: 0px; }");
-	QWidget *scrollWidget = new QWidget(scroll->widget());
-	scrollWidget->setStyleSheet("background: transparent;");
-	scroll->setWidgetResizable(true);
-	scroll->setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Expanding);
-	scrollWidget->setLayout(central);
-	scroll->setWidget(scrollWidget);
-	QVBoxLayout *scCentral = new QVBoxLayout;
-	center->setLayout(scCentral);
-	scCentral->addWidget(scroll);
-
-	scrollbar = new CustomScrollbar;
-	scroll->setVerticalScrollBar(scrollbar);
+	QVBoxLayout *lay = new QVBoxLayout;
 
 	// The string right at the top, giving the license and author information
 	license = new QLabel;
 	license->setWordWrap(true);
 	license->setStyleSheet("color: white");
-	central->addWidget(license);
+	lay->addWidget(license);
 
 	// The logo (Thanks to Archie Arevalo)
 	QLabel *logo = new QLabel;
@@ -81,9 +37,9 @@ About::About(QWidget *parent) : QWidget(parent) {
 	logoLay->addStretch();
 	logoLay->addWidget(logo);
 	logoLay->addStretch();
-	central->addSpacing(20);
-	central->addLayout(logoLay);
-	central->addSpacing(30);
+	lay->addSpacing(20);
+	lay->addLayout(logoLay);
+	lay->addSpacing(30);
 
 	// The main text block
 	QString txt = tr("PhotoQt is a simple image viewer, designed to be good looking, highly configurable, yet easy to use and fast.") +  "<br><br>";
@@ -111,13 +67,15 @@ About::About(QWidget *parent) : QWidget(parent) {
 	text3->setTextInteractionFlags(Qt::TextSelectableByMouse);
 	text3->setFontSize("11pt");
 	text3->setWordWrap(true);
-	central->addWidget(text);
-	central->addSpacing(10);
-	central->addWidget(text2);
-	central->addSpacing(10);
-	central->addWidget(text3);
-	central->addStretch();
+	lay->addWidget(text);
+	lay->addSpacing(10);
+	lay->addWidget(text2);
+	lay->addSpacing(10);
+	lay->addWidget(text3);
+	lay->addStretch();
 	connect(text2, SIGNAL(clicked()), this, SLOT(openWebsite()));
+
+	this->setWidgetLayout(lay);
 
 	// A close button at the bottom
 	//: This string is written onto the "close" button of the about widget
@@ -127,12 +85,12 @@ About::About(QWidget *parent) : QWidget(parent) {
 	closeLay->addWidget(close);
 	closeLay->addStretch();
 	closeLay->setMargin(10);
-	scCentral->addLayout(closeLay);
+	CustomLine *line = new CustomLine;
+	QVBoxLayout *botLay = new QVBoxLayout;
+	botLay->addWidget(line);
+	botLay->addLayout(closeLay);
+	this->addButtonLayout(botLay);
 	connect(close, SIGNAL(clicked()), this, SLOT(animate()));
-
-
-
-
 
 }
 
@@ -143,150 +101,7 @@ void About::setLicense(QString version) {
 
 }
 
-void About::makeHide() {
-
-	if(isShown) animate();
-
-}
-
-void About::makeShow() {
-
-	if(!isShown) animate();
-
-}
-
-void About::setRect(QRect rect) {
-
-	rectShown = rect;
-	rectHidden = QRect(0,-10,10,10);
-	rectAni = QRect(rect.width()/2.0,rect.height()/2.0,1,1);
-
-	if(isShown) {
-		this->setGeometry(rectShown);
-		center->setGeometry(QRect(100,50,rectShown.width()-200,rectShown.height()-100));
-	} else
-		this->setGeometry(rectHidden);
-
-}
-
-
-// The animation function
-void About::animate() {
-
-	QRect shown = QRect(100,50,rectShown.width()-200,rectShown.height()-100);
-
-	// Open widget
-	if(!isShown) {
-
-		if(ani->state() != QPropertyAnimation::Stopped)
-			ani->targetObject()->setProperty(ani->propertyName(),ani->endValue());
-
-		// The background is initially transparent but the geometry is full
-		this->setStyleSheet(QString("background: rgba(0,0,0,0);"));
-		this->setGeometry(rectShown);
-
-		// Widget is shown
-		isShown = true;
-
-		// Animate widget
-		ani->setDuration(400);
-		ani->setStartValue(rectAni);
-		ani->setEndValue(shown);
-		ani->setEasingCurve(QEasingCurve::InBack);
-		ani->start();
-
-		// Fade background in
-		fadeBack->setDuration(200);
-		fadeBack->setLoopCount(5);
-		fadeBackIN = true;
-		fadeBack->start();
-
-		// Block all base functions
-		emit blockFunc(true);
-
-		// Make sure this widget is on top
-		this->raise();
-
-	// Close widget
-	} else if(isShown) {
-
-		if(ani->state() != QPropertyAnimation::Stopped)
-			ani->targetObject()->setProperty(ani->propertyName(),ani->endValue());
-
-		// Fade background out
-		fadeBack->setDuration(100);
-		fadeBack->setLoopCount(5);
-		fadeBackIN = false;
-		fadeBack->start();
-
-		// Widget is hidden again
-		isShown = false;
-
-		// Start animation out
-		ani->setDuration(300);
-		ani->setStartValue(shown);
-		ani->setEndValue(rectAni);
-		ani->setEasingCurve(QEasingCurve::OutBack);
-		ani->start();
-
-		// Unblock all base functions
-		emit blockFunc(false);
-
-	}
-
-}
-
-
-// Every fade step for the background
-void About::fadeStep() {
-
-	// Fade in
-	if(fadeBackIN) {
-		backAlphaCur += backAlphaShow/5;
-		if(backAlphaCur > backAlphaShow)
-			backAlphaCur = backAlphaShow;
-	// Fade out
-	} else {
-		backAlphaCur -= backAlphaShow/5;
-		if(backAlphaCur < 0)
-			backAlphaCur = 0;
-	}
-
-	// Update stylesheet
-	this->setStyleSheet(QString("background: rgba(0,0,0,%1);").arg(backAlphaCur));
-
-}
-
-// Handle widget when animation is finished
-void About::aniFinished() {
-
-	// Move widget out of screen
-	if(!isShown) {
-		this->setGeometry(rectHidden);
-		scrollbar->setValue(0);
-	} else
-		scrollbar->setScrollbarShown();
-
-
-}
-
 void About::openWebsite() {
 	if(!QDesktopServices::openUrl(QUrl("http://photoqt.org")))
 		std::cerr << "ERROR: Couldn't open website..." << std::endl;
-}
-
-// Click on background closes dialog
-void About::mouseReleaseEvent(QMouseEvent *e) {
-
-	if(!center->geometry().contains(e->pos()))
-		close->animateClick();
-
-}
-
-
-void About::paintEvent(QPaintEvent *) {
-	QStyleOption o;
-	o.initFrom(this);
-	QPainter p(this);
-	style()->drawPrimitive(QStyle::PE_Widget, &o, &p, this);
 }

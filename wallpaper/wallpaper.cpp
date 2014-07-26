@@ -17,58 +17,12 @@
 #include "wallpaper.h"
 #include <iostream>
 
-Wallpaper::Wallpaper(QMap<QString, QVariant> set, bool v, QWidget *parent) : QWidget(parent) {
+Wallpaper::Wallpaper(QMap<QString, QVariant> set, bool v, QWidget *parent) : MyWidget(parent) {
+
+	this->setBorderArea(150,100);
 
 	verbose = v;
 	globSet = set;
-
-	// The different QRects
-	rectShown = QRect();
-	rectHidden = QRect(0,-10,10,10);
-	rectAni = QRect();
-
-	// The current geometry and position
-	isShown = false;
-	this->setGeometry(rectHidden);
-
-	// Some variables
-	fadeBack = new QTimeLine;
-	fadeBack->setLoopCount(5);
-	backAlphaShow = 130;
-	backAlphaCur = 0;
-	fadeBackIN = true;
-	connect(fadeBack, SIGNAL(valueChanged(qreal)), this, SLOT(fadeStep()));
-
-	// The current widget look
-	this->setStyleSheet(QString("background: rgba(0,0,0,%1);").arg(backAlphaShow));
-
-	// the central widget containing all the information
-	center = new QWidget(this);
-	center->setStyleSheet("background: rgba(0,0,0,200); border-radius: 10px; font-size: 12pt;");
-
-	// The current animation framework
-	ani = new QPropertyAnimation(center,"geometry");
-	connect(ani, SIGNAL(finished()), this, SLOT(aniFinished()));
-
-	// Create and set the scrollarea with main layout
-	QVBoxLayout *central = new QVBoxLayout;
-	central->setMargin(10);
-	QScrollArea *scroll = new QScrollArea(this);
-	scroll->setObjectName("scrollWidget");
-	scroll->setStyleSheet("QWidget#scrollWidget { background: transparent;border-bottom: 1px solid white; padding-bottom: 3px; border-radius: 0px; }");
-	QWidget *scrollWidget = new QWidget(scroll->widget());
-	scrollWidget->setStyleSheet("background: transparent;");
-	scroll->setWidgetResizable(true);
-	scroll->setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Expanding);
-	scrollWidget->setLayout(central);
-	scroll->setWidget(scrollWidget);
-	QVBoxLayout *scCentral = new QVBoxLayout;
-	center->setLayout(scCentral);
-	scCentral->addWidget(scroll);
-
-	// The custom scrollbar
-	CustomScrollbar *scrollbar = new CustomScrollbar;
-	scroll->setVerticalScrollBar(scrollbar);
 
 
 	// The buttons to proceed or abort are always visible (i.e. not scrolled)
@@ -79,34 +33,39 @@ Wallpaper::Wallpaper(QMap<QString, QVariant> set, bool v, QWidget *parent) : QWi
 	butLay->addWidget(ok);
 	butLay->addWidget(cancel);
 	butLay->addStretch();
-	scCentral->addSpacing(10);
-	scCentral->addLayout(butLay);
-	scCentral->addSpacing(10);
+
+	CustomLine *line = new CustomLine;
+	QVBoxLayout *botLay = new QVBoxLayout;
+	botLay->addWidget(line);
+	botLay->addLayout(butLay);
+
+	this->addButtonLayout(botLay);
 
 	connect(ok, SIGNAL(clicked()), this, SLOT(goAheadAndSetWallpaper()));
 	connect(cancel, SIGNAL(clicked()), this, SLOT(animate()));
 
+	QVBoxLayout *lay = new QVBoxLayout;
 
 	// the widget title
 	QLabel *title = new QLabel("<center><span style=\"font-size: 30pt; font-weight: bold\">" + tr("Set as Wallpaper") + "</span></center>");
 	title->setStyleSheet("color: white");
-	central->addWidget(title);
-	central->addSpacing(10);
+	lay->addWidget(title);
+	lay->addSpacing(10);
 
 
 	// The filename is always set to this label
 	filenameLabel = new QLabel("<center>---</center>");
 	filenameLabel->setStyleSheet("color: lightgrey; font-style: italic");
-	central->addWidget(filenameLabel);
-	central->addSpacing(20);
+	lay->addWidget(filenameLabel);
+	lay->addSpacing(20);
 
 
 	// Label explaining the wm detection
 	QLabel *wmDetectedLabel = new QLabel("<b><span style=\"font-size:12pt\">" + tr("Window Manager") + "</span></b> " + "<br><br>" + tr("PhotoQt tries to detect you window manager according to the environment variables set by your system. If it still got it wrong, you can change the window manager here manually."));
 	wmDetectedLabel->setWordWrap(true);
 	wmDetectedLabel->setStyleSheet("color: white");
-	central->addWidget(wmDetectedLabel);
-	central->addSpacing(10);
+	lay->addWidget(wmDetectedLabel);
+	lay->addSpacing(10);
 
 	// Combobox to change WM
 	wm = new CustomComboBox;
@@ -121,8 +80,8 @@ Wallpaper::Wallpaper(QMap<QString, QVariant> set, bool v, QWidget *parent) : QWi
 	wmLay->addStretch();
 	wmLay->addWidget(wm);
 	wmLay->addStretch();
-	central->addLayout(wmLay);
-	central->addSpacing(10);
+	lay->addLayout(wmLay);
+	lay->addSpacing(10);
 
 
 	// This message is used to show an (error or other) message depending on the window manager
@@ -130,9 +89,9 @@ Wallpaper::Wallpaper(QMap<QString, QVariant> set, bool v, QWidget *parent) : QWi
 	wmMessage->setAlignment(Qt::AlignCenter);
 	wmMessage->setWordWrap(true);
 	wmMessage->setVisible(false);
-	central->addSpacing(10);
-	central->addWidget(wmMessage);
-	central->addSpacing(20);
+	lay->addSpacing(10);
+	lay->addWidget(wmMessage);
+	lay->addSpacing(20);
 
 	connect(wm, SIGNAL(currentIndexChanged(int)), this, SLOT(wmSelected()));
 
@@ -172,8 +131,8 @@ Wallpaper::Wallpaper(QMap<QString, QVariant> set, bool v, QWidget *parent) : QWi
 	gnomePicOpsLay->addStretch();
 
 	// Add label and button layout to central widget layout
-	central->addWidget(gnomePicOpsLabel);
-	central->addLayout(gnomePicOpsLay);
+	lay->addWidget(gnomePicOpsLabel);
+	lay->addLayout(gnomePicOpsLay);
 
 
 
@@ -199,8 +158,8 @@ Wallpaper::Wallpaper(QMap<QString, QVariant> set, bool v, QWidget *parent) : QWi
 	wmMonitorLabel->setMargin(5);
 	wmMonitorLabel->setStyleSheet("color: white");
 
-	central->addWidget(wmMonitorLabel);
-	central->addLayout(wmMonitorLay);
+	lay->addWidget(wmMonitorLabel);
+	lay->addLayout(wmMonitorLay);
 
 
 
@@ -235,8 +194,8 @@ Wallpaper::Wallpaper(QMap<QString, QVariant> set, bool v, QWidget *parent) : QWi
 	xfcePicOpsLabel->setStyleSheet("color: white");
 	xfcePicOpsLabel->setWordWrap(true);
 
-	central->addWidget(xfcePicOpsLabel);
-	central->addLayout(xfcePicOpsLay);
+	lay->addWidget(xfcePicOpsLabel);
+	lay->addLayout(xfcePicOpsLay);
 
 
 
@@ -311,13 +270,12 @@ Wallpaper::Wallpaper(QMap<QString, QVariant> set, bool v, QWidget *parent) : QWi
 
 
 
-	central->addLayout(externLay);
-	central->addLayout(otherVLay);
+	lay->addLayout(externLay);
+	lay->addLayout(otherVLay);
+	lay->addSpacing(10);
+	lay->addStretch();
 
-
-
-	central->addSpacing(10);
-	central->addStretch();
+	this->setWidgetLayout(lay);
 
 	detectWM();
 	wmSelected();
@@ -378,7 +336,7 @@ void Wallpaper::setWallpaper(QString file) {
 		filenameLabel->setText("<center>'" + QFileInfo(file).fileName() + "'</file>");
 
 		// And show widget
-		if(!isShown) animate();
+		if(!isVisible()) makeShow();
 
 	}
 
@@ -387,7 +345,7 @@ void Wallpaper::setWallpaper(QString file) {
 // Abort wallpaper settings
 void Wallpaper::dontSetWallpaper() {
 
-	if(isShown) animate();
+	if(isVisible()) makeHide();
 
 }
 
@@ -593,7 +551,7 @@ void Wallpaper::wmSelected() {
 void Wallpaper::goAheadAndSetWallpaper() {
 
 	// Hide widget
-	animate();
+	makeHide();
 
 	// Call right function
 	if(wm->currentIndex() == 0)
@@ -732,160 +690,11 @@ void Wallpaper::setOTHER() {
 
 }
 
-
-void Wallpaper::makeShow() {
-
-	if(!isShown) animate();
-
-}
-
-void Wallpaper::makeHide() {
-
-	if(isShown) animate();
-
-}
-
-void Wallpaper::setRect(QRect rect) {
-
-	rectShown = rect;
-	rectHidden = QRect(0,-10,10,10);
-	rectAni = QRect(rect.width()/2.0,rect.height()/2.0,1,1);
-
-	if(isShown) this->setGeometry(rectShown);
-	else this->setGeometry(rectHidden);
-
-}
-
 void Wallpaper::accept() {
 
 	if(ok->isEnabled())
 		ok->animateClick();
 
 }
-
-// The animation function
-void Wallpaper::animate() {
-
-	int shownWidth = rectShown.width()-400;
-	int shownHeight = rectShown.height()-400;
-	int shownX = 200;
-	int shownY = 200;
-
-	if(shownWidth - shownHeight > 500) {
-		shownHeight += 300;
-		shownY -= 150;
-	}
-
-	QRect shown = QRect(shownX,shownY,shownWidth, shownHeight);
-
-	// Open widget
-	if(!isShown) {
-
-		if(ani->state() != QPropertyAnimation::Stopped)
-			ani->targetObject()->setProperty(ani->propertyName(),ani->endValue());
-
-		// The background is initially transparent but the geometry is full
-		this->setStyleSheet(QString("background: rgba(0,0,0,0);"));
-		this->setGeometry(rectShown);
-
-		// Widget is shown
-		isShown = true;
-
-		// Animate widget
-		ani->setDuration(400);
-		ani->setStartValue(rectAni);
-		ani->setEndValue(shown);
-		ani->setEasingCurve(QEasingCurve::InBack);
-		ani->start();
-
-		// Fade background in
-		fadeBack->setDuration(200);
-		fadeBack->setLoopCount(5);
-		fadeBackIN = true;
-		fadeBack->start();
-
-		// Block all base functions
-		emit blockFunc(true);
-
-		// Make sure this widget is on top
-		this->raise();
-
-	// Close widget
-	} else if(isShown) {
-
-		if(ani->state() != QPropertyAnimation::Stopped)
-			ani->targetObject()->setProperty(ani->propertyName(),ani->endValue());
-
-		// Fade background out
-		fadeBack->setDuration(100);
-		fadeBack->setLoopCount(5);
-		fadeBackIN = false;
-		fadeBack->start();
-
-		// Widget is hidden again
-		isShown = false;
-
-		// Start animation out
-		ani->setDuration(300);
-		ani->setStartValue(shown);
-		ani->setEndValue(rectAni);
-		ani->setEasingCurve(QEasingCurve::OutBack);
-		ani->start();
-
-		// Unblock all base functions
-		emit blockFunc(false);
-
-	}
-
-}
-
-
-// Every fade step for the background
-void Wallpaper::fadeStep() {
-
-	// Fade in
-	if(fadeBackIN) {
-		backAlphaCur += backAlphaShow/5;
-		if(backAlphaCur > backAlphaShow)
-			backAlphaCur = backAlphaShow;
-	// Fade out
-	} else {
-		backAlphaCur -= backAlphaShow/5;
-		if(backAlphaCur < 0)
-			backAlphaCur = 0;
-	}
-
-	// Update stylesheet
-	this->setStyleSheet(QString("background: rgba(0,0,0,%1);").arg(backAlphaCur));
-
-}
-
-// Handle widget when animation is finished
-void Wallpaper::aniFinished() {
-
-	// Move widget out of screen
-	if(!isShown)
-		this->setGeometry(rectHidden);
-
-
-}
-
-// Click on background closes dialog
-void Wallpaper::mouseReleaseEvent(QMouseEvent *e) {
-
-	if(!center->geometry().contains(e->pos()))
-		cancel->animateClick();
-
-}
-
-void Wallpaper::paintEvent(QPaintEvent *) {
-	QStyleOption o;
-	o.initFrom(this);
-	QPainter p(this);
-	style()->drawPrimitive(QStyle::PE_Widget, &o, &p, this);
-}
-
-
-
 
 Wallpaper::~Wallpaper() { }

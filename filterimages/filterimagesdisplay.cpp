@@ -63,6 +63,7 @@ void FilterImagesDisplay::showFilter(QStringList filter) {
 
 }
 
+// Make widget styleable
 void FilterImagesDisplay::paintEvent(QPaintEvent *) {
 	QStyleOption o;
 	o.initFrom(this);

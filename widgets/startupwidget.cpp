@@ -16,11 +16,9 @@
 
 #include "startupwidget.h"
 
-StartUpWidget::StartUpWidget(QWidget *parent) : QWidget(parent) {
+StartUpWidget::StartUpWidget(QWidget *parent) : MyWidget(parent) {
 
-	// Setting the background
-	this->setObjectName("startup");
-	this->setStyleSheet("QWidget#startup { background:rgba(0,0,0,190); }");
+	this->setFullscreen(true);
 
 	// A close button to close widget
 	CustomPushButton *close = new CustomPushButton(tr("Okay, I got enough now. Lets start!"));
@@ -30,28 +28,16 @@ StartUpWidget::StartUpWidget(QWidget *parent) : QWidget(parent) {
 	butLay->addStretch();
 	butLay->addWidget(close);
 	butLay->addStretch();
-	QWidget *closeWidget = new QWidget(this);
-	closeWidget->setStyleSheet("background: transparent; border-top: 1px solid white;");
-	closeWidget->setLayout(butLay);
 	connect(close, SIGNAL(clicked()), this, SLOT(animate()));
 
-	// the main scroll widget for all content
-	scrollbar = new CustomScrollbar;
-	QScrollArea *scroll = new QScrollArea;
-	QVBoxLayout *lay = new QVBoxLayout(scroll);
-	QWidget *scrollWidg = new QWidget(scroll);
-	scrollWidg->setLayout(lay);
-	scroll->setWidget(scrollWidg);
-	scroll->setWidgetResizable(true);
-	QVBoxLayout *scrollLay = new QVBoxLayout;
-	scrollLay->addWidget(scroll);
-	scrollLay->addWidget(closeWidget);
-	this->setLayout(scrollLay);
-	scroll->setVerticalScrollBar(scrollbar);
+	// Line above buttons
+	CustomLine *line = new CustomLine;
 
-	// The animation, and some booleans
-	ani = new QPropertyAnimation(this,"geometry");
-	isShown = false;
+	// Create and set the main layout
+	QVBoxLayout *lay = new QVBoxLayout;
+	this->setWidgetLayout(lay);
+	this->addWidgetAtBottom(line);
+	this->addButtonLayout(butLay);
 
 	// The title is set depending on update or fresh install
 	title = new QLabel;
@@ -129,90 +115,6 @@ void StartUpWidget::setInstallMsg() {
 
 	customIntro->setText(introTxt);
 
-
-
 }
-
-
-void StartUpWidget::makeShow() {
-
-	if(!isShown) animate();
-
-}
-
-void StartUpWidget::makeHide() {
-
-	if(isShown) animate();
-
-}
-
-void StartUpWidget::setRect(QRect rect) {
-
-	rectShown = rect;
-	rectHidden = QRect(0,-10,10,10);
-	aniStart = QRect(rect.width()/2.0,rect.height()/2.0,1,1);
-
-	if(isShown) this->setGeometry(rectShown);
-	else this->setGeometry(rectHidden);
-
-}
-
-
-// the animation function
-void StartUpWidget::animate() {
-
-	// Open widget
-	if(!isShown) {
-
-		if(ani->state() != QPropertyAnimation::Stopped)
-			ani->targetObject()->setProperty(ani->propertyName(),ani->endValue());
-
-		ani->setDuration(600);
-		isShown = true;
-
-		ani->setStartValue(aniStart);
-		ani->setEndValue(rectShown);
-		ani->setEasingCurve(QEasingCurve::InBack);
-		ani->start();
-
-		this->raise();
-
-	// Close widget
-	} else if(isShown) {
-
-		if(ani->state() != QPropertyAnimation::Stopped)
-			ani->targetObject()->setProperty(ani->propertyName(),ani->endValue());
-
-		ani->setDuration(300);
-		isShown = false;
-
-		ani->setStartValue(rectShown);
-		ani->setEndValue(aniStart);
-		ani->setEasingCurve(QEasingCurve::OutBack);
-		ani->start();
-
-		emit finished();
-
-	}
-
-}
-
-// When the animation has finished
-void StartUpWidget::aniFinished() {
-
-	if(!isShown) {
-		this->setGeometry(rectHidden);
-	}
-
-
-}
-
-void StartUpWidget::paintEvent(QPaintEvent *) {
-	QStyleOption o;
-	o.initFrom(this);
-	QPainter p(this);
-	style()->drawPrimitive(QStyle::PE_Widget, &o, &p, this);
-}
-
 
 StartUpWidget::~StartUpWidget() { }

@@ -69,7 +69,7 @@ SettingsTabShortcuts::SettingsTabShortcuts(QWidget *parent, bool v) : QWidget(pa
 	setDefLay->addStretch();
 	lay->addLayout(setDefLay);
 	lay->addSpacing(10);
-	setDefaultConfirm = new CustomConfirm(tr("Set default shortcuts?"), tr("This reverses all changes to the shortcuts and sets the set of default ones.") + "<br><br>" + tr("This step cannot be reversed!"), tr("Give me defaults"), tr("Hm, maybe not now"),QSize(400,200),this->parentWidget());
+	setDefaultConfirm = new CustomConfirm(tr("Set default shortcuts?"), tr("This reverses all changes to the shortcuts and sets the set of default ones.") + "<br><br>" + tr("This step cannot be reversed!"), tr("Give me defaults"), tr("Hm, maybe not now"),QSize(500,250),"default",this->parentWidget());
 	setDefaultConfirm->show();
 	connect(setDefault, SIGNAL(clicked()), setDefaultConfirm, SLOT(animate()));
 	connect(setDefaultConfirm, SIGNAL(confirmed()), this, SIGNAL(setDefaultShortcuts()));
@@ -541,7 +541,7 @@ void SettingsTabShortcuts::getNewKeyCombo(QString cat, QString id, QString exe) 
 		detect->setFunctionname(internFunctions[cat][exe]);
 	else
 		detect->setFunctionname(tr("some executeable"));
-	detect->animate();
+	detect->makeShow();
 
 }
 

@@ -18,35 +18,13 @@
 #include <unistd.h>
 #include <iostream>
 
-FileHandling::FileHandling(QWidget *parent, bool v, QString cf) : QWidget(parent) {
+FileHandling::FileHandling(QWidget *parent, bool v, QString cf) : MyWidget(parent) {
 
-	verbose = v;
-
-	// The different QRects
-	rectShown = QRect(0,0,parent->width(),parent->height());
-	rectHidden = QRect(0,-parent->height(),parent->width(),parent->height());
-	rectAni = QRect(parent->width()/2,parent->height()/2,1,1);
-
-	// The current geometry and position
-	isShown = false;
-	this->setGeometry(rectHidden);
-
-	// The current widget look
-	this->setStyleSheet(QString("background: rgba(0,0,0,%1);").arg(backAlphaShow));
+	this->setVisibleArea(QSize(600,400));
 
 	// Some variables
 	currentfile = cf;
-	fadeBack = new QTimeLine;
-	fadeBack->setLoopCount(5);
-	backAlphaShow = 130;
-	backAlphaCur = 0;
-	fadeBackIN = true;
-	connect(fadeBack, SIGNAL(valueChanged(qreal)), this, SLOT(fadeStep()));
-
-	// The current animation framework
-	ani = new QPropertyAnimation(this,"geometry");
-	connect(ani, SIGNAL(finished()), this, SLOT(aniFinished()));
-
+	verbose = v;
 
 	QString fileTreeCSS = "QTreeView {";
 	fileTreeCSS += "color:white;";
@@ -380,10 +358,10 @@ void FileHandling::openDialog(QString t) {
 	if(currentfile != "") {
 
 		// Make sure all widgets are hidden by default
-		renameWidget->setGeometry(rectHidden);
-		deleteWidget->setGeometry(rectHidden);
-		moveWidget->setGeometry(rectHidden);
-		copyWidget->setGeometry(rectHidden);
+		renameWidget->setGeometry(getRectHidden());
+		deleteWidget->setGeometry(getRectHidden());
+		moveWidget->setGeometry(getRectHidden());
+		copyWidget->setGeometry(getRectHidden());
 
 		// Save current state
 		dialogType = t;
@@ -399,143 +377,27 @@ void FileHandling::openDialog(QString t) {
 			setMove();
 
 		// And animate
-		animate();
+		makeShow();
 
 	}
 
 }
 
-void FileHandling::makeHide() {
-
-	if(isShown) animate();
-
-}
-
-void FileHandling::makeShow() {
-
-	if(!isShown) animate();
-
-}
-
-void FileHandling::setRect(QRect rect) {
-
-	rectHidden = QRect(0,-10,10,10);
-	rectAni = QRect(rect.width()/2.0,rect.height()/2.0,1,1);
-	rectShown = rect;
-
-	if(isShown) this->setGeometry(rectShown);
-	else this->setGeometry(rectHidden);
-
-}
-
-
-// The animation function
-void FileHandling::animate() {
-
-	QRect shown = QRect();
-
-	if(dialogType == "move" || dialogType == "copy")
-		shown = QRect((rectShown.width()-600)/2,(rectShown.height()-500)/2,600,500);
-	else
-		shown = QRect((rectShown.width()-600)/2,(rectShown.height()-300)/2,600,300);
-
-	// Open widget
-	if(!isShown) {
-
-		if(ani->state() != QPropertyAnimation::Stopped)
-			ani->targetObject()->setProperty(ani->propertyName(),ani->endValue());
-
-		// The background is initially transparent but the geometry is full
-		this->setStyleSheet(QString("background: rgba(0,0,0,0);"));
-		this->setGeometry(rectShown);
-
-		// Stop Thumbnail creation
-		emit stopThbCreation();
-
-		// Widget is shown
-		isShown = true;
-
-		// Animate widget
-		ani->setDuration(400);
-		ani->setStartValue(rectAni);
-		ani->setEndValue(shown);
-		ani->setEasingCurve(QEasingCurve::InBack);
-		ani->start();
-
-		// Fade background in
-		fadeBack->setDuration(200);
-		fadeBack->setLoopCount(5);
-		fadeBackIN = true;
-		fadeBack->start();
-
-		// Block all base functions
-		emit blockFunc(true);
-
-		// Make sure this widget is on top
-		this->raise();
-
-	// Close widget
-	} else if(isShown) {
-
-		if(ani->state() != QPropertyAnimation::Stopped)
-			ani->targetObject()->setProperty(ani->propertyName(),ani->endValue());
-
-		// Fade background out
-		fadeBack->setDuration(100);
-		fadeBack->setLoopCount(5);
-		fadeBackIN = false;
-		fadeBack->start();
-
-		// Widget is hidden again
-		isShown = false;
-
-		// Start animation out
-		ani->setDuration(300);
-		ani->setStartValue(shown);
-		ani->setEndValue(rectAni);
-		ani->setEasingCurve(QEasingCurve::OutBack);
-		ani->start();
-
-		// Unblock all base functions
-		emit blockFunc(false);
-
-	}
-
-}
-
-// Every fade step for the background
-void FileHandling::fadeStep() {
-
-	// Fade in
-	if(fadeBackIN) {
-		backAlphaCur += backAlphaShow/5;
-		if(backAlphaCur > backAlphaShow)
-			backAlphaCur = backAlphaShow;
-	// Fade out
-	} else {
-		backAlphaCur -= backAlphaShow/5;
-		if(backAlphaCur < 0)
-			backAlphaCur = 0;
-	}
-
-	// Update stylesheet
-	this->setStyleSheet(QString("background: rgba(0,0,0,%1);").arg(backAlphaCur));
-
-}
 
 // Handle widget when animation is finished
 void FileHandling::aniFinished() {
 
 	// Move widget out of screen
-	if(!isShown) {
-		this->setGeometry(rectHidden);
+	if(!isVisible()) {
+		this->setGeometry(getRectHidden());
+		emit widgetClosed();
 		if(dialogType == "rename")
 			renameNewName->setEnabled(false);
 		else if(dialogType == "move")
 			moveNewName->setEnabled(false);
 	}
 
-	if(isShown) {
+	if(isVisible()) {
 
 		if(dialogType == "move")
 			moveTree->scrollTo(moveTree->selectionModel()->selectedIndexes().at(0));
@@ -559,10 +421,8 @@ void FileHandling::setRename() {
 	renameNewName->selectAll();
 	renameOldEnding->setText("." + QFileInfo(currentfile).completeSuffix());
 
-	ani->stop();
-
 	// Adjust target of animation
-	ani->setTargetObject(renameWidget);
+	resetAnimationTarget(renameWidget);
 
 	// Validate new filename (at this point the old name, i.e. save button is disabled)
 	validateRenameFilename();
@@ -577,10 +437,8 @@ void FileHandling::setDelete() {
 	// Update old filename
 	deleteFilename->setText("<center>" + QFileInfo(currentfile).fileName() + "</center>");
 
-	ani->stop();
-
 	// Adjust target of animation
-	ani->setTargetObject(deleteWidget);
+	resetAnimationTarget(deleteWidget);
 
 }
 
@@ -600,9 +458,7 @@ void FileHandling::setCopy() {
 	copyNewName->setEnabled(true);
 	copyNewName->selectAll();
 
-	ani->stop();
-
-	ani->setTargetObject(copyWidget);
+	resetAnimationTarget(copyWidget);
 
 	validateMoveAndCopyFilename();
 
@@ -624,9 +480,7 @@ void FileHandling::setMove() {
 	moveNewName->setEnabled(true);
 	moveNewName->selectAll();
 
-	ani->stop();
-
-	ani->setTargetObject(moveWidget);
+	resetAnimationTarget(moveWidget);
 
 	validateMoveAndCopyFilename();
 
@@ -649,12 +503,12 @@ void FileHandling::doRename() {
 			if(!file.remove()) {
 				std::cerr << "ERROR! Couldn't remove the old filename" << std::endl;
 			}
-			animate();
+			makeHide();
 			currentfile = newfile;
 			emit reloadDir("rename");
 		} else {
 			std::cerr << "ERROR! Couldn't rename file" << std::endl;
-			animate();
+			makeHide();
 		}
 
 	}
@@ -782,11 +636,11 @@ void FileHandling::doDelete(int harddelete) {
 	if(file.exists()) {
 
 		file.remove();
-		animate();
+		makeHide();
 		emit reloadDir("delete");
 
 	} else {
-		animate();
+		makeHide();
 		std::cerr << "ERROR! File doesn't exist...?" << std::endl;
 	}
 
@@ -806,12 +660,12 @@ void FileHandling::doMove() {
 
 	if(file.copy(newfilename)) {
 		if(!file.remove()) {
-			animate();
+			makeHide();
 			std::cerr << "ERROR: Couldn't remove old file" << std::endl;
 			if(QFileInfo(newfilename).absolutePath() == QFileInfo(currentfile).absolutePath())
 				emit reloadDir("rename");
 		} else {
-			animate();
+			makeHide();
 			if(QFileInfo(newfilename).absolutePath() == QFileInfo(currentfile).absolutePath())
 				emit reloadDir("rename");
 			else
@@ -819,7 +673,7 @@ void FileHandling::doMove() {
 		}
 
 	} else {
-		animate();
+		makeHide();
 		std::cerr << "ERROR: Couldn't move file" << std::endl;
 	}
 
@@ -835,12 +689,12 @@ void FileHandling::doCopy() {
 
 	if(file.copy(newfilename)) {
 
-		animate();
+		makeHide();
 		if(QFileInfo(newfilename).absolutePath() == QFileInfo(currentfile).absolutePath())
 			emit reloadDir("rename");
 
 	} else {
-		animate();
+		makeHide();
 		std::clog << "ERROR: Couldn't copy file" << std::endl;
 	}
 
@@ -924,24 +778,5 @@ void FileHandling::validateMoveAndCopyFilename() {
 	}
 
 }
-
-
-void FileHandling::paintEvent(QPaintEvent *) {
-	QStyleOption o;
-	o.initFrom(this);
-	QPainter p(this);
-	style()->drawPrimitive(QStyle::PE_Widget, &o, &p, this);
-}
-
-// Click on background closes dialog
-void FileHandling::mouseReleaseEvent(QMouseEvent *) {
-
-	if(dialogType == "rename")
-		renameCancel->animateClick();
-	else if(dialogType == "delete")
-		deleteNo->animateClick();
-
-}
-
 
 FileHandling::~FileHandling() { }

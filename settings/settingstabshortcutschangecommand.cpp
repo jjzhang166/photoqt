@@ -16,33 +16,7 @@
 
 #include "settingstabshortcutschangecommand.h"
 
-ShortcutChangeCommand::ShortcutChangeCommand(QWidget *parent) : QWidget(parent) {
-
-	this->setStyleSheet("background: rgba(0,0,0,0)");
-
-	// The geometries for the widget
-	rectShown = QRect();
-	rectHidden = QRect(0,-10,10,10);
-	rectAni = QRect();
-
-	// The central widget containing all the contents
-	center = new QWidget(this);
-	center->setObjectName("center");
-	center->setStyleSheet("QWidget#center { background: rgba(0,0,0,200); border-radius: 20px; }");
-
-	// The animation instances
-	ani = new QPropertyAnimation(center, "geometry");
-	connect(ani, SIGNAL(finished()), this, SLOT(aniFinished()));
-	isShown = false;
-	this->setGeometry(rectHidden);
-
-	// The fading instances
-	fadeBack = new QTimeLine;
-	fadeBack->setLoopCount(5);
-	backAlphaShow = 130;
-	backAlphaCur = 0;
-	fadeBackIN = true;
-	connect(fadeBack, SIGNAL(valueChanged(qreal)), this, SLOT(fadeStep()));
+ShortcutChangeCommand::ShortcutChangeCommand(QWidget *parent) : MyWidget(parent) {
 
 	// The main layout
 	QVBoxLayout *lay = new QVBoxLayout;
@@ -87,90 +61,7 @@ ShortcutChangeCommand::ShortcutChangeCommand(QWidget *parent) : QWidget(parent) 
 	lay->addStretch();
 
 	// Setting the main layout
-	center->setLayout(lay);
-
-}
-
-
-// The animation function
-void ShortcutChangeCommand::animate() {
-
-	QRect shown = QRect((rectShown.width()-500)/2,(rectShown.height()-220)/2,500,220);
-
-	// Open widget
-	if(ani->state() == QPropertyAnimation::Stopped && !isShown) {
-
-		// The background is initially transparent but the geometry is full
-		this->setStyleSheet(QString("background: rgba(0,0,0,0);"));
-		this->setGeometry(rectShown);
-
-		// Widget is shown
-		isShown = true;
-
-		// Animate widget
-		ani->setDuration(200);
-		ani->setStartValue(rectAni);
-		ani->setEndValue(shown);
-		ani->setEasingCurve(QEasingCurve::InBack);
-		ani->start();
-
-		// Fade background in
-		fadeBack->setDuration(200);
-		fadeBack->setLoopCount(5);
-		fadeBackIN = true;
-		fadeBack->start();
-
-		// Make sure this widget is on top
-		this->raise();
-
-	// Close widget
-	} else if(ani->state() == QPropertyAnimation::Stopped && isShown) {
-
-		// Fade background out
-		fadeBack->setDuration(100);
-		fadeBack->setLoopCount(5);
-		fadeBackIN = false;
-		fadeBack->start();
-
-		// Widget is hidden again
-		isShown = false;
-
-		// Start animation out
-		ani->setDuration(300);
-		ani->setStartValue(shown);
-		ani->setEndValue(rectAni);
-		ani->setEasingCurve(QEasingCurve::OutBack);
-		ani->start();
-
-	}
-}
-
-// After animation finished
-void ShortcutChangeCommand::aniFinished() {
-
-	// We need to set rectHidden, otherwise the widget will be invisible (100% opacity), but still there possibly blocking the gui
-	if(!isShown)
-		this->setGeometry(rectHidden);
-
-}
-
-// Each step the fading timer calls this function
-void ShortcutChangeCommand::fadeStep() {
-
-	// Fade in
-	if(fadeBackIN) {
-		backAlphaCur += backAlphaShow/5;
-		if(backAlphaCur > backAlphaShow)
-			backAlphaCur = backAlphaShow;
-	// Fade out
-	} else {
-		backAlphaCur -= backAlphaShow/5;
-		if(backAlphaCur < 0)
-			backAlphaCur = 0;
-	}
-
-	// Update stylesheet
-	this->setStyleSheet(QString("background: rgba(0,0,0,%1);").arg(backAlphaCur));
+	setWidgetLayout(lay);
 
 }
 
@@ -181,7 +72,7 @@ void ShortcutChangeCommand::animateCmd(QString c, QString identify) {
 	cmd->setText(c);
 	id = identify;
 	cat = "extern";
-	this->animate();
+	makeShow();
 	cmd->setFocus();
 	cmd->selectAll();
 
@@ -192,7 +83,7 @@ void ShortcutChangeCommand::saveChanges() {
 
 	emit commandChanged(id,cmd->text());
 
-	this->animate();
+	makeHide();
 
 }
 
@@ -201,7 +92,7 @@ void ShortcutChangeCommand::abortChanges() {
 
 	emit commandCanceled(id);
 
-	this->animate();
+	makeHide();
 
 }
 
@@ -215,13 +106,6 @@ void ShortcutChangeCommand::selectCmd() {
 		command = newExe;
 	}
 
-}
-
-void ShortcutChangeCommand::paintEvent(QPaintEvent *) {
-	QStyleOption o;
-	o.initFrom(this);
-	QPainter p(this);
-	style()->drawPrimitive(QStyle::PE_Widget, &o, &p, this);
 }
 
 ShortcutChangeCommand::~ShortcutChangeCommand() { }

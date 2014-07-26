@@ -1,19 +1,13 @@
 #ifndef FILEHANDLING_H
 #define FILEHANDLING_H
 
-#include "../customelements/customscrollbar.h"
+#include "../widgets/mywidget.h"
 #include "../customelements/custompushbutton.h"
 
-#include <QWidget>
 #include <QLabel>
 #include <QLineEdit>
 #include <QPushButton>
-#include <QPropertyAnimation>
-#include <QStyleOption>
-#include <QPainter>
-#include <QVBoxLayout>
 #include <QFileInfo>
-#include <QTimeLine>
 #include <QDateTime>
 #include <QDir>
 #include <QUrl>
@@ -23,7 +17,7 @@
 
 #include <QApplication>
 
-class FileHandling : public QWidget {
+class FileHandling : public MyWidget {
 
 	Q_OBJECT
 
@@ -61,32 +55,7 @@ public:
 	CustomPushButton *copySave;
 	CustomPushButton *copyCancel;
 
-	void makeHide();
-	void makeShow();
-	bool isVisible() { return isShown; }
-	void setRect(QRect rect);
-
-
 private:
-
-
-	// The fade parameters for the background
-	int backAlphaShow;
-	int backAlphaCur;
-	QTimeLine *fadeBack;
-	bool fadeBackIN;
-
-	// The animation for the content widget
-	QPropertyAnimation *ani;
-
-	// Boolean about current geometry/position
-	bool isShown;
-
-	// The different QRects
-	QRect rectShown;
-	QRect rectHidden;
-	QRect rectAni;
-
 
 	/**********************************
 	/////////// RENAME ////////////////
@@ -141,12 +110,8 @@ private:
 
 
 public slots:
-	// The animation functions
-	void animate();
+	// The animation function
 	void aniFinished();
-
-	// Each fade step calls this function
-	void fadeStep();
 
 	/**********************************
 	/////////// RENAME ////////////////
@@ -176,17 +141,8 @@ signals:
 	// Stop the Thumbnail creation of current directory
 	void stopThbCreation();
 
-	// Block all function in mainwindow and activate system keys
-	void blockFunc(bool block);
-
 	// Reload the current dir after change has been done
 	void reloadDir(QString t);
-
-protected:
-	// Overriding the paint event to make widget styleable
-	void paintEvent(QPaintEvent *);
-
-	void mouseReleaseEvent(QMouseEvent *);
 
 };
 

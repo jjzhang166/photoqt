@@ -9,22 +9,18 @@
 #include "settingstabshortcuts.h"
 
 #include "../customelements/customtabwidget.h"
+#include "../widgets/mywidget.h"
 
-#include <QWidget>
-#include <QStyleOption>
-#include <QPainter>
-#include <QPropertyAnimation>
 #include <QtDebug>
-#include <QVBoxLayout>
 #include <QShortcut>
 #include <QApplication>
 
-class Settings : public QWidget {
+class Settings : public MyWidget {
 
 	Q_OBJECT
 
 public:
-	Settings(QWidget *parent = 0, QMap<QString,QVariant> globalSet = QMap<QString,QVariant>(), bool v = false);
+	Settings(QMap<QString,QVariant> globalSet = QMap<QString,QVariant>(), bool v = false, QWidget *parent = 0);
 	~Settings();
 
 	bool verbose;
@@ -51,10 +47,8 @@ public:
 	void nextTab();
 	void prevTab();
 
+	// We need to overwrite it for setting some additional stuff
 	void makeShow();
-	void makeHide();
-	bool isVisible() { return isShown; }
-	void setRect(QRect rect);
 
 private:
 	void setupTabs();
@@ -62,22 +56,7 @@ private:
 	// Confirm restoration of default settings
 	CustomConfirm *restoreDefaultConfirm;
 
-	// The geometries of the widget
-	QRect rectShown;
-	QRect rectHidden;
-	QRect aniStart;
-
-	// Two display booleans
-	bool isShown;
-
-	// The property animation
-	QPropertyAnimation *ani;
-
 private slots:
-	// Animation functions
-	void animate();
-	void aniFinished();
-
 	// Called when tab changed
 	void tabChanged();
 
@@ -91,23 +70,12 @@ public slots:
 	void restoreDefaultSettings();
 	void restoreDefaultShortcuts();
 
-protected:
-	void paintEvent(QPaintEvent *);
-
 signals:
-	// The widget is opened/closed
-	void blockFunc(bool);
-
 	// Update the settings
 	void updateSettings(QMap<QString,QVariant>);
 
 	// Ask mainwindow.cpp to restore default settings
 	void restoreDefault();
-
-	// Emitted when the window has closed
-	void settingsClosed();
-
-
 
 };
 

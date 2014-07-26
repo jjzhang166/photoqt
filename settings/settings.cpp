@@ -17,10 +17,13 @@
 #include "settings.h"
 #include <iostream>
 
-Settings::Settings(QWidget *parent, QMap<QString, QVariant> glob, bool v) : QWidget(parent) {
+Settings::Settings(QMap<QString, QVariant> glob, bool v, QWidget *parent) : MyWidget(0,parent) {
 
+	// This is a fullscreen widget
+	this->setFullscreen(true);
+
+	// Some variables
 	verbose = v;
-
 	tabsSetup = false;
 
 	// the settings and shortcuts
@@ -29,21 +32,14 @@ Settings::Settings(QWidget *parent, QMap<QString, QVariant> glob, bool v) : QWid
 	sh->verbose = verbose;
 	sh->loadSH();
 
-	// Setting the background
-	this->setObjectName("topsetting");
-	this->setStyleSheet("QWidget#topsetting { background:rgba(0,0,0,210); }");
-
-	// The animation, and a boolean
-	ani = new QPropertyAnimation(this,"geometry");
-	isShown = false;
-
 	// The tab widget
 	tabs = new TabWidget;
 	tabs->makeBold(true);
 
-	QVBoxLayout *layout = new QVBoxLayout;
-	this->setLayout(layout);
-	layout->addWidget(tabs);
+	// Main layout
+	QVBoxLayout *lay = new QVBoxLayout;
+	this->setWidgetLayout(lay);
+	lay->addWidget(tabs);
 
 	// Some general buttons
 	CustomPushButton *setDefault = new CustomPushButton(tr("Restore Default Settings"));
@@ -55,12 +51,12 @@ Settings::Settings(QWidget *parent, QMap<QString, QVariant> glob, bool v) : QWid
 	butLay->addWidget(saveExit);
 	butLay->addWidget(cancel);
 	butLay->addSpacing(30);
-	layout->addLayout(butLay);
+	lay->addLayout(butLay);
 
 	// Ask for confirmation of restoring default settings
-	restoreDefaultConfirm = new CustomConfirm(tr("Restore Default Settings?"),tr("Do you really want to get rid of your custom settings and set the default ones? This only resets all settings. A default set of shortcuts can be set in the shortcuts tab.") + "<br><br>" + tr("This step cannot be reversed!"),tr("Yep, I want new stuff"),tr("Um, no, not really"),QSize(400,200),this);
-	restoreDefaultConfirm->showBorder("white",2);
+	restoreDefaultConfirm = new CustomConfirm(tr("Restore Default Settings?"),tr("Do you really want to get rid of your custom settings and set the default ones? This only resets all settings. A default set of shortcuts can be set in the shortcuts tab.") + "<br><br>" + tr("This step cannot be reversed!"),tr("Yep, I want new stuff"),tr("Um, no, not really"),QSize(500,250),"default",this);
 
+	// Some signals/slots
 	connect(saveExit, SIGNAL(clicked()), this, SLOT(animate()));
 	connect(saveExit, SIGNAL(clicked()), this, SLOT(saveSettings()));
 	connect(cancel, SIGNAL(clicked()), this, SLOT(loadSettings()));
@@ -68,8 +64,6 @@ Settings::Settings(QWidget *parent, QMap<QString, QVariant> glob, bool v) : QWid
 
 	connect(setDefault, SIGNAL(clicked()), restoreDefaultConfirm, SLOT(animate()));
 	connect(restoreDefaultConfirm, SIGNAL(confirmed()), this, SLOT(restoreDefaultSettings()));
-
-	connect(ani, SIGNAL(finished()), this, SLOT(aniFinished()));
 
 }
 
@@ -100,6 +94,7 @@ void Settings::setupTabs() {
 		tabs->addTab(tabShortcuts, QIcon(), tr("Shortcuts"));
 		connect(tabs, SIGNAL(currentChanged(int)), this, SLOT(tabChanged()));
 
+		// Pass on settings
 		tabLookFeel->globSet = globSet;
 		tabThumb->globSet = globSet;
 		tabExif->globSet = globSet;
@@ -108,31 +103,16 @@ void Settings::setupTabs() {
 		connect(tabShortcuts, SIGNAL(setDefaultShortcuts()), this, SLOT(restoreDefaultShortcuts()));
 
 
-		restoreDefaultConfirm->rectShown = rectShown;
-		restoreDefaultConfirm->rectHidden = rectHidden;
-		restoreDefaultConfirm->rectAni = aniStart;
-
-		tabShortcuts->detect->rectShown = rectShown;
-		tabShortcuts->detect->rectHidden = rectHidden;
-		tabShortcuts->detect->rectAni = aniStart;
-
-		tabShortcuts->setDefaultConfirm->rectShown = rectShown;
-		tabShortcuts->setDefaultConfirm->rectHidden = rectHidden;
-		tabShortcuts->setDefaultConfirm->rectAni = aniStart;
-
-		tabShortcuts->changeCommand->rectShown = rectShown;
-		tabShortcuts->changeCommand->rectHidden = rectHidden;
-		tabShortcuts->changeCommand->rectAni = aniStart;
-
-		tabThumb->confirmClean->rectShown = rectShown;
-		tabThumb->confirmClean->rectHidden = rectHidden;
-		tabThumb->confirmClean->rectAni = aniStart;
-
-		tabThumb->confirmErase->rectShown = rectShown;
-		tabThumb->confirmErase->rectHidden = rectHidden;
-		tabThumb->confirmErase->rectAni = aniStart;
+		// Set all the QRects
+		restoreDefaultConfirm->setRects(getRectShown(), getRectHidden(), getRectAni());
+		tabShortcuts->detect->setRects(getRectShown(), getRectHidden(), getRectAni());
+		tabShortcuts->setDefaultConfirm->setRects(getRectShown(), getRectHidden(), getRectAni());
+		tabShortcuts->changeCommand->setRects(getRectShown(), getRectHidden(), getRectAni());
+		tabThumb->confirmClean->setRects(getRectShown(), getRectHidden(), getRectAni());
+		tabThumb->confirmErase->setRects(getRectShown(), getRectHidden(), getRectAni());
 
 
+		// And load settings
 		loadSettings();
 
 		qApp->restoreOverrideCursor();
@@ -142,18 +122,14 @@ void Settings::setupTabs() {
 
 }
 
-void Settings::makeHide() {
-
-	if(isShown) animate();
-
-}
-
+// We overwrite the makeShow function, since we need to set some more stuff
 void Settings::makeShow() {
 
-	if(!isShown) {
+	if(!isVisible()) {
+
 		if(!tabsSetup) setupTabs();
 
-		animate();
+		MyWidget::makeShow();
 
 		tabs->setCurrentIndex(0);
 
@@ -162,89 +138,6 @@ void Settings::makeShow() {
 		tabThumb->scrollbarLook->setScrollbarShown();
 		tabThumb->scrollbarTune->setScrollbarShown();
 		tabShortcuts->scrollbar->setScrollbarShown();
-	}
-
-}
-
-void Settings::setRect(QRect rect) {
-
-	QRect hidden(0,-10,10,10);
-	QRect anim(rect.width()/2.0,rect.height()/2.0,1,1);
-
-	rectShown = rect;
-	rectHidden = hidden;
-	aniStart = anim;
-
-
-	if(tabsSetup) {
-
-		restoreDefaultConfirm->rectShown = rect;
-		restoreDefaultConfirm->rectHidden = hidden;
-		restoreDefaultConfirm->rectAni = anim;
-
-		tabShortcuts->detect->rectShown = rect;
-		tabShortcuts->detect->rectHidden = hidden;
-		tabShortcuts->detect->rectAni = anim;
-
-		tabShortcuts->setDefaultConfirm->rectShown = rect;
-		tabShortcuts->setDefaultConfirm->rectHidden = hidden;
-		tabShortcuts->setDefaultConfirm->rectAni = anim;
-
-		tabShortcuts->changeCommand->rectShown = rect;
-		tabShortcuts->changeCommand->rectHidden = hidden;
-		tabShortcuts->changeCommand->rectAni = anim;
-
-		tabThumb->confirmClean->rectShown = rect;
-		tabThumb->confirmClean->rectHidden = hidden;
-		tabThumb->confirmClean->rectAni = anim;
-
-		tabThumb->confirmErase->rectShown = rect;
-		tabThumb->confirmErase->rectHidden = hidden;
-		tabThumb->confirmErase->rectAni = anim;
-
-	}
-
-	if(isShown) this->setGeometry(rectShown);
-	else this->setGeometry(rectHidden);
-
-}
-
-// the animation function
-void Settings::animate() {
-
-	// Open widget
-	if(!isShown) {
-
-		if(ani->state() != QPropertyAnimation::Stopped)
-			ani->targetObject()->setProperty(ani->propertyName(),ani->endValue());
-
-		ani->setDuration(600);
-		isShown = true;
-
-		ani->setStartValue(aniStart);
-		ani->setEndValue(rectShown);
-		ani->setEasingCurve(QEasingCurve::InBack);
-		ani->start();
-
-		emit blockFunc(true);
-
-		this->raise();
-
-	// Close widget
-	} else if(isShown) {
-
-		if(ani->state() != QPropertyAnimation::Stopped)
-			ani->targetObject()->setProperty(ani->propertyName(),ani->endValue());
-
-		ani->setDuration(300);
-		isShown = false;
-
-		ani->setStartValue(rectShown);
-		ani->setEndValue(aniStart);
-		ani->setEasingCurve(QEasingCurve::OutBack);
-		ani->start();
-
-		emit blockFunc(false);
 
 	}
 
@@ -296,16 +189,6 @@ void Settings::saveSettings() {
 	}
 
 	emit updateSettings(updatedSet);
-
-}
-
-// When the animation has finished
-void Settings::aniFinished() {
-
-	if(!isShown) {
-		this->setGeometry(rectHidden);
-		emit settingsClosed();
-	}
 
 }
 
@@ -375,13 +258,6 @@ void Settings::prevTab() {
 	--current;
 	tabs->setCurrentIndex(current);
 
-}
-
-void Settings::paintEvent(QPaintEvent *) {
-	QStyleOption o;
-	o.initFrom(this);
-	QPainter p(this);
-	style()->drawPrimitive(QStyle::PE_Widget, &o, &p, this);
 }
 
 Settings::~Settings() { }

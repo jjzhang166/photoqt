@@ -1,22 +1,18 @@
 #ifndef SETTINGSTABSHORTCUTSKEYDETECT_H
 #define SETTINGSTABSHORTCUTSKEYDETECT_H
 
+#include "../widgets/mywidget.h"
+
 #include "../customelements/custompushbutton.h"
 #include "../customelements/customradiobutton.h"
 #include "../customelements/customcombobox.h"
+#include "../customelements/customlabel.h"
 
-#include <QWidget>
-#include <QStyleOption>
-#include <QPainter>
-#include <QPropertyAnimation>
-#include <QTimeLine>
-#include <QLabel>
-#include <QVBoxLayout>
 #include <QKeyEvent>
 #include <QComboBox>
 
 // A widget for detecting a new key shortcut/mouse action
-class ShortcutKeyDetect : public QWidget {
+class ShortcutKeyDetect : public MyWidget {
 
 	Q_OBJECT
 
@@ -24,20 +20,8 @@ public:
 	ShortcutKeyDetect(QWidget *parent = 0);
 	~ShortcutKeyDetect();
 
-	// These are the dimensions
-	QRect rectShown;
-	QRect rectHidden;
-	QRect rectAni;
-
-	// The animation instance
-	QPropertyAnimation *ani;
-	bool isShown;
-
-	// The central widget containing all the content
-	QWidget *center;
-
 	// The function for which the shortcut is for
-	QLabel *function;
+	CustomLabel *function;
 
 	// The category and the id of associated tile
 	QString cat;
@@ -45,12 +29,6 @@ public:
 
 	// All the shortcuts already in use
 	QStringList alreadySetKeys;
-
-	// The fade parameters for the background
-	int backAlphaShow;
-	int backAlphaCur;
-	QTimeLine *fadeBack;
-	bool fadeBackIN;
 
 	// The radio buttons to choose between key shortcut and mouse action
 	CustomRadioButton *keyShortcut;
@@ -72,11 +50,6 @@ public:
 	void analyseKeyEvent(QKeyEvent *event);
 
 public slots:
-	// The animation/fading functions
-	void animate();
-	void fadeStep();
-	void aniFinished();
-
 	// Set the current function name
 	void setFunctionname(QString name);
 
@@ -85,9 +58,6 @@ public slots:
 
 	// Enable/Disable the other type of shortcut
 	void setRightTypeDisEnabled();
-
-protected:
-	void paintEvent(QPaintEvent *);
 
 signals:
 	// Got a new key combo

@@ -1,27 +1,21 @@
 #ifndef WALLPAPER_H
 #define WALLPAPER_H
 
-#include <QWidget>
-#include <QPropertyAnimation>
-#include <QTimeLine>
-#include <QMouseEvent>
-#include <QStyleOption>
-#include <QPainter>
-#include <QVBoxLayout>
-#include <QScrollArea>
-#include <QLabel>
+#include "../widgets/mywidget.h"
+#include "../customelements/customline.h"
+
 #include <QFileInfo>
 #include <QProcess>
 #include <QButtonGroup>
 #include <QDesktopWidget>
+#include <QLabel>
 
 #include "../customelements/custompushbutton.h"
-#include "../customelements/customscrollbar.h"
 #include "../customelements/customcombobox.h"
 #include "../customelements/customradiobutton.h"
 #include "../customelements/customcheckbox.h"
 
-class Wallpaper : public QWidget {
+class Wallpaper : public MyWidget {
 
 	Q_OBJECT
 
@@ -36,36 +30,10 @@ public:
 	void setWallpaper(QString file);
 	void dontSetWallpaper();
 
-	void makeShow();
-	void makeHide();
-	bool isVisible() { return isShown; }
-	void setRect(QRect rect);
-
 	void accept();
 
 
 private:
-
-	// Boolean about current geometry/position
-	bool isShown;
-
-	// The different QRects
-	QRect rectShown;
-	QRect rectHidden;
-	QRect rectAni;
-
-	// The central widget
-	QWidget *center;
-
-	// The animation for the content widget
-	QPropertyAnimation *ani;
-
-	// The fade parameters for the background
-	int backAlphaShow;
-	int backAlphaCur;
-	QTimeLine *fadeBack;
-	bool fadeBackIN;
-
 	CustomPushButton *ok;
 	CustomPushButton *cancel;
 
@@ -104,29 +72,11 @@ private:
 	void setOTHER();
 
 private slots:
-	// The animation functions
-	void animate();
-
-	void aniFinished();
-
-	// Each fade step calls this function
-	void fadeStep();
-
 	void wmSelected();
 
 	void goAheadAndSetWallpaper();
 
 	void swapFehNitrogen();
-
-signals:
-	// Block all function in mainwindow and activate system keys
-	void blockFunc(bool block);
-
-protected:
-	// Overriding the paint event to make widget styleable
-	void paintEvent(QPaintEvent *);
-
-	void mouseReleaseEvent(QMouseEvent *);
 
 };
 

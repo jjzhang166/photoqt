@@ -94,14 +94,14 @@ MainWindow::MainWindow(QWidget *parent, bool verbose) : QMainWindow(parent) {
 
 
 	// The settings widget
-	set = new Settings(viewBig,globSet->toSignalOut());
+	set = new Settings(globSet->toSignalOut(),verbose,viewBig);
 	// Set the shortcut version (needed for saving shortcuts
 	connect(set, SIGNAL(blockFunc(bool)), this, SLOT(blockFunc(bool)));
 	connect(set, SIGNAL(updateSettings(QMap<QString,QVariant>)), globSet, SLOT(settingsUpdated(QMap<QString,QVariant>)));
 	connect(set, SIGNAL(restoreDefault()), this, SLOT(restoreDefaultSettings()));
 	set->sh->version = globSet->version;
 	connect(set->sh, SIGNAL(updatedShortcuts()), this, SLOT(setupShortcuts()));
-	connect(set, SIGNAL(settingsClosed()), this, SLOT(settingsClosed()));
+	connect(set, SIGNAL(widgetClosed()), this, SLOT(settingsClosed()));
 
 
 	// The exif widget
@@ -745,7 +745,7 @@ void MainWindow::keyReleaseEvent(QKeyEvent *e) {
 
 	if(globVar->verbose) std::clog << "Got Key Event:" << e->key() << std::endl;
 
-	if(set->tabsSetup && set->tabShortcuts->detect->isShown && set->tabShortcuts->detect->keyShortcut->isChecked())
+	if(set->tabsSetup && set->tabShortcuts->detect->isVisible() && set->tabShortcuts->detect->keyShortcut->isChecked())
 		set->tabShortcuts->detect->analyseKeyEvent(e);
 
 	QMainWindow::keyPressEvent(e);
@@ -1641,7 +1641,7 @@ void MainWindow::setupWidget(QString what) {
 
 		setupWidgets->slideshow = true;
 
-		slideshow = new SlideShow(globSet->toSignalOut(),viewBig, globVar->verbose);
+		slideshow = new SlideShow(globSet->toSignalOut(), globVar->verbose, viewBig);
 		slideshow->setRect(QRect(0,0,viewBig->width(),viewBig->height()));
 		slideshow->show();
 		slideshow->globSet = globSet->toSignalOut();
@@ -1864,7 +1864,7 @@ void MainWindow::showStartupUpdateInstallMsg() {
 
 		startup->setUpdateMsg();
 
-		connect(startup, SIGNAL(finished()), this, SLOT(startupInstallUpdateMsgClosed()));
+		connect(startup, SIGNAL(widgetClosed()), this, SLOT(startupInstallUpdateMsgClosed()));
 
 		startup->show();
 		startup->makeShow();
@@ -1882,7 +1882,7 @@ void MainWindow::showStartupUpdateInstallMsg() {
 
 		startup->setInstallMsg();
 
-		connect(startup, SIGNAL(finished()), this, SLOT(startupInstallUpdateMsgClosed()));
+		connect(startup, SIGNAL(widgetClosed()), this, SLOT(startupInstallUpdateMsgClosed()));
 
 		startup->show();
 		startup->makeShow();
@@ -2032,23 +2032,23 @@ void MainWindow::systemShortcutDO(QString todo) {
 
 		if(globVar->verbose) std::clog << "Shortcut received (blockd):" << todo.toStdString() << std::endl;
 
-		if(set->isVisible() && !set->tabShortcuts->detect->isShown) {
+		if(set->isVisible() && !set->tabShortcuts->detect->isVisible()) {
 
 			if(todo == "Escape") {
-				if(set->tabShortcuts->changeCommand->isShown)
-					set->tabShortcuts->changeCommand->animate();
-				else if(set->tabShortcuts->setDefaultConfirm->isShown)
-					set->tabShortcuts->setDefaultConfirm->animate();
-				else if(set->tabThumb->confirmClean->isShown)
+				if(set->tabShortcuts->changeCommand->isVisible())
+					set->tabShortcuts->changeCommand->makeHide();
+				else if(set->tabShortcuts->setDefaultConfirm->isVisible())
+					set->tabShortcuts->setDefaultConfirm->makeHide();
+				else if(set->tabThumb->confirmClean->isVisible())
 					set->tabThumb->confirmClean->no->animateClick();
-				else if(set->tabThumb->confirmErase->isShown)
+				else if(set->tabThumb->confirmErase->isVisible())
 					set->tabThumb->confirmErase->no->animateClick();
 				else {
 					set->loadSettings();
 					set->makeHide();
 				}
 			}
-			if(todo == "Ctrl+s" && !set->tabShortcuts->changeCommand->isShown) {
+			if(todo == "Ctrl+s" && !set->tabShortcuts->changeCommand->isVisible()) {
 				set->makeHide();
 				set->saveSettings();
 			}
@@ -2109,7 +2109,7 @@ void MainWindow::systemShortcutDO(QString todo) {
 		}
 
 #ifdef EXIV2
-		if(details->rotConf->isShown) {
+		if(details->rotConf->isVisible()) {
 
 			if(todo == "Enter" || todo == "Return")
 				details->rotConf->yes->animateClick();

@@ -17,71 +17,29 @@
 #include "slideshowsettings.h"
 #include <iostream>
 
-SlideShow::SlideShow(QMap<QString, QVariant> set, QWidget *parent, bool v) : QWidget(parent) {
+SlideShow::SlideShow(QMap<QString, QVariant> set, bool v, QWidget *parent) : MyWidget(parent) {
 
+	this->setBorderArea(150,100);
+
+	// Setting some variables
+	globSet = set;
 	verbose = v;
 
-	// The global settings
-	globSet = set;
-
-	// The different QRects
-	rectShown = QRect();
-	rectHidden = QRect(0,-10,10,10);
-	rectAni = QRect();
-
-	// The current geometry and position
-	isShown = false;
-	this->setGeometry(rectHidden);
-
-	// Some variables
-	fadeBack = new QTimeLine;
-	fadeBack->setLoopCount(5);
-	backAlphaShow = 130;
-	backAlphaCur = 0;
-	fadeBackIN = true;
-	connect(fadeBack, SIGNAL(valueChanged(qreal)), this, SLOT(fadeStep()));
-
-	// The current widget look
-	this->setStyleSheet(QString("background: rgba(0,0,0,%1);").arg(backAlphaShow));
-
-	center = new QWidget(this);
-	center->setStyleSheet("background: rgba(0,0,0,200); border-radius: 10px;");
-
-	// The current animation framework
-	ani = new QPropertyAnimation(center,"geometry");
-	connect(ani, SIGNAL(finished()), this, SLOT(aniFinished()));
-
-	// Create and set the scrollarea with main layout
-	QVBoxLayout *central = new QVBoxLayout;
-	central->setMargin(10);
-	QScrollArea *scroll = new QScrollArea(this);
-	scroll->setObjectName("scrollWidget");
-	scroll->setStyleSheet("QWidget#scrollWidget { background: transparent;border-bottom: 3px solid black; padding-bottom: 3px; border-radius: 0px; } QLabel { background: transparent; color: white; } QToolTip { color: white; }");
-	QWidget *scrollWidget = new QWidget(scroll->widget());
-	scrollWidget->setStyleSheet("background: transparent;");
-	scroll->setWidgetResizable(true);
-	scroll->setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Expanding);
-	scrollWidget->setLayout(central);
-	scroll->setWidget(scrollWidget);
-	QVBoxLayout *scCentral = new QVBoxLayout;
-	center->setLayout(scCentral);
-	scCentral->addWidget(scroll);
-
-	CustomScrollbar *scrollbar = new CustomScrollbar;
-	scroll->setVerticalScrollBar(scrollbar);
+	// The main layout
+	QVBoxLayout *lay = new QVBoxLayout;
 
 	// The title of the widget
-	QLabel *title = new QLabel("<center><h1>" + tr("Start a Slideshow") + "</h1></center>");
+	CustomLabel *title = new CustomLabel("<center><h1>" + tr("Start a Slideshow") + "</h1></center>");
 	title->setStyleSheet("color: white; background: none");
 	title->setWordWrap(true);
-	central->addWidget(title);
-	central->addSpacing(20);
+	lay->addWidget(title);
+	lay->addSpacing(20);
 
 	// A short description
-	QLabel *desc = new QLabel(tr("There are several settings that can be adjusted for a slideshow, like the time between the image, if and how long the transition between the images should be, and also a music file can be specified that is played in the background.") + "<br><br>" + tr("Once you have set the desired options, you can also start a slideshow the next time via 'Quickstart', i.e. skipping this settings window."));
+	CustomLabel *desc = new CustomLabel(tr("There are several settings that can be adjusted for a slideshow, like the time between the image, if and how long the transition between the images should be, and also a music file can be specified that is played in the background.") + "<br><br>" + tr("Once you have set the desired options, you can also start a slideshow the next time via 'Quickstart', i.e. skipping this settings window."));
 	desc->setWordWrap(true);
-	central->addWidget(desc);
-	central->addSpacing(10);
+	lay->addWidget(desc);
+	lay->addSpacing(10);
 
 	// Adjust time
 	timeSlider = new CustomSlider;
@@ -103,12 +61,12 @@ SlideShow::SlideShow(QMap<QString, QVariant> set, QWidget *parent, bool v) : QWi
 	timeLay->addWidget(timeSlider);
 	timeLay->addWidget(timeSpin);
 	timeLay->addStretch();
-	QLabel *timeLabel = new QLabel("<b><span style=\"font-size:12pt\">" + tr("Time in between") + "</b></span><br><br>" + tr("Adjust the time between the images. The time specified here is the amount of time the image will be completely visible, i.e. the transitioning (if set) is not part of this time."));
+	CustomLabel *timeLabel = new CustomLabel("<b><span style=\"font-size:12pt\">" + tr("Time in between") + "</b></span><br><br>" + tr("Adjust the time between the images. The time specified here is the amount of time the image will be completely visible, i.e. the transitioning (if set) is not part of this time."));
 	timeLabel->setWordWrap(true);
-	central->addWidget(timeLabel);
-	central->addSpacing(5);
-	central->addLayout(timeLay);
-	central->addSpacing(10);
+	lay->addWidget(timeLabel);
+	lay->addSpacing(5);
+	lay->addLayout(timeLay);
+	lay->addSpacing(10);
 
 	// Adjust transition
 	trans = new CustomSlider(Qt::Horizontal);
@@ -119,34 +77,34 @@ SlideShow::SlideShow(QMap<QString, QVariant> set, QWidget *parent, bool v) : QWi
 	trans->setPageStep(1);
 	trans->setSingleStep(1);
 	trans->setValue(globSet.value("SlideShowTransition").toInt());
-	QLabel *transLabel = new QLabel("<b><span style=\"font-size:12pt\">" + tr("Smooth Transition") + "</span></b> " + "<br><br>" + tr("Here you can set, if you want the images to fade into each other, and how fast they shall do that."));
+	CustomLabel *transLabel = new CustomLabel("<b><span style=\"font-size:12pt\">" + tr("Smooth Transition") + "</span></b> " + "<br><br>" + tr("Here you can set, if you want the images to fade into each other, and how fast they shall do that."));
 	transLabel->setWordWrap(true);
-	QLabel *noTrans = new QLabel(tr("No Transition"));
-	QLabel *longTrans = new QLabel(tr("Long Transition"));
+	CustomLabel *noTrans = new CustomLabel(tr("No Transition"));
+	CustomLabel *longTrans = new CustomLabel(tr("Long Transition"));
 	QHBoxLayout *transLay = new QHBoxLayout;
 	transLay->addStretch();
 	transLay->addWidget(noTrans);
 	transLay->addWidget(trans);
 	transLay->addWidget(longTrans);
 	transLay->addStretch();
-	central->addWidget(transLabel);
-	central->addSpacing(5);
-	central->addLayout(transLay);
-	central->addSpacing(10);
+	lay->addWidget(transLabel);
+	lay->addSpacing(5);
+	lay->addLayout(transLay);
+	lay->addSpacing(10);
 
 	// Adjust quickinfo labels
 	hideQuickInfo = new CustomCheckBox(tr("Hide Quickinfos"));
 	hideQuickInfo->setChecked(globSet.value("SlideShowHideQuickinfo").toBool());
-	QLabel *hideQuickLabel = new QLabel("<b><span style=\"font-size:12pt\">" + tr("Hide Quickinfo") + "</span></b> " + "<br><br>" + tr("Depending on your setup, PhotoQt displays some information at the top edge, like position in current directory or file path/name. Here you can disable them temporarily for the slideshow."));
+	CustomLabel *hideQuickLabel = new CustomLabel("<b><span style=\"font-size:12pt\">" + tr("Hide Quickinfo") + "</span></b> " + "<br><br>" + tr("Depending on your setup, PhotoQt displays some information at the top edge, like position in current directory or file path/name. Here you can disable them temporarily for the slideshow."));
 	hideQuickLabel->setWordWrap(true);
 	QHBoxLayout *hideQuickLay = new QHBoxLayout;
 	hideQuickLay->addStretch();
 	hideQuickLay->addWidget(hideQuickInfo);
 	hideQuickLay->addStretch();
-	central->addWidget(hideQuickLabel);
-	central->addSpacing(5);
-	central->addLayout(hideQuickLay);
-	central->addSpacing(10);
+	lay->addWidget(hideQuickLabel);
+	lay->addSpacing(5);
+	lay->addLayout(hideQuickLay);
+	lay->addSpacing(10);
 
 	// Adjust music
 	musicEnable = new CustomCheckBox(tr("Enable Music"));
@@ -165,17 +123,20 @@ SlideShow::SlideShow(QMap<QString, QVariant> set, QWidget *parent, bool v) : QWi
 	musicPathLay->addStretch();
 	musicPathLay->addWidget(musicPath);
 	musicPathLay->addStretch();
-	QLabel *musicLabel = new QLabel("<b><span style=\"font-size:12pt\">" + tr("Background Music") + "</span></b> " + "<br><br>" + tr("Some might like to listen to some music while the slideshow is running. Here you can select a music file you want to be played in the background."));
+	CustomLabel *musicLabel = new CustomLabel("<b><span style=\"font-size:12pt\">" + tr("Background Music") + "</span></b> " + "<br><br>" + tr("Some might like to listen to some music while the slideshow is running. Here you can select a music file you want to be played in the background."));
 	musicLabel->setWordWrap(true);
-	central->addWidget(musicLabel);
-	central->addSpacing(5);
-	central->addLayout(musicEnableLay);
-	central->addLayout(musicPathLay);
+	lay->addWidget(musicLabel);
+	lay->addSpacing(5);
+	lay->addLayout(musicEnableLay);
+	lay->addLayout(musicPathLay);
 	connect(musicEnable, SIGNAL(toggled(bool)), musicPath, SLOT(setEnabled(bool)));
 	connect(musicPath, SIGNAL(clicked()), this, SLOT(browseForMusic()));
 
-	central->addStretch();
+	lay->addStretch();
+	this->setWidgetLayout(lay);
 
+	CustomLine *line = new CustomLine;
+	this->addWidgetAtBottom(line);
 
 	// Start or don't start slideshow
 	CustomPushButton *ok = new CustomPushButton(tr("Okay, lets start"));
@@ -185,169 +146,13 @@ SlideShow::SlideShow(QMap<QString, QVariant> set, QWidget *parent, bool v) : QWi
 	butLay->addWidget(ok);
 	butLay->addWidget(cancel);
 	butLay->addStretch();
-	scCentral->addLayout(butLay);
+	this->addButtonLayout(butLay);
 
 	connect(ok, SIGNAL(clicked()), this, SLOT(andStart()));
 	connect(cancel, SIGNAL(clicked()), this, SLOT(animate()));
 
 
 }
-
-// Adjust the geometries of the widgets
-void SlideShow::adjustGeometries() {
-
-	if(verbose) std::clog << "slb: adjust geometries" << std::endl;
-
-	if(this->isShown) {
-		this->setGeometry(rectShown);
-		QRect shown = QRect(200,200,rectShown.width()-400,rectShown.height()-400);
-		center->setGeometry(shown);
-	} else
-		this->setGeometry(rectHidden);
-
-}
-
-void SlideShow::makeHide() {
-
-	if(isShown) animate();
-
-}
-
-void SlideShow::makeShow() {
-
-	if(!isShown) animate();
-
-}
-
-void SlideShow::setRect(QRect rect) {
-
-	rectShown = rect;
-	rectHidden = QRect(0,-10,10,10);
-	rectAni = QRect(rect.width()/2.0,rect.height()/2.0,1,1);
-
-	if(isShown) this->setGeometry(rectShown);
-	else this->setGeometry(rectHidden);
-
-	// Adjust the slideshow geometry
-	adjustGeometries();
-
-}
-
-// The animation function
-void SlideShow::animate() {
-
-	int shownWidth = rectShown.width()-400;
-	int shownHeight = rectShown.height()-400;
-	int shownX = 200;
-	int shownY = 200;
-
-	if(shownWidth - shownHeight > 500) {
-		shownHeight += 300;
-		shownY -= 150;
-	}
-
-	QRect shown = QRect(shownX,shownY,shownWidth, shownHeight);
-
-	// Open widget
-	if(!isShown) {
-
-		if(ani->state() != QPropertyAnimation::Stopped)
-			ani->targetObject()->setProperty(ani->propertyName(),ani->endValue());
-
-		// The background is initially transparent but the geometry is full
-		this->setStyleSheet(QString("background: rgba(0,0,0,0);"));
-		this->setGeometry(rectShown);
-
-		// Widget is shown
-		isShown = true;
-
-		// Animate widget
-		ani->setDuration(400);
-		ani->setStartValue(rectAni);
-		ani->setEndValue(shown);
-		ani->setEasingCurve(QEasingCurve::InBack);
-		ani->start();
-
-		// Fade background in
-		fadeBack->setDuration(200);
-		fadeBack->setLoopCount(5);
-		fadeBackIN = true;
-		fadeBack->start();
-
-		// Block all base functions
-		emit blockFunc(true);
-
-		// Make sure this widget is on top
-		this->raise();
-
-	// Close widget
-	} else if(isShown) {
-
-		if(ani->state() != QPropertyAnimation::Stopped)
-			ani->targetObject()->setProperty(ani->propertyName(),ani->endValue());
-
-		// Fade background out
-		fadeBack->setDuration(100);
-		fadeBack->setLoopCount(5);
-		fadeBackIN = false;
-		fadeBack->start();
-
-		// Widget is hidden again
-		isShown = false;
-
-		// Start animation out
-		ani->setDuration(300);
-		ani->setStartValue(shown);
-		ani->setEndValue(rectAni);
-		ani->setEasingCurve(QEasingCurve::OutBack);
-		ani->start();
-
-		// Unblock all base functions
-		emit blockFunc(false);
-
-	}
-
-}
-
-
-// Every fade step for the background
-void SlideShow::fadeStep() {
-
-	// Fade in
-	if(fadeBackIN) {
-		backAlphaCur += backAlphaShow/5;
-		if(backAlphaCur > backAlphaShow)
-			backAlphaCur = backAlphaShow;
-	// Fade out
-	} else {
-		backAlphaCur -= backAlphaShow/5;
-		if(backAlphaCur < 0)
-			backAlphaCur = 0;
-	}
-
-	// Update stylesheet
-	this->setStyleSheet(QString("background: rgba(0,0,0,%1);").arg(backAlphaCur));
-
-}
-
-// Handle widget when animation is finished
-void SlideShow::aniFinished() {
-
-	// Move widget out of screen
-	if(!isShown)
-		this->setGeometry(rectHidden);
-
-
-}
-
-// Click on background closes dialog
-void SlideShow::mouseReleaseEvent(QMouseEvent *e) {
-
-	if(!center->geometry().contains(e->pos()))
-		animate();
-
-}
-
 
 // browse for a music file
 void SlideShow::browseForMusic() {
@@ -369,18 +174,9 @@ void SlideShow::browseForMusic() {
 // Start slideshow
 void SlideShow::andStart() {
 
-	this->animate();
+	makeHide();
 	emit startSlideShow();
 
 }
-
-
-void SlideShow::paintEvent(QPaintEvent *) {
-	QStyleOption o;
-	o.initFrom(this);
-	QPainter p(this);
-	style()->drawPrimitive(QStyle::PE_Widget, &o, &p, this);
-}
-
 
 SlideShow::~SlideShow() { }
