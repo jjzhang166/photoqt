@@ -13,6 +13,7 @@ public:
 
 	void setBold(bool b) { bold = b; setCSS(); }
 	void setItalic(bool i) { italic = i; setCSS(); }
+	void setPadding(int p) { padding = p; setCSS(); }
 	void setFontSize(QString fs) { fontsize = fs; setCSS(); }
 	void setFontColor(QString col) { fontcolor = col; setCSS(); }
 	void setBackgroundColor(QString col) { backgroundcolor = col; setCSS(); }
@@ -34,6 +35,7 @@ private:
 	QString bordercolor;
 	bool bold;
 	bool italic;
+	int padding;
 	bool tooltipNoWrap;
 	QString lineheight;
 
