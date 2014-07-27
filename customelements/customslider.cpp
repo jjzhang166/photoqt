@@ -36,6 +36,14 @@ void CustomSlider::setCSS() {
 		css += "margin: 2px 0;";
 	css += "}";
 
+	css += "QSlider {";
+		css += "background: transparent;";
+	css += "}";
+
+	css += "QSlider::groove:disabled {";
+		css += "background: grey;";
+	css += "}";
+
 	css += "QSlider::handle:horizontal {";
 		css += "background: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #000000, stop:1 #282828);";
 		css += "border: 1px solid grey;";
