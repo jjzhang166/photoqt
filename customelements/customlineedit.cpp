@@ -20,6 +20,7 @@ CustomLineEdit::CustomLineEdit(QString txt, QWidget *parent) : QLineEdit(txt, pa
 
 	// A value of 0 leaves the default
 	width = 0;
+	fontsize = 0;
 
 	borderColor = "rgba(100,100,100,100)";
 	borderWidth = 1;
@@ -51,6 +52,7 @@ void CustomLineEdit::setCSS() {
 		css += "padding: 4px 8px;";
 		css += "color: " + QString(this->isEnabled() ? "white" : "grey") + ";";
 		if(width != 0) css += QString("min-width: %1px;").arg(width);
+		if(fontsize != 0) css += QString("font-size: %1pt;").arg(fontsize);
 		css += "background: " + QString(this->isEnabled() ? "rgba(0,0,0,100)" : "rgba(25,25,25,100)") + ";";
 		css += "selection-background-color: white;";
 		css += "selection-color: black;";

@@ -14,6 +14,7 @@ public:
 	// Minimum width
 	void setMinWidth(int w);
 	void setBorder(QString col, int w);
+	void setFontSize(int fs) { fontsize = fs; setCSS(); }
 
 public slots:
 	void setEnabled(bool);
@@ -22,6 +23,7 @@ private:
 	int width;
 	QString borderColor;
 	int borderWidth;
+	int fontsize;
 	void setCSS();
 
 protected:
