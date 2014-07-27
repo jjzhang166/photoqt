@@ -24,6 +24,7 @@ CustomLabel::CustomLabel(const QString &text, QWidget *parent) : QLabel(text, pa
 
 	fontsize = 9;
 	fontcolor = "white";
+	padding = 0;
 	backgroundcolor = "transparent";
 	bold = false;
 	italic = false;
@@ -60,7 +61,7 @@ void CustomLabel::setCSS() {
 	css += QString("font-size: %1pt;").arg(fontsize);
 	if(bold) css += "font-weight: bold;";
 	if(italic) css += "font-style: italic;";
-	if(padding) css += QString("padding: %1px;").arg(padding);
+	if(padding != 0) css += QString("padding: %1px;").arg(padding);
 	if(lineheight != "") css += QString("line-height: %1;").arg(lineheight);
 	css += "}";
 	css += "QToolTip { font-weight: bold; color: black; border-radius: 5px; padding: 1px; font-size: 8pt; background: rgba(255,255,255,200); }";
