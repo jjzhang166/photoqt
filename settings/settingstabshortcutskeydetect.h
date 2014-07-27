@@ -53,6 +53,9 @@ public slots:
 	// Set the current function name
 	void setFunctionname(QString name);
 
+	// Set key combination (when changing shortcut)
+	void setKeyCombo(QString combo);
+
 	// Set a mouse action as shortcut
 	void setMouseCombo();
 

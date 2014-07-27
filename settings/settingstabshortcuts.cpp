@@ -535,8 +535,12 @@ void SettingsTabShortcuts::getNewKeyCombo(QString cat, QString id, QString exe) 
 			if(found)
 				break;
 		}
-	} else
+	} else {
 		detect->keyShortcut->animateClick();
+		if(intern != "") detect->setKeyCombo(intern);
+	}
+
+
 	if(cat != "extern")
 		detect->setFunctionname(internFunctions[cat][exe]);
 	else

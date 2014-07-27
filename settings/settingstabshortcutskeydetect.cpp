@@ -162,6 +162,7 @@ void ShortcutKeyDetect::setRightTypeDisEnabled() {
 		mouseMod->setEnabled(false);
 		mouseBut->setEnabled(false);
 		okAndSet->setEnabled(false);
+		if(newkey == "") keyCombo->setText("<center>&lt;" + tr("Press a key combination") + "&gt;</center>");
 	}
 
 }
@@ -244,6 +245,12 @@ void ShortcutKeyDetect::setMouseCombo() {
 	emit gotKeys(cat,id,newkey);
 
 	makeHide();
+
+}
+
+void ShortcutKeyDetect::setKeyCombo(QString combo) {
+
+	keyCombo->setText("<center>&lt;" + combo + "&gt;</center>");
 
 }
 
