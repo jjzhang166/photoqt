@@ -109,7 +109,7 @@ void MyWidget::setRect(QRect rect) {
 
 	rectShown = rect;
 	rectHidden = QRect(0,-10,10,10);
-	rectAni = QRect(rect.width()/2.0,rect.height()/2.0,1,1);
+	rectAni = QRect(rect.width()/2.0,-75,1,1);
 
 	if(isShown) {
 
