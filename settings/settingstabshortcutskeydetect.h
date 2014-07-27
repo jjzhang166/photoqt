@@ -35,8 +35,8 @@ public:
 	CustomRadioButton *mouseShortcut;
 
 	// The labels for key combinations
-	QLabel *keyCombo;
-	QLabel *keyExistsError;
+	CustomLabel *keyCombo;
+	CustomLabel *keyExistsError;
 
 	// The comboboxes for mouse actions
 	CustomComboBox *mouseMod;

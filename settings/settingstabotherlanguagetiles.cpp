@@ -19,7 +19,7 @@
 SettingsTabOtherLanguageTiles::SettingsTabOtherLanguageTiles(QString lang, QString code, QWidget *parent) : QWidget(parent) {
 
 	// The different stylesheets
-	css = "font-weight: bold; color: black; border-radius: 5px; padding: 1px; font-size: 8pt;";
+	css = "border-radius: 5px;";
 	cssBackgroundNorm = "background: rgba(255,255,255,120);";
 	cssBackgroundHov = "background: rgba(255,255,255,210);";
 	this->setStyleSheet(css + cssBackgroundNorm);
@@ -27,8 +27,11 @@ SettingsTabOtherLanguageTiles::SettingsTabOtherLanguageTiles(QString lang, QStri
 	this->setFixedSize(90,90);
 
 	// Language in proper native language
-	back = new QLabel("<center>" + lang + "</center>");
-	back->setStyleSheet("background: none;");
+	back = new CustomLabel("<center>" + lang + "</center>");
+	back->setBold(true);
+	back->setFontColor("black");
+	back->setPadding(1);
+	back->setFontSize(8);
 	back->setWordWrap(true);
 	langCode = code;
 
@@ -54,12 +57,7 @@ SettingsTabOtherLanguageTiles::SettingsTabOtherLanguageTiles(QString lang, QStri
 
 // Toggle of button also adjusts stylesheet
 void SettingsTabOtherLanguageTiles::buttonToggled(bool tgld) {
-
-	if(tgld)
-		this->setStyleSheet(css + cssBackgroundHov);
-	else
-		this->setStyleSheet(css + cssBackgroundNorm);
-
+	this->setStyleSheet(css + (tgld ? cssBackgroundHov : cssBackgroundNorm));
 }
 
 void SettingsTabOtherLanguageTiles::mouseMoveEvent(QMouseEvent *) {
@@ -71,10 +69,7 @@ void SettingsTabOtherLanguageTiles::enterEvent(QEvent *) {
 }
 
 void SettingsTabOtherLanguageTiles::leaveEvent(QEvent *) {
-	if(button->isChecked())
-		this->setStyleSheet(css + cssBackgroundHov);
-	else
-		this->setStyleSheet(css + cssBackgroundNorm);
+	this->setStyleSheet(css + (button->isChecked() ? cssBackgroundHov : cssBackgroundNorm));
 }
 
 void SettingsTabOtherLanguageTiles::mousePressEvent(QMouseEvent *) {

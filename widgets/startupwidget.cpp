@@ -40,26 +40,27 @@ StartUpWidget::StartUpWidget(QWidget *parent) : MyWidget(parent) {
 	this->addButtonLayout(butLay);
 
 	// The title is set depending on update or fresh install
-	title = new QLabel;
-	title->setStyleSheet("background: none; color: white; font-size: 20pt; font-weight: bold");
+	title = new CustomLabel;
+	title->setFontSize(20);
+	title->setBold(true);
 	title->setAlignment(Qt::AlignCenter);
 	title->setTextInteractionFlags(Qt::TextSelectableByMouse);
 
 	// The logo
-	QLabel *logo = new QLabel;
+	CustomLabel *logo = new CustomLabel;
 	QPixmap splash(":/img/logo.png");
 	logo->setPixmap(splash);
 	logo->setAlignment(Qt::AlignCenter);
 
 	// The introduction is set depending on update or fresh install
-	customIntro = new QLabel;
-	customIntro->setStyleSheet("background: none; color: white; font-size: 12pt");
+	customIntro = new CustomLabel;
+	customIntro->setFontSize(12);
 	customIntro->setWordWrap(true);
 	customIntro->setTextInteractionFlags(Qt::TextSelectableByMouse);
 
 	// the description is the same in both cases
-	QLabel *desc = new QLabel;
-	desc->setStyleSheet("background: none; color: white; font-size: 12pt");
+	CustomLabel *desc = new CustomLabel;
+	desc->setFontSize(12);
 	desc->setWordWrap(true);
 	desc->setTextInteractionFlags(Qt::TextSelectableByMouse);
 

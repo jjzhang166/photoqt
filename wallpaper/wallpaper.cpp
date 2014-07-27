@@ -54,16 +54,16 @@ Wallpaper::Wallpaper(QMap<QString, QVariant> set, bool v, QWidget *parent) : MyW
 
 
 	// The filename is always set to this label
-	filenameLabel = new QLabel("<center>---</center>");
-	filenameLabel->setStyleSheet("color: lightgrey; font-style: italic");
+	filenameLabel = new CustomLabel("<center>---</center>");
+	filenameLabel->setFontColor("lightgrey");
+	filenameLabel->setItalic(true);
 	lay->addWidget(filenameLabel);
 	lay->addSpacing(20);
 
 
 	// Label explaining the wm detection
-	QLabel *wmDetectedLabel = new QLabel("<b><span style=\"font-size:12pt\">" + tr("Window Manager") + "</span></b> " + "<br><br>" + tr("PhotoQt tries to detect you window manager according to the environment variables set by your system. If it still got it wrong, you can change the window manager here manually."));
+	CustomLabel *wmDetectedLabel = new CustomLabel("<b><span style=\"font-size:12pt\">" + tr("Window Manager") + "</span></b> " + "<br><br>" + tr("PhotoQt tries to detect you window manager according to the environment variables set by your system. If it still got it wrong, you can change the window manager here manually."));
 	wmDetectedLabel->setWordWrap(true);
-	wmDetectedLabel->setStyleSheet("color: white");
 	lay->addWidget(wmDetectedLabel);
 	lay->addSpacing(10);
 
@@ -85,7 +85,7 @@ Wallpaper::Wallpaper(QMap<QString, QVariant> set, bool v, QWidget *parent) : MyW
 
 
 	// This message is used to show an (error or other) message depending on the window manager
-	wmMessage = new QLabel;
+	wmMessage = new CustomLabel;
 	wmMessage->setAlignment(Qt::AlignCenter);
 	wmMessage->setWordWrap(true);
 	wmMessage->setVisible(false);
@@ -100,9 +100,8 @@ Wallpaper::Wallpaper(QMap<QString, QVariant> set, bool v, QWidget *parent) : MyW
 	//////// GNOME SETTINGS /////////////
 
 	// Some image options can be set (the label is globsl, because it is hidden/shown depending on wm choice)
-	gnomePicOpsLabel = new QLabel("<b><span style=\"font-size:12pt\">" + tr("Picture Options") + "</span></b> " + "<br><br>" + tr("There are several picture options that can be set for the wallpaper image."));
+	gnomePicOpsLabel = new CustomLabel("<b><span style=\"font-size:12pt\">" + tr("Picture Options") + "</span></b> " + "<br><br>" + tr("There are several picture options that can be set for the wallpaper image."));
 	gnomePicOpsLabel->setMargin(5);
-	gnomePicOpsLabel->setStyleSheet("color: white");
 	gnomePicOpsLabel->setWordWrap(true);
 
 	// A layout holding the image options
@@ -153,10 +152,9 @@ Wallpaper::Wallpaper(QMap<QString, QVariant> set, bool v, QWidget *parent) : MyW
 	wmMonitorLay->addLayout(wmMonitorLayCenter);
 	wmMonitorLay->addStretch();
 
-	wmMonitorLabel = new QLabel("<b><span style=\"font-size:12pt\">" + tr("Select Monitors") + "</span></b> " + "<br><br>" + tr("The wallpaper can be set to either of the available monitors (or any combination)."));
+	wmMonitorLabel = new CustomLabel("<b><span style=\"font-size:12pt\">" + tr("Select Monitors") + "</span></b> " + "<br><br>" + tr("The wallpaper can be set to either of the available monitors (or any combination)."));
 	wmMonitorLabel->setWordWrap(true);
 	wmMonitorLabel->setMargin(5);
-	wmMonitorLabel->setStyleSheet("color: white");
 
 	lay->addWidget(wmMonitorLabel);
 	lay->addLayout(wmMonitorLay);
@@ -189,9 +187,8 @@ Wallpaper::Wallpaper(QMap<QString, QVariant> set, bool v, QWidget *parent) : MyW
 	xfcePicOpsLay->addLayout(xfcePicOpsLayCenter);
 	xfcePicOpsLay->addStretch();
 
-	xfcePicOpsLabel = new QLabel("<b><span style=\"font-size:12pt\">" + tr("Picture Options") + "</span></b> " + "<br><br>" + tr("There are several picture options that can be set for the wallpaper image."));
+	xfcePicOpsLabel = new CustomLabel("<b><span style=\"font-size:12pt\">" + tr("Picture Options") + "</span></b> " + "<br><br>" + tr("There are several picture options that can be set for the wallpaper image."));
 	xfcePicOpsLabel->setMargin(5);
-	xfcePicOpsLabel->setStyleSheet("color: white");
 	xfcePicOpsLabel->setWordWrap(true);
 
 	lay->addWidget(xfcePicOpsLabel);

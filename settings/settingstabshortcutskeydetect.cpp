@@ -48,12 +48,14 @@ ShortcutKeyDetect::ShortcutKeyDetect(QWidget *parent) : MyWidget(parent) {
 
 
 	// The key combination label
-	keyCombo = new QLabel;
-	keyCombo->setStyleSheet("color: white; font-size: 12pt; background: transparent");
+	keyCombo = new CustomLabel;
+	keyCombo->setFontSize(12);
 
 	// This label shows an error message when the shortcut is already set
-	keyExistsError = new QLabel(" ");
-	keyExistsError->setStyleSheet("color: red; font-weight: bold; font-size: 10pt; background: transparent");
+	keyExistsError = new CustomLabel(" ");
+	keyExistsError->setFontColor("red");
+	keyExistsError->setBold(true);
+	keyExistsError->setFontSize(10);
 	keyExistsError->setWordWrap(true);
 
 	// A combobox for the modifiers for a mouse action

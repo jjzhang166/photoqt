@@ -14,6 +14,7 @@
 #include "../customelements/customcombobox.h"
 #include "../customelements/customradiobutton.h"
 #include "../customelements/customcheckbox.h"
+#include "../customelements/customlabel.h"
 
 class Wallpaper : public MyWidget {
 
@@ -38,17 +39,17 @@ private:
 	CustomPushButton *cancel;
 
 	CustomComboBox *wm;
-	QLabel *wmMessage;
+	CustomLabel *wmMessage;
 
 	QString filename;
-	QLabel *filenameLabel;
+	CustomLabel *filenameLabel;
 
 	QButtonGroup *gnomeButGrp;
-	QLabel *gnomePicOpsLabel;
+	CustomLabel *gnomePicOpsLabel;
 	QMap<QString,CustomRadioButton*> gnomePictureOptions;
 
 	QButtonGroup *xfceButGrp;
-	QLabel *xfcePicOpsLabel;
+	CustomLabel *xfcePicOpsLabel;
 	QMap<QString,CustomRadioButton*> xfcePictureOptions;
 
 
@@ -61,7 +62,7 @@ private:
 
 
 	QMap<int,CustomCheckBox*> wmMonitorSelect;
-	QLabel *wmMonitorLabel;
+	CustomLabel *wmMonitorLabel;
 
 	void detectWM();
 

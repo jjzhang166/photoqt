@@ -40,7 +40,7 @@ public:
 	CustomCheckBox *quit;
 
 	// Display a white "M" for mouse shortcuts
-	QLabel *mouse;
+	CustomLabel *mouse;
 	bool isMouseShortcut;
 
 	// Delete this shortcut (displayed for existing shortcuts)>

@@ -4,6 +4,7 @@
 #include "../widgets/mywidget.h"
 #include "../customelements/custompushbutton.h"
 #include "../customelements/customlabel.h"
+#include "../customelements/customlineedit.h"
 
 #include <QLabel>
 #include <QLineEdit>
@@ -65,7 +66,7 @@ private:
 	QVBoxLayout *renameLay;
 	CustomLabel *renameTitle;
 	CustomLabel *renameOldName;
-	QLineEdit *renameNewName;
+	CustomLineEdit *renameNewName;
 	CustomLabel *renameOldEnding;
 	CustomLabel *renameNewNameExists;
 
@@ -86,28 +87,28 @@ private:
 	********************************/
 	QWidget *moveWidget;
 	QVBoxLayout *moveLay;
-	QLabel *moveTitle;
+	CustomLabel *moveTitle;
 	QTreeView *moveTree;
 	CustomScrollbar *moveScrollbar;
 	QFileSystemModel *moveTreeModel;
-	QLabel *moveNewNameExists;
-	QLabel *moveNewNameLabel;
-	QLineEdit *moveNewName;
-	QLabel *moveNewNameEnding;
+	CustomLabel *moveNewNameExists;
+	CustomLabel *moveNewNameLabel;
+	CustomLineEdit *moveNewName;
+	CustomLabel *moveNewNameEnding;
 
 	/********************************
 	/////////// COPY ////////////////
 	********************************/
 	QWidget *copyWidget;
 	QVBoxLayout *copyLay;
-	QLabel *copyTitle;
+	CustomLabel *copyTitle;
 	QTreeView *copyTree;
 	CustomScrollbar *copyScrollbar;
 	QFileSystemModel *copyTreeModel;
-	QLabel *copyNewNameExists;
-	QLabel *copyNewNameLabel;
-	QLineEdit *copyNewName;
-	QLabel *copyNewNameEnding;
+	CustomLabel *copyNewNameExists;
+	CustomLabel *copyNewNameLabel;
+	CustomLineEdit *copyNewName;
+	CustomLabel *copyNewNameEnding;
 
 
 public slots:

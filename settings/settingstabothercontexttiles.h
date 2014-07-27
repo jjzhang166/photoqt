@@ -2,6 +2,7 @@
 #define SETTINGSTABOTHERCONTEXTTILES_H
 
 #include "../customelements/customlabel.h"
+#include "../customelements/customlineedit.h"
 
 #include <QWidget>
 #include <QHBoxLayout>

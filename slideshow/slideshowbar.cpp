@@ -42,30 +42,6 @@ SlideShowBar::SlideShowBar(QMap<QString, QVariant> set, QWidget *parent, bool v)
 	// No music file as default
 	musicFile = "";
 
-	// The stylesheet for the volume slider
-	QString css = "QSlider::groove:horizontal {";
-		css += "border: 1px solid #000000;";
-		css += "height: 6px;";
-		css += "background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #ededed, stop:1 #ffffff);";
-		css += "margin: 2px 0;";
-	css += "}";
-
-	css += "QSlider {";
-		css += "background: transparent;";
-	css += "}";
-
-	css += "QSlider::groove:disabled {";
-		css += "background: grey;";
-	css += "}";
-
-	css += "QSlider::handle:horizontal {";
-		css += "background: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #000000, stop:1 #282828);";
-		css += "border: 1px solid grey;";
-		css += "width: 18px;";
-		css += "margin: -2px 0;";
-		css += "border-radius: 3px;";
-	css += "}";
-
 	QHBoxLayout *central = new QHBoxLayout;
 
 	// Play and pause the whole slideshow (pictures and music)
@@ -79,19 +55,14 @@ SlideShowBar::SlideShowBar(QMap<QString, QVariant> set, QWidget *parent, bool v)
 	player->setVolume(80);
 
 	// volume slider and percentage display
-	volume = new QSlider;
+	volume = new CustomSlider;
 	volume->setMinimum(0);
 	volume->setMaximum(100);
 	volume->setValue(80);
-	volume->setCursor(Qt::OpenHandCursor);
-	volume->setStyleSheet(css);
 	volume->setMaximumWidth(200);
-	volume->setOrientation(Qt::Horizontal);
 	connect(volume, SIGNAL(valueChanged(int)), this, SLOT(volumeChanged()));
-	volumeLabel = new QLabel(tr("Music Volume:"));
-	volumeLabel->setStyleSheet("QLabel { color: white; background: none; } QLabel:disabled { color: grey; } ");
-	volumePercentage = new QLabel("80%");
-	volumePercentage->setStyleSheet("background: transparent; color: white");
+	volumeLabel = new CustomLabel(tr("Music Volume:"));
+	volumePercentage = new CustomLabel("80%");
 	volumePercentage->setFixedWidth(50);
 
 	// button to quit the slideshow

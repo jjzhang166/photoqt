@@ -2,6 +2,8 @@
 #define SLIDESHOWBAR_H
 
 #include "../customelements/custompushbutton.h"
+#include "../customelements/customslider.h"
+#include "../customelements/customlabel.h"
 
 #include <QWidget>
 #include <QPropertyAnimation>
@@ -65,9 +67,9 @@ private:
 
 	// A button to play/pause the slideshow
 	CustomPushButton *playPause;
-	QSlider *volume;
-	QLabel *volumeLabel;
-	QLabel *volumePercentage;
+	CustomSlider *volume;
+	CustomLabel *volumeLabel;
+	CustomLabel *volumePercentage;
 
 public slots:
 	// Animation functions

@@ -20,8 +20,8 @@ public:
 
 private:
 	// The title and intro can be customised by above functions
-	QLabel *title;
-	QLabel *customIntro;
+	CustomLabel *title;
+	CustomLabel *customIntro;
 
 signals:
 	// Block all function in mainwindow and activate system keys

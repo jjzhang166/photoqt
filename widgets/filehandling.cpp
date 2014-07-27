@@ -70,9 +70,9 @@ FileHandling::FileHandling(QWidget *parent, bool v, QString cf) : MyWidget(paren
 	renameOldName->setFontColor("grey");
 	renameOldName->setPadding(10);
 	QHBoxLayout *renameNewLay = new QHBoxLayout;
-	renameNewName = new QLineEdit;
+	renameNewName = new CustomLineEdit;
 	renameNewName->setFixedWidth(300);
-	renameNewName->setStyleSheet("color: white; background: rgba(0,0,0,150); font-size: 15pt; selection-background-color: white; selection-color: black;");
+	renameNewName->setFontSize(15);
 	renameOldEnding = new CustomLabel;
 	renameOldEnding->setFontSize(15);
 	renameNewLay->addStretch();
@@ -215,8 +215,9 @@ FileHandling::FileHandling(QWidget *parent, bool v, QString cf) : MyWidget(paren
 	moveWidget->setStyleSheet("background: rgba(0,0,0,200); border-radius: 25px");
 
 	moveLay = new QVBoxLayout;
-	moveTitle = new QLabel("<center>" + tr("Moving File") + "</center>");
-	moveTitle->setStyleSheet("font-size: 25pt; font-weight: bold; color: white; background: transparent;");
+	moveTitle = new CustomLabel("<center>" + tr("Moving File") + "</center>");
+	moveTitle->setFontSize(25);
+	moveTitle->setBold(true);
 
 	moveTree = new QTreeView;
 	moveTree->setStyleSheet(fileTreeCSS);
@@ -233,16 +234,19 @@ FileHandling::FileHandling(QWidget *parent, bool v, QString cf) : MyWidget(paren
 	for(int i = 1; i < moveTreeModel->columnCount(); ++i)
 		moveTree->setColumnHidden(i,true);
 
-	moveNewNameExists = new QLabel(" ");
-	moveNewNameExists->setStyleSheet("color: red; font-weight: bold; background: none");
+	moveNewNameExists = new CustomLabel(" ");
+	moveNewNameExists->setFontColor("red");
+	moveNewNameExists->setBold(true);
 
-	moveNewNameLabel = new QLabel(tr("Filename") + ":");
-	moveNewNameLabel->setStyleSheet("font-size: 12pt; color: white; background: transparent; font-weight: bold;");
-	moveNewName = new QLineEdit;
+	moveNewNameLabel = new CustomLabel(tr("Filename") + ":");
+	moveNewNameLabel->setFontSize(12);
+	moveNewNameLabel->setBold(true);
+	moveNewName = new CustomLineEdit;
 	moveNewName->setFixedWidth(300);
-	moveNewName->setStyleSheet("color: white; background: rgba(0,0,0,150); font-size: 12pt; selection-background-color: white; selection-color: black;");
-	moveNewNameEnding = new QLabel(".xyz");
-	moveNewNameEnding->setStyleSheet("font-size: 12pt; color: white; background: transparent; font-weight: bold;");
+	moveNewName->setFontSize(12);
+	moveNewNameEnding = new CustomLabel(".xyz");
+	moveNewNameEnding->setFontSize(12);
+	moveNewNameEnding->setBold(true);
 
 	QHBoxLayout *moveNewNameLay = new QHBoxLayout;
 	moveNewNameLay->addStretch();
@@ -291,8 +295,9 @@ FileHandling::FileHandling(QWidget *parent, bool v, QString cf) : MyWidget(paren
 	copyWidget->setStyleSheet("background: rgba(0,0,0,200); border-radius: 25px");
 
 	copyLay = new QVBoxLayout;
-	copyTitle = new QLabel("<center>" + tr("Copying File") + "</center>");
-	copyTitle->setStyleSheet("font-size: 25pt; font-weight: bold; color: white; background: transparent;");
+	copyTitle = new CustomLabel("<center>" + tr("Copying File") + "</center>");
+	copyTitle->setFontSize(25);
+	copyTitle->setBold(true);
 
 	copyTree = new QTreeView;
 	copyTree->setStyleSheet(fileTreeCSS);
@@ -309,16 +314,19 @@ FileHandling::FileHandling(QWidget *parent, bool v, QString cf) : MyWidget(paren
 	for(int i = 1; i < copyTreeModel->columnCount(); ++i)
 		copyTree->setColumnHidden(i,true);
 
-	copyNewNameExists = new QLabel(" ");
-	copyNewNameExists->setStyleSheet("color: red; font-weight: bold; background: none");
+	copyNewNameExists = new CustomLabel(" ");
+	copyNewNameExists->setFontColor("red");
+	copyNewNameExists->setBold(true);
 
-	copyNewNameLabel = new QLabel(tr("Filename") + ":");
-	copyNewNameLabel->setStyleSheet("font-size: 12pt; color: white; background: transparent; font-weight: bold;");
-	copyNewName = new QLineEdit;
+	copyNewNameLabel = new CustomLabel(tr("Filename") + ":");
+	copyNewNameLabel->setFontSize(12);
+	copyNewNameLabel->setBold(true);
+	copyNewName = new CustomLineEdit;
 	copyNewName->setFixedWidth(300);
-	copyNewName->setStyleSheet("color: white; background: rgba(0,0,0,150); font-size: 12pt; selection-background-color: white; selection-color: black;");
-	copyNewNameEnding = new QLabel(".xyz");
-	copyNewNameEnding->setStyleSheet("font-size: 12pt; color: white; background: transparent; font-weight: bold;");
+	copyNewName->setFontSize(12);
+	copyNewNameEnding = new CustomLabel(".xyz");
+	copyNewNameEnding->setFontSize(12);
+	copyNewNameEnding->setBold(true);
 
 	QHBoxLayout *copyNewNameLay = new QHBoxLayout;
 	copyNewNameLay->addStretch();

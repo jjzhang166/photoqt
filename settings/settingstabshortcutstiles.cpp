@@ -51,8 +51,9 @@ ShortcutsTiles::ShortcutsTiles(QString exeCmd, QString exeDesc, QString category
 		quit->setFontColor("black");
 		if(category != "extern")
 			quit->hide();
-		mouse = new QLabel("M");
-		mouse->setStyleSheet("background: none;color: white; font-weight: bold; font-size: 12pt;");
+		mouse = new CustomLabel("M");
+		mouse->setBold(true);
+		mouse->setFontSize(12);
 		mouse->hide();
 		del = new QPushButton(QIcon(":/img/delsh.png"),"");
 		del->setCursor(Qt::PointingHandCursor);

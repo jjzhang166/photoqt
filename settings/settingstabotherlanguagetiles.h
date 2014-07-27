@@ -2,8 +2,8 @@
 #define SETTINGSTABOTHERLANGUAGETILES_H
 
 #include "../customelements/customradiobutton.h"
+#include "../customelements/customlabel.h"
 #include <QWidget>
-#include <QLabel>
 #include <QStyleOption>
 #include <QPainter>
 #include <QVBoxLayout>
@@ -22,7 +22,7 @@ public:
 	QString cssBackgroundHov;
 
 	// The back label (this is the widget being styled
-	QLabel *back;
+	CustomLabel *back;
 
 	// The language code (usually two or three letters)
 	QString langCode;
