@@ -61,23 +61,28 @@ FileHandling::FileHandling(QWidget *parent, bool v, QString cf) : MyWidget(paren
 	renameWidget->setStyleSheet("background: rgba(0,0,0,200); border-radius: 25px");
 
 	renameLay = new QVBoxLayout;
-	renameTitle = new QLabel("<center>" + tr("Rename File") + "</center>");
-	renameTitle->setStyleSheet("font-size: 25pt; font-weight: bold; color: white; background: transparent;");
-	renameOldName = new QLabel;
-	renameOldName->setStyleSheet("font-size: 15pt; font-style: italic; color: grey; background: transparent; padding: 10px;");
+	renameTitle = new CustomLabel("<center>" + tr("Rename File") + "</center>");
+	renameTitle->setFontSize(25);
+	renameTitle->setBold(true);
+	renameOldName = new CustomLabel;
+	renameOldName->setFontSize(15);
+	renameOldName->setItalic(true);
+	renameOldName->setFontColor("grey");
+	renameOldName->setPadding(10);
 	QHBoxLayout *renameNewLay = new QHBoxLayout;
 	renameNewName = new QLineEdit;
 	renameNewName->setFixedWidth(300);
 	renameNewName->setStyleSheet("color: white; background: rgba(0,0,0,150); font-size: 15pt; selection-background-color: white; selection-color: black;");
-	renameOldEnding = new QLabel;
-	renameOldEnding->setStyleSheet("color: white; background: transparent; font-size: 15pt;");
+	renameOldEnding = new CustomLabel;
+	renameOldEnding->setFontSize(15);
 	renameNewLay->addStretch();
 	renameNewLay->addWidget(renameNewName);
 	renameNewLay->addWidget(renameOldEnding);
 	renameNewLay->addStretch();
 
-	renameNewNameExists = new QLabel(" ");
-	renameNewNameExists->setStyleSheet("color: red; font-weight: bold; background: none");
+	renameNewNameExists = new CustomLabel(" ");
+	renameNewNameExists->setFontColor("red");
+	renameNewNameExists->setBold(true);
 
 	renameSave = new CustomPushButton(tr("Save"));
 	renameSave->setPadding(10);
@@ -121,12 +126,17 @@ FileHandling::FileHandling(QWidget *parent, bool v, QString cf) : MyWidget(paren
 	deleteWidget->setStyleSheet("background: rgba(0,0,0,200); border-radius: 25px");
 
 	deleteLay = new QVBoxLayout;
-	deleteTitle = new QLabel("<center>" + tr("Delete File") + "</center>");
-	deleteTitle->setStyleSheet("font-size: 25pt; font-weight: bold; color: white; background: transparent;");
-	deleteFilename = new QLabel(" ");
-	deleteFilename->setStyleSheet("font-size: 15pt; font-style: italic; color: grey; background: transparent; padding: 10px;");
-	deleteQuestion = new QLabel("<center>" + tr("Do you really want to delete this file?") +"</center>");
-	deleteQuestion->setStyleSheet("font-size: 15pt; color: white; background: transparent; padding: 10px;");
+	deleteTitle = new CustomLabel("<center>" + tr("Delete File") + "</center>");
+	deleteTitle->setFontSize(15);
+	deleteTitle->setBold(true);
+	deleteFilename = new CustomLabel(" ");
+	deleteFilename->setFontSize(15);
+	deleteFilename->setItalic(true);
+	deleteFilename->setFontColor("grey");
+	deleteFilename->setPadding(10);
+	deleteQuestion = new CustomLabel("<center>" + tr("Do you really want to delete this file?") +"</center>");
+	deleteQuestion->setFontSize(15);
+	deleteQuestion->setPadding(10);
 
 
 

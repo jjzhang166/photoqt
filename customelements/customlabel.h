@@ -14,7 +14,7 @@ public:
 	void setBold(bool b) { bold = b; setCSS(); }
 	void setItalic(bool i) { italic = i; setCSS(); }
 	void setPadding(int p) { padding = p; setCSS(); }
-	void setFontSize(QString fs) { fontsize = fs; setCSS(); }
+	void setFontSize(int fs) { fontsize = fs; setCSS(); }
 	void setFontColor(QString col) { fontcolor = col; setCSS(); }
 	void setBackgroundColor(QString col) { backgroundcolor = col; setCSS(); }
 	void setBorder(int width, QString col) { borderwidth = width; bordercolor = col; setCSS(); }
@@ -28,7 +28,7 @@ public:
 
 private:
 	void setCSS();
-	QString fontsize;
+	int fontsize;
 	QString fontcolor;
 	QString backgroundcolor;
 	int borderwidth;

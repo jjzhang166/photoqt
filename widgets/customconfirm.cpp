@@ -27,7 +27,7 @@ CustomConfirm::CustomConfirm(QString title, QString text, QString yesText, QStri
 
 	// The title of the widget with user set text
 	CustomLabel *t = new CustomLabel(title);
-	t->setFontSize("15pt");
+	t->setFontSize(15);
 	t->setBold(true);
 	t->setAlignment(Qt::AlignCenter);
 	lay->addWidget(t);

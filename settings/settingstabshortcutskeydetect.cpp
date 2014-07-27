@@ -26,12 +26,12 @@ ShortcutKeyDetect::ShortcutKeyDetect(QWidget *parent) : MyWidget(parent) {
 	// the title label
 	CustomLabel *t = new CustomLabel("<center>" + tr("Detecting Shortcut") + "</center>");
 	t->setWordWrap(true);
-	t->setFontSize("15pt");
+	t->setFontSize(15);
 	t->setBold(true);
 
 	// the function label
 	function = new CustomLabel("<center>function</center>");
-	function->setFontSize("10pt");
+	function->setFontSize(10);
 	function->setItalic(true);
 
 	// The two radiobuttons to switch between the two shortcut types

@@ -22,7 +22,7 @@ private:
 	CustomPushButton *close;
 
 	// The license at top
-	QLabel *license;
+	CustomLabel *license;
 
 private slots:
 	void openWebsite();

@@ -3,6 +3,7 @@
 
 #include "../widgets/mywidget.h"
 #include "../customelements/custompushbutton.h"
+#include "../customelements/customlabel.h"
 
 #include <QLabel>
 #include <QLineEdit>
@@ -62,11 +63,11 @@ private:
 	**********************************/
 	QWidget *renameWidget;
 	QVBoxLayout *renameLay;
-	QLabel *renameTitle;
-	QLabel *renameOldName;
+	CustomLabel *renameTitle;
+	CustomLabel *renameOldName;
 	QLineEdit *renameNewName;
-	QLabel *renameOldEnding;
-	QLabel *renameNewNameExists;
+	CustomLabel *renameOldEnding;
+	CustomLabel *renameNewNameExists;
 
 
 
@@ -75,9 +76,9 @@ private:
 	**********************************/
 	QWidget *deleteWidget;
 	QVBoxLayout *deleteLay;
-	QLabel *deleteTitle;
-	QLabel *deleteFilename;
-	QLabel *deleteQuestion;
+	CustomLabel *deleteTitle;
+	CustomLabel *deleteFilename;
+	CustomLabel *deleteQuestion;
 
 
 	/********************************

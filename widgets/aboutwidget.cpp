@@ -24,9 +24,8 @@ About::About(QWidget *parent) : MyWidget(parent) {
 	QVBoxLayout *lay = new QVBoxLayout;
 
 	// The string right at the top, giving the license and author information
-	license = new QLabel;
+	license = new CustomLabel;
 	license->setWordWrap(true);
-	license->setStyleSheet("color: white");
 	lay->addWidget(license);
 
 	// The logo (Thanks to Archie Arevalo)
@@ -57,15 +56,15 @@ About::About(QWidget *parent) : MyWidget(parent) {
 	CustomLabel *text2 = new CustomLabel(txt2);
 	CustomLabel *text3 = new CustomLabel(txt3);
 	text->setTextInteractionFlags(Qt::TextSelectableByMouse);
-	text->setFontSize("11pt");
+	text->setFontSize(11);
 	text->setWordWrap(true);
 	text2->setToolTip("http://photoqt.org");
 	text2->setTextInteractionFlags(Qt::TextSelectableByMouse);
 	text2->setCursor(Qt::PointingHandCursor);
-	text2->setFontSize("11pt");
+	text2->setFontSize(11);
 	text2->setWordWrap(true);
 	text3->setTextInteractionFlags(Qt::TextSelectableByMouse);
-	text3->setFontSize("11pt");
+	text3->setFontSize(11);
 	text3->setWordWrap(true);
 	lay->addWidget(text);
 	lay->addSpacing(10);

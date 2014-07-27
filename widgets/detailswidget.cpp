@@ -279,7 +279,7 @@ void Details::setupLabels() {
 		if(labels.at(i) != "") {
 			if(labelsId.at(i) != "Gps") {
 				CustomLabel *l = new CustomLabel("<b>" + labels.at(i) + "</b>");
-				l->setFontSize(QString("%1pt").arg(globSet.value("ExifFontSize").toInt()));
+				l->setFontSize(globSet.value("ExifFontSize").toInt());
 				l->setBackgroundColor("rgba(0,0,0,80)");
 				l->setToolTipNoWrap(true);
 				items.insert(labelsId.at(i),l);
@@ -290,7 +290,7 @@ void Details::setupLabels() {
 				l->setCursor(Qt::PointingHandCursor);
 				l->setText("<b>" + labels.at(i) + "</b>");
 				connect(l, SIGNAL(clicked()), this, SLOT(gpsClick()));
-				l->setFontSize(QString("%1pt").arg(globSet.value("ExifFontSize").toInt()));
+				l->setFontSize(globSet.value("ExifFontSize").toInt());
 				l->setBackgroundColor("rgba(0,0,0,80)");
 				l->setToolTipNoWrap(true);
 				items.insert(labelsId.at(i),l);
@@ -911,14 +911,12 @@ void Details::gpsClick() {
 // Change the fontsize of all the labels
 void Details::updateFontsize() {
 
-	QString labelCSSfontsize = QString("%1pt").arg((globSet.value("ExifFontSize").toInt()));
-
-	if(verbose) std::clog << "exif: Updating font size: " << labelCSSfontsize.toStdString() << std::endl;
+	if(verbose) std::clog << "exif: Updating font size: " << QString("%1pt").arg((globSet.value("ExifFontSize").toInt())).toStdString() << std::endl;
 
 	for(int i = 0; i < labelsId.size(); ++i) {
 
 		if(labelsId.at(i) != "")
-			items[labelsId.at(i)]->setFontSize(labelCSSfontsize);
+			items[labelsId.at(i)]->setFontSize(globSet.value("ExifFontSize").toInt());
 
 	}
 

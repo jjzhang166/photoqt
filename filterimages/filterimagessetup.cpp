@@ -23,7 +23,7 @@ FilterImagesSetup::FilterImagesSetup(QWidget *parent) : MyWidget("rgb(130,130,13
 	// Title
 	CustomLabel *title = new CustomLabel(tr("Filter Images in Current Directory"));
 	title->setAlignment(Qt::AlignCenter);
-	title->setFontSize("15pt");
+	title->setFontSize(15);
 	title->setBold(true);
 	title->setWordWrap(true);
 
