@@ -22,6 +22,7 @@
 #include "graphics/graphicsviewlay.h"
 #include "filterimages/filterimagessetup.h"
 #include "filterimages/filterimagesdisplay.h"
+#include "manipulate/manipulate.h"
 
 #include <QDesktopWidget>
 #include <QFile>
@@ -121,6 +122,9 @@ private:
 	// Image filtering
 	FilterImagesSetup *filterImagesSetup;
 	FilterImagesDisplay *filterImagesDisplay;
+
+
+	ManipulateImage *manipulate;
 
 	// imagereader combining QImageReader and GraphicsMagic
 	ImageReader *imageReader;

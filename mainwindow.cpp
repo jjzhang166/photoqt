@@ -170,7 +170,7 @@ void MainWindow::adjustGeometries() {
 		viewThumbs->setRect(QRect(0,viewH-thbHeight,viewW,thbHeight));
 
 		// Adjust the menu geometry
-		if(setupWidgets->menu) menu->setRect(QRect(viewW-450,0,300,250));
+		if(setupWidgets->menu) menu->setRect(QRect(viewW-450,0,300,300));
 
 
 
@@ -183,7 +183,7 @@ void MainWindow::adjustGeometries() {
 		viewThumbs->setRect(QRect(0,0,viewBig->width(),thbHeight));
 
 		// Adjust the menu geometry
-		if(setupWidgets->menu) menu->setRect(QRect(viewBig->width()-450,viewBig->height()-250,300,250));
+		if(setupWidgets->menu) menu->setRect(QRect(viewBig->width()-450,viewBig->height()-300,300,300));
 
 	}
 
@@ -210,6 +210,8 @@ void MainWindow::adjustGeometries() {
 	if(setupWidgets->wallpaper) wallpaper->setRect(fullscreen);
 
 	if(setupWidgets->slideshowbar) slideshowbar->setWidth(this->width());
+
+	if(setupWidgets->manipulate) manipulate->setRect(fullscreen);
 
 
 	if(globSet->thumbnailKeepVisible)
@@ -266,7 +268,7 @@ void MainWindow::applySettings(QMap<QString, bool> applySet, bool justApplyAllOf
 			viewThumbs->setRect(QRect(0,viewH-thbHeight,viewW,thbHeight));
 
 			// Adjust the menu geometry
-			if(setupWidgets->menu) menu->setRect(QRect(viewW-450,0,300,250));
+			if(setupWidgets->menu) menu->setRect(QRect(viewW-450,0,300,300));
 
 
 		// If the thumbnails are supposed to be shown at the top
@@ -276,7 +278,7 @@ void MainWindow::applySettings(QMap<QString, bool> applySet, bool justApplyAllOf
 			viewThumbs->setRect(QRect(0,0,viewBig->width(),thbHeight));
 
 			// Adjust the menu geometry
-			if(setupWidgets->menu) menu->setRect(QRect(viewBig->width()-450,viewBig->height()-250,300,250));
+			if(setupWidgets->menu) menu->setRect(QRect(viewBig->width()-450,viewBig->height()-300,300,300));
 
 		}
 
@@ -1542,9 +1544,9 @@ void MainWindow::setupWidget(QString what) {
 		connect(menu, SIGNAL(itemClicked(QString,int)), this, SLOT(menuClicked(QString,int)));
 
 		if(globSet->thumbnailposition == "Bottom")
-			menu->setRect(QRect(viewBig->width()-450,0,300,250));
+			menu->setRect(QRect(viewBig->width()-450,0,300,300));
 		else if(globSet->thumbnailposition == "Top")
-			menu->setRect(QRect(viewBig->width()-450,viewBig->height()-250,300,250));
+			menu->setRect(QRect(viewBig->width()-450,viewBig->height()-300,300,300));
 
 		menu->show();
 
@@ -1634,6 +1636,20 @@ void MainWindow::setupWidget(QString what) {
 
 	}
 
+	if(what == "manipulateimage" && !setupWidgets->manipulate) {
+
+		if(globVar->verbose) std::clog << "Setting up ManipulateImage" << std::endl;
+
+		setupWidgets->manipulate = true;
+
+		manipulate = new ManipulateImage(viewBig);
+		manipulate->setRect(QRect(0,0,viewBig->width(), viewBig->height()));
+		manipulate->show();
+
+		connect(manipulate, SIGNAL(blockFunc(bool)), this, SLOT(blockFunc(bool)));
+
+	}
+
 	// Set up slideshow
 	if(what == "slideshow" && !setupWidgets->slideshow) {
 
@@ -1707,6 +1723,10 @@ void MainWindow::shortcutDO(QString key, bool mouseSH) {
 				moveInDirectory(1);
 			else if(key == "__CTX__movelast")
 				viewThumbs->gotoFirstLast("last");
+			else if(key == "__CTX__manipulateimage") {
+				if(!setupWidgets->manipulate) setupWidget("manipulateimage");
+				manipulate->manipulate(globVar->currentfile);
+			}
 
 			return;
 
@@ -2149,6 +2169,13 @@ void MainWindow::systemShortcutDO(QString todo) {
 				filterImagesSetup->cancel->animateClick();
 			if(todo == "Enter" || todo == "Return")
 				filterImagesSetup->enter->animateClick();
+
+		}
+
+		if(setupWidgets->manipulate && manipulate->isVisible()) {
+
+			if(todo == "Escape")
+				manipulate->makeHide();
 
 		}
 
