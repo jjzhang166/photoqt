@@ -21,6 +21,9 @@ SET(photoqt_SOURCES ${photoqt_SOURCES} ${p}/aboutwidget.cpp ${p}/customconfirm.c
 # filterimages/
 set(p "filterimages")
 SET(photoqt_SOURCES ${photoqt_SOURCES} ${p}/filterimagessetup.cpp ${p}/filterimagesdisplay.cpp)
+# manipulate/
+set(p "manipulate")
+SET(photoqt_SOURCES ${photoqt_SOURCES} ${p}/manipulate.cpp ${p}/manipulatelabel.cpp)
 # customelements/
 set(p "customelements")
 SET(photoqt_SOURCES ${photoqt_SOURCES} ${p}/customcheckbox.cpp ${p}/customcombobox.cpp ${p}/customlineedit.cpp ${p}/custompushbutton.cpp ${p}/customradiobutton.cpp ${p}/customscrollbar.cpp ${p}/customslider.cpp ${p}/customspinbox.cpp ${p}/customlabel.cpp ${p}/customtabwidget.cpp ${p}/customline.h)
@@ -45,6 +48,9 @@ SET(photoqt_HEADERS ${photoqt_HEADERS} ${p}/aboutwidget.h ${p}/customconfirm.h $
 # filterimages/
 set(p "filterimages")
 SET(photoqt_HEADERS ${photoqt_HEADERS} ${p}/filterimagessetup.h ${p}/filterimagesdisplay.h)
+# manipulate/
+set(p "manipulate")
+SET(photoqt_HEADERS ${photoqt_HEADERS} ${p}/manipulate.h ${p}/manipulatelabel.h)
 # customelements/
 set(p "customelements")
 SET(photoqt_HEADERS ${photoqt_HEADERS} ${p}/customcheckbox.h ${p}/customcombobox.h ${p}/customlineedit.h ${p}/custompushbutton.h ${p}/customradiobutton.h ${p}/customscrollbar.h ${p}/customslider.h ${p}/customspinbox.h ${p}/customlabel.h ${p}/customtabwidget.h ${p}/customline.h)

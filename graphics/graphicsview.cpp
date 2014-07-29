@@ -253,6 +253,11 @@ void GraphicsView::setupContextMenu() {
 		menu->addAction(renameFile);
 		connect(renameFile, SIGNAL(triggered()), this, SLOT(contextMenuClicked()));
 
+		QAction *manipulateImage = new QAction(tr("Manipulate Image"), menu);
+		manipulateImage->setData("__CTX__manipulateimage");
+		menu->addAction(manipulateImage);
+		connect(manipulateImage, SIGNAL(triggered()), this, SLOT(contextMenuClicked()));
+
 		menu->addSeparator();
 
 		// Now read in the additional entries from file
