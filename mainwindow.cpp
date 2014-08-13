@@ -83,6 +83,11 @@ MainWindow::MainWindow(QWidget *parent, bool verbose) : QMainWindow(parent) {
 	connect(graphItem, SIGNAL(updateSceneBigRect()), this, SLOT(updateSceneBigRect()));
 	viewBig->scene()->addItem(graphItem);
 
+	cropWidget = new CropWidget(viewBig);
+	cropWidget->setGeometry(0,0,viewBig->width(),viewBig->height());
+	cropWidget->hide();
+
+
 	// The thumbnail-bar instance
 	viewThumbs = new Thumbnails(viewBig,globSet->verbose,globSet->toSignalOut());
 	connect(viewThumbs, SIGNAL(loadNewImg(QString)), this, SLOT(loadNewImgFromThumbs(QString)));
@@ -187,6 +192,12 @@ void MainWindow::adjustGeometries() {
 
 	}
 
+
+
+	cropWidget->setGeometry(0,0,viewBig->width(), viewBig->height());
+
+
+
 	// Fullscreen Rect
 	QRect fullscreen = QRect(0,0,viewW,viewH);
 
@@ -210,8 +221,6 @@ void MainWindow::adjustGeometries() {
 	if(setupWidgets->wallpaper) wallpaper->setRect(fullscreen);
 
 	if(setupWidgets->slideshowbar) slideshowbar->setWidth(this->width());
-
-	if(setupWidgets->manipulate) manipulate->setRect(fullscreen);
 
 
 	if(globSet->thumbnailKeepVisible)
@@ -1636,20 +1645,6 @@ void MainWindow::setupWidget(QString what) {
 
 	}
 
-	if(what == "manipulateimage" && !setupWidgets->manipulate) {
-
-		if(globVar->verbose) std::clog << "Setting up ManipulateImage" << std::endl;
-
-		setupWidgets->manipulate = true;
-
-		manipulate = new ManipulateImage(viewBig);
-		manipulate->setRect(QRect(0,0,viewBig->width(), viewBig->height()));
-		manipulate->show();
-
-		connect(manipulate, SIGNAL(blockFunc(bool)), this, SLOT(blockFunc(bool)));
-
-	}
-
 	// Set up slideshow
 	if(what == "slideshow" && !setupWidgets->slideshow) {
 
@@ -1715,6 +1710,8 @@ void MainWindow::shortcutDO(QString key, bool mouseSH) {
 				zoom(false);
 			else if(key == "__CTX__zoomreset")
 				zoom(true,"reset");
+			else if(key == "__CTX__cropimage")
+				cropWidget->show();
 			else if(key == "__CTX__movefirst")
 				viewThumbs->gotoFirstLast("first");
 			else if(key == "__CTX__moveprev")
@@ -1723,10 +1720,6 @@ void MainWindow::shortcutDO(QString key, bool mouseSH) {
 				moveInDirectory(1);
 			else if(key == "__CTX__movelast")
 				viewThumbs->gotoFirstLast("last");
-			else if(key == "__CTX__manipulateimage") {
-				if(!setupWidgets->manipulate) setupWidget("manipulateimage");
-				manipulate->manipulate(globVar->currentfile);
-			}
 
 			return;
 
@@ -2169,13 +2162,6 @@ void MainWindow::systemShortcutDO(QString todo) {
 				filterImagesSetup->cancel->animateClick();
 			if(todo == "Enter" || todo == "Return")
 				filterImagesSetup->enter->animateClick();
-
-		}
-
-		if(setupWidgets->manipulate && manipulate->isVisible()) {
-
-			if(todo == "Escape")
-				manipulate->makeHide();
 
 		}
 

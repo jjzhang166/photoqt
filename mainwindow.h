@@ -22,7 +22,7 @@
 #include "graphics/graphicsviewlay.h"
 #include "filterimages/filterimagessetup.h"
 #include "filterimages/filterimagesdisplay.h"
-#include "manipulate/manipulate.h"
+#include "graphics/cropwidget.h"
 
 #include <QDesktopWidget>
 #include <QFile>
@@ -78,6 +78,7 @@ private:
 
 	// The big main graphic item
 	GraphicsItem *graphItem;
+	GraphicsItem *cropItem;
 
 	// The settings dialog
 	Settings *set;
@@ -124,7 +125,10 @@ private:
 	FilterImagesDisplay *filterImagesDisplay;
 
 
-	ManipulateImage *manipulate;
+
+	CropWidget *cropWidget;
+
+
 
 	// imagereader combining QImageReader and GraphicsMagic
 	ImageReader *imageReader;

@@ -59,6 +59,12 @@ private:
 
 	void setupContextMenu();
 
+
+
+	bool cropImage;
+	bool cropSelectionStarted;
+	QRect cropSelectionRect;
+
 public slots:
 	// Set a mouse shortcut
 	void setShortcut(QString key, bool close, QString id);

@@ -14,16 +14,13 @@ set(p "thumbnails")
 SET(photoqt_SOURCES ${photoqt_SOURCES} ${p}/thumbnailpixmapitem.cpp ${p}/thumbnails.cpp ${p}/thumbnailview.cpp ${p}/threadforthumbnails.h)
 # graphics/
 set(p "graphics")
-SET(photoqt_SOURCES ${photoqt_SOURCES} ${p}/graphicsview.cpp ${p}/graphicsitem.cpp ${p}/imagereader.cpp ${p}/graphicsviewlay.cpp)
+SET(photoqt_SOURCES ${photoqt_SOURCES} ${p}/graphicsview.cpp ${p}/graphicsitem.cpp ${p}/imagereader.cpp ${p}/graphicsviewlay.cpp ${p}/cropwidget.cpp)
 # widgets/
 set(p "widgets")
 SET(photoqt_SOURCES ${photoqt_SOURCES} ${p}/aboutwidget.cpp ${p}/customconfirm.cpp ${p}/dropdownmenu.cpp ${p}/dropdownmenuitem.cpp ${p}/detailswidget.cpp ${p}/filehandling.cpp ${p}/startupwidget.cpp ${p}/mywidget.cpp)
 # filterimages/
 set(p "filterimages")
 SET(photoqt_SOURCES ${photoqt_SOURCES} ${p}/filterimagessetup.cpp ${p}/filterimagesdisplay.cpp)
-# manipulate/
-set(p "manipulate")
-SET(photoqt_SOURCES ${photoqt_SOURCES} ${p}/manipulate.cpp ${p}/manipulatelabel.cpp)
 # customelements/
 set(p "customelements")
 SET(photoqt_SOURCES ${photoqt_SOURCES} ${p}/customcheckbox.cpp ${p}/customcombobox.cpp ${p}/customlineedit.cpp ${p}/custompushbutton.cpp ${p}/customradiobutton.cpp ${p}/customscrollbar.cpp ${p}/customslider.cpp ${p}/customspinbox.cpp ${p}/customlabel.cpp ${p}/customtabwidget.cpp ${p}/customline.h)
@@ -41,16 +38,13 @@ set(p "thumbnails")
 SET(photoqt_HEADERS ${photoqt_HEADERS} ${p}/threadforthumbnails.h ${p}/thumbnailpixmapitem.h ${p}/thumbnails.h ${p}/thumbnailview.h)
 # graphics/
 set(p "graphics")
-SET(photoqt_HEADERS ${photoqt_HEADERS} ${p}/graphicsview.h ${p}/graphicsitem.h ${p}/imagereader.h ${p}/graphicsviewlay.h)
+SET(photoqt_HEADERS ${photoqt_HEADERS} ${p}/graphicsview.h ${p}/graphicsitem.h ${p}/imagereader.h ${p}/graphicsviewlay.h ${p}/cropwidget.h)
 # widgets/
 set(p "widgets")
 SET(photoqt_HEADERS ${photoqt_HEADERS} ${p}/aboutwidget.h ${p}/customconfirm.h ${p}/dropdownmenu.h ${p}/dropdownmenuitem.h ${p}/detailswidget.h ${p}/filehandling.h ${p}/startupwidget.h ${p}/mywidget.h)
 # filterimages/
 set(p "filterimages")
 SET(photoqt_HEADERS ${photoqt_HEADERS} ${p}/filterimagessetup.h ${p}/filterimagesdisplay.h)
-# manipulate/
-set(p "manipulate")
-SET(photoqt_HEADERS ${photoqt_HEADERS} ${p}/manipulate.h ${p}/manipulatelabel.h)
 # customelements/
 set(p "customelements")
 SET(photoqt_HEADERS ${photoqt_HEADERS} ${p}/customcheckbox.h ${p}/customcombobox.h ${p}/customlineedit.h ${p}/custompushbutton.h ${p}/customradiobutton.h ${p}/customscrollbar.h ${p}/customslider.h ${p}/customspinbox.h ${p}/customlabel.h ${p}/customtabwidget.h ${p}/customline.h)
@@ -83,7 +77,7 @@ ADD_DEFINITIONS(${Qt5Widgets_DEFINITIONS})
 INCLUDE_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR})
 
 # And add the executeable
-ADD_EXECUTABLE(photoqt WIN32 ${photoqt_SOURCES} ${photoqt_HEADERS_MOC} ${photoqt_RESOURCES_RCC})
+ADD_EXECUTABLE(photoqt ${photoqt_SOURCES} ${photoqt_HEADERS_MOC} ${photoqt_RESOURCES_RCC})
 qt5_use_modules(photoqt Core Sql Widgets Multimedia)
 
 
