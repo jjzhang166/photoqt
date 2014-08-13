@@ -14,7 +14,7 @@ set(p "thumbnails")
 SET(photoqt_SOURCES ${photoqt_SOURCES} ${p}/thumbnailpixmapitem.cpp ${p}/thumbnails.cpp ${p}/thumbnailview.cpp ${p}/threadforthumbnails.h)
 # graphics/
 set(p "graphics")
-SET(photoqt_SOURCES ${photoqt_SOURCES} ${p}/graphicsview.cpp ${p}/graphicsitem.cpp ${p}/imagereader.cpp ${p}/graphicsviewlay.cpp ${p}/cropwidget.cpp)
+SET(photoqt_SOURCES ${photoqt_SOURCES} ${p}/graphicsview.cpp ${p}/graphicsitem.cpp ${p}/imagereader.cpp ${p}/graphicsviewlay.cpp ${p}/cropwidget.cpp ${p}/cropbar.cpp)
 # widgets/
 set(p "widgets")
 SET(photoqt_SOURCES ${photoqt_SOURCES} ${p}/aboutwidget.cpp ${p}/customconfirm.cpp ${p}/dropdownmenu.cpp ${p}/dropdownmenuitem.cpp ${p}/detailswidget.cpp ${p}/filehandling.cpp ${p}/startupwidget.cpp ${p}/mywidget.cpp)
@@ -38,7 +38,7 @@ set(p "thumbnails")
 SET(photoqt_HEADERS ${photoqt_HEADERS} ${p}/threadforthumbnails.h ${p}/thumbnailpixmapitem.h ${p}/thumbnails.h ${p}/thumbnailview.h)
 # graphics/
 set(p "graphics")
-SET(photoqt_HEADERS ${photoqt_HEADERS} ${p}/graphicsview.h ${p}/graphicsitem.h ${p}/imagereader.h ${p}/graphicsviewlay.h ${p}/cropwidget.h)
+SET(photoqt_HEADERS ${photoqt_HEADERS} ${p}/graphicsview.h ${p}/graphicsitem.h ${p}/imagereader.h ${p}/graphicsviewlay.h ${p}/cropwidget.h ${p}/cropbar.h)
 # widgets/
 set(p "widgets")
 SET(photoqt_HEADERS ${photoqt_HEADERS} ${p}/aboutwidget.h ${p}/customconfirm.h ${p}/dropdownmenu.h ${p}/dropdownmenuitem.h ${p}/detailswidget.h ${p}/filehandling.h ${p}/startupwidget.h ${p}/mywidget.h)

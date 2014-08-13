@@ -83,10 +83,6 @@ MainWindow::MainWindow(QWidget *parent, bool verbose) : QMainWindow(parent) {
 	connect(graphItem, SIGNAL(updateSceneBigRect()), this, SLOT(updateSceneBigRect()));
 	viewBig->scene()->addItem(graphItem);
 
-	cropWidget = new CropWidget(viewBig);
-	cropWidget->setGeometry(0,0,viewBig->width(),viewBig->height());
-	cropWidget->hide();
-
 
 	// The thumbnail-bar instance
 	viewThumbs = new Thumbnails(viewBig,globSet->verbose,globSet->toSignalOut());
@@ -194,7 +190,7 @@ void MainWindow::adjustGeometries() {
 
 
 
-	cropWidget->setGeometry(0,0,viewBig->width(), viewBig->height());
+	if(setupWidgets->cropimage) cropWidget->setGeometry(0,0,viewBig->width(), viewBig->height());
 
 
 
@@ -1678,9 +1674,24 @@ void MainWindow::setupWidget(QString what) {
 
 	}
 
+	if(what == "cropimage" && !setupWidgets->cropimage) {
+
+		if(globVar->verbose) std::clog << "Setting up CropImage" << std::endl;
+
+		setupWidgets->cropimage = true;
+
+		cropWidget = new CropWidget(viewBig);
+		cropWidget->setGeometry(0,0,viewBig->width(),viewBig->height());
+		cropWidget->hide();
+
+		connect(cropWidget, SIGNAL(blockFunc(bool)), this, SLOT(blockFunc(bool)));
+
+	}
+
+
 }
 
-// Called by shortcuts to execute something
+// Called by shortcuts to exec
 void MainWindow::shortcutDO(QString key, bool mouseSH) {
 
 	if(!globVar->blocked) {
@@ -1710,9 +1721,10 @@ void MainWindow::shortcutDO(QString key, bool mouseSH) {
 				zoom(false);
 			else if(key == "__CTX__zoomreset")
 				zoom(true,"reset");
-			else if(key == "__CTX__cropimage")
+			else if(key == "__CTX__cropimage") {
+				if(!setupWidgets->cropimage) setupWidget("cropimage");
 				cropWidget->show();
-			else if(key == "__CTX__movefirst")
+			} else if(key == "__CTX__movefirst")
 				viewThumbs->gotoFirstLast("first");
 			else if(key == "__CTX__moveprev")
 				moveInDirectory(0);

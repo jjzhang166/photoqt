@@ -18,6 +18,12 @@ public:
 	QRubberBand *rubberBand;
 	QPoint origin;
 
+	int show();
+	int hide();
+
+signals:
+	void blockFunc(bool b);
+
 protected:
 	void paintEvent(QPaintEvent *e);
 	void mousePressEvent(QMouseEvent *e);

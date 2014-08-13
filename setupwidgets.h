@@ -16,6 +16,7 @@ public:
 		manipulate = false;
 		slideshow = false;
 		slideshowbar = false;
+		cropimage = false;
 		settings = false;
 		errormagick = false;
 		menu = false;
@@ -30,6 +31,7 @@ public:
 	bool manipulate;
 	bool slideshow;
 	bool slideshowbar;
+	bool cropimage;
 	bool settings;
 	bool errormagick;
 

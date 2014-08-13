@@ -72,3 +72,17 @@ void CropWidget::mouseReleaseEvent(QMouseEvent *e) {
 	}
 
 }
+
+int CropWidget::show() {
+
+	QWidget::show();
+	emit blockFunc(true);
+
+}
+
+int CropWidget::hide() {
+
+	QWidget::hide();
+	emit blockFunc(false);
+
+}
