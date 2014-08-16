@@ -15,5 +15,6 @@
         <file>lang/photoqt_it.qm</file>
         <file>lang/photoqt_ja.qm</file>
         <file>lang/photoqt_zh_CN.qm</file>
+        <file>lang/photoqt_zh_TW.qm</file>
     </qresource>
 </RCC>

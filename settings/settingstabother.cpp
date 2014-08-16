@@ -101,7 +101,7 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 //	langShort << "ar";
 
 	// Czech
-	langDesc << QString::fromUtf8("Čeština (Robin H. & Petr Š.)");
+	langDesc << QString::fromUtf8("Čeština (Petr Š. & Robin H.)");
 	langShort << "cs";
 
 	// German
@@ -113,7 +113,7 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 	langShort << "el";
 
 	// Spanish
-	langDesc << QString::fromUtf8("Español (Victoria P. & Julian U. & Manuel G. & Hector C.)");
+	langDesc << QString::fromUtf8("Español (Hector C. & Julian U. & Manuel G. & Victoria P.)");
 	langShort << "es_ES";
 
 	// Finnish
@@ -121,11 +121,11 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 	langShort << "fi";
 
 	// French
-	langDesc << QString::fromUtf8("Français (Mathieu M. & Olivier D.)");
+	langDesc << QString::fromUtf8("Français (Mathieu M. & Olivier D. & Tubuntu)");
 	langShort << "fr";
 
 	// Hungarian
-//	langDesc << QString::fromUtf8("Magyar (Zoltan Hoppár)");
+//	langDesc << QString::fromUtf8("Magyar (Zoltan H.)");
 //	langShort << "hu";
 
 	// Hebrew
@@ -133,7 +133,7 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 	langShort << "he";
 
 	// Italian
-	langDesc << "Italiano (Vincenzo C. & Fabio M.)";
+	langDesc << "Italiano (Fabio M. & Vincenzo C.)";
 	langShort << "it";
 
 	// Japanese
@@ -141,23 +141,23 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 	langShort << "ja";
 
 	// Norwegian Bokmal
-//	langDesc << QString::fromUtf8("Bokmål (Ola Haugen Havrevoll)");
+//	langDesc << QString::fromUtf8("Bokmål (Ola Haugen H.)");
 //	langShort << "nb_NO";
 
 	// Norwegian Nynorsk
-//	langDesc << "Nynorsk (Ola Haugen Havrevoll)";
+//	langDesc << "Nynorsk (Ola Haugen H.)";
 //	langShort << "nn_NO";
 
 	// Polish
-//	langDesc << "Polski (Daniel Korbel)";
+//	langDesc << "Polski (Daniel K.)";
 //	langShort << "pl";
 
 	// Portugal (Brazil)
-	langDesc << QString::fromUtf8("Português (Brasil) (Rafael N. & Everton)");
+	langDesc << QString::fromUtf8("Português (Brasil) (Everton & Rafael N.)");
 	langShort << "pt_BR";
 
 	// Portugal (Portugal)
-	langDesc << QString::fromUtf8("Português (Portugal) (Sérgio M. & Manuela S & Willow)");
+	langDesc << QString::fromUtf8("Português (Portugal) (Manuela S. & Sérgio M. & Willow)");
 	langShort << "pt_PT";
 
 	// Russian
@@ -177,7 +177,7 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 //	langShort << "tr";
 
 	// Ukrainian
-	langDesc << QString::fromUtf8("Українська (Yuriy T. & zubr139 & neeesdfsdf & Birdie & Stanislav & Troyane)");
+	langDesc << QString::fromUtf8("Українська (Yuriy T. & zubr139 & neeesdfsdf & Birdie & Stanislav)");
 	langShort << "uk_UA";
 
 	// Viatnemese
@@ -185,8 +185,11 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 //	langShort << "vi";
 
 	// Chinese (China)
-	langDesc << QString::fromUtf8("中文 (Dianjin W.)");
+	langDesc << "Chinese (Min Zhang)";
 	langShort << "zh_CN";
+
+	langDesc << "Chinese (traditional) (Min Zhang)";
+	langShort << "zh_TW";
 
 	FlowLayout *langLay = new FlowLayout;
 	QButtonGroup *langButGrp = new QButtonGroup;
