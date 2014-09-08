@@ -22,7 +22,6 @@
 #include "graphics/graphicsviewlay.h"
 #include "filterimages/filterimagessetup.h"
 #include "filterimages/filterimagesdisplay.h"
-#include "graphics/cropwidget.h"
 
 #include <QDesktopWidget>
 #include <QFile>
@@ -123,10 +122,6 @@ private:
 	// Image filtering
 	FilterImagesSetup *filterImagesSetup;
 	FilterImagesDisplay *filterImagesDisplay;
-
-
-
-	CropWidget *cropWidget;
 
 
 

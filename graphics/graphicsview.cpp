@@ -236,15 +236,6 @@ void GraphicsView::setupContextMenu() {
 
 		menu->addSeparator();
 
-		// Crop image
-		QAction *crop = new QAction(tr("Crop Image"), menu);
-		crop->setData("__CTX__cropimage");
-		crop->setIcon(QIcon(":/img/open.png"));
-		menu->addAction(crop);
-		connect(crop, SIGNAL(triggered()), this, SLOT(contextMenuClicked()));
-
-		menu->addSeparator();
-
 		QAction *openInFm = new QAction(tr("Open in default File Manager"), menu);
 		openInFm->setData("__CTX__openinfm");
 		openInFm->setIcon(QIcon(":/img/open.png"));

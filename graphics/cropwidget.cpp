@@ -1,3 +1,11 @@
+/***********************************************
+ *
+ * THIS CLASS IS CURRENTLY NOT USED!
+ * THE CODE IS LEFT HERE, IN CASE THAT FEATURE
+ * MIGHT BE IMPLEMENTED IN THE FUTURE...
+ *
+ * *********************************************/
+
 #include "cropwidget.h"
 
 CropWidget::CropWidget(QWidget *parent) : QWidget(parent) {

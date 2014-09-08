@@ -1,3 +1,10 @@
+/***********************************************
+ *
+ * THIS CLASS IS CURRENTLY NOT USED!
+ * THE CODE IS LEFT HERE, IN CASE THAT FEATURE
+ * MIGHT BE IMPLEMENTED IN THE FUTURE...
+ *
+ * *********************************************/
 #ifndef CROPWIDGET_H
 #define CROPWIDGET_H
 
