@@ -236,6 +236,13 @@ void GraphicsView::setupContextMenu() {
 
 		menu->addSeparator();
 
+		QAction *scale = new QAction(tr("Scale Image"), menu);
+		scale->setData("__CTX__scaleimage");
+		menu->addAction(scale);
+		connect(scale, SIGNAL(triggered()), this, SLOT(contextMenuClicked()));
+
+		menu->addSeparator();
+
 		QAction *openInFm = new QAction(tr("Open in default File Manager"), menu);
 		openInFm->setData("__CTX__openinfm");
 		openInFm->setIcon(QIcon(":/img/open.png"));

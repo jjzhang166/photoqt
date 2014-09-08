@@ -34,6 +34,7 @@ public:
 	bool cropimage;
 	bool settings;
 	bool errormagick;
+	bool scaleimage;
 
 };
 

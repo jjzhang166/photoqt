@@ -211,6 +211,8 @@ void MainWindow::adjustGeometries() {
 
 	if(setupWidgets->wallpaper) wallpaper->setRect(fullscreen);
 
+	if(setupWidgets->scaleimage) scaleimage->setRect(fullscreen);
+
 	if(setupWidgets->slideshowbar) slideshowbar->setWidth(this->width());
 
 
@@ -1669,6 +1671,20 @@ void MainWindow::setupWidget(QString what) {
 
 	}
 
+	if(what == "scaleimage" && !setupWidgets->scaleimage) {
+
+		if(globVar->verbose) std::clog << "Setting up scale class" << std::endl;
+
+		setupWidgets->scaleimage = true;
+
+		scaleimage = new Scale(viewBig);
+		scaleimage->setRect(QRect(0,0,viewBig->width(),viewBig->height()));
+		scaleimage->show();
+
+		connect(scaleimage, SIGNAL(blockFunc(bool)), this, SLOT(blockFunc(bool)));
+
+	}
+
 }
 
 // Called by shortcuts to exec
@@ -1701,7 +1717,10 @@ void MainWindow::shortcutDO(QString key, bool mouseSH) {
 				zoom(false);
 			else if(key == "__CTX__zoomreset")
 				zoom(true,"reset");
-			else if(key == "__CTX__movefirst")
+			else if(key == "__CTX__scaleimage") {
+				if(!setupWidgets->scaleimage) setupWidget("scaleimage");
+				scaleimage->makeShow();
+			} else if(key == "__CTX__movefirst")
 				viewThumbs->gotoFirstLast("first");
 			else if(key == "__CTX__moveprev")
 				moveInDirectory(0);
@@ -2151,6 +2170,13 @@ void MainWindow::systemShortcutDO(QString todo) {
 				filterImagesSetup->cancel->animateClick();
 			if(todo == "Enter" || todo == "Return")
 				filterImagesSetup->enter->animateClick();
+
+		}
+
+		if(setupWidgets->scaleimage && scaleimage->isVisible()) {
+
+			if(todo == "Escape")
+				scaleimage->makeHide();
 
 		}
 

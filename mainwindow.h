@@ -22,6 +22,7 @@
 #include "graphics/graphicsviewlay.h"
 #include "filterimages/filterimagessetup.h"
 #include "filterimages/filterimagesdisplay.h"
+#include "manipulation/scale.h"
 
 #include <QDesktopWidget>
 #include <QFile>
@@ -122,6 +123,8 @@ private:
 	// Image filtering
 	FilterImagesSetup *filterImagesSetup;
 	FilterImagesDisplay *filterImagesDisplay;
+
+	Scale *scaleimage;
 
 
 
