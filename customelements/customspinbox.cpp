@@ -21,6 +21,10 @@ CustomSpinBox::CustomSpinBox(QWidget *parent) : QSpinBox(parent) {
 	this->setCursor(Qt::PointingHandCursor);
 	this->setButtonSymbols(QSpinBox::NoButtons);
 
+	backgroundCol = "";
+	selectionCol = "";
+	fontcolor = "white";
+
 	setCSS();
 
 }
@@ -28,8 +32,14 @@ CustomSpinBox::CustomSpinBox(QWidget *parent) : QSpinBox(parent) {
 void CustomSpinBox::setCSS() {
 
 	QString css = "QSpinBox {";
+	if(backgroundCol != "" || selectionCol != "") {
+		css += "background: " + backgroundCol + ";";
+		css += "selection-background-color: " + selectionCol + ";";
+	} else
 		css += "selection-background-color: transparent;";
-		css += "color: white;";
+	if(borderCol != "" && borderWidth > 0)
+		css += QString("border: %1px solid %2;").arg(borderWidth).arg(borderCol);
+	css += QString("color: %1;").arg(fontcolor);
 	css += "}";
 	css += "QToolTip {font-weight: bold; color: black; border-radius: 5px; padding: 1px; font-size: 8pt; background: rgba(255,255,255,200); }";
 
