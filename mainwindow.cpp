@@ -443,6 +443,7 @@ void MainWindow::drawImage() {
 		// Get the fileformat and the original size
 		QString fileformat = imageReader->fileformat;
 		QSize origSize = imageReader->origSize;
+		globVar->originalImageSize = origSize;
 
 		// If the thumbnails are kept visible we need to add a transparent bar to the main image so that they don't overlap
 		graphItem->setTransBarHeight((!globVar->zoomed && globSet->thumbnailKeepVisible) ? viewThumbs->height() : 0);

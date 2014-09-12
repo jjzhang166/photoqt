@@ -23,6 +23,8 @@ public:
 		zoomedByMouse = true;
 		zoomedImgAtLeastOnce = false;
 
+		originalImageSize = QSize();
+
 		systemSh << "Escape" << "Enter" << "Return" << "Ctrl+s" << "Left" << "Right" << "Up" << "Down" << "Alt+Up" << "Alt+Left" << "Alt+Right" << "Alt+1" << "Alt+2" << "Alt+3" << "Alt+4" << "Alt+5" << "Ctrl+Tab" << "Ctrl+Shift+Tab";
 
 		flipVer = false;
@@ -51,6 +53,9 @@ public:
 
 	// Are we ignoring the tray icon and just exit
 	bool skipTrayIcon;
+
+	// The original image size
+	QSize originalImageSize;
 
 	// The current rotation of the image
 	int rotation;
