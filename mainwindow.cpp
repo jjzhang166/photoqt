@@ -1720,7 +1720,7 @@ void MainWindow::shortcutDO(QString key, bool mouseSH) {
 				zoom(true,"reset");
 			else if(key == "__CTX__scaleimage") {
 				if(!setupWidgets->scaleimage) setupWidget("scaleimage");
-				scaleimage->makeShow();
+				scaleimage->scale(globVar->originalImageSize);
 			} else if(key == "__CTX__movefirst")
 				viewThumbs->gotoFirstLast("first");
 			else if(key == "__CTX__moveprev")
