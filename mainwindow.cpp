@@ -2181,8 +2181,10 @@ void MainWindow::systemShortcutDO(QString todo) {
 					scaleimage->confirmInPlace->no->animateClick();
 				else if(scaleimage->confirmNew->isVisible())
 					scaleimage->confirmNew->no->animateClick();
+				else if(scaleimage->confirmNotSupported->isVisible())
+					scaleimage->confirmNotSupported->yes->animateClick();
 				else
-					scaleimage->makeHide();
+					scaleimage->disableAllSpinBoxAndClose();
 			}
 			if(todo == "Enter" || todo == "Return")
 				scaleimage->enterInPlace->animateClick();

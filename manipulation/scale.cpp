@@ -26,6 +26,7 @@ Scale::Scale(bool verbose, QWidget *parent) : MyWidget(parent) {
 	widthSpin->setBackground("white", "black");
 	widthSpin->setBorder("black",1);
 	widthSpin->setFontColor("black");
+	widthSpin->setEnabled(false);
 	spinLay->addWidget(widthLabel,0,0);
 	spinLay->addWidget(widthSpin,0,1);
 	connect(widthSpin, SIGNAL(valueChanged(int)), this, SLOT(sizeChanged()));
@@ -40,6 +41,7 @@ Scale::Scale(bool verbose, QWidget *parent) : MyWidget(parent) {
 	heightSpin->setBackground("white", "black");
 	heightSpin->setBorder("black",1);
 	heightSpin->setFontColor("black");
+	heightSpin->setEnabled(false);
 	spinLay->addWidget(heightLabel,1,0);
 	spinLay->addWidget(heightSpin,1,1);
 	connect(heightSpin, SIGNAL(valueChanged(int)), this, SLOT(sizeChanged()));
@@ -72,7 +74,7 @@ Scale::Scale(bool verbose, QWidget *parent) : MyWidget(parent) {
 	butLay->addWidget(enterNew);
 	butLay->addWidget(cancel);
 	butLay->addStretch();
-	connect(cancel, SIGNAL(clicked()), this, SLOT(animate()));
+	connect(cancel, SIGNAL(clicked()), this, SLOT(disableAllSpinBoxAndClose()));
 	connect(enterInPlace, SIGNAL(clicked()), this, SLOT(enterClicked()));
 	connect(enterNew, SIGNAL(clicked()), this, SLOT(enterClicked()));
 
@@ -90,8 +92,20 @@ Scale::Scale(bool verbose, QWidget *parent) : MyWidget(parent) {
 	this->setWidgetLayout(lay);
 
 	// We need to initialise them here, otherwise the system shortcut in mainwindow.cpp might cause a crash
+	confirmNotSupported = new CustomConfirm("","");
 	confirmInPlace = new CustomConfirm("","");
 	confirmNew = new CustomConfirm("","");
+
+}
+
+// This disables the spinboxes and closes the widget
+// We need to disable the spinboxes, otherwise the keyboard will be caught by them and other shortcuts (like 'o', ...) wont work anymore
+void Scale::disableAllSpinBoxAndClose() {
+
+	widthSpin->setEnabled(false);
+	heightSpin->setEnabled(false);
+
+	makeHide();
 
 }
 
@@ -99,6 +113,19 @@ Scale::Scale(bool verbose, QWidget *parent) : MyWidget(parent) {
 void Scale::scale(QString filename, QSize s) {
 
 	if(verbose) std::clog << "scale: Open Widget for Scaling: " << filename.toStdString() << std::endl;
+
+	// Scaling currently only works for Qt-supported image formats - GraphicsMagick support not yet implemented
+	if(!QImageReader::supportedImageFormats().contains(QFileInfo(filename).suffix().toLower().toLatin1())) {
+
+		confirmNotSupported = new CustomConfirm(tr("Filetype Not Supported"),tr("Sorry, scaling is currently only available for filetypes natively supported by Qt..."),tr("Oh, okay..."),"",QSize(350,200), "default", "default", this->parentWidget());
+		confirmNotSupported->show();
+		confirmNotSupported->setRects(getRectShown(),getRectHidden(),getRectAni());
+		connect(confirmNotSupported, SIGNAL(blockFunc(bool)), this, SIGNAL(blockFunc(bool)));
+		confirmNotSupported->makeShow();
+
+		return;
+
+	}
 
 	// Save the current filename
 	currentfile = filename;
@@ -180,7 +207,7 @@ void Scale::enterClicked() {
 					    tr("Continue"), tr("Stop"),
 					    QSize(300,200), "default", "rgba(0,0,0,240)", this->parentWidget());
 		confirmInPlace->show();
-		confirmInPlace->setRects(this->getRectShown(),getRectHidden(),getRectAni());
+		confirmInPlace->setRects(getRectShown(),getRectHidden(),getRectAni());
 		// If confirmed, we automatically call the scale function with the current filename
 		QSignalMapper *map = new QSignalMapper;
 		map->setMapping(confirmInPlace,currentfile);
@@ -188,7 +215,7 @@ void Scale::enterClicked() {
 		connect(map, SIGNAL(mapped(QString)), this, SLOT(doScale(QString)));
 		confirmInPlace->makeShow();
 		// And if confirmed, we also close this widget
-		connect(confirmInPlace, SIGNAL(confirmed()), this, SLOT(animate()));
+		connect(confirmInPlace, SIGNAL(confirmed()), this, SLOT(disableAllSpinBoxAndClose()));
 
 	// If the image is to be scaled to a new file
 	} else {
@@ -205,18 +232,18 @@ void Scale::enterClicked() {
 						    tr("Continue"), tr("Stop"),
 						    QSize(300,200), "default", "rgba(0,0,0,240)", this->parentWidget());
 			confirmNew->show();
-			confirmNew->setRects(this->getRectShown(),getRectHidden(),getRectAni());
+			confirmNew->setRects(getRectShown(),getRectHidden(),getRectAni());
 			QSignalMapper *map = new QSignalMapper;
 			map->setMapping(confirmNew,fname);
 			connect(confirmNew, SIGNAL(confirmed()), map, SLOT(map()));
 			connect(map, SIGNAL(mapped(QString)), this, SLOT(doScale(QString)));
-			connect(confirmNew, SIGNAL(confirmed()), this, SLOT(animate()));
+			connect(confirmNew, SIGNAL(confirmed()), this, SLOT(disableAllSpinBoxAndClose()));
 			confirmNew->makeShow();
 
 		} else {
 
 			// If it's a new file, scale
-			makeHide();
+			disableAllSpinBoxAndClose();
 			doScale(fname);
 
 		}

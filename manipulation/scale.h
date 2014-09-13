@@ -23,8 +23,12 @@ public:
 	void scale(QString filename, QSize s);
 
 	CustomPushButton *enterInPlace;
+	CustomConfirm *confirmNotSupported;
 	CustomConfirm *confirmInPlace;
 	CustomConfirm *confirmNew;
+
+	// First we need to enable the spinboxes and then we show the widget
+	void makeShow() { widthSpin->setEnabled(true); heightSpin->setEnabled(true); MyWidget::makeShow(); }
 
 private:
 	bool verbose;
@@ -39,6 +43,9 @@ private:
 
 	bool ignoreSizeChange;
 	QString lastEdit;
+
+public slots:
+	void disableAllSpinBoxAndClose();
 
 private slots:
 	void sizeChanged();
