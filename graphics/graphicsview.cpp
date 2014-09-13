@@ -238,6 +238,7 @@ void GraphicsView::setupContextMenu() {
 
 		QAction *scale = new QAction(tr("Scale Image"), menu);
 		scale->setData("__CTX__scaleimage");
+		scale->setIcon(QIcon(":/img/scale.png"));
 		menu->addAction(scale);
 		connect(scale, SIGNAL(triggered()), this, SLOT(contextMenuClicked()));
 

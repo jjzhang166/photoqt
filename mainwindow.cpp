@@ -1865,6 +1865,10 @@ void MainWindow::shortcutDO(QString key, bool mouseSH) {
 				if(!setupWidgets->wallpaper) setupWidget("wallpaper");
 				wallpaper->setWallpaper(globVar->currentfile);
 			}
+			if(key == "__scale") {
+				if(!setupWidgets->scaleimage) setupWidget("scaleimage");
+				scaleimage->scale(globVar->currentfile, globVar->originalImageSize);
+			}
 
 		}
 	} else
