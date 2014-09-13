@@ -140,6 +140,7 @@ public slots:
 		allKeyShortcuts.insert("Ctrl+0",QList<QVariant>() << false << "__rotate0");
 		allKeyShortcuts.insert("Ctrl+H",QList<QVariant>() << false << "__flipH");
 		allKeyShortcuts.insert("Ctrl+V",QList<QVariant>() << false << "__flipV");
+		allKeyShortcuts.insert("Ctrl+X",QList<QVariant>() << false << "__scale");
 		allKeyShortcuts.insert("Ctrl+E",QList<QVariant>() << false << "__hideMeta");
 		allKeyShortcuts.insert("E",QList<QVariant>() << false << "__settings");
 		allKeyShortcuts.insert("F2",QList<QVariant>() << false << "__rename");
@@ -161,6 +162,7 @@ public slots:
 		allMouseShortcuts.insert("[M] Ctrl+Wheel Down",QList<QVariant>() << false << "__zoomOut");
 		allMouseShortcuts.insert("[M] Ctrl+Wheel Up",QList<QVariant>() << false << "__zoomIn");
 		allMouseShortcuts.insert("[M] Ctrl+Middle Button",QList<QVariant>() << false << "__zoomReset");
+		allMouseShortcuts.insert("[M] Right Button",QList<QVariant>() << false << "__showContext");
 
 		saveSH();
 
