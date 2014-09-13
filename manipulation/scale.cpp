@@ -2,7 +2,7 @@
 
 Scale::Scale(bool verbose, QWidget *parent) : MyWidget(parent) {
 
-	this->setVisibleArea(QSize(500,260));
+	this->setVisibleArea(QSize(550,300));
 
 	// Some variables
 	ignoreSizeChange = false;
@@ -62,6 +62,27 @@ Scale::Scale(bool verbose, QWidget *parent) : MyWidget(parent) {
 	spinCheckLay->addStretch();
 
 
+	// Set the quality of the scaling
+	CustomLabel *qualityLabel = new CustomLabel(tr("Quality:"));
+	CustomSpinBox *qualityValue = new CustomSpinBox;
+	qualityValue->setMinimum(0);
+	qualityValue->setMaximum(100);
+	qualityValue->setValue(90);
+	quality = new CustomSlider;
+	quality->setMinimum(0);
+	quality->setMaximum(100);
+	quality->setFixedWidth(150);
+	quality->setValue(90);
+	QHBoxLayout *qualityLay = new QHBoxLayout;
+	qualityLay->addStretch();
+	qualityLay->addWidget(qualityLabel);
+	qualityLay->addWidget(quality);
+	qualityLay->addWidget(qualityValue);
+	qualityLay->addStretch();
+	connect(qualityValue, SIGNAL(valueChanged(int)), quality, SLOT(setValue(int)));
+	connect(quality, SIGNAL(valueChanged(int)), qualityValue, SLOT(setValue(int)));
+
+
 	// Pushbuttons to go ahead or cancel
 	enterInPlace = new CustomPushButton(tr("Scale in place"));
 	enterInPlace->setObjectName("enterInPlace");
@@ -86,7 +107,9 @@ Scale::Scale(bool verbose, QWidget *parent) : MyWidget(parent) {
 	lay->addWidget(curSize);
 	lay->addSpacing(20);
 	lay->addLayout(spinCheckLay);
-	lay->addSpacing(20);
+	lay->addSpacing(10);
+	lay->addLayout(qualityLay);
+	lay->addSpacing(15);
 	lay->addLayout(butLay);
 	lay->addStretch();
 	this->setWidgetLayout(lay);
@@ -264,7 +287,7 @@ void Scale::doScale(QString filename) {
 	// Load it
 	QImage img = reader.read();
 	// And save to new file
-	img.save(filename);
+	img.save(filename,0,quality->value());
 
 }
 

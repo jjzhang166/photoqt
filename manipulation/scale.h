@@ -9,6 +9,7 @@
 #include "../customelements/customlabel.h"
 #include "../customelements/customspinbox.h"
 #include "../customelements/customcheckbox.h"
+#include "../customelements/customslider.h"
 #include "../widgets/customconfirm.h"
 #include "../widgets/mywidget.h"
 
@@ -40,6 +41,8 @@ private:
 	CustomSpinBox *widthSpin;
 	CustomSpinBox *heightSpin;
 	CustomCheckBox *keepratio;
+
+	CustomSlider *quality;
 
 	bool ignoreSizeChange;
 	QString lastEdit;
