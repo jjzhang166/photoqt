@@ -60,9 +60,9 @@ void MyWidget::setup(int layoutMargin, QString borderColor, QString backgroundCo
 	center->setObjectName("center");
 	// For some reason, if the border is not defined right here at the beginning, it wont be visible...
 	if(borderColor == "")
-		center->setStyleSheet(QString("#center { background: %1; border-radius: 10px; font-size: 12pt; }").arg(backgroundColor));
+		center->setStyleSheet(QString("#center { background: %1; border-radius: 10px; font-size: 12pt; }").arg(this->backgroundColor));
 	else
-		center->setStyleSheet(QString("#center {background: %1; border-radius: 15px; font-size: 12pt; border: 2px solid %2; }").arg(backgroundColor).arg(borderColor));
+		center->setStyleSheet(QString("#center {background: %1; border-radius: 15px; font-size: 12pt; border: 2px solid %2; }").arg(this->backgroundColor).arg(borderColor));
 
 	// The current animation framework
 	ani = new QPropertyAnimation(center,"geometry");

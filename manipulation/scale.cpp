@@ -115,6 +115,10 @@ void Scale::scale(QString filename, QSize s) {
 	// And show widget
 	makeShow();
 
+	// Focus and select width dimension
+	widthSpin->setFocus();
+	widthSpin->selectAll();
+
 }
 
 // When either dimension has been changed, then we possibly need to update the other (in order to preserve aspect ratio
