@@ -63,7 +63,7 @@ Details::Details(QWidget *parent, QMap<QString, QVariant> set, bool v): QWidget(
 #ifdef EXIV2
 
 	// Confirm a rotation
-	rotConf = new CustomConfirm(tr("Rotate Image?"), tr("The Exif data of this image says, that this image is supposed to be rotated.") + "<br><br>" + tr("Do you want to apply the rotation?"), tr("Okay, do it"), tr("What? No!"),QSize(450,210), "default", this->parentWidget());
+	rotConf = new CustomConfirm(tr("Rotate Image?"), tr("The Exif data of this image says, that this image is supposed to be rotated.") + "<br><br>" + tr("Do you want to apply the rotation?"), tr("Okay, do it"), tr("What? No!"),QSize(450,210), "default","default", this->parentWidget());
 	rotConf->setDontShowAgain();
 	connect(rotConf, SIGNAL(confirmed()), this, SLOT(rotConfYes()));
 	connect(rotConf, SIGNAL(rejected()), this, SLOT(rotConfNo()));

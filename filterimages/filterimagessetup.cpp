@@ -16,7 +16,7 @@
 
 #include "filterimagessetup.h"
 
-FilterImagesSetup::FilterImagesSetup(QWidget *parent) : MyWidget("rgb(130,130,130)",parent) {
+FilterImagesSetup::FilterImagesSetup(QWidget *parent) : MyWidget("default","default",parent) {
 
 	this->setVisibleArea(QSize(500,260));
 

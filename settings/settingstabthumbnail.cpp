@@ -337,11 +337,11 @@ SettingsTabThumbnail::SettingsTabThumbnail(QWidget *parent, QMap<QString, QVaria
 
 
 	// We ask for confirmation before cleaning up the database
-	confirmClean = new CustomConfirm(tr("Clean Database"),tr("Do you really want to clean up the database? This removes all obsolete thumbnails, thus possibly making PhotoQt a little faster.") + "<bR><br>" + tr("This process might take a little while."),tr("Yes, clean is good"),tr("No, don't have time for that"),QSize(450,250),"default",this->parentWidget());
+	confirmClean = new CustomConfirm(tr("Clean Database"),tr("Do you really want to clean up the database? This removes all obsolete thumbnails, thus possibly making PhotoQt a little faster.") + "<bR><br>" + tr("This process might take a little while."),tr("Yes, clean is good"),tr("No, don't have time for that"),QSize(450,250),"default","default",this->parentWidget());
 	confirmClean->show();
 
 	// We ask for confirmation before erasing the entire database
-	confirmErase = new CustomConfirm(tr("Erase Database"),tr("Do you really want to ERASE the entire database? This removes every single item in the database! This step should never really be necessarily. After that, every thumbnail has to be newly re-created. This step cannot be reversed!"),tr("Yes, get rid of it all"),tr("Nooo, I want to keep it"),QSize(450,250),"default",this->parentWidget());
+	confirmErase = new CustomConfirm(tr("Erase Database"),tr("Do you really want to ERASE the entire database? This removes every single item in the database! This step should never really be necessarily. After that, every thumbnail has to be newly re-created. This step cannot be reversed!"),tr("Yes, get rid of it all"),tr("Nooo, I want to keep it"),QSize(450,250),"default","default",this->parentWidget());
 	confirmErase->show();
 
 	connect(cleanDatabase, SIGNAL(clicked()), confirmClean, SLOT(animate()));

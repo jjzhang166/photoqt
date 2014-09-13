@@ -54,7 +54,7 @@ Settings::Settings(QMap<QString, QVariant> glob, bool v, QWidget *parent) : MyWi
 	lay->addLayout(butLay);
 
 	// Ask for confirmation of restoring default settings
-	restoreDefaultConfirm = new CustomConfirm(tr("Restore Default Settings?"),tr("Do you really want to get rid of your custom settings and set the default ones? This only resets all settings. A default set of shortcuts can be set in the shortcuts tab.") + "<br><br>" + tr("This step cannot be reversed!"),tr("Yep, I want new stuff"),tr("Um, no, not really"),QSize(500,250),"default",this);
+	restoreDefaultConfirm = new CustomConfirm(tr("Restore Default Settings?"),tr("Do you really want to get rid of your custom settings and set the default ones? This only resets all settings. A default set of shortcuts can be set in the shortcuts tab.") + "<br><br>" + tr("This step cannot be reversed!"),tr("Yep, I want new stuff"),tr("Um, no, not really"),QSize(500,250),"default","default",this);
 
 	// Some signals/slots
 	connect(saveExit, SIGNAL(clicked()), this, SLOT(animate()));

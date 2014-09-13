@@ -1678,7 +1678,7 @@ void MainWindow::setupWidget(QString what) {
 
 		setupWidgets->scaleimage = true;
 
-		scaleimage = new Scale(viewBig);
+		scaleimage = new Scale(globVar->verbose, viewBig);
 		scaleimage->setRect(QRect(0,0,viewBig->width(),viewBig->height()));
 		scaleimage->show();
 
@@ -1720,7 +1720,7 @@ void MainWindow::shortcutDO(QString key, bool mouseSH) {
 				zoom(true,"reset");
 			else if(key == "__CTX__scaleimage") {
 				if(!setupWidgets->scaleimage) setupWidget("scaleimage");
-				scaleimage->scale(globVar->originalImageSize);
+				scaleimage->scale(globVar->currentfile, globVar->originalImageSize);
 			} else if(key == "__CTX__movefirst")
 				viewThumbs->gotoFirstLast("first");
 			else if(key == "__CTX__moveprev")
@@ -2176,8 +2176,16 @@ void MainWindow::systemShortcutDO(QString todo) {
 
 		if(setupWidgets->scaleimage && scaleimage->isVisible()) {
 
-			if(todo == "Escape")
-				scaleimage->makeHide();
+			if(todo == "Escape") {
+				if(scaleimage->confirmInPlace->isVisible())
+					scaleimage->confirmInPlace->no->animateClick();
+				else if(scaleimage->confirmNew->isVisible())
+					scaleimage->confirmNew->no->animateClick();
+				else
+					scaleimage->makeHide();
+			}
+			if(todo == "Enter" || todo == "Return")
+				scaleimage->enterInPlace->animateClick();
 
 		}
 

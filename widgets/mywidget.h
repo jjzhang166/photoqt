@@ -19,7 +19,7 @@ class MyWidget : public QWidget {
 
 public:
 	// Different constructors
-	MyWidget(QString borderColor = "", QWidget *parent = 0);
+	MyWidget(QString borderColor = "", QString backgroundColor = "", QWidget *parent = 0);
 	MyWidget(int layoutMargin = 10, QWidget *parent = 0);
 	MyWidget(QWidget *parent = 0);
 	~MyWidget();
@@ -60,7 +60,7 @@ public:
 
 private:
 	// Setup MyWidget (called from all three constructors)
-	void setup(int layoutMargin, QString borderColor);
+	void setup(int layoutMargin, QString borderColor, QString backgroundColor);
 
 	// The central widget
 	QWidget *center;
@@ -85,6 +85,8 @@ private:
 
 	// Some styling
 	QSize visibleArea;
+	QString borderColor;
+	QString backgroundColor;
 	int borderLeftRight;
 	int borderTopDown;
 	bool fullscreen;

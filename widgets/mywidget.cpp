@@ -3,31 +3,34 @@
 // The normal contructor
 MyWidget::MyWidget(QWidget *parent) : QWidget(parent) {
 
-	setup(10, "");
+	setup(10, "", "");
 
 }
 
 // A constructor to change the margin (default: 10)
 MyWidget::MyWidget(int layoutMargin, QWidget *parent) : QWidget(parent) {
 
-	setup(layoutMargin, "");
+	setup(layoutMargin, "", "");
 
 }
 
 // A constructor to change the color of the central widget border
-MyWidget::MyWidget(QString borderColor, QWidget *parent) : QWidget(parent) {
+MyWidget::MyWidget(QString borderColor, QString backgroundColor, QWidget *parent) : QWidget(parent) {
 
 	if(borderColor == "default") borderColor = "rgb(130,130,130)";
+	if(backgroundColor == "default") backgroundColor = "rgba(0,0,0,200)";
 
-	setup(10, borderColor);
+	setup(10, borderColor, backgroundColor);
 
 }
 
 // Setup widget
-void MyWidget::setup(int layoutMargin, QString borderColor) {
+void MyWidget::setup(int layoutMargin, QString borderColor, QString backgroundColor) {
 
 	// Some styling
 	visibleArea = QSize(600,400);
+	this->borderColor = borderColor;
+	this->backgroundColor = (backgroundColor == "" ? "rgba(0,0,0,200)" : backgroundColor);
 	borderLeftRight = -1;
 	borderTopDown = -1;
 	fullscreen = false;
@@ -57,9 +60,9 @@ void MyWidget::setup(int layoutMargin, QString borderColor) {
 	center->setObjectName("center");
 	// For some reason, if the border is not defined right here at the beginning, it wont be visible...
 	if(borderColor == "")
-		center->setStyleSheet("#center { background: rgba(0,0,0,200); border-radius: 10px; font-size: 12pt; }");
+		center->setStyleSheet(QString("#center { background: %1; border-radius: 10px; font-size: 12pt; }").arg(backgroundColor));
 	else
-		center->setStyleSheet(QString("#center {background: rgba(0,0,0,200); border-radius: 15px; font-size: 12pt; border: 2px solid %1; }").arg(borderColor));
+		center->setStyleSheet(QString("#center {background: %1; border-radius: 15px; font-size: 12pt; border: 2px solid %2; }").arg(backgroundColor).arg(borderColor));
 
 	// The current animation framework
 	ani = new QPropertyAnimation(center,"geometry");
