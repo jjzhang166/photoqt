@@ -1368,6 +1368,8 @@ void MainWindow::removeImageFilter() {
 
 	viewThumbs->removeFilter();
 
+	globVar->curDir = "";
+
 	if(globVar->currentfile == "")
 		loadNewImgFromOpen(globVar->fileBeforeEmptyFilter);
 	else
@@ -1377,34 +1379,46 @@ void MainWindow::removeImageFilter() {
 }
 
 // Filter images in current directory
-void MainWindow::setImageFilter(QStringList filter) {
+void MainWindow::setImageFilter(QString curDir, QStringList filter) {
 
 	if(filter.isEmpty()) return;
 
-	filterImagesDisplay->showFilter(filter);
-
 	viewThumbs->setFilter(filter);
 
+	// Get filepath
 	QString path = "";
-	if(viewThumbs->allImgsInfo.length() == 0 && filterImagesDisplay->isVisible()) {
+	// If there is a current filter set, we need to look at the actual directory content
+	if(filterImagesDisplay->isVisible()) {
 		QStringList filterMe;
 		for(int i = 0; i < filter.length(); ++i)
-			filterMe.append("*." + filter.at(i));
-		QDir dir(QFileInfo(globVar->fileBeforeEmptyFilter).absoluteDir());
+			filterMe.append("*" + filter.at(i) + (filter.at(i).startsWith(".") ? "" : "*"));
+		QDir dir;
+		dir.setPath(curDir);
 		QFileInfoList l = dir.entryInfoList(filterMe);
 		if(l.length() != 0)
 			path = l.at(0).absoluteFilePath();
+	// If no filter is currently set, we can look at the list in the Thumbnails class
 	} else {
 		for(int i = 0; i < viewThumbs->allImgsInfo.length(); ++i) {
-			if(filter.contains(viewThumbs->allImgsInfo.at(i).completeSuffix().toLower())) {
-				path = viewThumbs->allImgsInfo.at(i).absoluteFilePath();
-				break;
+			for(int j = 0; j < filter.length(); ++j) {
+				if((!filter.at(j).startsWith(".") && viewThumbs->allImgsInfo.at(i).fileName().contains(filter.at(j)))
+					|| (filter.at(j).startsWith(".") && viewThumbs->allImgsInfo.at(i).fileName().endsWith(filter.at(j)))) {
+					path = viewThumbs->allImgsInfo.at(i).absoluteFilePath();
+					break;
+				}
 			}
+			if(path != "") break;
 		}
 	}
 
+	// Display filter on top of thumbnails
+	filterImagesDisplay->showFilter(filter);
+
+
+	// Load image (if any result found)
 	if(path != "")
 		loadNewImgFromOpen(path, false);
+	// Show 'empty' image
 	else {
 		if(globVar->currentfile != "")
 			globVar->fileBeforeEmptyFilter = globVar->currentfile;
@@ -1632,10 +1646,10 @@ void MainWindow::setupWidget(QString what) {
 		filterImagesDisplay->setVisible(false);
 
 		connect(filterImagesSetup, SIGNAL(blockFunc(bool)), this, SLOT(blockFunc(bool)));
-		connect(filterImagesSetup, SIGNAL(setFilter(QStringList)), this, SLOT(setImageFilter(QStringList)));
+		connect(filterImagesSetup, SIGNAL(setFilter(QString,QStringList)), this, SLOT(setImageFilter(QString,QStringList)));
 		connect(filterImagesSetup, SIGNAL(removeFilter()), this, SLOT(removeImageFilter()));
 		connect(filterImagesDisplay, SIGNAL(removeImageFilter()), this, SLOT(removeImageFilter()));
-		connect(filterImagesDisplay, SIGNAL(changeFilter()), filterImagesSetup, SLOT(makeShow()));
+		connect(filterImagesDisplay, SIGNAL(changeFilter()), filterImagesSetup, SLOT(animate()));
 
 	}
 
@@ -1792,7 +1806,9 @@ void MainWindow::shortcutDO(QString key, bool mouseSH) {
 			if(key == "__filterImages") {
 				if(globVar->currentfile != "" || filterImagesDisplay->isVisible()) {
 					if(!setupWidgets->filterimages) setupWidget("filterimages");
-					filterImagesSetup->makeShow();
+					if(globVar->curDir == "")
+						globVar->curDir = QFileInfo(globVar->currentfile).absolutePath();
+					filterImagesSetup->makeShow(globVar->curDir);
 				}
 			}
 			if(key == "__slideshowQuick") {

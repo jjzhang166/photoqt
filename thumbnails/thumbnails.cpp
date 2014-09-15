@@ -221,9 +221,12 @@ void Thumbnails::loadDir(bool amReloadingDir) {
 		dir->setNameFilters(flt);
 	else {
 		QStringList flt_approved;
-		foreach(QString f, flt) {
-			if(imageFilter.contains(f.remove(0,2)))
-				flt_approved.append("*." + f);
+		foreach(QString f, imageFilter) {
+			if(f.startsWith(".") && flt.contains(f.remove(0,1)))
+				flt_approved.append("*" + f);
+			else if(!f.startsWith("."))
+				flt_approved.append("*" + f + "*");
+
 		}
 		dir->setNameFilters(flt_approved);
 	}

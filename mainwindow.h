@@ -197,7 +197,7 @@ private slots:
 
 	// Filter images
 	void removeImageFilter();
-	void setImageFilter(QStringList filter);
+	void setImageFilter(QString dir, QStringList filter);
 
 	// After the settings window is closed we might have to call openFile().
 	// We cannot use one of the already existing functions, since this call is only to

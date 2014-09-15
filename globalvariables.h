@@ -43,6 +43,7 @@ public:
 		store_flipVer.clear();
 
 		fileBeforeEmptyFilter = "";
+		curDir = "";
 
 	}
 
@@ -50,6 +51,9 @@ public:
 
 	// The current file
 	QString currentfile;
+
+	// the current directory (used suring filtering)
+	QString curDir;
 
 	// Are we ignoring the tray icon and just exit
 	bool skipTrayIcon;

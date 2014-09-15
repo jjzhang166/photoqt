@@ -18,7 +18,7 @@
 
 FilterImagesSetup::FilterImagesSetup(QWidget *parent) : MyWidget("default","default",parent) {
 
-	this->setVisibleArea(QSize(500,260));
+	this->setVisibleArea(QSize(500,270));
 
 	// Title
 	CustomLabel *title = new CustomLabel(tr("Filter Images in Current Directory"));
@@ -28,7 +28,7 @@ FilterImagesSetup::FilterImagesSetup(QWidget *parent) : MyWidget("default","defa
 	title->setWordWrap(true);
 
 	// A short description
-	CustomLabel *desc = new CustomLabel(tr("Enter here the extension of the files you want to show. Seperate multiple extensions by a space."));
+	CustomLabel *desc = new CustomLabel(tr("Enter here the term you want to search for. Seperate multiple terms by a space.") + "<br>" + tr("If you want to limit a term to file extensions, prepend a dot '.' to it."));
 	desc->setAlignment(Qt::AlignCenter);
 	desc->setWordWrap(true);
 
@@ -46,7 +46,7 @@ FilterImagesSetup::FilterImagesSetup(QWidget *parent) : MyWidget("default","defa
 	connect(enter, SIGNAL(clicked()), this, SLOT(okayClicked()));
 	connect(edit, SIGNAL(returnPressed()), enter, SIGNAL(clicked()));
 	connect(edit, SIGNAL(textEdited(QString)), this, SLOT(editTextChanged()));
-	connect(cancel, SIGNAL(clicked()), this, SLOT(animate()));
+	connect(cancel, SIGNAL(clicked()), this, SLOT(disableAndClose()));
 	connect(remove, SIGNAL(clicked()), this, SIGNAL(removeFilter()));
 	connect(remove, SIGNAL(clicked()), cancel, SLOT(animateClick()));
 
@@ -65,11 +65,14 @@ FilterImagesSetup::FilterImagesSetup(QWidget *parent) : MyWidget("default","defa
 	lay->addWidget(desc);
 	lay->addSpacing(8);
 	lay->addWidget(edit);
-	lay->addSpacing(12);
+	lay->addSpacing(20);
 	lay->addLayout(butLay);
 
 	// Set layout to central widget
 	this->setWidgetLayout(lay);
+
+	edit->setFocus();
+	edit->selectAll();
 
 
 }
@@ -84,8 +87,8 @@ void FilterImagesSetup::editTextChanged() {
 // Set filter and reload directory
 void FilterImagesSetup::okayClicked() {
 
-	emit setFilter(edit->text().toLower().split(" ",QString::SkipEmptyParts));
-	makeHide();
+	emit setFilter(curDir, edit->text().toLower().split(" ",QString::SkipEmptyParts));
+	disableAndClose();
 
 }
 
