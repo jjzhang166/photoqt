@@ -42,6 +42,8 @@ public:
 		store_flipHor.clear();
 		store_flipVer.clear();
 
+		tosave.clear();
+
 		fileBeforeEmptyFilter = "";
 		curDir = "";
 
@@ -102,6 +104,9 @@ public:
 	QMap<QString,int> store_rotation;
 	QMap<QString,bool> store_flipHor;
 	QMap<QString,bool> store_flipVer;
+
+	// Anything to sav
+	QMap<QString,bool> tosave;
 
 	QString fileBeforeEmptyFilter;
 
