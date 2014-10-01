@@ -48,7 +48,9 @@ public:
 	bool verbose;
 
 	void setPosition(QString pos);
-	void updateInfo(QString currentfile, int countpos, int counttot, bool tosave);
+// rotation indicator
+/*	void updateInfo(QString currentfile, int countpos, int counttot, bool tosave);*/
+	void updateInfo(QString currentfile, int countpos, int counttot);
 
 	bool slideshowRunning;
 	bool slideshowHide;
@@ -61,12 +63,16 @@ public slots:
 private:
 	QMap<QString,QVariant> globSet;
 
-	CustomLabel *quickInfoSaveBOT;
+// rotation indicator
+/*	CustomLabel *quickInfoSaveBOT;*/
+
 	QuickInfoLabel *quickInfoCounterBOT;
 	CustomLabel *quickInfoSepBOT;
 	QuickInfoLabel *quickInfoFilenameBOT;
 
-	CustomLabel *quickInfoSaveTOP;
+// rotation indicator
+/*	CustomLabel *quickInfoSaveTOP;*/
+
 	QuickInfoLabel *quickInfoCounterTOP;
 	QuickInfoLabel *quickInfoFilenameTOP;
 	QuickInfoLabel *closeWindowX;

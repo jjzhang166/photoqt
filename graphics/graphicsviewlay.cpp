@@ -31,9 +31,12 @@ ViewBigLay::ViewBigLay(QMap<QString, QVariant> set, bool v) : QVBoxLayout() {
 	QHBoxLayout *quickInfoTOP = new QHBoxLayout;
 
 	// We have labels for the top and for the bottom. So there's no need to restart PhotoQt when switching thumbnails from top to bottom or vice versa
-	quickInfoSaveTOP = new CustomLabel("*");
-	quickInfoSaveTOP->setBold(true);
-	quickInfoSaveTOP->hide();
+
+// rotation indicator
+/*	quickInfoSaveTOP = new CustomLabel("*");*/
+/*	quickInfoSaveTOP->setBold(true);*/
+/*	quickInfoSaveTOP->hide();*/
+
 	quickInfoCounterTOP = new QuickInfoLabel(0,"quickinfoCounterTOP",verbose);
 	quickInfoCounterTOP->setStyleSheet("color: white");
 	quickInfoCounterTOP->hide();
@@ -58,7 +61,9 @@ ViewBigLay::ViewBigLay(QMap<QString, QVariant> set, bool v) : QVBoxLayout() {
 	connect(quickInfoFilenameTOP->dohideFilepath, SIGNAL(triggered()), this, SLOT(hideItem()));
 	connect(closeWindowX->dohide, SIGNAL(triggered()), this, SLOT(hideItem()));
 
-	quickInfoTOP->addWidget(quickInfoSaveTOP);
+// rotation indicator
+/*	quickInfoTOP->addWidget(quickInfoSaveTOP);*/
+
 	quickInfoTOP->addWidget(quickInfoCounterTOP);
 	quickInfoTOP->addWidget(quickInfoSepTOP);
 	quickInfoTOP->addWidget(quickInfoFilenameTOP);
@@ -69,9 +74,11 @@ ViewBigLay::ViewBigLay(QMap<QString, QVariant> set, bool v) : QVBoxLayout() {
 
 	QHBoxLayout *quickInfoBOT = new QHBoxLayout;
 
-	quickInfoSaveBOT = new CustomLabel("**");
-	quickInfoSaveBOT->setBold(true);
-	quickInfoSaveBOT->hide();
+// rotation indicator
+/*	quickInfoSaveBOT = new CustomLabel("**");*/
+/*	quickInfoSaveBOT->setBold(true);*/
+/*	quickInfoSaveBOT->hide();*/
+
 	quickInfoCounterBOT = new QuickInfoLabel(0,"quickinfoCounterBOT",verbose);
 	quickInfoCounterBOT->setStyleSheet("color: white");
 	quickInfoCounterBOT->hide();
@@ -86,7 +93,9 @@ ViewBigLay::ViewBigLay(QMap<QString, QVariant> set, bool v) : QVBoxLayout() {
 	connect(quickInfoFilenameBOT->dohide, SIGNAL(triggered()), this, SLOT(hideItem()));
 	connect(quickInfoFilenameBOT->dohideFilepath, SIGNAL(triggered()), this, SLOT(hideItem()));
 
-	quickInfoBOT->addWidget(quickInfoSaveBOT);
+// rotation indicator
+/*	quickInfoBOT->addWidget(quickInfoSaveBOT);*/
+
 	quickInfoBOT->addWidget(quickInfoCounterBOT);
 	quickInfoBOT->addWidget(quickInfoSepBOT);
 	quickInfoBOT->addWidget(quickInfoFilenameBOT);
@@ -127,15 +136,19 @@ void ViewBigLay::setPosition(QString pos) {
 
 }
 
-void ViewBigLay::updateInfo(QString currentfile, int countpos, int counttot, bool tosave) {
+
+// rotation indicator
+/*void ViewBigLay::updateInfo(QString currentfile, int countpos, int counttot, bool tosave) {*/
+void ViewBigLay::updateInfo(QString currentfile, int countpos, int counttot) {
 
 	if(verbose) std::clog << "Update Quickinfo labels (show/hide)" << std::endl;
 
 	// If a slideshow is running and the user disabled all the quickinfos for that
 	if(slideshowRunning && slideshowHide) {
 
-		quickInfoSaveTOP->hide();
-		quickInfoSaveBOT->hide();
+// rotation indicator
+/*		quickInfoSaveTOP->hide();*/
+/*		quickInfoSaveBOT->hide();*/
 
 		quickInfoCounterTOP->hide();
 		quickInfoFilenameTOP->hide();
@@ -151,7 +164,8 @@ void ViewBigLay::updateInfo(QString currentfile, int countpos, int counttot, boo
 
 		if(currentfile != "") {
 
-			quickInfoSaveTOP->setVisible(tosave);
+// rotation indicator
+/*			quickInfoSaveTOP->setVisible(tosave);*/
 
 			quickInfoCounterTOP->setText(QString("%1/%2").arg(countpos+1).arg(counttot));
 
@@ -165,14 +179,19 @@ void ViewBigLay::updateInfo(QString currentfile, int countpos, int counttot, boo
 			closeWindowX->setVisible(!globSet.value("HideX").toBool());
 			quickInfoSepTOP->setVisible((globSet.value("HideFilename").toBool() == globSet.value("HideCounter").toBool()) && !globSet.value("HideCounter").toBool());
 		} else {
-			quickInfoSaveTOP->setVisible(false);
+
+// rotation indicator
+/*			quickInfoSaveTOP->setVisible(false);*/
+
 			quickInfoFilenameTOP->setText((countpos == -1 && counttot == -1) ? tr("No images match current filter") : tr("Open File to Begin."));
 			quickInfoCounterTOP->hide();
 			quickInfoSepTOP->hide();
 			quickInfoFilenameTOP->show();
 		}
 
-		quickInfoSaveBOT->setVisible(false);
+// rotation indicator
+/*		quickInfoSaveBOT->setVisible(false);*/
+
 		quickInfoFilenameBOT->hide();
 		quickInfoCounterBOT->hide();
 		quickInfoSepBOT->hide();
@@ -182,7 +201,8 @@ void ViewBigLay::updateInfo(QString currentfile, int countpos, int counttot, boo
 
 		if(currentfile != "") {
 
-			quickInfoSaveBOT->setVisible(tosave);
+// rotation indicator
+/*			quickInfoSaveBOT->setVisible(tosave);*/
 
 			quickInfoCounterBOT->setText(QString("%1/%2").arg(countpos+1).arg(counttot));
 
@@ -196,14 +216,19 @@ void ViewBigLay::updateInfo(QString currentfile, int countpos, int counttot, boo
 			closeWindowX->setVisible(!globSet.value("HideX").toBool());
 			quickInfoSepBOT->setVisible(!globSet.value("HideFilename").toBool() && !globSet.value("HideCounter").toBool());
 		} else {
-			quickInfoSaveBOT->setVisible(false);
+
+// rotation indicator
+/*			quickInfoSaveBOT->setVisible(false);*/
+
 			quickInfoFilenameBOT->setText((countpos == -1 && counttot == -1) ? tr("No images match current filter") : tr("Open File to Begin."));
 			quickInfoCounterBOT->hide();
 			quickInfoSepBOT->hide();
 			quickInfoFilenameBOT->show();
 		}
 
-		quickInfoSaveTOP->setVisible(false);
+// rotation indicator
+/*		quickInfoSaveTOP->setVisible(false);*/
+
 		quickInfoFilenameTOP->hide();
 		quickInfoCounterTOP->hide();
 		quickInfoSepTOP->hide();

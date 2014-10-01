@@ -76,7 +76,9 @@ MainWindow::MainWindow(QWidget *parent, bool verbose) : QMainWindow(parent) {
 	viewBigLay->setPosition(globSet->thumbnailposition);
 	connect(viewBigLay, SIGNAL(clickOnX(QString)), this, SLOT(shortcutDO(QString)));
 	connect(viewBigLay, SIGNAL(updateSettings(QMap<QString,QVariant>)), globSet, SLOT(settingsUpdated(QMap<QString,QVariant>)));
-	viewBigLay->updateInfo("",0,0,false);
+// rotation indicator
+/*	viewBigLay->updateInfo("",0,0,false);*/
+	viewBigLay->updateInfo("",0,0);
 
 	// The Item holding the big pixmap item
 	graphItem = new GraphicsItem;
@@ -302,7 +304,9 @@ void MainWindow::applySettings(QMap<QString, bool> applySet, bool justApplyAllOf
 
 	if(applySet["thumb"] || applySet["quickinfo"])
 		// Update the quickinfo labels
-		viewBigLay->updateInfo(globVar->currentfile,viewThumbs->countpos,viewThumbs->counttot,globVar->tosave.value(globVar->currentfile));
+// rotation indicator
+/*		viewBigLay->updateInfo(globVar->currentfile,viewThumbs->countpos,viewThumbs->counttot,globVar->tosave.value(globVar->currentfile));*/
+		viewBigLay->updateInfo(globVar->currentfile,viewThumbs->countpos,viewThumbs->counttot);
 
 
 	if(applySet["redrawimg"])
@@ -790,7 +794,8 @@ void MainWindow::loadNewImgFromOpen(QString path, bool hideImageFilterLabel) {
 	globVar->store_flipVer.clear();
 
 	// Remove "to-save" property
-	globVar->tosave.clear();
+// rotation indicator
+/*	globVar->tosave.clear();*/
 
 	// Draw new image
 	drawImage();
@@ -802,7 +807,9 @@ void MainWindow::loadNewImgFromOpen(QString path, bool hideImageFilterLabel) {
 		viewThumbs->updateThbViewHoverNormPix(temp,globVar->currentfile);
 
 	// Update quickinfo labels
-	viewBigLay->updateInfo(globVar->currentfile,viewThumbs->countpos,viewThumbs->counttot,false);
+// rotation indicator
+/*	viewBigLay->updateInfo(globVar->currentfile,viewThumbs->countpos,viewThumbs->counttot,false);*/
+	viewBigLay->updateInfo(globVar->currentfile,viewThumbs->countpos,viewThumbs->counttot);
 
 }
 
@@ -836,7 +843,9 @@ void MainWindow::loadNewImgFromThumbs(QString path) {
 
 	viewBig->imgLoaded = true;
 
-	viewBigLay->updateInfo(globVar->currentfile,viewThumbs->countpos,viewThumbs->counttot,globVar->tosave.value(globVar->currentfile));
+// rotation indicator
+/*	viewBigLay->updateInfo(globVar->currentfile,viewThumbs->countpos,viewThumbs->counttot,globVar->tosave.value(globVar->currentfile));*/
+	viewBigLay->updateInfo(globVar->currentfile,viewThumbs->countpos,viewThumbs->counttot);
 
 }
 
@@ -1030,7 +1039,9 @@ void MainWindow::moveInDirectory(int direction) {
 		stopSlideShow();
 
 	// Update quickinfo labels
-	viewBigLay->updateInfo(globVar->currentfile,viewThumbs->countpos,viewThumbs->counttot,globVar->tosave.value(globVar->currentfile));
+// rotation indicator
+/*	viewBigLay->updateInfo(globVar->currentfile,viewThumbs->countpos,viewThumbs->counttot,globVar->tosave.value(globVar->currentfile));*/
+	viewBigLay->updateInfo(globVar->currentfile,viewThumbs->countpos,viewThumbs->counttot);
 
 }
 
@@ -1082,7 +1093,9 @@ void MainWindow::reloadDir(QString t) {
 			globVar->currentfile = "";
 			viewThumbs->currentfile = "";
 			filehandling->currentfile = "";
-			viewBigLay->updateInfo("",0,0,false);
+// rotation indicator
+/*			viewBigLay->updateInfo("",0,0,false);*/
+			viewBigLay->updateInfo("",0,0);
 			drawImage();
 		// If it wasn't the last file, then load file to left/right
 		} else {
@@ -1164,7 +1177,8 @@ void MainWindow::rotateFlip(bool rotateNotFlipped, QString direction, int rotate
 
 		if(direction == "clock") {
 
-			globVar->tosave.insert(globVar->currentfile,true);
+// rotation indicator
+/*			globVar->tosave.insert(globVar->currentfile,true);*/
 
 			globVar->rotation -= rot;
 			viewBig->rotate(rot);
@@ -1177,7 +1191,8 @@ void MainWindow::rotateFlip(bool rotateNotFlipped, QString direction, int rotate
 
 		} else if(direction == "anticlock") {
 
-			globVar->tosave.insert(globVar->currentfile,true);
+// rotation indicator
+/*			globVar->tosave.insert(globVar->currentfile,true);*/
 
 			globVar->rotation += rot;
 			viewBig->rotate(-rot);
@@ -1190,7 +1205,8 @@ void MainWindow::rotateFlip(bool rotateNotFlipped, QString direction, int rotate
 
 		} else if(direction.startsWith("reset")) {
 
-			globVar->tosave.remove(globVar->currentfile);
+// rotation indicator
+/*			globVar->tosave.remove(globVar->currentfile);*/
 
 			viewBig->rotate(globVar->rotation);
 			globVar->rotation = 0;
@@ -1208,17 +1224,20 @@ void MainWindow::rotateFlip(bool rotateNotFlipped, QString direction, int rotate
 		// FLIP
 
 		if(direction == "hor") {
-			globVar->tosave.insert(globVar->currentfile,true);
+// rotation indicator
+/*			globVar->tosave.insert(globVar->currentfile,true);*/
 			viewBig->scale(-1,1);
 			globVar->flipHor = !globVar->flipHor;
 			globVar->store_flipHor[globVar->currentfile] = globVar->flipHor;
 		} else if(direction == "ver") {
-			globVar->tosave.insert(globVar->currentfile,true);
+// rotation indicator
+/*			globVar->tosave.insert(globVar->currentfile,true);*/
 			viewBig->scale(1,-1);
 			globVar->flipVer = !globVar->flipVer;
 			globVar->store_flipVer[globVar->currentfile] = globVar->flipVer;
 		} else if(direction == "reset") {
-			globVar->tosave.remove(globVar->currentfile);
+// rotation indicator
+/*			globVar->tosave.remove(globVar->currentfile);*/
 			if(globVar->flipHor)
 				viewBig->scale(-1,1);
 			if(globVar->flipVer)
@@ -1232,7 +1251,9 @@ void MainWindow::rotateFlip(bool rotateNotFlipped, QString direction, int rotate
 
 	}
 
-	viewBigLay->updateInfo(globVar->currentfile,viewThumbs->countpos,viewThumbs->counttot,globVar->tosave.value(globVar->currentfile));
+// rotation indicator
+/*	viewBigLay->updateInfo(globVar->currentfile,viewThumbs->countpos,viewThumbs->counttot,globVar->tosave.value(globVar->currentfile));*/
+	viewBigLay->updateInfo(globVar->currentfile,viewThumbs->countpos,viewThumbs->counttot);
 
 
 }
@@ -1445,7 +1466,9 @@ void MainWindow::setImageFilter(QString curDir, QStringList filter) {
 		globVar->currentfile = "";
 		viewThumbs->currentfile = "";
 		if(setupWidgets->filehandling) filehandling->currentfile = "";
-		viewBigLay->updateInfo("",-1,-1,false);
+// rotation indicator
+/*		viewBigLay->updateInfo("",-1,-1,false);*/
+		viewBigLay->updateInfo("",-1,-1);
 		viewBig->scene()->setSceneRect(viewBig->scene()->itemsBoundingRect());
 		graphItem->setPixmap(QPixmap(":/img/noresults.png"));
 		rotateFlip(true,"resetNoDraw");
@@ -1980,7 +2003,9 @@ void MainWindow::startuptimer() {
 
 			viewThumbs->updateThbViewHoverNormPix("",globVar->currentfile);
 
-			viewBigLay->updateInfo(globVar->currentfile,viewThumbs->countpos,viewThumbs->counttot,globVar->tosave.value(globVar->currentfile));
+// rotation indicator
+/*			viewBigLay->updateInfo(globVar->currentfile,viewThumbs->countpos,viewThumbs->counttot,globVar->tosave.value(globVar->currentfile));*/
+			viewBigLay->updateInfo(globVar->currentfile,viewThumbs->countpos,viewThumbs->counttot);
 
 		}
 
@@ -2022,7 +2047,9 @@ void MainWindow::startSlideShow() {
 	slideshowbar->animate();
 
 	// update the quickinfo
-	viewBigLay->updateInfo(globVar->currentfile,viewThumbs->countpos,viewThumbs->counttot,false);
+// rotation indicator
+/*	viewBigLay->updateInfo(globVar->currentfile,viewThumbs->countpos,viewThumbs->counttot,false);*/
+	viewBigLay->updateInfo(globVar->currentfile,viewThumbs->countpos,viewThumbs->counttot);
 
 	// set the music file to bar
 	slideshowbar->musicFile = musicFilePath;
@@ -2043,7 +2070,9 @@ void MainWindow::startSlideShow() {
 
 	viewBigLay->slideshowHide = slideshow->hideQuickInfo->isChecked();
 	viewBigLay->slideshowRunning = true;
-	viewBigLay->updateInfo(globVar->currentfile,viewThumbs->countpos,viewThumbs->counttot,false);
+// rotation indicator
+/*	viewBigLay->updateInfo(globVar->currentfile,viewThumbs->countpos,viewThumbs->counttot,false);*/
+	viewBigLay->updateInfo(globVar->currentfile,viewThumbs->countpos,viewThumbs->counttot);
 
 }
 
@@ -2065,7 +2094,9 @@ void MainWindow::stopSlideShow() {
 	blockFunc(false);
 
 	// Update quickinfo
-	viewBigLay->updateInfo(globVar->currentfile,viewThumbs->countpos,viewThumbs->counttot,globVar->tosave.value(globVar->currentfile));
+// rotation indicator
+/*	viewBigLay->updateInfo(globVar->currentfile,viewThumbs->countpos,viewThumbs->counttot,globVar->tosave.value(globVar->currentfile));*/
+	viewBigLay->updateInfo(globVar->currentfile,viewThumbs->countpos,viewThumbs->counttot);
 
 	// Stop slideshow
 	slideshowbar->stopSlideShow();
@@ -2074,7 +2105,9 @@ void MainWindow::stopSlideShow() {
 	graphItem->transitionSetChange(globSet->transition);
 
 	viewBigLay->slideshowRunning = false;
-	viewBigLay->updateInfo(globVar->currentfile,viewThumbs->countpos,viewThumbs->counttot,globVar->tosave.value(globVar->currentfile));
+// rotation indicator
+/*	viewBigLay->updateInfo(globVar->currentfile,viewThumbs->countpos,viewThumbs->counttot,globVar->tosave.value(globVar->currentfile));*/
+	viewBigLay->updateInfo(globVar->currentfile,viewThumbs->countpos,viewThumbs->counttot);
 
 	// We simply redraw the image for, e.g., getting the exif data
 	drawImage();
