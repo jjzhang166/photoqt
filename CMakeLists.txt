@@ -8,7 +8,11 @@ FIND_PACKAGE(Qt5Widgets REQUIRED)
 SET(photoqt_SOURCES main.cpp mainwindow.cpp globalsettings.h globalvariables.h setupwidgets.h)
 # settings/
 set(p "settings")
-SET(photoqt_SOURCES ${photoqt_SOURCES} ${p}/settings.cpp ${p}/settingstabexif.cpp ${p}/settingstabexiftiles.cpp ${p}/settingstablookandfeel.cpp ${p}/settingstabother.cpp ${p}/settingstabothercontext.cpp ${p}/settingstabothercontexttiles.cpp ${p}/settingstabotherlanguagetiles.cpp ${p}/settingstabshortcuts.cpp ${p}/settingstabshortcutschangecommand.cpp ${p}/settingstabshortcutskeydetect.cpp ${p}/settingstabshortcutstiles.cpp ${p}/settingstabthumbnail.cpp ${p}/shortcuts.h ${p}/settingstabotherfiletypestiles.cpp)
+SET(photoqt_SOURCES ${photoqt_SOURCES} ${p}/settings.cpp ${p}/settingstabexif.cpp ${p}/settingstabexiftiles.cpp ${p}/settingstablookandfeel.cpp)
+SET(photoqt_SOURCES ${photoqt_SOURCES} ${p}/settingstabother.cpp ${p}/settingstabothercontext.cpp ${p}/settingstabothercontexttiles.cpp)
+SET(photoqt_SOURCES ${photoqt_SOURCES} ${p}/settingstabotherlanguagetiles.cpp ${p}/settingstabshortcuts.cpp ${p}/settingstabshortcutschangecommand.cpp)
+SET(photoqt_SOURCES ${photoqt_SOURCES} ${p}/settingstabshortcutskeydetect.cpp ${p}/settingstabshortcutstiles.cpp ${p}/settingstabthumbnail.cpp)
+SET(photoqt_SOURCES ${photoqt_SOURCES} ${p}/shortcuts.h ${p}/settingstabotherfiletypestiles.cpp)
 # thumbnails/
 set(p "thumbnails")
 SET(photoqt_SOURCES ${photoqt_SOURCES} ${p}/thumbnailpixmapitem.cpp ${p}/thumbnails.cpp ${p}/thumbnailview.cpp ${p}/threadforthumbnails.h)
@@ -17,13 +21,16 @@ set(p "graphics")
 SET(photoqt_SOURCES ${photoqt_SOURCES} ${p}/graphicsview.cpp ${p}/graphicsitem.cpp ${p}/imagereader.cpp ${p}/graphicsviewlay.cpp)
 # widgets/
 set(p "widgets")
-SET(photoqt_SOURCES ${photoqt_SOURCES} ${p}/aboutwidget.cpp ${p}/customconfirm.cpp ${p}/dropdownmenu.cpp ${p}/dropdownmenuitem.cpp ${p}/detailswidget.cpp ${p}/filehandling.cpp ${p}/startupwidget.cpp ${p}/mywidget.cpp)
+SET(photoqt_SOURCES ${photoqt_SOURCES} ${p}/aboutwidget.cpp ${p}/customconfirm.cpp ${p}/dropdownmenu.cpp ${p}/dropdownmenuitem.cpp ${p}/detailswidget.cpp)
+SET(photoqt_SOURCES ${photoqt_SOURCES} ${p}/filehandling.cpp ${p}/startupwidget.cpp ${p}/mywidget.cpp ${p}/quicksettings.cpp)
 # filterimages/
 set(p "filterimages")
 SET(photoqt_SOURCES ${photoqt_SOURCES} ${p}/filterimagessetup.cpp ${p}/filterimagesdisplay.cpp)
 # customelements/
 set(p "customelements")
-SET(photoqt_SOURCES ${photoqt_SOURCES} ${p}/customcheckbox.cpp ${p}/customcombobox.cpp ${p}/customlineedit.cpp ${p}/custompushbutton.cpp ${p}/customradiobutton.cpp ${p}/customscrollbar.cpp ${p}/customslider.cpp ${p}/customspinbox.cpp ${p}/customlabel.cpp ${p}/customtabwidget.cpp ${p}/customline.h)
+SET(photoqt_SOURCES ${photoqt_SOURCES} ${p}/customcheckbox.cpp ${p}/customcombobox.cpp ${p}/customlineedit.cpp ${p}/custompushbutton.cpp)
+SET(photoqt_SOURCES ${photoqt_SOURCES} ${p}/customradiobutton.cpp ${p}/customscrollbar.cpp ${p}/customslider.cpp ${p}/customspinbox.cpp)
+SET(photoqt_SOURCES ${photoqt_SOURCES} ${p}/customlabel.cpp ${p}/customtabwidget.cpp ${p}/customline.h)
 # manipulation/
 set(p "manipulation")
 SET(photoqt_SOURCES ${photoqt_SOURCES} ${p}/cropwidget.cpp ${p}/cropbar.cpp ${p}/scale.cpp)
@@ -35,7 +42,11 @@ SET(photoqt_SOURCES ${photoqt_SOURCES} slideshow/slideshowbar.cpp slideshow/slid
 SET(photoqt_HEADERS mainwindow.h globalsettings.h globalvariables.h setupwidgets.h)
 # settings/
 set(p "settings")
-SET(photoqt_HEADERS ${photoqt_HEADERS} ${p}/shortcuts.h ${p}/settings.h ${p}/settingstabexif.h ${p}/settingstabexiftiles.h ${p}/settingstablookandfeel.h ${p}/settingstabother.h ${p}/settingstabothercontext.h ${p}/settingstabothercontexttiles.h ${p}/settingstabotherlanguagetiles.h ${p}/settingstabshortcuts.h ${p}/settingstabshortcutschangecommand.h ${p}/settingstabshortcutskeydetect.h ${p}/settingstabshortcutstiles.h ${p}/settingstabthumbnail.h ${p}/settingstabotherfiletypestiles.h)
+SET(photoqt_HEADERS ${photoqt_HEADERS} ${p}/shortcuts.h ${p}/settings.h ${p}/settingstabexif.h ${p}/settingstabexiftiles.h ${p}/settingstablookandfeel.h)
+SET(photoqt_HEADERS ${photoqt_HEADERS} ${p}/settingstabother.h ${p}/settingstabothercontext.h ${p}/settingstabothercontexttiles.h)
+SET(photoqt_HEADERS ${photoqt_HEADERS} ${p}/settingstabotherlanguagetiles.h ${p}/settingstabshortcuts.h ${p}/settingstabshortcutschangecommand.h)
+SET(photoqt_HEADERS ${photoqt_HEADERS} ${p}/settingstabshortcutskeydetect.h ${p}/settingstabshortcutstiles.h ${p}/settingstabthumbnail.h)
+SET(photoqt_HEADERS ${photoqt_HEADERS} ${p}/settingstabotherfiletypestiles.h)
 # thumbnails/
 set(p "thumbnails")
 SET(photoqt_HEADERS ${photoqt_HEADERS} ${p}/threadforthumbnails.h ${p}/thumbnailpixmapitem.h ${p}/thumbnails.h ${p}/thumbnailview.h)
@@ -44,13 +55,16 @@ set(p "graphics")
 SET(photoqt_HEADERS ${photoqt_HEADERS} ${p}/graphicsview.h ${p}/graphicsitem.h ${p}/imagereader.h ${p}/graphicsviewlay.h)
 # widgets/
 set(p "widgets")
-SET(photoqt_HEADERS ${photoqt_HEADERS} ${p}/aboutwidget.h ${p}/customconfirm.h ${p}/dropdownmenu.h ${p}/dropdownmenuitem.h ${p}/detailswidget.h ${p}/filehandling.h ${p}/startupwidget.h ${p}/mywidget.h)
+SET(photoqt_HEADERS ${photoqt_HEADERS} ${p}/aboutwidget.h ${p}/customconfirm.h ${p}/dropdownmenu.h ${p}/dropdownmenuitem.h ${p}/detailswidget.h)
+SET(photoqt_HEADERS ${photoqt_HEADERS} ${p}/filehandling.h ${p}/startupwidget.h ${p}/mywidget.h ${p}/quicksettings.h)
 # filterimages/
 set(p "filterimages")
 SET(photoqt_HEADERS ${photoqt_HEADERS} ${p}/filterimagessetup.h ${p}/filterimagesdisplay.h)
 # customelements/
 set(p "customelements")
-SET(photoqt_HEADERS ${photoqt_HEADERS} ${p}/customcheckbox.h ${p}/customcombobox.h ${p}/customlineedit.h ${p}/custompushbutton.h ${p}/customradiobutton.h ${p}/customscrollbar.h ${p}/customslider.h ${p}/customspinbox.h ${p}/customlabel.h ${p}/customtabwidget.h ${p}/customline.h)
+SET(photoqt_HEADERS ${photoqt_HEADERS} ${p}/customcheckbox.h ${p}/customcombobox.h ${p}/customlineedit.h ${p}/custompushbutton.h)
+SET(photoqt_HEADERS ${photoqt_HEADERS} ${p}/customradiobutton.h ${p}/customscrollbar.h ${p}/customslider.h ${p}/customspinbox.h ${p}/customlabel.h)
+SET(photoqt_HEADERS ${photoqt_HEADERS} ${p}/customtabwidget.h ${p}/customline.h)
 # manipulation/
 set(p "manipulation")
 SET(photoqt_HEADERS ${photoqt_HEADERS} ${p}/cropwidget.h ${p}/cropbar.h ${p}/scale.h)

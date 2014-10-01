@@ -217,6 +217,8 @@ void MainWindow::adjustGeometries() {
 
 	if(setupWidgets->slideshowbar) slideshowbar->setWidth(this->width());
 
+	if(setupWidgets->quicksettings) quickset->setRect(fullscreen);
+
 
 	if(globSet->thumbnailKeepVisible)
 		viewThumbs->makeShow();
@@ -950,6 +952,13 @@ void MainWindow::mouseMoved(int x, int y) {
 				menu->allItems["hideMeta"]->setIcon(":/img/exif.png");
 			}
 		}
+
+		if(x > viewBig->width()-10*globSet->menusensitivity) {
+			if(!setupWidgets->quicksettings) setupWidget("quicksetting");
+			quickset->makeShow();
+		}
+		if(setupWidgets->quicksettings && quickset->isVisible() && x < viewBig->width()-quickset->width()-10*globSet->menusensitivity)
+			quickset->makeHide();
 
 
 	// If globVar->blocked is set, but slideshow is running, animate slideshowbar
@@ -1734,6 +1743,18 @@ void MainWindow::setupWidget(QString what) {
 		scaleimage->show();
 
 		connect(scaleimage, SIGNAL(blockFunc(bool)), this, SLOT(blockFunc(bool)));
+
+	}
+
+	if(what == "quicksetting" && !setupWidgets->quicksettings) {
+
+		if(globVar->verbose) std::clog << "Setting up quick setting widget" << std::endl;
+
+		setupWidgets->quicksettings = true;
+
+		quickset = new QuickSettings(globSet->toSignalOut(), globVar->verbose, viewBig);
+		quickset->setRect(QRect(0,0,viewBig->width(),viewBig->height()));
+		quickset->show();
 
 	}
 

@@ -23,6 +23,7 @@
 #include "filterimages/filterimagessetup.h"
 #include "filterimages/filterimagesdisplay.h"
 #include "manipulation/scale.h"
+#include "widgets/quicksettings.h"
 
 #include <QDesktopWidget>
 #include <QFile>
@@ -124,7 +125,11 @@ private:
 	FilterImagesSetup *filterImagesSetup;
 	FilterImagesDisplay *filterImagesDisplay;
 
+
+
 	Scale *scaleimage;
+
+	QuickSettings *quickset;
 
 
 

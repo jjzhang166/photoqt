@@ -20,6 +20,7 @@ public:
 		settings = false;
 		errormagick = false;
 		menu = false;
+		quicksettings = false;
 	}
 
 	bool menu;
@@ -35,6 +36,7 @@ public:
 	bool settings;
 	bool errormagick;
 	bool scaleimage;
+	bool quicksettings;
 
 };
 
