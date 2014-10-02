@@ -1,38 +1,39 @@
-cmake_minimum_required(VERSION 2.8)
+CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 PROJECT(photoqt)
 
 FIND_PACKAGE(Qt5Widgets REQUIRED)
+FIND_PACKAGE(Qt5LinguistTools REQUIRED)
 
 #### SOURCES ####
 # toplevel
 SET(photoqt_SOURCES main.cpp mainwindow.cpp globalsettings.h globalvariables.h setupwidgets.h)
 # settings/
-set(p "settings")
+SET(p "settings")
 SET(photoqt_SOURCES ${photoqt_SOURCES} ${p}/settings.cpp ${p}/settingstabexif.cpp ${p}/settingstabexiftiles.cpp ${p}/settingstablookandfeel.cpp)
 SET(photoqt_SOURCES ${photoqt_SOURCES} ${p}/settingstabother.cpp ${p}/settingstabothercontext.cpp ${p}/settingstabothercontexttiles.cpp)
 SET(photoqt_SOURCES ${photoqt_SOURCES} ${p}/settingstabotherlanguagetiles.cpp ${p}/settingstabshortcuts.cpp ${p}/settingstabshortcutschangecommand.cpp)
 SET(photoqt_SOURCES ${photoqt_SOURCES} ${p}/settingstabshortcutskeydetect.cpp ${p}/settingstabshortcutstiles.cpp ${p}/settingstabthumbnail.cpp)
 SET(photoqt_SOURCES ${photoqt_SOURCES} ${p}/shortcuts.h ${p}/settingstabotherfiletypestiles.cpp)
 # thumbnails/
-set(p "thumbnails")
+SET(p "thumbnails")
 SET(photoqt_SOURCES ${photoqt_SOURCES} ${p}/thumbnailpixmapitem.cpp ${p}/thumbnails.cpp ${p}/thumbnailview.cpp ${p}/threadforthumbnails.h)
 # graphics/
-set(p "graphics")
+SET(p "graphics")
 SET(photoqt_SOURCES ${photoqt_SOURCES} ${p}/graphicsview.cpp ${p}/graphicsitem.cpp ${p}/imagereader.cpp ${p}/graphicsviewlay.cpp)
 # widgets/
-set(p "widgets")
+SET(p "widgets")
 SET(photoqt_SOURCES ${photoqt_SOURCES} ${p}/aboutwidget.cpp ${p}/customconfirm.cpp ${p}/dropdownmenu.cpp ${p}/dropdownmenuitem.cpp ${p}/detailswidget.cpp)
 SET(photoqt_SOURCES ${photoqt_SOURCES} ${p}/filehandling.cpp ${p}/startupwidget.cpp ${p}/mywidget.cpp ${p}/quicksettings.cpp)
 # filterimages/
-set(p "filterimages")
+SET(p "filterimages")
 SET(photoqt_SOURCES ${photoqt_SOURCES} ${p}/filterimagessetup.cpp ${p}/filterimagesdisplay.cpp)
 # customelements/
-set(p "customelements")
+SET(p "customelements")
 SET(photoqt_SOURCES ${photoqt_SOURCES} ${p}/customcheckbox.cpp ${p}/customcombobox.cpp ${p}/customlineedit.cpp ${p}/custompushbutton.cpp)
 SET(photoqt_SOURCES ${photoqt_SOURCES} ${p}/customradiobutton.cpp ${p}/customscrollbar.cpp ${p}/customslider.cpp ${p}/customspinbox.cpp)
 SET(photoqt_SOURCES ${photoqt_SOURCES} ${p}/customlabel.cpp ${p}/customtabwidget.cpp ${p}/customline.h)
 # manipulation/
-set(p "manipulation")
+SET(p "manipulation")
 SET(photoqt_SOURCES ${photoqt_SOURCES} ${p}/cropwidget.cpp ${p}/cropbar.cpp ${p}/scale.cpp)
 # [other]/
 SET(photoqt_SOURCES ${photoqt_SOURCES} slideshow/slideshowbar.cpp slideshow/slideshowsettings.cpp flowlayout/flowlayout.cpp wallpaper/wallpaper.cpp)
@@ -41,32 +42,32 @@ SET(photoqt_SOURCES ${photoqt_SOURCES} slideshow/slideshowbar.cpp slideshow/slid
 # toplevel
 SET(photoqt_HEADERS mainwindow.h globalsettings.h globalvariables.h setupwidgets.h)
 # settings/
-set(p "settings")
+SET(p "settings")
 SET(photoqt_HEADERS ${photoqt_HEADERS} ${p}/shortcuts.h ${p}/settings.h ${p}/settingstabexif.h ${p}/settingstabexiftiles.h ${p}/settingstablookandfeel.h)
 SET(photoqt_HEADERS ${photoqt_HEADERS} ${p}/settingstabother.h ${p}/settingstabothercontext.h ${p}/settingstabothercontexttiles.h)
 SET(photoqt_HEADERS ${photoqt_HEADERS} ${p}/settingstabotherlanguagetiles.h ${p}/settingstabshortcuts.h ${p}/settingstabshortcutschangecommand.h)
 SET(photoqt_HEADERS ${photoqt_HEADERS} ${p}/settingstabshortcutskeydetect.h ${p}/settingstabshortcutstiles.h ${p}/settingstabthumbnail.h)
 SET(photoqt_HEADERS ${photoqt_HEADERS} ${p}/settingstabotherfiletypestiles.h)
 # thumbnails/
-set(p "thumbnails")
+SET(p "thumbnails")
 SET(photoqt_HEADERS ${photoqt_HEADERS} ${p}/threadforthumbnails.h ${p}/thumbnailpixmapitem.h ${p}/thumbnails.h ${p}/thumbnailview.h)
 # graphics/
-set(p "graphics")
+SET(p "graphics")
 SET(photoqt_HEADERS ${photoqt_HEADERS} ${p}/graphicsview.h ${p}/graphicsitem.h ${p}/imagereader.h ${p}/graphicsviewlay.h)
 # widgets/
-set(p "widgets")
+SET(p "widgets")
 SET(photoqt_HEADERS ${photoqt_HEADERS} ${p}/aboutwidget.h ${p}/customconfirm.h ${p}/dropdownmenu.h ${p}/dropdownmenuitem.h ${p}/detailswidget.h)
 SET(photoqt_HEADERS ${photoqt_HEADERS} ${p}/filehandling.h ${p}/startupwidget.h ${p}/mywidget.h ${p}/quicksettings.h)
 # filterimages/
-set(p "filterimages")
+SET(p "filterimages")
 SET(photoqt_HEADERS ${photoqt_HEADERS} ${p}/filterimagessetup.h ${p}/filterimagesdisplay.h)
 # customelements/
-set(p "customelements")
+SET(p "customelements")
 SET(photoqt_HEADERS ${photoqt_HEADERS} ${p}/customcheckbox.h ${p}/customcombobox.h ${p}/customlineedit.h ${p}/custompushbutton.h)
 SET(photoqt_HEADERS ${photoqt_HEADERS} ${p}/customradiobutton.h ${p}/customscrollbar.h ${p}/customslider.h ${p}/customspinbox.h ${p}/customlabel.h)
 SET(photoqt_HEADERS ${photoqt_HEADERS} ${p}/customtabwidget.h ${p}/customline.h)
 # manipulation/
-set(p "manipulation")
+SET(p "manipulation")
 SET(photoqt_HEADERS ${photoqt_HEADERS} ${p}/cropwidget.h ${p}/cropbar.h ${p}/scale.h)
 # [other]/
 SET(photoqt_HEADERS ${photoqt_HEADERS} slideshow/slideshowbar.h slideshow/slideshowsettings.h flowlayout/flowlayout.h wallpaper/wallpaper.h)
@@ -76,64 +77,110 @@ OPTION(EXIV2 "Use exiv2 library" ON)
 OPTION(GM "Use graphicsmagick library" ON)
 OPTION(QTONLY "ONLY USE QT-ONLY FEATURES" OFF)
 
+
 ###################################
 ###### REMOVE BEFORE RELEASE ######
 ###################################
 SET(CMAKE_BUILD_TYPE Debug)
 
-# Set sources
-SET(photoqt_RESOURCES resLang.qrc resImg.qrc)
+
+####################################
+#### TRANSLATIONS AND RESOURCES ####
+####################################
+
+# Add *.ts translation files
+QT5_ADD_TRANSLATION(qm_files lang/photoqt_cs.ts)
+QT5_ADD_TRANSLATION(qm_files lang/photoqt_de.ts)
+QT5_ADD_TRANSLATION(qm_files lang/photoqt_el.ts)
+QT5_ADD_TRANSLATION(qm_files lang/photoqt_es_ES.ts)
+QT5_ADD_TRANSLATION(qm_files lang/photoqt_fi.ts)
+QT5_ADD_TRANSLATION(qm_files lang/photoqt_fr.ts)
+QT5_ADD_TRANSLATION(qm_files lang/photoqt_he.ts)
+QT5_ADD_TRANSLATION(qm_files lang/photoqt_it.ts)
+QT5_ADD_TRANSLATION(qm_files lang/photoqt_ja.ts)
+QT5_ADD_TRANSLATION(qm_files lang/photoqt_pt_BR.ts)
+QT5_ADD_TRANSLATION(qm_files lang/photoqt_pt_PT.ts)
+QT5_ADD_TRANSLATION(qm_files lang/photoqt_ru_RU.ts)
+QT5_ADD_TRANSLATION(qm_files lang/photoqt_sk.ts)
+QT5_ADD_TRANSLATION(qm_files lang/photoqt_uk_UA.ts)
+QT5_ADD_TRANSLATION(qm_files lang/photoqt_zh_CN.ts)
+QT5_ADD_TRANSLATION(qm_files lang/photoqt_zh_TW.ts)
+
+# Copy the language QRC file to the output directory, because the files listed in the
+# qrc file are relative to that directory.
+ADD_CUSTOM_COMMAND(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/resLang.qrc
+		   COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/resLang.qrc ${CMAKE_CURRENT_BINARY_DIR}/resLang.qrc
+		   MAIN_DEPENDENCY ${CMAKE_CURRENT_SOURCE_DIR}/resLang.qrc)
+
+
+# Set resources
+SET(photoqt_RESOURCES resImg.qrc ${CMAKE_CURRENT_BINARY_DIR}/resLang.qrc)
 
 # add resource file
 QT5_ADD_RESOURCES(photoqt_RESOURCES_RCC ${photoqt_RESOURCES})
+
+
+
+######################
+#### FINISHING UP ####
+######################
 
 # moc files
 QT5_WRAP_CPP(photoqt_HEADERS_MOC ${photoqt_HEADERS})
 
 # include, add defiunitions and include dirs
-#INCLUDE(${Qt5Widgets_INCLUDE_DIRS})
-include_directories(${Qt5Widgets_INCLUDES})
+INCLUDE_DIRECTORIES(${Qt5Widgets_INCLUDES})
 ADD_DEFINITIONS(${Qt5Widgets_DEFINITIONS})
 INCLUDE_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR})
 
 # And add the executeable
-ADD_EXECUTABLE(photoqt ${photoqt_SOURCES} ${photoqt_HEADERS_MOC} ${photoqt_RESOURCES_RCC})
-qt5_use_modules(photoqt Core Sql Widgets Multimedia)
+ADD_EXECUTABLE(photoqt ${photoqt_SOURCES} ${photoqt_HEADERS_MOC} ${qm_files} ${photoqt_RESOURCES_RCC} ${trans_outfile})
+QT5_USE_MODULES(photoqt Core Sql Widgets Multimedia)
 
 
-message("")
+MESSAGE("")
 
-if(NOT QTONLY)
 
-	if(EXIV2)
+########################
+#### CUSTOM OPTIONS ####
+########################
+
+IF(NOT QTONLY)
+
+	IF(EXIV2)
 		# Link Exiv Libraries
 		TARGET_LINK_LIBRARIES(photoqt "exiv2")
 		ADD_DEFINITIONS(-DEXIV2)
-		message("** Exiv2 enabled")
-	elseif(NOT EXIV2)
-		message("** Exiv2 DISABLED")
-	endif(EXIV2)
+		MESSAGE("** Exiv2 enabled")
+	ELSEIF(NOT EXIV2)
+		MESSAGE("** Exiv2 DISABLED")
+	ENDIF(EXIV2)
 
-	if(GM)
-		if(UNIX)
+	IF(GM)
+		IF(UNIX)
 			INCLUDE_DIRECTORIES("/usr/include/GraphicsMagick/")
-		endif(UNIX)
+		ENDIF(UNIX)
 		TARGET_LINK_LIBRARIES(photoqt "GraphicsMagick++")
 		ADD_DEFINITIONS(-DGM)
-		message("** Graphicsmagick enabled")
-	elseif(NOT GM)
-		message("** Graphicsmagick DISABLED")
-	endif(GM)
+		MESSAGE("** Graphicsmagick enabled")
+	ELSEIF(NOT GM)
+		MESSAGE("** Graphicsmagick DISABLED")
+	ENDIF(GM)
 
-elseif(QTONLY)
-	message("** All non-Qt features DISABLED")
-endif(NOT QTONLY)
-
-message("")
+ELSEIF(QTONLY)
+	MESSAGE("** All non-Qt features DISABLED")
+ENDIF(NOT QTONLY)
 
 
+MESSAGE("")
 
-if(UNIX)
+
+
+#######################
+#### INSTALL FILES ####
+#######################
+
+IF(UNIX)
 
 	# Set the install prefix to /usr/
 	SET(PRODUCT_INSTALL_PREFIX /usr)
@@ -171,14 +218,14 @@ if(UNIX)
 		FILES icons/128x128/apps/photoqt.png
 		DESTINATION share/icons/hicolor/128x128/apps/
 	)
-endif(UNIX)
+ENDIF(UNIX)
 
-# uninstall target
-configure_file(
-    "${CMAKE_CURRENT_SOURCE_DIR}/cmake_uninstall.cmake.in"
-    "${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake"
-    IMMEDIATE @ONLY)
 
-add_custom_target(uninstall
-    COMMAND ${CMAKE_COMMAND} -P ${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake)
+
+##########################
+#### UNINSTALL TARGET ####
+##########################
+
+CONFIGURE_FILE("${CMAKE_CURRENT_SOURCE_DIR}/cmake_uninstall.cmake.in" "${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake" IMMEDIATE @ONLY)
+ADD_CUSTOM_TARGET(uninstall COMMAND ${CMAKE_COMMAND} -P ${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake)
 

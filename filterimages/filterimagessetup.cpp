@@ -28,7 +28,7 @@ FilterImagesSetup::FilterImagesSetup(QWidget *parent) : MyWidget("default","defa
 	title->setWordWrap(true);
 
 	// A short description
-	CustomLabel *desc = new CustomLabel(tr("Enter here the term you want to search for. Seperate multiple terms by a space.") + "<br>" + tr("If you want to limit a term to file extensions, prepend a dot '.' to it."));
+	CustomLabel *desc = new CustomLabel(tr("Enter here the term you want to search for. Seperate multiple terms by a space.") + "<br>" + tr("If you want to limit a term to file extensions, prepend a dot '.' to the term."));
 	desc->setAlignment(Qt::AlignCenter);
 	desc->setWordWrap(true);
 

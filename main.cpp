@@ -345,9 +345,9 @@ int main(int argc, char *argv[]) {
 			std::clog << "Loading Translation:" << code1.toStdString() << std::endl;
 			trans.load(":/lang/photoqt_" + code1);
 			a.installTranslator(&trans);
-		} else if(QFile(":/lang/photoqt_" + code2 + ".qm").exists()) {
+		} else if(QFile(":/photoqt_" + code2 + ".qm").exists()) {
 			std::clog << "Loading Translation:" << code2.toStdString() << std::endl;
-			trans.load(":/lang/photoqt_" + code2);
+			trans.load(":/photoqt_" + code2);
 			a.installTranslator(&trans);
 		}
 
