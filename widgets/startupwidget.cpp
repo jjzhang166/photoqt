@@ -98,7 +98,7 @@ void StartUpWidget::setUpdateMsg() {
 	title->setText(tr("PhotoQt was successfully updated"));
 
 	QString introTxt = "<b>" + tr("Welcome back to PhotoQt.") + "<br><br>";
-	introTxt += tr("This app is now over one and a half years old, and has developed quite a bit in that time. Half year ago, the last stable release was published. It has changed and improved (as I hope) a lot and I gave my best to ensure that everything is working as smoothly as possible. But please forgive me if a bug sneaked in here or there again, they are never intended, I promise!!") + "<br><br>";
+	introTxt += tr("It has been more than a year since the last stable release of PhotoQt was released. For a while development has stalled as I was busy finishing my Bachelor degree, but I came back and once again there are some really cool (I believe) changes in this release. I gave my best to ensure that everything is working as smoothly as possible. But please forgive me if a bug sneaked in here or there again, they are never intended, I promise!") + "<br><br>";
 	introTxt += tr("Below you find a short overview over the features of PhotoQt. But feel free to skip it and just get started.") + "</b><br>";
 
 	customIntro->setText(introTxt);
@@ -110,8 +110,8 @@ void StartUpWidget::setInstallMsg() {
 	title->setText(tr("PhotoQt was successfully installed"));
 
 	QString introTxt = "<b>" + tr("Welcome to PhotoQt. PhotoQt is an image viewer, aimed at being fast, highly customisable and good looking.") + "<br><br>";
-	introTxt += tr("This app started out just over one and a half years ago, but it has already developed quite a bit in that time. Although I gave my best to ensure that everything is working as smoothly as possible, please forgive me if a bug sneaked in here or there again, they are never intended, I promise!!") + "<br><br><br>";
-	introTxt += tr("Here below you find a short overview of what PhotoQt has to offer. But feel free to skip it and just get started, it's meant for the ones that want to know a little bit about this application in advance:");
+	introTxt += tr("This app started out almost three years ago, and it has developed quite a bit since then. Although I gave my best to ensure that everything is working as smoothly as possible, please forgive me if a bug sneaked in here or there again, they are never intended, I promise!") + "<br><br><br>";
+	introTxt += tr("Here below you find a short overview of what PhotoQt has to offer, but feel free to skip it and just get started.");
 
 
 	customIntro->setText(introTxt);

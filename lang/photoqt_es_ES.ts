@@ -765,12 +765,12 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../main.cpp" line="407"/>
+        <location filename="../main.cpp" line="409"/>
         <source>Edit with Gimp</source>
         <translation>Editar con Gimp</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="407"/>
+        <location filename="../main.cpp" line="409"/>
         <source>Open in GwenView</source>
         <translation>Abrir con GwenView</translation>
     </message>
@@ -2504,8 +2504,22 @@
     </message>
     <message>
         <location filename="../widgets/startupwidget.cpp" line="101"/>
+        <source>It has been more than a year since the last stable release of PhotoQt was released. For a while development has stalled as I was busy finishing my Bachelor degree, but I came back and once again there are some really cool (I believe) changes in this release. I gave my best to ensure that everything is working as smoothly as possible. But please forgive me if a bug sneaked in here or there again, they are never intended, I promise!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../widgets/startupwidget.cpp" line="113"/>
+        <source>This app started out almost three years ago, and it has developed quite a bit since then. Although I gave my best to ensure that everything is working as smoothly as possible, please forgive me if a bug sneaked in here or there again, they are never intended, I promise!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../widgets/startupwidget.cpp" line="114"/>
+        <source>Here below you find a short overview of what PhotoQt has to offer, but feel free to skip it and just get started.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>This app is now over one and a half years old, and has developed quite a bit in that time. Half year ago, the last stable release was published. It has changed and improved (as I hope) a lot and I gave my best to ensure that everything is working as smoothly as possible. But please forgive me if a bug sneaked in here or there again, they are never intended, I promise!!</source>
-        <translation>Esta aplicación se inició hace poco más de un año y medio, pero ha evolucionado bastante desde ese momento.  Hace un medio año  la ultima versión estable fue liberada. Ha cambiado y mejorado ( espero) mucho y di mi mejor esfuerzo para asegurarme de que todo funcione de la mejor manera posible. Pero por favor perdonen si un error se coló aquí o allí, nunca son intencionados,  ¡lo prometo!</translation>
+        <translation type="vanished">Esta aplicación se inició hace poco más de un año y medio, pero ha evolucionado bastante desde ese momento.  Hace un medio año  la ultima versión estable fue liberada. Ha cambiado y mejorado ( espero) mucho y di mi mejor esfuerzo para asegurarme de que todo funcione de la mejor manera posible. Pero por favor perdonen si un error se coló aquí o allí, nunca son intencionados,  ¡lo prometo!</translation>
     </message>
     <message>
         <location filename="../widgets/startupwidget.cpp" line="102"/>
@@ -2523,14 +2537,12 @@
         <translation>Bienvenido a PhotoQt. PhotoQt es un visor de imágenes, destinado a ser rápido, altamente personalizable y atractivo.</translation>
     </message>
     <message>
-        <location filename="../widgets/startupwidget.cpp" line="113"/>
         <source>This app started out just over one and a half years ago, but it has already developed quite a bit in that time. Although I gave my best to ensure that everything is working as smoothly as possible, please forgive me if a bug sneaked in here or there again, they are never intended, I promise!!</source>
-        <translation>Esta aplicación se inició hace poco más de un año y medio, pero ha evolucionado bastante desde ese momento. Aunque di mi mejor esfuerzo para asegurarme de que todo funcione de la mejor manera posible, por favor, perdonen si un error se coló aquí o allí, nunca son intencionados, te lo prometo!</translation>
+        <translation type="vanished">Esta aplicación se inició hace poco más de un año y medio, pero ha evolucionado bastante desde ese momento. Aunque di mi mejor esfuerzo para asegurarme de que todo funcione de la mejor manera posible, por favor, perdonen si un error se coló aquí o allí, nunca son intencionados, te lo prometo!</translation>
     </message>
     <message>
-        <location filename="../widgets/startupwidget.cpp" line="114"/>
         <source>Here below you find a short overview of what PhotoQt has to offer. But feel free to skip it and just get started, it&apos;s meant for the ones that want to know a little bit about this application in advance:</source>
-        <translation>A continuación encontrará una breve descripción de lo que PhotoQt tiene para ofrecer. Pero no dudes en saltártelo y simplemente usarlo,  sólo está destinado a aquellos que quieran conocer de antemano un poco acerca de esta aplicación:</translation>
+        <translation type="vanished">A continuación encontrará una breve descripción de lo que PhotoQt tiene para ofrecer. Pero no dudes en saltártelo y simplemente usarlo,  sólo está destinado a aquellos que quieran conocer de antemano un poco acerca de esta aplicación:</translation>
     </message>
 </context>
 <context>
