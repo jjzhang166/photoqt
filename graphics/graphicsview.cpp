@@ -214,7 +214,10 @@ void GraphicsView::setupContextMenu() {
 		CustomLabel *zoomOut = new CustomLabel("(-) " + tr("Out"));
 		zoomOut->setObjectName("__CTX__zoomout");
 		zoomOut->setCursor(Qt::PointingHandCursor);
-		CustomLabel *zoomReset = new CustomLabel("(1:1) " + tr("Reset"));
+		CustomLabel *zoomActual = new CustomLabel("(1:1) " + tr("Actual"));
+		zoomActual->setObjectName("__CTX__zoomactual");
+		zoomActual->setCursor(Qt::PointingHandCursor);
+		CustomLabel *zoomReset = new CustomLabel("(0) " + tr("Reset"));
 		zoomReset->setObjectName("__CTX__zoomreset");
 		zoomReset->setCursor(Qt::PointingHandCursor);
 		QWidget *zoomWid = new QWidget;
@@ -225,6 +228,8 @@ void GraphicsView::setupContextMenu() {
 		zoomLay->addSpacing(5);
 		zoomLay->addWidget(zoomOut);
 		zoomLay->addSpacing(5);
+		zoomLay->addWidget(zoomActual);
+		zoomLay->addSpacing(5);
 		zoomLay->addWidget(zoomReset);
 		zoomLay->addStretch();
 		zoomWid->setLayout(zoomLay);
@@ -232,6 +237,7 @@ void GraphicsView::setupContextMenu() {
 		menu->addAction(zoomImg);
 		connect(zoomIn, SIGNAL(clicked()), this, SLOT(contextMenuClickedWidgetAction()));
 		connect(zoomOut, SIGNAL(clicked()), this, SLOT(contextMenuClickedWidgetAction()));
+		connect(zoomActual, SIGNAL(clicked()), this, SLOT(contextMenuClickedWidgetAction()));
 		connect(zoomReset, SIGNAL(clicked()), this, SLOT(contextMenuClickedWidgetAction()));
 
 		menu->addSeparator();

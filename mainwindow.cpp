@@ -1802,6 +1802,8 @@ void MainWindow::shortcutDO(QString key, bool mouseSH) {
 				zoom(false);
 			else if(key == "__CTX__zoomreset")
 				zoom(true,"reset");
+			else if(key == "__CTX__zoomactual")
+				zoom(true,"actualsize");
 			else if(key == "__CTX__scaleimage") {
 				if(!setupWidgets->scaleimage) setupWidget("scaleimage");
 				scaleimage->scale(globVar->currentfile, globVar->originalImageSize);
