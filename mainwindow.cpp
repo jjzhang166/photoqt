@@ -953,11 +953,13 @@ void MainWindow::mouseMoved(int x, int y) {
 			}
 		}
 
+
+		// Animate Quicksettings widget
 		if(x > viewBig->width()-10*globSet->menusensitivity) {
 			if(!setupWidgets->quicksettings) setupWidget("quicksetting");
 			quickset->makeShow();
 		}
-		if(setupWidgets->quicksettings && quickset->isVisible() && x < viewBig->width()-quickset->width()-10*globSet->menusensitivity)
+		if(setupWidgets->quicksettings && quickset->isVisible() && x < viewBig->width()-10*globSet->menusensitivity && (x < viewBig->width()-quickset->width()-10*globSet->menusensitivity || y < quickset->y()-10*globSet->menusensitivity || y> quickset->y()+quickset->height()+10*globSet->menusensitivity))
 			quickset->makeHide();
 
 
@@ -1755,6 +1757,9 @@ void MainWindow::setupWidget(QString what) {
 		quickset = new QuickSettings(globSet->toSignalOut(), globVar->verbose, viewBig);
 		quickset->setRect(QRect(0,0,viewBig->width(),viewBig->height()));
 		quickset->show();
+
+		connect(quickset, SIGNAL(updateSettings(QMap<QString,QVariant>)), globSet, SLOT(settingsUpdated(QMap<QString,QVariant>)));
+		connect(quickset, SIGNAL(emulateShortcut(QString)), this, SLOT(shortcutDO(QString)));
 
 	}
 

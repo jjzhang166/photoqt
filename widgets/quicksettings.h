@@ -1,14 +1,16 @@
 #ifndef QUICKSETTINGS_H
 #define QUICKSETTINGS_H
 
-//#include "../widgets/mywidget.h"
 #include "../customelements/customlabel.h"
+#include "../customelements/customcheckbox.h"
+#include "../customelements/custompushbutton.h"
 
 #include <QWidget>
 #include <QPropertyAnimation>
 #include <QVBoxLayout>
 #include <QPainter>
 #include <QStyleOption>
+#include <QSignalMapper>
 
 class QuickSettings : public QWidget {
 
@@ -48,14 +50,25 @@ private:
 	// This boolean stores if mouse triggering is en-/disabled
 	bool mouseTrickerEnable;
 
-private slots:
 
+	CustomCheckBox *composite;
+	CustomCheckBox *trayicon;
+	CustomCheckBox *loopthroughfolder;
+	CustomCheckBox *windowmode;
+	CustomCheckBox *clickonempty;
+	CustomCheckBox *thumbnailskeepvisible;
+	CustomCheckBox *thumbnailsdynamic;
+
+private slots:
 	// Animate open/close the widget
 	void animate();
+
+	void settingChanged();
 
 signals:
 	// Tell mainwindow.cpp to update the settings
 	void updateSettings(QMap<QString,QVariant> newset);
+	void emulateShortcut(QString);
 
 protected:
 	void paintEvent(QPaintEvent *);
