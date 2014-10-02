@@ -48,7 +48,7 @@ QuickSettings::QuickSettings(QMap<QString, QVariant> set, bool v, QWidget *paren
 	fakedtrans = new CustomRadioButton(tr("Faked transparency"));
 	imagebg = new CustomRadioButton(tr("Background image"));
 	coloured = new CustomRadioButton(tr("Coloured background"));
-	trayicon = new CustomCheckBox(tr("Minimize to system tray"));
+	trayicon = new CustomCheckBox(tr("Hide to system tray"));
 	loopthroughfolder = new CustomCheckBox(tr("Loop through folder"));
 	windowmode = new CustomCheckBox(tr("Window mode"));
 	windowdeco = new CustomCheckBox(tr("Show window decoration"));
