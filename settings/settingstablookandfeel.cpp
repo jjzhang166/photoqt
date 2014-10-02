@@ -89,6 +89,8 @@ SettingsTabLookAndFeel::SettingsTabLookAndFeel(QWidget *parent, QMap<QString, QV
 	noBackgroundImage = new CustomRadioButton(tr("Use one-colored, non-transparent background"));
 
 	QString compTxt = tr("The background of PhotoQt is the part, that is not covered by an image. It can be made either real (half-)transparent (using a compositor), or faked transparent (instead of the actual desktop a screenshot of it is shown), or a custom background image can be set, or none of the above.");
+	compTxt += "<br>";
+	compTxt += tr("Note: Fake transparency currently only really works when PhotoQt is run in fullscreen/maximised!");
 	CustomLabel *compositeImageLabel = new CustomLabel("<b><span style=\"font-size: 12pt\">" + tr("Background of PhotoQt") + "</span></b><br><br>" + compTxt);
 	compositeImageLabel->setWordWrap(true);
 
