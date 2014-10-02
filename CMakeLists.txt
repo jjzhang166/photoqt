@@ -88,23 +88,11 @@ SET(CMAKE_BUILD_TYPE Debug)
 #### TRANSLATIONS AND RESOURCES ####
 ####################################
 
-# Add *.ts translation files
-QT5_ADD_TRANSLATION(qm_files lang/photoqt_cs.ts)
-QT5_ADD_TRANSLATION(qm_files lang/photoqt_de.ts)
-QT5_ADD_TRANSLATION(qm_files lang/photoqt_el.ts)
-QT5_ADD_TRANSLATION(qm_files lang/photoqt_es_ES.ts)
-QT5_ADD_TRANSLATION(qm_files lang/photoqt_fi.ts)
-QT5_ADD_TRANSLATION(qm_files lang/photoqt_fr.ts)
-QT5_ADD_TRANSLATION(qm_files lang/photoqt_he.ts)
-QT5_ADD_TRANSLATION(qm_files lang/photoqt_it.ts)
-QT5_ADD_TRANSLATION(qm_files lang/photoqt_ja.ts)
-QT5_ADD_TRANSLATION(qm_files lang/photoqt_pt_BR.ts)
-QT5_ADD_TRANSLATION(qm_files lang/photoqt_pt_PT.ts)
-QT5_ADD_TRANSLATION(qm_files lang/photoqt_ru_RU.ts)
-QT5_ADD_TRANSLATION(qm_files lang/photoqt_sk.ts)
-QT5_ADD_TRANSLATION(qm_files lang/photoqt_uk_UA.ts)
-QT5_ADD_TRANSLATION(qm_files lang/photoqt_zh_CN.ts)
-QT5_ADD_TRANSLATION(qm_files lang/photoqt_zh_TW.ts)
+# Add *.ts translation files (looping over all of them)
+FILE(GLOB files "lang/*.ts")
+FOREACH(file ${files})
+	QT5_CREATE_TRANSLATION(qm_files ${photoqt_SOURCES} ${file})
+ENDFOREACH()
 
 # Copy the language QRC file to the output directory, because the files listed in the
 # qrc file are relative to that directory.
