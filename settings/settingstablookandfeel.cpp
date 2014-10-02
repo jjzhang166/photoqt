@@ -674,7 +674,7 @@ void SettingsTabLookAndFeel::changeBackgroundImage() {
 	if(backgroundImage->toolTip() != noPath.split(" ").join("/"))
 		dir = backgroundImage->toolTip();
 
-	QString newBG = QFileDialog::getOpenFileName(0,tr("Select Background Image"),dir,globSet.value("KnownFileTypes").toString());
+	QString newBG = QFileDialog::getOpenFileName(0,tr("Select Background Image"),dir,"Images (" + globSet.value("KnownFileTypes").toString().replace(","," ") + ")");
 
 	if(newBG != "") {
 
