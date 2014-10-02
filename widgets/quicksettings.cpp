@@ -35,43 +35,51 @@ QuickSettings::QuickSettings(QMap<QString, QVariant> set, bool v, QWidget *paren
 	this->setGeometry(rectHidden);
 
 
-
-
+	// Title of widget
 	CustomLabel *title = new CustomLabel(tr("Quick Settings"));
 	title->setAlignment(Qt::AlignCenter);
 	title->setFontSize(13);
 	title->setBold(true);
-
+	// Description what this widget is for
 	CustomLabel *desc = new CustomLabel(tr("Change settings with one click. They are saved and applied immediately. If you're unsure what a setting does, check the full settings for descriptions."));
 
+	// The different settings that can be adjusted
 	composite = new CustomCheckBox(tr("Enable composite"));
-	composite->setChecked(globSet.value("Composite").toBool());
-	connect(composite, SIGNAL(toggled(bool)), this, SLOT(settingChanged()));
 	trayicon = new CustomCheckBox(tr("Minimize to system tray"));
-	trayicon->setChecked(globSet.value("TrayIcon").toBool());
-	connect(trayicon, SIGNAL(toggled(bool)), this, SLOT(settingChanged()));
 	loopthroughfolder = new CustomCheckBox(tr("Loop through folder"));
-	loopthroughfolder->setChecked(globSet.value("LoopThroughFolder").toBool());
-	connect(loopthroughfolder, SIGNAL(toggled(bool)), this, SLOT(settingChanged()));
 	windowmode = new CustomCheckBox(tr("Window mode"));
-	windowmode->setChecked(globSet.value("WindowMode").toBool());
-	connect(windowmode, SIGNAL(toggled(bool)), this, SLOT(settingChanged()));
 	clickonempty = new CustomCheckBox(tr("Close on click on background"));
-	clickonempty->setChecked(globSet.value("CloseOnGrey").toBool());
-	connect(clickonempty, SIGNAL(toggled(bool)), this, SLOT(settingChanged()));
 	thumbnailskeepvisible = new CustomCheckBox(tr("Keep thumbnails visible"));
-	thumbnailskeepvisible->setChecked(globSet.value("ThumbnailKeepVisible").toBool());
-	connect(thumbnailskeepvisible, SIGNAL(toggled(bool)), this, SLOT(settingChanged()));
 	thumbnailsdynamic = new CustomCheckBox(tr("Dynamic thumbnails"));
-	thumbnailsdynamic->setChecked(globSet.value("ThumbnailDynamic").toBool());
-	connect(thumbnailsdynamic, SIGNAL(toggled(bool)), this, SLOT(settingChanged()));
+	quickSettings = new CustomCheckBox(tr("Enable 'Quick Settings'"));
 
+	// Set default values
+	composite->setChecked(globSet.value("Composite").toBool());
+	trayicon->setChecked(globSet.value("TrayIcon").toBool());
+	loopthroughfolder->setChecked(globSet.value("LoopThroughFolder").toBool());
+	windowmode->setChecked(globSet.value("WindowMode").toBool());
+	clickonempty->setChecked(globSet.value("CloseOnGrey").toBool());
+	thumbnailskeepvisible->setChecked(globSet.value("ThumbnailKeepVisible").toBool());
+	thumbnailsdynamic->setChecked(globSet.value("ThumbnailDynamic").toBool());
+	quickSettings->setChecked(globSet.value("QuickSettings").toBool());
+
+	// Save & Apply settings instantly
+	connect(composite, SIGNAL(toggled(bool)), this, SLOT(settingChanged()));
+	connect(trayicon, SIGNAL(toggled(bool)), this, SLOT(settingChanged()));
+	connect(loopthroughfolder, SIGNAL(toggled(bool)), this, SLOT(settingChanged()));
+	connect(windowmode, SIGNAL(toggled(bool)), this, SLOT(settingChanged()));
+	connect(clickonempty, SIGNAL(toggled(bool)), this, SLOT(settingChanged()));
+	connect(thumbnailskeepvisible, SIGNAL(toggled(bool)), this, SLOT(settingChanged()));
+	connect(thumbnailsdynamic, SIGNAL(toggled(bool)), this, SLOT(settingChanged()));
+	connect(quickSettings, SIGNAL(toggled(bool)), this, SLOT(settingChanged()));
+
+	// Button to show full settings
 	CustomPushButton *showsettings = new CustomPushButton(tr("Show full settings"));
 	QHBoxLayout *showsettingsLay = new QHBoxLayout;
 	showsettingsLay->addStretch();
 	showsettingsLay->addWidget(showsettings);
 	showsettingsLay->addStretch();
-
+	// Emulate shortcut for full settings
 	QSignalMapper *mapper = new QSignalMapper;
 	mapper->setMapping(showsettings, "__settings");
 	connect(showsettings, SIGNAL(clicked()), mapper, SLOT(map()));
@@ -79,6 +87,7 @@ QuickSettings::QuickSettings(QMap<QString, QVariant> set, bool v, QWidget *paren
 	connect(mapper, SIGNAL(mapped(QString)), this, SIGNAL(emulateShortcut(QString)));
 
 
+	// And the layout
 
 	central->addWidget(title);
 	central->addSpacing(10);
@@ -98,39 +107,78 @@ QuickSettings::QuickSettings(QMap<QString, QVariant> set, bool v, QWidget *paren
 	central->addWidget(thumbnailskeepvisible);
 	central->addSpacing(10);
 	central->addWidget(thumbnailsdynamic);
+	central->addSpacing(10);
+	central->addWidget(quickSettings);
 	central->addSpacing(20);
 	central->addLayout(showsettingsLay);
 
 	central->addStretch();
 
+	loadSettings();
 
 }
 
+void QuickSettings::loadSettings() {
 
+	composite->setChecked(globSet.value("Composite").toBool());
+	trayicon->setChecked(globSet.value("TrayIcon").toBool());
+	loopthroughfolder->setChecked(globSet.value("LoopThroughFolder").toBool());
+	windowmode->setChecked(globSet.value("WindowMode").toBool());
+	clickonempty->setChecked(globSet.value("CloseOnGrey").toBool());
+	thumbnailskeepvisible->setChecked(globSet.value("ThumbnailKeepVisible").toBool());
+	thumbnailsdynamic->setChecked(globSet.value("ThumbnailDynamic").toBool());
+	quickSettings->setChecked(globSet.value("QuickSettings").toBool());
+
+	defaults.clear();
+	defaults.insert("Composite",composite->isChecked());
+	defaults.insert("TrayIcon",trayicon->isChecked());
+	defaults.insert("LoopThroughFolder",loopthroughfolder->isChecked());
+	defaults.insert("WindowMode",windowmode->isChecked());
+	defaults.insert("CloseOnGrey",clickonempty->isChecked());
+	defaults.insert("ThumbnailKeepVisible",thumbnailskeepvisible->isChecked());
+	defaults.insert("ThumbnailDynamic",thumbnailsdynamic->isChecked());
+	defaults.insert("QuickSettings",quickSettings->isChecked());
+
+}
+
+// Save and Notify parent of new settings
 void QuickSettings::settingChanged() {
 
-	globSet.remove("Composite");
-	globSet.insert("Composite",composite->isChecked());
+	QMap<QString,QVariant> changedSet;
 
-	globSet.remove("TrayIcon");
-	globSet.insert("TrayIcon",trayicon->isChecked());
+	if(defaults.value("Composite") != composite->isChecked())
+		changedSet.insert("Composite",composite->isChecked());
 
-	globSet.remove("LoopThroughFolder");
-	globSet.insert("LoopThroughFolder",loopthroughfolder->isChecked());
 
-	globSet.remove("WindowMode");
-	globSet.insert("WindowMode",windowmode->isChecked());
+	if(defaults.value("TrayIcon") != trayicon->isChecked())
+		changedSet.insert("TrayIcon",trayicon->isChecked());
 
-	globSet.remove("CloseOnGrey");
-	globSet.insert("CloseOnGrey",clickonempty->isChecked());
 
-	globSet.remove("ThumbnailKeepVisible");
-	globSet.insert("ThumbnailKeepVisible",thumbnailskeepvisible->isChecked());
+	if(defaults.value("LoopThroughFolder") != loopthroughfolder->isChecked())
+		changedSet.insert("LoopThroughFolder",loopthroughfolder->isChecked());
 
-	globSet.remove("ThumbnailDynamic");
-	globSet.insert("ThumbnailDynamic",thumbnailsdynamic->isChecked());
 
-	emit updateSettings(globSet);
+	if(defaults.value("WindowMode") != windowmode->isChecked())
+		changedSet.insert("WindowMode",windowmode->isChecked());
+
+
+	if(defaults.value("CloseOnGrey") != clickonempty->isChecked())
+		changedSet.insert("CloseOnGrey",clickonempty->isChecked());
+
+
+	if(defaults.value("ThumbnailKeepVisible") != thumbnailskeepvisible->isChecked())
+		changedSet.insert("ThumbnailKeepVisible",thumbnailskeepvisible->isChecked());
+
+
+	if(defaults.value("ThumbnailDynamic") != thumbnailsdynamic->isChecked())
+		changedSet.insert("ThumbnailDynamic",thumbnailsdynamic->isChecked());
+
+
+	if(defaults.value("QuickSettings") != quickSettings->isChecked())
+		changedSet.insert("QuickSettings",quickSettings->isChecked());
+
+
+	emit updateSettings(changedSet);
 
 }
 

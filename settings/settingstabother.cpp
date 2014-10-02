@@ -194,8 +194,6 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 	FlowLayout *langLay = new FlowLayout;
 	QButtonGroup *langButGrp = new QButtonGroup;
 
-//	langLay->addStretch();
-
 	for(int i = 0; i < langDesc.length(); ++i) {
 
 		SettingsTabOtherLanguageTiles *tile = new SettingsTabOtherLanguageTiles(langDesc.at(i), langShort.at(i));
@@ -204,8 +202,6 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 		langLay->addWidget(tile);
 
 	}
-
-//	langLay->addStretch();
 
 	QHBoxLayout *langWidgLay = new QHBoxLayout;
 	langWidgLay->addSpacing(50);
@@ -216,9 +212,23 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 	layOther->addSpacing(30);
 
 
+	// Adjust quick settings trigering
+	CustomLabel *quickSetLabel = new CustomLabel("<b><span style=\"font-size:12pt\">" + tr("Quick Settings") + "</span></b><br><br>" + tr("The 'Quick Settings' is a widget hidden on the right side of the screen. When you move the cursor there, it shows up, and you can adjust some simple settings there on the spot without having to go through the settings dialog. Of course, only a small subset of settings is available (the most often needed ones). Here you can disable the dialog so that it doesn't show on mouse movement anymore."));
+	quickSet = new CustomCheckBox(tr("Show 'Quick Settings' on mouse hovering"));
+	QHBoxLayout *quickSetLay = new QHBoxLayout;
+	quickSetLay->addStretch();
+	quickSetLay->addWidget(quickSet);
+	quickSetLay->addStretch();
+
+	layOther->addWidget(quickSetLabel);
+	layOther->addSpacing(20);
+	layOther->addLayout(quickSetLay);
+	layOther->addSpacing(30);
+
+
+
 	// Adjust context menu
 	CustomLabel *contextMenuLabel = new CustomLabel("<b><span style=\"font-size:12pt\">" + tr("Adjust Context Menu") + "</span></b><br><br>" + tr("Here you can adjust the context menu. You can simply drag and drop the entries, edit them, add a new one and remove an existing one."));
-	contextMenuLabel->setWordWrap(true);
 	context = new Context;
 	QHBoxLayout *contextLay = new QHBoxLayout;
 	contextLay->addStretch();
@@ -430,6 +440,9 @@ void SettingsTabOther::loadSettings() {
 		}
 	}
 
+	quickSet->setChecked(globSet.value("QuickSettings").toBool());
+	defaultValue = quickSet->isChecked();
+
 	QStringList formatsSetQt = globSet.value("KnownFileTypesQt").toString().replace("*","").split(",");
 	QMapIterator<QString, SettingsTabOtherFileTypesTiles*> iterQt(allCheckQt);
 	while (iterQt.hasNext()) {
@@ -474,6 +487,11 @@ void SettingsTabOther::saveSettings() {
 			break;
 		}
 	}
+
+
+	if(defaultValue != quickSet->isChecked())
+		updatedSet.insert("QuickSettings",quickSet->isChecked());
+
 
 	QStringList formatsSetQt;
 	QMapIterator<QString, SettingsTabOtherFileTypesTiles*> iterQt(allCheckQt);

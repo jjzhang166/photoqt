@@ -62,6 +62,10 @@ private:
 	QStringList langShort;
 	QList<SettingsTabOtherLanguageTiles*> allLangTiles;
 
+	// Quick Settings
+	CustomCheckBox *quickSet;
+	bool defaultValue;
+
 	// Context menu adjusting area
 	Context *context;
 

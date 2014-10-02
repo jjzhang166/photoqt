@@ -955,7 +955,7 @@ void MainWindow::mouseMoved(int x, int y) {
 
 
 		// Animate Quicksettings widget
-		if(x > viewBig->width()-10*globSet->menusensitivity) {
+		if(x > viewBig->width()-10*globSet->menusensitivity && globSet->quickSettings) {
 			if(!setupWidgets->quicksettings) setupWidget("quicksetting");
 			quickset->makeShow();
 		}
@@ -2381,6 +2381,11 @@ void MainWindow::updateSettings(QMap<QString, QVariant> settings) {
 	if(setupWidgets->wallpaper) wallpaper->globSet = settings;
 
 	if(set->tabsSetup) set->loadSettings();
+
+	if(setupWidgets->quicksettings) {
+		quickset->globSet = settings;
+		quickset->loadSettings();
+	}
 
 }
 

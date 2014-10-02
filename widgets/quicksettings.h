@@ -30,6 +30,8 @@ public:
 
 	void setRect(QRect fullscreen);
 
+	void loadSettings();
+
 private:
 	// This boolean stores if the widget is shown or hidden
 	bool isShown;
@@ -58,6 +60,9 @@ private:
 	CustomCheckBox *clickonempty;
 	CustomCheckBox *thumbnailskeepvisible;
 	CustomCheckBox *thumbnailsdynamic;
+	CustomCheckBox *quickSettings;
+
+	QMap<QString,bool> defaults;
 
 private slots:
 	// Animate open/close the widget

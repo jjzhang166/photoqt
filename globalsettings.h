@@ -378,6 +378,8 @@ public:
 	bool closeongrey;
 	// Border around big image
 	int borderAroundImg;
+	// Show Quick Settings on mouse movement
+	bool quickSettings;
 
 	// Are quickinfos hidden?
 	bool hidecounter;
@@ -494,6 +496,7 @@ public:
 		map.insert("MenuSensitivity",menusensitivity);
 		map.insert("CloseOnGrey",closeongrey);
 		map.insert("BorderAroundImg",borderAroundImg);
+		map.insert("QuickSettings",quickSettings);
 
 		map.insert("HideCounter",hidecounter);
 		map.insert("HideFilepathShowFilename",hidefilepathshowfilename);
@@ -583,6 +586,7 @@ public:
 		menusensitivity = 6;
 		closeongrey = false;
 		borderAroundImg = 5;
+		quickSettings = true;
 
 		hidecounter = false;
 		hidefilepathshowfilename = true;
@@ -697,6 +701,12 @@ public:
 
 #endif
 			}
+
+			if(all.contains("QuickSettings=1"))
+				quickSettings = true;
+			else if(all.contains("QuickSettings=0"))
+				quickSettings = false;
+
 
 			if(all.contains("BgColorRed="))
 				bgColorRed = all.split("BgColorRed=").at(1).split("\n").at(0).toInt();
@@ -995,6 +1005,7 @@ public:
 			cont += QString("MenuSensitivity=%1\n").arg(menusensitivity);
 			cont += QString("CloseOnGrey=%1\n").arg(int(closeongrey));
 			cont += QString("BorderAroundImg=%1\n").arg(borderAroundImg);
+			cont += QString("QuickSettings=%1\n").arg(int(quickSettings));
 
 			cont += "\n[Path]\n";
 
@@ -1190,6 +1201,8 @@ public slots:
 			borderAroundImg = changedSet.value("BorderAroundImg").toInt();
 			applySet["redrawimg"] = true;
 		}
+		if(changedSet.keys().contains("QuickSettings"))
+			quickSettings = changedSet.value("QuickSettings").toBool();
 
 		if(changedSet.keys().contains("HideCounter")) {
 			hidecounter = changedSet.value("HideCounter").toBool();
