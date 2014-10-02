@@ -213,7 +213,7 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 
 
 	// Adjust quick settings trigering
-	CustomLabel *quickSetLabel = new CustomLabel("<b><span style=\"font-size:12pt\">" + tr("Quick Settings") + "</span></b><br><br>" + tr("The 'Quick Settings' is a widget hidden on the right side of the screen. When you move the cursor there, it shows up, and you can adjust some simple settings there on the spot without having to go through the settings dialog. Of course, only a small subset of settings is available (the most often needed ones). Here you can disable the dialog so that it doesn't show on mouse movement anymore."));
+	CustomLabel *quickSetLabel = new CustomLabel("<b><span style=\"font-size:12pt\">" + tr("Quick Settings") + "</span></b><br><br>" + tr("The 'Quick Settings' is a widget hidden on the right side of the screen. When you move the cursor there, it shows up, and you can adjust a few simple settings on the spot without having to go through this settings dialog. Of course, only a small subset of settings is available (the ones needed most often). Here you can disable the dialog so that it doesn't show on mouse movement anymore."));
 	quickSet = new CustomCheckBox(tr("Show 'Quick Settings' on mouse hovering"));
 	QHBoxLayout *quickSetLay = new QHBoxLayout;
 	quickSetLay->addStretch();

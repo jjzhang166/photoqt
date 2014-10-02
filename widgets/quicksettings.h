@@ -3,7 +3,9 @@
 
 #include "../customelements/customlabel.h"
 #include "../customelements/customcheckbox.h"
+#include "../customelements/customradiobutton.h"
 #include "../customelements/custompushbutton.h"
+#include "../customelements/customline.h"
 
 #include <QWidget>
 #include <QPropertyAnimation>
@@ -53,10 +55,14 @@ private:
 	bool mouseTrickerEnable;
 
 
-	CustomCheckBox *composite;
+	CustomRadioButton *composite;
+	CustomRadioButton *fakedtrans;
+	CustomRadioButton *imagebg;
+	CustomRadioButton *coloured;
 	CustomCheckBox *trayicon;
 	CustomCheckBox *loopthroughfolder;
 	CustomCheckBox *windowmode;
+	CustomCheckBox *windowdeco;
 	CustomCheckBox *clickonempty;
 	CustomCheckBox *thumbnailskeepvisible;
 	CustomCheckBox *thumbnailsdynamic;

@@ -44,10 +44,14 @@ QuickSettings::QuickSettings(QMap<QString, QVariant> set, bool v, QWidget *paren
 	CustomLabel *desc = new CustomLabel(tr("Change settings with one click. They are saved and applied immediately. If you're unsure what a setting does, check the full settings for descriptions."));
 
 	// The different settings that can be adjusted
-	composite = new CustomCheckBox(tr("Enable composite"));
+	composite = new CustomRadioButton(tr("Real transparency"));
+	fakedtrans = new CustomRadioButton(tr("Faked transparency"));
+	imagebg = new CustomRadioButton(tr("Background image"));
+	coloured = new CustomRadioButton(tr("Coloured background"));
 	trayicon = new CustomCheckBox(tr("Minimize to system tray"));
 	loopthroughfolder = new CustomCheckBox(tr("Loop through folder"));
 	windowmode = new CustomCheckBox(tr("Window mode"));
+	windowdeco = new CustomCheckBox(tr("Show window decoration"));
 	clickonempty = new CustomCheckBox(tr("Close on click on background"));
 	thumbnailskeepvisible = new CustomCheckBox(tr("Keep thumbnails visible"));
 	thumbnailsdynamic = new CustomCheckBox(tr("Dynamic thumbnails"));
@@ -55,23 +59,35 @@ QuickSettings::QuickSettings(QMap<QString, QVariant> set, bool v, QWidget *paren
 
 	// Set default values
 	composite->setChecked(globSet.value("Composite").toBool());
+	fakedtrans->setChecked(globSet.value("BackgroundImageScreenshot").toBool());
+	imagebg->setChecked(globSet.value("BackgroundImageUse").toBool());
+	coloured->setChecked(!globSet.value("Composite").toBool() && !globSet.value("BackgroundImageScreenshot").toBool() && !globSet.value("BackgroundImageUse").toBool());
 	trayicon->setChecked(globSet.value("TrayIcon").toBool());
 	loopthroughfolder->setChecked(globSet.value("LoopThroughFolder").toBool());
 	windowmode->setChecked(globSet.value("WindowMode").toBool());
+	windowdeco->setChecked(globSet.value("WindowDecoration").toBool());
 	clickonempty->setChecked(globSet.value("CloseOnGrey").toBool());
 	thumbnailskeepvisible->setChecked(globSet.value("ThumbnailKeepVisible").toBool());
 	thumbnailsdynamic->setChecked(globSet.value("ThumbnailDynamic").toBool());
 	quickSettings->setChecked(globSet.value("QuickSettings").toBool());
 
 	// Save & Apply settings instantly
-	connect(composite, SIGNAL(toggled(bool)), this, SLOT(settingChanged()));
+	connect(composite, SIGNAL(clicked()), this, SLOT(settingChanged()));
+	connect(fakedtrans, SIGNAL(clicked()), this, SLOT(settingChanged()));
+	connect(imagebg, SIGNAL(clicked()), this, SLOT(settingChanged()));
+	connect(coloured, SIGNAL(clicked()), this, SLOT(settingChanged()));
 	connect(trayicon, SIGNAL(toggled(bool)), this, SLOT(settingChanged()));
 	connect(loopthroughfolder, SIGNAL(toggled(bool)), this, SLOT(settingChanged()));
 	connect(windowmode, SIGNAL(toggled(bool)), this, SLOT(settingChanged()));
+	connect(windowdeco, SIGNAL(toggled(bool)), this, SLOT(settingChanged()));
 	connect(clickonempty, SIGNAL(toggled(bool)), this, SLOT(settingChanged()));
 	connect(thumbnailskeepvisible, SIGNAL(toggled(bool)), this, SLOT(settingChanged()));
 	connect(thumbnailsdynamic, SIGNAL(toggled(bool)), this, SLOT(settingChanged()));
 	connect(quickSettings, SIGNAL(toggled(bool)), this, SLOT(settingChanged()));
+
+	// Window deco depends on window mode checked
+	windowdeco->setEnabled(false);
+	connect(windowmode, SIGNAL(toggled(bool)), windowdeco, SLOT(setEnabled(bool)));
 
 	// Button to show full settings
 	CustomPushButton *showsettings = new CustomPushButton(tr("Show full settings"));
@@ -87,7 +103,19 @@ QuickSettings::QuickSettings(QMap<QString, QVariant> set, bool v, QWidget *paren
 	connect(mapper, SIGNAL(mapped(QString)), this, SIGNAL(emulateShortcut(QString)));
 
 
+	// Seperators
+	CustomLine *compositeLine = new CustomLine;
+	CustomLine *trayiconLine = new CustomLine;
+	CustomLine *loopthroughfolderLine = new CustomLine;
+	CustomLine *windowmodeLine = new CustomLine;
+	CustomLine *clickonemptyLine = new CustomLine;
+	CustomLine *thumbnailskeepvisibleLine = new CustomLine;
+	CustomLine *thumbnailsdynamicLine = new CustomLine;
+
+
 	// And the layout
+
+	central->addStretch();
 
 	central->addWidget(title);
 	central->addSpacing(10);
@@ -96,18 +124,40 @@ QuickSettings::QuickSettings(QMap<QString, QVariant> set, bool v, QWidget *paren
 	central->addSpacing(15);
 	central->addWidget(composite);
 	central->addSpacing(10);
+	central->addWidget(fakedtrans);
+	central->addSpacing(10);
+	central->addWidget(imagebg);
+	central->addSpacing(10);
+	central->addWidget(coloured);
+	central->addSpacing(5);
+	central->addWidget(compositeLine);
+	central->addSpacing(5);
 	central->addWidget(trayicon);
-	central->addSpacing(10);
+	central->addSpacing(5);
+	central->addWidget(trayiconLine);
+	central->addSpacing(5);
 	central->addWidget(loopthroughfolder);
-	central->addSpacing(10);
+	central->addSpacing(5);
+	central->addWidget(loopthroughfolderLine);
+	central->addSpacing(5);
 	central->addWidget(windowmode);
 	central->addSpacing(10);
+	central->addWidget(windowdeco);
+	central->addSpacing(5);
+	central->addWidget(windowmodeLine);
+	central->addSpacing(5);
 	central->addWidget(clickonempty);
-	central->addSpacing(10);
+	central->addSpacing(5);
+	central->addWidget(clickonemptyLine);
+	central->addSpacing(5);
 	central->addWidget(thumbnailskeepvisible);
-	central->addSpacing(10);
+	central->addSpacing(5);
+	central->addWidget(thumbnailskeepvisibleLine);
+	central->addSpacing(5);
 	central->addWidget(thumbnailsdynamic);
-	central->addSpacing(10);
+	central->addSpacing(5);
+	central->addWidget(thumbnailsdynamicLine);
+	central->addSpacing(5);
 	central->addWidget(quickSettings);
 	central->addSpacing(20);
 	central->addLayout(showsettingsLay);
@@ -121,19 +171,29 @@ QuickSettings::QuickSettings(QMap<QString, QVariant> set, bool v, QWidget *paren
 void QuickSettings::loadSettings() {
 
 	composite->setChecked(globSet.value("Composite").toBool());
+	fakedtrans->setChecked(globSet.value("BackgroundImageScreenshot").toBool());
+	imagebg->setChecked(globSet.value("BackgroundImageUse").toBool());
+	coloured->setChecked(!globSet.value("Composite").toBool() && !globSet.value("BackgroundImageScreenshot").toBool() && !globSet.value("BackgroundImageUse").toBool());
 	trayicon->setChecked(globSet.value("TrayIcon").toBool());
 	loopthroughfolder->setChecked(globSet.value("LoopThroughFolder").toBool());
 	windowmode->setChecked(globSet.value("WindowMode").toBool());
+	windowdeco->setChecked(globSet.value("WindowDecoration").toBool());
 	clickonempty->setChecked(globSet.value("CloseOnGrey").toBool());
 	thumbnailskeepvisible->setChecked(globSet.value("ThumbnailKeepVisible").toBool());
 	thumbnailsdynamic->setChecked(globSet.value("ThumbnailDynamic").toBool());
 	quickSettings->setChecked(globSet.value("QuickSettings").toBool());
 
+	windowdeco->setEnabled(windowmode->isChecked());
+
 	defaults.clear();
 	defaults.insert("Composite",composite->isChecked());
+	defaults.insert("BackgroundImageScreenshot",composite->isChecked());
+	defaults.insert("BackgroundImageUse",imagebg->isChecked());
+	defaults.insert("ColouredBG",coloured->isChecked());
 	defaults.insert("TrayIcon",trayicon->isChecked());
 	defaults.insert("LoopThroughFolder",loopthroughfolder->isChecked());
 	defaults.insert("WindowMode",windowmode->isChecked());
+	defaults.insert("WindowDecoration",windowdeco->isChecked());
 	defaults.insert("CloseOnGrey",clickonempty->isChecked());
 	defaults.insert("ThumbnailKeepVisible",thumbnailskeepvisible->isChecked());
 	defaults.insert("ThumbnailDynamic",thumbnailsdynamic->isChecked());
@@ -146,37 +206,48 @@ void QuickSettings::settingChanged() {
 
 	QMap<QString,QVariant> changedSet;
 
-	if(defaults.value("Composite") != composite->isChecked())
-		changedSet.insert("Composite",composite->isChecked());
-
+	changedSet.insert("Composite",composite->isChecked());
+	changedSet.insert("BackgroundImageScreenshot",fakedtrans->isChecked());
+	changedSet.insert("BackgroundImageUse",imagebg->isChecked());
 
 	if(defaults.value("TrayIcon") != trayicon->isChecked())
 		changedSet.insert("TrayIcon",trayicon->isChecked());
 
-
 	if(defaults.value("LoopThroughFolder") != loopthroughfolder->isChecked())
 		changedSet.insert("LoopThroughFolder",loopthroughfolder->isChecked());
-
 
 	if(defaults.value("WindowMode") != windowmode->isChecked())
 		changedSet.insert("WindowMode",windowmode->isChecked());
 
+	if(defaults.value("WindowDecoration") != windowdeco->isChecked())
+		changedSet.insert("WindowDecoration",windowdeco->isChecked());
 
 	if(defaults.value("CloseOnGrey") != clickonempty->isChecked())
 		changedSet.insert("CloseOnGrey",clickonempty->isChecked());
 
-
 	if(defaults.value("ThumbnailKeepVisible") != thumbnailskeepvisible->isChecked())
 		changedSet.insert("ThumbnailKeepVisible",thumbnailskeepvisible->isChecked());
-
 
 	if(defaults.value("ThumbnailDynamic") != thumbnailsdynamic->isChecked())
 		changedSet.insert("ThumbnailDynamic",thumbnailsdynamic->isChecked());
 
-
 	if(defaults.value("QuickSettings") != quickSettings->isChecked())
 		changedSet.insert("QuickSettings",quickSettings->isChecked());
 
+	// Update new defaults
+	defaults.clear();
+	defaults.insert("Composite",composite->isChecked());
+	defaults.insert("BackgroundImageScreenshot",composite->isChecked());
+	defaults.insert("BackgroundImageUse",imagebg->isChecked());
+	defaults.insert("ColouredBG",coloured->isChecked());
+	defaults.insert("TrayIcon",trayicon->isChecked());
+	defaults.insert("LoopThroughFolder",loopthroughfolder->isChecked());
+	defaults.insert("WindowMode",windowmode->isChecked());
+	defaults.insert("WindowDecoration",windowdeco->isChecked());
+	defaults.insert("CloseOnGrey",clickonempty->isChecked());
+	defaults.insert("ThumbnailKeepVisible",thumbnailskeepvisible->isChecked());
+	defaults.insert("ThumbnailDynamic",thumbnailsdynamic->isChecked());
+	defaults.insert("QuickSettings",quickSettings->isChecked());
 
 	emit updateSettings(changedSet);
 
@@ -185,7 +256,7 @@ void QuickSettings::settingChanged() {
 
 void QuickSettings::setRect(QRect fullscreen) {
 
-	rectShown = QRect(fullscreen.width()-300, (fullscreen.height()-450)/3, 300, 450);
+	rectShown = QRect(fullscreen.width()-350, (fullscreen.height()-650)/3, 350, 650);
 	rectHidden = QRect(fullscreen.width()+rectShown.width(),rectShown.y(),rectShown.width(),rectShown.height());
 
 }
