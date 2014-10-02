@@ -42,6 +42,7 @@
 #include <QShortcut>
 #include <QSystemTrayIcon>
 #include <QMenu>
+#include <QScreen>
 
 
 class MainWindow : public QMainWindow {
@@ -69,7 +70,7 @@ public:
 
 private:
 	// The current screenshot
-	QPixmap screenshot;
+	QList<QPixmap> screenshots;
 	QLabel *bglabel;
 
 	// The graphicsscenes and -views

@@ -18,8 +18,13 @@
 
 MainWindow::MainWindow(QWidget *parent, bool verbose) : QMainWindow(parent) {
 
-	// Make a screenshot
-	screenshot = QPixmap::grabWindow(QApplication::desktop()->winId());
+	// Make a screenshot of each screen
+	for(int i = 0; i < QGuiApplication::screens().count(); ++i) {
+		QScreen *screen = QGuiApplication::screens().at(i);
+		QRect r = screen->geometry();
+		QPixmap pix = screen->grabWindow(0,r.x(),r.y(),r.width(),r.height());
+		screenshots.append(pix);
+	}
 
 	// Black Background
 	this->setObjectName("mainwindow");
@@ -1292,18 +1297,25 @@ void MainWindow::setBackground() {
 		this->setAttribute(Qt::WA_TranslucentBackground, false);
 		this->setAttribute(Qt::WA_NoSystemBackground,false);
 
-		// SET SCREENSHOT AS BACKGROUND (single-screen setups only)
-		if(globSet->backgroundImageScreenshot && QApplication::desktop()->numScreens() == 1) {
+		// SET SCREENSHOT AS BACKGROUND
+		if(globSet->backgroundImageScreenshot) {
 
 			if(globVar->verbose) std::clog << "Setting screenshot as background" << std::endl;
 
-			QPixmap bg(screenshot.size());
+			// That's the background image
+			QPixmap base;
+			QRect curRect;
+			for(int i = 0; i < QGuiApplication::screens().count(); ++i) {
+				if(QGuiApplication::screens().at(i)->geometry().contains(this->x(),this->y())) {
+					base = screenshots.at(i);
+					curRect = QGuiApplication::screens().at(i)->geometry();
+				}
+			}
+
+			QPixmap bg(base.size());
 			bg.fill(Qt::transparent);
 
-			// That's the background image
-			QPixmap base = screenshot;
-
-			QPixmap overlay(screenshot.size());
+			QPixmap overlay(base.size());
 			overlay.fill(Qt::transparent);
 			QPainter overlayPaint(&overlay);
 			overlayPaint.setCompositionMode(QPainter::CompositionMode_SourceOver);
@@ -1314,12 +1326,7 @@ void MainWindow::setBackground() {
 			// Let's start
 			QPainter painter(&bg);
 			painter.setCompositionMode(QPainter::CompositionMode_SourceOver);
-			int x = QApplication::desktop()->screenGeometry(QApplication::desktop()->primaryScreen()).x();
-			int y = 0;
-			int w = QApplication::desktop()->screenGeometry(QApplication::desktop()->primaryScreen()).width();
-			int h = QApplication::desktop()->screenGeometry(QApplication::desktop()->primaryScreen()).height();
-
-			painter.drawPixmap(QRect(0,0,QApplication::desktop()->screenGeometry(QApplication::desktop()->primaryScreen()).width(),QApplication::desktop()->screenGeometry(QApplication::desktop()->primaryScreen()).height()), base, QRect(x,y,w,h));
+			painter.drawPixmap(QRect(0,0,curRect.width(),curRect.height()), base, QRect(0,0,curRect.width(),curRect.height()));
 			painter.drawPixmap(overlay.rect(), overlay);
 
 			painter.end();
@@ -1327,7 +1334,7 @@ void MainWindow::setBackground() {
 			// Setting the background image as background of label
 			bglabel->setPixmap(bg);
 
-		// Set a background image
+		// SET BACKGROUND IMAGE
 		} else if(globSet->backgroundImageUse) {
 
 			if(globVar->verbose) std::clog << "Use background image" << std::endl;

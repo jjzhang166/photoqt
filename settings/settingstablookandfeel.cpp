@@ -88,8 +88,7 @@ SettingsTabLookAndFeel::SettingsTabLookAndFeel(QWidget *parent, QMap<QString, QV
 	backgroundImageUseCustom = new CustomRadioButton(tr("Use custom background image"));
 	noBackgroundImage = new CustomRadioButton(tr("Use one-colored, non-transparent background"));
 
-	QString compTxt = tr("The background of PhotoQt is the part, that is not covered by an image. It can be made either real (half-)transparent (using a compositor), or faked teransparent (instead of the actual desktop a screenshot of it is shown), or a custom background image can be set, or none of the above.");
-	if(QApplication::desktop()->numScreens() != 1) compTxt += "<br><b>" + tr("Note: When using multiple monitors, using faked transparency is not supported!");
+	QString compTxt = tr("The background of PhotoQt is the part, that is not covered by an image. It can be made either real (half-)transparent (using a compositor), or faked transparent (instead of the actual desktop a screenshot of it is shown), or a custom background image can be set, or none of the above.");
 	CustomLabel *compositeImageLabel = new CustomLabel("<b><span style=\"font-size: 12pt\">" + tr("Background of PhotoQt") + "</span></b><br><br>" + compTxt);
 	compositeImageLabel->setWordWrap(true);
 
