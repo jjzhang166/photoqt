@@ -979,8 +979,11 @@ public:
 			cont += QString("KnownFileTypesQtExtras=%1\n").arg(knownFileTypesQtExtras);
 			cont += QString("KnownFileTypesGmExtras=%1\n").arg(knownFileTypesGmExtras);
 
-			fileFormats->formatsQtEnabled = knownFileTypesQt.replace("*","").split(",");
-			fileFormats->formatsGmEnabled = knownFileTypesGm.replace("*","").split(",");
+			// We'll operate the replace() and split() below on temporary strings, not the actual ones (since we want to keep the *'s there)
+			QString knownFileTypesQt_tmp = knownFileTypesQt;
+			QString knownFileTypesGm_tmp = knownFileTypesGm;
+			fileFormats->formatsQtEnabled = knownFileTypesQt_tmp.replace("*","").split(",");
+			fileFormats->formatsGmEnabled = knownFileTypesGm_tmp.replace("*","").split(",");
 			fileFormats->saveFormats();
 
 			cont += "\n[Look]\n";
@@ -1096,16 +1099,12 @@ public slots:
 
 		if(changedSet.keys().contains("KnownFileTypesQtExtras"))
 			knownFileTypesQtExtras = changedSet.value("KnownFileTypesQtExtras").toString();
-
 		if(changedSet.keys().contains("KnownFileTypesGmExtras"))
 			knownFileTypesGmExtras = changedSet.value("KnownFileTypesGmExtras").toString();
-
 		if(changedSet.keys().contains("KnownFileTypesQt"))
 			knownFileTypesQt = changedSet.value("KnownFileTypesQt").toString();
-
 		if(changedSet.keys().contains("KnownFileTypesGm"))
 			knownFileTypesGm = changedSet.value("KnownFileTypesGm").toString();
-
 
 		knownFileTypes = "";
 		if(knownFileTypesQt != "")
