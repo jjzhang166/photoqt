@@ -9,7 +9,7 @@ Scale::Scale(bool verbose, QWidget *parent) : MyWidget(parent) {
 	this->verbose = verbose;
 
 	// A title label
-	CustomLabel *title = new CustomLabel(tr("<center><h1>Scale Image</h1></center>"));
+	CustomLabel *title = new CustomLabel("<center><h1>" + tr("Scale Image") + "</h1></center>");
 	// A label to display the current size
 	curSize = new CustomLabel("<center>" + tr("Current Size:") + "</center>");
 

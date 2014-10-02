@@ -71,7 +71,7 @@ Wallpaper::Wallpaper(QMap<QString, QVariant> set, bool v, QWidget *parent) : MyW
 	wm = new CustomComboBox;
 	wm->setFontSize(15);
 	wm->setBorder(1,"white");
-	wm->addItem("KDE","kde");
+	wm->addItem("KDE4","kde");
 	wm->addItem("Gnome/Unity","gnome");
 	wm->addItem("XFCE4","xfce");
 	wm->addItem("Razor-Qt", "razor");

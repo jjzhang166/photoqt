@@ -826,7 +826,7 @@
     </message>
     <message>
         <location filename="../widgets/quicksettings.cpp" line="51"/>
-        <source>Minimize to system tray</source>
+        <source>Hide to system tray</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -874,7 +874,7 @@
     <name>Scale</name>
     <message>
         <location filename="../manipulation/scale.cpp" line="12"/>
-        <source>&lt;center&gt;&lt;h1&gt;Scale Image&lt;/h1&gt;&lt;/center&gt;</source>
+        <source>Scale Image</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
