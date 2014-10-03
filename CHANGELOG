@@ -1,5 +1,26 @@
-Changelog PhotoQt v1.1devel  - Copyright (C) 2014, Lukas Spies (Lukas@photoqt.org), License: GPLv2 (or later)
+Changelog PhotoQt v1.1beta  - Copyright (C) 2014, Lukas Spies (Lukas@photoqt.org), License: GPLv2 (or later)
 ------------------------------------------------------------------------------------------------------------
+
+Release 1.1
+----------------------------
+- PhotoQt now based on Qt5
+- Phonon replaced by QMediaPlayer
+- Rotations/Flipping stored per session (nothing is saved permanently in any files)
+- Filter images in current directory by filename/extension
+- Scaling images (permanent change)
+- Faded in widgets code moved to own class (massive code simplification)
+- Fade-in now starts at the top of the screen
+- Quick Settings (fade-in widget on the right)
+- Fake Transparency (background) now supported for any number of screens
+- CMake updates translation files on the fly (handy for translators)
+- fix: restore from system tray preserves fullscreen
+- fix: context menu converted to 'normal' shortcut
+- fix: possible to select background image
+- fix: saving settings no longer corrupts session wide list of known file formats
+- many improvements to custom widget classes (added methods for better styling, etc.)
+- several visual mock-ups (see yourself)
+- ... and many, many more bugs were fixed, codelines simplified, improvements here and there done - too many to recall all of them...
+
 
 Release 1.0 - 11/08/2013
 ----------------------------
