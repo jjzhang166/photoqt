@@ -661,7 +661,9 @@ void MainWindow::globalRunningProgTimerTimeout() {
 	// Open a new file
 	if(doOpen) {
 		if(this->isHidden()) {
-			if(globVar->windowMaximised) {
+			if(!globSet->windowmode) {
+				this->showFullScreen();
+			} else if(globVar->windowMaximised) {
 				this->showMaximized();
 				QTimer::singleShot(100,this,SLOT(showMaximized()));
 				globVar->windowMaximised = true;
@@ -678,7 +680,9 @@ void MainWindow::globalRunningProgTimerTimeout() {
 	// Show PhotoQt
 	if(doShow) {
 		if(this->isHidden()) {
-			if(globVar->windowMaximised) {
+			if(!globSet->windowmode) {
+				this->showFullScreen();
+			} else if(globVar->windowMaximised) {
 				this->showMaximized();
 				QTimer::singleShot(100,this,SLOT(showMaximized()));
 				globVar->windowMaximised = true;
