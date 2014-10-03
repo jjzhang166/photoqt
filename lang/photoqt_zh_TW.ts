@@ -769,12 +769,12 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../main.cpp" line="409"/>
+        <location filename="../main.cpp" line="407"/>
         <source>Edit with Gimp</source>
         <translation>使用 Gimp 編輯</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="409"/>
+        <location filename="../main.cpp" line="407"/>
         <source>Open in GwenView</source>
         <translation>在 GwenView 中打開</translation>
     </message>

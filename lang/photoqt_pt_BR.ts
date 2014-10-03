@@ -769,12 +769,12 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../main.cpp" line="409"/>
+        <location filename="../main.cpp" line="407"/>
         <source>Edit with Gimp</source>
         <translation>Editar com Gimp</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="409"/>
+        <location filename="../main.cpp" line="407"/>
         <source>Open in GwenView</source>
         <translation>Abrir no GwenView</translation>
     </message>
