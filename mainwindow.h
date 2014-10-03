@@ -229,6 +229,9 @@ private slots:
 	// A system shortcut has been called (needed for widgets like about or settings)
 	void systemShortcutDO(QString todo);
 
+	// Take screenshots (called at startup, and when PhotoQt is minimised to system tray and re-opened)
+	void takeScreenshots();
+
 	// Click on a tray icon menu item
 	void trayAcDo(QSystemTrayIcon::ActivationReason rsn = QSystemTrayIcon::Trigger);
 

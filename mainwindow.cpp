@@ -19,12 +19,7 @@
 MainWindow::MainWindow(QWidget *parent, bool verbose) : QMainWindow(parent) {
 
 	// Make a screenshot of each screen
-	for(int i = 0; i < QGuiApplication::screens().count(); ++i) {
-		QScreen *screen = QGuiApplication::screens().at(i);
-		QRect r = screen->geometry();
-		QPixmap pix = screen->grabWindow(0,r.x(),r.y(),r.width(),r.height());
-		screenshots.append(pix);
-	}
+	takeScreenshots();
 
 	// Black Background
 	this->setObjectName("mainwindow");
@@ -661,6 +656,7 @@ void MainWindow::globalRunningProgTimerTimeout() {
 	// Open a new file
 	if(doOpen) {
 		if(this->isHidden()) {
+			takeScreenshots();	// Refresh screenshots
 			if(!globSet->windowmode) {
 				this->showFullScreen();
 			} else if(globVar->windowMaximised) {
@@ -671,6 +667,7 @@ void MainWindow::globalRunningProgTimerTimeout() {
 				this->showNormal();
 				globVar->windowMaximised = false;
 			}
+			setBackground();	// Refresh background
 		}
 		doShow = false;
 		doHide = false;
@@ -680,6 +677,7 @@ void MainWindow::globalRunningProgTimerTimeout() {
 	// Show PhotoQt
 	if(doShow) {
 		if(this->isHidden()) {
+			takeScreenshots();	// Refresh screenshots
 			if(!globSet->windowmode) {
 				this->showFullScreen();
 			} else if(globVar->windowMaximised) {
@@ -690,6 +688,7 @@ void MainWindow::globalRunningProgTimerTimeout() {
 				this->showNormal();
 				globVar->windowMaximised = false;
 			}
+			setBackground();	// Refresh background
 		}
 		this->activateWindow();
 		this->raise();
@@ -2313,6 +2312,20 @@ void MainWindow::systemShortcutDO(QString todo) {
 
 }
 
+// Take screenshots (called at startup, and when PhotoQt is minimised to system tray and re-opened)
+void MainWindow::takeScreenshots() {
+
+	screenshots.clear();
+
+	for(int i = 0; i < QGuiApplication::screens().count(); ++i) {
+		QScreen *screen = QGuiApplication::screens().at(i);
+		QRect r = screen->geometry();
+		QPixmap pix = screen->grabWindow(0,r.x(),r.y(),r.width(),r.height());
+		screenshots.append(pix);
+	}
+
+}
+
 // Click on a tray icon menu item
 void MainWindow::trayAcDo(QSystemTrayIcon::ActivationReason rsn) {
 
@@ -2322,6 +2335,7 @@ void MainWindow::trayAcDo(QSystemTrayIcon::ActivationReason rsn) {
 	if(s->objectName() == "open") {
 		globVar->restoringFromTrayNoResize = QDateTime::currentDateTime().toTime_t();
 		if(this->isHidden()) {
+			takeScreenshots();	// Refresh background
 			if(globSet->windowmode) {
 				this->showMaximized();
 				globSet->windowDecoration ? this->setWindowFlags(this->windowFlags() & ~Qt::FramelessWindowHint) : this->setWindowFlags(Qt::FramelessWindowHint);
@@ -2329,6 +2343,7 @@ void MainWindow::trayAcDo(QSystemTrayIcon::ActivationReason rsn) {
 				QTimer::singleShot(500,this,SLOT(showMaximized()));
 			} else
 				this->showFullScreen();
+			setBackground();	// Refresh background
 		}
 		openFile();
 	} else if(s->objectName() == "quit") {
@@ -2338,6 +2353,7 @@ void MainWindow::trayAcDo(QSystemTrayIcon::ActivationReason rsn) {
 		if(this->isVisible())
 			this->hide();
 		else {
+			takeScreenshots();	// Refresh background
 			globVar->restoringFromTrayNoResize = QDateTime::currentDateTime().toTime_t();
 			if(globSet->windowmode) {
 				globSet->windowDecoration ? this->setWindowFlags(this->windowFlags() & ~Qt::FramelessWindowHint) : this->setWindowFlags(Qt::FramelessWindowHint);
@@ -2351,6 +2367,7 @@ void MainWindow::trayAcDo(QSystemTrayIcon::ActivationReason rsn) {
 				}
 			} else
 				this->showFullScreen();
+			setBackground();	// Refresh background
 			if(globVar->currentfile == "--start-in-tray" || globVar->currentfile == "") {
 				openFile();
 			}
