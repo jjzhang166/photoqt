@@ -598,7 +598,7 @@ public:
 		thumbnailcache = true;
 		thbcachefile = false;
 		thumbnailSpacingBetween = 0;
-		thumbnailLiftUp = 10;
+		thumbnailLiftUp = 6;
 		thumbnailKeepVisible = false;
 		thumbnailDynamic = true;
 		thumbnailDisable = false;
