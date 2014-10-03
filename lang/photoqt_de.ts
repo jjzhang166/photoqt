@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.1" language="de">
+<?xml version="1.0" ?><!DOCTYPE TS><TS language="de" version="2.1">
 <context>
     <name>About</name>
     <message>
@@ -52,10 +50,6 @@
         <location filename="../widgets/aboutwidget.cpp" line="53"/>
         <source>You want to join the team and do something, e.g. translating PhotoQt to another language? Drop me and email (Lukas@photoqt.org), and for translations, check the project page on Transifex: http://transifex.com/p/photo.</source>
         <translation>Du möchtest Teil des Teams werden und auch etwas beitragen, z.B. im Übersetzen PhotoQts in eine andere Sprache? Schreib mir eine E-Mail (Lukas@photoqt.org), und für Übersetzungen siehe dir die Projektseite bei Transifex an: http://transifex.com/p/photo.</translation>
-    </message>
-    <message>
-        <source>You want to join the team and do something, e.g. translating PhotoQt to another language? Drop me and email (Lukas@photoqt.org), and for translations, check the project page on Transifex: http://transifex.com/p/photoqt.</source>
-        <translation type="vanished">Du möchtest Teil des Teams werden und auch etwas beitragen, z.B. im Übersetzen Photos in eine andere Sprache? Schreib mir eine E-Mail (Lukas@photoqt.org), und für Übersetzungen siehe dir die Projektseite bei Transifex an: http://transifex.com/p/photo.</translation>
     </message>
     <message>
         <location filename="../widgets/aboutwidget.cpp" line="81"/>
@@ -243,7 +237,7 @@
     <message>
         <location filename="../widgets/detailswidget.cpp" line="117"/>
         <source>no</source>
-        <extracomment>This string identifies that flash wasn&apos;t fired</extracomment>
+        <extracomment>This string identifies that flash wasn't fired</extracomment>
         <translation>nein</translation>
     </message>
     <message>
@@ -1281,14 +1275,6 @@
         <translation>Einfarbigen, nicht-transparenten Hintergrund verwenden</translation>
     </message>
     <message>
-        <source>The background of PhotoQt is the part, that is not covered by an image. It can be made either real (half-)transparent (using a compositor), or faked teransparent (instead of the actual desktop a screenshot of it is shown), or a custom background image can be set, or none of the above.</source>
-        <translation type="vanished">Der Hintergrund PhotoQts ist der Teil, der nicht von einem Bild bedeckt wird. Dieser kann entweder echt (halb-)transparent (mittels Compositor) gemacht werden, falsch transparent (anstatt der tatsächlichen Arbeitsfläche wird ein Bildschirmfoto davon gezeigt), oder es kann auch ein benutzerdefiniertes Hintergrundbild gesetzt werden. Oder auch keines von all dem.</translation>
-    </message>
-    <message>
-        <source>Note: When using multiple monitors, using faked transparency is not supported!</source>
-        <translation type="vanished">Hinweis: Wenn mehrere Bildschirme verwendet werden, dann ist falsche Transparenz nicht verfügbar!</translation>
-    </message>
-    <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="91"/>
         <source>The background of PhotoQt is the part, that is not covered by an image. It can be made either real (half-)transparent (using a compositor), or faked transparent (instead of the actual desktop a screenshot of it is shown), or a custom background image can be set, or none of the above.</source>
         <translation>Der Hintergrund PhotoQts ist der Teil, der nicht von einem Bild bedeckt wird. Dieser kann entweder echt (halb-)transparent (mittels Compositor) gemacht werden, falsch transparent (anstatt der tatsächlichen Arbeitsfläche wird ein Bildschirmfoto davon gezeigt), oder es kann auch ein benutzerdefiniertes Hintergrundbild gesetzt werden. Oder er kann auch einfach nur einfarbig gefärbt werden.</translation>
@@ -1556,19 +1542,9 @@
         <translation>Neuen Eintrag hinzufügen</translation>
     </message>
     <message>
-        <location filename="../settings/settingstabother.cpp" line="303"/>
-        <source>Use of GraphicsMagick has been disabled as PhotoQt was compiled/installed!</source>
-        <translation>Die Nutzung von GraphicsMagick wurde bei der Kompilierung/Installation deaktiviert!</translation>
-    </message>
-    <message>
-        <location filename="../settings/settingstabother.cpp" line="307"/>
-        <source>File Types - GraphicsMagick</source>
-        <translation>Dateitypen - GraphicsMagick</translation>
-    </message>
-    <message>
-        <location filename="../settings/settingstabother.cpp" line="370"/>
-        <source>File Types - GraphicsMagick (Unstable)</source>
-        <translation>Dateitypen - GraphicsMagick (Instabil)</translation>
+        <location filename="../settings/settingstabother.cpp" line="257"/>
+        <source>File Types - Qt</source>
+        <translation>Dateitypen - Qt</translation>
     </message>
     <message>
         <location filename="../settings/settingstabother.cpp" line="257"/>
@@ -1580,11 +1556,6 @@
         <location filename="../settings/settingstabother.cpp" line="307"/>
         <source>If you want to add a file type not in the list, you can add them in the text box below. You have to enter the formats like &apos;*.ending&apos;, all seperated by commas.</source>
         <translation>Wenn du einen Dateityp hinzufügen möchtest, der nicht in der Liste vorhanden ist, dann kannst du diesen in das Textfeld unten einfügen. Die zusätzlichen Typen müssen in der Form &apos;*.endung&apos; eingetragen werden, jeweils getrennt bei Kommas.</translation>
-    </message>
-    <message>
-        <location filename="../settings/settingstabother.cpp" line="257"/>
-        <source>File Types - Qt</source>
-        <translation>Dateitypen - Qt</translation>
     </message>
     <message>
         <location filename="../settings/settingstabother.cpp" line="274"/>
@@ -1607,9 +1578,24 @@
         <translation>Keinen auswählen</translation>
     </message>
     <message>
+        <location filename="../settings/settingstabother.cpp" line="303"/>
+        <source>Use of GraphicsMagick has been disabled as PhotoQt was compiled/installed!</source>
+        <translation>Die Nutzung von GraphicsMagick wurde bei der Kompilierung/Installation deaktiviert!</translation>
+    </message>
+    <message>
+        <location filename="../settings/settingstabother.cpp" line="307"/>
+        <source>File Types - GraphicsMagick</source>
+        <translation>Dateitypen - GraphicsMagick</translation>
+    </message>
+    <message>
         <location filename="../settings/settingstabother.cpp" line="307"/>
         <source>PhotoQt makes use of GraphicsMagick for support of many different file types. Not all of the formats supported by GraphicsMagick make sense in an image viewer. There are some that aren&apos;t quite working at the moment, you can find them in the &apos;Unstable&apos; category below.</source>
         <translation>PhotoQt benutzt GraphicsMagick um viele verschiedene Dateitypen anzuzeigen. Nicht alle von GraphicsMagick unterstützten Dateitypen ergeben Sinn in einem Bildbetrachter. Ein paar Formate funktionieren momentan noch nicht ganz, du kannst diese in der unten stehenden Kategorie &apos;Instabil&apos; finden</translation>
+    </message>
+    <message>
+        <location filename="../settings/settingstabother.cpp" line="370"/>
+        <source>File Types - GraphicsMagick (Unstable)</source>
+        <translation>Dateitypen - GraphicsMagick (Instabil)</translation>
     </message>
     <message>
         <location filename="../settings/settingstabother.cpp" line="370"/>
@@ -1974,11 +1960,6 @@
         <translation>Benutze Dateinamen-Vorschaubilder</translation>
     </message>
     <message>
-        <location filename="../settings/settingstabthumbnail.cpp" line="251"/>
-        <source>Write Filename</source>
-        <translation>Schreibe Dateinamen</translation>
-    </message>
-    <message>
         <location filename="../settings/settingstabthumbnail.cpp" line="250"/>
         <source>Filename? Resolution? Or both?</source>
         <translation>Dateiname? Auflösung? Oder beides?</translation>
@@ -1987,6 +1968,11 @@
         <location filename="../settings/settingstabthumbnail.cpp" line="250"/>
         <source>When thumbnails are displayed at the top/bottom, PhotoQt usually writes the filename on them. If wanted, this can be switched to the image resolution. Or even both can be displayed, whatever you want.</source>
         <translation>Auf die Vorschaubilder an der unteren/oberen Bildschirmkante schreibt PhotoQt normalerweise den Dateinamen. Falls gewünscht kann stattdessen auch die jeweilige Auflösung des Bildes genommen werden. Oder auch beides, je nachdem was du haben möchtest.</translation>
+    </message>
+    <message>
+        <location filename="../settings/settingstabthumbnail.cpp" line="251"/>
+        <source>Write Filename</source>
+        <translation>Schreibe Dateinamen</translation>
     </message>
     <message>
         <location filename="../settings/settingstabthumbnail.cpp" line="252"/>
@@ -2354,10 +2340,6 @@
         <translation>Einige hören während einer Diashow gerne etwas Musik im Hintergrund. Hier kann eine Musik-Datei dafür ausgewählt werden.</translation>
     </message>
     <message>
-        <source>Music support not available; Phonon has been disabled as PhotoQt was compiled/installed.</source>
-        <translation type="vanished">Musik-Unterstützung ist nicht verfügbar; Phonon wurde bei der Kompilierung/Installation deaktiviert!</translation>
-    </message>
-    <message>
         <location filename="../slideshow/slideshowsettings.cpp" line="142"/>
         <source>Okay, lets start</source>
         <translation>Okay, los gehts</translation>
@@ -2520,20 +2502,6 @@
         <translation>Seit der letzten Veröffentlichung von PhotoQt ist etwas mehr als ein Jahr vergangen. Für eine Weile ist die Entwicklung zum erliegen gekommen während ich meinen Bachelor-Abschluss fertigmachte. Doch dann kam ich zurück, und wieder einmal gibt es so einige ziemlich coole (meiner Meinung nach) Änderungen. Ich habe mein Bestes gegeben um sicherzustellen, dass alles so gut wie möglich funktioniert. Doch bitte vergib mir sollte der eine oder andere Bug sich doch noch eingeschlichen haben. Keiner davon wurde absichtlich übersehen, versprochen!</translation>
     </message>
     <message>
-        <location filename="../widgets/startupwidget.cpp" line="113"/>
-        <source>This app started out almost three years ago, and it has developed quite a bit since then. Although I gave my best to ensure that everything is working as smoothly as possible, please forgive me if a bug sneaked in here or there again, they are never intended, I promise!</source>
-        <translation>Diese Anwendung enstand vor etwas mehr als drei Jahren und hat sich ganz schön entwickelt in dieser Zeit. Obwohl ich mein Bestes gegeben habe um sicherzustellen, dass alles so gut wie möglich funktioniert, bitte ich dich mir zu vergeben sollte der eine oder andere Bug sich doch noch eingeschlichen haben. Keiner davon wurde absichtlich übersehen, versprochen!</translation>
-    </message>
-    <message>
-        <location filename="../widgets/startupwidget.cpp" line="114"/>
-        <source>Here below you find a short overview of what PhotoQt has to offer, but feel free to skip it and just get started.</source>
-        <translation>Hier findest du einen kurzen Überblick über die verschiedenen Funktionen PhotoQts. Falls du zum Lesen davon jedoch keine Lust hast kannst du natürlich auch direkt mit PhotoQt loslegen.</translation>
-    </message>
-    <message>
-        <source>This app is now over one and a half years old, and has developed quite a bit in that time. Half year ago, the last stable release was published. It has changed and improved (as I hope) a lot and I gave my best to ensure that everything is working as smoothly as possible. But please forgive me if a bug sneaked in here or there again, they are never intended, I promise!!</source>
-        <translation type="vanished">Diese Anwendung ist nun schon über eineinhalb Jahre alt und hat sich ganz schön entwickelt in dieser Zeit. Ein halbes Jahr ist es her, seit die letzte stabile Veröffentlichung stattfand. Es hat sich viel geändert und so einiges verbessert (hoffe ich zumindest mal) und ich habe mein Bestes gegeben um sicherzustellen, dass alles so gut wie möglich funktioniert. Doch bitte vergib mir sollte der eine oder andere Bug sich doch noch eingeschlichen haben. Keiner davon wurde absichtlich übersehen, versprochen!!</translation>
-    </message>
-    <message>
         <location filename="../widgets/startupwidget.cpp" line="102"/>
         <source>Below you find a short overview over the features of PhotoQt. But feel free to skip it and just get started.</source>
         <translation>Hier findest du einen kurzen Überblick über die verschiedenen Funktionen PhotoQts. Falls du zum Lesen davon jedoch keine Lust hast kannst du auch direkt mit PhotoQt loslegen.</translation>
@@ -2549,12 +2517,14 @@
         <translation>Willkommen zu PhotoQt. PhotoQt ist ein Bildbetrachter mit dem Ziel, schnell, höchst konfigurierbar und gut aussehend zu sein.</translation>
     </message>
     <message>
-        <source>This app started out just over one and a half years ago, but it has already developed quite a bit in that time. Although I gave my best to ensure that everything is working as smoothly as possible, please forgive me if a bug sneaked in here or there again, they are never intended, I promise!!</source>
-        <translation type="vanished">Diese Anwendung ist nun schon über eineinhalb Jahre alt und hat sich ganz schön entwickelt in dieser Zeit. Obwohl ich mein Bestes gegeben habe um sicherzustellen, dass alles so gut wie möglich funktioniert, bitte ich dich mir zu vergeben sollte der eine oder andere Bug sich doch noch eingeschlichen haben. Keiner davon wurde absichtlich übersehen, versprochen!!</translation>
+        <location filename="../widgets/startupwidget.cpp" line="113"/>
+        <source>This app started out almost three years ago, and it has developed quite a bit since then. Although I gave my best to ensure that everything is working as smoothly as possible, please forgive me if a bug sneaked in here or there again, they are never intended, I promise!</source>
+        <translation>Diese Anwendung enstand vor etwas mehr als drei Jahren und hat sich ganz schön entwickelt in dieser Zeit. Obwohl ich mein Bestes gegeben habe um sicherzustellen, dass alles so gut wie möglich funktioniert, bitte ich dich mir zu vergeben sollte der eine oder andere Bug sich doch noch eingeschlichen haben. Keiner davon wurde absichtlich übersehen, versprochen!</translation>
     </message>
     <message>
-        <source>Here below you find a short overview of what PhotoQt has to offer. But feel free to skip it and just get started, it&apos;s meant for the ones that want to know a little bit about this application in advance:</source>
-        <translation type="vanished">Hier findest du einen kurzen Überblick über die Verschiedenen Möglichkeiten in PhotoQt. Doch du kannst auch gleich mit PhotoQt loslegen. Diese Übersicht ist für die, die ein wenig im Voraus über diese Anwendung wissen möchten:</translation>
+        <location filename="../widgets/startupwidget.cpp" line="114"/>
+        <source>Here below you find a short overview of what PhotoQt has to offer, but feel free to skip it and just get started.</source>
+        <translation>Hier findest du einen kurzen Überblick über die verschiedenen Funktionen PhotoQts. Falls du zum Lesen davon jedoch keine Lust hast kannst du natürlich auch direkt mit PhotoQt loslegen.</translation>
     </message>
 </context>
 <context>

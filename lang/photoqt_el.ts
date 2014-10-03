@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.1" language="el">
+<?xml version="1.0" ?><!DOCTYPE TS><TS language="el" version="2.1">
 <context>
     <name>About</name>
     <message>
@@ -51,11 +49,7 @@
     <message>
         <location filename="../widgets/aboutwidget.cpp" line="53"/>
         <source>You want to join the team and do something, e.g. translating PhotoQt to another language? Drop me and email (Lukas@photoqt.org), and for translations, check the project page on Transifex: http://transifex.com/p/photo.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>You want to join the team and do something, e.g. translating PhotoQt to another language? Drop me and email (Lukas@photoqt.org), and for translations, check the project page on Transifex: http://transifex.com/p/photoqt.</source>
-        <translation type="vanished">Θέλεις να συμμετέχεις στην ομάδα και να κάνεις κάτι, π.χ. να μεταφράσεις το PhotoQt σε μια άλλη γλώσσα; Στείλε μου ένα μήνυμα στο Lukas@photoqt.org), και για μεταφράσεις, ανέτρεξε στην σελίδα του έργου στο Transifex: https://www.transifex.com/projects/p/photo.</translation>
+        <translation>Θέλετε να συμμετέχετε στην ομάδα και να ασχοληθείτε με κάτι, π.χ. να μεταφράσετε το PhotoQt σε μια άλλη γλώσσας; Στείλτε μου ένα μήνυμα (Lukas@photoqt.org), και όσο για τις μεταφράσεις ρίξτε μια ματιά στης σελίδα του έργου στο transifex: http://transifex.com/p/photo.</translation>
     </message>
     <message>
         <location filename="../widgets/aboutwidget.cpp" line="81"/>
@@ -243,7 +237,7 @@
     <message>
         <location filename="../widgets/detailswidget.cpp" line="117"/>
         <source>no</source>
-        <extracomment>This string identifies that flash wasn&apos;t fired</extracomment>
+        <extracomment>This string identifies that flash wasn't fired</extracomment>
         <translation>όχι</translation>
     </message>
     <message>
@@ -440,7 +434,7 @@
     <message>
         <location filename="../widgets/dropdownmenu.cpp" line="52"/>
         <source>Filter Images in Folder</source>
-        <translation type="unfinished"></translation>
+        <translation>Φιλτράρισμα εικόνων στον φάκελο </translation>
     </message>
     <message>
         <location filename="../widgets/dropdownmenu.cpp" line="53"/>
@@ -586,12 +580,12 @@
     <message>
         <location filename="../filterimages/filterimagesdisplay.cpp" line="26"/>
         <source>Remove Image Filter</source>
-        <translation type="unfinished"></translation>
+        <translation>Αφαίρεση φίλτρου εικόνων</translation>
     </message>
     <message>
         <location filename="../filterimages/filterimagesdisplay.cpp" line="35"/>
         <source>Click to change filter</source>
-        <translation type="unfinished"></translation>
+        <translation>Κλικ για να αλλάξετε φίλτρο</translation>
     </message>
 </context>
 <context>
@@ -599,32 +593,32 @@
     <message>
         <location filename="../filterimages/filterimagessetup.cpp" line="24"/>
         <source>Filter Images in Current Directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Φιλτράρισμα εικόνων στον τρέχον φάκελο</translation>
     </message>
     <message>
         <location filename="../filterimages/filterimagessetup.cpp" line="31"/>
         <source>Enter here the term you want to search for. Seperate multiple terms by a space.</source>
-        <translation type="unfinished"></translation>
+        <translation>Εισάγετε εδώ τον όρο αναζήτησης. Διαχωρίστε τους όρους με κενό.</translation>
     </message>
     <message>
         <location filename="../filterimages/filterimagessetup.cpp" line="31"/>
         <source>If you want to limit a term to file extensions, prepend a dot &apos;.&apos; to the term.</source>
-        <translation type="unfinished"></translation>
+        <translation>Αν θέλετε να περιορίσετε έναν όρο σε επεκτάσεις ονόματος αρχείων, πληκτρολογήστε μια τελεία «.» πριν τον όρο.</translation>
     </message>
     <message>
         <location filename="../filterimages/filterimagessetup.cpp" line="39"/>
         <source>Filter</source>
-        <translation type="unfinished"></translation>
+        <translation>Φίλτρο</translation>
     </message>
     <message>
         <location filename="../filterimages/filterimagessetup.cpp" line="41"/>
         <source>Cancel</source>
-        <translation type="unfinished">Ακύρωση</translation>
+        <translation>Ακύρωση</translation>
     </message>
     <message>
         <location filename="../filterimages/filterimagessetup.cpp" line="42"/>
         <source>Remove Filter</source>
-        <translation type="unfinished"></translation>
+        <translation>Αφαίρεση φίλτρου</translation>
     </message>
 </context>
 <context>
@@ -692,7 +686,7 @@
     <message>
         <location filename="../graphics/graphicsview.cpp" line="217"/>
         <source>Actual</source>
-        <translation type="unfinished"></translation>
+        <translation>Τρέχον</translation>
     </message>
     <message>
         <location filename="../graphics/graphicsview.cpp" line="220"/>
@@ -702,7 +696,7 @@
     <message>
         <location filename="../graphics/graphicsview.cpp" line="245"/>
         <source>Scale Image</source>
-        <translation type="unfinished"></translation>
+        <translation>Κλιμάκωση εικόνας</translation>
     </message>
     <message>
         <location filename="../graphics/graphicsview.cpp" line="253"/>
@@ -797,77 +791,77 @@
     <message>
         <location filename="../widgets/quicksettings.cpp" line="39"/>
         <source>Quick Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Γρήγορες ρυθμίσεις</translation>
     </message>
     <message>
         <location filename="../widgets/quicksettings.cpp" line="44"/>
         <source>Change settings with one click. They are saved and applied immediately. If you&apos;re unsure what a setting does, check the full settings for descriptions.</source>
-        <translation type="unfinished"></translation>
+        <translation>Αλλάξτε τις ρυθμίσεις με ένα κλικ. Θα αποθηκευτούν και θα εφαρμοστούν αμέσως. Αν δεν είστε σίγουρος -η για το τι κάνει μια ρύθμιση, ανατρέξτε στις πλήρης ρυθμίσεις για τις λεπτομέρειες.</translation>
     </message>
     <message>
         <location filename="../widgets/quicksettings.cpp" line="47"/>
         <source>Real transparency</source>
-        <translation type="unfinished"></translation>
+        <translation>Πραγματική διαφάνεια</translation>
     </message>
     <message>
         <location filename="../widgets/quicksettings.cpp" line="48"/>
         <source>Faked transparency</source>
-        <translation type="unfinished"></translation>
+        <translation>Ψευδοδιαφάνεια</translation>
     </message>
     <message>
         <location filename="../widgets/quicksettings.cpp" line="49"/>
         <source>Background image</source>
-        <translation type="unfinished"></translation>
+        <translation>Εικόνα παρασκηνίου</translation>
     </message>
     <message>
         <location filename="../widgets/quicksettings.cpp" line="50"/>
         <source>Coloured background</source>
-        <translation type="unfinished"></translation>
+        <translation>Χρωματιστό φόντο</translation>
     </message>
     <message>
         <location filename="../widgets/quicksettings.cpp" line="51"/>
         <source>Hide to system tray</source>
-        <translation type="unfinished"></translation>
+        <translation>Απόκρυψη  στο πλαίσιο συστήματος</translation>
     </message>
     <message>
         <location filename="../widgets/quicksettings.cpp" line="52"/>
         <source>Loop through folder</source>
-        <translation type="unfinished"></translation>
+        <translation>Επανάληψη στον φάκελο</translation>
     </message>
     <message>
         <location filename="../widgets/quicksettings.cpp" line="53"/>
         <source>Window mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Λειτουργία παραθύρου </translation>
     </message>
     <message>
         <location filename="../widgets/quicksettings.cpp" line="54"/>
         <source>Show window decoration</source>
-        <translation type="unfinished"></translation>
+        <translation>Εμφάνιση της διακόσμησης του παραθύρου</translation>
     </message>
     <message>
         <location filename="../widgets/quicksettings.cpp" line="55"/>
         <source>Close on click on background</source>
-        <translation type="unfinished"></translation>
+        <translation>Έξοδος με κλικ στο φόντο</translation>
     </message>
     <message>
         <location filename="../widgets/quicksettings.cpp" line="56"/>
         <source>Keep thumbnails visible</source>
-        <translation type="unfinished"></translation>
+        <translation>Διατήρηση των εικόνων επισκόπησης ορατές</translation>
     </message>
     <message>
         <location filename="../widgets/quicksettings.cpp" line="57"/>
         <source>Dynamic thumbnails</source>
-        <translation type="unfinished"></translation>
+        <translation>Δυναμικές εικόνες επισκόπησης</translation>
     </message>
     <message>
         <location filename="../widgets/quicksettings.cpp" line="58"/>
         <source>Enable &apos;Quick Settings&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Ενεργοποίηση των «Γρήγορων ρυθμίσεων»</translation>
     </message>
     <message>
         <location filename="../widgets/quicksettings.cpp" line="93"/>
         <source>Show full settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Εμφάνιση πλήρων ρυθμίσεων</translation>
     </message>
 </context>
 <context>
@@ -875,111 +869,111 @@
     <message>
         <location filename="../manipulation/scale.cpp" line="12"/>
         <source>Scale Image</source>
-        <translation type="unfinished"></translation>
+        <translation>Κλιμάκωση εικόνας</translation>
     </message>
     <message>
         <location filename="../manipulation/scale.cpp" line="14"/>
         <location filename="../manipulation/scale.cpp" line="160"/>
         <source>Current Size:</source>
-        <translation type="unfinished"></translation>
+        <translation>Τρέχον μέγεθος</translation>
     </message>
     <message>
         <location filename="../manipulation/scale.cpp" line="20"/>
         <source>New Width:</source>
-        <translation type="unfinished"></translation>
+        <translation>Νέο πλάτος:</translation>
     </message>
     <message>
         <location filename="../manipulation/scale.cpp" line="35"/>
         <source>New Height:</source>
-        <translation type="unfinished"></translation>
+        <translation>Νέο ύψος:</translation>
     </message>
     <message>
         <location filename="../manipulation/scale.cpp" line="50"/>
         <source>Aspect Ratio</source>
-        <translation type="unfinished"></translation>
+        <translation>Αναλογίες διαστάσεων</translation>
     </message>
     <message>
         <location filename="../manipulation/scale.cpp" line="66"/>
         <source>Quality:</source>
-        <translation type="unfinished"></translation>
+        <translation>Ποιότητα:</translation>
     </message>
     <message>
         <location filename="../manipulation/scale.cpp" line="87"/>
         <source>Scale in place</source>
-        <translation type="unfinished"></translation>
+        <translation>Κλιμάκωση επί αυτού</translation>
     </message>
     <message>
         <location filename="../manipulation/scale.cpp" line="89"/>
         <source>Scale in new file</source>
-        <translation type="unfinished"></translation>
+        <translation>Κλιμάκωση σε νέο αρχείο</translation>
     </message>
     <message>
         <location filename="../manipulation/scale.cpp" line="91"/>
         <source>Don&apos;t Scale</source>
-        <translation type="unfinished"></translation>
+        <translation>Να μην γίνει κλιμάκωση</translation>
     </message>
     <message>
         <location filename="../manipulation/scale.cpp" line="143"/>
         <source>Filetype Not Supported</source>
-        <translation type="unfinished"></translation>
+        <translation>Ο τύπος του αρχείου δεν υποστηρίζεται</translation>
     </message>
     <message>
         <location filename="../manipulation/scale.cpp" line="143"/>
         <source>Sorry, scaling is currently only available for filetypes natively supported by Qt...</source>
-        <translation type="unfinished"></translation>
+        <translation>Λυπάμαι, η κλιμάκωση είναι διαθέσιμη μόνο για εγγενής τύπους αρχείων Qt...</translation>
     </message>
     <message>
         <location filename="../manipulation/scale.cpp" line="143"/>
         <source>Oh, okay...</source>
-        <translation type="unfinished"></translation>
+        <translation>Α, εντάξει...</translation>
     </message>
     <message>
         <location filename="../manipulation/scale.cpp" line="212"/>
         <source>Don&apos;t keep aspect ratio</source>
-        <translation type="unfinished"></translation>
+        <translation>Να μην διατηρηθούν οι αναλογίες διαστάσεων</translation>
     </message>
     <message>
         <location filename="../manipulation/scale.cpp" line="212"/>
         <source>Keep aspect ratio</source>
-        <translation type="unfinished"></translation>
+        <translation>Διατήρηση αναλογίας διαστάσεων</translation>
     </message>
     <message>
         <location filename="../manipulation/scale.cpp" line="228"/>
         <location filename="../manipulation/scale.cpp" line="253"/>
         <source>Overwrite Image?</source>
-        <translation type="unfinished"></translation>
+        <translation>Αντικατάσταση της εικόνας;</translation>
     </message>
     <message>
         <location filename="../manipulation/scale.cpp" line="229"/>
         <source>This will replace the current image with the scaled version... Continue?</source>
-        <translation type="unfinished"></translation>
+        <translation>Αυτή η ενέργεια θα αντικαταστήσει την τρέχουσα εικόνα με την τροποποιημένη έκδοση.... Να συνεχίσω;</translation>
     </message>
     <message>
         <location filename="../manipulation/scale.cpp" line="230"/>
         <location filename="../manipulation/scale.cpp" line="255"/>
         <source>Continue</source>
-        <translation type="unfinished"></translation>
+        <translation>Συνέχεια</translation>
     </message>
     <message>
         <location filename="../manipulation/scale.cpp" line="230"/>
         <location filename="../manipulation/scale.cpp" line="255"/>
         <source>Stop</source>
-        <translation type="unfinished"></translation>
+        <translation>Διακοπή</translation>
     </message>
     <message>
         <location filename="../manipulation/scale.cpp" line="247"/>
         <source>Save as...</source>
-        <translation type="unfinished"></translation>
+        <translation>Αποθήκευση ως...</translation>
     </message>
     <message>
         <location filename="../manipulation/scale.cpp" line="247"/>
         <source>Images</source>
-        <translation type="unfinished">Εικόνες</translation>
+        <translation>Εικόνες</translation>
     </message>
     <message>
         <location filename="../manipulation/scale.cpp" line="254"/>
         <source>This file exists already... Continue?</source>
-        <translation type="unfinished"></translation>
+        <translation>Το αρχείο υπάρχει ήδη... Να συνεχίσω;</translation>
     </message>
 </context>
 <context>
@@ -1281,22 +1275,14 @@
         <translation>Χρήση μονόχρωμο, αδιαφανές φόντο</translation>
     </message>
     <message>
-        <source>The background of PhotoQt is the part, that is not covered by an image. It can be made either real (half-)transparent (using a compositor), or faked teransparent (instead of the actual desktop a screenshot of it is shown), or a custom background image can be set, or none of the above.</source>
-        <translation type="vanished">Το φόντο του PhotoQt είναι το τμήμα που δεν καλύπτεται από κάποια εικόνα. Μπορεί να δημιουργηθεί είτε με πραγματική (ημι-)διαφάνεια (με χρήση ενός συνθέτη), ή με ψευδή διαφάνεια (αντί του πραγματικού παρασκηνίου, ενός στιγμιότυπου αυτού), ή μπορεί να οριστεί μια εικόνα ταπετσαρίας, ή τίποτα από τα παραπάνω.</translation>
-    </message>
-    <message>
-        <source>Note: When using multiple monitors, using faked transparency is not supported!</source>
-        <translation type="vanished">Σημείωση: Όταν χρησιμοποιούνται πολλαπλές οθόνες, η ψευδοδιαφάνεια δεν υποστηρίζεται!</translation>
-    </message>
-    <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="91"/>
         <source>The background of PhotoQt is the part, that is not covered by an image. It can be made either real (half-)transparent (using a compositor), or faked transparent (instead of the actual desktop a screenshot of it is shown), or a custom background image can be set, or none of the above.</source>
-        <translation type="unfinished"></translation>
+        <translation>Το φόντο του PhotoQt είναι το τμήμα που δεν καλύπτεται από κάποια εικόνα. Μπορεί να δημιουργηθεί είτε με πραγματική (ημι-)διαφάνεια (με χρήση ενός συνθέτη), ή με ψευδή διαφάνεια (αντί του πραγματικού παρασκηνίου, ενός στιγμιότυπου αυτού), ή μπορεί να οριστεί μια εικόνα ταπετσαρίας, ή τίποτα από τα παραπάνω.</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="93"/>
         <source>Note: Fake transparency currently only really works when PhotoQt is run in fullscreen/maximised!</source>
-        <translation type="unfinished"></translation>
+        <translation>Σημείωση: Η ψευδοδιαφάνεια αυτή τη στιγμή λειτουργεί μόνο όταν το PhotoQt εκτελείται σε πλήρη οθόνη ή μεγιστοποιημένο!</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="94"/>
@@ -1528,17 +1514,17 @@
     <message>
         <location filename="../settings/settingstabother.cpp" line="216"/>
         <source>Quick Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Γρήγορες ρυθμίσεις</translation>
     </message>
     <message>
         <location filename="../settings/settingstabother.cpp" line="216"/>
         <source>The &apos;Quick Settings&apos; is a widget hidden on the right side of the screen. When you move the cursor there, it shows up, and you can adjust a few simple settings on the spot without having to go through this settings dialog. Of course, only a small subset of settings is available (the ones needed most often). Here you can disable the dialog so that it doesn&apos;t show on mouse movement anymore.</source>
-        <translation type="unfinished"></translation>
+        <translation>Οι «Γρήγορες ρυθμίσεις» είναι ένα συστατικό στη δεξιά πλευρά της οθόνης. Εμφανίζεται όταν μετακινείτε τον δρομέα σε αυτό το σημείο, και σας δίνει τη δυνατότητα να πραγματοποιήσετε μερικές απλές ρυθμίσεις σε πραγματικό χρόνο χωρίς να χρειάζεται να ανοίξετε τον διάλογο ρυθμίσεων. Φυσικά, μόνο ένα μικρό υποσύνολο ρυθμίσεων είναι διαθέσιμο (αυτό που χρειάζονται περισσότερο). Εδώ μπορείτε να απενεργοποιήσετε τον διάλογο ώστε να μην εμφανίζεται με το πέρασμα του ποντικιού.</translation>
     </message>
     <message>
         <location filename="../settings/settingstabother.cpp" line="217"/>
         <source>Show &apos;Quick Settings&apos; on mouse hovering</source>
-        <translation type="unfinished"></translation>
+        <translation>Εμφάνιση των «Γρήγορων ρυθμίσεων» με το πέρασμα του ποντικιού</translation>
     </message>
     <message>
         <location filename="../settings/settingstabother.cpp" line="231"/>
@@ -1556,19 +1542,9 @@
         <translation>Προσθήκη νέας καταχώρησης</translation>
     </message>
     <message>
-        <location filename="../settings/settingstabother.cpp" line="303"/>
-        <source>Use of GraphicsMagick has been disabled as PhotoQt was compiled/installed!</source>
-        <translation>Η χρήση του GraphicsMagick έχει απενεργοποιηθεί κατά τη μεταγλώττιση/εγκατάσταση του PhotoQt!</translation>
-    </message>
-    <message>
-        <location filename="../settings/settingstabother.cpp" line="307"/>
-        <source>File Types - GraphicsMagick</source>
-        <translation>Τύποι αρχείων - GraphicsMagick</translation>
-    </message>
-    <message>
-        <location filename="../settings/settingstabother.cpp" line="370"/>
-        <source>File Types - GraphicsMagick (Unstable)</source>
-        <translation>Τύποι αρχείων - GraphicsMagick (Ασταθές)</translation>
+        <location filename="../settings/settingstabother.cpp" line="257"/>
+        <source>File Types - Qt</source>
+        <translation>Τύποι αρχείων - Qt</translation>
     </message>
     <message>
         <location filename="../settings/settingstabother.cpp" line="257"/>
@@ -1580,11 +1556,6 @@
         <location filename="../settings/settingstabother.cpp" line="307"/>
         <source>If you want to add a file type not in the list, you can add them in the text box below. You have to enter the formats like &apos;*.ending&apos;, all seperated by commas.</source>
         <translation>Αν θέλετε να προσθέσετε έναν τύπο αρχείων που δεν βρίσκεται στη λίστα, μπορείτε να χρησιμοποιήσετε το παρακάτω πλαίσιο. Θα πρέπει να εισάγετε τους τύπους με τη μορφή «*.κατάληξη», όλους διαχωρισμένους με κόμμα.</translation>
-    </message>
-    <message>
-        <location filename="../settings/settingstabother.cpp" line="257"/>
-        <source>File Types - Qt</source>
-        <translation>Τύποι αρχείων - Qt</translation>
     </message>
     <message>
         <location filename="../settings/settingstabother.cpp" line="274"/>
@@ -1607,9 +1578,24 @@
         <translation>Σήμανση κανενός</translation>
     </message>
     <message>
+        <location filename="../settings/settingstabother.cpp" line="303"/>
+        <source>Use of GraphicsMagick has been disabled as PhotoQt was compiled/installed!</source>
+        <translation>Η χρήση του GraphicsMagick έχει απενεργοποιηθεί κατά τη μεταγλώττιση/εγκατάσταση του PhotoQt!</translation>
+    </message>
+    <message>
+        <location filename="../settings/settingstabother.cpp" line="307"/>
+        <source>File Types - GraphicsMagick</source>
+        <translation>Τύποι αρχείων - GraphicsMagick</translation>
+    </message>
+    <message>
         <location filename="../settings/settingstabother.cpp" line="307"/>
         <source>PhotoQt makes use of GraphicsMagick for support of many different file types. Not all of the formats supported by GraphicsMagick make sense in an image viewer. There are some that aren&apos;t quite working at the moment, you can find them in the &apos;Unstable&apos; category below.</source>
         <translation>Το PhotoQt χρησιμοποιεί το GraphicsMagick για την υποστήριξη διαφόρων τύπων αρχείων. Δεν χρειάζονται όλοι οι υποστηριζόμενοι τύποι από το GraphicsMagick σε έναν προβολέα εικόνων. Υπάρχουν μερικοί που δεν δουλεύουν εντελώς προς στιγμή, θα τους βρείτε στην «Ασταθής» κατηγορία παρακάτω.</translation>
+    </message>
+    <message>
+        <location filename="../settings/settingstabother.cpp" line="370"/>
+        <source>File Types - GraphicsMagick (Unstable)</source>
+        <translation>Τύποι αρχείων - GraphicsMagick (Ασταθές)</translation>
     </message>
     <message>
         <location filename="../settings/settingstabother.cpp" line="370"/>
@@ -1687,7 +1673,7 @@
     <message>
         <location filename="../settings/settingstabshortcuts.cpp" line="92"/>
         <source>Filter Images in Folder</source>
-        <translation type="unfinished"></translation>
+        <translation>Φιλτράρισμα εικόνων στον φάκελο </translation>
     </message>
     <message>
         <location filename="../settings/settingstabshortcuts.cpp" line="93"/>
@@ -1747,7 +1733,7 @@
     <message>
         <location filename="../settings/settingstabshortcuts.cpp" line="116"/>
         <source>Scale Image</source>
-        <translation type="unfinished"></translation>
+        <translation>Κλιμάκωση εικόνας</translation>
     </message>
     <message>
         <location filename="../settings/settingstabshortcuts.cpp" line="131"/>
@@ -1787,7 +1773,7 @@
     <message>
         <location filename="../settings/settingstabshortcuts.cpp" line="146"/>
         <source>Show Context Menu</source>
-        <translation type="unfinished"></translation>
+        <translation>Εμφάνιση σχετικού μενού</translation>
     </message>
     <message>
         <location filename="../settings/settingstabshortcuts.cpp" line="147"/>
@@ -1974,11 +1960,6 @@
         <translation>Χρήση επισκοπήσεων με όνομα αρχείου μόνο</translation>
     </message>
     <message>
-        <location filename="../settings/settingstabthumbnail.cpp" line="251"/>
-        <source>Write Filename</source>
-        <translation>Εμφάνιση του ονόματος αρχείου</translation>
-    </message>
-    <message>
         <location filename="../settings/settingstabthumbnail.cpp" line="250"/>
         <source>Filename? Resolution? Or both?</source>
         <translation>Όνομα αρχείου; ανάλυση; ή και τα δυο;</translation>
@@ -1987,6 +1968,11 @@
         <location filename="../settings/settingstabthumbnail.cpp" line="250"/>
         <source>When thumbnails are displayed at the top/bottom, PhotoQt usually writes the filename on them. If wanted, this can be switched to the image resolution. Or even both can be displayed, whatever you want.</source>
         <translation>Όταν οι επισκοπήσεις των εικόνων εμφανίζονται στο κάτω/πάνω μέρος, το PhotoQt συνήθως συμπληρώνει σε αυτές και το όνομα του αρχείου. Αν το επιθυμείτε, αυτό μπορεί να αντικατασταθεί με την ανάλυση της εικόνας. &apos;Η ακόμα μπορείτε να εμφανίσετε και τα δυο, όπως θέλετε.</translation>
+    </message>
+    <message>
+        <location filename="../settings/settingstabthumbnail.cpp" line="251"/>
+        <source>Write Filename</source>
+        <translation>Εμφάνιση του ονόματος αρχείου</translation>
     </message>
     <message>
         <location filename="../settings/settingstabthumbnail.cpp" line="252"/>
@@ -2354,10 +2340,6 @@
         <translation>Μερικοί μπορεί να θέλουν να ακούν και λίγη μουσική κατά την παρουσίαση των διαφανειών. Εδώ μπορείτε να επιλέξετε το αρχείο μουσικής που θέλετε να αναπαραχθεί στο παρασκήνιο.</translation>
     </message>
     <message>
-        <source>Music support not available; Phonon has been disabled as PhotoQt was compiled/installed.</source>
-        <translation type="vanished">Η υποστήριξη μουσικής δεν είναι διαθέσιμη· το Phonon έχει απενεργοποιηθεί κατά την μεταγλώττιση/εγκατάσταση του PhotoQt.</translation>
-    </message>
-    <message>
         <location filename="../slideshow/slideshowsettings.cpp" line="142"/>
         <source>Okay, lets start</source>
         <translation>Εντάξει, ας ξεκινήσουμε</translation>
@@ -2517,21 +2499,7 @@
     <message>
         <location filename="../widgets/startupwidget.cpp" line="101"/>
         <source>It has been more than a year since the last stable release of PhotoQt was released. For a while development has stalled as I was busy finishing my Bachelor degree, but I came back and once again there are some really cool (I believe) changes in this release. I gave my best to ensure that everything is working as smoothly as possible. But please forgive me if a bug sneaked in here or there again, they are never intended, I promise!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../widgets/startupwidget.cpp" line="113"/>
-        <source>This app started out almost three years ago, and it has developed quite a bit since then. Although I gave my best to ensure that everything is working as smoothly as possible, please forgive me if a bug sneaked in here or there again, they are never intended, I promise!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../widgets/startupwidget.cpp" line="114"/>
-        <source>Here below you find a short overview of what PhotoQt has to offer, but feel free to skip it and just get started.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>This app is now over one and a half years old, and has developed quite a bit in that time. Half year ago, the last stable release was published. It has changed and improved (as I hope) a lot and I gave my best to ensure that everything is working as smoothly as possible. But please forgive me if a bug sneaked in here or there again, they are never intended, I promise!!</source>
-        <translation type="vanished">Αυτή η εφαρμογή έχει ενάμιση χρόνο κυκλοφορίας, και αυτό το διάστημα έχει αναπτυχθεί αρκετά. Πριν μισό χρόνο κυκλοφόρησε η τελευταία σταθερή έκδοση. Έχει αλλάξει αρκετά και έχει βελτιωθεί (όπως το ελπίζω) σε μεγάλο βαθμό και έκανα ότι πέρναγε από το χέρι μου ώστε να διασφαλίσω ότι όλα δουλεύουν όσο το δυνατό ομαλά. Συγχωρέστε με αν διαπιστώσετε κάποιο σφάλμα σε κάποια λειτουργία, δεν έχουν γίνει σκόπιμα, σας το υπόσχομαι!!</translation>
+        <translation>Έχει περάσει πάνω από ένας χρόνος από την κυκλοφορία της τελευταίας σταθερής έκδοσης του PhotoQt. Η ανάπτυξη είχε παρελκυστεί λόγω των σπουδών μου Bachelor degree, αλλά επανήλθα δριμύτερος με μερικές χρήσιμες (πιστεύω) αλλαγές σε αυτήν την έκδοση. Έδωσα τον καλύτερο εαυτό μου για να διασφαλίσω ότι όλα θα δουλεύουν όσο το δυνατόν ομαλά. Συγχωρέστε με αν τυχόν διαπιστώσετε κάποιο σφάλμα, πιστέψτε με, δεν έγινε εσκεμμένα!</translation>
     </message>
     <message>
         <location filename="../widgets/startupwidget.cpp" line="102"/>
@@ -2549,12 +2517,14 @@
         <translation>Καλώς ήλθατε στο PhotoQt. Το PhotoQt είναι ένας προβολέας εικόνων, που στοχεύει στην ταχύτητα, είναι σε υψηλό βαθμό παραμετροποιήσιμος και με ευχάριστη όψη.</translation>
     </message>
     <message>
-        <source>This app started out just over one and a half years ago, but it has already developed quite a bit in that time. Although I gave my best to ensure that everything is working as smoothly as possible, please forgive me if a bug sneaked in here or there again, they are never intended, I promise!!</source>
-        <translation type="vanished">Αυτή η εφαρμογή έχει ενάμιση χρόνο κυκλοφορίας, και αυτό το διάστημα έχει αναπτυχθεί αρκετά. Κάνω ότι περνά από το χέρι μου ώστε να διασφαλίσω ότι όλα δουλεύουν όσο το δυνατό ομαλά. Συγχωρέστε με αν διαπιστώσετε κάποιο σφάλμα σε κάποια λειτουργία, δεν έχουν γίνει σκόπιμα, σας το υπόσχομαι!!</translation>
+        <location filename="../widgets/startupwidget.cpp" line="113"/>
+        <source>This app started out almost three years ago, and it has developed quite a bit since then. Although I gave my best to ensure that everything is working as smoothly as possible, please forgive me if a bug sneaked in here or there again, they are never intended, I promise!</source>
+        <translation>Αυτή η εφαρμογή ξεκίνησε πριν τρία χρόνια τώρα, και έχει αναπτυχθεί αρκετά από τότε. Έδωσα τον καλύτερο εαυτό μου για να διασφαλίσω ότι όλα θα δουλεύουν όσο το δυνατόν ομαλά. Συγχωρέστε με αν τυχόν διαπιστώσετε κάποιο σφάλμα, πιστέψτε με, δεν έγινε εσκεμμένα!</translation>
     </message>
     <message>
-        <source>Here below you find a short overview of what PhotoQt has to offer. But feel free to skip it and just get started, it&apos;s meant for the ones that want to know a little bit about this application in advance:</source>
-        <translation type="vanished">Παρακάτω θα βρείτε μια μικρή επισκόπηση των χαρακτηριστικών του PhotoQt. Αισθανθείτε ελεύθερα να το παραλείψετε και να ξεκινήσετε άμεσα τη χρήση της εφαρμογής, προορίζεται σε αυτούς που θέλουν να μάθουν μερικά επιπλέον πράγματα για την εφαρμογή:</translation>
+        <location filename="../widgets/startupwidget.cpp" line="114"/>
+        <source>Here below you find a short overview of what PhotoQt has to offer, but feel free to skip it and just get started.</source>
+        <translation>Παρακάτω θα βρείτε μια μικρή επισκόπηση των χαρακτηριστικών του PhotoQt, ,η διστάσετε να την παραλείψετε και να ξεκινήσετε άμεσα τη χρήση της εφαρμογής.</translation>
     </message>
 </context>
 <context>
@@ -2571,7 +2541,7 @@
         <location filename="../graphics/graphicsviewlay.cpp" line="186"/>
         <location filename="../graphics/graphicsviewlay.cpp" line="223"/>
         <source>No images match current filter</source>
-        <translation type="unfinished"></translation>
+        <translation>Καμιά εικόνα δεν ταιριάζει με το τρέχον φίλτρο</translation>
     </message>
 </context>
 <context>
