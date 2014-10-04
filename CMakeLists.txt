@@ -1,9 +1,6 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 PROJECT(photoqt)
 
-FIND_PACKAGE(Qt5Widgets REQUIRED)
-FIND_PACKAGE(Qt5LinguistTools REQUIRED)
-
 #### SOURCES ####
 # toplevel
 SET(photoqt_SOURCES main.cpp mainwindow.cpp globalsettings.h globalvariables.h setupwidgets.h)
@@ -73,9 +70,25 @@ SET(photoqt_HEADERS ${photoqt_HEADERS} ${p}/cropwidget.h ${p}/cropbar.h ${p}/sca
 SET(photoqt_HEADERS ${photoqt_HEADERS} slideshow/slideshowbar.h slideshow/slideshowsettings.h flowlayout/flowlayout.h wallpaper/wallpaper.h)
 
 
+#############################################
+#### OPTIONS THAT CAN BE SET BY THE USER ####
+#############################################
+
 OPTION(EXIV2 "Use exiv2 library" ON)
 OPTION(GM "Use graphicsmagick library" ON)
 OPTION(QTONLY "ONLY USE QT-ONLY FEATURES" OFF)
+
+
+################################
+#### FIND REQUIRED PACKAGES ####
+################################
+
+FIND_PACKAGE(Qt5Widgets REQUIRED)
+FIND_PACKAGE(Qt5LinguistTools REQUIRED)
+
+# Instead of having a hardcoded path for GraphicsMagick, we use a FindMagick.cmake file to search for it
+SET(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/CMake" ${CMAKE_MODULE_PATH})
+FIND_PACKAGE(Magick)
 
 
 ###################################
@@ -145,12 +158,14 @@ IF(NOT QTONLY)
 	ENDIF(EXIV2)
 
 	IF(GM)
-		IF(UNIX)
-			INCLUDE_DIRECTORIES("/usr/include/GraphicsMagick/")
-		ENDIF(UNIX)
-		TARGET_LINK_LIBRARIES(photoqt "GraphicsMagick++")
-		ADD_DEFINITIONS(-DGM)
-		MESSAGE("** Graphicsmagick enabled")
+		IF(NOT ${MAGICK++_FOUND})
+			MESSAGE(FATAL_ERROR "** Unable to locate GraphicsMagick... is it installed?")
+		elseif(${MAGICK++_FOUND})
+			INCLUDE_DIRECTORIES(${MAGICK++_INCLUDE_DIR})
+			TARGET_LINK_LIBRARIES(photoqt "GraphicsMagick++")
+			ADD_DEFINITIONS(-DGM)
+			MESSAGE("** Graphicsmagick enabled")
+		ENDIF(NOT ${MAGICK++_FOUND})
 	ELSEIF(NOT GM)
 		MESSAGE("** Graphicsmagick DISABLED")
 	ENDIF(GM)
@@ -214,6 +229,6 @@ ENDIF(UNIX)
 #### UNINSTALL TARGET ####
 ##########################
 
-CONFIGURE_FILE("${CMAKE_CURRENT_SOURCE_DIR}/cmake_uninstall.cmake.in" "${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake" IMMEDIATE @ONLY)
+CONFIGURE_FILE("${CMAKE_CURRENT_SOURCE_DIR}/CMake/cmake_uninstall.cmake.in" "${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake" IMMEDIATE @ONLY)
 ADD_CUSTOM_TARGET(uninstall COMMAND ${CMAKE_COMMAND} -P ${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake)
 
