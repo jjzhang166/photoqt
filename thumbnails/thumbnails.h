@@ -17,6 +17,7 @@
 #include <QGraphicsPixmapItem>
 #include <QHBoxLayout>
 #include <QScrollBar>
+#include <QApplication>
 
 // The thumbnail view
 class Thumbnails : public QWidget {
@@ -39,7 +40,8 @@ public:
 	void loadDir(bool amReloadingDir = false);
 
 	// The current filepath
-	QString currentfile;
+	void setCurrentfile(QString file) { currentfile = QFileInfo(file).fileName(); currentdir = QFileInfo(file).absolutePath(); }
+	QString getCurrentfile() { return currentdir+currentfile; }
 
 	// The total amount of images
 	int counttot;
@@ -51,7 +53,8 @@ public:
 
 	// Some lists containing info about items in directory
 	QFileInfoList allImgsInfo;
-	QStringList allImgsPath;
+	QString getImageFilePathAt(int pos) { return allImgsInfo.at(pos).absoluteFilePath(); }
+	int getImageFilePathIndexOf(QString s) { return allImgsInfo.indexOf(QFileInfo(s)); }
 
 	QList<ThumbnailPixmapItem *> allPixmaps;
 
@@ -76,6 +79,8 @@ public:
 	void removeFilter() { imageFilter.clear(); }
 
 private:
+	QString currentfile;
+	QString currentdir;
 
 	bool isShown;
 

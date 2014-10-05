@@ -415,7 +415,7 @@ void MainWindow::drawImage() {
 
 		// If the current directory info hasn't been loaded yet
 		if(viewThumbs->counttot == 0) {
-			viewThumbs->currentfile = globVar->currentfile;
+			viewThumbs->setCurrentfile(globVar->currentfile);
 			viewThumbs->noThumbs = globSet->thumbnailDisable;
 			viewThumbs->loadDir();
 		}
@@ -479,7 +479,7 @@ void MainWindow::drawImage() {
 		}
 
 		// Update the current position of the image in the directory
-		viewThumbs->countpos = viewThumbs->allImgsPath.indexOf(globVar->currentfile);
+		viewThumbs->countpos = viewThumbs->getImageFilePathIndexOf(globVar->currentfile);
 
 		// Adjust scene rect
 		viewBig->scene()->setSceneRect(viewBig->scene()->itemsBoundingRect());
@@ -529,12 +529,12 @@ void MainWindow::drawImage() {
 
 		// Ensure the active thumbnail is shown
 		// We only do that when the thumbnail was NOT loaded through a click on it. The reason is, that otherwise the thumbnailview might move a little (ensuring the thumbnail is visible) although it already IS visible.
-		if(viewThumbs->allImgsPath.indexOf(globVar->currentfile) != -1 && !globSet->thumbnailDisable && !viewThumbs->thumbLoadedThroughClick) {
+		if(viewThumbs->getImageFilePathIndexOf(globVar->currentfile) != -1 && !globSet->thumbnailDisable && !viewThumbs->thumbLoadedThroughClick) {
 			// We center on the image if it's a newly loaded dir
 			if(viewThumbs->newlyLoadedDir)
-				viewThumbs->view->centerOn(viewThumbs->allPixmaps.at(viewThumbs->allImgsPath.indexOf(globVar->currentfile)));
+				viewThumbs->view->centerOn(viewThumbs->allPixmaps.at(viewThumbs->getImageFilePathIndexOf(globVar->currentfile)));
 			else
-				viewThumbs->view->ensureVisible(viewThumbs->allPixmaps.at(viewThumbs->allImgsPath.indexOf(globVar->currentfile)));
+				viewThumbs->view->ensureVisible(viewThumbs->allPixmaps.at(viewThumbs->getImageFilePathIndexOf(globVar->currentfile)));
 			// We also have to check here where the cursor is, cause sometimes the app reaches these statements here when auto rotate is active (exif)
 			if(!globSet->thumbnailKeepVisible && viewThumbs->isVisible() && !viewThumbs->thumbLoadedThroughClick && !viewThumbs->areaShown().contains(QCursor::pos()))
 				viewThumbs->makeHide();
@@ -783,14 +783,13 @@ void MainWindow::loadNewImgFromOpen(QString path, bool hideImageFilterLabel) {
 
 	// Update the currentfile
 	globVar->currentfile = path;
-	viewThumbs->currentfile = path;
+	viewThumbs->setCurrentfile(path);
 
 	// Load thumbnails
 	if(hideImageFilterLabel) viewThumbs->removeFilter();
 	viewThumbs->counttot = 0;
 	viewThumbs->countpos = 0;
 	viewThumbs->allImgsInfo.clear();
-	viewThumbs->allImgsPath.clear();
 	viewThumbs->noThumbs = globSet->thumbnailDisable;
 	viewThumbs->loadDir();
 	globVar->exifRead = false;
@@ -847,8 +846,8 @@ void MainWindow::loadNewImgFromThumbs(QString path) {
 	globVar->exifRead = false;
 
 	globVar->currentfile = path;
-	viewThumbs->countpos = viewThumbs->allImgsPath.indexOf(path);
-	viewThumbs->currentfile = globVar->currentfile;
+	viewThumbs->countpos = viewThumbs->getImageFilePathIndexOf(path);
+	viewThumbs->setCurrentfile(globVar->currentfile);
 	drawImage();
 
 	viewBig->imgLoaded = true;
@@ -1024,34 +1023,34 @@ void MainWindow::moveInDirectory(int direction) {
 	// Move to right, not the end of directory
 	if(direction == 1 && viewThumbs->countpos < viewThumbs->counttot-1) {
 		globVar->zoomedImgAtLeastOnce = false;
-		globVar->currentfile = viewThumbs->allImgsPath.at(viewThumbs->countpos+1);
+		globVar->currentfile = viewThumbs->getImageFilePathAt(viewThumbs->countpos+1);
 		++viewThumbs->countpos;
-		viewThumbs->updateThbViewHoverNormPix(viewThumbs->currentfile,globVar->currentfile);
-		viewThumbs->currentfile = globVar->currentfile;
+		viewThumbs->updateThbViewHoverNormPix(viewThumbs->getCurrentfile(),globVar->currentfile);
+		viewThumbs->setCurrentfile(globVar->currentfile);
 		drawImage();
 	// Move to right, end of directory
 	} else if(direction == 1 && viewThumbs->countpos == viewThumbs->counttot-1 && globSet->loopthroughfolder && viewThumbs->counttot > 0 && (!setupWidgets->slideshowbar || !slideshowbar->isEnabled())) {
 		globVar->zoomedImgAtLeastOnce = false;
-		globVar->currentfile = viewThumbs->allImgsPath.at(0);
+		globVar->currentfile = viewThumbs->getImageFilePathAt(0);
 		viewThumbs->countpos = 1;
-		viewThumbs->updateThbViewHoverNormPix(viewThumbs->currentfile,globVar->currentfile);
-		viewThumbs->currentfile = globVar->currentfile;
+		viewThumbs->updateThbViewHoverNormPix(viewThumbs->getCurrentfile(),globVar->currentfile);
+		viewThumbs->setCurrentfile(globVar->currentfile);
 		drawImage();
 	// Move to left, not the end of directory
 	} else if(direction == 0 && viewThumbs->countpos > 0) {
 		globVar->zoomedImgAtLeastOnce = false;
-		globVar->currentfile = viewThumbs->allImgsPath.at(viewThumbs->countpos-1);
+		globVar->currentfile = viewThumbs->getImageFilePathAt(viewThumbs->countpos-1);
 		--viewThumbs->countpos;
-		viewThumbs->updateThbViewHoverNormPix(viewThumbs->currentfile,globVar->currentfile);
-		viewThumbs->currentfile = globVar->currentfile;
+		viewThumbs->updateThbViewHoverNormPix(viewThumbs->getCurrentfile(),globVar->currentfile);
+		viewThumbs->setCurrentfile(globVar->currentfile);
 		drawImage();
 	// Move to left, end of directory
 	} else if(direction == 0 && viewThumbs->countpos == 0 && globSet->loopthroughfolder && viewThumbs->counttot > 0) {
 		globVar->zoomedImgAtLeastOnce = false;
-		globVar->currentfile = viewThumbs->allImgsPath.at(viewThumbs->counttot-1);
+		globVar->currentfile = viewThumbs->getImageFilePathAt(viewThumbs->counttot-1);
 		viewThumbs->countpos = viewThumbs->counttot-1;
-		viewThumbs->updateThbViewHoverNormPix(viewThumbs->currentfile,globVar->currentfile);
-		viewThumbs->currentfile = globVar->currentfile;
+		viewThumbs->updateThbViewHoverNormPix(viewThumbs->getCurrentfile(),globVar->currentfile);
+		viewThumbs->setCurrentfile(globVar->currentfile);
 		drawImage();
 	// If a slideshow is running and we're at the end of the directory, then we stop
 	} else if(setupWidgets->slideshowbar && slideshowbar->isEnabled())
@@ -1108,9 +1107,8 @@ void MainWindow::reloadDir(QString t) {
 			viewThumbs->counttot = 0;
 			viewThumbs->countpos = 0;
 			viewThumbs->allImgsInfo.clear();
-			viewThumbs->allImgsPath.clear();
 			globVar->currentfile = "";
-			viewThumbs->currentfile = "";
+			viewThumbs->setCurrentfile("");
 			filehandling->currentfile = "";
 // rotation indicator
 /*			viewBigLay->updateInfo("",0,0,false);*/
@@ -1120,11 +1118,11 @@ void MainWindow::reloadDir(QString t) {
 		} else {
 			QString newfile = "";
 			if(viewThumbs->countpos+1 == viewThumbs->counttot)
-				newfile = viewThumbs->allImgsPath.at(viewThumbs->counttot-2);
+				newfile = viewThumbs->getImageFilePathAt(viewThumbs->counttot-2);
 			else if(viewThumbs->countpos == 0)
-				newfile = viewThumbs->allImgsPath.at(1);
+				newfile = viewThumbs->getImageFilePathAt(1);
 			else
-				newfile = viewThumbs->allImgsPath.at(viewThumbs->allImgsPath.indexOf(globVar->currentfile)+1);
+				newfile = viewThumbs->getImageFilePathAt(viewThumbs->getImageFilePathIndexOf(globVar->currentfile)+1);
 			// We use this function to reload the current directory at the same time as loading a new image
 			loadNewImgFromOpen(newfile);
 		}
@@ -1483,9 +1481,8 @@ void MainWindow::setImageFilter(QString curDir, QStringList filter) {
 		viewThumbs->counttot = 0;
 		viewThumbs->countpos = 0;
 		viewThumbs->allImgsInfo.clear();
-		viewThumbs->allImgsPath.clear();
 		globVar->currentfile = "";
-		viewThumbs->currentfile = "";
+		viewThumbs->setCurrentfile("");
 		if(setupWidgets->filehandling) filehandling->currentfile = "";
 // rotation indicator
 /*		viewBigLay->updateInfo("",-1,-1,false);*/

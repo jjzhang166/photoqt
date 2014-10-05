@@ -30,6 +30,7 @@ Thumbnails::Thumbnails(QWidget *parent, bool v, QMap<QString,QVariant> set) : QW
 	// The total amount of images, current position, and the filepath of current item
 	counttot = 0;
 	countpos = 0;
+	currentdir = "";
 	currentfile = "";
 
 	// The view and scene
@@ -200,15 +201,6 @@ void Thumbnails::loadDir(bool amReloadingDir) {
 
 	// Reset Info and Paths
 	allImgsInfo.clear();
-	allImgsPath.clear();
-
-
-	// Get the current directory (and if for some reason PhotoQt got a directory, don't go up a level)
-	QString currentdir = "";
-	if(QFileInfo(currentfile).isFile())
-		currentdir = QFileInfo(currentfile).absoluteDir().absolutePath();
-	else
-		currentdir = currentfile;
 
 	if(verbose) std::clog << "thb: Load directory: " << currentdir.toStdString() << " - nothb: " << noThumbs << std::endl;
 
@@ -232,20 +224,11 @@ void Thumbnails::loadDir(bool amReloadingDir) {
 	}
 
 	// Store a QFileInfoList and a QStringList with the filenames
-	allImgsInfo = dir->entryInfoList(QDir::NoFilter,QDir::IgnoreCase);
+	allImgsInfo = dir->entryInfoList(QDir::Files,QDir::IgnoreCase);
 	qSort(allImgsInfo.begin(),allImgsInfo.end(),compareNamesFileInfo);
 
-	QFileInfoList tmp_AllImgsInfo;
-	for(int i = 0; i < allImgsInfo.length(); ++i) {
-		if(allImgsInfo.at(i).isFile() && allImgsInfo.at(i).exists()) {
-			allImgsPath << allImgsInfo.at(i).absoluteFilePath();
-			tmp_AllImgsInfo << allImgsInfo.at(i);
-		}
-	}
-	allImgsInfo = tmp_AllImgsInfo;
-
 	// Storing number of images
-	counttot = allImgsPath.length();
+	counttot = allImgsInfo.length();
 
 	// If thumbnails aren't disabled
 	if(!noThumbs) {
@@ -316,7 +299,7 @@ void Thumbnails::loadDir(bool amReloadingDir) {
 
 			// Create the pixmapitem, set pixmaps and adjust the position
 			ThumbnailPixmapItem *pix = new ThumbnailPixmapItem;
-			pix->path = allImgsPath.at(i);
+			pix->path = getImageFilePathAt(i);
 			pix->setData(1,pix->path);
 			pix->setPixmap(imgNorm,imgHov);
 			pix->setPos(i*(normsqu+spacing),0);
@@ -363,12 +346,12 @@ void Thumbnails::startThread() {
 			if(center != QPoint(0,0)) {
 				ThumbnailPixmapItem *pix = (ThumbnailPixmapItem*)view->itemAt(center);
 				QString pixpath = pix->path;
-				newpos = allImgsPath.indexOf(pixpath);
+				newpos = getImageFilePathIndexOf(pixpath);
 			} else
 				newpos = -1;
 			if(newpos == -1) {
 				// Get new middle position
-				newpos = allImgsPath.indexOf(currentfile);
+				newpos = getImageFilePathIndexOf(currentfile);
 				if(newpos < 0)
 					newpos = 0;
 				if(newpos >= counttot)
@@ -379,7 +362,7 @@ void Thumbnails::startThread() {
 
 		thumbThread->verbose = verbose;
 		// Set and start the thumbnail thread
-		thumbThread->counttot = allImgsPath.length();
+		thumbThread->counttot = allImgsInfo.length();
 		thumbThread->globSet = globSet;
 		thumbThread->allimgs.clear();
 		thumbThread->allimgs.append(allImgsInfo);
@@ -496,7 +479,7 @@ void Thumbnails::updateThumb(QImage img, QString path, int origwidth, int orighe
 
 	if(allPixmaps.length() >= pos) {
 		allPixmaps.at(pos)->path = path;
-		allPixmaps.at(pos)->presented = (path == currentfile);
+		allPixmaps.at(pos)->presented = (path == currentdir+currentfile);
 		allPixmaps.at(pos)->setPixmap(imgNorm,imgHov);
 	}
 
@@ -507,7 +490,7 @@ void Thumbnails::gotClick(QString path) {
 
 	if(verbose) std::clog << "thb: gotClick:" << path.toStdString() << std::endl;
 
-	updateThbViewHoverNormPix(currentfile,path);
+	updateThbViewHoverNormPix(currentdir+currentfile,path);
 
 	// We set this boolean to true, and this causes drawImg() in mainwindow.cpp NOT to ensure the visibility of the item (it already is visible). Before occasionally this led to the thumbnailview "jumping" a little to the right/left ensuring the visibility.
 	thumbLoadedThroughClick = true;
@@ -521,13 +504,13 @@ void Thumbnails::updateThbViewHoverNormPix(QString oldpath, QString newpath) {
 
 	if(!noThumbs) {
 
-		if(oldpath != "" && allImgsPath.indexOf(oldpath) != -1) {
-			allPixmaps.at(allImgsPath.indexOf(oldpath))->presented = false;
-			allPixmaps.at(allImgsPath.indexOf(oldpath))->setNormalImg();
+		if(oldpath != "" && getImageFilePathIndexOf(oldpath) != -1) {
+			allPixmaps.at(getImageFilePathIndexOf(oldpath))->presented = false;
+			allPixmaps.at(getImageFilePathIndexOf(oldpath))->setNormalImg();
 		}
-		if(newpath != "" && allImgsPath.indexOf(newpath) != -1) {
-			allPixmaps.at(allImgsPath.indexOf(newpath))->presented = true;
-			allPixmaps.at(allImgsPath.indexOf(newpath))->setHoverImg();
+		if(newpath != "" && getImageFilePathIndexOf(newpath) != -1) {
+			allPixmaps.at(getImageFilePathIndexOf(newpath))->presented = true;
+			allPixmaps.at(getImageFilePathIndexOf(newpath))->setHoverImg();
 		}
 
 	}
@@ -539,12 +522,12 @@ void Thumbnails::gotoFirstLast(QString side) {
 
 	if(verbose) std::clog << "thb: Got to first/Last: " << side.toStdString() << std::endl;
 
-	if(allImgsPath.length()) {
+	if(allImgsInfo.length()) {
 
 		if(side == "first")
-			gotClick(allImgsPath.first());
+			gotClick(allImgsInfo.first().absoluteFilePath());
 		else if(side == "last")
-			gotClick(allImgsPath.last());
+			gotClick(allImgsInfo.last().absoluteFilePath());
 
 	}
 
@@ -590,7 +573,7 @@ void Thumbnails::scrolledView() {
 	// We get the position of the item in view center
 	QGraphicsItem *pix = (QGraphicsItem*)view->itemAt(customCenter);
 	pixPath = pix->data(1).toString();
-	newpos = allImgsPath.indexOf(pixPath);
+	newpos = getImageFilePathIndexOf(pixPath);
 
 	if(pixPath == "") {
 		QPoint center = view->viewport()->visibleRegion().boundingRect().center();
@@ -598,7 +581,7 @@ void Thumbnails::scrolledView() {
 		// We get the position of the item in view center
 		QGraphicsItem *pix = (QGraphicsItem*)view->itemAt(customCenter);
 		pixPath = pix->data(1).toString();
-		newpos = allImgsPath.indexOf(pixPath);
+		newpos = getImageFilePathIndexOf(pixPath);
 	}
 
 	// Sometimes PhotoQt wont find a central image.
