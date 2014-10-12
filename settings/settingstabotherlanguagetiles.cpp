@@ -26,11 +26,23 @@ SettingsTabOtherLanguageTiles::SettingsTabOtherLanguageTiles(QString lang, QStri
 
 	this->setFixedSize(90,90);
 
+	// Display translators in smaller font => everything's visible, nothing hidden
+	if(lang.contains("(")) {
+		QList<QString> lang_parts = lang.split("(");
+		lang = lang_parts.at(0);
+		lang_parts.removeFirst();
+		while(lang_parts.length() > 1) {
+			lang += "(" + lang_parts.at(0);
+			lang_parts.removeFirst();
+		}
+		lang = lang + "<br><span style=\"font-size: 6pt\">(" + lang_parts.at(0) + "</span>";
+	}
+
 	// Language in proper native language
 	back = new CustomLabel("<center>" + lang + "</center>");
 	back->setBold(true);
 	back->setFontColor("black");
-	back->setPadding(1);
+	back->setPadding(0);
 	back->setFontSize(8);
 	back->setWordWrap(true);
 	langCode = code;
