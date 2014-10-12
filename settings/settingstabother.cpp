@@ -101,19 +101,19 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 //	langShort << "ar";
 
 	// Czech
-	langDesc << QString::fromUtf8("Čeština (Petr Š. & Robin H.)");
+	langDesc << QString::fromUtf8("Čeština (Robin H. & Petr Š.)");
 	langShort << "cs";
 
 	// German
-	langDesc << "Deutsch (Lukas S.)";
+	langDesc << "Deutsch";
 	langShort << "de";
 
 	// Greek
-	langDesc << QString::fromUtf8("Ελληνικά (Dimitrios G. & Evropi)");
+	langDesc << QString::fromUtf8("Ελληνικά (Dimitrios G.)");
 	langShort << "el";
 
 	// Spanish
-	langDesc << QString::fromUtf8("Español (Hector C. & Julian U. & Manuel G. & Victoria P.)");
+	langDesc << QString::fromUtf8("Español (Hector C. & Victoria P.)");
 	langShort << "es_ES";
 
 	// Finnish
@@ -121,7 +121,7 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 	langShort << "fi";
 
 	// French
-	langDesc << QString::fromUtf8("Français (Mathieu M. & Olivier D. & Tubuntu)");
+	langDesc << QString::fromUtf8("Français (Olivier D. & Tubuntu)");
 	langShort << "fr";
 
 	// Hungarian
@@ -133,7 +133,7 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 	langShort << "he";
 
 	// Italian
-	langDesc << "Italiano (Fabio M. & Vincenzo C.)";
+	langDesc << "Italiano (Vincenzo C. & Fabio M.)";
 	langShort << "it";
 
 	// Japanese
@@ -153,11 +153,11 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 //	langShort << "pl";
 
 	// Portugal (Brazil)
-	langDesc << QString::fromUtf8("Português (Brasil) (Everton & Rafael N.)");
+	langDesc << QString::fromUtf8("Português (Brasil) (Rafael N. & Everton)");
 	langShort << "pt_BR";
 
 	// Portugal (Portugal)
-	langDesc << QString::fromUtf8("Português (Portugal) (Manuela S. & Sérgio M. & Willow)");
+	langDesc << QString::fromUtf8("Português (Portugal) (Sérgio M. & Manuela S. & Willow)");
 	langShort << "pt_PT";
 
 	// Russian
@@ -177,7 +177,7 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 //	langShort << "tr";
 
 	// Ukrainian
-	langDesc << QString::fromUtf8("Українська (Yuriy T. & zubr139 & neeesdfsdf & Birdie & Stanislav)");
+	langDesc << QString::fromUtf8("Українська (neeesdfsdf & zubr139)");
 	langShort << "uk_UA";
 
 	// Viatnemese
