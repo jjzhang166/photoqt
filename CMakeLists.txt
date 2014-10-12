@@ -1,3 +1,7 @@
+##############################################
+# CMakeLists for PhotoQt: http://photoqt.org #
+##############################################
+
 CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 PROJECT(photoqt)
 
