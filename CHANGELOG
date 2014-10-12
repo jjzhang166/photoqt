@@ -1,10 +1,10 @@
-Changelog PhotoQt v1.1beta  - Copyright (C) 2014, Lukas Spies (Lukas@photoqt.org), License: GPLv2 (or later)
+Changelog PhotoQt v1.1  - Copyright (C) 2014, Lukas Spies (Lukas@photoqt.org), License: GPLv2 (or later)
 ------------------------------------------------------------------------------------------------------------
 
-Release 1.1
+Release 1.1 - 12/10/2014
 ----------------------------
 - PhotoQt now based on Qt5
-- Phonon replaced by QMediaPlayer
+- Phonon replaced by QMultimedia
 - Rotations/Flipping stored per session (nothing is saved permanently in any files)
 - Filter images in current directory by filename/extension
 - Scaling images (permanent change)
