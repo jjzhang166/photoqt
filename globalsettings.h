@@ -32,10 +32,6 @@
 #include <iostream>
 #include <QMap>
 
-#if defined(Q_WS_X11)
-#include <QX11Info>
-#endif
-
 class FileFormats {
 
 private:
@@ -588,14 +584,22 @@ public:
 		bgColorBlue = 0;
 		bgColorAlpha = 190;
 
+#ifdef Q_OS_LINUX
 		backgroundImageScreenshot = false;
+#else
+		backgroundImageScreenshot = true;
+#endif
 		backgroundImageUse = false;
 		backgroundImagePath = "";
 		backgroundImageScale = false;
 		backgroundImageStretch = false;
 		backgroundImageCenter = false;
 
+#ifdef Q_OS_LINUX
+		composite = true;
+#else
 		composite = false;
+#endif
 		trayicon = false;
 		transition = 0;
 		loopthroughfolder = true;
