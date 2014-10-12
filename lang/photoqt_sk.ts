@@ -14,7 +14,7 @@
     <message>
         <location filename="../widgets/aboutwidget.cpp" line="46"/>
         <source>Well, long story short, starting version 1.0, its name is PhotoQt.</source>
-        <translation>.Nuž, dlhý príbeh v skratke, začínajúci verziou 1.0, jej meno je PhotoQt</translation>
+        <translation>Nuž, dlhý príbeh v skratke, začínajúci verziou 1.0, jej meno je PhotoQt</translation>
     </message>
     <message>
         <location filename="../widgets/aboutwidget.cpp" line="47"/>
@@ -49,7 +49,7 @@
     <message>
         <location filename="../widgets/aboutwidget.cpp" line="53"/>
         <source>You want to join the team and do something, e.g. translating PhotoQt to another language? Drop me and email (Lukas@photoqt.org), and for translations, check the project page on Transifex: http://transifex.com/p/photo.</source>
-        <translation type="unfinished"/>
+        <translation>hcete sa stať súčasťou týmu a niečím prispieť, napr. prekladom PhotoQt do iného jazyka? Kontaktujte ma pomocou e-mailu (Lukas@photoqt.org) a pre preklady navštívte projektovú stránku na Transifexe: http://transifex.com/p/photo</translation>
     </message>
     <message>
         <location filename="../widgets/aboutwidget.cpp" line="81"/>
@@ -434,7 +434,7 @@
     <message>
         <location filename="../widgets/dropdownmenu.cpp" line="52"/>
         <source>Filter Images in Folder</source>
-        <translation type="unfinished"/>
+        <translation>Filtrovať obrázky v priečinku</translation>
     </message>
     <message>
         <location filename="../widgets/dropdownmenu.cpp" line="53"/>
@@ -580,12 +580,12 @@
     <message>
         <location filename="../filterimages/filterimagesdisplay.cpp" line="26"/>
         <source>Remove Image Filter</source>
-        <translation type="unfinished"/>
+        <translation>Odstrániť filter obrázka</translation>
     </message>
     <message>
         <location filename="../filterimages/filterimagesdisplay.cpp" line="35"/>
         <source>Click to change filter</source>
-        <translation type="unfinished"/>
+        <translation>Kliknite pre zmenu filtra</translation>
     </message>
 </context>
 <context>
@@ -593,32 +593,32 @@
     <message>
         <location filename="../filterimages/filterimagessetup.cpp" line="24"/>
         <source>Filter Images in Current Directory</source>
-        <translation type="unfinished"/>
+        <translation>Filtrovať obrázky v aktuálnom priečinku</translation>
     </message>
     <message>
         <location filename="../filterimages/filterimagessetup.cpp" line="31"/>
         <source>Enter here the term you want to search for. Seperate multiple terms by a space.</source>
-        <translation type="unfinished"/>
+        <translation>Sem zadajte výraz, ktorý chcete vyhľadať. Jednotlivé výrazy oddelťe medzerou.</translation>
     </message>
     <message>
         <location filename="../filterimages/filterimagessetup.cpp" line="31"/>
         <source>If you want to limit a term to file extensions, prepend a dot &apos;.&apos; to the term.</source>
-        <translation type="unfinished"/>
+        <translation>Pridajte pred výraz bodku, ak chcete filtrovať typ obrázkov.</translation>
     </message>
     <message>
         <location filename="../filterimages/filterimagessetup.cpp" line="39"/>
         <source>Filter</source>
-        <translation type="unfinished"/>
+        <translation>Filtrovať</translation>
     </message>
     <message>
         <location filename="../filterimages/filterimagessetup.cpp" line="41"/>
         <source>Cancel</source>
-        <translation type="unfinished"/>
+        <translation>Zrušiť</translation>
     </message>
     <message>
         <location filename="../filterimages/filterimagessetup.cpp" line="42"/>
         <source>Remove Filter</source>
-        <translation type="unfinished"/>
+        <translation>Odstrániť filter</translation>
     </message>
 </context>
 <context>
@@ -686,7 +686,7 @@
     <message>
         <location filename="../graphics/graphicsview.cpp" line="217"/>
         <source>Actual</source>
-        <translation type="unfinished"/>
+        <translation>Skutočný</translation>
     </message>
     <message>
         <location filename="../graphics/graphicsview.cpp" line="220"/>
@@ -696,7 +696,7 @@
     <message>
         <location filename="../graphics/graphicsview.cpp" line="245"/>
         <source>Scale Image</source>
-        <translation type="unfinished"/>
+        <translation>Prevzorkovať obrázok</translation>
     </message>
     <message>
         <location filename="../graphics/graphicsview.cpp" line="253"/>
@@ -791,77 +791,77 @@
     <message>
         <location filename="../widgets/quicksettings.cpp" line="39"/>
         <source>Quick Settings</source>
-        <translation type="unfinished"/>
+        <translation>Rýchle nastavenia</translation>
     </message>
     <message>
         <location filename="../widgets/quicksettings.cpp" line="44"/>
         <source>Change settings with one click. They are saved and applied immediately. If you&apos;re unsure what a setting does, check the full settings for descriptions.</source>
-        <translation type="unfinished"/>
+        <translation>Nastavenia môžete zmeniť jediným kliknutím. Zmeny sa uložia a prejavia ihneď. Ak si nie ste istý čo nastavenie spôsobí, prečítajte si popis v hlavných nastaveniach.</translation>
     </message>
     <message>
         <location filename="../widgets/quicksettings.cpp" line="47"/>
         <source>Real transparency</source>
-        <translation type="unfinished"/>
+        <translation>Skutočná priehľadnosť</translation>
     </message>
     <message>
         <location filename="../widgets/quicksettings.cpp" line="48"/>
         <source>Faked transparency</source>
-        <translation type="unfinished"/>
+        <translation>Falošná priehľadnosť</translation>
     </message>
     <message>
         <location filename="../widgets/quicksettings.cpp" line="49"/>
         <source>Background image</source>
-        <translation type="unfinished"/>
+        <translation>Obrázok pozadia</translation>
     </message>
     <message>
         <location filename="../widgets/quicksettings.cpp" line="50"/>
         <source>Coloured background</source>
-        <translation type="unfinished"/>
+        <translation>Farebné pozadie</translation>
     </message>
     <message>
         <location filename="../widgets/quicksettings.cpp" line="51"/>
         <source>Hide to system tray</source>
-        <translation type="unfinished"/>
+        <translation>Skryť do systémového panela</translation>
     </message>
     <message>
         <location filename="../widgets/quicksettings.cpp" line="52"/>
         <source>Loop through folder</source>
-        <translation type="unfinished"/>
+        <translation>Zreťaz obrázky v priečinku</translation>
     </message>
     <message>
         <location filename="../widgets/quicksettings.cpp" line="53"/>
         <source>Window mode</source>
-        <translation type="unfinished"/>
+        <translation>Mód v okne</translation>
     </message>
     <message>
         <location filename="../widgets/quicksettings.cpp" line="54"/>
         <source>Show window decoration</source>
-        <translation type="unfinished"/>
+        <translation>Zobrazovať dekorácie okna</translation>
     </message>
     <message>
         <location filename="../widgets/quicksettings.cpp" line="55"/>
         <source>Close on click on background</source>
-        <translation type="unfinished"/>
+        <translation>Zatvoriť kliknutím na pozadie</translation>
     </message>
     <message>
         <location filename="../widgets/quicksettings.cpp" line="56"/>
         <source>Keep thumbnails visible</source>
-        <translation type="unfinished"/>
+        <translation>Ponechať náhľady viditeľné</translation>
     </message>
     <message>
         <location filename="../widgets/quicksettings.cpp" line="57"/>
         <source>Dynamic thumbnails</source>
-        <translation type="unfinished"/>
+        <translation>Dynamické náhľady</translation>
     </message>
     <message>
         <location filename="../widgets/quicksettings.cpp" line="58"/>
         <source>Enable &apos;Quick Settings&apos;</source>
-        <translation type="unfinished"/>
+        <translation>Zapnúť &quot;Rýche nastavenia&quot;</translation>
     </message>
     <message>
         <location filename="../widgets/quicksettings.cpp" line="93"/>
         <source>Show full settings</source>
-        <translation type="unfinished"/>
+        <translation>Ukázať plné nastavenia</translation>
     </message>
 </context>
 <context>
@@ -869,111 +869,111 @@
     <message>
         <location filename="../manipulation/scale.cpp" line="12"/>
         <source>Scale Image</source>
-        <translation type="unfinished"/>
+        <translation>Prevzorkovať obrázok</translation>
     </message>
     <message>
         <location filename="../manipulation/scale.cpp" line="14"/>
         <location filename="../manipulation/scale.cpp" line="160"/>
         <source>Current Size:</source>
-        <translation type="unfinished"/>
+        <translation>Aktuálna veľkosť:</translation>
     </message>
     <message>
         <location filename="../manipulation/scale.cpp" line="20"/>
         <source>New Width:</source>
-        <translation type="unfinished"/>
+        <translation>Nová šírka:</translation>
     </message>
     <message>
         <location filename="../manipulation/scale.cpp" line="35"/>
         <source>New Height:</source>
-        <translation type="unfinished"/>
+        <translation>Nová výška:</translation>
     </message>
     <message>
         <location filename="../manipulation/scale.cpp" line="50"/>
         <source>Aspect Ratio</source>
-        <translation type="unfinished"/>
+        <translation>Pomer strán</translation>
     </message>
     <message>
         <location filename="../manipulation/scale.cpp" line="66"/>
         <source>Quality:</source>
-        <translation type="unfinished"/>
+        <translation>Kvalita:</translation>
     </message>
     <message>
         <location filename="../manipulation/scale.cpp" line="87"/>
         <source>Scale in place</source>
-        <translation type="unfinished"/>
+        <translation>Prevzorkovať tento súbor</translation>
     </message>
     <message>
         <location filename="../manipulation/scale.cpp" line="89"/>
         <source>Scale in new file</source>
-        <translation type="unfinished"/>
+        <translation>Prevzorkovať do nového súboru</translation>
     </message>
     <message>
         <location filename="../manipulation/scale.cpp" line="91"/>
         <source>Don&apos;t Scale</source>
-        <translation type="unfinished"/>
+        <translation>Neprevzorkovať</translation>
     </message>
     <message>
         <location filename="../manipulation/scale.cpp" line="143"/>
         <source>Filetype Not Supported</source>
-        <translation type="unfinished"/>
+        <translation>Nepodporovaný typ súboru</translation>
     </message>
     <message>
         <location filename="../manipulation/scale.cpp" line="143"/>
         <source>Sorry, scaling is currently only available for filetypes natively supported by Qt...</source>
-        <translation type="unfinished"/>
+        <translation>Sorry, zmena veľkosti je možná len pre formáty, ktoré podporuje Qt...</translation>
     </message>
     <message>
         <location filename="../manipulation/scale.cpp" line="143"/>
         <source>Oh, okay...</source>
-        <translation type="unfinished"/>
+        <translation>No dobre...</translation>
     </message>
     <message>
         <location filename="../manipulation/scale.cpp" line="212"/>
         <source>Don&apos;t keep aspect ratio</source>
-        <translation type="unfinished"/>
+        <translation>Nedodržiavať pomer strán</translation>
     </message>
     <message>
         <location filename="../manipulation/scale.cpp" line="212"/>
         <source>Keep aspect ratio</source>
-        <translation type="unfinished"/>
+        <translation>Dodržiavať pomer strán</translation>
     </message>
     <message>
         <location filename="../manipulation/scale.cpp" line="228"/>
         <location filename="../manipulation/scale.cpp" line="253"/>
         <source>Overwrite Image?</source>
-        <translation type="unfinished"/>
+        <translation>Prepísať obrázok?</translation>
     </message>
     <message>
         <location filename="../manipulation/scale.cpp" line="229"/>
         <source>This will replace the current image with the scaled version... Continue?</source>
-        <translation type="unfinished"/>
+        <translation>Prevzorkovaný obrázok nahradí ten pôvodný... Naozaj chcete pokračovať?</translation>
     </message>
     <message>
         <location filename="../manipulation/scale.cpp" line="230"/>
         <location filename="../manipulation/scale.cpp" line="255"/>
         <source>Continue</source>
-        <translation type="unfinished"/>
+        <translation>Pokračovať</translation>
     </message>
     <message>
         <location filename="../manipulation/scale.cpp" line="230"/>
         <location filename="../manipulation/scale.cpp" line="255"/>
         <source>Stop</source>
-        <translation type="unfinished"/>
+        <translation>Stop</translation>
     </message>
     <message>
         <location filename="../manipulation/scale.cpp" line="247"/>
         <source>Save as...</source>
-        <translation type="unfinished"/>
+        <translation>Uložit ako...</translation>
     </message>
     <message>
         <location filename="../manipulation/scale.cpp" line="247"/>
         <source>Images</source>
-        <translation type="unfinished"/>
+        <translation>Obrázky</translation>
     </message>
     <message>
         <location filename="../manipulation/scale.cpp" line="254"/>
         <source>This file exists already... Continue?</source>
-        <translation type="unfinished"/>
+        <translation>Tento súbor už existuje... Pokračovať?</translation>
     </message>
 </context>
 <context>
@@ -1277,12 +1277,12 @@
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="91"/>
         <source>The background of PhotoQt is the part, that is not covered by an image. It can be made either real (half-)transparent (using a compositor), or faked transparent (instead of the actual desktop a screenshot of it is shown), or a custom background image can be set, or none of the above.</source>
-        <translation type="unfinished"/>
+        <translation>Pozadím aplikácie PhotoQt je tá časť, ktorá nie je prekrytá obrázkom. Pozadie môže byť (polo) priehľadné (cez kompozítor), alebo falošne priehľadné (namiesto aktuálnej plochy je použitý jej screenshot), alebo môže byť použitý vlastný obrázok pozadia, alebo môže byť nepriehľadné.</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="93"/>
         <source>Note: Fake transparency currently only really works when PhotoQt is run in fullscreen/maximised!</source>
-        <translation type="unfinished"/>
+        <translation>Poznámka: Falošná nepriehľadnosť funguje len ak je PhotoQt v režime celej obrazovky, alebo maximalizované!</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="94"/>
@@ -1514,17 +1514,17 @@
     <message>
         <location filename="../settings/settingstabother.cpp" line="216"/>
         <source>Quick Settings</source>
-        <translation type="unfinished"/>
+        <translation>Rýchle nastavenia</translation>
     </message>
     <message>
         <location filename="../settings/settingstabother.cpp" line="216"/>
         <source>The &apos;Quick Settings&apos; is a widget hidden on the right side of the screen. When you move the cursor there, it shows up, and you can adjust a few simple settings on the spot without having to go through this settings dialog. Of course, only a small subset of settings is available (the ones needed most often). Here you can disable the dialog so that it doesn&apos;t show on mouse movement anymore.</source>
-        <translation type="unfinished"/>
+        <translation>&quot;Rýchle nastavenia&quot; je widget skrytý v pravom okraji obrazovky. Zobrazí sa, keď sa kurzor dostatočne priblíži k okraju. Môžete v ňom z fleku zmeniť veci bez toho, aby ste museli ísť do hlavného menu. K dispozícií je ich ale len pár (tie najpoužívanejšie). Tu je možné vypnúť tento widget, takže sa už pri priblížení kurzoru nezobrazí.</translation>
     </message>
     <message>
         <location filename="../settings/settingstabother.cpp" line="217"/>
         <source>Show &apos;Quick Settings&apos; on mouse hovering</source>
-        <translation type="unfinished"/>
+        <translation>Zobraziť &quot;Rýchle nastavenia&quot; pri prechode myšou</translation>
     </message>
     <message>
         <location filename="../settings/settingstabother.cpp" line="231"/>
@@ -1673,7 +1673,7 @@
     <message>
         <location filename="../settings/settingstabshortcuts.cpp" line="92"/>
         <source>Filter Images in Folder</source>
-        <translation type="unfinished"/>
+        <translation>Filtrovať obrázky v priečinku</translation>
     </message>
     <message>
         <location filename="../settings/settingstabshortcuts.cpp" line="93"/>
@@ -1733,7 +1733,7 @@
     <message>
         <location filename="../settings/settingstabshortcuts.cpp" line="116"/>
         <source>Scale Image</source>
-        <translation type="unfinished"/>
+        <translation>Prevzorkovať obrázok</translation>
     </message>
     <message>
         <location filename="../settings/settingstabshortcuts.cpp" line="131"/>
@@ -1773,7 +1773,7 @@
     <message>
         <location filename="../settings/settingstabshortcuts.cpp" line="146"/>
         <source>Show Context Menu</source>
-        <translation type="unfinished"/>
+        <translation>Zobraziť kontextové menu</translation>
     </message>
     <message>
         <location filename="../settings/settingstabshortcuts.cpp" line="147"/>
@@ -2499,7 +2499,7 @@
     <message>
         <location filename="../widgets/startupwidget.cpp" line="101"/>
         <source>It has been more than a year since the last stable release of PhotoQt was released. For a while development has stalled as I was busy finishing my Bachelor degree, but I came back and once again there are some really cool (I believe) changes in this release. I gave my best to ensure that everything is working as smoothly as possible. But please forgive me if a bug sneaked in here or there again, they are never intended, I promise!</source>
-        <translation type="unfinished"/>
+        <translation>Už je to viac ako rok, kedy naposledy vyšla posledná stabilná verzia PhotoQt. Vývoju som sa nejaký čas nevenoval, pretože som dokončoval bakalárske štúdium, ale k vývoju som sa vrátil a opäť sú tu nejaké skvelé (dúfam) zmeny v tomto vydaní. Dávam Vám svoje slovo, že všetko funguje tak hladko ako to len ide. Prosím prepáčte mi, ak sa niekde objaví chyba. Nebol to úmysel, sľubujem!</translation>
     </message>
     <message>
         <location filename="../widgets/startupwidget.cpp" line="102"/>
@@ -2519,12 +2519,12 @@
     <message>
         <location filename="../widgets/startupwidget.cpp" line="113"/>
         <source>This app started out almost three years ago, and it has developed quite a bit since then. Although I gave my best to ensure that everything is working as smoothly as possible, please forgive me if a bug sneaked in here or there again, they are never intended, I promise!</source>
-        <translation type="unfinished"/>
+        <translation>Táto aplikácia už existuje vyše troch rokov a počas tohto obdobia prešla podstatným vyvojom. Dávam Vám svoje slovo, že všetko funguje tak hladko ako to len ide. Prosím prepáčte mi, ak sa niekde objaví chyba. Nebol to úmysel, sľubujem!</translation>
     </message>
     <message>
         <location filename="../widgets/startupwidget.cpp" line="114"/>
         <source>Here below you find a short overview of what PhotoQt has to offer, but feel free to skip it and just get started.</source>
-        <translation type="unfinished"/>
+        <translation>Nižšie nájdete krátky prehľad toho čo ponúka PhotoQt, no kľudne môžete túto časť preskočiť a rovno začať PhotoQt používať.</translation>
     </message>
 </context>
 <context>
@@ -2541,7 +2541,7 @@
         <location filename="../graphics/graphicsviewlay.cpp" line="186"/>
         <location filename="../graphics/graphicsviewlay.cpp" line="223"/>
         <source>No images match current filter</source>
-        <translation type="unfinished"/>
+        <translation>Žiaden obrázok nevyhovuje aktuálnemu filtru</translation>
     </message>
 </context>
 <context>

@@ -719,25 +719,25 @@
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../mainwindow.cpp" line="870"/>
-        <location filename="../mainwindow.cpp" line="956"/>
+        <location filename="../mainwindow.cpp" line="872"/>
+        <location filename="../mainwindow.cpp" line="958"/>
         <source>Show Details</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="870"/>
-        <location filename="../mainwindow.cpp" line="948"/>
+        <location filename="../mainwindow.cpp" line="872"/>
+        <location filename="../mainwindow.cpp" line="950"/>
         <location filename="../mainwindow.cpp" line="1628"/>
         <source>Hide Details</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1080"/>
+        <location filename="../mainwindow.cpp" line="1082"/>
         <source>Open image file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1080"/>
+        <location filename="../mainwindow.cpp" line="1082"/>
         <source>Images</source>
         <translation type="unfinished"></translation>
     </message>
@@ -791,77 +791,77 @@
 <context>
     <name>QuickSettings</name>
     <message>
-        <location filename="../widgets/quicksettings.cpp" line="39"/>
+        <location filename="../widgets/quicksettings.cpp" line="55"/>
         <source>Quick Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/quicksettings.cpp" line="44"/>
+        <location filename="../widgets/quicksettings.cpp" line="60"/>
         <source>Change settings with one click. They are saved and applied immediately. If you&apos;re unsure what a setting does, check the full settings for descriptions.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/quicksettings.cpp" line="47"/>
+        <location filename="../widgets/quicksettings.cpp" line="63"/>
         <source>Real transparency</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/quicksettings.cpp" line="48"/>
+        <location filename="../widgets/quicksettings.cpp" line="64"/>
         <source>Faked transparency</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/quicksettings.cpp" line="49"/>
+        <location filename="../widgets/quicksettings.cpp" line="65"/>
         <source>Background image</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/quicksettings.cpp" line="50"/>
+        <location filename="../widgets/quicksettings.cpp" line="66"/>
         <source>Coloured background</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/quicksettings.cpp" line="51"/>
+        <location filename="../widgets/quicksettings.cpp" line="67"/>
         <source>Hide to system tray</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/quicksettings.cpp" line="52"/>
+        <location filename="../widgets/quicksettings.cpp" line="68"/>
         <source>Loop through folder</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/quicksettings.cpp" line="53"/>
+        <location filename="../widgets/quicksettings.cpp" line="69"/>
         <source>Window mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/quicksettings.cpp" line="54"/>
+        <location filename="../widgets/quicksettings.cpp" line="70"/>
         <source>Show window decoration</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/quicksettings.cpp" line="55"/>
+        <location filename="../widgets/quicksettings.cpp" line="71"/>
         <source>Close on click on background</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/quicksettings.cpp" line="56"/>
+        <location filename="../widgets/quicksettings.cpp" line="72"/>
         <source>Keep thumbnails visible</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/quicksettings.cpp" line="57"/>
+        <location filename="../widgets/quicksettings.cpp" line="73"/>
         <source>Dynamic thumbnails</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/quicksettings.cpp" line="58"/>
+        <location filename="../widgets/quicksettings.cpp" line="74"/>
         <source>Enable &apos;Quick Settings&apos;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/quicksettings.cpp" line="93"/>
+        <location filename="../widgets/quicksettings.cpp" line="109"/>
         <source>Show full settings</source>
         <translation type="unfinished"></translation>
     </message>
@@ -869,111 +869,111 @@
 <context>
     <name>Scale</name>
     <message>
-        <location filename="../manipulation/scale.cpp" line="12"/>
+        <location filename="../manipulation/scale.cpp" line="28"/>
         <source>Scale Image</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../manipulation/scale.cpp" line="14"/>
-        <location filename="../manipulation/scale.cpp" line="160"/>
+        <location filename="../manipulation/scale.cpp" line="30"/>
+        <location filename="../manipulation/scale.cpp" line="176"/>
         <source>Current Size:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../manipulation/scale.cpp" line="20"/>
+        <location filename="../manipulation/scale.cpp" line="36"/>
         <source>New Width:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../manipulation/scale.cpp" line="35"/>
+        <location filename="../manipulation/scale.cpp" line="51"/>
         <source>New Height:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../manipulation/scale.cpp" line="50"/>
+        <location filename="../manipulation/scale.cpp" line="66"/>
         <source>Aspect Ratio</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../manipulation/scale.cpp" line="66"/>
+        <location filename="../manipulation/scale.cpp" line="82"/>
         <source>Quality:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../manipulation/scale.cpp" line="87"/>
+        <location filename="../manipulation/scale.cpp" line="103"/>
         <source>Scale in place</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../manipulation/scale.cpp" line="89"/>
+        <location filename="../manipulation/scale.cpp" line="105"/>
         <source>Scale in new file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../manipulation/scale.cpp" line="91"/>
+        <location filename="../manipulation/scale.cpp" line="107"/>
         <source>Don&apos;t Scale</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../manipulation/scale.cpp" line="143"/>
+        <location filename="../manipulation/scale.cpp" line="159"/>
         <source>Filetype Not Supported</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../manipulation/scale.cpp" line="143"/>
+        <location filename="../manipulation/scale.cpp" line="159"/>
         <source>Sorry, scaling is currently only available for filetypes natively supported by Qt...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../manipulation/scale.cpp" line="143"/>
+        <location filename="../manipulation/scale.cpp" line="159"/>
         <source>Oh, okay...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../manipulation/scale.cpp" line="212"/>
+        <location filename="../manipulation/scale.cpp" line="228"/>
         <source>Don&apos;t keep aspect ratio</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../manipulation/scale.cpp" line="212"/>
+        <location filename="../manipulation/scale.cpp" line="228"/>
         <source>Keep aspect ratio</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../manipulation/scale.cpp" line="228"/>
-        <location filename="../manipulation/scale.cpp" line="253"/>
+        <location filename="../manipulation/scale.cpp" line="244"/>
+        <location filename="../manipulation/scale.cpp" line="269"/>
         <source>Overwrite Image?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../manipulation/scale.cpp" line="229"/>
+        <location filename="../manipulation/scale.cpp" line="245"/>
         <source>This will replace the current image with the scaled version... Continue?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../manipulation/scale.cpp" line="230"/>
-        <location filename="../manipulation/scale.cpp" line="255"/>
+        <location filename="../manipulation/scale.cpp" line="246"/>
+        <location filename="../manipulation/scale.cpp" line="271"/>
         <source>Continue</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../manipulation/scale.cpp" line="230"/>
-        <location filename="../manipulation/scale.cpp" line="255"/>
+        <location filename="../manipulation/scale.cpp" line="246"/>
+        <location filename="../manipulation/scale.cpp" line="271"/>
         <source>Stop</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../manipulation/scale.cpp" line="247"/>
+        <location filename="../manipulation/scale.cpp" line="263"/>
         <source>Save as...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../manipulation/scale.cpp" line="247"/>
+        <location filename="../manipulation/scale.cpp" line="263"/>
         <source>Images</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../manipulation/scale.cpp" line="254"/>
+        <location filename="../manipulation/scale.cpp" line="270"/>
         <source>This file exists already... Continue?</source>
         <translation type="unfinished"></translation>
     </message>

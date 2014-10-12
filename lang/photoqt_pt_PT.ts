@@ -9,7 +9,7 @@
     <message>
         <location filename="../widgets/aboutwidget.cpp" line="45"/>
         <source>Up until version 0.9.1, PhotoQt used to be called simply &apos;Photo&apos;. But Photo isn&apos;t quite a unique and creative name (born simply out of the need to give it some name). Searching the web for it was close to impossible. Whether PhotoQt is a much more creative name than Photo is debatable, but it certainly is a little more unique. Simply searching the web for &apos;photoqt&apos; results in some (more or less) relevant websites amongst the top results. On top of it, quite often the name of this application was thought to already be PhotoQt (or Photo-Qt), a confusion probably mainly caused by its website being photoqt.org.</source>
-        <translation>Até à versão 0.9.1, o PhotoQt chamava-se &apos;Photo&apos;. Contudo, Photo não é um nome comum e criativo. Procurar a aplicação na web era praticamente impossível. Se o nome PhotoQt é mais original do que Photo, podem existir dúvidas mas é com certeza muito mais exclusivo. Uma pesquisa web por PhotoQt devolve resultados muito mais apropriados para aquilo que se pretende. Além do mais o nome do sítio web também é photoqt.org o que facilita as procuras.</translation>
+        <translation>Até à versão 0.9.1, o PhotoQt chamava-se &apos;Photo&apos;. Contudo, Photo não é um nome único e criativo. Procurar a aplicação na web era praticamente impossível. Se o nome PhotoQt é mais original do que Photo, podem existir dúvidas mas é com certeza muito mais exclusivo. Uma pesquisa web por PhotoQt devolve resultados muito mais apropriados para aquilo que se pretende. Além do mais o nome do sítio web também é photoqt.org o que facilita as procuras.</translation>
     </message>
     <message>
         <location filename="../widgets/aboutwidget.cpp" line="46"/>
@@ -24,7 +24,7 @@
     <message>
         <location filename="../widgets/aboutwidget.cpp" line="48"/>
         <source>I heard a number of times people saying, that PhotoQt is a &quot;copy&quot; of Picasa&apos;s image viewer. Well, it&apos;s not. In fact, I myself have never used Picasa. I have seen it in use though by others, and I can&apos;t deny that it influenced the basic design idea a little. But I&apos;m not trying to do something &quot;like Picasa&quot;. I try to do my own thing, and to do it as good as I can. If some consider it to be a replacement for Picasa, well, I feel a little honoured (since Picasa is created by &quot;proper&quot; programmers).</source>
-        <translation>Diversas vezes ouvi que o PhotoQt é uma cópia do visualizador de imagens Picasa. Posso afirmar que tal não corresponde à verdade. Nunca utilizei o Picasa mas já o vi a ser utilizado por outras pessoas. Na verdade, posso ter sido um pouco influenciado pela idea do seu aspeto, mas não estou a tentar criar algo semelhante. Tento fazer as coisas à minha maneira e da melhor forma possível. Se alguém achar que esta aplicação é uma cópia do Picasa, sinto-me honrado uma vez que essa aplicação é desenvolvida por programadores a sério.</translation>
+        <translation>Diversas vezes ouvi que o PhotoQt é uma cópia do visualizador de imagens Picasa. Posso afirmar que tal não corresponde à verdade. Nunca utilizei o Picasa mas já o vi a ser utilizado por outras pessoas. Na verdade, posso ter sido um pouco influenciado pela ideia do seu aspeto, mas não estou a tentar criar algo semelhante. Tento fazer as coisas à minha maneira e da melhor forma possível. Se alguém achar que esta aplicação é uma cópia do Picasa, sinto-me honrado uma vez que essa aplicação é desenvolvida por programadores a sério.</translation>
     </message>
     <message>
         <location filename="../widgets/aboutwidget.cpp" line="49"/>
@@ -39,17 +39,17 @@
     <message>
         <location filename="../widgets/aboutwidget.cpp" line="51"/>
         <source>If you find a bug or if you have a question or suggestion, tell me. I&apos;m open to any feedback I get :)</source>
-        <translation>Se encontrar erros ou tiver uma questão ou sugestão, reporte-os. Estou disponível para esclarecimentos :-)</translation>
+        <translation>Se encontrar erros, tiver uma questão ou sugestão, escreva-me. Estou disponível para esclarecimentos :-)</translation>
     </message>
     <message>
         <location filename="../widgets/aboutwidget.cpp" line="52"/>
         <source>Thanks to everybody who&lt;br&gt;contributed to PhotoQt&lt;br&gt;and/or translated PhotoQt to another language!&lt;br&gt;&lt;br&gt;You guys rock!! :-)</source>
-        <translation>Muito obrigado a todas as pessoas que &lt;br&gt;ajudaram no desenvolvimento&lt;br&gt;e/ou ajudaram a traduzir o PhotoQt.!&lt;br&gt;&lt;br&gt;</translation>
+        <translation>Muito obrigado a todas as pessoas&lt;br&gt;que ajudaram no desenvolvimento&lt;br&gt;e/ou ajudaram a traduzir o PhotoQt!&lt;br&gt;&lt;br&gt;</translation>
     </message>
     <message>
         <location filename="../widgets/aboutwidget.cpp" line="53"/>
         <source>You want to join the team and do something, e.g. translating PhotoQt to another language? Drop me and email (Lukas@photoqt.org), and for translations, check the project page on Transifex: http://transifex.com/p/photo.</source>
-        <translation>Pretende ajudar no desenvolvimento do PhotoQt ou ajudar na tradução? Envie uma mensagem eletrónica para (Lukas@photoqt.org) e, para traduções, consulte o projeto no Transifex em: http://transifex.com/p/photo.</translation>
+        <translation>Pretende ajudar no desenvolvimento do PhotoQt ou na tradução? Envie uma mensagem eletrónica para (Lukas@photoqt.org) e, para traduções, consulte o projeto no Transifex: http://transifex.com/p/photo.</translation>
     </message>
     <message>
         <location filename="../widgets/aboutwidget.cpp" line="81"/>
@@ -206,7 +206,7 @@
         <location filename="../widgets/detailswidget.cpp" line="100"/>
         <source>White fluorescent</source>
         <extracomment>This string refers to the light source</extracomment>
-        <translation>Branco Fluorescente</translation>
+        <translation>Branco fluorescente</translation>
     </message>
     <message>
         <location filename="../widgets/detailswidget.cpp" line="102"/>
@@ -220,7 +220,7 @@
         <location filename="../widgets/detailswidget.cpp" line="110"/>
         <source>ISO studio tungsten</source>
         <extracomment>This string refers to the light source</extracomment>
-        <translation>ISO tungsténio studio</translation>
+        <translation>Tungsténio ISO studio</translation>
     </message>
     <message>
         <location filename="../widgets/detailswidget.cpp" line="112"/>
@@ -598,7 +598,7 @@
     <message>
         <location filename="../filterimages/filterimagessetup.cpp" line="31"/>
         <source>Enter here the term you want to search for. Seperate multiple terms by a space.</source>
-        <translation>Escreva aqui o termo de procura. Pode separar termos utilizando um espaço.</translation>
+        <translation>Escreva aqui o termo de procura. Pode separar os termos utilizando um espaço.</translation>
     </message>
     <message>
         <location filename="../filterimages/filterimagessetup.cpp" line="31"/>
@@ -686,7 +686,7 @@
     <message>
         <location filename="../graphics/graphicsview.cpp" line="217"/>
         <source>Actual</source>
-        <translation>Atual</translation>
+        <translation>Real</translation>
     </message>
     <message>
         <location filename="../graphics/graphicsview.cpp" line="220"/>
@@ -796,7 +796,7 @@
     <message>
         <location filename="../widgets/quicksettings.cpp" line="44"/>
         <source>Change settings with one click. They are saved and applied immediately. If you&apos;re unsure what a setting does, check the full settings for descriptions.</source>
-        <translation>Mude as definições com um clique. As alterações são gravadas e aplicadas imediatamente. Se não souber o efeito de uma funçao, consulte as descrições nas definições completas.</translation>
+        <translation>Mude as definições com um clique. As alterações são gravadas e aplicadas imediatamente. Se não souber o efeito de uma função, consulte as descrições nas definições completas.</translation>
     </message>
     <message>
         <location filename="../widgets/quicksettings.cpp" line="47"/>
@@ -920,7 +920,7 @@
     <message>
         <location filename="../manipulation/scale.cpp" line="143"/>
         <source>Sorry, scaling is currently only available for filetypes natively supported by Qt...</source>
-        <translation>Desculpe mas o ajustamento apenas está disponível para os formatos suportados pela estrutura Qt...</translation>
+        <translation>Desculpe mas o ajustamento só está disponível para formatos suportados pela estrutura Qt...</translation>
     </message>
     <message>
         <location filename="../manipulation/scale.cpp" line="143"/>
@@ -1006,7 +1006,7 @@
     <message>
         <location filename="../settings/settings.cpp" line="57"/>
         <source>This step cannot be reversed!</source>
-        <translation>Esta açao não pode ser anulada!</translation>
+        <translation>Esta ação não pode ser anulada!</translation>
     </message>
     <message>
         <location filename="../settings/settings.cpp" line="57"/>
@@ -1054,7 +1054,7 @@
     <message>
         <location filename="../settings/settingstabexif.cpp" line="43"/>
         <source>PhotoQt can display different information of and about each image. The widget for this information is on the left outside the screen and slides in when mouse gets close to it and/or when the set shortcut (default Ctrl+E) is triggered. On demand, the triggering by mouse movement can be disabled by checking the box below.</source>
-        <translation>O PhotoQt pode mostrar as diversas informações das imagens. O widget para estas informações situa-se na margem esquerda do ecrã e será exibido ao aproximar o ponteiro do rato ou através do atalho (Ctrl+E). Pode desativar a ativação do widget com o ponteiro do rato selecionando a caixa abaixo.</translation>
+        <translation>O PhotoQt pode mostrar diversas informações sobre as imagens. O widget para estas informações situa-se na margem esquerda do ecrã e será exibido ao aproximar o ponteiro do rato ou através do atalho (Ctrl+E). Pode desativar a ativação do widget com o ponteiro do rato selecionando a caixa abaixo.</translation>
     </message>
     <message>
         <location filename="../settings/settingstabexif.cpp" line="50"/>
@@ -1064,7 +1064,7 @@
     <message>
         <location filename="../settings/settingstabexif.cpp" line="50"/>
         <source>Per default the info widget can be shown two ways: Moving the mouse cursor to the left screen edge to fade it in temporarily (as long as the mouse is hovering it), or permanently by clicking the checkbox (checkbox only stored per session, can&apos;t be saved permanently!). Alternatively the widget can also be triggered by shortcut. On demand the mouse triggering can be disabled, so that the widget would only show on shortcut. This can come in handy, if you get annoyed by accidentally opening the widget occasionally.</source>
-        <translation>As informações do widget podem ser mostradas de duas formas: mover o cursor do rato para a margem esquerda do ecrã para o mostrar temporariamente (enquanto o rato lá estiver), ou clicando na caixa (opção apenas memorizada por sessão). Alternativamente, também pode ser mostrado através de uma tecla de atalho. A opção de ativar o widget com o rato pode ser desativada de modo a que o widget apenas seja mostrado através do atalho. Pode ser bastante útil caso se sinta incomodado pelo aparecimento acidental.</translation>
+        <translation>As informações do widget podem ser mostradas de duas formas: mover o cursor do rato para a margem esquerda do ecrã para o mostrar temporariamente (enquanto o rato lá estiver), ou clicando na caixa (opção apenas memorizada por sessão). Alternativamente, também pode ser mostrado através de uma tecla de atalho. A opção de ativar o widget com o rato pode ser desativada para que o widget apenas seja mostrado através da tecla de atalho. Pode ser bastante útil caso se sinta incomodado pelo aparecimento acidental.</translation>
     </message>
     <message>
         <location filename="../settings/settingstabexif.cpp" line="52"/>
@@ -1074,7 +1074,7 @@
     <message>
         <location filename="../settings/settingstabexif.cpp" line="64"/>
         <source>Use of Exiv2 has been disabled as PhotoQt was compiled/installed!</source>
-        <translation>O PhotoQt foi compilado/instalado sem suporte a Exif2!</translation>
+        <translation>O PhotoQt foi compilado/instalado sem suporte a Exiv2!</translation>
     </message>
     <message>
         <location filename="../settings/settingstabexif.cpp" line="68"/>
@@ -1199,22 +1199,22 @@
     <message>
         <location filename="../settings/settingstabexif.cpp" line="208"/>
         <source>Rotating/Flipping Image according to Exif Data</source>
-        <translation>Rodar/Inverter imagem conforme os dados Exif</translation>
+        <translation>Rodar/inverter imagem conforme os dados Exif</translation>
     </message>
     <message>
         <location filename="../settings/settingstabexif.cpp" line="208"/>
         <source>Some cameras can detect - while taking the photo - whether the camera was turned and might store this information in the image exif data. If PhotoQt finds this information, it can rotate the image accordingly. Per default it&apos;s not doing it, but it can be enabled here as desired.</source>
-        <translation>Alguns equipamentos podem detetar - ao tirar a foto - se a máquina fotográfica foi rodada e podem guardar essas informações nos dados exif. Se o PhotoQt encontrar estas informações, pode rodar a imagem em conformidade. Por definição, não o faz, mas a opção pode ser ativada aqui.</translation>
+        <translation>Alguns equipamentos podem detetar - ao tirar a foto - se a máquina fotográfica foi rodada, e podem guardar essas informações nos dados Exif. Se o PhotoQt encontrar estas informações, pode rodar a imagem em conformidade. Por definição não o faz, mas a opção pode ser ativada aqui.</translation>
     </message>
     <message>
         <location filename="../settings/settingstabexif.cpp" line="211"/>
         <source>Never rotate images</source>
-        <translation>Nunca rodar imagens</translation>
+        <translation>Nunca rodar</translation>
     </message>
     <message>
         <location filename="../settings/settingstabexif.cpp" line="212"/>
         <source>Always rotate images</source>
-        <translation>Rodar imagens</translation>
+        <translation>Rodar sempre</translation>
     </message>
     <message>
         <location filename="../settings/settingstabexif.cpp" line="213"/>
@@ -1277,7 +1277,7 @@
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="91"/>
         <source>The background of PhotoQt is the part, that is not covered by an image. It can be made either real (half-)transparent (using a compositor), or faked transparent (instead of the actual desktop a screenshot of it is shown), or a custom background image can be set, or none of the above.</source>
-        <translation>O fundo do PhotoQt é a área que não está coberta pela imagem. O fundo pode ser totalmente transparente (ou parcial) através de um compositor, pode definir uma transparência fictícia (utiliza uma captura de ecrã do seu ambiente de trabalho), pode utilizar uma imagem ou então nenhuma das anteriores opções.</translation>
+        <translation>O fundo do PhotoQt é a área que não está coberta pela imagem. O fundo pode ser totalmente transparente (ou parcial) através de um compositor. Pode definir uma transparência fictícia (utiliza uma captura de ecrã do seu ambiente de trabalho), pode utilizar uma imagem ou então nenhuma das anteriores opções.</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="93"/>
@@ -1335,7 +1335,7 @@
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="188"/>
         <source>When started PhotoQt creates a tray icon in the system tray. If desired, you can set PhotoQt to minimise to the tray instead of quitting. This causes PhotoQt to be almost instantaneously available when an image is opened.</source>
-        <translation>Ao ser iniciado, o PhotoQt coloca um ícone na bandeja do sistema. Se quiser, pode definir que o PhotoQt será minimizado na bandeja e não fechado. Comor consequência, o PhotoQt estará disponível ao abrir uma imagem.</translation>
+        <translation>Ao ser iniciado, o PhotoQt coloca um ícone na bandeja do sistema. Se quiser, pode definir que o PhotoQt será minimizado na bandeja e não fechado. Como consequência, o PhotoQt estará disponível ao abrir uma imagem.</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="188"/>
@@ -1355,7 +1355,7 @@
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="203"/>
         <source>When you load the last image in a directory and select &quot;Next&quot;, PhotoQt automatically jumps to the first image (and vice versa: if you select &quot;Previous&quot; while having the first image loaded, PhotoQt jumps to the last image). Disabling this option makes PhotoQt stop at the first/last image (i.e. selecting &quot;Next&quot;/&quot;Previous&quot; will have no effect in these two special cases).</source>
-        <translation>Ao carregar a última imagem do diretório e selecionar &quot;Seguinte&quot;, o PhotoQt vai para a primeira imagem (ou última, no caso de selecionar &quot;Anterior&quot; se estiver carregada a primeira). Se desativar esta opção, faz com que o PhotoQt pare na primeira ou última imagem (isto é, a opção não produz qualquer efeite ao clicar em &quot;Seguinte/Anterior&quot;).</translation>
+        <translation>Ao carregar a última imagem do diretório e selecionar &quot;Seguinte&quot;, o PhotoQt vai para a primeira imagem (ou última, no caso de selecionar &quot;Anterior&quot; se estiver carregada a primeira). Se desativar esta opção, faz com que o PhotoQt pare na primeira ou última imagem (isto é, a opção não produz qualquer efeito ao clicar em &quot;Seguinte/Anterior&quot;).</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="222"/>
@@ -1426,7 +1426,7 @@
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="284"/>
         <source>This option makes PhotoQt behave a bit like the JavaScript image viewers you find on many websites. A click outside of the image on the empty background will close the application. It can be a nice feature, PhotoQt will feel even more like a &quot;floating layer&quot;. However, you might at times close PhotoQt accidentally.</source>
-        <translation>Esta opção faz com que o PhotoQt se comporte como os visualizadores de imagem JavaScript encontrados em muitos sítios web. Se clicar nama área exterior à imagem, a aplicação será fechada. Pode ser uma funcionalidade agradável para algumas pessoas, mas tenha em conta que a aplicação pode ser fechada sem querer.</translation>
+        <translation>Esta opção faz com que o PhotoQt se comporte como os visualizadores de imagem JavaScript, encontrados em muitos sítios web. Se clicar numa área exterior à imagem, a aplicação será fechada. Pode ser uma funcionalidade agradável para algumas pessoas, mas tenha em conta que a aplicação pode ser fechada sem querer.</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="284"/>
@@ -1441,7 +1441,7 @@
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="306"/>
         <source>Whenever you load an image, the image is per default not shown completely in fullscreen, i.e. it&apos;s not stretching from screen edge to screen edge. Instead there is a small margin around the image of a couple pixels (looks better). Here you can adjust the width of this margin (set to 0 to disable it).</source>
-        <translation>Sempre que carregar uma imagem, esta não é mostrada completamente no modo de ecrã completo. Será mostrada uma pequena margem em redor da imagem com um conjunto de pixéis (melhor aspeto). Aqui pode ajustar a largura dessa margem (o valor 0 desativa a margem).</translation>
+        <translation>Sempre que carregar uma imagem, esta não é mostrada completamente no modo de ecrã completo. Será mostrada uma pequena margem em redor da imagem com um conjunto de pixeis (melhor aspeto). Aqui pode ajustar a largura dessa margem (o valor 0 desativa a margem).</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="323"/>
@@ -1451,7 +1451,7 @@
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="323"/>
         <source>Here you can hide the text labels shown in the main area: The Counter in the top left corner, the file path/name following the counter, and the &quot;X&quot; displayed in the top right corner. The labels can also be hidden by simply right-clicking on them and selecting &quot;Hide&quot;.</source>
-        <translation>Aqui pode ocultar o texto mostrado na área principal. O contador e nome/caminho do ficheirono canto superior esquerdo e o &quot;X&quot; mostrado no canto superior direito. Estes textos também podem ser ocultados se clicar com o botão direito do rato no item e escolher &quot;Ocultar&quot;.</translation>
+        <translation>Aqui pode ocultar o texto mostrado na área principal. O contador e nome/caminho do ficheiro no canto superior esquerdo e o &quot;X&quot; mostrado no canto superior direito. Estes textos também podem ser ocultados se clicar com o botão direito do rato no item e escolher &quot;Ocultar&quot;.</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="327"/>
@@ -1519,7 +1519,7 @@
     <message>
         <location filename="../settings/settingstabother.cpp" line="216"/>
         <source>The &apos;Quick Settings&apos; is a widget hidden on the right side of the screen. When you move the cursor there, it shows up, and you can adjust a few simple settings on the spot without having to go through this settings dialog. Of course, only a small subset of settings is available (the ones needed most often). Here you can disable the dialog so that it doesn&apos;t show on mouse movement anymore.</source>
-        <translation>As definições rápidas são um widget que está oculto na margem direita do ecrã. Ao mover o cursor para essa margem, o widget é mostrado e nele o utilizador pode ajustar algumas definições sem ter que aceder ao diálogo de definições. No entanto, apenas estão disponíveis algumas definições (aquelas que são mais utilizadas). Aqui pode desativar o aparecimento do widget.</translation>
+        <translation>As definições rápidas são um widget que está oculto na margem direita do ecrã. Ao mover o cursor para essa margem, o widget é mostrado e o utilizador pode ajustar algumas definições sem ter que aceder ao diálogo de definições. No entanto, apenas estão disponíveis algumas definições (aquelas que são mais utilizadas). Aqui pode desativar o aparecimento do widget.</translation>
     </message>
     <message>
         <location filename="../settings/settingstabother.cpp" line="217"/>
@@ -1555,7 +1555,7 @@
         <location filename="../settings/settingstabother.cpp" line="257"/>
         <location filename="../settings/settingstabother.cpp" line="307"/>
         <source>If you want to add a file type not in the list, you can add them in the text box below. You have to enter the formats like &apos;*.ending&apos;, all seperated by commas.</source>
-        <translation>Se quiser adicionar um tipo de ficheiro que não esteja presente na lista, utilize a caixa abaixo. Tem que introduzir formatos com o sufixo*.formato e separados com vírgula.</translation>
+        <translation>Se quiser adicionar um tipo de ficheiro que não esteja presente na lista, utilize a caixa abaixo. Tem que introduzir formatos com o sufixo *.formato e separados com vírgula.</translation>
     </message>
     <message>
         <location filename="../settings/settingstabother.cpp" line="274"/>
@@ -1580,7 +1580,7 @@
     <message>
         <location filename="../settings/settingstabother.cpp" line="303"/>
         <source>Use of GraphicsMagick has been disabled as PhotoQt was compiled/installed!</source>
-        <translation>Suporte GraphicsMagick não disponível. O PhotoQt foi compilado/instalado sem suporte a GraphicsMagick!</translation>
+        <translation>O PhotoQt foi compilado/instalado sem suporte a GraphicsMagick!</translation>
     </message>
     <message>
         <location filename="../settings/settingstabother.cpp" line="307"/>
@@ -1600,7 +1600,7 @@
     <message>
         <location filename="../settings/settingstabother.cpp" line="370"/>
         <source>The following file types are supported by GraphicsMagick, but aren&apos;t quite working in PhotoQt just yet. If you want to experiment around a little, feel free to enable some of them. They shouldn&apos;t cause PhotoQt to crash, but you might see an error image instead of the actual image.</source>
-        <translation>Os ficheiros abaixo indicados são suportados pelo GraphicsMagick, mas ainda não funcionam corretamente no PhotoQt. Se quiser testar os formatos, ative-os. Estes formatos não devem originar o encerramento dno PhotoQt, mas é provável que em vez de uma imagem, veja um erro.</translation>
+        <translation>Os ficheiros abaixo indicados são suportados pelo GraphicsMagick, mas ainda não funcionam corretamente no PhotoQt. Se quiser testar os formatos, ative-os. Estes formatos não devem originar o encerramento do PhotoQt, mas é provável que em vez de uma imagem, veja um erro.</translation>
     </message>
 </context>
 <context>
@@ -1613,7 +1613,7 @@
     <message>
         <location filename="../settings/settingstabshortcuts.cpp" line="56"/>
         <source>Here you can adjust the shortcuts, add new or remove existing ones, or change a key combination. The shortcuts are grouped into 4 different categories for internal commands plus a category for external commands. The boxes on the right side contain all the possible commands. To add a shortcut for one of the available function you can either double click on the tile or click the &quot;+&quot; button. This automatically opens another widget where you can set a key combination.</source>
-        <translation>Aqui pode adicionar, remover e ajustar os atalhos ou mudar uma combinação de teclas. Os atalhos estã agrupados em 4 categorias para comandos internos e mais uma para comandos externos. As caixas do lado direito possuem todos os comandos possíveis. Para adicionar um atalho a uma das funções existentes, pode clicar duas vezes na função ou no botão +. Será aberto um novo widget, no qual poderá definir a combinação de teclas.</translation>
+        <translation>Aqui pode adicionar, remover e ajustar os atalhos ou mudar uma combinação de teclas. Os atalhos estão agrupados em 4 categorias para comandos internos e mais uma para comandos externos. As caixas do lado direito possuem todos os comandos possíveis. Para adicionar um atalho a uma das funções existentes, pode clicar duas vezes na função ou no botão +. Será aberto um novo widget, no qual poderá definir a combinação de teclas.</translation>
     </message>
     <message>
         <location filename="../settings/settingstabshortcuts.cpp" line="65"/>
@@ -1633,7 +1633,7 @@
     <message>
         <location filename="../settings/settingstabshortcuts.cpp" line="72"/>
         <source>This step cannot be reversed!</source>
-        <translation>Esta ação não pode ser anulada!</translation>
+        <translation>Esta ação não pode ser revertida!</translation>
     </message>
     <message>
         <location filename="../settings/settingstabshortcuts.cpp" line="72"/>
@@ -1788,7 +1788,7 @@
     <message>
         <location filename="../settings/settingstabshortcuts.cpp" line="149"/>
         <source>Start Slideshow (Quickstart)</source>
-        <translation>Iniciar apresentação (Arranque rápido)</translation>
+        <translation>Iniciar apresentação (arranque rápido)</translation>
     </message>
     <message>
         <location filename="../settings/settingstabshortcuts.cpp" line="150"/>
@@ -1881,7 +1881,7 @@
     <message>
         <location filename="../settings/settingstabthumbnail.cpp" line="122"/>
         <source>The thumbnails are shown in a row at the lower or upper edge (depending on your setup). They are lined up side by side. Per default, there&apos;s no empty space between them, however exactly that can be changed here.</source>
-        <translation>As miniaturas são mostradas numa linha na margem superior ou inferior (depende da configuração) e estão alinhadas lado a lado. Por definição, não existe qualquer espaçamento entre as miniaturas mas pode alterar aqui a opção.</translation>
+        <translation>As miniaturas são mostradas numa linha na margem superior ou inferior (depende da configuração) e alinhadas lado a lado. Por definição, não existe qualquer espaçamento entre as miniaturas mas pode alterar aqui a opção.</translation>
     </message>
     <message>
         <location filename="../settings/settingstabthumbnail.cpp" line="147"/>
@@ -1952,7 +1952,7 @@
     <message>
         <location filename="../settings/settingstabthumbnail.cpp" line="213"/>
         <source>If you don&apos;t want PhotoQt to always load the actual image thumbnail in the background, but you still want to have something for better navigating, then you can set a file-name-only thumbnail, i.e. PhotoQt wont load any thumbnail images but simply puts the file name into the box. You can also adjust the font size of this text.</source>
-        <translation>Se não quiser que o PhotoQt carregue a miniatura da imagem atual em segundo plano, mas ainda assim quiser algo para uma melhor navegação, aqui pode criar uma miniatura só copm o nome do ficheiro. O PhotoQt não carregará quaisquer miniaturas de imagens mas coloca o nome do ficheiro na caixa. Também pode ajustar o tipo de letra do texto.</translation>
+        <translation>Se não quiser que o PhotoQt carregue a miniatura da imagem atual em segundo plano, mas ainda assim quiser algo para uma melhor navegação, aqui pode criar uma miniatura só com o nome do ficheiro. O PhotoQt não carregará quaisquer miniaturas mas coloca o nome do ficheiro na caixa. Também pode ajustar o tipo de letra do texto.</translation>
     </message>
     <message>
         <location filename="../settings/settingstabthumbnail.cpp" line="215"/>
@@ -1967,7 +1967,7 @@
     <message>
         <location filename="../settings/settingstabthumbnail.cpp" line="250"/>
         <source>When thumbnails are displayed at the top/bottom, PhotoQt usually writes the filename on them. If wanted, this can be switched to the image resolution. Or even both can be displayed, whatever you want.</source>
-        <translation>Normalmente, se as miniaturas forem mostradas em cima /baixo, o PhotoQt mostra o nome do ficheiro. Se quiser pode alterar a opção para que apareça a resolução da imagem, ou ambas as opções.</translation>
+        <translation>Normalmente, se as miniaturas forem mostradas em cima /baixo, o PhotoQt mostra o nome do ficheiro. Se quiser, pode alterar a opção para que apareça a resolução da imagem ou ambas as opções.</translation>
     </message>
     <message>
         <location filename="../settings/settingstabthumbnail.cpp" line="251"/>
@@ -1987,7 +1987,7 @@
     <message>
         <location filename="../settings/settingstabthumbnail.cpp" line="266"/>
         <source>If you just don&apos;t need or don&apos;t want any thumbnails whatsoever, then you can disable them here completely. This option can also be toggled remotely via command line (run &apos;photoqt --help&apos; for more information on that). This might increase the speed of PhotoQt a good bit, however, navigating through a folder might be a little harder without thumbnails.</source>
-        <translation>Se não quiser ou não precisar de miniaturas, pode desativar aqui essa opção. A opção também pode ser alternada através da linha de comandos (execute &apos;photoqt --help&apos; para obter mais informações). Esta opção pode acelerar um pouco a resposta do PhotoQt mas a navegação no diretório de umagens pode ser um pouco mais complicada sem miniaturas.</translation>
+        <translation>Se não quiser ou não precisar de miniaturas, pode desativar aqui essa opção. A opção também pode ser alternada através da linha de comandos (execute &apos;photoqt --help&apos; para obter mais informações). Esta opção pode acelerar um pouco a resposta do PhotoQt mas a navegação no diretório de imagens pode ser um pouco mais complicada sem miniaturas.</translation>
     </message>
     <message>
         <location filename="../settings/settingstabthumbnail.cpp" line="268"/>
@@ -2062,7 +2062,7 @@
     <message>
         <location filename="../settings/settingstabthumbnail.cpp" line="340"/>
         <source>Do you really want to clean up the database? This removes all obsolete thumbnails, thus possibly making PhotoQt a little faster.</source>
-        <translation>Quer mesmo limpar a base de dados? Irá remover todas as miniaturas obsoletas e eventualmente acelerar o PhotoQt.</translation>
+        <translation>Quer mesmo limpar a base de dados? Irá remover todas as miniaturas obsoletas e, eventualmente, acelerar o PhotoQt.</translation>
     </message>
     <message>
         <location filename="../settings/settingstabthumbnail.cpp" line="340"/>
@@ -2087,7 +2087,7 @@
     <message>
         <location filename="../settings/settingstabthumbnail.cpp" line="344"/>
         <source>Do you really want to ERASE the entire database? This removes every single item in the database! This step should never really be necessarily. After that, every thumbnail has to be newly re-created. This step cannot be reversed!</source>
-        <translation>Quer mesmo apagar a base de dados? Irá remover todos os itens existentes! Esta ação não deve ser necessária. Ao terminar o processo, todas as miniaturas terão que ser recriadas. Esta ação não pode ser anulada!</translation>
+        <translation>Quer mesmo apagar a base de dados? Irá remover todos os itens existentes! Esta ação não deve ser necessária. Ao terminar o processo, todas as miniaturas terão que ser recriadas. Esta ação não pode ser revertida!</translation>
     </message>
     <message>
         <location filename="../settings/settingstabthumbnail.cpp" line="344"/>
@@ -2394,7 +2394,7 @@
     <message>
         <location filename="../widgets/startupwidget.cpp" line="67"/>
         <source>PhotoQt used to be able to only work with those file formats natively supported by Qt (which is already pretty good). But it now can also make use of GraphicsMagick, an image library. Currently, there are more than 80 different file formats supported! You can find a list of it in the settings (Tab &quot;Other&quot;). There you can en-/disable different ones and also add custom file endings.</source>
-        <translation>O PhotoQt apenas conseguia abrir os tipos de ficheiro suportados nativamente pela estrutura Qt (que já são bastantes). Mas, agora, também é possível utilizar a biblioteca GraphicsMagick. Atualmente, disponibiliza suporte a  mais de 80 formatos de ficheiro. Pode encontrar a lista de formatos suportados nas definições (separador Outros). Aqui pode ativar ou desativar os formatos.</translation>
+        <translation>O PhotoQt apenas conseguia ler os tipos de ficheiro suportados nativamente pela estrutura Qt (que já são bastantes). Mas, agora, também é possível utilizar a biblioteca GraphicsMagick. Atualmente, disponibiliza suporte a mais de 80 formatos de ficheiro. Encontra a lista de formatos suportados nas definições (separador Outros). Aqui pode ativar ou desativar os formatos.</translation>
     </message>
     <message>
         <location filename="../widgets/startupwidget.cpp" line="69"/>
@@ -2414,7 +2414,7 @@
     <message>
         <location filename="../widgets/startupwidget.cpp" line="70"/>
         <source>What would be an image viewer without thumbnails support? It would only be half as good. Whenever you load an image, PhotoQt loads the other images in the directory in the background (per default it only loads the ones whose thumbnails are currently visible). It lines them up in a row at the bottom edge (move your mouse there to see them). There are many settings just for the thumbnails, like size, liftup, en-/disabled, type, filename, permanently shown/hidden, etc. PhotoQt&apos;s quite flexible with that.</source>
-        <translation>O que seria de um visualizador de imagens sem suporte a miniaturas. Nada de especial. Sempre que carregar uma imagem, o PhotoQt carrega as outras imagens do diretório em segundo plano (por definição, apenas aquelas cujas miniaturas estão visíveis) e alinha-as na margem inferior do ecrã (mova o rato aqui para as ver). Existem diversas opções para as miniaturas. Como exmplo temos o tamanho, a ampliação, o tipo, nome de ficherio, mostrar ou ocultar permanentemente e muito mais.</translation>
+        <translation>O que seria de um visualizador de imagens sem suporte a miniaturas? Nada de especial. Sempre que carregar uma imagem, o PhotoQt carrega as outras imagens do diretório em segundo plano (por definição, apenas aquelas cujas miniaturas estão visíveis) e alinha-as na margem inferior do ecrã (mova o rato aqui para as ver). Existem diversas opções para as miniaturas. Como exemplo temos o tamanho, a ampliação, o tipo, nome de ficheiro, mostrar ou ocultar permanentemente e muito mais.</translation>
     </message>
     <message>
         <location filename="../widgets/startupwidget.cpp" line="72"/>
@@ -2424,7 +2424,7 @@
     <message>
         <location filename="../widgets/startupwidget.cpp" line="72"/>
         <source>One of the many strengths of PhotoQt is the ability to easily set a shortcut for almost anything. Even mouse shortcuts are possible!</source>
-        <translation>Uma das qualidades do PhotoQt é a capacidade de definir um atalho para todas as opções. Pode até utilizar a roda do rato!</translation>
+        <translation>Uma das características do PhotoQt é a capacidade de definir um atalho para quase tudo. Pode até utilizar a roda do rato!</translation>
     </message>
     <message>
         <location filename="../widgets/startupwidget.cpp" line="73"/>
@@ -2434,7 +2434,7 @@
     <message>
         <location filename="../widgets/startupwidget.cpp" line="73"/>
         <source>Most images store some information about the image in the file. PhotoQt can read and display a good bit of that. You can find this information in the slide-in window at the left edge of PhotoQt.</source>
-        <translation>A maioria das imagens guarda informações sobre a imagem dos ficheiros. O PhotoQt pode ler e mostrar essas informações. Pode encontrar estas informações na margem esquerda do PhotoQt.</translation>
+        <translation>A maioria das ficheiros guarda informações sobre a imagem existente. O PhotoQt pode ler e mostrar essas informações. Pode encontrar estas informações na margem esquerda do PhotoQt.</translation>
     </message>
     <message>
         <location filename="../widgets/startupwidget.cpp" line="74"/>
@@ -2464,7 +2464,7 @@
     <message>
         <location filename="../widgets/startupwidget.cpp" line="77"/>
         <source>PhotoQt also brings a slideshow feature. When you start a slideshow, it starts at the currently displayed image. There are a couple simply settings like transition and speed, and you can also set a music file that is played in the background. When the slideshow takes longer than the music file, then PhotoQt starts the music file all over from the beginning. At anytime during the slideshow, you can move the mouse cursor to the top edge of the screen to get a little bar, where you can pause/exit the slideshow and adjust the music volume.</source>
-        <translation>O PhotoQt também disponibiliza a função de apresentação. Ao iniciar a apresentação, esta inicia-se na imagem atual. Existem diversas definiçõs possíveis para a apresentação. Como exemplo temos o tempo de transição e a sua velocidade. Também pode reproduzir uma música em segundo plano. Se a apresentação demorar mais tempo do que a faixa reproduzida, o PhotoQt reinicia a faixa desde o inicio. Durante a apresentação, pode mover o cursor do rato até À margem superior do ecrã para mostrar uma pequena barra na qual pode parar ou sair da apresentação e ajustam o volume de reprodução.</translation>
+        <translation>O PhotoQt também disponibiliza a função de apresentação. Ao iniciar a apresentação, esta inicia-se na imagem atual. Existem diversas definições possíveis para a apresentação. Como exemplo temos o tempo de transição e a sua velocidade. Também pode reproduzir uma música em segundo plano. Se a apresentação demorar mais tempo do que a faixa reproduzida, o PhotoQt reinicia a faixa desde o inicio. Durante a apresentação, pode mover o cursor do rato até à margem superior do ecrã para mostrar uma pequena barra na qual pode parar ou sair da apresentação e ajustar o volume de reprodução.</translation>
     </message>
     <message>
         <location filename="../widgets/startupwidget.cpp" line="78"/>
@@ -2499,7 +2499,7 @@
     <message>
         <location filename="../widgets/startupwidget.cpp" line="101"/>
         <source>It has been more than a year since the last stable release of PhotoQt was released. For a while development has stalled as I was busy finishing my Bachelor degree, but I came back and once again there are some really cool (I believe) changes in this release. I gave my best to ensure that everything is working as smoothly as possible. But please forgive me if a bug sneaked in here or there again, they are never intended, I promise!</source>
-        <translation>Passou mais de um ano desde a última versão estável do PhotoQt. Durante algum tempo, o desenvolvimento esteve parado por motivos pessoais mas , agora, estou de volta com algumas alterações bastante agradáveis (acho eu) nesta versão. Dei o meu melhor para que nesta versão tudo esteja a funcionar corretamente. No entanto, é possível que ainda subsistam alguns erros. Caso os encontre, reporte-os!</translation>
+        <translation>Passou mais de um ano desde a última versão estável do PhotoQt. Durante algum tempo, o desenvolvimento esteve parado por motivos pessoais mas , agora, estou de volta com algumas alterações bastante agradáveis (acho). Dei o meu melhor para que nesta versão tudo esteja a funcionar corretamente. No entanto, é possível que ainda subsistam alguns erros. Caso os encontre, reporte-os!</translation>
     </message>
     <message>
         <location filename="../widgets/startupwidget.cpp" line="102"/>
@@ -2569,7 +2569,7 @@
     <message>
         <location filename="../wallpaper/wallpaper.cpp" line="65"/>
         <source>PhotoQt tries to detect you window manager according to the environment variables set by your system. If it still got it wrong, you can change the window manager here manually.</source>
-        <translation>O PhotoQt tenta detetar o gestor de janelas definido pelas variáveis do seu ambiente de trabalho. Se a deteção automática não funcionar, pode definir aqui o gestor de janelas.</translation>
+        <translation>O PhotoQt tenta detetar o gestor de janelas definido nas variáveis do seu ambiente de trabalho. Se a deteção automática não funcionar, pode definir aqui o gestor de janelas.</translation>
     </message>
     <message>
         <location filename="../wallpaper/wallpaper.cpp" line="78"/>
