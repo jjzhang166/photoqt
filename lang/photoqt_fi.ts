@@ -696,7 +696,7 @@
     <message>
         <location filename="../graphics/graphicsview.cpp" line="245"/>
         <source>Scale Image</source>
-        <translation type="unfinished"/>
+        <translation>Skaalaa kuvaa</translation>
     </message>
     <message>
         <location filename="../graphics/graphicsview.cpp" line="253"/>
@@ -796,62 +796,62 @@
     <message>
         <location filename="../widgets/quicksettings.cpp" line="44"/>
         <source>Change settings with one click. They are saved and applied immediately. If you&apos;re unsure what a setting does, check the full settings for descriptions.</source>
-        <translation type="unfinished"/>
+        <translation>Muuta asetuksia yhdellä napsautuksella. Muutokset tulevat voimaan välittömästi. Jos olet epävarma asetuksen vaikutuksista, tarkista kuvaus kaikkien asetusten näkymästä.</translation>
     </message>
     <message>
         <location filename="../widgets/quicksettings.cpp" line="47"/>
         <source>Real transparency</source>
-        <translation type="unfinished"/>
+        <translation>Oikea läpinäkyvyys</translation>
     </message>
     <message>
         <location filename="../widgets/quicksettings.cpp" line="48"/>
         <source>Faked transparency</source>
-        <translation type="unfinished"/>
+        <translation>Jäljittelevä läpinäkyvyys</translation>
     </message>
     <message>
         <location filename="../widgets/quicksettings.cpp" line="49"/>
         <source>Background image</source>
-        <translation type="unfinished"/>
+        <translation>Taustakuva</translation>
     </message>
     <message>
         <location filename="../widgets/quicksettings.cpp" line="50"/>
         <source>Coloured background</source>
-        <translation type="unfinished"/>
+        <translation>Väritetty taustakuva</translation>
     </message>
     <message>
         <location filename="../widgets/quicksettings.cpp" line="51"/>
         <source>Hide to system tray</source>
-        <translation type="unfinished"/>
+        <translation>Piilota ilmoitusalueelle</translation>
     </message>
     <message>
         <location filename="../widgets/quicksettings.cpp" line="52"/>
         <source>Loop through folder</source>
-        <translation type="unfinished"/>
+        <translation>Käy läpi kansiota</translation>
     </message>
     <message>
         <location filename="../widgets/quicksettings.cpp" line="53"/>
         <source>Window mode</source>
-        <translation type="unfinished"/>
+        <translation>Ikkunatila</translation>
     </message>
     <message>
         <location filename="../widgets/quicksettings.cpp" line="54"/>
         <source>Show window decoration</source>
-        <translation type="unfinished"/>
+        <translation>Näytä ikkunareunukset</translation>
     </message>
     <message>
         <location filename="../widgets/quicksettings.cpp" line="55"/>
         <source>Close on click on background</source>
-        <translation type="unfinished"/>
+        <translation>Sulje napsauttamalla taustakuvaa</translation>
     </message>
     <message>
         <location filename="../widgets/quicksettings.cpp" line="56"/>
         <source>Keep thumbnails visible</source>
-        <translation type="unfinished"/>
+        <translation>Pidä pikkukuvat näkyvissä</translation>
     </message>
     <message>
         <location filename="../widgets/quicksettings.cpp" line="57"/>
         <source>Dynamic thumbnails</source>
-        <translation type="unfinished"/>
+        <translation>Dynaamiset pikkukuvat</translation>
     </message>
     <message>
         <location filename="../widgets/quicksettings.cpp" line="58"/>
@@ -861,7 +861,7 @@
     <message>
         <location filename="../widgets/quicksettings.cpp" line="93"/>
         <source>Show full settings</source>
-        <translation type="unfinished"/>
+        <translation>Näytä kaikki asetukset</translation>
     </message>
 </context>
 <context>
@@ -869,7 +869,7 @@
     <message>
         <location filename="../manipulation/scale.cpp" line="12"/>
         <source>Scale Image</source>
-        <translation type="unfinished"/>
+        <translation>Skaalaa kuvaa</translation>
     </message>
     <message>
         <location filename="../manipulation/scale.cpp" line="14"/>
@@ -963,12 +963,12 @@
     <message>
         <location filename="../manipulation/scale.cpp" line="247"/>
         <source>Save as...</source>
-        <translation type="unfinished"/>
+        <translation>Tallenna nimellä...</translation>
     </message>
     <message>
         <location filename="../manipulation/scale.cpp" line="247"/>
         <source>Images</source>
-        <translation type="unfinished"/>
+        <translation>Kuvat</translation>
     </message>
     <message>
         <location filename="../manipulation/scale.cpp" line="254"/>
@@ -1262,7 +1262,7 @@
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="87"/>
         <source>Use faked transparency</source>
-        <translation type="unfinished"/>
+        <translation>Käytä jäljittelevää läpinäkyvyyttä</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="88"/>
@@ -1282,7 +1282,7 @@
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="93"/>
         <source>Note: Fake transparency currently only really works when PhotoQt is run in fullscreen/maximised!</source>
-        <translation type="unfinished"/>
+        <translation>Huomio: jäljittelevä läpinäkyvyys toimii vain, kun PhotoQT:tä käytetään koko näytön tilassa tai suurennettuna!</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="94"/>
@@ -1345,12 +1345,12 @@
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="202"/>
         <source>Loop Through Folder</source>
-        <translation type="unfinished"/>
+        <translation>Käy läpi kansiota</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="203"/>
         <source>Looping Through Folder</source>
-        <translation type="unfinished"/>
+        <translation>Käydään läpi kansiota</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="203"/>
@@ -1927,7 +1927,7 @@
     <message>
         <location filename="../settings/settingstabthumbnail.cpp" line="198"/>
         <source>Dynamic Thumbnail Creation</source>
-        <translation type="unfinished"/>
+        <translation>Dynaamiset pikkukuvien luonti</translation>
     </message>
     <message>
         <location filename="../settings/settingstabthumbnail.cpp" line="198"/>
@@ -1942,7 +1942,7 @@
     <message>
         <location filename="../settings/settingstabthumbnail.cpp" line="201"/>
         <source>Enable Dynamic Thumbnails</source>
-        <translation type="unfinished"/>
+        <translation>Käytä dynaamisia pikkukuvia</translation>
     </message>
     <message>
         <location filename="../settings/settingstabthumbnail.cpp" line="213"/>

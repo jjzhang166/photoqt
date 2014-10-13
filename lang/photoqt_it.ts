@@ -434,7 +434,7 @@
     <message>
         <location filename="../widgets/dropdownmenu.cpp" line="52"/>
         <source>Filter Images in Folder</source>
-        <translation type="unfinished"/>
+        <translation>Filtra immagini della cartella</translation>
     </message>
     <message>
         <location filename="../widgets/dropdownmenu.cpp" line="53"/>
@@ -580,12 +580,12 @@
     <message>
         <location filename="../filterimages/filterimagesdisplay.cpp" line="26"/>
         <source>Remove Image Filter</source>
-        <translation type="unfinished"/>
+        <translation>Rimuovi Filtro</translation>
     </message>
     <message>
         <location filename="../filterimages/filterimagesdisplay.cpp" line="35"/>
         <source>Click to change filter</source>
-        <translation type="unfinished"/>
+        <translation>Clicca per cambiare filtro</translation>
     </message>
 </context>
 <context>
@@ -593,32 +593,32 @@
     <message>
         <location filename="../filterimages/filterimagessetup.cpp" line="24"/>
         <source>Filter Images in Current Directory</source>
-        <translation type="unfinished"/>
+        <translation>Filtra immagini nella cartella corrente</translation>
     </message>
     <message>
         <location filename="../filterimages/filterimagessetup.cpp" line="31"/>
         <source>Enter here the term you want to search for. Seperate multiple terms by a space.</source>
-        <translation type="unfinished"/>
+        <translation>Digita qui quello che vuoi cercare. Separa le parole con uno spazio.</translation>
     </message>
     <message>
         <location filename="../filterimages/filterimagessetup.cpp" line="31"/>
         <source>If you want to limit a term to file extensions, prepend a dot &apos;.&apos; to the term.</source>
-        <translation type="unfinished"/>
+        <translation>Se vuoi filtrare in base all&apos;estensione, metti un punto davanti a questa.</translation>
     </message>
     <message>
         <location filename="../filterimages/filterimagessetup.cpp" line="39"/>
         <source>Filter</source>
-        <translation type="unfinished"/>
+        <translation>Filtra</translation>
     </message>
     <message>
         <location filename="../filterimages/filterimagessetup.cpp" line="41"/>
         <source>Cancel</source>
-        <translation type="unfinished"/>
+        <translation>Cancella</translation>
     </message>
     <message>
         <location filename="../filterimages/filterimagessetup.cpp" line="42"/>
         <source>Remove Filter</source>
-        <translation type="unfinished"/>
+        <translation>Rimuovi Filtro</translation>
     </message>
 </context>
 <context>
@@ -696,7 +696,7 @@
     <message>
         <location filename="../graphics/graphicsview.cpp" line="245"/>
         <source>Scale Image</source>
-        <translation type="unfinished"/>
+        <translation>Scala Immagine</translation>
     </message>
     <message>
         <location filename="../graphics/graphicsview.cpp" line="253"/>
@@ -791,77 +791,77 @@
     <message>
         <location filename="../widgets/quicksettings.cpp" line="39"/>
         <source>Quick Settings</source>
-        <translation type="unfinished"/>
+        <translation>Impostazioni rapide</translation>
     </message>
     <message>
         <location filename="../widgets/quicksettings.cpp" line="44"/>
         <source>Change settings with one click. They are saved and applied immediately. If you&apos;re unsure what a setting does, check the full settings for descriptions.</source>
-        <translation type="unfinished"/>
+        <translation>Cambia le impostazioni con un click. Esse vengono salvate e applicate immediatamente. Se non sei sicuro su cosa fare, vai nelle impostazioni avanzate e controlla la descrizione.</translation>
     </message>
     <message>
         <location filename="../widgets/quicksettings.cpp" line="47"/>
         <source>Real transparency</source>
-        <translation type="unfinished"/>
+        <translation>Trasparenza reale</translation>
     </message>
     <message>
         <location filename="../widgets/quicksettings.cpp" line="48"/>
         <source>Faked transparency</source>
-        <translation type="unfinished"/>
+        <translation>Falsa trasparenza</translation>
     </message>
     <message>
         <location filename="../widgets/quicksettings.cpp" line="49"/>
         <source>Background image</source>
-        <translation type="unfinished"/>
+        <translation>Sfondo</translation>
     </message>
     <message>
         <location filename="../widgets/quicksettings.cpp" line="50"/>
         <source>Coloured background</source>
-        <translation type="unfinished"/>
+        <translation>Sfondo colorato</translation>
     </message>
     <message>
         <location filename="../widgets/quicksettings.cpp" line="51"/>
         <source>Hide to system tray</source>
-        <translation type="unfinished"/>
+        <translation>Nascondi nella barra di sistema</translation>
     </message>
     <message>
         <location filename="../widgets/quicksettings.cpp" line="52"/>
         <source>Loop through folder</source>
-        <translation type="unfinished"/>
+        <translation>Loop della cartella</translation>
     </message>
     <message>
         <location filename="../widgets/quicksettings.cpp" line="53"/>
         <source>Window mode</source>
-        <translation type="unfinished"/>
+        <translation>Modalità finestra</translation>
     </message>
     <message>
         <location filename="../widgets/quicksettings.cpp" line="54"/>
         <source>Show window decoration</source>
-        <translation type="unfinished"/>
+        <translation>Mostra decorazione finestra</translation>
     </message>
     <message>
         <location filename="../widgets/quicksettings.cpp" line="55"/>
         <source>Close on click on background</source>
-        <translation type="unfinished"/>
+        <translation>Chiudi se viene fatto click sullo sfondo</translation>
     </message>
     <message>
         <location filename="../widgets/quicksettings.cpp" line="56"/>
         <source>Keep thumbnails visible</source>
-        <translation type="unfinished"/>
+        <translation>Mantieni visibili le miniature</translation>
     </message>
     <message>
         <location filename="../widgets/quicksettings.cpp" line="57"/>
         <source>Dynamic thumbnails</source>
-        <translation type="unfinished"/>
+        <translation>Miniature dinamiche</translation>
     </message>
     <message>
         <location filename="../widgets/quicksettings.cpp" line="58"/>
         <source>Enable &apos;Quick Settings&apos;</source>
-        <translation type="unfinished"/>
+        <translation>Abilita &apos;Impostazioni rapide&apos;</translation>
     </message>
     <message>
         <location filename="../widgets/quicksettings.cpp" line="93"/>
         <source>Show full settings</source>
-        <translation type="unfinished"/>
+        <translation>Mosta impostazioni avanzate</translation>
     </message>
 </context>
 <context>
@@ -869,23 +869,23 @@
     <message>
         <location filename="../manipulation/scale.cpp" line="12"/>
         <source>Scale Image</source>
-        <translation type="unfinished"/>
+        <translation>Scala immagine</translation>
     </message>
     <message>
         <location filename="../manipulation/scale.cpp" line="14"/>
         <location filename="../manipulation/scale.cpp" line="160"/>
         <source>Current Size:</source>
-        <translation type="unfinished"/>
+        <translation>Dimensioni attuali:</translation>
     </message>
     <message>
         <location filename="../manipulation/scale.cpp" line="20"/>
         <source>New Width:</source>
-        <translation type="unfinished"/>
+        <translation>Nuova larghezza:</translation>
     </message>
     <message>
         <location filename="../manipulation/scale.cpp" line="35"/>
         <source>New Height:</source>
-        <translation type="unfinished"/>
+        <translation>Nuova altezza:</translation>
     </message>
     <message>
         <location filename="../manipulation/scale.cpp" line="50"/>
@@ -895,27 +895,27 @@
     <message>
         <location filename="../manipulation/scale.cpp" line="66"/>
         <source>Quality:</source>
-        <translation type="unfinished"/>
+        <translation>Qualità:</translation>
     </message>
     <message>
         <location filename="../manipulation/scale.cpp" line="87"/>
         <source>Scale in place</source>
-        <translation type="unfinished"/>
+        <translation>Scala su questo file</translation>
     </message>
     <message>
         <location filename="../manipulation/scale.cpp" line="89"/>
         <source>Scale in new file</source>
-        <translation type="unfinished"/>
+        <translation>Scala su un nuovo file</translation>
     </message>
     <message>
         <location filename="../manipulation/scale.cpp" line="91"/>
         <source>Don&apos;t Scale</source>
-        <translation type="unfinished"/>
+        <translation>Non scalare</translation>
     </message>
     <message>
         <location filename="../manipulation/scale.cpp" line="143"/>
         <source>Filetype Not Supported</source>
-        <translation type="unfinished"/>
+        <translation>Formato non supportato</translation>
     </message>
     <message>
         <location filename="../manipulation/scale.cpp" line="143"/>
@@ -930,29 +930,29 @@
     <message>
         <location filename="../manipulation/scale.cpp" line="212"/>
         <source>Don&apos;t keep aspect ratio</source>
-        <translation type="unfinished"/>
+        <translation>Non mantenere proporzioni</translation>
     </message>
     <message>
         <location filename="../manipulation/scale.cpp" line="212"/>
         <source>Keep aspect ratio</source>
-        <translation type="unfinished"/>
+        <translation>Mantieni proporzioni</translation>
     </message>
     <message>
         <location filename="../manipulation/scale.cpp" line="228"/>
         <location filename="../manipulation/scale.cpp" line="253"/>
         <source>Overwrite Image?</source>
-        <translation type="unfinished"/>
+        <translation>Sovrascrivere immagine?</translation>
     </message>
     <message>
         <location filename="../manipulation/scale.cpp" line="229"/>
         <source>This will replace the current image with the scaled version... Continue?</source>
-        <translation type="unfinished"/>
+        <translation>Questo sostituirà l&apos;immagine attuale con la versione scalata... Continuare?</translation>
     </message>
     <message>
         <location filename="../manipulation/scale.cpp" line="230"/>
         <location filename="../manipulation/scale.cpp" line="255"/>
         <source>Continue</source>
-        <translation type="unfinished"/>
+        <translation>Continua</translation>
     </message>
     <message>
         <location filename="../manipulation/scale.cpp" line="230"/>
@@ -963,17 +963,17 @@
     <message>
         <location filename="../manipulation/scale.cpp" line="247"/>
         <source>Save as...</source>
-        <translation type="unfinished"/>
+        <translation>Salva come...</translation>
     </message>
     <message>
         <location filename="../manipulation/scale.cpp" line="247"/>
         <source>Images</source>
-        <translation type="unfinished"/>
+        <translation>Immagini</translation>
     </message>
     <message>
         <location filename="../manipulation/scale.cpp" line="254"/>
         <source>This file exists already... Continue?</source>
-        <translation type="unfinished"/>
+        <translation>Questo file esiste già... Continuare?</translation>
     </message>
 </context>
 <context>
@@ -1277,7 +1277,7 @@
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="91"/>
         <source>The background of PhotoQt is the part, that is not covered by an image. It can be made either real (half-)transparent (using a compositor), or faked transparent (instead of the actual desktop a screenshot of it is shown), or a custom background image can be set, or none of the above.</source>
-        <translation type="unfinished"/>
+        <translation>Lo sfondo di PhotoQt è la parte non coperta dall&apos;immagine corrente. Può essere usata una semitrasparenza (usando un compositor), una falsa trasparenza (al posto del vero desktop viene usato uno screenshot), un&apos;immagine personalizzata oppure nessuna di queste opzioni.</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="93"/>
@@ -1514,17 +1514,17 @@
     <message>
         <location filename="../settings/settingstabother.cpp" line="216"/>
         <source>Quick Settings</source>
-        <translation type="unfinished"/>
+        <translation>Impostazioni rapide</translation>
     </message>
     <message>
         <location filename="../settings/settingstabother.cpp" line="216"/>
         <source>The &apos;Quick Settings&apos; is a widget hidden on the right side of the screen. When you move the cursor there, it shows up, and you can adjust a few simple settings on the spot without having to go through this settings dialog. Of course, only a small subset of settings is available (the ones needed most often). Here you can disable the dialog so that it doesn&apos;t show on mouse movement anymore.</source>
-        <translation type="unfinished"/>
+        <translation>&apos;Impostazioni rapide&apos; è un widget nascosto sul lato destro dello schermo. Viene mostrato portando sopra il cursore, e da lì puoi accedere ad alcune impostazioni senza dover andare al pannello impostazioni. Solo le impostazioni usate più spesso sono disponibili. Da qui puoi disattivare il pannello in modo che non venga più mostrato.</translation>
     </message>
     <message>
         <location filename="../settings/settingstabother.cpp" line="217"/>
         <source>Show &apos;Quick Settings&apos; on mouse hovering</source>
-        <translation type="unfinished"/>
+        <translation>Mostra &apos;Impostazioni rapide&apos; al passaggio del mouse</translation>
     </message>
     <message>
         <location filename="../settings/settingstabother.cpp" line="231"/>
@@ -1673,7 +1673,7 @@
     <message>
         <location filename="../settings/settingstabshortcuts.cpp" line="92"/>
         <source>Filter Images in Folder</source>
-        <translation type="unfinished"/>
+        <translation>Filtra immagini della cartella</translation>
     </message>
     <message>
         <location filename="../settings/settingstabshortcuts.cpp" line="93"/>
@@ -1733,7 +1733,7 @@
     <message>
         <location filename="../settings/settingstabshortcuts.cpp" line="116"/>
         <source>Scale Image</source>
-        <translation type="unfinished"/>
+        <translation>Scala Immagine</translation>
     </message>
     <message>
         <location filename="../settings/settingstabshortcuts.cpp" line="131"/>
@@ -1773,7 +1773,7 @@
     <message>
         <location filename="../settings/settingstabshortcuts.cpp" line="146"/>
         <source>Show Context Menu</source>
-        <translation type="unfinished"/>
+        <translation>Mostra Menu contestuale</translation>
     </message>
     <message>
         <location filename="../settings/settingstabshortcuts.cpp" line="147"/>
@@ -2499,7 +2499,7 @@
     <message>
         <location filename="../widgets/startupwidget.cpp" line="101"/>
         <source>It has been more than a year since the last stable release of PhotoQt was released. For a while development has stalled as I was busy finishing my Bachelor degree, but I came back and once again there are some really cool (I believe) changes in this release. I gave my best to ensure that everything is working as smoothly as possible. But please forgive me if a bug sneaked in here or there again, they are never intended, I promise!</source>
-        <translation type="unfinished"/>
+        <translation>È passato oltre un anno dall&apos;ultima release stabile. Per un po&apos; di tempo lo sviluppo è andato a rilento mentre finivo la mia laurea, ma ora sono tornato e ci sono un bel po&apos; di novità interessanti in questa release. Ho dato il mio meglio per assicurarmi che tutto funzionasse nel migliore dei modi, ma per favore perdonatemi se ogni tanto spunta fuori qualche bug, non li metto di proposito, lo giuro!</translation>
     </message>
     <message>
         <location filename="../widgets/startupwidget.cpp" line="102"/>
@@ -2519,12 +2519,12 @@
     <message>
         <location filename="../widgets/startupwidget.cpp" line="113"/>
         <source>This app started out almost three years ago, and it has developed quite a bit since then. Although I gave my best to ensure that everything is working as smoothly as possible, please forgive me if a bug sneaked in here or there again, they are never intended, I promise!</source>
-        <translation type="unfinished"/>
+        <translation>Questa applicazione è nata quasi tre anni fa, ma è stata sviluppata un bel po&apos; durante questo tempo. Anche se ho dato il mio meglio per assicurarmi che tutto funzioni nel migliore dei modi, perdonatemi se ogni tanto spunta fuori qualche bug, non li metto di proposito, lo giuro!</translation>
     </message>
     <message>
         <location filename="../widgets/startupwidget.cpp" line="114"/>
         <source>Here below you find a short overview of what PhotoQt has to offer, but feel free to skip it and just get started.</source>
-        <translation type="unfinished"/>
+        <translation>Sotto trovi una breve presentazione di quello che offre PhotoQt, ma sentiti libero di saltarla e comiciare subito a usarlo.</translation>
     </message>
 </context>
 <context>
@@ -2541,7 +2541,7 @@
         <location filename="../graphics/graphicsviewlay.cpp" line="186"/>
         <location filename="../graphics/graphicsviewlay.cpp" line="223"/>
         <source>No images match current filter</source>
-        <translation type="unfinished"/>
+        <translation>Nessun&apos;immagine corrisponde al filtro attuale</translation>
     </message>
 </context>
 <context>

@@ -4,7 +4,7 @@
     <message>
         <location filename="../widgets/aboutwidget.cpp" line="44"/>
         <source>PhotoQt is a simple image viewer, designed to be good looking, highly configurable, yet easy to use and fast.</source>
-        <translation>PhotoQt é um simples visualizador de imagens, projetado para ser de boa aparência, altamente configurável, mas fácil de usar e rápido.</translation>
+        <translation>O PhotoQt é um visualizador de imagens criado com o intuito de ser elegante e ao mesmo tempo fácil de utilizar.</translation>
     </message>
     <message>
         <location filename="../widgets/aboutwidget.cpp" line="45"/>
