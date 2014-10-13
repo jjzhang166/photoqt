@@ -1,5 +1,10 @@
-Changelog PhotoQt v1.1  - Copyright (C) 2014, Lukas Spies (Lukas@photoqt.org), License: GPLv2 (or later)
+Changelog PhotoQt v1.1.0.1  - Copyright (C) 2014, Lukas Spies (Lukas@photoqt.org), License: GPLv2 (or later)
 ------------------------------------------------------------------------------------------------------------
+
+Release 1.1.0.1 - 13/10/2014
+----------------------------
+- Critical Fix: PhotoQt crashed on 32 Bit systems
+
 
 Release 1.1 - 12/10/2014
 ----------------------------
