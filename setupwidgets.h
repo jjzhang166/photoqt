@@ -37,6 +37,7 @@ public:
 		errormagick = false;
 		menu = false;
 		quicksettings = false;
+		scaleimage = false;
 	}
 
 	bool menu;
