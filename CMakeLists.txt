@@ -115,7 +115,8 @@ ENDFOREACH()
 # qrc file are relative to that directory.
 ADD_CUSTOM_COMMAND(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/resLang.qrc
 		   COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/resLang.qrc ${CMAKE_CURRENT_BINARY_DIR}/resLang.qrc
-		   MAIN_DEPENDENCY ${CMAKE_CURRENT_SOURCE_DIR}/resLang.qrc)
+		   MAIN_DEPENDENCY ${CMAKE_CURRENT_SOURCE_DIR}/resLang.qrc
+		   DEPENDS ${qm_files})
 
 
 # Set resources
