@@ -1,21 +1,5 @@
-/*
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License along
- * with this program; if not, write to the Free Software Foundation, Inc.,
- * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
- */
-
 #include "imagereader.h"
-#include <iostream>
+#include <QtDebug>
 
 ImageReader::ImageReader(bool v) : QObject() {
 
@@ -26,111 +10,46 @@ ImageReader::ImageReader(bool v) : QObject() {
 
 }
 
-bool ImageReader::doIUseMagick(QString filename) {
-
-#ifdef GM
-	QStringList qtFiles = qtfiles.replace("*","").split(",");
-
-	for(int i = 0; i < qtFiles.length(); ++i) {
-		if(filename.toLower().endsWith(qtFiles.at(i)))
-			return false;
-	}
-
-	return true;
-#else
-	return false;
-#endif
-
-}
-
-
 QImage ImageReader::readImage(QString filename, int rotation, bool zoomed, QSize maxSize, bool dontscale) {
 
-#ifdef GM
-	Magick::Image image;
-	QString faultyImage = "";
-#endif
-
-	QImageReader reader;
 
 	if(verbose) std::clog << "[reader] zoomed: " << zoomed << std::endl;
 
 	bool useMagick = doIUseMagick(filename);
 	if(verbose) std::clog << "Using Graphicsengine: " << (useMagick ? "Magick" : "ImageReader") << std::endl;
+	std::clog << "Using Graphicsengine: " << (useMagick ? "Magick" : "ImageReader") << std::endl;
 
-	origSize = QSize();
-	fileformat = "";
-	unsigned int readerWidth = 0;
-	unsigned int readerHeight = 0;
+	if(useMagick)
+		return readImage_GM(filename, rotation, zoomed, maxSize, dontscale);
+	return readImage_QT(filename, rotation, zoomed, maxSize, dontscale);
 
+}
+
+QImage ImageReader::readImage_QT(QString filename, int rotation, bool zoomed, QSize maxSize, bool dontscale) {
+
+	QImageReader reader;
 	QImage img;
 
-	if(!useMagick) {
+	// Scaling and adding the image to display (using QImageReader for better performance)
+	reader.setFileName(filename);
 
-		// Scaling and adding the image to display (using QImageReader for better performance)
-		reader.setFileName(filename);
+	// Store the width/height for later use
+	origSize = reader.size();
+	// Store the fileformat for later use
+	if(QFileInfo(filename).fileName() != "photoqt_tmp.png") fileformat = reader.format().toLower();
+	else fileformat = "";
 
-		// Store the width/height for later use
-		origSize = reader.size();
-		// Store the fileformat for later use
-		fileformat = reader.format().toLower();
-
-		// The image width/height
-		readerWidth = origSize.width();
-		readerHeight = origSize.height();
-
-
-
-	} else {
-
-#ifdef GM
-
-		try {
-			if(QFileInfo(filename).suffix() == "x" || QFileInfo(filename).suffix() == "avs") image.magick("AVS");
-			image.read(filename.toLatin1().data());
-		} catch( Magick::ErrorFileOpen &error ) {
-			std::cerr << "[read] ERROR: " << error.what() << std::endl;
-			faultyImage = error.what();
-		} catch( Magick::Warning &warning ) {
-			std::cerr << "[read] WARNING: " << warning.what() << std::endl;
-		} catch(Magick::Exception &error) {
-			std::cerr << "[read] ERROR: " << error.what() << std::endl;
-			faultyImage = error.what();
-		} catch(std::exception &error) {
-			std::cerr << "CAUGHT C++ STD EXCEPTION: " << error.what() << std::endl;
-			faultyImage = error.what();
-		} catch( ... ) {
-			std::cerr << "[read] CRITICAL ERROR: unknown reason" << std::endl;
-			faultyImage = "unknown error";
-		}
-
-		readerWidth = image.columns();
-		readerHeight = image.rows();
-
-		if(faultyImage == "") {
-
-			origSize = QSize(readerWidth,readerHeight);
-			try {
-				fileformat = QString::fromStdString(image.format());
-			} catch(Magick::Warning &warning) {
-				std::cerr << "[format] ERROR: " << warning.what() << std::endl;
-			} catch(Magick::Exception &error) {
-				std::cerr << "[format] ERROR: " << error.what() << std::endl;
-				faultyImage = error.what();
-			} catch(std::exception &error) {
-				std::cerr << "CAUGHT C++ STD EXCEPTION: " << error.what() << std::endl;
-				faultyImage = error.what();
-			} catch(...) {
-				std::cerr << "[format] ERROR: unknown error" << std::endl;
-				faultyImage = "unknown error";
-			}
-		}
-
-#endif
-
+	// Sometimes the size returned by reader.size() is <= 0 (observed for .jp2 files)
+	// -> then we need to load the actual image to get dimensions
+	if(origSize.width() <= 0 || origSize.height() <= 0) {
+		QImageReader r;
+		r.setFileName(filename);
+		origSize = r.read().size();
 	}
 
-
+	// The image width/height
+	unsigned int readerWidth = origSize.width();
+	unsigned int readerHeight = origSize.height();
 
 	int dispWidth = readerWidth;
 	int dispHeight = readerHeight;
@@ -151,6 +70,8 @@ QImage ImageReader::readImage(QString filename, int rotation, bool zoomed, QSize
 			dispWidth *= q;
 			dispHeight *= q;
 	}
+
+	std::clog << "max = " << maxSize.width() << "|" << maxSize.height() << " -- w = " << dispWidth << " -- h = " << dispHeight << std::endl;
 
 	if(zoomed)
 		scaleImg1 = q;
@@ -180,91 +101,163 @@ QImage ImageReader::readImage(QString filename, int rotation, bool zoomed, QSize
 
 	animatedImg = false;
 
-	if(!useMagick) {
+	if(!zoomed)
+		reader.setScaledSize(QSize(dispWidth,dispHeight));
 
-		if(!zoomed)
-			reader.setScaledSize(QSize(dispWidth,dispHeight));
+	std::clog << "SIZE: " << dispWidth << " -- " <<dispHeight << std::endl;
 
-		// Eventually load the image
-		img = reader.read();
+	// Eventually load the image
+	img = reader.read();
 
-		if(verbose) std::clog << "[read] image: " << img.width() << " - " << img.height() << " - z: " << zoomed << std::endl;
+	if(verbose) std::clog << "[read] image: " << img.width() << " - " << img.height() << " - z: " << zoomed << std::endl;
 
-		if(reader.supportsAnimation() && reader.imageCount() > 1)
-			animatedImg = true;
-
-	} else {
-
-#ifdef GM
-
-
-		Magick::Blob blob;
-
-		if(faultyImage == "") {
-
-			if(!zoomed && !dontscale) {
-
-				try {
-					image.zoom(Magick::Geometry(QString("%1x%2").arg(dispWidth).arg(dispHeight).toStdString()));
-				} catch(Magick::Warning &warning) {
-					std::cerr << "[zoom] CAUGHT Magick++ WARNING: " << warning.what() << std::endl;
-				} catch(Magick::Exception &error) {
-					std::cerr << "[zoom] CAUGHT Magick++ EXCEPTION: " << error.what() << std::endl;
-					faultyImage = error.what();
-				} catch(std::exception &error) {
-					std::cerr << "[zoom] CAUGHT C++ STD EXCEPTION: " << error.what() << std::endl;
-					faultyImage = error.what();
-				} catch( ... ) {
-					std::cerr << "[zoom] CRITICAL ERROR: unknown reason" << std::endl;
-					faultyImage = "unknown error";
-				}
-			}
-
-			try {
-				image.depth(8);
-				image.magick("XPM"); // Set XPM
-				image.write( &blob );
-			} catch(Magick::Warning &warning) {
-				std::cerr << "[blob] CAUGHT Magick++ WARNING: " << warning.what() << std::endl;
-			} catch(Magick::Exception &error) {
-				std::cerr << "[blob] CAUGHT Magick++ EXCEPTION: " << error.what() << std::endl;
-				faultyImage = error.what();
-			} catch(std::exception &error) {
-				std::cerr << "[blob] CAUGHT C++ STD EXCEPTION: " << error.what() << std::endl;
-				faultyImage = error.what();
-			} catch( ... ) {
-				std::cerr << "[blob] CRITICAL ERROR: unknown reason" << std::endl;
-				faultyImage = "unknown error";
-			}
-
-
-			// Passing Image Buffer to a QPixmap
-			const QByteArray imgData ((char*)(blob.data()));
-			img.loadFromData(imgData);
-
-		} else {
-
-			QPixmap pix(":/img/plainerrorimg.png");
-			QPainter paint(&pix);
-			QTextDocument txt;
-			txt.setHtml("<center><div style=\"text-align: center; font-size: 12pt; font-wight: bold; color: white; background: none;\">ERROR LOADING IMAGE<br><br><bR>" + faultyImage + "</div></center>");
-			paint.translate(100,150);
-			txt.setTextWidth(440);
-			txt.drawContents(&paint);
-			paint.end();
-			img = pix.toImage();
-
-		}
-
-#endif
-
-	}
+	if(reader.supportsAnimation() && reader.imageCount() > 1)
+		animatedImg = true;
 
 	return img;
 
 }
 
+// If GraphicsMagick supports the file format,
+QImage ImageReader::readImage_GM(QString filename, int rotation, bool zoomed, QSize maxSize, bool dontscale) {
+
+#ifdef GM
+
+	QFile file(filename);
+	file.open(QIODevice::ReadOnly);
+	char *data = new char[file.size()];
+	qint64 s = file.read(data, file.size());
+	if (s < file.size()) {
+		delete[] data;
+		if(verbose) std::cerr << "[reader gm] ERROR reading image file data" << std::endl;
+		return QImage();
+	}
+
+	Magick::Blob blob(data, file.size());
+	try {
+		Magick::Image image;
+
+		QString suf = QFileInfo(filename).suffix().toLower();
+
+		if(suf == "x" || suf == "avs")
+
+			image.magick("AVS");
+
+		// ART IMAGE -- NOT WORKING (?)
+		else if(suf == "art")
+
+			image.magick("ART");
+
+		else if(suf == "cals" || suf == "cal" || suf == "dcl"  || suf == "ras")
+
+			image.magick("CALS");
+
+		else if(suf == "cut")
+
+			image.magick("CUT");
+
+		else if(suf == "cur")
+
+			image.magick("CUR");
+
+		else if(suf == "acr" || suf == "dcm" || suf == "dicom" || suf == "dic")
+
+			image.magick("DCM");
+
+		else if(suf == "fax")
+
+			image.magick("FAX");
+
+		else if(suf == "ico")
+
+			image.magick("ICO");
+
+		else if(suf == "mtv")
+
+			image.magick("MTV");
+
+		else if(suf == "otb")
+
+			image.magick("OTB");
+
+		else if(suf == "palm")
+
+			image.magick("PALM");
+
+		else if(suf == "pict" || suf == "pct" || suf == "pic")
+
+			image.magick("PICT");
+
+		else if(suf == "pix"
+			|| suf == "pal")
+
+			image.magick("PIX");
+
+		else if(suf == "tga")
+
+			image.magick("TGA");
+
+		else if(suf == "wbm"
+			|| suf == "wbmp")
+
+			image.magick("WBMP");
+
+		else if(suf == "cmyk" || suf == "arw" || suf == "raw") {
+
+			image.magick("CMYK");
+			image.depth(8);
+			image.size(Magick::Geometry(2000,1500));
+			image.endian(Magick::LSBEndian);
+
+		}
+
+
+		image.read(blob);
+		Magick::Blob ob;
+		image.magick("XPM");
+		image.write(&ob);
+
+		QFile out(QDir::tempPath() + "/photoqt_tmp.xpm");
+		out.open(QIODevice::WriteOnly);
+		out.write(static_cast<const char*>(ob.data()), ob.length());
+
+		return readImage_QT(QDir::tempPath() + "/photoqt_tmp.xpm",rotation,zoomed,maxSize,dontscale);
+
+	} catch(Magick::Exception &error_) {
+		delete[] data;
+		std::cerr << "[reader gm] Error: " << error_.what() << std::endl;
+		QPixmap pix(":/img/plainerrorimg.png");
+		QPainter paint(&pix);
+		QTextDocument txt;
+		txt.setHtml("<center><div style=\"text-align: center; font-size: 12pt; font-wight: bold; color: white; background: none;\">ERROR LOADING IMAGE<br><br><bR>" + QString(error_.what()) + "</div></center>");
+		paint.translate(100,150);
+		txt.setTextWidth(440);
+		txt.drawContents(&paint);
+		paint.end();
+		pix.save(QDir::tempPath() + "/photoqt_tmp.png");
+		return readImage_QT(QDir::tempPath() + "/photoqt_tmp.png",rotation,zoomed,maxSize,dontscale);
+	}
+
+#endif
+
+	return QImage();
+
+}
 
 
 
-ImageReader::~ImageReader() { }
+bool ImageReader::doIUseMagick(QString filename) {
+
+#ifdef GM
+	QStringList qtFiles = qtfiles.replace("*","").split(",");
+
+	for(int i = 0; i < qtFiles.length(); ++i) {
+		if(filename.toLower().endsWith(qtFiles.at(i)))
+			return false;
+	}
+
+	return true;
+#endif
+	return false;
+
+}

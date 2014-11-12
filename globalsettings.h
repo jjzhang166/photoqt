@@ -58,6 +58,15 @@ public:
 				 << ".tiff"
 
 				 << ".jpeg2000"	// JPEG-2000 Code Stream Syntax
+				 << ".jp2"
+				 << ".jpc"
+				 << ".j2k"
+				 << ".jpf"
+				 << ".jpx"
+				 << ".jpm"
+				 << ".mj2"
+
+				 << ".picon"	// Personal Icon
 
 				 << ".jpeg"	// Joint Photographic Experts Group JFIF format
 				 << ".jpg"
@@ -76,146 +85,205 @@ public:
 
 #ifdef GM
 
-		formatsGmEnabled << ".art"	// PFS: 1st Publisher
+		formatsGmEnabled
+// TEST FAILED
+				<< ".art"	// PFS: 1st Publisher
 
+// TEST FAILED
 				<< ".avs"	//AVS X image
 				<< ".x"
 
+// WORKING
 				<< ".cals"	// Continuous Acquisition and Life-cycle Support Type 1 image
+				<< ".cal"
+				<< ".dcl"
+				<< ".ras"
 
+// CONDITIONALLY SUPPORTED (untested)
 				<< ".cgm"	// Computer Graphics Metafile
 
+// TEST FAILED
 				<< ".cur"	// Microsoft Cursor Icon -- UNTESTED, should work
 
+// WORKING (b/w)
 				<< ".cut"	// DR Halo
 
+// WORKING
 				<< ".acr"	// Digital Imaging and Communications in Medicine (DICOM) image
 				<< ".dcm"
 				<< ".dicom"
 				<< ".dic"
 
+// WORKING
 				<< ".dcx"	// ZSoft IBM PC multi-page Paintbrush image
 
+// WORKING
 				<< ".dib"	// Microsoft Windows Device Independent Bitmap
 
+// WORKING
 				<< ".dpx"	// Digital Moving Picture Exchange
 
+// NO TEST IMAGE AVAILABLE
 				<< ".emf"	// Microsoft Enhanced Metafile (32-bit)
 
+// WORKING
 				<< ".epdf"	// Encapsulated Portable Document Format
 
+// WORKING
 				<< ".epi"	// Adobe Encapsulated PostScript Interchange format
 
+// WORKING
 				<< ".eps"	// Adobe Encapsulated PostScript
 
+// WORKING
 				<< ".eps2"	// Adobe Level II Encapsulated PostScript
 
+// WORKING
 				<< ".eps3"	// Adobe Level III Encapsulated PostScript
 
+// WORKING
 				<< ".epsf"	// Adobe Encapsulated PostScript
 
+// WORKING
 				<< ".epsi"	// Adobe Encapsulated PostScript Interchange format
 
+// WORKING
 				<< ".ept"	// Adobe Encapsulated PostScript Interchange format with TIFF preview
 
+// WORKING
 				<< ".fax"	// Group 3 FAX
 
+// CONDITIONALLY SUPPORTED (untested)
 				<< ".fig"	// FIG graphics format
 
+// WORKING (b/w)
 				<< ".fits"	// Flexible Image Transport System
 				<< ".fts"
 				<< ".fit"
 
+// WORKING
 				<< ".fpx"	// FlashPix Format
 
+// CONDITIONALLY SUPPORTED (untested)
 				<< ".gplt"	// Gnuplot plot files
 
+// TEST FAILED
 				<< ".ico"	// Microsoft icon
 
+// CONDITIONALLY SUPPORTED (untested)
 				<< ".jbg"	// Joint Bi-level Image experts Group file interchange format
 				<< ".jbig"
 
+// WORKING
 				<< ".jng"	// JPEG Network Graphics
 
-				<< ".jp2"	// JPEG-2000 JP2 File Format Syntax
-				<< ".j2k"
-				<< ".jpf"
-				<< ".jpx"
-				<< ".jpm"
-				<< ".mj2"
-
-				<< ".jpc"	// JPEG-2000 Code Stream Syntax
-
+// WORKING
 				<< ".mat"	// MATLAB image format
 
+// WORKING
 				<< ".miff"	// Magick image file format
 
+// WORKING
 				<< ".mng"	// Multiple-image Network Graphics
 
+// TEST FAILED
 				<< ".mpc"	// Magick Persistent Cache image file format
 
+// WORKING
 				<< ".mtv"	// MTV Raytracing image format
 
+// WORKING (b/w)
 				<< ".otb"	// On-the-air Bitmap
 
+// WORKING
 				<< ".p7"	// Xv's Visual Schnauzer thumbnail format
 
+// WORKING
 				<< ".palm"	// Palm pixmap
 
+// WORKING
 				<< ".pam"	// Portable Arbitrary Map format
 
+// WORKING
 				<< ".pcd"	// Photo CD
 				<< ".pcds"
 
+// WORKING
 				<< ".pcx"	// ZSoft IBM PC Paintbrush file
 
+// WORKING
 				<< ".pdb"	// Palm Database ImageViewer Format
 
+// WORKING
 				<< ".pdf"	// Portable Document Format
 
-				<< ".picon"	// Personal Icon
-
+// WORKING
 				<< ".pict"	// Apple Macintosh QuickDraw /PICT file
 				<< ".pct"
 				<< ".pic"
 
+// WORKING
 				<< ".pix"	// Alias/Wavefront RLE image format
+				<< ".pal"
 
+// WORKING
 				<< ".pnm"	// Portable anymap
 
+// WORKING
 				<< ".ps"	// Adobe PostScript file
 
+// WORKING
 				<< ".ps2"	// Adobe Level II PostScript file
 
+// WORKING
 				<< ".ps3"	// Adobe Level III PostScript file
 
+// WORKING
 				<< ".psd"	// Adobe Photoshop bitmap file
 
+// WORKING
 				<< ".ptif"	// Pyramid encoded TIFF
 
+// NO TEST IMAGE AVAILABLE
 				<< ".ras"	// Sun Raster Image
 				<< ".rast"
 
+// CONDITIONALLY SUPPORTED (untested)
 				<< ".rad"	// Radiance image file
 
+// WORKING
 				<< ".sgi"	// Irix RGB image
 
+// WORKING
 				<< ".sun"	// SUN Rasterfile
 
+// CONDITIONALLY SUPPORTED (untested)
 				<< ".svg"	// Scalable Vector Graphics
 
+// WORKING
 				<< ".tga"	// Truevision Targa image
 
+// WORKING
 				<< ".vicar"	// VICAR rasterfile format
 
+// WORKING
 				<< ".viff"	// Khoros Visualization Image File Format
 
+// WORKING
 				<< ".wbmp"	// Wireless bitmap
 				<< ".wbm"
 
+// TEST FAILED
 				<< ".xcf"	// GIMP image
 
+// WORKING
 				<< ".xwd";	// X Windows system window dump
+
+
+
+//				<< ".raw"
+//				<< ".arw"
+//				<< ".cmyk";
 
 #endif
 
