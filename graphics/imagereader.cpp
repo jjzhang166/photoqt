@@ -19,6 +19,7 @@ QImage ImageReader::readImage(QString filename, int rotation, bool zoomed, QSize
 	if(verbose) std::clog << "Using Graphicsengine: " << (useMagick ? "Magick" : "ImageReader") << std::endl;
 	std::clog << "Using Graphicsengine: " << (useMagick ? "Magick" : "ImageReader") << std::endl;
 
+	// for SVG, we first need to load it properly...
 	if(useMagick)
 		return readImage_GM(filename, rotation, zoomed, maxSize, dontscale);
 	return readImage_QT(filename, rotation, zoomed, maxSize, dontscale);
@@ -27,24 +28,68 @@ QImage ImageReader::readImage(QString filename, int rotation, bool zoomed, QSize
 
 QImage ImageReader::readImage_QT(QString filename, int rotation, bool zoomed, QSize maxSize, bool dontscale) {
 
+	// For reading SVG files
+	QSvgRenderer svg;
+	QPixmap svg_pixmap;
+
+	// For all other supported file types
 	QImageReader reader;
+
+	// Return image
 	QImage img;
 
-	// Scaling and adding the image to display (using QImageReader for better performance)
-	reader.setFileName(filename);
+	// Suffix, for easier access later-on
+	QString suffix = QFileInfo(filename).suffix().toLower();
 
-	// Store the width/height for later use
-	origSize = reader.size();
-	// Store the fileformat for later use
-	if(QFileInfo(filename).fileName() != "photoqt_tmp.png") fileformat = reader.format().toLower();
-	else fileformat = "";
+	if(suffix == "svg") {
 
-	// Sometimes the size returned by reader.size() is <= 0 (observed for .jp2 files)
-	// -> then we need to load the actual image to get dimensions
-	if(origSize.width() <= 0 || origSize.height() <= 0) {
-		QImageReader r;
-		r.setFileName(filename);
-		origSize = r.read().size();
+		// Loading SVG file
+		svg.load(filename);
+
+		// Invalid vector graphic
+		if(!svg.isValid()) {
+			std::cerr << "[reader svg] Error: invalid svg file" << std::endl;
+			QPixmap pix(":/img/plainerrorimg.png");
+			QPainter paint(&pix);
+			QTextDocument txt;
+			txt.setHtml("<center><div style=\"text-align: center; font-size: 12pt; font-wight: bold; color: white; background: none;\">ERROR LOADING IMAGE<br><br><bR>The file doesn't contain valid a vector graphic</div></center>");
+			paint.translate(100,150);
+			txt.setTextWidth(440);
+			txt.drawContents(&paint);
+			paint.end();
+			return pix.toImage();
+		}
+
+		// Render SVG into pixmap
+		svg_pixmap = QPixmap(svg.defaultSize());
+		svg_pixmap.fill(Qt::transparent);
+		QPainter painter(&svg_pixmap);
+		svg.render(&painter);
+
+		// Store the width/height for later use
+		origSize = svg.defaultSize();
+		// Store the fileformat for later use
+		fileformat = "SVG";
+
+	} else {
+
+		// Setting QImageReader
+		reader.setFileName(filename);
+
+		// Store the width/height for later use
+		origSize = reader.size();
+		// Store the fileformat for later use
+		if(QFileInfo(filename).baseName() != "photoqt_tmp") fileformat = reader.format().toLower();
+		else fileformat = "";
+
+		// Sometimes the size returned by reader.size() is <= 0 (observed for, e.g., .jp2 files)
+		// -> then we need to load the actual image to get dimensions
+		if(origSize.width() <= 0 || origSize.height() <= 0) {
+			QImageReader r;
+			r.setFileName(filename);
+			origSize = r.read().size();
+		}
+
 	}
 
 	// The image width/height
@@ -101,18 +146,32 @@ QImage ImageReader::readImage_QT(QString filename, int rotation, bool zoomed, QS
 
 	animatedImg = false;
 
-	if(!zoomed)
-		reader.setScaledSize(QSize(dispWidth,dispHeight));
+	// Finalise SVG files
+	if(suffix == "svg") {
 
-	std::clog << "SIZE: " << dispWidth << " -- " <<dispHeight << std::endl;
+		// Convert pixmap to image
+		img = svg_pixmap.toImage();
 
-	// Eventually load the image
-	img = reader.read();
+		// And scale image
+		if(!zoomed)
+			img = img.scaled(dispWidth,dispHeight);
 
-	if(verbose) std::clog << "[read] image: " << img.width() << " - " << img.height() << " - z: " << zoomed << std::endl;
+	} else {
 
-	if(reader.supportsAnimation() && reader.imageCount() > 1)
-		animatedImg = true;
+		// Scale imagereader
+		if(!zoomed)
+			reader.setScaledSize(QSize(dispWidth,dispHeight));
+
+		// Eventually load the image
+		img = reader.read();
+
+		if(verbose) std::clog << "[read] image: " << img.width() << " - " << img.height() << " - z: " << zoomed << std::endl;
+
+		// Check for animation support
+		if(reader.supportsAnimation() && reader.imageCount() > 1)
+			animatedImg = true;
+
+	}
 
 	return img;
 
@@ -211,15 +270,16 @@ QImage ImageReader::readImage_GM(QString filename, int rotation, bool zoomed, QS
 
 		}
 
-
 		image.read(blob);
 		Magick::Blob ob;
 		image.magick("XPM");
 		image.write(&ob);
 
+		QByteArray byte = static_cast<const char*>(ob.data());
+
 		QFile out(QDir::tempPath() + "/photoqt_tmp.xpm");
 		out.open(QIODevice::WriteOnly);
-		out.write(static_cast<const char*>(ob.data()), ob.length());
+		out.write(byte, ob.length());
 
 		return readImage_QT(QDir::tempPath() + "/photoqt_tmp.xpm",rotation,zoomed,maxSize,dontscale);
 
@@ -243,7 +303,6 @@ QImage ImageReader::readImage_GM(QString filename, int rotation, bool zoomed, QS
 	return QImage();
 
 }
-
 
 
 bool ImageReader::doIUseMagick(QString filename) {

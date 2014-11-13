@@ -79,6 +79,8 @@ public:
 
 				 << ".ppm"	// Portable pixmap format (color)
 
+				 << ".svg"
+
 				 << ".xbm"	// X Windows system bitmap, black and white only
 
 				 << ".xpm";	// X Windows system pixmap
@@ -256,9 +258,6 @@ public:
 
 // WORKING
 				<< ".sun"	// SUN Rasterfile
-
-// CONDITIONALLY SUPPORTED (untested)
-				<< ".svg"	// Scalable Vector Graphics
 
 // WORKING
 				<< ".tga"	// Truevision Targa image

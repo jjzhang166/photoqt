@@ -9,6 +9,7 @@
 #include <QTextDocument>
 #include <QPixmap>
 #include <QPainter>
+#include <QtSvg/QtSvg>
 
 #ifdef GM
 #include <GraphicsMagick/Magick++/Image.h>

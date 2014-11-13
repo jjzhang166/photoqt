@@ -141,7 +141,7 @@ INCLUDE_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR})
 
 # And add the executeable
 ADD_EXECUTABLE(photoqt WIN32 ${photoqt_SOURCES} ${photoqt_HEADERS_MOC} ${qm_files} ${photoqt_RESOURCES_RCC} ${trans_outfile})
-QT5_USE_MODULES(photoqt Core Sql Widgets Multimedia)
+QT5_USE_MODULES(photoqt Core Sql Widgets Multimedia Svg)
 
 
 MESSAGE("")
