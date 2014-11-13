@@ -202,14 +202,13 @@ QImage ImageReader::readImage_GM(QString filename, int rotation, bool zoomed, QS
 
 			image.magick("AVS");
 
-		// ART IMAGE -- NOT WORKING (?)
-		else if(suf == "art")
-
-			image.magick("ART");
-
 		else if(suf == "cals" || suf == "cal" || suf == "dcl"  || suf == "ras")
 
 			image.magick("CALS");
+
+		else if(suf == "cgm")
+
+			image.magick("CGM");
 
 		else if(suf == "cut")
 
@@ -231,7 +230,12 @@ QImage ImageReader::readImage_GM(QString filename, int rotation, bool zoomed, QS
 
 			image.magick("ICO");
 
-		else if(suf == "mtv")
+		else if(suf == "mono") {
+
+			image.magick("MONO");
+			image.size(Magick::Geometry(4000,3000));
+
+		} else if(suf == "mtv")
 
 			image.magick("MTV");
 
@@ -242,6 +246,10 @@ QImage ImageReader::readImage_GM(QString filename, int rotation, bool zoomed, QS
 		else if(suf == "palm")
 
 			image.magick("PALM");
+
+		else if(suf == "pfb")
+
+			image.magick("PFB");
 
 		else if(suf == "pict" || suf == "pct" || suf == "pic")
 
@@ -256,30 +264,28 @@ QImage ImageReader::readImage_GM(QString filename, int rotation, bool zoomed, QS
 
 			image.magick("TGA");
 
+		else if(suf == "ttf")
+
+			image.magick("TTF");
+
+		else if(suf == "txt")
+
+			image.magick("TXT");
+
 		else if(suf == "wbm"
 			|| suf == "wbmp")
 
 			image.magick("WBMP");
 
-		else if(suf == "cmyk" || suf == "arw" || suf == "raw") {
-
-			image.magick("CMYK");
-			image.depth(8);
-			image.size(Magick::Geometry(2000,1500));
-			image.endian(Magick::LSBEndian);
-
-		}
 
 		image.read(blob);
 		Magick::Blob ob;
 		image.magick("XPM");
 		image.write(&ob);
 
-		QByteArray byte = static_cast<const char*>(ob.data());
-
 		QFile out(QDir::tempPath() + "/photoqt_tmp.xpm");
 		out.open(QIODevice::WriteOnly);
-		out.write(byte, ob.length());
+		out.write(static_cast<const char*>(ob.data()), ob.length());
 
 		return readImage_QT(QDir::tempPath() + "/photoqt_tmp.xpm",rotation,zoomed,maxSize,dontscale);
 

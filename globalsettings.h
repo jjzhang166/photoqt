@@ -48,6 +48,10 @@ public:
 		formatsQtEnabled.clear();
 		formatsGmEnabled.clear();
 
+		/******************************
+		 ***** 14 FORMATS WORKING *****
+		 ******************************/
+
 
 		formatsQtEnabled << ".bmp"	// Microsoft Windows bitmap
 				 << ".bitmap"
@@ -66,6 +70,8 @@ public:
 				 << ".jpm"
 				 << ".mj2"
 
+				 << ".ico"	// Microsoft icon
+
 				 << ".picon"	// Personal Icon
 
 				 << ".jpeg"	// Joint Photographic Experts Group JFIF format
@@ -79,7 +85,7 @@ public:
 
 				 << ".ppm"	// Portable pixmap format (color)
 
-				 << ".svg"
+				 << ".svg"	// Scalable Vector Graphics
 
 				 << ".xbm"	// X Windows system bitmap, black and white only
 
@@ -88,10 +94,13 @@ public:
 #ifdef GM
 
 		formatsGmEnabled
-// TEST FAILED
-				<< ".art"	// PFS: 1st Publisher
 
-// TEST FAILED
+		/**************************************
+		 ***** 53 FORMATS PASSED THE TEST *****
+		 **************************************/
+
+
+// WORKING
 				<< ".avs"	//AVS X image
 				<< ".x"
 
@@ -101,13 +110,10 @@ public:
 				<< ".dcl"
 				<< ".ras"
 
-// CONDITIONALLY SUPPORTED (untested)
-				<< ".cgm"	// Computer Graphics Metafile
+// WORKING
+				<< ".cin"	// Kodak Cineon
 
-// TEST FAILED
-				<< ".cur"	// Microsoft Cursor Icon -- UNTESTED, should work
-
-// WORKING (b/w)
+// WORKING
 				<< ".cut"	// DR Halo
 
 // WORKING
@@ -125,58 +131,42 @@ public:
 // WORKING
 				<< ".dpx"	// Digital Moving Picture Exchange
 
-// NO TEST IMAGE AVAILABLE
-				<< ".emf"	// Microsoft Enhanced Metafile (32-bit)
-
 // WORKING
 				<< ".epdf"	// Encapsulated Portable Document Format
 
-// WORKING
+// WORKING (external tool required)
 				<< ".epi"	// Adobe Encapsulated PostScript Interchange format
 
-// WORKING
+// WORKING (external tool required)
 				<< ".eps"	// Adobe Encapsulated PostScript
 
-// WORKING
+// WORKING (external tool required)
 				<< ".eps2"	// Adobe Level II Encapsulated PostScript
 
-// WORKING
+// WORKING (external tool required)
 				<< ".eps3"	// Adobe Level III Encapsulated PostScript
 
-// WORKING
+// WORKING (external tool required)
 				<< ".epsf"	// Adobe Encapsulated PostScript
 
-// WORKING
+// WORKING (external tool required)
 				<< ".epsi"	// Adobe Encapsulated PostScript Interchange format
 
-// WORKING
+// WORKING (external tool required)
 				<< ".ept"	// Adobe Encapsulated PostScript Interchange format with TIFF preview
 
 // WORKING
 				<< ".fax"	// Group 3 FAX
 
-// CONDITIONALLY SUPPORTED (untested)
-				<< ".fig"	// FIG graphics format
-
-// WORKING (b/w)
+// WORKING
 				<< ".fits"	// Flexible Image Transport System
 				<< ".fts"
 				<< ".fit"
 
-// WORKING
+// WORKING (external tool required)
 				<< ".fpx"	// FlashPix Format
 
-// CONDITIONALLY SUPPORTED (untested)
-				<< ".gplt"	// Gnuplot plot files
-
-// TEST FAILED
-				<< ".ico"	// Microsoft icon
-
-// CONDITIONALLY SUPPORTED (untested)
-				<< ".jbg"	// Joint Bi-level Image experts Group file interchange format
-				<< ".jbig"
-
-// WORKING
+// WORKING (external tool required)
 				<< ".jng"	// JPEG Network Graphics
 
 // WORKING
@@ -185,16 +175,16 @@ public:
 // WORKING
 				<< ".miff"	// Magick image file format
 
-// WORKING
+// WORKING (external tool required)
 				<< ".mng"	// Multiple-image Network Graphics
 
-// TEST FAILED
-				<< ".mpc"	// Magick Persistent Cache image file format
+// WORKING
+				<< ".mono"	// Bi-level bitmap in least-significant-byte first order
 
 // WORKING
 				<< ".mtv"	// MTV Raytracing image format
 
-// WORKING (b/w)
+// WORKING
 				<< ".otb"	// On-the-air Bitmap
 
 // WORKING
@@ -216,7 +206,7 @@ public:
 // WORKING
 				<< ".pdb"	// Palm Database ImageViewer Format
 
-// WORKING
+// WORKING (external tool required)
 				<< ".pdf"	// Portable Document Format
 
 // WORKING
@@ -231,13 +221,13 @@ public:
 // WORKING
 				<< ".pnm"	// Portable anymap
 
-// WORKING
+// WORKING (external tool required)
 				<< ".ps"	// Adobe PostScript file
 
-// WORKING
+// WORKING (external tool required)
 				<< ".ps2"	// Adobe Level II PostScript file
 
-// WORKING
+// WORKING (external tool required)
 				<< ".ps3"	// Adobe Level III PostScript file
 
 // WORKING
@@ -246,12 +236,10 @@ public:
 // WORKING
 				<< ".ptif"	// Pyramid encoded TIFF
 
-// NO TEST IMAGE AVAILABLE
-				<< ".ras"	// Sun Raster Image
-				<< ".rast"
 
-// CONDITIONALLY SUPPORTED (untested)
-				<< ".rad"	// Radiance image file
+
+// WORKING
+				<< ".sfw"	// Seattle File Works image
 
 // WORKING
 				<< ".sgi"	// Irix RGB image
@@ -261,6 +249,11 @@ public:
 
 // WORKING
 				<< ".tga"	// Truevision Targa image
+
+				<< ".ttf"
+
+// WORKING
+				<< ".txt"	// Text files
 
 // WORKING
 				<< ".vicar"	// VICAR rasterfile format
@@ -272,17 +265,30 @@ public:
 				<< ".wbmp"	// Wireless bitmap
 				<< ".wbm"
 
-// TEST FAILED
-				<< ".xcf"	// GIMP image
+// WORKING
+				<< ".wpg"	// Word Perfect Graphics File
 
 // WORKING
-				<< ".xwd";	// X Windows system window dump
+				<< ".xwd"	// X Windows system window dump
 
 
+// UNTESTED (no test image available)
+				<< ".hp"	// HP-GL plotter language
+				<< ".hpgl"
+				<< ".jbig"	// Joint Bi-level Image experts Group file interchange format
+				<< ".jbg"
+				<< ".pwp"	// Seattle File Works multi-image file
+				<< ".ras"	// Sun Raster Image
+				<< ".rast"
+				<< ".rla"	// Alias/Wavefront image file
+				<< ".rle"	// Utah Run length encoded image file
+				<< ".sct"	// Scitex Continuous Tone Picture
+				<< ".tim"	// PSX TIM file
 
-//				<< ".raw"
-//				<< ".arw"
-//				<< ".cmyk";
+// UNTESTED (external tool not available)
+				<< ".cgm"	// Computer Graphics Metafile
+				<< ".rad";	// Radiance image file
+
 
 #endif
 
