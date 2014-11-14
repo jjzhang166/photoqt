@@ -414,8 +414,50 @@ int main(int argc, char *argv[]) {
 		}
 
 
+		// On first start ever, we need to set the default file for disabled file formats.
+		// We have to do it here, as later-on (e.g. in globalsettings.h) we can't determine anymore, if that's the first start or not...
+		if(update == 2) {
+
+			QFile file(QDir::homePath() + "/.photoqt/fileformats.disabled");
+			if(!file.open(QIODevice::WriteOnly))
+				std::cerr << "[setup] ERROR: Unable to create file 'fileformats.disabled'";
+			else {
+				if(verbose) std::clog << "[setup] Create default file for disabled file formats";
+				QTextStream out(&file);
+				QString txt = QString(".eps\n")
+						+ QString(".epsf\n")
+						+ QString(".epi\n")
+						+ QString(".epsi\n")
+						+ QString(".ept\n")
+						+ QString(".eps2\n")
+						+ QString(".eps3\n")
+						+ QString(".pdf\n")
+						+ QString(".ps\n")
+						+ QString(".ps2\n")
+						+ QString(".ps3\n")
+						+ QString(".hp\n")
+						+ QString(".hpgl\n")
+						+ QString(".jbig\n")
+						+ QString(".jbg\n")
+						+ QString(".pwp\n")
+						+ QString(".rast\n")
+						+ QString(".rla\n")
+						+ QString(".rle\n")
+						+ QString(".sct\n")
+						+ QString(".tim\n");
+
+				out << txt;
+				file.close();
+
+			}
+		}
+
+		/***************************
+		 ***************************/
 		// The Window has to be initialised *AFTER* the checks above to ensure that the settings exist and are updated and can be loaded
 		MainWindow w(0,verbose);
+		/***************************
+		 ***************************/
 
 		// We move from old way of handling image formats to new way
 		// We can't do it before here, since we need access to global settings
