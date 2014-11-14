@@ -462,7 +462,6 @@ public:
 	QString knownFileTypesQt;
 	QString knownFileTypesQtExtras;
 	QString knownFileTypesGm;
-	QString knownFileTypesGmExtras;
 	QString knownFileTypes;
 
 	// Some exif settings
@@ -502,7 +501,6 @@ public:
 		map.insert("KnownFileTypesQt",knownFileTypesQt);
 		map.insert("KnownFileTypesQtExtras",knownFileTypesQtExtras);
 		map.insert("KnownFileTypesGm",knownFileTypesGm);
-		map.insert("KnownFileTypesGmExtras",knownFileTypesGmExtras);
 
 		map.insert("WindowMode",windowmode);
 		map.insert("WindowDecoration",windowDecoration);
@@ -703,8 +701,6 @@ public:
 
 			if(all.contains("KnownFileTypesQtExtras="))
 				knownFileTypesQtExtras = all.split("KnownFileTypesQtExtras=").at(1).split("\n").at(0);
-			if(all.contains("KnownFileTypesGmExtras="))
-				knownFileTypesGmExtras = all.split("KnownFileTypesGmExtras=").at(1).split("\n").at(0);
 
 			knownFileTypes = "";
 			if(knownFileTypesQt != "")
@@ -713,8 +709,6 @@ public:
 				knownFileTypes += "," + knownFileTypesGm;
 			if(knownFileTypesQtExtras != "")
 				knownFileTypes += "," + knownFileTypesQtExtras;
-			if(knownFileTypesGmExtras != "")
-				knownFileTypes += "," + knownFileTypesGmExtras;
 			if(knownFileTypes.startsWith(",")) knownFileTypes = knownFileTypes.remove(0,1);
 
 			if(all.contains("WindowMode=1"))

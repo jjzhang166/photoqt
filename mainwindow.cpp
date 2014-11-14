@@ -325,9 +325,6 @@ void MainWindow::applySettings(QMap<QString, bool> applySet, bool justApplyAllOf
 	qtfiles += qtfilesextras;
 
 	QString gmfiles = globSet->knownFileTypesGm;
-	QString gmfilesextras = globSet->knownFileTypesGmExtras;
-	if(gmfiles != "" && gmfilesextras != "") gmfiles += ",";
-	gmfiles += gmfilesextras;
 
 	imageReader->gmfiles = gmfiles;
 	imageReader->qtfiles = qtfiles;
