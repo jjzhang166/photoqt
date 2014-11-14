@@ -1076,7 +1076,14 @@ void MainWindow::openFile() {
 	// Get new filename
 	QString known = globSet->knownFileTypes;
 	known = known.replace(","," ");
-	QString file = QFileDialog::getOpenFileName(this,tr("Open image file"),opendir,tr("Images") + " (" + known + ")");
+	QString knownQT = globSet->knownFileTypesQt + (globSet->knownFileTypesQtExtras.length() != 0 ? "," + globSet->knownFileTypesQtExtras : "");
+	knownQT = knownQT.replace(","," ");
+	QString knownGM = globSet->knownFileTypesGm;
+	knownGM = knownGM.replace(","," ");
+	QString file = QFileDialog::getOpenFileName(this,tr("Open image file"),opendir,tr("Images") + " (" + known + ");;"
+											+ tr("Images") + " (Qt)" + " (" + knownQT + ");;"
+											+ tr("Images") + " (GraphicsMagick)" + " (" + knownGM + ");;"
+											+ tr("All Files") + " (*)");
 
 	// If a file was chosen (cancel returns an empty string)
 	if(file.trimmed() != "")
