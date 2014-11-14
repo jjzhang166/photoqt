@@ -250,22 +250,40 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 
 	allCheckQt.clear();
 	allCheckGm.clear();
-	allCheckGmUnstable.clear();
+	allCheckGmUntested.clear();
+
+
+	/********
+	 *  QT  *
+	 ********/
 
 
 	// Adjust known file formats
-	CustomLabel *titleQt = new CustomLabel("<b><span style=\"font-size:12pt\">" + tr("File Types - Qt") + "</span></b><br><br>" + tr("These are the standard file types supported by Qt. Depending on your system, this list can vary a little.") + "<br>" + tr("If you want to add a file type not in the list, you can add them in the text box below. You have to enter the formats like '*.ending', all seperated by commas.") + "</b>");
+	CustomLabel *titleQt = new CustomLabel("<b><span style=\"font-size:12pt\">" + tr("File Types - Qt") + "</span></b><br><br>" + tr("These are the file types natively supported by Qt. Make sure, that you'll have the required libraries installed (e.g., qt5-imageformats), otherwise some of them might not work on your system.") + "<br>" + tr("If a file ending for one of the formats is missing, you can add it below, formatted like '*.ending' (without single quotation marks), multiple entries seperated by commas.") + "</b>");
 	titleQt->setWordWrap(true);
 
 	FlowLayout *layQt = new FlowLayout;
 	QStringList formatsQt;
-	formatsQt << ".bmp" << ".gif" << ".tif" << ".tiff" << ".jpeg2000" << ".jpeg" << ".jpg" << ".png" << ".pbm" << ".pgm" << ".ppm" << ".xbm" << ".xpm";
-	formatsQt.sort();
-	for(int i = 0; i < formatsQt.length(); ++i) {
+	formatsQt << "Bitmap" << "*.bmp, *.bitmap"
+		  << "Graphics Interchange Format" << "*.gif"
+		  << "Microsoft Icon" << "*.ico"
+		  << "Joint Photographic Experts Group" << "*.jpg, *.jpeg"
+		  << "JPEG-2000" << "*.jpeg2000, *.jp2, *.jpc, *.j2k, *.jpf, *.jpx, *.jpm, *.mj2"
+		  << "Personal Icon" << "*.picon"
+		  << "Portable Network Graphics" << "*.png"
+		  << "Portable bitmap" << "*.pbm"
+		  << "Portable graymap" << "*.pgm"
+		  << "Portable pixmap" << "*.ppm"
+		  << "Scalable Vector Graphics" << "*.svg"
+		  << "Tagged Image File Format" << "*.tif, *.tiff"
+		  << "X Windows system bitmap" << "*.xbm"
+		  << "X Windows system pixmap" << "*.xpm";
 
-		SettingsTabOtherFileTypesTiles *check = new SettingsTabOtherFileTypesTiles(formatsQt.at(i));
-		check->setToolTip(formatsQt.at(i));
-		allCheckQt.insert(formatsQt.at(i),check);
+	for(int i = 0; i < formatsQt.length()/2; ++i) {
+
+		SettingsTabOtherFileTypesTiles *check = new SettingsTabOtherFileTypesTiles(formatsQt.at(2*i+1));
+		check->setToolTip(formatsQt.at(2*i) + " (" + formatsQt.at(2*i+1) + ")");
+		allCheckQt.insert(formatsQt.at(2*i+1),check);
 		layQt->addWidget(check);
 
 	}
@@ -304,18 +322,62 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 	gmDisabled->setWordWrap(true);
 #endif
 
+
+	/****************
+	 *  GM WORKING  *
+	 ****************/
+
 	CustomLabel *titleGmWorking = new CustomLabel("<b><span style=\"font-size:12pt\">" + tr("File Types - GraphicsMagick") + "</span></b><br><br>" + tr("PhotoQt makes use of GraphicsMagick for support of many different file types. Not all of the formats supported by GraphicsMagick make sense in an image viewer. There are some that aren't quite working at the moment, you can find them in the 'Unstable' category below.") + "<br>" + tr("If you want to add a file type not in the list, you can add them in the text box below. You have to enter the formats like '*.ending', all seperated by commas.") + "</b>");
 	titleGmWorking->setWordWrap(true);
 
 	FlowLayout *layGm = new FlowLayout;
 	QStringList formatsGm;
-	formatsGm << ".art" << ".avs" << ".x" << ".cals" << ".cgm" << ".cur" << ".cut" << ".acr" << ".dcm" << ".dicom" << ".dic" << ".dcx" << ".dib" << ".dpx" << ".emf" << ".epdf" << ".epi" << ".eps" << ".eps2" << ".eps3" << ".epsf" << ".epsi" << ".ept" << ".fax" << ".fig" << ".fits" << ".fts" << ".fit" << ".fpx" << ".gplt" << ".ico" << ".jbg" << ".jbig" << ".jng" << ".jp2" << ".j2k" << ".jpf" << ".jpx" << ".jpm" << ".mj2" << ".jpc" << ".mat" << ".miff" << ".mng" << ".mpc" << ".mtv" << ".otb" << ".p7" << ".palm" << ".pam" << ".pcd" << ".pcds" << ".pcx" << ".pdb" << ".pdf" << ".picon" << ".pict" << ".pct" << ".pic" << ".pix" << ".pnm" << ".ps" << ".ps2" << ".ps3" << ".psd" << ".ptif" << ".ras" << ".rast" << ".rad" << ".sgi" << ".sun" << ".svg" << ".tga" << ".vicar" << ".viff" << ".wbmp" << ".wbm" << ".xcf" << ".xwd";
-	formatsGm.sort();
-	for(int i = 0; i < formatsGm.length(); ++i) {
+	formatsGm << "AVS X image" << "*.avs, *.x"
+		  << "Continuous Acquisition and Life-cycle Support Type 1" << "*.cals, *.cal, *.dcl, *.ras"
+		  << "Kodak Cineon" << "*.cin"
+		  << "Dr Halo" << "*.cut"
+		  << "Digital Imaging and Communications in Medicine (DICOM) image" << "*.acr, *.dcm, *.dicom, *.dic"
+		  << "ZSoft IBM PC multi-page Paintbrush image" << "*.dcx"
+		  << "Microsoft Windows Device Independent Bitmap" << "*.dib"
+		  << "Digital Moving Picture Exchange" << "*.dpx"
+		  << "Encapsulated PDF" << "*.epdf"
+		  << "Group 3 FAX" << "*.fax"
+		  << "Flexible Image Transport System" << "*.fits, *.fts, *.fit"
+		  << "FlashPix Format" << "*.fpx"
+		  << "JPEG Network Graphics" << "*.jng"
+		  << "MATLAB image format" << "*.mat"
+		  << "Magick image file format" << "*.miff"
+		  << "Multiple-image Network Graphics" << "*.mng"
+		  << "Bi-level bitmap in least-significant-byte first order" << "*.mono"
+		  << "MTV Raytracing image format" << "*.mtv"
+		  << "On-the-air Bitmap" << "*.otb"
+		  << "Xv's Visual Schnauzer thumbnail format" << "*.p7"
+		  << "Palm pixmap" << "*.palm"
+		  << "Portable Arbitrary Map" << "*.pam"
+		  << "Photo CD" << "*.pcd, *.pcds"
+		  << "ZSoft IBM PC Paintbrush file" << "*.pcx"
+		  << "Palm Database ImageViewer Format" << "*.pdb"
+		  << "Apple Macintosh QuickDraw/PICT file" << "*.pict, *.pct, *.pic"
+		  << "Alias/Wavefront RLE image format" << "*.pix, *.pal"
+		  << "Portable anymap" << "*.pnm"
+		  << "Adobe Photoshop bitmap file" << "*.psd"
+		  << "Pyramid encoded TIFF" << "*.ptif, *.ptiff"
+		  << "Seattle File Works image" << "*.sfw"
+		  << "Irix RGB image" << "*.sgi"
+		  << "SUN Rasterfile" << "*.sun"
+		  << "Truevision Targa image" << "*.tga"
+		  << "Text files" << "*.txt"
+		  << "VICAR rasterfile format" << "*.vicar"
+		  << "Khoros Visualization Image File Format" << "*.viff"
+		  << "Wireless bitmap" << "*.wbm, *.wbmp"
+		  << "Word Perfect Graphics File" << "*.wpg"
+		  << "X Windows system window dump" << "*.xwd";
 
-		SettingsTabOtherFileTypesTiles *check = new SettingsTabOtherFileTypesTiles(formatsGm.at(i));
-		allCheckGm.insert(formatsGm.at(i),check);
-		check->setToolTip(formatsGm.at(i));
+	for(int i = 0; i < formatsGm.length()/2; ++i) {
+
+		SettingsTabOtherFileTypesTiles *check = new SettingsTabOtherFileTypesTiles(formatsGm.at(2*i+1));
+		allCheckGm.insert(formatsGm.at(2*i+1),check);
+		check->setToolTip(formatsGm.at(2*i) + " (" + formatsGm.at(2*i+1) + ")");
 		layGm->addWidget(check);
 #ifndef GM
 		check->setEnabled(false);
@@ -324,13 +386,8 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 	}
 
 	QHBoxLayout *layGmBut = new QHBoxLayout;
-	CustomLabel *extraGm = new CustomLabel(tr("Extra File Types:"));
-	extraGm->setWordWrap(false);
-	extraGmEdit = new CustomLineEdit;
 	CustomPushButton *gmMarkAll = new CustomPushButton(tr("Mark All"));
 	CustomPushButton *gmMarkNone = new CustomPushButton(tr("Mark None"));
-	layGmBut->addWidget(extraGm);
-	layGmBut->addWidget(extraGmEdit);
 	layGmBut->addStretch();
 	layGmBut->addWidget(gmMarkAll);
 	layGmBut->addWidget(gmMarkNone);
@@ -339,8 +396,6 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 	titleGmWorking->setEnabled(false);
 	gmMarkAll->setEnabled(false);
 	gmMarkNone->setEnabled(false);
-	extraGm->setEnabled(false);
-	extraGmEdit->setEnabled(false);
 
 	layFile->addWidget(gmDisabled);
 	layFile->addSpacing(10);
@@ -365,56 +420,127 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 
 
 
+	/******************************
+	 *  GM WORKING GHOSTSCRIPT  *
+	 ******************************/
 
+	CustomLabel *titleGmWorkingGhostscript = new CustomLabel("<b><span style=\"font-size:12pt\">" + tr("File Types - GraphicsMagick (requires Ghostscript)") + "</span></b><br><br>" + tr("The following file types are supported by GraphicsMagick, and they have been tested and work. However, they require Ghostscript to be installed on the system.") + "</b>");
+	titleGmWorkingGhostscript->setWordWrap(true);
 
-	CustomLabel *titleGmUnstable = new CustomLabel("<b><span style=\"font-size:12pt\">" + tr("File Types - GraphicsMagick (Unstable)") + "</span></b><br><br>" + tr("The following file types are supported by GraphicsMagick, but aren't quite working in PhotoQt just yet. If you want to experiment around a little, feel free to enable some of them. They shouldn't cause PhotoQt to crash, but you might see an error image instead of the actual image.") + "</b>");
-	titleGmUnstable->setWordWrap(true);
+	FlowLayout *layGmGhostscript = new FlowLayout;
+	QStringList formatsGmGhostscript;
+	formatsGmGhostscript << "Encapsulated PostScript" << "*.eps, *.epsf"
+			     << "Encapsulated PostScript Interchange" << "*.epi, *.epsi, *.ept"
+			     << "Level II Encapsulated PostScript" << "*.eps2"
+			     << "Level III Encapsulated PostScript" << "*.eps3"
+			     << "Portable Document Format" << "*.pdf"
+			     << "Adobe PostScript" << "*.ps"
+			     << "Adobe Level II PostScript" << "*.ps2"
+			     << "Adobe Level III PostScript" << "*.ps3";
 
-	FlowLayout *layGmUnstable = new FlowLayout;
-	QStringList formatsGmUnstable;
-	formatsGmUnstable << ".gray" << ".hpgl" << ".mono" << ".msl" << ".mvg" << ".pcl" << ".pfa" << ".pfb" << ".pwp" << ".rgb" << ".rgba" << ".rla" << ".rle" << ".sct" << ".sfw" << ".tim" << ".uil" << ".uyvy" << ".wmf" << ".wpg" << ".yuv";
-	formatsGmUnstable.sort();
-	for(int i = 0; i < formatsGmUnstable.length(); ++i) {
+	for(int i = 0; i < formatsGmGhostscript.length()/2; ++i) {
 
-		SettingsTabOtherFileTypesTiles *check = new SettingsTabOtherFileTypesTiles(formatsGmUnstable.at(i));
-		check->setToolTip(formatsGmUnstable.at(i));
-		allCheckGmUnstable.insert(formatsGmUnstable.at(i),check);
-		layGmUnstable->addWidget(check);
+		SettingsTabOtherFileTypesTiles *check = new SettingsTabOtherFileTypesTiles(formatsGmGhostscript.at(2*i+1));
+		allCheckGmGhostscript.insert(formatsGmGhostscript.at(2*i+1),check);
+		check->setToolTip(formatsGmGhostscript.at(2*i) + " (" + formatsGmGhostscript.at(2*i+1) + ")");
+		layGmGhostscript->addWidget(check);
 #ifndef GM
 		check->setEnabled(false);
 #endif
 
 	}
 
-	QHBoxLayout *layGmButUnstable = new QHBoxLayout;
-	CustomPushButton *gmMarkAllUnstable = new CustomPushButton(tr("Mark All"));
-	CustomPushButton *gmMarkNoneUnstable = new CustomPushButton(tr("Mark None"));
-	layGmButUnstable->addStretch();
-	layGmButUnstable->addWidget(gmMarkAllUnstable);
-	layGmButUnstable->addWidget(gmMarkNoneUnstable);
-
-	layFile->addWidget(titleGmUnstable);
-	layFile->addSpacing(10);
-	layFile->addLayout(layGmUnstable);
-	layFile->addSpacing(5);
-	layFile->addLayout(layGmButUnstable);
-	layFile->addSpacing(35);
+	QHBoxLayout *layGmGhostscriptBut = new QHBoxLayout;
+	CustomPushButton *gmGhostscriptMarkAll = new CustomPushButton(tr("Mark All"));
+	CustomPushButton *gmGhostscriptMarkNone = new CustomPushButton(tr("Mark None"));
+	layGmGhostscriptBut->addStretch();
+	layGmGhostscriptBut->addWidget(gmGhostscriptMarkAll);
+	layGmGhostscriptBut->addWidget(gmGhostscriptMarkNone);
 
 #ifndef GM
-	titleGmUnstable->setEnabled(false);
-	gmMarkAllUnstable->setEnabled(false);
-	gmMarkNoneUnstable->setEnabled(false);
+	titleGmWorkingGhostscript->setEnabled(false);
+	gmGhostscriptMarkAll->setEnabled(false);
+	gmGhostscriptMarkNone->setEnabled(false);
+#endif
+	layFile->addWidget(titleGmWorkingGhostscript);
+	layFile->addSpacing(10);
+	layFile->addLayout(layGmGhostscript);
+	layFile->addSpacing(5);
+	layFile->addLayout(layGmGhostscriptBut);
+	layFile->addSpacing(35);
+
+
+	QSignalMapper *mapGmGhostscriptMark = new QSignalMapper;
+	mapGmGhostscriptMark->setMapping(gmGhostscriptMarkAll,"gmGhostscriptMark");
+	connect(gmGhostscriptMarkAll, SIGNAL(clicked()), mapGmGhostscriptMark, SLOT(map()));
+	connect(mapGmGhostscriptMark, SIGNAL(mapped(QString)), this, SLOT(markAllNone(QString)));
+
+	QSignalMapper *mapGmGhostscriptNone = new QSignalMapper;
+	mapGmGhostscriptNone->setMapping(gmGhostscriptMarkNone,"gmGhostscriptNone");
+	connect(gmGhostscriptMarkNone, SIGNAL(clicked()), mapGmGhostscriptNone, SLOT(map()));
+	connect(mapGmGhostscriptNone, SIGNAL(mapped(QString)), this, SLOT(markAllNone(QString)));
+
+
+
+
+	/*****************
+	 *  GM UNTESTED  *
+	 *****************/
+
+	CustomLabel *titleGmUntested = new CustomLabel("<b><span style=\"font-size:12pt\">" + tr("File Types - GraphicsMagick (Untested)") + "</span></b><br><br>"
+						       + tr("The following file types are generally supported by GraphicsMagick, but I wasn't able to test them in PhotoQt (due to lack of test images). They might very well be working, but I simply can't say. If you decide to enable some of the, the worst that could happen ist, that you see an error image instead of the actual image.") + "<br><br>"
+						       + tr("NOTE: The format 'Computer Graphics Metafile (*.cgm)' requires 'ralcgm', and the format 'Radiance image (*.rad)' requires 'ra_ppm' from the Radiance software package to be installed. I haven't tested them, but they might very well work nonetheless, if you have the prerequisites installed.") + "</b><br><br><i>"
+						       + tr("If you happen to have an image in one of those formats and don't mind sending it to me, that'd be really cool..."));
+	titleGmUntested->setWordWrap(true);
+
+	FlowLayout *layGmUntested = new FlowLayout;
+	QStringList formatsGmUntested;
+	formatsGmUntested << "Computer Graphics Metafile" << "*.cgm"
+			  << "Radiance image file" << "*.rad"
+			  << "HP-GL plotter language" << "*.hp, *.hpgl"
+			  << "Joint Bi-level Image experts Group file interchange format" << "*.jbig, *.jbg"
+			  << "Seattle File Works multi-image file" << "*.pwp"
+			  << "Sun Raster Image" << "*.rast"
+			  << "Alias/Wavefront image" << "*.rla"
+			  << "Utah Run length encoded image" << "*.rle"
+			  << "Scitex Continuous Tone Picture" << "*.sct"
+			  << "PSX TIM file" << "*.tim";
+
+	for(int i = 0; i < formatsGmUntested.length()/2; ++i) {
+
+		SettingsTabOtherFileTypesTiles *check = new SettingsTabOtherFileTypesTiles(formatsGmUntested.at(2*i+1));
+		check->setToolTip(formatsGmUntested.at(2*i) + "(" + formatsGmUntested.at(2*i+1) + ")");
+		allCheckGmUntested.insert(formatsGmUntested.at(2*i+1),check);
+		layGmUntested->addWidget(check);
+#ifndef GM
+		check->setEnabled(false);
 #endif
 
-	QSignalMapper *mapGmMarkUnst = new QSignalMapper;
-	mapGmMarkUnst->setMapping(gmMarkAllUnstable,"gmunstMark");
-	connect(gmMarkAllUnstable, SIGNAL(clicked()), mapGmMarkUnst, SLOT(map()));
-	connect(mapGmMarkUnst, SIGNAL(mapped(QString)), this, SLOT(markAllNone(QString)));
+	}
 
-	QSignalMapper *mapGmNoneUnst = new QSignalMapper;
-	mapGmNoneUnst->setMapping(gmMarkNoneUnstable,"gmunstNone");
-	connect(gmMarkNoneUnstable, SIGNAL(clicked()), mapGmNoneUnst, SLOT(map()));
-	connect(mapGmNoneUnst, SIGNAL(mapped(QString)), this, SLOT(markAllNone(QString)));
+	QHBoxLayout *layGmUntestedBut = new QHBoxLayout;
+	CustomPushButton *gmUntestedMarkAll = new CustomPushButton(tr("Mark All"));
+	CustomPushButton *gmUntestedMarkNone = new CustomPushButton(tr("Mark None"));
+	layGmUntestedBut->addStretch();
+	layGmUntestedBut->addWidget(gmUntestedMarkAll);
+	layGmUntestedBut->addWidget(gmUntestedMarkNone);
+
+	QSignalMapper *mapGmUntestedMark = new QSignalMapper;
+	mapGmUntestedMark->setMapping(gmUntestedMarkAll,"gmUntestedMark");
+	connect(gmUntestedMarkAll, SIGNAL(clicked()), mapGmUntestedMark, SLOT(map()));
+	connect(mapGmUntestedMark, SIGNAL(mapped(QString)), this, SLOT(markAllNone(QString)));
+
+	QSignalMapper *mapGmUntestedNone = new QSignalMapper;
+	mapGmUntestedNone->setMapping(gmUntestedMarkNone,"gmUntestedNone");
+	connect(gmUntestedMarkNone, SIGNAL(clicked()), mapGmUntestedNone, SLOT(map()));
+	connect(mapGmUntestedNone, SIGNAL(mapped(QString)), this, SLOT(markAllNone(QString)));
+
+	layFile->addWidget(titleGmUntested);
+	layFile->addSpacing(10);
+	layFile->addLayout(layGmUntested);
+	layFile->addSpacing(5);
+	layFile->addLayout(layGmUntestedBut);
+	layFile->addSpacing(35);
 
 
 
@@ -447,7 +573,15 @@ void SettingsTabOther::loadSettings() {
 	QMapIterator<QString, SettingsTabOtherFileTypesTiles*> iterQt(allCheckQt);
 	while (iterQt.hasNext()) {
 		iterQt.next();
-		iterQt.value()->setChecked(formatsSetQt.contains(iterQt.key()) ? true : false);
+		QStringList types_part = QString(iterQt.key()).replace("*","").split(", ",QString::SkipEmptyParts);
+		iterQt.value()->setChecked(false);
+		for(int i = 0; i < types_part.length(); ++i) {
+			if(formatsSetQt.contains(types_part.at(i))) {
+				iterQt.value()->setChecked(true);
+				break;
+			}
+
+		}
 	}
 
 #ifdef GM
@@ -455,17 +589,48 @@ void SettingsTabOther::loadSettings() {
 	QMapIterator<QString, SettingsTabOtherFileTypesTiles*> iterGm(allCheckGm);
 	while (iterGm.hasNext()) {
 		iterGm.next();
-		iterGm.value()->setChecked(formatsSetGm.contains(iterGm.key()) ? true : false);
+
+		QStringList types_part = QString(iterGm.key()).replace("*","").split(", ",QString::SkipEmptyParts);
+		iterGm.value()->setChecked(false);
+		for(int i = 0; i < types_part.length(); ++i) {
+			if(formatsSetGm.contains(types_part.at(i))) {
+				iterGm.value()->setChecked(true);
+				break;
+			}
+
+		}
 	}
-	QMapIterator<QString, SettingsTabOtherFileTypesTiles*> iterGmUnstable(allCheckGmUnstable);
-	while (iterGmUnstable.hasNext()) {
-		iterGmUnstable.next();
-		iterGmUnstable.value()->setChecked(formatsSetGm.contains(iterGmUnstable.key()) ? true : false);
+	QMapIterator<QString, SettingsTabOtherFileTypesTiles*> iterGmGhostscript(allCheckGmGhostscript);
+	while (iterGmGhostscript.hasNext()) {
+		iterGmGhostscript.next();
+
+		QStringList types_part = QString(iterGmGhostscript.key()).replace("*","").split(", ",QString::SkipEmptyParts);
+		iterGmGhostscript.value()->setChecked(false);
+		for(int i = 0; i < types_part.length(); ++i) {
+			if(formatsSetGm.contains(types_part.at(i))) {
+				iterGmGhostscript.value()->setChecked(true);
+				break;
+			}
+
+		}
+	}
+	QMapIterator<QString, SettingsTabOtherFileTypesTiles*> iterGmUntested(allCheckGmUntested);
+	while (iterGmUntested.hasNext()) {
+		iterGmUntested.next();
+
+		QStringList types_part = QString(iterGmUntested.key()).replace("*","").split(", ",QString::SkipEmptyParts);
+		iterGmUntested.value()->setChecked(false);
+		for(int i = 0; i < types_part.length(); ++i) {
+			if(formatsSetGm.contains(types_part.at(i))) {
+				iterGmUntested.value()->setChecked(true);
+				break;
+			}
+
+		}
 	}
 #endif
 
 	extraQtEdit->setText(globSet.value("KnownFileTypesQtExtras").toString());
-	extraGmEdit->setText(globSet.value("KnownFileTypesGmExtras").toString());
 
 
 }
@@ -497,7 +662,9 @@ void SettingsTabOther::saveSettings() {
 	QMapIterator<QString, SettingsTabOtherFileTypesTiles*> iterQt(allCheckQt);
 	while (iterQt.hasNext()) {
 		iterQt.next();
-		if(iterQt.value()->isChecked()) formatsSetQt.append("*" + iterQt.key());
+		if(iterQt.value()->isChecked()) {
+			formatsSetQt.append(QString(QString(iterQt.key()).replace("*","")).split(", ",QString::SkipEmptyParts));
+		}
 	}
 	updatedSet.insert("KnownFileTypesQt",formatsSetQt.join(","));
 
@@ -505,17 +672,21 @@ void SettingsTabOther::saveSettings() {
 	QMapIterator<QString, SettingsTabOtherFileTypesTiles*> iterGm(allCheckGm);
 	while (iterGm.hasNext()) {
 		iterGm.next();
-		if(iterGm.value()->isChecked()) formatsSetGm.append("*" + iterGm.key());
+		if(iterGm.value()->isChecked()) formatsSetGm.append(QString(iterGm.key()).replace("*","").split(", ",QString::SkipEmptyParts));
 	}
-	QMapIterator<QString, SettingsTabOtherFileTypesTiles*> iterGmUnstable(allCheckGmUnstable);
-	while (iterGmUnstable.hasNext()) {
-		iterGmUnstable.next();
-		if(iterGmUnstable.value()->isChecked()) formatsSetGm.append("*" + iterGmUnstable.key());
+	QMapIterator<QString, SettingsTabOtherFileTypesTiles*> iterGmGhostscript(allCheckGmGhostscript);
+	while (iterGmGhostscript.hasNext()) {
+		iterGmGhostscript.next();
+		if(iterGmGhostscript.value()->isChecked()) formatsSetGm.append(QString(iterGmGhostscript.key()).replace("*","").split(", ",QString::SkipEmptyParts));
+	}
+	QMapIterator<QString, SettingsTabOtherFileTypesTiles*> iterGmUntested(allCheckGmUntested);
+	while (iterGmUntested.hasNext()) {
+		iterGmUntested.next();
+		if(iterGmUntested.value()->isChecked()) formatsSetGm.append(QString(iterGmUntested.key()).replace("*","").split(", ",QString::SkipEmptyParts));
 	}
 	updatedSet.insert("KnownFileTypesGm",formatsSetGm.join(","));
 
 	updatedSet.insert("KnownFileTypesQtExtras",extraQtEdit->text());
-	updatedSet.insert("KnownFileTypesGmExtras",extraGmEdit->text());
 
 	context->saveContext();
 
@@ -532,12 +703,20 @@ void SettingsTabOther::markAllNone(QString cat) {
 			iterQt.value()->setChecked(cat.endsWith("Mark") ? true : false);
 		}
 
-	} else if(cat.startsWith("gmunst")) {
+	} else if(cat.startsWith("gmUntested")) {
 
-		QMapIterator<QString, SettingsTabOtherFileTypesTiles*> iterGmUnstable(allCheckGmUnstable);
-		while (iterGmUnstable.hasNext()) {
-			iterGmUnstable.next();
-			iterGmUnstable.value()->setChecked(cat.endsWith("Mark") ? true : false);
+		QMapIterator<QString, SettingsTabOtherFileTypesTiles*> iterGmUntested(allCheckGmUntested);
+		while (iterGmUntested.hasNext()) {
+			iterGmUntested.next();
+			iterGmUntested.value()->setChecked(cat.endsWith("Mark") ? true : false);
+		}
+
+	} else if(cat.startsWith("gmGhostscript")) {
+
+		QMapIterator<QString, SettingsTabOtherFileTypesTiles*> iterGmGhostscriptUntested(allCheckGmGhostscript);
+		while (iterGmGhostscriptUntested.hasNext()) {
+			iterGmGhostscriptUntested.next();
+			iterGmGhostscriptUntested.value()->setChecked(cat.endsWith("Mark") ? true : false);
 		}
 
 	} else if(cat.startsWith("gm")) {

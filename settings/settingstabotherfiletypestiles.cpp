@@ -43,20 +43,22 @@ SettingsTabOtherFileTypesTiles::SettingsTabOtherFileTypesTiles(QString ftype, QW
 	filetype = ftype;
 
 	// The back label is being styled
-	back = new CustomLabel("<center>*" + ftype + "</center>");
+	back = new CustomLabel("<center>" + ftype + "</center>");
 	back->setFontColor("black");
+	back->setFontSize(8);
+	back->setWordWrap(true);
 	back->setBold(true);
 
 	// The checkbox for diabling or enabling this tile
 	enabled = new CustomCheckBox;
-	enabled->setIndicatorSize(16);
+	enabled->setIndicatorSize(14);
 	QHBoxLayout *enabledLay = new QHBoxLayout;
 	enabledLay->addStretch();
 	enabledLay->addWidget(enabled);
 	enabledLay->addStretch();
 	connect(enabled, SIGNAL(clicked()), this, SLOT(checkboxClicked()));
 
-	this->setFixedSize(80,60);
+	this->setFixedSize(100,100);
 
 	lay->addWidget(back);
 	lay->addSpacing(10);

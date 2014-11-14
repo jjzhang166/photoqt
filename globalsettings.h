@@ -52,7 +52,6 @@ public:
 		 ***** 14 FORMATS WORKING *****
 		 ******************************/
 
-
 		formatsQtEnabled << ".bmp"	// Microsoft Windows bitmap
 				 << ".bitmap"
 
@@ -93,15 +92,13 @@ public:
 
 #ifdef GM
 
-		formatsGmEnabled
 
 		/**************************************
-		 ***** 53 FORMATS PASSED THE TEST *****
+		 ***** 49 FORMATS PASSED THE TEST *****
 		 **************************************/
 
-
 // WORKING
-				<< ".avs"	//AVS X image
+		formatsGmEnabled << ".avs"	//AVS X image
 				<< ".x"
 
 // WORKING
@@ -134,25 +131,21 @@ public:
 // WORKING
 				<< ".epdf"	// Encapsulated Portable Document Format
 
-// WORKING (external tool required)
+// WORKING (Ghostscript required)
 				<< ".epi"	// Adobe Encapsulated PostScript Interchange format
+				<< ".epsi"
 
-// WORKING (external tool required)
+// WORKING (Ghostscript required)
 				<< ".eps"	// Adobe Encapsulated PostScript
+				<< ".epsf"
 
-// WORKING (external tool required)
+// WORKING (Ghostscript required)
 				<< ".eps2"	// Adobe Level II Encapsulated PostScript
 
-// WORKING (external tool required)
+// WORKING (Ghostscript required)
 				<< ".eps3"	// Adobe Level III Encapsulated PostScript
 
-// WORKING (external tool required)
-				<< ".epsf"	// Adobe Encapsulated PostScript
-
-// WORKING (external tool required)
-				<< ".epsi"	// Adobe Encapsulated PostScript Interchange format
-
-// WORKING (external tool required)
+// WORKING (Ghostscript required)
 				<< ".ept"	// Adobe Encapsulated PostScript Interchange format with TIFF preview
 
 // WORKING
@@ -163,10 +156,10 @@ public:
 				<< ".fts"
 				<< ".fit"
 
-// WORKING (external tool required)
+// WORKING
 				<< ".fpx"	// FlashPix Format
 
-// WORKING (external tool required)
+// WORKING
 				<< ".jng"	// JPEG Network Graphics
 
 // WORKING
@@ -175,7 +168,7 @@ public:
 // WORKING
 				<< ".miff"	// Magick image file format
 
-// WORKING (external tool required)
+// WORKING
 				<< ".mng"	// Multiple-image Network Graphics
 
 // WORKING
@@ -206,7 +199,7 @@ public:
 // WORKING
 				<< ".pdb"	// Palm Database ImageViewer Format
 
-// WORKING (external tool required)
+// WORKING (Ghostscript required)
 				<< ".pdf"	// Portable Document Format
 
 // WORKING
@@ -221,13 +214,13 @@ public:
 // WORKING
 				<< ".pnm"	// Portable anymap
 
-// WORKING (external tool required)
+// WORKING (Ghostscript required)
 				<< ".ps"	// Adobe PostScript file
 
-// WORKING (external tool required)
+// WORKING (Ghostscript required)
 				<< ".ps2"	// Adobe Level II PostScript file
 
-// WORKING (external tool required)
+// WORKING (Ghostscript required)
 				<< ".ps3"	// Adobe Level III PostScript file
 
 // WORKING
@@ -235,8 +228,6 @@ public:
 
 // WORKING
 				<< ".ptif"	// Pyramid encoded TIFF
-
-
 
 // WORKING
 				<< ".sfw"	// Seattle File Works image
@@ -249,8 +240,6 @@ public:
 
 // WORKING
 				<< ".tga"	// Truevision Targa image
-
-				<< ".ttf"
 
 // WORKING
 				<< ".txt"	// Text files
@@ -278,8 +267,7 @@ public:
 				<< ".jbig"	// Joint Bi-level Image experts Group file interchange format
 				<< ".jbg"
 				<< ".pwp"	// Seattle File Works multi-image file
-				<< ".ras"	// Sun Raster Image
-				<< ".rast"
+				<< ".rast"	// Sun Raster Image
 				<< ".rla"	// Alias/Wavefront image file
 				<< ".rle"	// Utah Run length encoded image file
 				<< ".sct"	// Scitex Continuous Tone Picture
@@ -296,6 +284,36 @@ public:
 
 	// Read formats from file (if available)
 	void getFormats() {
+
+		setDefaultFormats();
+
+		QFile file(QDir::homePath() + "/.photoqt/fileformats.disabled");
+
+		if(file.exists()) {
+
+			if(!file.open(QIODevice::ReadOnly))
+				std::cerr << "ERROR: Can't open disabled image formats file" << std::endl;
+			else {
+
+				QTextStream in(&file);
+
+				QString line = in.readLine();
+				while (!line.isNull()) {
+					line = line.trimmed();
+
+					if(line.length() != 0 && formatsQtEnabled.contains(line))
+						formatsQtEnabled.removeOne(line);
+					if(line.length() != 0 && formatsGmEnabled.contains(line))
+						formatsGmEnabled.removeOne(line);
+
+					line = in.readLine();
+				}
+
+			}
+
+		}
+
+/*
 
 		formatsGmEnabled.clear();
 		formatsQtEnabled.clear();
@@ -357,56 +375,46 @@ public:
 
 #endif
 
+*/
+
 	}
 
 	// Save all enabled formats to file
-	void saveFormats() {
+	void saveFormats(QStringList new_qtformats, QStringList new_gmformats) {
 
 		if(!readonly) {
 
-			QString qtfilecontent = "";
+			QStringList disabled;
 
-			for(int i = 0; i < formatsQtEnabled.length(); ++i)
-				qtfilecontent += QString("%1\n").arg(formatsQtEnabled.at(i));
+			for(int i = 0; i < formatsQtEnabled.length(); ++i) {
 
-			QFile fileQt(QDir::homePath() + "/.photoqt/fileformatsQt");
-			if(fileQt.exists()) {
-				if(!fileQt.remove())
-					std::cerr << "ERROR: Cannot replace Qt image formats file" << std::endl;
+				if(!new_qtformats.contains(formatsQtEnabled.at(i)))
+					disabled.append(formatsQtEnabled.at(i));
+
 			}
-			if(!fileQt.open(QIODevice::WriteOnly))
-				std::cerr << "ERROR: Cannot write to Qt image formats file" << std::endl;
+
+			for(int i = 0; i < formatsGmEnabled.length(); ++i) {
+
+				if(!new_gmformats.contains(formatsGmEnabled.at(i)))
+					disabled.append(formatsGmEnabled.at(i));
+
+			}
+
+			formatsQtEnabled = new_qtformats;
+			formatsGmEnabled = new_gmformats;
+
+			QFile file(QDir::homePath() + "/.photoqt/fileformats.disabled");
+			if(file.exists()) {
+				if(!file.remove())
+					std::cerr << "ERROR: Cannot replace disabled image formats file" << std::endl;
+			}
+			if(!file.open(QIODevice::WriteOnly))
+				std::cerr << "ERROR: Cannot write to disabled image formats file" << std::endl;
 			else {
-				QTextStream outQt(&fileQt);
-				outQt << qtfilecontent;
-				fileQt.close();
-
+				QTextStream out(&file);
+				out << disabled.join("\n");
+				file.close();
 			}
-
-
-#ifdef GM
-
-			QString gmfilecontent = "";
-
-			for(int i = 0; i < formatsGmEnabled.length(); ++i)
-				gmfilecontent += QString("%1\n").arg(formatsGmEnabled.at(i));
-
-			QFile fileGm(QDir::homePath() + "/.photoqt/fileformatsGm");
-			if(fileGm.exists()) {
-				if(!fileGm.remove())
-					std::cerr << "ERROR: Cannot replace Gm image formats file" << std::endl;
-			}
-			if(!fileGm.open(QIODevice::WriteOnly))
-				std::cerr << "ERROR: Cannot write to Gm image formats file" << std::endl;
-			else {
-				QTextStream outGm(&fileGm);
-				outGm << gmfilecontent;
-				fileGm.close();
-
-			}
-
-
-#endif
 
 		}
 
@@ -645,7 +653,6 @@ public:
 		knownFileTypesQt = "*" + fileFormats->formatsQtEnabled.join(",*");
 		knownFileTypesQtExtras = "";
 		knownFileTypesGm = "*" + fileFormats->formatsGmEnabled.join(",*");
-		knownFileTypesGmExtras = "";
 		knownFileTypes = knownFileTypesQt + "," + knownFileTypesGm;
 
 		windowmode = false;
@@ -1070,14 +1077,13 @@ public:
 			cont += QString("WindowMode=%1\n").arg(int(windowmode));
 			cont += QString("WindowDecoration=%1\n").arg(int(windowDecoration));
 			cont += QString("KnownFileTypesQtExtras=%1\n").arg(knownFileTypesQtExtras);
-			cont += QString("KnownFileTypesGmExtras=%1\n").arg(knownFileTypesGmExtras);
 
 			// We'll operate the replace() and split() below on temporary strings, not the actual ones (since we want to keep the *'s there)
 			QString knownFileTypesQt_tmp = knownFileTypesQt;
 			QString knownFileTypesGm_tmp = knownFileTypesGm;
-			fileFormats->formatsQtEnabled = knownFileTypesQt_tmp.replace("*","").split(",");
-			fileFormats->formatsGmEnabled = knownFileTypesGm_tmp.replace("*","").split(",");
-			fileFormats->saveFormats();
+//			fileFormats->formatsQtEnabled = knownFileTypesQt_tmp.replace("*","").split(",");
+//			fileFormats->formatsGmEnabled = knownFileTypesGm_tmp.replace("*","").split(",");
+			fileFormats->saveFormats(knownFileTypesQt_tmp.replace("*","").split(","), knownFileTypesGm_tmp.replace("*","").split(","));
 
 			cont += "\n[Look]\n";
 
@@ -1192,8 +1198,6 @@ public slots:
 
 		if(changedSet.keys().contains("KnownFileTypesQtExtras"))
 			knownFileTypesQtExtras = changedSet.value("KnownFileTypesQtExtras").toString();
-		if(changedSet.keys().contains("KnownFileTypesGmExtras"))
-			knownFileTypesGmExtras = changedSet.value("KnownFileTypesGmExtras").toString();
 		if(changedSet.keys().contains("KnownFileTypesQt"))
 			knownFileTypesQt = changedSet.value("KnownFileTypesQt").toString();
 		if(changedSet.keys().contains("KnownFileTypesGm"))
@@ -1206,8 +1210,6 @@ public slots:
 			knownFileTypes += "," + knownFileTypesGm;
 		if(knownFileTypesQtExtras != "")
 			knownFileTypes += "," + knownFileTypesQtExtras;
-		if(knownFileTypesGmExtras != "")
-			knownFileTypes += "," + knownFileTypesGmExtras;
 		if(knownFileTypes.startsWith(",")) knownFileTypes = knownFileTypes.remove(0,1);
 
 		if(changedSet.keys().contains("WindowMode")) {

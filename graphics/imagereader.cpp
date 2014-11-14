@@ -57,6 +57,11 @@ QImage ImageReader::readImage_QT(QString filename, int rotation, bool zoomed, QS
 			txt.setTextWidth(440);
 			txt.drawContents(&paint);
 			paint.end();
+			fileformat = "";
+			origSize = pix.size();
+			scaleImg1 = -1;
+			scaleImg2 = -1;
+			animatedImg = false;
 			return pix.toImage();
 		}
 
@@ -301,7 +306,12 @@ QImage ImageReader::readImage_GM(QString filename, int rotation, bool zoomed, QS
 		txt.drawContents(&paint);
 		paint.end();
 		pix.save(QDir::tempPath() + "/photoqt_tmp.png");
-		return readImage_QT(QDir::tempPath() + "/photoqt_tmp.png",rotation,zoomed,maxSize,dontscale);
+		fileformat = "";
+		origSize = pix.size();
+		scaleImg1 = -1;
+		scaleImg2 = -1;
+		animatedImg = false;
+		return pix.toImage();
 	}
 
 #endif

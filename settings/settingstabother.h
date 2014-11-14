@@ -69,9 +69,9 @@ private:
 
 	QMap<QString,SettingsTabOtherFileTypesTiles*> allCheckQt;
 	QMap<QString,SettingsTabOtherFileTypesTiles*> allCheckGm;
-	QMap<QString,SettingsTabOtherFileTypesTiles*> allCheckGmUnstable;
+	QMap<QString,SettingsTabOtherFileTypesTiles*> allCheckGmGhostscript;
+	QMap<QString,SettingsTabOtherFileTypesTiles*> allCheckGmUntested;
 	CustomLineEdit *extraQtEdit;
-	CustomLineEdit *extraGmEdit;
 
 	// The language selection
 	QStringList langDesc;
