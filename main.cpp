@@ -416,6 +416,64 @@ int main(int argc, char *argv[]) {
 
 		// The Window has to be initialised *AFTER* the checks above to ensure that the settings exist and are updated and can be loaded
 		MainWindow w(0,verbose);
+
+		// We move from old way of handling image formats to new way
+		// We can't do it before here, since we need access to global settings
+		QFile old_qt(QDir::homePath() + "/.photoqt/fileformatsQt");
+		QFile old_gm(QDir::homePath() + "/.photoqt/fileformatsGm");
+		QFile new_file(QDir::homePath() + "/.photoqt/fileformats.disabled");
+		if((old_qt.exists() || old_gm.exists()) && !new_file.exists()) {
+
+			// These will be the sets of known file formats
+			QStringList new_qt;
+			QStringList new_gm;
+
+			// Read in formats supported by qt
+			if(old_qt.exists()) {
+				if(!old_qt.open(QIODevice::ReadOnly))
+					std::cerr << "[migrate fileformats] ERROR: Can't open old file with qt file formats";
+				else {
+					QTextStream in(&old_qt);
+					QString line = in.readLine();
+					while (!line.isNull()) {
+						if(line.trimmed().length() != 0) new_qt << line.trimmed();
+						line = in.readLine();
+					}
+					old_qt.close();
+				}
+				// Remove old and redundant file
+				if(!old_qt.remove())
+					std::cerr << "[migrate fileformats] WARNING: Can't remove old (redundant) file with qt file formats";
+			}
+
+			// Read in formats supported by gm
+			if(old_gm.exists()) {
+				if(!old_gm.open(QIODevice::ReadOnly))
+					std::cerr << "[migrate fileformats] ERROR: Can't open old file with gm file formats";
+				else {
+					QTextStream in(&old_gm);
+					QString line = in.readLine();
+					while (!line.isNull()) {
+						if(line.trimmed().length() != 0) new_gm << line.trimmed();
+						line = in.readLine();
+					}
+					old_gm.close();
+				}
+				// Remove old and redundant file
+				if(!old_gm.remove())
+					std::cerr << "[migrate fileformats] WARNING: Can't remove old (redundant) file with gm file formats";
+			}
+
+			// Update settings with new values
+			QMap<QString, QVariant> upd;
+			upd.insert("KnownFileTypesQt",new_qt.join(","));
+			upd.insert("KnownFileTypesGm",new_gm.join(","));
+			upd.insert("KnownFileTypesQtExtras",w.globSet->knownFileTypesQtExtras);
+			w.globSet->settingsUpdated(upd);
+
+		}
+
+		// DISPLAY MAINWINDOW
 		w.show();
 
 		if(!startintray) {
