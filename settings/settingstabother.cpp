@@ -327,7 +327,7 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 	 *  GM WORKING  *
 	 ****************/
 
-	CustomLabel *titleGmWorking = new CustomLabel("<b><span style=\"font-size:12pt\">" + tr("File Types - GraphicsMagick") + "</span></b><br><br>" + tr("PhotoQt makes use of GraphicsMagick for support of many different file types. Not all of the formats supported by GraphicsMagick make sense in an image viewer. There are some that aren't quite working at the moment, you can find them in the 'Unstable' category below.") + "<br>" + tr("If you want to add a file type not in the list, you can add them in the text box below. You have to enter the formats like '*.ending', all seperated by commas.") + "</b>");
+	CustomLabel *titleGmWorking = new CustomLabel("<b><span style=\"font-size:12pt\">" + tr("File Types - GraphicsMagick") + "</span></b><br><br>" + tr("PhotoQt makes use of GraphicsMagick for support of many different image formats. The list below are all those formats, that were successfully displayed using test images. If you prefer not to have one or the other enabled in PhotoQt, you can simply disable individual formats below.") + "<br>" + tr("There are a few formats, that were not tested in PhotoQt (due to lack of a test image). You can find those in the 'Untested' category below.") + "</b>");
 	titleGmWorking->setWordWrap(true);
 
 	FlowLayout *layGm = new FlowLayout;
@@ -489,15 +489,12 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 
 	CustomLabel *titleGmUntested = new CustomLabel("<b><span style=\"font-size:12pt\">" + tr("File Types - GraphicsMagick (Untested)") + "</span></b><br><br>"
 						       + tr("The following file types are generally supported by GraphicsMagick, but I wasn't able to test them in PhotoQt (due to lack of test images). They might very well be working, but I simply can't say. If you decide to enable some of the, the worst that could happen ist, that you see an error image instead of the actual image.") + "<br><br>"
-						       + tr("NOTE: The format 'Computer Graphics Metafile (*.cgm)' requires 'ralcgm', and the format 'Radiance image (*.rad)' requires 'ra_ppm' from the Radiance software package to be installed. I haven't tested them, but they might very well work nonetheless, if you have the prerequisites installed.") + "</b><br><br><i>"
-						       + tr("If you happen to have an image in one of those formats and don't mind sending it to me, that'd be really cool..."));
+						       + "<i>" + tr("If you happen to have an image in one of those formats and don't mind sending it to me, that'd be really cool...") + "</i>");
 	titleGmUntested->setWordWrap(true);
 
 	FlowLayout *layGmUntested = new FlowLayout;
 	QStringList formatsGmUntested;
-	formatsGmUntested << "Computer Graphics Metafile" << "*.cgm"
-			  << "Radiance image file" << "*.rad"
-			  << "HP-GL plotter language" << "*.hp, *.hpgl"
+	formatsGmUntested << "HP-GL plotter language" << "*.hp, *.hpgl"
 			  << "Joint Bi-level Image experts Group file interchange format" << "*.jbig, *.jbg"
 			  << "Seattle File Works multi-image file" << "*.pwp"
 			  << "Sun Raster Image" << "*.rast"
@@ -663,7 +660,7 @@ void SettingsTabOther::saveSettings() {
 	while (iterQt.hasNext()) {
 		iterQt.next();
 		if(iterQt.value()->isChecked()) {
-			formatsSetQt.append(QString(QString(iterQt.key()).replace("*","")).split(", ",QString::SkipEmptyParts));
+			formatsSetQt.append(QString(QString(iterQt.key())).split(", ",QString::SkipEmptyParts));
 		}
 	}
 	updatedSet.insert("KnownFileTypesQt",formatsSetQt.join(","));
@@ -672,17 +669,17 @@ void SettingsTabOther::saveSettings() {
 	QMapIterator<QString, SettingsTabOtherFileTypesTiles*> iterGm(allCheckGm);
 	while (iterGm.hasNext()) {
 		iterGm.next();
-		if(iterGm.value()->isChecked()) formatsSetGm.append(QString(iterGm.key()).replace("*","").split(", ",QString::SkipEmptyParts));
+		if(iterGm.value()->isChecked()) formatsSetGm.append(QString(iterGm.key()).split(", ",QString::SkipEmptyParts));
 	}
 	QMapIterator<QString, SettingsTabOtherFileTypesTiles*> iterGmGhostscript(allCheckGmGhostscript);
 	while (iterGmGhostscript.hasNext()) {
 		iterGmGhostscript.next();
-		if(iterGmGhostscript.value()->isChecked()) formatsSetGm.append(QString(iterGmGhostscript.key()).replace("*","").split(", ",QString::SkipEmptyParts));
+		if(iterGmGhostscript.value()->isChecked()) formatsSetGm.append(QString(iterGmGhostscript.key()).split(", ",QString::SkipEmptyParts));
 	}
 	QMapIterator<QString, SettingsTabOtherFileTypesTiles*> iterGmUntested(allCheckGmUntested);
 	while (iterGmUntested.hasNext()) {
 		iterGmUntested.next();
-		if(iterGmUntested.value()->isChecked()) formatsSetGm.append(QString(iterGmUntested.key()).replace("*","").split(", ",QString::SkipEmptyParts));
+		if(iterGmUntested.value()->isChecked()) formatsSetGm.append(QString(iterGmUntested.key()).split(", ",QString::SkipEmptyParts));
 	}
 	updatedSet.insert("KnownFileTypesGm",formatsSetGm.join(","));
 

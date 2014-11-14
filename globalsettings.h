@@ -31,6 +31,7 @@
 #include <QStringList>
 #include <iostream>
 #include <QMap>
+#include <QtDebug>
 
 class FileFormats {
 
@@ -228,6 +229,7 @@ public:
 
 // WORKING
 				<< ".ptif"	// Pyramid encoded TIFF
+				<< ".ptiff"
 
 // WORKING
 				<< ".sfw"	// Seattle File Works image
@@ -271,12 +273,7 @@ public:
 				<< ".rla"	// Alias/Wavefront image file
 				<< ".rle"	// Utah Run length encoded image file
 				<< ".sct"	// Scitex Continuous Tone Picture
-				<< ".tim"	// PSX TIM file
-
-// UNTESTED (external tool not available)
-				<< ".cgm"	// Computer Graphics Metafile
-				<< ".rad";	// Radiance image file
-
+				<< ".tim";	// PSX TIM file
 
 #endif
 
@@ -313,74 +310,12 @@ public:
 
 		}
 
-/*
-
-		formatsGmEnabled.clear();
-		formatsQtEnabled.clear();
-
-		// If both files don't exist, then we set the default formats
-		QFile fileQt(QDir::homePath() + "/.photoqt/fileformatsQt");
-		QFile fileGm(QDir::homePath() + "/.photoqt/fileformatsGm");
-		if(!fileQt.exists() && !fileGm.exists())
-			setDefaultFormats();
-
-
-		// Read Qt formats
-		if(fileQt.exists()) {
-
-			if(!fileQt.open(QIODevice::ReadOnly))
-				std::cerr << "ERROR: Can't open Qt image formats file" << std::endl;
-			else {
-
-				QTextStream in(&fileQt);
-
-				QString line = in.readLine();
-				while (!line.isNull()) {
-					line = line.trimmed();
-
-					if(line.length() != 0 && !formatsQtEnabled.contains(line))
-						formatsQtEnabled.append(line);
-
-					line = in.readLine();
-				}
-
-			}
-
-		}
-
-#ifdef GM
-
-		// Read Gm formats
-		if(fileGm.exists()) {
-
-			if(!fileGm.open(QIODevice::ReadOnly))
-				std::cerr << "ERROR: Can't open Gm image formats file" << std::endl;
-			else {
-
-				QTextStream in(&fileGm);
-
-				QString line = in.readLine();
-				while (!line.isNull()) {
-					line = line.trimmed();
-
-					if(line.length() != 0 && !formatsGmEnabled.contains(line))
-						formatsGmEnabled.append(line);
-
-					line = in.readLine();
-				}
-
-			}
-
-		}
-
-#endif
-
-*/
-
 	}
 
 	// Save all enabled formats to file
 	void saveFormats(QStringList new_qtformats, QStringList new_gmformats) {
+
+		setDefaultFormats();
 
 		if(!readonly) {
 
@@ -400,8 +335,10 @@ public:
 
 			}
 
-			formatsQtEnabled = new_qtformats;
-			formatsGmEnabled = new_gmformats;
+			formatsQtEnabled.clear();
+			formatsGmEnabled.clear();
+			foreach(QString f, new_qtformats) formatsQtEnabled.append("*" + f);
+			foreach(QString f, new_gmformats) formatsGmEnabled.append("*" + f);
 
 			QFile file(QDir::homePath() + "/.photoqt/fileformats.disabled");
 			if(file.exists()) {
