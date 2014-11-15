@@ -593,7 +593,7 @@ public:
 		windowmode = false;
 		windowDecoration = false;
 
-		language = "en";
+		language = "";
 		bgColorRed = 0;
 		bgColorGreen = 0;
 		bgColorBlue = 0;

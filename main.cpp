@@ -333,22 +333,24 @@ int main(int argc, char *argv[]) {
 		if(verbose) std::clog << "Checking for translation" << std::endl;
 		QString code1 = "";
 		QString code2 = "";
-		if(settingsFileTxt.contains("Language=") && !settingsFileTxt.contains("Language=en")) {
+		if(settingsFileTxt.contains("Language=") && !settingsFileTxt.contains("Language=en") && !settingsFileTxt.contains("Language=\n")) {
 			code1 = settingsFileTxt.split("Language=").at(1).split("\n").at(0).trimmed();
-			code2 = settingsFileTxt.split("Language=").at(1).split("\n").at(0).trimmed();
+			code2 = code1;
 		} else if(!settingsFileTxt.contains("Language=en")) {
 			code1 = QLocale::system().name();
 			code2 = QLocale::system().name().split("_").at(0);
-			if(verbose) std::clog << "Detected following system language: " << code1.toStdString() << std::endl;
 		}
+		if(verbose) std::clog << "Found following language: " << code1.toStdString()  << "/" << code2.toStdString() << std::endl;
 		if(QFile(":/lang/photoqt_" + code1 + ".qm").exists()) {
 			std::clog << "Loading Translation:" << code1.toStdString() << std::endl;
 			trans.load(":/lang/photoqt_" + code1);
 			a.installTranslator(&trans);
-		} else if(QFile(":/photoqt_" + code2 + ".qm").exists()) {
+			code2 = code1;
+		} else if(QFile(":/lang/photoqt_" + code2 + ".qm").exists()) {
 			std::clog << "Loading Translation:" << code2.toStdString() << std::endl;
-			trans.load(":/photoqt_" + code2);
+			trans.load(":/lang/photoqt_" + code2);
 			a.installTranslator(&trans);
+			code1 = code2;
 		}
 
 		// Check if thumbnail database exists. If not, create it
