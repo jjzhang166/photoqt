@@ -57,7 +57,7 @@ public:
 
 	// The current filepath
 	void setCurrentfile(QString file) { currentfile = QFileInfo(file).fileName(); currentdir = QFileInfo(file).absolutePath(); }
-	QString getCurrentfile() { return currentdir+currentfile; }
+	QString getCurrentfile() { return currentdir+"/"+currentfile; }
 
 	// The total amount of images
 	int counttot;

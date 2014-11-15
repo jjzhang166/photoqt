@@ -484,7 +484,7 @@ void Thumbnails::updateThumb(QImage img, QString path, int origwidth, int orighe
 
 	if(allPixmaps.length() >= pos) {
 		allPixmaps.at(pos)->path = path;
-		allPixmaps.at(pos)->presented = (path == currentdir+currentfile);
+		allPixmaps.at(pos)->presented = (path == currentdir+"/"+currentfile);
 		allPixmaps.at(pos)->setPixmap(imgNorm,imgHov);
 	}
 
@@ -495,7 +495,7 @@ void Thumbnails::gotClick(QString path) {
 
 	if(verbose) std::clog << "thb: gotClick:" << path.toStdString() << std::endl;
 
-	updateThbViewHoverNormPix(currentdir+currentfile,path);
+	updateThbViewHoverNormPix(currentdir+"/"+currentfile,path);
 
 	// We set this boolean to true, and this causes drawImg() in mainwindow.cpp NOT to ensure the visibility of the item (it already is visible). Before occasionally this led to the thumbnailview "jumping" a little to the right/left ensuring the visibility.
 	thumbLoadedThroughClick = true;
