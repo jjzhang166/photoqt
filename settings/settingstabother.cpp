@@ -555,6 +555,7 @@ void SettingsTabOther::loadSettings() {
 
 	defaults.clear();
 
+	// Get translation set. If none set, take system locale
 	QString code1 = globSet.value("Language").toString();
 	QString code2 = code1;
 	if(code1.trimmed() == "") {
