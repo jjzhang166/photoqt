@@ -527,8 +527,8 @@ void MainWindow::drawImage() {
 		// Ensure the active thumbnail is shown
 		// We only do that when the thumbnail was NOT loaded through a click on it. The reason is, that otherwise the thumbnailview might move a little (ensuring the thumbnail is visible) although it already IS visible.
 		if(viewThumbs->getImageFilePathIndexOf(globVar->currentfile) != -1 && !globSet->thumbnailDisable && !viewThumbs->thumbLoadedThroughClick) {
-			// We center on the image if it's a newly loaded dir
-			if(viewThumbs->newlyLoadedDir)
+			// We center on the image if it's a newly loaded dir or if respective setting it set
+			if(viewThumbs->newlyLoadedDir || globSet->thumbnailCenterActive)
 				viewThumbs->view->centerOn(viewThumbs->allPixmaps.at(viewThumbs->getImageFilePathIndexOf(globVar->currentfile)));
 			else
 				viewThumbs->view->ensureVisible(viewThumbs->allPixmaps.at(viewThumbs->getImageFilePathIndexOf(globVar->currentfile)));

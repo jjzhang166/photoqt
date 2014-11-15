@@ -208,6 +208,20 @@ SettingsTabThumbnail::SettingsTabThumbnail(QWidget *parent, QMap<QString, QVaria
 	layTune->addSpacing(20);
 
 
+	// OPTION TO ALWAYS KEEP ACTIVE THUMBNAIL IN CENTER (IF POSSIBLE)
+	CustomLabel *alwaysCenterThumbnailsLabel = new CustomLabel("<b><span style=\"font-size: 12pt\">" + tr("Always center on Active Thumbnail") + "</span></b><br><bR>" + tr("If this option is set, then the active thumbnail (i.e., the thumbnail of the currently displayed image) will always be kept in the center of the thumbnail bar (if possible)."));
+	alwaysCenterThumbnailsLabel->setWordWrap(true);
+	QHBoxLayout *alwaysCenterThbLay = new QHBoxLayout;
+	alwaysCenterThumbnail = new CustomCheckBox(tr("Center on Active Thumbnails"));
+	alwaysCenterThbLay->addStretch();
+	alwaysCenterThbLay->addWidget(alwaysCenterThumbnail);
+	alwaysCenterThbLay->addStretch();
+	layTune->addWidget(alwaysCenterThumbnailsLabel);
+	layTune->addSpacing(10);
+	layTune->addLayout(alwaysCenterThbLay);
+	layTune->addSpacing(20);
+
+
 
 	// OPTION TO ONLY USE FILENAME AND NO ACTUAL THUMBNAIL
 	CustomLabel *filenameInsteadThbLabel = new CustomLabel("<b><span style=\"font-size: 12pt\">" + tr("Use file-name-only Thumbnails") + "</span></b><br><bR>" + tr("If you don't want PhotoQt to always load the actual image thumbnail in the background, but you still want to have something for better navigating, then you can set a file-name-only thumbnail, i.e. PhotoQt wont load any thumbnail images but simply puts the file name into the box. You can also adjust the font size of this text."));
@@ -385,6 +399,9 @@ void SettingsTabThumbnail::loadSettings() {
 	dynamicThumbnails->setChecked(globSet.value("ThumbnailDynamic").toBool());
 	defaults.insert("ThumbnailDynamic",globSet.value("ThumbnailDynamic").toBool());
 
+	alwaysCenterThumbnail->setChecked(globSet.value("ThumbnailCenterActive").toBool());
+	defaults.insert("ThumbnailCenterActive",globSet.value("ThumbnailCenterActive").toBool());
+
 	filenameInsteadThb->setChecked(globSet.value("ThumbnailFilenameInstead").toBool());
 	filenameFontSizeSlider->setEnabled(filenameInsteadThb->isChecked());
 	filenameFontSizeSpin->setEnabled(filenameInsteadThb->isChecked());
@@ -457,6 +474,11 @@ void SettingsTabThumbnail::saveSettings() {
 		updatedSet.insert("ThumbnailDynamic",dynamicThumbnails->isChecked());
 		defaults.remove("ThumbnailDynamic");
 		defaults.insert("ThumbnailDynamic",dynamicThumbnails->isChecked());
+	}
+	if(defaults.value("ThumbnailCenterActive").toBool() != alwaysCenterThumbnail->isChecked()) {
+		updatedSet.insert("ThumbnailCenterActive",alwaysCenterThumbnail->isChecked());
+		defaults.remove("ThumbnailCenterActive");
+		defaults.insert("ThumbnailCenterActive",alwaysCenterThumbnail->isChecked());
 	}
 
 	if(defaults.value("ThumbnailFilenameInstead").toBool() != filenameInsteadThb->isChecked()) {

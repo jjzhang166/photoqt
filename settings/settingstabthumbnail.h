@@ -98,6 +98,9 @@ private:
 	// Enable dynamic thumbnails (i.e. only create the ones you need)
 	CustomCheckBox *dynamicThumbnails;
 
+	// Center on active thumbnail
+	CustomCheckBox *alwaysCenterThumbnail;
+
 	// use file-name-only thumbnail
 	CustomCheckBox *filenameInsteadThb;
 	CustomSlider *filenameFontSizeSlider;
