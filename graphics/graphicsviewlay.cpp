@@ -19,6 +19,8 @@
 
 ViewBigLay::ViewBigLay(QMap<QString, QVariant> set, bool v) : QVBoxLayout() {
 
+	this->setMargin(1);
+
 	verbose = v;
 
 	globSet = set;
@@ -38,18 +40,22 @@ ViewBigLay::ViewBigLay(QMap<QString, QVariant> set, bool v) : QVBoxLayout() {
 /*	quickInfoSaveTOP->hide();*/
 
 	quickInfoCounterTOP = new QuickInfoLabel(0,"quickinfoCounterTOP",verbose);
+	quickInfoCounterTOP->setAlignment(Qt::AlignTop);
 	quickInfoCounterTOP->setStyleSheet("color: white");
 	quickInfoCounterTOP->hide();
 	quickInfoSepTOP = new CustomLabel("--");
+	quickInfoSepTOP->setAlignment(Qt::AlignTop);
 	quickInfoSepTOP->hide();
 	quickInfoFilenameTOP = new QuickInfoLabel(0,"quickinfoFilenameTOP",verbose);
+	quickInfoFilenameTOP->setAlignment(Qt::AlignTop);
 	quickInfoFilenameTOP->setText(tr("Open File to Begin."));
 	quickInfoFilenameTOP->setStyleSheet("color: white");
 	quickInfoFilenameTOP->hide();
 	quickInfoFilenameTOP->globSet = globSet;
 	closeWindowX = new QuickInfoLabel(0,"closewindowXTOP",verbose);
+	closeWindowX->setAlignment(Qt::AlignTop);
 	closeWindowX->setText("x");
-	closeWindowX->setStyleSheet("color: white; padding: 5px");
+	closeWindowX->setStyleSheet("color: white; font-weight: bold; font-size: 10pt");
 	closeWindowX->setCursor(Qt::PointingHandCursor);
 	closeWindowX->setVisible(!globSet.value("HideX").toBool());
 	QSignalMapper *mapperXTOP = new QSignalMapper;
@@ -69,6 +75,8 @@ ViewBigLay::ViewBigLay(QMap<QString, QVariant> set, bool v) : QVBoxLayout() {
 	quickInfoTOP->addWidget(quickInfoFilenameTOP);
 	quickInfoTOP->addStretch();
 	quickInfoTOP->addWidget(closeWindowX);
+
+	quickInfoTOP->setAlignment(Qt::AlignTop);
 
 	this->addLayout(quickInfoTOP);
 
@@ -116,6 +124,9 @@ void ViewBigLay::setSettings(QMap<QString, QVariant> set) {
 	closeWindowX->hideFilepathShowFilename = set.value("HideFilepathShowFilename").toBool();
 	quickInfoCounterBOT->hideFilepathShowFilename = set.value("HideFilepathShowFilename").toBool();
 	quickInfoFilenameBOT->hideFilepathShowFilename = set.value("HideFilepathShowFilename").toBool();
+
+	int xsize = set.value("CloseXSize").toInt();
+	closeWindowX->setStyleSheet(QString("padding: 0; margin: 0; color: white; " + QString(xsize<18 ? "font-weight: bold;" : "") + "font-size: %1pt").arg(xsize));
 
 
 }

@@ -411,6 +411,8 @@ public:
 	int menusensitivity;
 	// Close on click on background exits?
 	bool closeongrey;
+	// Size of closing "x"
+	int closeXsize;
 	// Border around big image
 	int borderAroundImg;
 	// Show Quick Settings on mouse movement
@@ -528,6 +530,7 @@ public:
 		map.insert("LoopThroughFolder",loopthroughfolder);
 		map.insert("MenuSensitivity",menusensitivity);
 		map.insert("CloseOnGrey",closeongrey);
+		map.insert("CloseXSize",closeXsize);
 		map.insert("BorderAroundImg",borderAroundImg);
 		map.insert("QuickSettings",quickSettings);
 
@@ -625,6 +628,7 @@ public:
 		loopthroughfolder = true;
 		menusensitivity = 6;
 		closeongrey = false;
+		closeXsize = 10;
 		borderAroundImg = 5;
 		quickSettings = true;
 
@@ -788,6 +792,9 @@ public:
 				closeongrey = true;
 			else if(all.contains("CloseOnGrey=0"))
 				closeongrey = false;
+
+			if(all.contains("CloseXSize="))
+				closeXsize = all.split("CloseXSize=").at(1).split("\n").at(0).toInt();
 
 			if(all.contains("BorderAroundImg="))
 				borderAroundImg = all.split("BorderAroundImg=").at(1).split("\n").at(0).toInt();
@@ -1040,6 +1047,7 @@ public:
 			cont += QString("LoopThroughFolder=%1\n").arg(int(loopthroughfolder));
 			cont += QString("MenuSensitivity=%1\n").arg(menusensitivity);
 			cont += QString("CloseOnGrey=%1\n").arg(int(closeongrey));
+			cont += QString("CloseXSize=%1\n").arg(closeXsize);
 			cont += QString("BorderAroundImg=%1\n").arg(borderAroundImg);
 			cont += QString("QuickSettings=%1\n").arg(int(quickSettings));
 
@@ -1230,6 +1238,10 @@ public slots:
 		if(changedSet.keys().contains("BorderAroundImg")) {
 			borderAroundImg = changedSet.value("BorderAroundImg").toInt();
 			applySet["redrawimg"] = true;
+		}
+		if(changedSet.keys().contains("CloseXSize")) {
+			closeXsize = changedSet.value("CloseXSize").toInt();
+			applySet["quickinfo"] = true;
 		}
 		if(changedSet.keys().contains("QuickSettings"))
 			quickSettings = changedSet.value("QuickSettings").toBool();

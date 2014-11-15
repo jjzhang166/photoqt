@@ -118,6 +118,9 @@ private:
 	// Close on click on grey
 	CustomCheckBox *grey;
 
+	// Size of closing "x" (top right)
+	CustomSlider *closeXsize;
+
 	// Hide the quickinfo
 	CustomCheckBox *hideCounter;
 	CustomCheckBox *hideFilePATH;

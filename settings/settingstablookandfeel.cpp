@@ -318,6 +318,27 @@ SettingsTabLookAndFeel::SettingsTabLookAndFeel(QWidget *parent, QMap<QString, QV
 	layLook->addSpacing(20);
 
 
+	// Option to adjust size of closing X
+	CustomLabel *closeXsizeLabel = new CustomLabel("<b><span style=\"font-size: 12pt\">" + tr("Size of closing X (top right)") + "</span></b><hr>" + tr("If you want to have a bigger \"x\" to close PhotoQt easier, you can increase its size here."));
+	closeXsizeLabel->setWordWrap(true);
+	closeXsize = new CustomSlider;
+	closeXsize->setMinimum(8);
+	closeXsize->setMaximum(25);
+	closeXsize->setTickInterval(1);
+	CustomLabel *closeXsmallLabel = new CustomLabel(tr("Small"));
+	CustomLabel *closeXlargeLabel = new CustomLabel(tr("Large"));
+	QHBoxLayout *closeXlabel = new QHBoxLayout;
+	closeXlabel->addStretch();
+	closeXlabel->addWidget(closeXsmallLabel);
+	closeXlabel->addWidget(closeXsize);
+	closeXlabel->addWidget(closeXlargeLabel);
+	closeXlabel->addStretch();
+	layLook->addWidget(closeXsizeLabel);
+	layLook->addSpacing(5);
+	layLook->addLayout(closeXlabel);
+	layLook->addSpacing(20);
+
+
 
 	// OPTION FOR HIDING SOME/ALL QUICKINFO
 	CustomLabel *hideQuickInfoLabel = new CustomLabel("<b><span style=\"font-size: 12pt\">" + tr("Hide Quickinfo (Text Labels)") + "</span></b><hr>" + tr("Here you can hide the text labels shown in the main area: The Counter in the top left corner, the file path/name following the counter, and the \"X\" displayed in the top right corner. The labels can also be hidden by simply right-clicking on them and selecting \"Hide\"."));
@@ -432,6 +453,9 @@ void SettingsTabLookAndFeel::loadSettings() {
 
 	grey->setChecked(globSet.value("CloseOnGrey").toBool());
 	defaults.insert("CloseOnGrey",globSet.value("CloseOnGrey").toBool());
+
+	closeXsize->setValue(globSet.value("CloseXSize").toInt());
+	defaults.insert("CloseXSize",globSet.value("CloseXSize").toInt());
 
 	hideCounter->setChecked(globSet.value("HideCounter").toBool());
 	hideFilePATH->setChecked(globSet.value("HideFilepathShowFilename").toBool());
@@ -561,6 +585,12 @@ void SettingsTabLookAndFeel::saveSettings() {
 		updatedSet.insert("CloseOnGrey",grey->isChecked());
 		defaults.remove("CloseOnGrey");
 		defaults.insert("CloseOnGrey",grey->isChecked());
+	}
+
+	if(defaults.value("CloseXSize").toInt() != closeXsize->value()) {
+		updatedSet.insert("CloseXSize",closeXsize->value());
+		defaults.remove("CloseXSize");
+		defaults.insert("CloseXSize",closeXsize->value());
 	}
 
 	if(defaults.value("HideCounter").toBool() != hideCounter->isChecked()) {
