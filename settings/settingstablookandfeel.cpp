@@ -318,8 +318,30 @@ SettingsTabLookAndFeel::SettingsTabLookAndFeel(QWidget *parent, QMap<QString, QV
 	layLook->addSpacing(20);
 
 
+	// OPTION FOR HIDING SOME/ALL QUICKINFO
+	CustomLabel *hideQuickInfoLabel = new CustomLabel("<b><span style=\"font-size: 12pt\">" + tr("Hide Quickinfo (Text Labels)") + "</span></b><hr>" + tr("Here you can hide the text labels shown in the main area: The Counter in the top left corner, the file path/name following the counter, and the \"X\" displayed in the top right corner. The labels can also be hidden by simply right-clicking on them and selecting \"Hide\"."));
+	hideQuickInfoLabel->setWordWrap(true);
+	QHBoxLayout *hideQuickInfoLay = new QHBoxLayout;
+	QVBoxLayout *hideQuickInfoColLay = new QVBoxLayout;
+	hideCounter = new CustomCheckBox(tr("Hide Counter"));
+	hideFilePATH = new CustomCheckBox(tr("Hide Filepath (Shows only file name)"));
+	hideFilename = new CustomCheckBox(tr("Hide Filename (Including file path)"));
+	hideX = new CustomCheckBox(tr("Hide \"X\" (Closing)"));
+	hideQuickInfoColLay->addWidget(hideCounter);
+	hideQuickInfoColLay->addWidget(hideFilePATH);
+	hideQuickInfoColLay->addWidget(hideFilename);
+	hideQuickInfoColLay->addWidget(hideX);
+	hideQuickInfoLay->addStretch();
+	hideQuickInfoLay->addLayout(hideQuickInfoColLay);
+	hideQuickInfoLay->addStretch();
+	layLook->addWidget(hideQuickInfoLabel);
+	layLook->addSpacing(5);
+	layLook->addLayout(hideQuickInfoLay);
+	layLook->addSpacing(20);
+
+
 	// Option to adjust size and look of closing X
-	CustomLabel *closeXsizeLabel = new CustomLabel("<b><span style=\"font-size: 12pt\">" + tr("Closing X (top right)") + "</span></b><hr>" + tr("There are two looks for the closing 'x' at the top right: a normal 'x', or a slightly more fancy 'x'. Here you can switch back and forth between both of them, and also change their size. If you prefer not to have a closing 'x' at all, see further down for an option to hide it."));
+	CustomLabel *closeXsizeLabel = new CustomLabel("<b><span style=\"font-size: 12pt\">" + tr("Closing 'X' (top right)") + "</span></b><hr>" + tr("There are two looks for the closing 'x' at the top right: a normal 'x', or a slightly more fancy 'x'. Here you can switch back and forth between both of them, and also change their size. If you prefer not to have a closing 'x' at all, see above for an option to hide it."));
 	closeXsizeLabel->setWordWrap(true);
 	closeXsize = new CustomSlider;
 	closeXsize->setMinimum(5);
@@ -350,29 +372,6 @@ SettingsTabLookAndFeel::SettingsTabLookAndFeel(QWidget *parent, QMap<QString, QV
 	layLook->addLayout(normalFancyLay);
 	layLook->addSpacing(5);
 	layLook->addLayout(closeXlabel);
-	layLook->addSpacing(20);
-
-
-
-	// OPTION FOR HIDING SOME/ALL QUICKINFO
-	CustomLabel *hideQuickInfoLabel = new CustomLabel("<b><span style=\"font-size: 12pt\">" + tr("Hide Quickinfo (Text Labels)") + "</span></b><hr>" + tr("Here you can hide the text labels shown in the main area: The Counter in the top left corner, the file path/name following the counter, and the \"X\" displayed in the top right corner. The labels can also be hidden by simply right-clicking on them and selecting \"Hide\"."));
-	hideQuickInfoLabel->setWordWrap(true);
-	QHBoxLayout *hideQuickInfoLay = new QHBoxLayout;
-	QVBoxLayout *hideQuickInfoColLay = new QVBoxLayout;
-	hideCounter = new CustomCheckBox(tr("Hide Counter"));
-	hideFilePATH = new CustomCheckBox(tr("Hide Filepath (Shows only file name)"));
-	hideFilename = new CustomCheckBox(tr("Hide Filename (Including file path)"));
-	hideX = new CustomCheckBox(tr("Hide \"X\" (Closing)"));
-	hideQuickInfoColLay->addWidget(hideCounter);
-	hideQuickInfoColLay->addWidget(hideFilePATH);
-	hideQuickInfoColLay->addWidget(hideFilename);
-	hideQuickInfoColLay->addWidget(hideX);
-	hideQuickInfoLay->addStretch();
-	hideQuickInfoLay->addLayout(hideQuickInfoColLay);
-	hideQuickInfoLay->addStretch();
-	layLook->addWidget(hideQuickInfoLabel);
-	layLook->addSpacing(5);
-	layLook->addLayout(hideQuickInfoLay);
 	layLook->addSpacing(20);
 
 
