@@ -250,10 +250,10 @@ void MainWindow::applySettings(QMap<QString, bool> applySet, bool justApplyAllOf
 	// Update window for window mode/fullscreen
 	if(applySet["window"]) {
 		if(globSet->windowmode) {
+			globSet->windowDecoration
+					      ? this->setWindowFlags(Qt::Window)
+					      : this->setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
 			this->showMaximized();
-			globSet->windowDecoration ? this->setWindowFlags(this->windowFlags() & ~Qt::FramelessWindowHint) : this->setWindowFlags(Qt::FramelessWindowHint);
-			QTimer::singleShot(10,this,SLOT(showMaximized()));
-			QTimer::singleShot(500,this,SLOT(showMaximized()));
 		} else
 			this->showFullScreen();
 	}
