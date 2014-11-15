@@ -543,6 +543,103 @@ void MainWindow::drawImage() {
 
 }
 
+void MainWindow::firstStartSetup() {
+
+	// On first start ever, we need to set the default file for disabled file formats.
+	QFile file(QDir::homePath() + "/.photoqt/fileformats.disabled");
+	if(!file.open(QIODevice::WriteOnly))
+		std::cerr << "[setup] ERROR: Unable to create file 'fileformats.disabled'";
+	else {
+		if(globVar->verbose) std::clog << "[setup] Create default file for disabled file formats";
+		QTextStream out(&file);
+		QString txt = QString(".eps\n")
+				+ QString(".epsf\n")
+				+ QString(".epi\n")
+				+ QString(".epsi\n")
+				+ QString(".ept\n")
+				+ QString(".eps2\n")
+				+ QString(".eps3\n")
+				+ QString(".pdf\n")
+				+ QString(".ps\n")
+				+ QString(".ps2\n")
+				+ QString(".ps3\n")
+				+ QString(".hp\n")
+				+ QString(".hpgl\n")
+				+ QString(".jbig\n")
+				+ QString(".jbg\n")
+				+ QString(".pwp\n")
+				+ QString(".rast\n")
+				+ QString(".rla\n")
+				+ QString(".rle\n")
+				+ QString(".sct\n")
+				+ QString(".tim\n");
+
+		out << txt;
+		file.close();
+
+	}
+
+	// The main image has context menu with internal and external functions
+	QFile contextmenu(QDir::homePath() + "/.photoqt/contextmenu");
+	if(!contextmenu.exists()) {
+
+		if(globVar->verbose) std::clog << "Create basic context menu file" << std::endl;
+
+		if(contextmenu.open(QIODevice::WriteOnly)) {
+
+			if(globVar->verbose) std::clog << "Setup default context menu entries";
+
+			QTextStream out(&contextmenu);
+
+			// We check for the existence of the following applications
+			QStringList lst;
+			QStringList lst_desc;
+			lst << "gimp %f";
+			lst_desc << "Edit with Gimp";
+			lst << "krita %f";
+			lst_desc << "Edit with Krita";
+			lst << "kolourpaint %f";	// **
+			lst_desc << "Edit with KolourPaint";
+			lst << "gwenview %f";
+			lst_desc << "Open in GwenView";
+			lst << "shotwell %f";		// **
+			lst_desc << "Open in Shotwell";
+			lst << "gthumb %f";		// **
+			lst_desc << "Open in gThumb";
+			lst << "showfoto %f";
+			lst_desc << "Open in showFoto";
+			lst << "eog %f";			// **
+			lst_desc << "Open in Eye of Gnome";
+
+			QString def = "";
+
+			// We use the 'which' command to check for existence
+			for(int i = 0; i < lst.length(); ++i) {
+				QProcess p;
+				p.setStandardOutputFile(QProcess::nullDevice());
+				p.start("which " + QString(lst.at(i)).remove("%f").remove("%d").trimmed());
+				p.waitForFinished();
+				if(!p.exitCode()) def += lst.at(i) + "\n" + QObject::tr(lst_desc.at(i).toLatin1()) + "\n\n";
+			}
+
+			// And save contextmenu
+			out << def;
+
+			contextmenu.close();
+
+		} else
+			std::cerr << "ERROR: Couldn't create contextmenu file" << std::endl;
+	}
+
+	globSet->fileFormats->getFormats();
+
+	QMap<QString, QVariant> upd;
+	upd.insert("KnownFileTypesQt",globSet->fileFormats->formatsQtEnabled.join(","));
+	upd.insert("KnownFileTypesGm",globSet->fileFormats->formatsGmEnabled.join(","));
+	globSet->settingsUpdated(upd);
+
+}
+
 // When the Exif data dictates an orientation
 void MainWindow::getOrientationFromExif(int degree, bool flipHor) {
 
@@ -1990,6 +2087,8 @@ void MainWindow::showStartupUpdateInstallMsg() {
 		blockFunc(true);
 
 	} else if(globVar->startupMessageInstallUpdateShown == 2) {
+
+		firstStartSetup();
 
 		// This widget is shown after an update/fresh install
 		startup = new StartUpWidget(viewBig);

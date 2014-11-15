@@ -145,7 +145,7 @@ void Context::loadContext() {
 
 		QTextStream in(&file);
 
-		QStringList all = in.readAll().split("\n\n");
+		QStringList all = in.readAll().split("\n\n",QString::SkipEmptyParts);
 
 		// And set up all the tiles
 		for(int i = 0; i < all.length(); ++i) {

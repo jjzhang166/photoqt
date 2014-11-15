@@ -277,7 +277,7 @@ void GraphicsView::setupContextMenu() {
 
 			QTextStream in(&file);
 
-			QStringList all = in.readAll().split("\n\n");
+			QStringList all = in.readAll().split("\n\n",QString::SkipEmptyParts);
 
 			// And set up the rest of the menu
 			for(int i = 0; i < all.length(); ++i) {
@@ -286,7 +286,7 @@ void GraphicsView::setupContextMenu() {
 				QString desc = all.at(i).split("\n").at(1);
 
 				QString binary = cmd;
-				binary.remove("%f").remove("%d");
+				binary = binary.remove("%f").remove("%d");
 
 				binary = binary.trimmed();
 

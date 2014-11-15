@@ -394,64 +394,6 @@ int main(int argc, char *argv[]) {
 		// Previous versions of PhotoQt checked here also for the shortcuts file. We don't need to do that anymore, since all shortcuts including the defaults are handled by shortcuts.h
 
 
-		// The main image has a (very basic) context menu. Internal commands are not yet possible, will hopefuly come in next version
-		QFile contextmenu(QDir::homePath() + "/.photoqt/contextmenu");
-		if(!contextmenu.exists()) {
-
-			if(verbose) std::clog << "Create basic context menu file" << std::endl;
-
-			if(contextmenu.open(QIODevice::WriteOnly)) {
-
-				QTextStream out(&contextmenu);
-
-				QString def = "gimp %f\n" + QObject::tr("Edit with Gimp") + "\n\ngwenview %f\n" + QObject::tr("Open in GwenView");
-				out << def;
-
-				contextmenu.close();
-
-			} else
-				std::cerr << "ERROR: Couldn't create contextmenu file" << std::endl;
-		}
-
-
-		// On first start ever, we need to set the default file for disabled file formats.
-		// We have to do it here, as later-on (e.g. in globalsettings.h) we can't determine anymore, if that's the first start or not...
-		if(update == 2) {
-
-			QFile file(QDir::homePath() + "/.photoqt/fileformats.disabled");
-			if(!file.open(QIODevice::WriteOnly))
-				std::cerr << "[setup] ERROR: Unable to create file 'fileformats.disabled'";
-			else {
-				if(verbose) std::clog << "[setup] Create default file for disabled file formats";
-				QTextStream out(&file);
-				QString txt = QString(".eps\n")
-						+ QString(".epsf\n")
-						+ QString(".epi\n")
-						+ QString(".epsi\n")
-						+ QString(".ept\n")
-						+ QString(".eps2\n")
-						+ QString(".eps3\n")
-						+ QString(".pdf\n")
-						+ QString(".ps\n")
-						+ QString(".ps2\n")
-						+ QString(".ps3\n")
-						+ QString(".hp\n")
-						+ QString(".hpgl\n")
-						+ QString(".jbig\n")
-						+ QString(".jbg\n")
-						+ QString(".pwp\n")
-						+ QString(".rast\n")
-						+ QString(".rla\n")
-						+ QString(".rle\n")
-						+ QString(".sct\n")
-						+ QString(".tim\n");
-
-				out << txt;
-				file.close();
-
-			}
-		}
-
 		/***************************
 		 ***************************/
 		// The Window has to be initialised *AFTER* the checks above to ensure that the settings exist and are updated and can be loaded
@@ -507,11 +449,7 @@ int main(int argc, char *argv[]) {
 			}
 
 			// Update settings with new values
-			QMap<QString, QVariant> upd;
-			upd.insert("KnownFileTypesQt",new_qt.join(","));
-			upd.insert("KnownFileTypesGm",new_gm.join(","));
-			upd.insert("KnownFileTypesQtExtras",w.globSet->knownFileTypesQtExtras);
-			w.globSet->settingsUpdated(upd);
+			w.globSet->fileFormats->getFormats();
 
 		}
 

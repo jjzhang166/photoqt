@@ -157,6 +157,8 @@ private:
 	// Adjust all the geometries (QRects and stuff)
 	void adjustGeometries();
 
+	void firstStartSetup();
+
 	// Show the startup widget (after update/fresh install)
 	void showStartupUpdateInstallMsg();
 
