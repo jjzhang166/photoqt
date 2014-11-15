@@ -23,6 +23,7 @@
 #include <QSignalMapper>
 #include <QMouseEvent>
 #include <QFileInfo>
+#include <QtDebug>
 
 #include "../customelements/customlabel.h"
 
@@ -36,9 +37,11 @@ public:
 	bool verbose;
 
 	bool hideFilepathShowFilename;
+	bool fancyX;
 
 	QMenu *c;
 	QAction *dohideFilepath;
+	QAction *switchLook;
 	QAction *dohide;
 	QString version;
 

@@ -55,5 +55,6 @@
         <file>img/ratioDontKeep.png</file>
         <file>img/scale.png</file>
         <file>img/save.png</file>
+        <file>img/closingx.png</file>
     </qresource>
 </RCC>

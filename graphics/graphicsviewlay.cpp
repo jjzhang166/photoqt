@@ -19,16 +19,13 @@
 
 ViewBigLay::ViewBigLay(QMap<QString, QVariant> set, bool v) : QVBoxLayout() {
 
-	this->setMargin(1);
-
 	verbose = v;
-
 	globSet = set;
-
 
 	slideshowRunning = false;
 	slideshowHide = false;
 
+	this->setMargin(0);
 
 	QHBoxLayout *quickInfoTOP = new QHBoxLayout;
 
@@ -41,15 +38,16 @@ ViewBigLay::ViewBigLay(QMap<QString, QVariant> set, bool v) : QVBoxLayout() {
 
 	quickInfoCounterTOP = new QuickInfoLabel(0,"quickinfoCounterTOP",verbose);
 	quickInfoCounterTOP->setAlignment(Qt::AlignTop);
-	quickInfoCounterTOP->setStyleSheet("color: white");
+	quickInfoCounterTOP->setStyleSheet("padding: 2px; color: white");
 	quickInfoCounterTOP->hide();
 	quickInfoSepTOP = new CustomLabel("--");
+	quickInfoSepTOP->setStyleSheet("padding: 2px; color: white;");
 	quickInfoSepTOP->setAlignment(Qt::AlignTop);
 	quickInfoSepTOP->hide();
 	quickInfoFilenameTOP = new QuickInfoLabel(0,"quickinfoFilenameTOP",verbose);
 	quickInfoFilenameTOP->setAlignment(Qt::AlignTop);
 	quickInfoFilenameTOP->setText(tr("Open File to Begin."));
-	quickInfoFilenameTOP->setStyleSheet("color: white");
+	quickInfoFilenameTOP->setStyleSheet("padding: 2px; color: white");
 	quickInfoFilenameTOP->hide();
 	quickInfoFilenameTOP->globSet = globSet;
 	closeWindowX = new QuickInfoLabel(0,"closewindowXTOP",verbose);
@@ -62,6 +60,7 @@ ViewBigLay::ViewBigLay(QMap<QString, QVariant> set, bool v) : QVBoxLayout() {
 	mapperXTOP->setMapping(closeWindowX,"0:::::__hide");
 	connect(closeWindowX, SIGNAL(clicked()), mapperXTOP, SLOT(map()));
 	connect(mapperXTOP, SIGNAL(mapped(QString)), this, SIGNAL(clickOnX(QString)));
+	connect(closeWindowX->switchLook, SIGNAL(triggered()), this, SLOT(hideItem()));
 	connect(quickInfoCounterTOP->dohide, SIGNAL(triggered()), this, SLOT(hideItem()));
 	connect(quickInfoFilenameTOP->dohide, SIGNAL(triggered()), this, SLOT(hideItem()));
 	connect(quickInfoFilenameTOP->dohideFilepath, SIGNAL(triggered()), this, SLOT(hideItem()));
@@ -76,6 +75,7 @@ ViewBigLay::ViewBigLay(QMap<QString, QVariant> set, bool v) : QVBoxLayout() {
 	quickInfoTOP->addStretch();
 	quickInfoTOP->addWidget(closeWindowX);
 
+	quickInfoTOP->setMargin(0);
 	quickInfoTOP->setAlignment(Qt::AlignTop);
 
 	this->addLayout(quickInfoTOP);
@@ -126,7 +126,16 @@ void ViewBigLay::setSettings(QMap<QString, QVariant> set) {
 	quickInfoFilenameBOT->hideFilepathShowFilename = set.value("HideFilepathShowFilename").toBool();
 
 	int xsize = set.value("CloseXSize").toInt();
-	closeWindowX->setStyleSheet(QString("padding: 0; margin: 0; color: white; " + QString(xsize<18 ? "font-weight: bold;" : "") + "font-size: %1pt").arg(xsize));
+	if(set.value("FancyX").toBool()) {
+		qDebug() << "Fancy X";
+		closeWindowX->setText("");
+		closeWindowX->setStyleSheet("padding: 0px;");
+		closeWindowX->setPixmap(QPixmap(":/img/closingx.png").scaled((xsize-2)*5,(xsize-2)*5));
+	} else {
+		closeWindowX->setPixmap(QPixmap());
+		closeWindowX->setText("x");
+		closeWindowX->setStyleSheet(QString("padding: 2px; color: white; " + QString(xsize<18 ? "font-weight: bold;" : "") + "font-size: %1pt").arg(xsize));
+	}
 
 
 }
@@ -262,17 +271,17 @@ void ViewBigLay::hideItem() {
 		quickInfoSepTOP->hide();
 		quickInfoSepBOT->hide();
 		updateSet.insert("HideCounter",true);
-	}
-	if(objName.startsWith("quickinfoFilepath"))
+	} else if(objName.startsWith("quickinfoFilepath"))
 		updateSet.insert("HideFilepathShowFilename",true);
-	if(objName.startsWith("quickinfoFilename")) {
+	else if(objName.startsWith("quickinfoFilename")) {
 		quickInfoSepTOP->hide();
 		quickInfoSepBOT->hide();
 		quickInfoFilenameTOP->hide();
 		quickInfoFilenameBOT->hide();
 		updateSet.insert("HideFilename",true);
-	}
-	if(objName.startsWith("closewindowX")) {
+	} else if(objName.startsWith("quickinfoSwitchX")) {
+		updateSet.insert("FancyX",!globSet.value("FancyX").toBool());
+	} else if(objName.startsWith("closewindowX")) {
 		closeWindowX->hide();
 		updateSet.insert("HideX",true);
 	}
@@ -310,6 +319,11 @@ QuickInfoLabel::QuickInfoLabel(QWidget *parent, QString objName, bool v) : QLabe
 		dohideFilepath = new QAction(tr("Hide Filepath, leave Filename"),c);
 		dohideFilepath->setObjectName("quickinfoFilepath");
 		c->addAction(dohideFilepath);
+	}
+	if(objName.startsWith("closewindowXTOP")) {
+		switchLook = new QAction(tr("Switch between normal/fancy look"),c);
+		switchLook->setObjectName("quickinfoSwitchX");
+		c->addAction(switchLook);
 	}
 	dohide = new QAction(tr("Hide this item"),c);
 	dohide->setObjectName(objName);

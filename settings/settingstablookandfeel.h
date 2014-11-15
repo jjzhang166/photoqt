@@ -49,6 +49,8 @@
 #include <QApplication>
 #include <QDesktopWidget>
 
+#include <QButtonGroup>
+
 
 #include <QGraphicsEffect>
 
@@ -118,8 +120,10 @@ private:
 	// Close on click on grey
 	CustomCheckBox *grey;
 
-	// Size of closing "x" (top right)
+	// Size/Look of closing "x" (top right)
 	CustomSlider *closeXsize;
+	CustomRadioButton *normalX;
+	CustomRadioButton *fancyX;
 
 	// Hide the quickinfo
 	CustomCheckBox *hideCounter;

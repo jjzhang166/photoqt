@@ -411,8 +411,6 @@ public:
 	int menusensitivity;
 	// Close on click on background exits?
 	bool closeongrey;
-	// Size of closing "x"
-	int closeXsize;
 	// Border around big image
 	int borderAroundImg;
 	// Show Quick Settings on mouse movement
@@ -423,6 +421,9 @@ public:
 	bool hidefilepathshowfilename;
 	bool hidefilename;
 	bool hidex;
+	// Size/Look of closing "x"
+	int closeXsize;
+	bool fancyX;
 
 	// Some settings of the slideshow
 	int slideShowTime;
@@ -530,7 +531,6 @@ public:
 		map.insert("LoopThroughFolder",loopthroughfolder);
 		map.insert("MenuSensitivity",menusensitivity);
 		map.insert("CloseOnGrey",closeongrey);
-		map.insert("CloseXSize",closeXsize);
 		map.insert("BorderAroundImg",borderAroundImg);
 		map.insert("QuickSettings",quickSettings);
 
@@ -538,6 +538,9 @@ public:
 		map.insert("HideFilepathShowFilename",hidefilepathshowfilename);
 		map.insert("HideFilename",hidefilename);
 		map.insert("HideX",hidex);
+
+		map.insert("CloseXSize",closeXsize);
+		map.insert("FancyX",fancyX);
 
 		map.insert("ThumbnailSize",thumbnailsize);
 		map.insert("ThumbnailPosition",thumbnailposition);
@@ -628,7 +631,6 @@ public:
 		loopthroughfolder = true;
 		menusensitivity = 6;
 		closeongrey = false;
-		closeXsize = 10;
 		borderAroundImg = 5;
 		quickSettings = true;
 
@@ -636,6 +638,9 @@ public:
 		hidefilepathshowfilename = true;
 		hidefilename = false;
 		hidex = false;
+
+		closeXsize = 10;
+		fancyX = false;
 
 		thumbnailsize = 80;
 		thumbnailposition = "Bottom";
@@ -793,9 +798,6 @@ public:
 			else if(all.contains("CloseOnGrey=0"))
 				closeongrey = false;
 
-			if(all.contains("CloseXSize="))
-				closeXsize = all.split("CloseXSize=").at(1).split("\n").at(0).toInt();
-
 			if(all.contains("BorderAroundImg="))
 				borderAroundImg = all.split("BorderAroundImg=").at(1).split("\n").at(0).toInt();
 
@@ -818,6 +820,14 @@ public:
 				hidex = true;
 			else if(all.contains("HideX=0"))
 				hidex = false;
+
+			if(all.contains("CloseXSize="))
+				closeXsize = all.split("CloseXSize=").at(1).split("\n").at(0).toInt();
+
+			if(all.contains(("FancyX=1")))
+				fancyX = true;
+			else if(all.contains("FancyX=0"))
+				fancyX = false;
 
 			if(all.contains("ThumbnailSize="))
 				thumbnailsize = all.split("ThumbnailSize=").at(1).split("\n").at(0).toInt();
@@ -1047,16 +1057,17 @@ public:
 			cont += QString("LoopThroughFolder=%1\n").arg(int(loopthroughfolder));
 			cont += QString("MenuSensitivity=%1\n").arg(menusensitivity);
 			cont += QString("CloseOnGrey=%1\n").arg(int(closeongrey));
-			cont += QString("CloseXSize=%1\n").arg(closeXsize);
 			cont += QString("BorderAroundImg=%1\n").arg(borderAroundImg);
 			cont += QString("QuickSettings=%1\n").arg(int(quickSettings));
 
-			cont += "\n[Path]\n";
+			cont += "\n[Quickinfo]\n";
 
 			cont += QString("HideCounter=%1\n").arg(int(hidecounter));
 			cont += QString("HideFilepathShowFilename=%1\n").arg(int(hidefilepathshowfilename));
 			cont += QString("HideFilename=%1\n").arg(int(hidefilename));
 			cont += QString("HideX=%1\n").arg(int(hidex));
+			cont += QString("FancyX=%1\n").arg(int(fancyX));
+			cont += QString("CloseXSize=%1\n").arg(closeXsize);
 
 			cont += "\n[Thumbnail]\n";
 
@@ -1239,10 +1250,6 @@ public slots:
 			borderAroundImg = changedSet.value("BorderAroundImg").toInt();
 			applySet["redrawimg"] = true;
 		}
-		if(changedSet.keys().contains("CloseXSize")) {
-			closeXsize = changedSet.value("CloseXSize").toInt();
-			applySet["quickinfo"] = true;
-		}
 		if(changedSet.keys().contains("QuickSettings"))
 			quickSettings = changedSet.value("QuickSettings").toBool();
 
@@ -1260,6 +1267,15 @@ public slots:
 		}
 		if(changedSet.keys().contains("HideX")) {
 			hidex = changedSet.value("HideX").toBool();
+			applySet["quickinfo"] = true;
+		}
+
+		if(changedSet.keys().contains("CloseXSize")) {
+			closeXsize = changedSet.value("CloseXSize").toInt();
+			applySet["quickinfo"] = true;
+		}
+		if(changedSet.keys().contains("FancyX")) {
+			fancyX = changedSet.value("FancyX").toBool();
 			applySet["quickinfo"] = true;
 		}
 

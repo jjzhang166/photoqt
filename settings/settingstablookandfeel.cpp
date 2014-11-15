@@ -318,13 +318,25 @@ SettingsTabLookAndFeel::SettingsTabLookAndFeel(QWidget *parent, QMap<QString, QV
 	layLook->addSpacing(20);
 
 
-	// Option to adjust size of closing X
-	CustomLabel *closeXsizeLabel = new CustomLabel("<b><span style=\"font-size: 12pt\">" + tr("Size of closing X (top right)") + "</span></b><hr>" + tr("If you want to have a bigger \"x\" to close PhotoQt easier, you can increase its size here."));
+	// Option to adjust size and look of closing X
+	CustomLabel *closeXsizeLabel = new CustomLabel("<b><span style=\"font-size: 12pt\">" + tr("Closing X (top right)") + "</span></b><hr>" + tr("There are two looks for the closing 'x' at the top right: a normal 'x', or a slightly more fancy 'x'. Here you can switch back and forth between both of them, and also change their size. If you prefer not to have a closing 'x' at all, see further down for an option to hide it."));
 	closeXsizeLabel->setWordWrap(true);
 	closeXsize = new CustomSlider;
-	closeXsize->setMinimum(8);
+	closeXsize->setMinimum(5);
 	closeXsize->setMaximum(25);
 	closeXsize->setTickInterval(1);
+	normalX = new CustomRadioButton(tr("Normal look"));
+	normalX->setChecked(true);
+	fancyX = new CustomRadioButton(tr("Fancy look"));
+	QButtonGroup *xgroup = new QButtonGroup;
+	xgroup->addButton(normalX);
+	xgroup->addButton(fancyX);
+	QHBoxLayout *normalFancyLay = new QHBoxLayout;
+	normalFancyLay->addStretch();
+	normalFancyLay->addWidget(normalX);
+	normalFancyLay->addSpacing(10);
+	normalFancyLay->addWidget(fancyX);
+	normalFancyLay->addStretch();
 	CustomLabel *closeXsmallLabel = new CustomLabel(tr("Small"));
 	CustomLabel *closeXlargeLabel = new CustomLabel(tr("Large"));
 	QHBoxLayout *closeXlabel = new QHBoxLayout;
@@ -334,6 +346,8 @@ SettingsTabLookAndFeel::SettingsTabLookAndFeel(QWidget *parent, QMap<QString, QV
 	closeXlabel->addWidget(closeXlargeLabel);
 	closeXlabel->addStretch();
 	layLook->addWidget(closeXsizeLabel);
+	layLook->addSpacing(5);
+	layLook->addLayout(normalFancyLay);
 	layLook->addSpacing(5);
 	layLook->addLayout(closeXlabel);
 	layLook->addSpacing(20);
@@ -456,6 +470,12 @@ void SettingsTabLookAndFeel::loadSettings() {
 
 	closeXsize->setValue(globSet.value("CloseXSize").toInt());
 	defaults.insert("CloseXSize",globSet.value("CloseXSize").toInt());
+
+	if(globSet.value("FancyX").toBool())
+		fancyX->setChecked(true);
+	else
+		normalX->setChecked(true);
+	defaults.insert("FancyX",globSet.value("FancyX").toBool());
 
 	hideCounter->setChecked(globSet.value("HideCounter").toBool());
 	hideFilePATH->setChecked(globSet.value("HideFilepathShowFilename").toBool());
@@ -581,7 +601,7 @@ void SettingsTabLookAndFeel::saveSettings() {
 		defaults.insert("WindowDecoration",windowDeco->isChecked());
 	}
 
-	if(defaults.value("CloseOnGrey") != grey->isChecked()) {
+	if(defaults.value("CloseOnGrey").toBool() != grey->isChecked()) {
 		updatedSet.insert("CloseOnGrey",grey->isChecked());
 		defaults.remove("CloseOnGrey");
 		defaults.insert("CloseOnGrey",grey->isChecked());
@@ -591,6 +611,12 @@ void SettingsTabLookAndFeel::saveSettings() {
 		updatedSet.insert("CloseXSize",closeXsize->value());
 		defaults.remove("CloseXSize");
 		defaults.insert("CloseXSize",closeXsize->value());
+	}
+
+	if(defaults.value("FancyX").toBool() != fancyX->isChecked()) {
+		updatedSet.insert("FancyX",fancyX->isChecked());
+		defaults.remove("FancyX");
+		defaults.insert("FancyX",fancyX->isChecked());
 	}
 
 	if(defaults.value("HideCounter").toBool() != hideCounter->isChecked()) {
