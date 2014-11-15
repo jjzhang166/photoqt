@@ -323,10 +323,8 @@ void Thumbnails::loadDir(bool amReloadingDir) {
 
 		newlyLoadedDir = true;
 
-		if(amReloadingDir) {
-			if(verbose) std::clog << "Calling scrolledView()" << std::endl;
-			QTimer::singleShot(200,this,SLOT(scrolledView()));
-		}
+		// Ensure, that the directory is loading
+		scrolledView();
 
 	}
 
