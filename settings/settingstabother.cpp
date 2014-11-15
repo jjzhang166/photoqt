@@ -555,8 +555,14 @@ void SettingsTabOther::loadSettings() {
 
 	defaults.clear();
 
+	QString code1 = globSet.value("Language").toString();
+	QString code2 = code1;
+	if(code1.trimmed() == "") {
+		code1 = QLocale::system().name();
+		code2 = QLocale::system().name().split("_").at(0);
+	}
 	for(int i = 0; i < allLangTiles.length(); ++i) {
-		if(globSet.value("Language").toString() == allLangTiles.at(i)->langCode) {
+		if(code1 == allLangTiles.at(i)->langCode || code2 == allLangTiles.at(i)->langCode) {
 			allLangTiles.at(i)->button->setChecked(true);
 			defaults.insert("Language",globSet.value("Language").toString());
 			break;
