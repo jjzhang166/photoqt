@@ -1056,7 +1056,7 @@ void MainWindow::mouseMoved(int x, int y) {
 
 
 		// Animate Quicksettings widget
-		if(x > viewBig->width()-10*globSet->menusensitivity && globSet->quickSettings) {
+		if(x > viewBig->width()-10*globSet->menusensitivity && y > quickset->y()-3*globSet->menusensitivity && y < quickset->y()+quickset->height()+3*globSet->menusensitivity && globSet->quickSettings) {
 			if(!setupWidgets->quicksettings) setupWidget("quicksetting");
 			quickset->makeShow();
 		}

@@ -632,7 +632,7 @@ public:
 		trayicon = false;
 		transition = 0;
 		loopthroughfolder = true;
-		menusensitivity = 6;
+		menusensitivity = 4;
 		closeongrey = false;
 		borderAroundImg = 5;
 		quickSettings = true;
