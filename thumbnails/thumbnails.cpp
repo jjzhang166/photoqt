@@ -225,6 +225,11 @@ void Thumbnails::loadDir(bool amReloadingDir) {
 
 	// Store a QFileInfoList and a QStringList with the filenames
 	allImgsInfo = dir->entryInfoList(QDir::Files,QDir::IgnoreCase);
+
+	// When opening an unknown file (i.e., one that doesn't match any set format), then we need to manually add it to the list of loaded images
+	if(!allImgsInfo.contains(QFileInfo(currentdir+"/"+currentfile))) allImgsInfo.append(QFileInfo(currentdir+"/"+currentfile));
+
+	// Sort images...
 	qSort(allImgsInfo.begin(),allImgsInfo.end(),compareNamesFileInfo);
 
 	// Storing number of images
