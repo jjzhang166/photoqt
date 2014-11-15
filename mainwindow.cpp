@@ -552,27 +552,27 @@ void MainWindow::firstStartSetup() {
 	else {
 		if(globVar->verbose) std::clog << "[setup] Create default file for disabled file formats";
 		QTextStream out(&file);
-		QString txt = QString(".eps\n")
-				+ QString(".epsf\n")
-				+ QString(".epi\n")
-				+ QString(".epsi\n")
-				+ QString(".ept\n")
-				+ QString(".eps2\n")
-				+ QString(".eps3\n")
-				+ QString(".pdf\n")
-				+ QString(".ps\n")
-				+ QString(".ps2\n")
-				+ QString(".ps3\n")
-				+ QString(".hp\n")
-				+ QString(".hpgl\n")
-				+ QString(".jbig\n")
-				+ QString(".jbg\n")
-				+ QString(".pwp\n")
-				+ QString(".rast\n")
-				+ QString(".rla\n")
-				+ QString(".rle\n")
-				+ QString(".sct\n")
-				+ QString(".tim\n");
+		QString txt = QString("*.eps\n")
+				+ QString("*.epsf\n")
+				+ QString("*.epi\n")
+				+ QString("*.epsi\n")
+				+ QString("*.ept\n")
+				+ QString("*.eps2\n")
+				+ QString("*.eps3\n")
+				+ QString("*.pdf\n")
+				+ QString("*.ps\n")
+				+ QString("*.ps2\n")
+				+ QString("*.ps3\n")
+				+ QString("*.hp\n")
+				+ QString("*.hpgl\n")
+				+ QString("*.jbig\n")
+				+ QString("*.jbg\n")
+				+ QString("*.pwp\n")
+				+ QString("*.rast\n")
+				+ QString("*.rla\n")
+				+ QString("*.rle\n")
+				+ QString("*.sct\n")
+				+ QString("*.tim\n");
 
 		out << txt;
 		file.close();

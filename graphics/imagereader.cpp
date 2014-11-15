@@ -324,10 +324,11 @@ QImage ImageReader::readImage_GM(QString filename, int rotation, bool zoomed, QS
 bool ImageReader::doIUseMagick(QString filename) {
 
 #ifdef GM
-	QStringList qtFiles = qtfiles.replace("*","").split(",");
+	QStringList qtFiles = qtfiles.split(",");
 
 	for(int i = 0; i < qtFiles.length(); ++i) {
-		if(filename.toLower().endsWith(qtFiles.at(i)))
+		// We need to remove the first character of qtfiles.at(i), since that is a "*"
+		if(filename.toLower().endsWith(QString(qtFiles.at(i)).remove(0,1)))
 			return false;
 	}
 

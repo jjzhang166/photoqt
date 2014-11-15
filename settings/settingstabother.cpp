@@ -562,6 +562,7 @@ void SettingsTabOther::loadSettings() {
 		code1 = QLocale::system().name();
 		code2 = QLocale::system().name().split("_").at(0);
 	}
+	// Check appropriate language tile
 	for(int i = 0; i < allLangTiles.length(); ++i) {
 		if(code1 == allLangTiles.at(i)->langCode || code2 == allLangTiles.at(i)->langCode) {
 			allLangTiles.at(i)->button->setChecked(true);
@@ -573,11 +574,12 @@ void SettingsTabOther::loadSettings() {
 	quickSet->setChecked(globSet.value("QuickSettings").toBool());
 	defaultValue = quickSet->isChecked();
 
-	QStringList formatsSetQt = globSet.value("KnownFileTypesQt").toString().replace("*","").split(",");
+	QStringList formatsSetQt = globSet.value("KnownFileTypesQt").toString().split(",");
+	qDebug() << formatsSetQt;
 	QMapIterator<QString, SettingsTabOtherFileTypesTiles*> iterQt(allCheckQt);
 	while (iterQt.hasNext()) {
 		iterQt.next();
-		QStringList types_part = QString(iterQt.key()).replace("*","").split(", ",QString::SkipEmptyParts);
+		QStringList types_part = QString(iterQt.key()).split(", ",QString::SkipEmptyParts);
 		iterQt.value()->setChecked(false);
 		for(int i = 0; i < types_part.length(); ++i) {
 			if(formatsSetQt.contains(types_part.at(i))) {
@@ -589,12 +591,12 @@ void SettingsTabOther::loadSettings() {
 	}
 
 #ifdef GM
-	QStringList formatsSetGm = globSet.value("KnownFileTypesGm").toString().replace("*","").split(",");
+	QStringList formatsSetGm = globSet.value("KnownFileTypesGm").toString().split(",");
 	QMapIterator<QString, SettingsTabOtherFileTypesTiles*> iterGm(allCheckGm);
 	while (iterGm.hasNext()) {
 		iterGm.next();
 
-		QStringList types_part = QString(iterGm.key()).replace("*","").split(", ",QString::SkipEmptyParts);
+		QStringList types_part = QString(iterGm.key()).split(", ",QString::SkipEmptyParts);
 		iterGm.value()->setChecked(false);
 		for(int i = 0; i < types_part.length(); ++i) {
 			if(formatsSetGm.contains(types_part.at(i))) {
@@ -608,7 +610,7 @@ void SettingsTabOther::loadSettings() {
 	while (iterGmGhostscript.hasNext()) {
 		iterGmGhostscript.next();
 
-		QStringList types_part = QString(iterGmGhostscript.key()).replace("*","").split(", ",QString::SkipEmptyParts);
+		QStringList types_part = QString(iterGmGhostscript.key()).split(", ",QString::SkipEmptyParts);
 		iterGmGhostscript.value()->setChecked(false);
 		for(int i = 0; i < types_part.length(); ++i) {
 			if(formatsSetGm.contains(types_part.at(i))) {
@@ -622,7 +624,7 @@ void SettingsTabOther::loadSettings() {
 	while (iterGmUntested.hasNext()) {
 		iterGmUntested.next();
 
-		QStringList types_part = QString(iterGmUntested.key()).replace("*","").split(", ",QString::SkipEmptyParts);
+		QStringList types_part = QString(iterGmUntested.key()).split(", ",QString::SkipEmptyParts);
 		iterGmUntested.value()->setChecked(false);
 		for(int i = 0; i < types_part.length(); ++i) {
 			if(formatsSetGm.contains(types_part.at(i))) {
