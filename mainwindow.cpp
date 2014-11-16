@@ -1437,7 +1437,7 @@ void MainWindow::setBackground() {
 			bglabel->setPixmap(bg);
 
 		// SET BACKGROUND IMAGE
-		} else if(globSet->backgroundImageUse) {
+		} else if(globSet->backgroundImageUse && QFile(globSet->backgroundImagePath).exists()) {
 
 			if(globVar->verbose) std::clog << "Use background image" << std::endl;
 

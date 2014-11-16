@@ -59,7 +59,7 @@ QuickSettings::QuickSettings(QMap<QString, QVariant> set, bool v, QWidget *paren
 	// Description what this widget is for
 	CustomLabel *desc = new CustomLabel(tr("Change settings with one click. They are saved and applied immediately. If you're unsure what a setting does, check the full settings for descriptions."));
 
-	// Adjust sort by
+	// Sort files by
 	CustomLabel *sortbyLabel = new CustomLabel(tr("Sort by"));
 	sortby = new CustomComboBox;
 	sortby->setBackgroundColor("rgba(0,0,0,0)");
@@ -82,11 +82,16 @@ QuickSettings::QuickSettings(QMap<QString, QVariant> set, bool v, QWidget *paren
 	sortbyLay->addWidget(sort_des);
 	sortbyLay->addStretch();
 
+	// Background style
+	background = new CustomComboBox;
+	background->setBackgroundColor("rgba(0,0,0,0)");
+	background->setPadding(4);
+	background->addItem(tr("Real transparency"),"real");
+	background->addItem(tr("Faked transparency"),"faked");
+	background->addItem(tr("Background image"),"image");
+	background->addItem(tr("Coloured background"),"color");
+
 	// The different settings that can be adjusted
-	composite = new CustomRadioButton(tr("Real transparency"));
-	fakedtrans = new CustomRadioButton(tr("Faked transparency"));
-	imagebg = new CustomRadioButton(tr("Background image"));
-	coloured = new CustomRadioButton(tr("Coloured background"));
 	trayicon = new CustomCheckBox(tr("Hide to system tray"));
 	loopthroughfolder = new CustomCheckBox(tr("Loop through folder"));
 	windowmode = new CustomCheckBox(tr("Window mode"));
@@ -97,10 +102,6 @@ QuickSettings::QuickSettings(QMap<QString, QVariant> set, bool v, QWidget *paren
 	quickSettings = new CustomCheckBox(tr("Enable 'Quick Settings'"));
 
 	// Set default values
-	composite->setChecked(globSet.value("Composite").toBool());
-	fakedtrans->setChecked(globSet.value("BackgroundImageScreenshot").toBool());
-	imagebg->setChecked(globSet.value("BackgroundImageUse").toBool());
-	coloured->setChecked(!globSet.value("Composite").toBool() && !globSet.value("BackgroundImageScreenshot").toBool() && !globSet.value("BackgroundImageUse").toBool());
 	trayicon->setChecked(globSet.value("TrayIcon").toBool());
 	loopthroughfolder->setChecked(globSet.value("LoopThroughFolder").toBool());
 	windowmode->setChecked(globSet.value("WindowMode").toBool());
@@ -114,10 +115,7 @@ QuickSettings::QuickSettings(QMap<QString, QVariant> set, bool v, QWidget *paren
 	connect(sortby, SIGNAL(currentTextChanged(QString)), this, SLOT(settingChanged()));
 	connect(sort_asc, SIGNAL(clicked()), this, SLOT(settingChanged()));
 	connect(sort_des, SIGNAL(clicked()), this, SLOT(settingChanged()));
-	connect(composite, SIGNAL(clicked()), this, SLOT(settingChanged()));
-	connect(fakedtrans, SIGNAL(clicked()), this, SLOT(settingChanged()));
-	connect(imagebg, SIGNAL(clicked()), this, SLOT(settingChanged()));
-	connect(coloured, SIGNAL(clicked()), this, SLOT(settingChanged()));
+	connect(background, SIGNAL(currentIndexChanged(int)), this, SLOT(settingChanged()));
 	connect(trayicon, SIGNAL(toggled(bool)), this, SLOT(settingChanged()));
 	connect(loopthroughfolder, SIGNAL(toggled(bool)), this, SLOT(settingChanged()));
 	connect(windowmode, SIGNAL(toggled(bool)), this, SLOT(settingChanged()));
@@ -169,13 +167,7 @@ QuickSettings::QuickSettings(QMap<QString, QVariant> set, bool v, QWidget *paren
 	central->addSpacing(5);
 	central->addWidget(sortbyLine);
 	central->addSpacing(5);
-	central->addWidget(composite);
-	central->addSpacing(10);
-	central->addWidget(fakedtrans);
-	central->addSpacing(10);
-	central->addWidget(imagebg);
-	central->addSpacing(10);
-	central->addWidget(coloured);
+	central->addWidget(background);
 	central->addSpacing(5);
 	central->addWidget(compositeLine);
 	central->addSpacing(5);
@@ -227,10 +219,11 @@ void QuickSettings::loadSettings() {
 	sort_asc->setChecked(globSet.value("SortImagesAscending").toBool());
 	sort_des->setChecked(!globSet.value("SortImagesAscending").toBool());
 
-	composite->setChecked(globSet.value("Composite").toBool());
-	fakedtrans->setChecked(globSet.value("BackgroundImageScreenshot").toBool());
-	imagebg->setChecked(globSet.value("BackgroundImageUse").toBool());
-	coloured->setChecked(!globSet.value("Composite").toBool() && !globSet.value("BackgroundImageScreenshot").toBool() && !globSet.value("BackgroundImageUse").toBool());
+	if(globSet.value("Composite").toBool()) background->setCurrentIndex(0);
+	else if(globSet.value("BackgroundImageScreenshot").toBool()) background->setCurrentIndex(1);
+	else if(globSet.value("BackgroundImageUse").toBool()) background->setCurrentIndex(2);
+	else background->setCurrentIndex(3);
+
 	trayicon->setChecked(globSet.value("TrayIcon").toBool());
 	loopthroughfolder->setChecked(globSet.value("LoopThroughFolder").toBool());
 	windowmode->setChecked(globSet.value("WindowMode").toBool());
@@ -245,10 +238,7 @@ void QuickSettings::loadSettings() {
 	defaults.clear();
 	defaults.insert("SortImagesAscending",sort_asc->isChecked());
 	defaults.insert("SortImagesBy",sort);
-	defaults.insert("Composite",composite->isChecked());
-	defaults.insert("BackgroundImageScreenshot",composite->isChecked());
-	defaults.insert("BackgroundImageUse",imagebg->isChecked());
-	defaults.insert("ColouredBG",coloured->isChecked());
+	defaults.insert("Background",background->currentData());
 	defaults.insert("TrayIcon",trayicon->isChecked());
 	defaults.insert("LoopThroughFolder",loopthroughfolder->isChecked());
 	defaults.insert("WindowMode",windowmode->isChecked());
@@ -270,9 +260,12 @@ void QuickSettings::settingChanged() {
 	if(defaults.value("SortImagesAscending").toBool() != sort_asc->isChecked())
 		changedSet.insert("SortImagesAscending",sort_asc->isChecked());
 
-	changedSet.insert("Composite",composite->isChecked());
-	changedSet.insert("BackgroundImageScreenshot",fakedtrans->isChecked());
-	changedSet.insert("BackgroundImageUse",imagebg->isChecked());
+	if(defaults.value("Background").toString() != background->currentData().toString()) {
+		changedSet.insert("Composite",background->currentData().toString()=="real");
+		changedSet.insert("BackgroundImageScreenshot",background->currentData().toString()=="faked");
+		changedSet.insert("BackgroundImageUse",background->currentData().toString()=="image");
+	}
+
 
 	if(defaults.value("TrayIcon").toBool() != trayicon->isChecked())
 		changedSet.insert("TrayIcon",trayicon->isChecked());
@@ -300,11 +293,9 @@ void QuickSettings::settingChanged() {
 
 	// Update new defaults
 	defaults.clear();
+	defaults.insert("SortImagesAscending",sort_asc->isChecked());
 	defaults.insert("SortImagesBy",sortby->currentData());
-	defaults.insert("Composite",composite->isChecked());
-	defaults.insert("BackgroundImageScreenshot",composite->isChecked());
-	defaults.insert("BackgroundImageUse",imagebg->isChecked());
-	defaults.insert("ColouredBG",coloured->isChecked());
+	defaults.insert("Background",background->currentData());
 	defaults.insert("TrayIcon",trayicon->isChecked());
 	defaults.insert("LoopThroughFolder",loopthroughfolder->isChecked());
 	defaults.insert("WindowMode",windowmode->isChecked());
@@ -321,7 +312,7 @@ void QuickSettings::settingChanged() {
 
 void QuickSettings::setRect(QRect fullscreen) {
 
-	rectShown = QRect(fullscreen.width()-375, (fullscreen.height()-700)/3, 375, 700);
+	rectShown = QRect(fullscreen.width()-375, (fullscreen.height()-650)/3, 375, 650);
 	rectHidden = QRect(fullscreen.width()+rectShown.width(),rectShown.y(),rectShown.width(),rectShown.height());
 
 }

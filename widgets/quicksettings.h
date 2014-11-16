@@ -31,6 +31,7 @@
 #include <QStyleOption>
 #include <QSignalMapper>
 #include <QButtonGroup>
+#include <QtDebug>
 
 class QuickSettings : public QWidget {
 
@@ -77,10 +78,7 @@ private:
 	CustomRadioButton *sort_asc;
 	CustomRadioButton *sort_des;
 
-	CustomRadioButton *composite;
-	CustomRadioButton *fakedtrans;
-	CustomRadioButton *imagebg;
-	CustomRadioButton *coloured;
+	CustomComboBox *background;
 	CustomCheckBox *trayicon;
 	CustomCheckBox *loopthroughfolder;
 	CustomCheckBox *windowmode;
