@@ -415,6 +415,8 @@ public:
 	int borderAroundImg;
 	// Show Quick Settings on mouse movement
 	bool quickSettings;
+	// Sort images by
+	QString sortby;
 
 	// Are quickinfos hidden?
 	bool hidecounter;
@@ -511,6 +513,7 @@ public:
 		map.insert("KnownFileTypesQt",knownFileTypesQt);
 		map.insert("KnownFileTypesQtExtras",knownFileTypesQtExtras);
 		map.insert("KnownFileTypesGm",knownFileTypesGm);
+		map.insert("SortImagesBy",sortby);
 
 		map.insert("WindowMode",windowmode);
 		map.insert("WindowDecoration",windowDecoration);
@@ -603,6 +606,8 @@ public:
 		knownFileTypesQtExtras = "";
 		knownFileTypesGm = fileFormats->formatsGmEnabled.join(",");
 		knownFileTypes = knownFileTypesQt + "," + knownFileTypesGm;
+
+		sortby = "name";
 
 		windowmode = false;
 		windowDecoration = false;
@@ -728,6 +733,9 @@ public:
 			if(knownFileTypesQtExtras != "")
 				knownFileTypes += "," + knownFileTypesQtExtras;
 			if(knownFileTypes.startsWith(",")) knownFileTypes = knownFileTypes.remove(0,1);
+
+			if(all.contains("SortImagesBy="))
+				sortby = all.split("SortImagesBy=").at(1).split("\n").at(0);
 
 			if(all.contains("WindowMode=1"))
 				windowmode = true;
@@ -1068,6 +1076,7 @@ public:
 			cont += QString("CloseOnGrey=%1\n").arg(int(closeongrey));
 			cont += QString("BorderAroundImg=%1\n").arg(borderAroundImg);
 			cont += QString("QuickSettings=%1\n").arg(int(quickSettings));
+			cont += QString("SortImagesBy=%1\n").arg(sortby);
 
 			cont += "\n[Quickinfo]\n";
 
@@ -1166,8 +1175,6 @@ public slots:
 		if(changedSet.keys().contains("KnownFileTypesGm"))
 			knownFileTypesGm = changedSet.value("KnownFileTypesGm").toString();
 
-		qDebug() << changedSet.value("KnownFileTypesQt").toString();
-
 		knownFileTypes = "";
 		if(knownFileTypesQt != "")
 			knownFileTypes += "," + knownFileTypesQt;
@@ -1176,6 +1183,11 @@ public slots:
 		if(knownFileTypesQtExtras != "")
 			knownFileTypes += "," + knownFileTypesQtExtras;
 		if(knownFileTypes.startsWith(",")) knownFileTypes = knownFileTypes.remove(0,1);
+
+		if(changedSet.keys().contains("SortImagesBy")) {
+			sortby = changedSet.value("SortImagesBy").toString();
+			applySet["thumb"] = true;
+		}
 
 		if(changedSet.keys().contains("WindowMode")) {
 			windowmode = changedSet.value("WindowMode").toBool();

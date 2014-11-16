@@ -35,6 +35,8 @@
 #include <QScrollBar>
 #include <QApplication>
 
+#include <QImageReader>
+
 // The thumbnail view
 class Thumbnails : public QWidget {
 
@@ -87,7 +89,10 @@ public:
 
 	bool isVisible() { return isShown; }
 
-	static bool compareNamesFileInfo(const QFileInfo &s1fileinfo, const QFileInfo &s2fileinfo);
+	static bool compareNamesFileInfo_name(const QFileInfo &s1fileinfo, const QFileInfo &s2fileinfo);
+	static bool compareNamesFileInfo_naturalname(const QFileInfo &s1fileinfo, const QFileInfo &s2fileinfo);
+	static bool compareNamesFileInfo_date(const QFileInfo &s1fileinfo, const QFileInfo &s2fileinfo);
+	static bool compareNamesFileInfo_size(const QFileInfo &s1fileinfo, const QFileInfo &s2fileinfo);
 
 	QRect areaShown() { return rectShown; }
 

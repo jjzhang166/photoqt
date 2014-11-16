@@ -22,6 +22,7 @@
 #include "../customelements/customradiobutton.h"
 #include "../customelements/custompushbutton.h"
 #include "../customelements/customline.h"
+#include "../customelements/customcombobox.h"
 
 #include <QWidget>
 #include <QPropertyAnimation>
@@ -71,6 +72,8 @@ private:
 	bool mouseTrickerEnable;
 
 
+	CustomComboBox *sortby;
+
 	CustomRadioButton *composite;
 	CustomRadioButton *fakedtrans;
 	CustomRadioButton *imagebg;
@@ -84,7 +87,7 @@ private:
 	CustomCheckBox *thumbnailsdynamic;
 	CustomCheckBox *quickSettings;
 
-	QMap<QString,bool> defaults;
+	QMap<QString,QVariant> defaults;
 
 private slots:
 	// Animate open/close the widget

@@ -70,9 +70,15 @@ Thumbnails::Thumbnails(QWidget *parent, bool v, QMap<QString,QVariant> set) : QW
 
 }
 
+bool Thumbnails::compareNamesFileInfo_name(const QFileInfo &s1fileinfo, const QFileInfo &s2fileinfo) {
+
+	return (s1fileinfo.fileName().compare(s2fileinfo.fileName(), Qt::CaseInsensitive)<=0);
+
+}
+
 // Algorithm used for sorting a directory using natural sort
 // Credits to: http://www.qtcentre.org/archive/index.php/t-21411.html
-bool Thumbnails::compareNamesFileInfo(const QFileInfo& s1fileinfo,const QFileInfo& s2fileinfo) {
+bool Thumbnails::compareNamesFileInfo_naturalname(const QFileInfo& s1fileinfo,const QFileInfo& s2fileinfo) {
 
 	const QString s1 = s1fileinfo.fileName();
 	const QString s2 = s2fileinfo.fileName();
@@ -143,6 +149,24 @@ bool Thumbnails::compareNamesFileInfo(const QFileInfo& s1fileinfo,const QFileInf
 		// shortest string wins
 		return s1.length() < s2.length();
 	}
+}
+
+bool Thumbnails::compareNamesFileInfo_date(const QFileInfo &s1fileinfo, const QFileInfo &s2fileinfo) {
+
+	QDateTime s1 = s1fileinfo.created();
+	QDateTime s2 = s2fileinfo.created();
+
+	return (s1.secsTo(s2) > 0);
+
+}
+
+bool Thumbnails::compareNamesFileInfo_size(const QFileInfo &s1fileinfo, const QFileInfo &s2fileinfo) {
+
+	qint64 s1 = s1fileinfo.size();
+	qint64 s2 = s2fileinfo.size();
+
+	return s1>s2;
+
 }
 
 // The animation function
@@ -230,7 +254,14 @@ void Thumbnails::loadDir(bool amReloadingDir) {
 	if(!allImgsInfo.contains(QFileInfo(currentdir+"/"+currentfile))) allImgsInfo.append(QFileInfo(currentdir+"/"+currentfile));
 
 	// Sort images...
-	qSort(allImgsInfo.begin(),allImgsInfo.end(),compareNamesFileInfo);
+	if(globSet.value("SortImagesBy").toString() == "naturalname")
+		qSort(allImgsInfo.begin(),allImgsInfo.end(),compareNamesFileInfo_naturalname);
+	else if(globSet.value("SortImagesBy").toString() == "date")
+		qSort(allImgsInfo.begin(),allImgsInfo.end(),compareNamesFileInfo_date);
+	else if(globSet.value("SortImagesBy").toString() == "size")
+		qSort(allImgsInfo.begin(),allImgsInfo.end(),compareNamesFileInfo_size);
+	else
+		qSort(allImgsInfo.begin(),allImgsInfo.end(),compareNamesFileInfo_name);
 
 	// Storing number of images
 	counttot = allImgsInfo.length();
