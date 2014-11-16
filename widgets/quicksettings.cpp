@@ -62,6 +62,7 @@ QuickSettings::QuickSettings(QMap<QString, QVariant> set, bool v, QWidget *paren
 	// Adjust sort by
 	CustomLabel *sortbyLabel = new CustomLabel(tr("Sort by"));
 	sortby = new CustomComboBox;
+	sortby->setBackgroundColor("rgba(0,0,0,0)");
 	sort_asc = new CustomRadioButton;
 	sort_asc->setIcon(QIcon(":/img/sortascending.png"));
 	sort_des = new CustomRadioButton;
@@ -320,7 +321,7 @@ void QuickSettings::settingChanged() {
 
 void QuickSettings::setRect(QRect fullscreen) {
 
-	rectShown = QRect(fullscreen.width()-350, (fullscreen.height()-650)/3, 350, 650);
+	rectShown = QRect(fullscreen.width()-375, (fullscreen.height()-700)/3, 375, 700);
 	rectHidden = QRect(fullscreen.width()+rectShown.width(),rectShown.y(),rectShown.width(),rectShown.height());
 
 }
