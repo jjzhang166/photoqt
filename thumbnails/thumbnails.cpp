@@ -71,9 +71,7 @@ Thumbnails::Thumbnails(QWidget *parent, bool v, QMap<QString,QVariant> set) : QW
 }
 
 bool Thumbnails::compareNamesFileInfo_name(const QFileInfo &s1fileinfo, const QFileInfo &s2fileinfo) {
-
 	return (s1fileinfo.fileName().compare(s2fileinfo.fileName(), Qt::CaseInsensitive)<=0);
-
 }
 
 // Algorithm used for sorting a directory using natural sort
@@ -137,7 +135,6 @@ bool Thumbnails::compareNamesFileInfo_naturalname(const QFileInfo& s1fileinfo,co
 		if (!n1.isEmpty() && !n2.isEmpty())
 			return (n+n1).toInt() < (n+n2).toInt();
 		else {
-
 			// not a number has to win over a number.. number could have ended earlier... same prefix..
 			if (!n1.isEmpty())
 				return false;
@@ -152,21 +149,11 @@ bool Thumbnails::compareNamesFileInfo_naturalname(const QFileInfo& s1fileinfo,co
 }
 
 bool Thumbnails::compareNamesFileInfo_date(const QFileInfo &s1fileinfo, const QFileInfo &s2fileinfo) {
-
-	QDateTime s1 = s1fileinfo.created();
-	QDateTime s2 = s2fileinfo.created();
-
-	return (s1.secsTo(s2) > 0);
-
+	return s1fileinfo.created().secsTo(s2fileinfo.created()) > 0;
 }
 
 bool Thumbnails::compareNamesFileInfo_size(const QFileInfo &s1fileinfo, const QFileInfo &s2fileinfo) {
-
-	qint64 s1 = s1fileinfo.size();
-	qint64 s2 = s2fileinfo.size();
-
-	return s1>s2;
-
+	return s1fileinfo.size()>s2fileinfo.size();
 }
 
 // The animation function
@@ -262,6 +249,16 @@ void Thumbnails::loadDir(bool amReloadingDir) {
 		qSort(allImgsInfo.begin(),allImgsInfo.end(),compareNamesFileInfo_size);
 	else
 		qSort(allImgsInfo.begin(),allImgsInfo.end(),compareNamesFileInfo_name);
+
+	// If we want to sort in descending order, we simply reverse the order here
+	// NOTE: using qSwap() on half the items is very fast
+	if(!globSet.value("SortImagesAscending").toBool()) {
+		const int listSize = allImgsInfo.size();
+		const int maxSwap = allImgsInfo.size()/2;
+		for (int i = 0; i < maxSwap; ++i) {
+			qSwap(allImgsInfo[i], allImgsInfo[listSize - 1 -i]);
+		}
+	}
 
 	// Storing number of images
 	counttot = allImgsInfo.length();

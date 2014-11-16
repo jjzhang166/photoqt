@@ -30,6 +30,7 @@
 #include <QPainter>
 #include <QStyleOption>
 #include <QSignalMapper>
+#include <QButtonGroup>
 
 class QuickSettings : public QWidget {
 
@@ -73,6 +74,8 @@ private:
 
 
 	CustomComboBox *sortby;
+	CustomRadioButton *sort_asc;
+	CustomRadioButton *sort_des;
 
 	CustomRadioButton *composite;
 	CustomRadioButton *fakedtrans;

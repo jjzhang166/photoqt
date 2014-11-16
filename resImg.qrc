@@ -56,5 +56,7 @@
         <file>img/scale.png</file>
         <file>img/save.png</file>
         <file>img/closingx.png</file>
+        <file>img/sortdescending.png</file>
+        <file>img/sortascending.png</file>
     </qresource>
 </RCC>

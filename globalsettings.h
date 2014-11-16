@@ -417,6 +417,7 @@ public:
 	bool quickSettings;
 	// Sort images by
 	QString sortby;
+	bool sortbyAscending;
 
 	// Are quickinfos hidden?
 	bool hidecounter;
@@ -514,6 +515,7 @@ public:
 		map.insert("KnownFileTypesQtExtras",knownFileTypesQtExtras);
 		map.insert("KnownFileTypesGm",knownFileTypesGm);
 		map.insert("SortImagesBy",sortby);
+		map.insert("SortImagesAscending",sortbyAscending);
 
 		map.insert("WindowMode",windowmode);
 		map.insert("WindowDecoration",windowDecoration);
@@ -608,6 +610,7 @@ public:
 		knownFileTypes = knownFileTypesQt + "," + knownFileTypesGm;
 
 		sortby = "name";
+		sortbyAscending = true;
 
 		windowmode = false;
 		windowDecoration = false;
@@ -736,6 +739,11 @@ public:
 
 			if(all.contains("SortImagesBy="))
 				sortby = all.split("SortImagesBy=").at(1).split("\n").at(0);
+
+			if(all.contains("SortImagesAscending=1"))
+				sortbyAscending = true;
+			else if(all.contains("SortImagesAscending=0"))
+				sortbyAscending = false;
 
 			if(all.contains("WindowMode=1"))
 				windowmode = true;
@@ -1077,6 +1085,7 @@ public:
 			cont += QString("BorderAroundImg=%1\n").arg(borderAroundImg);
 			cont += QString("QuickSettings=%1\n").arg(int(quickSettings));
 			cont += QString("SortImagesBy=%1\n").arg(sortby);
+			cont += QString("SortImagesAscending=%1\n").arg(int(sortbyAscending));
 
 			cont += "\n[Quickinfo]\n";
 
@@ -1186,6 +1195,10 @@ public slots:
 
 		if(changedSet.keys().contains("SortImagesBy")) {
 			sortby = changedSet.value("SortImagesBy").toString();
+			applySet["thumb"] = true;
+		}
+		if(changedSet.keys().contains("SortImagesAscending")) {
+			sortbyAscending = changedSet.value("SortImagesAscending").toBool();
 			applySet["thumb"] = true;
 		}
 

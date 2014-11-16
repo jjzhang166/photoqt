@@ -44,7 +44,7 @@ QuickSettings::QuickSettings(QMap<QString, QVariant> set, bool v, QWidget *paren
 	mouseTrickerEnable = true;
 
 	// The dimensions of the widget (shown and hidden)
-	rectShown = QRect(0,50,300,450);
+	rectShown = QRect(0,50,300,500);
 	rectHidden = QRect(-10,-10,10,10);
 
 	// Initially the widget it hidden
@@ -60,8 +60,15 @@ QuickSettings::QuickSettings(QMap<QString, QVariant> set, bool v, QWidget *paren
 	CustomLabel *desc = new CustomLabel(tr("Change settings with one click. They are saved and applied immediately. If you're unsure what a setting does, check the full settings for descriptions."));
 
 	// Adjust sort by
-	CustomLabel *sortbyLabel = new CustomLabel(tr("Sort images by"));
+	CustomLabel *sortbyLabel = new CustomLabel(tr("Sort by"));
 	sortby = new CustomComboBox;
+	sort_asc = new CustomRadioButton;
+	sort_asc->setIcon(QIcon(":/img/sortascending.png"));
+	sort_des = new CustomRadioButton;
+	sort_des->setIcon(QIcon(":/img/sortdescending.png"));
+	QButtonGroup *grp = new QButtonGroup;
+	grp->addButton(sort_asc);
+	grp->addButton(sort_des);
 	sortby->setPadding(4);
 	sortby->addItem(tr("Name"),"name");
 	sortby->addItem(tr("Natural Name"),"naturalname");
@@ -70,6 +77,8 @@ QuickSettings::QuickSettings(QMap<QString, QVariant> set, bool v, QWidget *paren
 	QHBoxLayout *sortbyLay = new QHBoxLayout;
 	sortbyLay->addWidget(sortbyLabel);
 	sortbyLay->addWidget(sortby);
+	sortbyLay->addWidget(sort_asc);
+	sortbyLay->addWidget(sort_des);
 	sortbyLay->addStretch();
 
 	// The different settings that can be adjusted
@@ -102,6 +111,8 @@ QuickSettings::QuickSettings(QMap<QString, QVariant> set, bool v, QWidget *paren
 
 	// Save & Apply settings instantly
 	connect(sortby, SIGNAL(currentTextChanged(QString)), this, SLOT(settingChanged()));
+	connect(sort_asc, SIGNAL(clicked()), this, SLOT(settingChanged()));
+	connect(sort_des, SIGNAL(clicked()), this, SLOT(settingChanged()));
 	connect(composite, SIGNAL(clicked()), this, SLOT(settingChanged()));
 	connect(fakedtrans, SIGNAL(clicked()), this, SLOT(settingChanged()));
 	connect(imagebg, SIGNAL(clicked()), this, SLOT(settingChanged()));
@@ -212,6 +223,8 @@ void QuickSettings::loadSettings() {
 			break;
 		}
 	}
+	sort_asc->setChecked(globSet.value("SortImagesAscending").toBool());
+	sort_des->setChecked(!globSet.value("SortImagesAscending").toBool());
 
 	composite->setChecked(globSet.value("Composite").toBool());
 	fakedtrans->setChecked(globSet.value("BackgroundImageScreenshot").toBool());
@@ -229,6 +242,7 @@ void QuickSettings::loadSettings() {
 	windowdeco->setEnabled(windowmode->isChecked());
 
 	defaults.clear();
+	defaults.insert("SortImagesAscending",sort_asc->isChecked());
 	defaults.insert("SortImagesBy",sort);
 	defaults.insert("Composite",composite->isChecked());
 	defaults.insert("BackgroundImageScreenshot",composite->isChecked());
@@ -252,6 +266,8 @@ void QuickSettings::settingChanged() {
 
 	if(defaults.value("SortImagesBy").toString() != sortby->currentData().toString())
 		changedSet.insert("SortImagesBy",sortby->currentData());
+	if(defaults.value("SortImagesAscending").toBool() != sort_asc->isChecked())
+		changedSet.insert("SortImagesAscending",sort_asc->isChecked());
 
 	changedSet.insert("Composite",composite->isChecked());
 	changedSet.insert("BackgroundImageScreenshot",fakedtrans->isChecked());

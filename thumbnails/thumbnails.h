@@ -48,8 +48,7 @@ public:
 
 	bool verbose;
 
-	// The global settings
-	QMap<QString,QVariant> globSet;
+	void setGlobSet(QMap<QString,QVariant> set) { globSet = set; }
 
 	// The Graphicsview
 	ThumbnailView *view;
@@ -100,6 +99,9 @@ public:
 	void removeFilter() { imageFilter.clear(); }
 
 private:
+	// The global settings
+	QMap<QString,QVariant> globSet;
+
 	QString currentfile;
 	QString currentdir;
 
