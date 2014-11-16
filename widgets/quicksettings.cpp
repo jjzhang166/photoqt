@@ -44,7 +44,7 @@ QuickSettings::QuickSettings(QMap<QString, QVariant> set, bool v, QWidget *paren
 	mouseTrickerEnable = true;
 
 	// The dimensions of the widget (shown and hidden)
-	rectShown = QRect(0,50,300,500);
+	rectShown = QRect(0,50,325,500);
 	rectHidden = QRect(-10,-10,10,10);
 
 	// Initially the widget it hidden
