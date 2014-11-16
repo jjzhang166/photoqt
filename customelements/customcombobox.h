@@ -29,10 +29,12 @@ public:
 
 	void setFontSize(int fsize);
 	void setBorder(int width, QString colour);
+	void setPadding(int p) { padding = p; setCSS(); }
 
 private:
 	int fontsize;
 	bool enabled;
+	int padding;
 
 	int borderWidth;
 	QString borderColour;
