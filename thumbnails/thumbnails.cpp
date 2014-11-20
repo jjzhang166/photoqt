@@ -96,6 +96,12 @@ void Thumbnails::loadDir(QString filepath) {
 		// Start loading directory
 		startThread();
 
+	QRectF r = view->scene.itemsBoundingRect();
+	r.setX(0);
+	r.setWidth(counttot*(globSet.value("ThumbnailSize").toInt()+globSet.value("ThumbnailSpacingBetween").toInt()));
+	r.setHeight(globSet.value("ThumbnailSize").toInt()+globSet.value("ThumbnailLiftUp").toInt()-2);
+	view->setSceneRect(r);
+
 
 }
 
@@ -204,7 +210,6 @@ void Thumbnails::updateThumb(QImage img, QString path, int origwidth, int orighe
 
 		// And add to scene
 		view->scene.addItem(pixitem);
-		view->scene.setSceneRect(view->scene.itemsBoundingRect());
 
 	} else {
 
@@ -367,7 +372,13 @@ void Thumbnails::scrolledView() {
 		// We get the position of the item in view center
 		QGraphicsItem *pix = (QGraphicsItem*)view->itemAt(center);
 		pixPath = pix->data(1).toString();
-		newpos = getImageFilePathIndexOf(pixPath);
+		if(pixPath.trimmed() == "") {
+			int v = view->scrollbar->value();
+			int size = globSet.value("ThumbnailSize").toInt();
+			newpos = v/(size+globSet.value("ThumbnailSpacingBetween").toInt())
+					+ view->width()/(2*size);
+		} else
+			newpos = getImageFilePathIndexOf(pixPath);
 	}
 
 	if(verbose) std::clog << "Central item: " << pixPath.toStdString() << std::endl;
