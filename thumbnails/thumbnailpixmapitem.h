@@ -37,6 +37,9 @@ public:
 	// The path of the thumbnail
 	QString path;
 
+	// The position of the thumbnail
+	int position;
+
 	// Stores if this image is loaded in big
 	bool presented;
 

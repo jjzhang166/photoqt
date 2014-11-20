@@ -24,6 +24,8 @@ ThumbnailView::ThumbnailView(bool v, QMap<QString, QVariant> set) : QGraphicsVie
 	verbose = v;
 
 	this->setMouseTracking(true);
+	this->setDragMode(QGraphicsView::ScrollHandDrag);
+	this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
 
 	this->setAlignment(Qt::AlignCenter);
 

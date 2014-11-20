@@ -1,47 +1,25 @@
-/*
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License along
- * with this program; if not, write to the Free Software Foundation, Inc.,
- * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
- */
-
 #include "thumbnails.h"
 
-Thumbnails::Thumbnails(QWidget *parent, bool v, QMap<QString,QVariant> set) : QWidget(parent) {
+Thumbnails::Thumbnails(QMap<QString, QVariant> set, bool verbose, QWidget *parent) : QWidget(parent) {
 
 	this->setObjectName("viewThumbs");
+	this->setStyleSheet("#viewThumbs { background: rgba(0,0,0,100); }");
 
 	globSet = set;
+	this->verbose = verbose;
 
-	verbose = v;
-
-	QHBoxLayout *layout = new QHBoxLayout;
-	this->setLayout(layout);
-
-	// The total amount of images, current position, and the filepath of current item
+	animateInAndOut = false;
 	counttot = 0;
-	countpos = 0;
-	currentdir = "";
+	countpos = -1;
 	currentfile = "";
 
-	// The view and scene
-	view = new ThumbnailView(v, globSet);
-	view->setDragMode(QGraphicsView::ScrollHandDrag);
-	view->setMouseTracking(true);
-	this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
-	// Load needed thumbnails (dynamic thumbnail creation)
+	view = new ThumbnailView(verbose, globSet);
 	connect(view, SIGNAL(movedScroll()), this, SLOT(scrolledView()));
 
-	this->setStyleSheet("#viewThumbs { background: rgba(0,0,0,100); }");
+	thread = new ThumbThread();
+	thread->verbose = verbose;
+	connect(thread, SIGNAL(centerOnCurrent(bool)), this, SLOT(centerOnCurrent(bool)));
+	connect(thread, SIGNAL(updateThumb(QImage,QString,int,int,int,bool)), this, SLOT(updateThumb(QImage,QString,int,int,int,bool)));
 
 	// The animation instances
 	ani = new QPropertyAnimation(this,"geometry");
@@ -52,13 +30,6 @@ Thumbnails::Thumbnails(QWidget *parent, bool v, QMap<QString,QVariant> set) : QW
 	rectShown = QRect(0,0,10,10);
 	rectHidden = QRect(0,0,10,10);
 
-	// The thumbnail thread
-	thumbThread = new ThumbThread();
-	thumbThread->verbose = verbose;
-	connect(thumbThread, SIGNAL(updateThb(QImage,QString,int,int,int)), this, SLOT(updateThumb(QImage,QString,int,int,int)));
-
-	layout->addWidget(view);
-
 	// Adjust some properties of the small GraphicsView for Thumbnails
 	if(globSet.value("ThumbnailKeepVisible").toBool()) {
 		this->setGeometry(rectShown);
@@ -66,17 +37,387 @@ Thumbnails::Thumbnails(QWidget *parent, bool v, QMap<QString,QVariant> set) : QW
 	} else
 		this->setGeometry(rectHidden);
 
-	imageFilter.clear();
+	QHBoxLayout *layout = new QHBoxLayout;
+	layout->addWidget(view);
+	this->setLayout(layout);
 
 }
 
-bool Thumbnails::compareNamesFileInfo_name(const QFileInfo &s1fileinfo, const QFileInfo &s2fileinfo) {
-	return (s1fileinfo.fileName().compare(s2fileinfo.fileName(), Qt::CaseInsensitive)<=0);
+void Thumbnails::loadDir(QString filepath) {
+
+	view->scene.clear();
+	allPixmaps.clear();
+	allPixmapsPath.clear();
+
+	currentfile = filepath;
+	counttot = 0;
+
+	QDir dir(QFileInfo(filepath).absolutePath());
+
+	// These are the images known by PhotoQt
+	QStringList flt = globSet.value("KnownFileTypes").toString().split(",");
+	if(imageFilter.join("").trimmed().length() == 0)
+		dir.setNameFilters(flt);
+	else {
+		QStringList flt_approved;
+		foreach(QString f, imageFilter) {
+			if(f.startsWith(".") && flt.contains(f.remove(0,1)))
+				flt_approved.append("*" + f);
+			else if(!f.startsWith("."))
+				flt_approved.append("*" + f + "*");
+
+		}
+		dir.setNameFilters(flt_approved);
+	}
+
+
+	// Store a QFileInfoList and a QStringList with the filenames
+	allImgsInfo = dir.entryInfoList(QDir::Files,QDir::IgnoreCase);
+
+	// When opening an unknown file (i.e., one that doesn't match any set format), then we need to manually add it to the list of loaded images
+	if(!allImgsInfo.contains(QFileInfo(currentfile))) allImgsInfo.append(QFileInfo(currentfile));
+
+	// Sort images...
+	bool asc = globSet.value("SortImagesAscending").toBool();
+	if(globSet.value("SortImagesBy").toString() == "naturalname")
+		std::sort(allImgsInfo.begin(),allImgsInfo.end(),(asc ? sort_naturalname : sort_naturalname_desc));
+	else if(globSet.value("SortImagesBy").toString() == "date")
+		std::sort(allImgsInfo.begin(),allImgsInfo.end(),(asc ? sort_date: sort_date_desc));
+	else if(globSet.value("SortImagesBy").toString() == "size")
+		std::sort(allImgsInfo.begin(),allImgsInfo.end(),(asc ? sort_size : sort_size_desc));
+	else
+		std::sort(allImgsInfo.begin(),allImgsInfo.end(),(asc ? sort_name : sort_name_desc));
+
+
+	// Storing number of images
+	counttot = allImgsInfo.length();
+
+	if(!globSet.value("ThumbnailDisable").toBool())
+		// Start loading directory
+		startThread();
+
+
+}
+
+void Thumbnails::startThread() {
+
+	int newpos = allImgsInfo.indexOf(QFileInfo(currentfile));
+	if(newpos == -1) newpos = 0;
+
+	thread->newData(newpos, globSet.value("ThumbnailSize").toInt()+globSet.value("ThumbnailSpacingBetween").toInt(), this->width());
+
+	thread->verbose = verbose;
+	thread->dynamicThumbs = globSet.value("ThumbnailDynamic").toBool();
+
+	thread->counttot = allImgsInfo.length();
+	thread->allimgs = allImgsInfo;
+	thread->height = globSet.value("ThumbnailSize").toInt();
+	thread->typeCache = (globSet.value("ThbCacheFile").toBool() ? "files" : "database");
+
+	thread->cacheEnabled = globSet.value("ThumbnailCache").toBool();
+
+	thread->start();
+
+}
+
+void Thumbnails::updateThumb(QImage img, QString path, int origwidth, int origheight, int pos, bool preload) {
+
+	// Some general settings that are needed multiple times later-on
+	int size = globSet.value("ThumbnailSize").toInt();
+	int spacing = globSet.value("ThumbnailSpacingBetween").toInt();
+	int liftup = globSet.value("ThumbnailLiftUp").toInt();
+
+	bool showFilename = globSet.value("ThumbnailWriteFilename").toBool();
+	bool showDimensions = (globSet.value("ThumbnailWriteResolution").toBool() && origwidth != 0 && origheight != 0 && !globSet.value("ThbCacheFile").toBool());
+
+	QString thumbpos = globSet.value("ThumbnailPosition").toString();
+
+	// Preload thumbnail
+	if(preload) {
+
+		// Two transparent thumbnails
+		QPixmap norm(size+spacing,size+liftup);
+		norm.fill(Qt::transparent);
+		QPainter paint(&norm);
+
+		QPixmap hov(size+spacing,size+liftup);
+		hov.fill(Qt::transparent);
+		QPainter paintHov(&hov);
+
+		// Both load an empty "?" thumbnail
+		QIcon f(":/img/emptythumb.png");
+		if(thumbpos == "Bottom") {
+
+			paint.drawPixmap(spacing/2,liftup,size,size,f.pixmap(size,size));
+			paintHov.drawPixmap(spacing/2,0,size,size,f.pixmap(size,size));
+
+		} else if(thumbpos == "Top") {
+
+			paint.drawPixmap(spacing/2,0,size,size,f.pixmap(size,size));
+			paintHov.drawPixmap(spacing/2,liftup,size,size,f.pixmap(size,size));
+
+		}
+
+		// Write filename and/or dimensions
+		QTextDocument txt;
+		if(showFilename || showDimensions) {
+			QString textdocTXT = "<center><div style=\"text-align: center; font-size: 7pt; font-wight: bold; color: white; background: rgba(0,0,0,80); border-radius: 10px\">";
+			if(showFilename) textdocTXT += QFileInfo(path).fileName();
+			if(showDimensions) {
+				if(showFilename) textdocTXT += "<br><i>(";
+				textdocTXT += QString("%1:%2").arg(origwidth).arg(origheight);
+				if(showFilename) textdocTXT += ")</i>";
+			}
+			textdocTXT += "</div></center>";
+
+			txt.setHtml(textdocTXT);
+			txt.setTextWidth(size);
+			if(thumbpos == "Bottom") {
+				paint.translate(0,size*((showFilename && showDimensions) ? 0.55 : 0.70));
+				paintHov.translate(0,size*((showFilename && showDimensions) ? 0.55 : 0.70));
+			} else if(thumbpos== "Top") {
+				paint.translate(0,size/8.0);
+				paintHov.translate(0,size/8.0);
+			}
+			txt.drawContents(&paint);
+			txt.drawContents(&paintHov);
+		}
+		paint.end();
+		paintHov.end();
+
+		// Create Pixmap item
+		ThumbnailPixmapItem *pixitem = new ThumbnailPixmapItem;
+		pixitem->path = path;
+		pixitem->position = pos;
+		pixitem->setData(1,pixitem->path);
+		pixitem->setPixmap(norm,hov);
+		pixitem->setPos(pos*(size+spacing),0);
+		connect(pixitem, SIGNAL(clicked(QString)), this, SLOT(gotClick(QString)));
+
+		// Add to list
+		allPixmaps.insert(path, pixitem);
+		allPixmapsPath.insert(pos, path);
+
+		// And add to scene
+		view->scene.addItem(pixitem);
+		view->scene.setSceneRect(view->scene.itemsBoundingRect());
+
+	} else {
+
+		// The thumbnail image
+		QPixmap pix(img.width(),img.height());
+		pix = QPixmap::fromImage(img);
+		if(pix.height() > size)
+			pix = pix.scaledToHeight(size);
+		if(pix.width() > size)
+			pix = pix.scaledToWidth(size);
+
+		// The normal image
+		QPixmap imgNorm(size+spacing,size+liftup);
+		imgNorm.fill(Qt::transparent);
+		QPainter paint(&imgNorm);
+		paint.setCompositionMode(QPainter::CompositionMode_SourceOver);
+
+		// The hover image
+		QPixmap imgHov(size+spacing,size+liftup);
+		imgHov.fill(Qt::transparent);
+		QPainter paintSel(&imgHov);
+		paintSel.setCompositionMode(QPainter::CompositionMode_SourceOver);
+
+		// Draw actual thumbnail
+		int xPix = (size-pix.width())/2;
+		int yPix = (size-pix.height())/2;
+		int wPix = pix.width();
+		int hPix = pix.height();
+		if(thumbpos == "Bottom") {
+
+			paint.fillRect(0,liftup,size+spacing,size,QColor::fromRgba(qRgba(0,0,0,150)));
+			paintSel.fillRect(0,0,size+spacing,size,QColor::fromRgba(qRgba(0,0,0,150)));
+
+			paint.drawPixmap(xPix+spacing/2,liftup+yPix,wPix,hPix,pix);
+			paintSel.drawPixmap(xPix+spacing/2,yPix,wPix,hPix,pix);
+
+		} else if(thumbpos == "Top") {
+
+			paint.fillRect(0,0,size+spacing,size,QColor::fromRgba(qRgba(0,0,0,150)));
+			paintSel.fillRect(0,liftup,size+spacing,size,QColor::fromRgba(qRgba(0,0,0,150)));
+
+			paint.drawPixmap(xPix+spacing/2,yPix,wPix,hPix,pix);
+			paintSel.drawPixmap(xPix+spacing/2,yPix+liftup,wPix,hPix,pix);
+
+		}
+
+		// Write filename and/or dimensions
+		QTextDocument txt;
+		if(showFilename || showDimensions) {
+
+			QString textdocTXT = "<center><div style=\"text-align: center; font-size: 7pt; font-wight: bold; color: white; background: rgba(0,0,0,150); border-radius: 10px\">";
+			if(showFilename && showDimensions) textdocTXT += QFileInfo(path).fileName() + "<br><i>(" + QString("%1:%2").arg(origwidth).arg(origheight) + ")</i>";
+			else if(showFilename) textdocTXT += QFileInfo(path).fileName();
+			else if(showDimensions) textdocTXT += QString("%1:%2").arg(origwidth).arg(origheight);
+			textdocTXT += "</div></center>";
+
+			txt.setHtml(textdocTXT);
+			txt.setTextWidth(size);
+			if(globSet.value("ThumbnailPosition") == "Bottom") {
+				paint.translate(0,size*((showFilename && showDimensions) ? 0.55 : 0.70));
+				paintSel.translate(0,size*((showFilename && showDimensions) ? 0.55 : 0.70));
+			} else if(globSet.value("ThumbnailPosition") == "Top") {
+				paint.translate(0,size/8.0);
+				paintSel.translate(0,size/8.0);
+			}
+
+			txt.drawContents(&paint);
+			txt.drawContents(&paintSel);
+
+		}
+
+		paint.end();
+		paintSel.end();
+
+		// And update pixmaps (the check is a safety measure, shouldn't really be necessary though)
+		if(allPixmaps.keys().contains(path))
+			allPixmaps.value(path)->setPixmap(imgNorm,imgHov);
+
+	}
+
+}
+
+void Thumbnails::centerOnCurrent(bool firstLoad) {
+
+	if(globSet.value("ThumbnailCenterActive").toBool() || firstLoad)
+		view->centerOn(allPixmaps.value(currentfile));
+	else
+		view->ensureVisible(allPixmaps.value(currentfile));
+
+	allPixmaps.value(currentfile)->presented = true;
+	allPixmaps.value(currentfile)->setHoverImg();
+
+}
+
+// Jump to first/last image in list
+void Thumbnails::gotoFirstLast(QString side) {
+
+	if(verbose) std::clog << "thb: Got to first/Last: " << side.toStdString() << std::endl;
+
+	if(allImgsInfo.length()) {
+
+		if(side == "first")
+			gotClick(allImgsInfo.first().absoluteFilePath());
+		else if(side == "last")
+			gotClick(allImgsInfo.last().absoluteFilePath());
+
+	}
+
+}
+
+// Update hover/norm pixmap
+void Thumbnails::updateThbViewHoverNormPix(QString oldpath, QString newpath) {
+
+	if(!globSet.value("ThumbnailDisable").toBool()) {
+
+		if(oldpath != "" && allPixmaps.keys().contains(oldpath)) {
+			allPixmaps.value(oldpath)->presented = false;
+			allPixmaps.value(oldpath)->setNormalImg();
+		}
+		if(newpath != "" && allPixmaps.keys().contains(newpath)) {
+			allPixmaps.value(newpath)->presented = true;
+			allPixmaps.value(newpath)->setHoverImg();
+		}
+
+	}
+
+}
+
+// Got a click on an item
+void Thumbnails::gotClick(QString path) {
+
+	if(verbose) std::clog << "thb: gotClick:" << path.toStdString() << std::endl;
+
+	updateThbViewHoverNormPix(currentfile,path);
+	setCurrentfile(path);
+	countpos = getImageFilePathIndexOf(path);
+
+	emit loadNewImg(path);
+
+}
+
+// The view has been scrolled (needed for dynamic thumbnail creation)
+void Thumbnails::scrolledView() {
+
+	// Stop thread
+	if(thread->isRunning()) {
+		thread->abort();
+		thread->wait();
+	}
+
+	// Get new path/position
+	QString pixPath = "";
+	int newpos = -1;
+
+	int thbsize = globSet.value("ThumbnailSize").toInt();
+	if(view->mapToScene(view->rect()).boundingRect().contains(QRect(allPixmaps.value(currentfile)->pos().toPoint(), QSize(thbsize,thbsize))))
+		newpos = allPixmaps.value(currentfile)->position;
+	else {
+		QPoint center = view->viewport()->visibleRegion().boundingRect().center();
+		// We get the position of the item in view center
+		QGraphicsItem *pix = (QGraphicsItem*)view->itemAt(center);
+		pixPath = pix->data(1).toString();
+		newpos = getImageFilePathIndexOf(pixPath);
+	}
+
+	if(verbose) std::clog << "Central item: " << pixPath.toStdString() << std::endl;
+
+	// Update data
+	thread->currentPos = newpos;
+	thread->thbWidth = globSet.value("ThumbnailSize").toInt();
+	thread->viewWidth = view->width();
+	thread->createThisOne = newpos;
+
+	// Start thread
+	thread->start();
+
+
+}
+
+void Thumbnails::setGlobSet(QMap<QString, QVariant> set) {
+
+	 globSet = set;
+	 view->globSet = set;
+
+	 QString qtfiles = globSet.value("KnownFileTypesQt").toString();
+	 QString qtfiles_extras = globSet.value("KnownFileTypesQtExtras").toString();
+	 thread->qtfiles = qtfiles;
+	 if(qtfiles_extras.trimmed().length() != 0) thread->qtfiles += "," + qtfiles_extras;
+	 thread->gmfiles = globSet.value("KnownFileTypesGm").toString();
+
+}
+
+// FOR SORTING, WE HAVE ALL FUNCTIONS FOR DESCENDING AND ASCENDING CASE, AS THIS IS FASTER THAN REVERSING THE ORDER
+// AFTERWARDS (PARTICULARLY FOR DIRECTORIES WITH A LARGE NUMBER OF FILES
+
+bool Thumbnails::sort_name(const QFileInfo &s1fileinfo, const QFileInfo &s2fileinfo) {
+	return(s1fileinfo.fileName().compare(s2fileinfo.fileName(), Qt::CaseInsensitive) <= 0);
+}
+bool Thumbnails::sort_name_desc(const QFileInfo &s1fileinfo, const QFileInfo &s2fileinfo) {
+	return(s2fileinfo.fileName().compare(s1fileinfo.fileName(), Qt::CaseInsensitive) <= 0);
+}
+bool Thumbnails::sort_date(const QFileInfo &s1fileinfo, const QFileInfo &s2fileinfo) {
+	return(s1fileinfo.created().secsTo(s2fileinfo.created()) >= 0);
+}
+bool Thumbnails::sort_date_desc(const QFileInfo &s1fileinfo, const QFileInfo &s2fileinfo) {
+	return(s1fileinfo.created().secsTo(s2fileinfo.created()) < 0);
+}
+bool Thumbnails::sort_size(const QFileInfo &s1fileinfo, const QFileInfo &s2fileinfo) {
+	return(s1fileinfo.size() >= s2fileinfo.size());
+}
+bool Thumbnails::sort_size_desc(const QFileInfo &s1fileinfo, const QFileInfo &s2fileinfo) {
+	return(s1fileinfo.size() < s2fileinfo.size());
 }
 
 // Algorithm used for sorting a directory using natural sort
 // Credits to: http://www.qtcentre.org/archive/index.php/t-21411.html
-bool Thumbnails::compareNamesFileInfo_naturalname(const QFileInfo& s1fileinfo,const QFileInfo& s2fileinfo) {
+bool Thumbnails::sort_naturalname(const QFileInfo& s1fileinfo,const QFileInfo& s2fileinfo) {
 
 	const QString s1 = s1fileinfo.fileName();
 	const QString s2 = s2fileinfo.fileName();
@@ -147,13 +488,90 @@ bool Thumbnails::compareNamesFileInfo_naturalname(const QFileInfo& s1fileinfo,co
 		return s1.length() < s2.length();
 	}
 }
+bool Thumbnails::sort_naturalname_desc(const QFileInfo& s1fileinfo,const QFileInfo& s2fileinfo) {
 
-bool Thumbnails::compareNamesFileInfo_date(const QFileInfo &s1fileinfo, const QFileInfo &s2fileinfo) {
-	return s1fileinfo.created().secsTo(s2fileinfo.created()) > 0;
+	const QString s2 = s1fileinfo.fileName();
+	const QString s1 = s2fileinfo.fileName();
+
+	// ignore common prefix..
+	int i = 0;
+
+	while ((i < s1.length()) && (i < s2.length()) && (s1.at(i).toLower() == s2.at(i).toLower()))
+		++i;
+	++i;
+
+	// something left to compare?
+	if ((i < s1.length()) && (i < s2.length())) {
+
+		// get number prefix from position i - doesnt matter from which string
+		int k = i-1;
+
+		//If not number return native comparator
+		if(!s1.at(k).isNumber() || !s2.at(k).isNumber()) {
+
+			//Two next lines
+			//E.g. 1_... < 12_...
+			if(s1.at(k).isNumber())
+				return false;
+			if(s2.at(k).isNumber())
+				return true;
+			return QString::compare(s1, s2, Qt::CaseSensitive) < 0;
+		}
+
+		QString n = "";
+		k--;
+
+		while ((k >= 0) && (s1.at(k).isNumber())) {
+			n = s1.at(k)+n;
+			--k;
+		}
+
+		// get relevant/signficant number string for s1
+		k = i-1;
+		QString n1 = "";
+		while ((k < s1.length()) && (s1.at(k).isNumber())) {
+			n1 += s1.at(k);
+			++k;
+		}
+
+		// get relevant/signficant number string for s2
+		//Decrease by
+		k = i-1;
+		QString n2 = "";
+		while ((k < s2.length()) && (s2.at(k).isNumber())) {
+			n2 += s2.at(k);
+			++k;
+		}
+
+		// got two numbers to compare?
+		if (!n1.isEmpty() && !n2.isEmpty())
+			return (n+n1).toInt() < (n+n2).toInt();
+		else {
+			// not a number has to win over a number.. number could have ended earlier... same prefix..
+			if (!n1.isEmpty())
+				return false;
+			if (!n2.isEmpty())
+				return true;
+			return s1.at(i) < s2.at(i);
+		}
+	} else {
+		// shortest string wins
+		return s1.length() < s2.length();
+	}
 }
 
-bool Thumbnails::compareNamesFileInfo_size(const QFileInfo &s1fileinfo, const QFileInfo &s2fileinfo) {
-	return s1fileinfo.size()>s2fileinfo.size();
+void Thumbnails::makeShow() {
+
+	if(!isShown)
+		animate();
+
+}
+
+void Thumbnails::makeHide() {
+
+	if(isShown)
+		animate();
+
 }
 
 // The animation function
@@ -198,372 +616,6 @@ void Thumbnails::aniFinished() {
 
 }
 
-// Load the directory
-void Thumbnails::loadDir(bool amReloadingDir) {
-
-	// Clear the scene
-	view->scene.clear();
-
-	// Clear all possibly existing pixmaps
-	allPixmaps.clear();
-
-	// Reset the counter
-	counttot = 0;
-
-	// Reset Info and Paths
-	allImgsInfo.clear();
-
-	if(verbose) std::clog << "thb: Load directory: " << currentdir.toStdString() << " - nothb: " << noThumbs << std::endl;
-
-	// Get QDir instance
-	QDir *dir = new QDir(currentdir);
-
-	// These are the images known by PhotoQt
-	QStringList flt = globSet.value("KnownFileTypes").toString().split(",");
-	if(imageFilter.join("").trimmed().length() == 0)
-		dir->setNameFilters(flt);
-	else {
-		QStringList flt_approved;
-		foreach(QString f, imageFilter) {
-			if(f.startsWith(".") && flt.contains(f.remove(0,1)))
-				flt_approved.append("*" + f);
-			else if(!f.startsWith("."))
-				flt_approved.append("*" + f + "*");
-
-		}
-		dir->setNameFilters(flt_approved);
-	}
-
-	// Store a QFileInfoList and a QStringList with the filenames
-	allImgsInfo = dir->entryInfoList(QDir::Files,QDir::IgnoreCase);
-
-	// When opening an unknown file (i.e., one that doesn't match any set format), then we need to manually add it to the list of loaded images
-	if(!allImgsInfo.contains(QFileInfo(currentdir+"/"+currentfile))) allImgsInfo.append(QFileInfo(currentdir+"/"+currentfile));
-
-	// Sort images...
-	if(globSet.value("SortImagesBy").toString() == "naturalname")
-		qSort(allImgsInfo.begin(),allImgsInfo.end(),compareNamesFileInfo_naturalname);
-	else if(globSet.value("SortImagesBy").toString() == "date")
-		qSort(allImgsInfo.begin(),allImgsInfo.end(),compareNamesFileInfo_date);
-	else if(globSet.value("SortImagesBy").toString() == "size")
-		qSort(allImgsInfo.begin(),allImgsInfo.end(),compareNamesFileInfo_size);
-	else
-		qSort(allImgsInfo.begin(),allImgsInfo.end(),compareNamesFileInfo_name);
-
-	// If we want to sort in descending order, we simply reverse the order here
-	// NOTE: using qSwap() on half the items is very fast
-	if(!globSet.value("SortImagesAscending").toBool()) {
-		const int listSize = allImgsInfo.size();
-		const int maxSwap = allImgsInfo.size()/2;
-		for (int i = 0; i < maxSwap; ++i) {
-			qSwap(allImgsInfo[i], allImgsInfo[listSize - 1 -i]);
-		}
-	}
-
-	// Storing number of images
-	counttot = allImgsInfo.length();
-
-	// If thumbnails aren't disabled
-	if(!noThumbs) {
-
-		// Use Image Thumbnails or Filename-Only Thumbnails
-		bool filenameInsteadThumb = globSet.value("ThumbnailFilenameInstead").toBool();
-		int filenameInsteadFontSize = globSet.value("ThumbnailFilenameInsteadFontSize").toInt();
-
-		int normsqu = globSet.value("ThumbnailSize").toInt();
-		int spacing = globSet.value("ThumbnailSpacingBetween").toInt();
-		int liftup = globSet.value("ThumbnailLiftUp").toInt();
-
-		for(int i = 0; i < counttot; ++i) {
-
-			// The normal image pixmap
-			QPixmap imgNorm(normsqu+spacing,normsqu+liftup);
-			imgNorm.fill(Qt::transparent);
-			QPainter paint(&imgNorm);
-			paint.setCompositionMode(QPainter::CompositionMode_SourceOver);
-			QPen pen(Qt::white);
-			paint.setPen(pen);
-			QIcon f;
-			if(!filenameInsteadThumb)
-				f.addFile(":/img/emptythumb.png");
-			else
-				f.addFile(":/img/nothumb.png");
-
-			paint.fillRect(0,liftup,normsqu+spacing,normsqu,QColor::fromRgba(qRgba(0,0,0,150)));
-			paint.drawPixmap(spacing/2,liftup,normsqu,normsqu,f.pixmap(normsqu,normsqu));
-			QTextDocument txt;
-			if(filenameInsteadThumb) {
-				txt.setHtml(QString("<center><div style=\"text-align: center; font-size: %1pt; font-wight: bold; color: white; background: none;\">" + allImgsInfo.at(i).fileName() + "</div></center>").arg(filenameInsteadFontSize));
-				txt.setTextWidth(normsqu);
-				paint.translate(0,liftup);
-				txt.drawContents(&paint);
-			} else {
-				txt.setHtml("<center><div style=\"text-align: center; font-size: 8pt; font-wight: bold; color: white; background: rgba(0,0,0,200); border-radius: 10px;\">" + allImgsInfo.at(i).fileName() + "</div></center>");
-				txt.setTextWidth(normsqu);
-				paint.translate(3,normsqu*2/3.0);
-				txt.drawContents(&paint);
-			}
-			paint.end();
-
-			// The hover image pixmap
-			QPixmap imgHov(normsqu+spacing,normsqu+liftup);
-			imgHov.fill(Qt::transparent);
-			QPainter paint2(&imgHov);
-			paint2.setCompositionMode(QPainter::CompositionMode_SourceOver);
-			paint2.setPen(pen);
-			paint2.fillRect(0,0,normsqu+spacing,normsqu,QColor::fromRgba(qRgba(0,0,0,150)));
-			paint2.drawPixmap(spacing/2,0,normsqu,normsqu,f.pixmap(normsqu,normsqu));
-			if(filenameInsteadThumb) {
-
-				if(verbose) std::clog << "thb: Use filename thumbs" << std::endl;
-
-				txt.setHtml(QString("<center><div style=\"text-align: center; font-size: %1pt; font-wight: bold; color: white; background: none;\">" + allImgsInfo.at(i).fileName() + "</div></center>").arg(filenameInsteadFontSize));
-				txt.setTextWidth(normsqu);
-				paint2.translate(0,0);
-				txt.drawContents(&paint2);
-
-			} else {
-				txt.setHtml("<center><div style=\"text-align: center; font-size: 8pt; font-wight: bold; color: white; background: rgba(0,0,0,200); border-radius: 10px;\">" + allImgsInfo.at(i).fileName() + "</div></center>");
-				txt.setTextWidth(normsqu);
-				paint2.translate(3,normsqu*2/3.0);
-				txt.drawContents(&paint2);
-			}
-			paint2.end();
-
-			// Create the pixmapitem, set pixmaps and adjust the position
-			ThumbnailPixmapItem *pix = new ThumbnailPixmapItem;
-			pix->path = getImageFilePathAt(i);
-			pix->setData(1,pix->path);
-			pix->setPixmap(imgNorm,imgHov);
-			pix->setPos(i*(normsqu+spacing),0);
-			connect(pix, SIGNAL(clicked(QString)), this, SLOT(gotClick(QString)));
-
-			// Add to list
-			allPixmaps.append(pix);
-
-			// And add to scene
-			view->scene.addItem(pix);
-
-		}
-
-		// Adjust scene rect
-		view->scene.setSceneRect(view->scene.itemsBoundingRect());
-
-		newlyLoadedDir = true;
-
-		// Ensure, that the directory is loading
-		scrolledView();
-
-	}
-
-}
-
-void Thumbnails::startThread() {
-
-	// If image thumbnails are wanted, start the thread
-	if(!globSet.value("ThumbnailFilenameInstead").toBool() && newlyLoadedDir) {
-
-		newlyLoadedDir = false;
-
-		if(verbose) std::clog << "thb: Start loading thumbs" << std::endl;
-
-		view->thbWidth = globSet.value("ThumbnailSize").toInt();
-
-
-		int newpos = 0;
-
-		if(view->scene.width() > this->width()) {
-			QPoint center = view->viewport()->visibleRegion().boundingRect().center();
-			if(center != QPoint(0,0)) {
-				ThumbnailPixmapItem *pix = (ThumbnailPixmapItem*)view->itemAt(center);
-				QString pixpath = pix->path;
-				newpos = getImageFilePathIndexOf(pixpath);
-			} else
-				newpos = -1;
-			if(newpos == -1) {
-				// Get new middle position
-				newpos = getImageFilePathIndexOf(currentfile);
-				if(newpos < 0)
-					newpos = 0;
-				if(newpos >= counttot)
-					newpos = counttot-1;
-			}
-		}
-		thumbThread->currentPos = newpos;
-
-		thumbThread->verbose = verbose;
-		// Set and start the thumbnail thread
-		thumbThread->counttot = allImgsInfo.length();
-		thumbThread->globSet = globSet;
-		thumbThread->allimgs.clear();
-		thumbThread->allimgs.append(allImgsInfo);
-		thumbThread->viewWidth = this->width();
-		// This is cleared here, because the run() function in the tread is also called for updates only (i.e. this list needs to be preserved in that case)
-		thumbThread->posCreated.clear();
-		thumbThread->thbWidth = globSet.value("ThumbnailSize").toInt()+globSet.value("ThumbnailSpacingBetween").toInt();
-		thumbThread->dynamicThumbs = globSet.value("ThumbnailDynamic").toBool();
-		thumbThread->height = globSet.value("ThumbnailSize").toInt();
-		if(globSet.value("ThumbnailCache").toBool())
-			thumbThread->cacheEnabled = true;
-		else
-			thumbThread->cacheEnabled = false;
-		thumbThread->breakme = false;
-		if(globSet.value("ThbCacheFile").toBool())
-			thumbThread->typeCache = "files";
-		else
-			thumbThread->typeCache = "database";
-		if(allImgsInfo.length())
-			thumbThread->start();
-
-	}
-
-
-}
-
-// Interrupt the thumbnail creation
-void Thumbnails::stopThbCreation() {
-
-	thumbThread->breakme = true;
-
-}
-
-void Thumbnails::updateThumb(QImage img, QString path, int origwidth, int origheight, int pos) {
-
-	if(verbose) std::clog << "thb: Update thumb: " << pos << " - " << path.toStdString() << std::endl;
-
-	// Default size
-	int size = globSet.value("ThumbnailSize").toInt();
-	int spacing = globSet.value("ThumbnailSpacingBetween").toInt();
-	int liftup = globSet.value("ThumbnailLiftUp").toInt();
-
-	// The thumbnail image
-	QPixmap pix(img.width(),img.height());
-	pix = QPixmap::fromImage(img);
-	if(pix.height() > size)
-		pix = pix.scaledToHeight(size);
-	if(pix.width() > size)
-		pix = pix.scaledToWidth(size);
-
-	// The normal image
-	QPixmap imgNorm(size+spacing,size+liftup);
-	imgNorm.fill(Qt::transparent);
-	QPainter paint(&imgNorm);
-	paint.setCompositionMode(QPainter::CompositionMode_SourceOver);
-	int xPix = (size-pix.width())/2;
-	int yPix = (size-pix.height())/2;
-	int wPix = pix.width();
-	int hPix = pix.height();
-	if(globSet.value("ThumbnailPosition") == "Bottom") {
-		paint.fillRect(0,liftup,size+spacing,size,QColor::fromRgba(qRgba(0,0,0,150)));
-		paint.drawPixmap(xPix+spacing/2,liftup+yPix,wPix,hPix,pix);
-	} else if(globSet.value("ThumbnailPosition") == "Top") {
-		paint.fillRect(0,0,size+spacing,size,QColor::fromRgba(qRgba(0,0,0,150)));
-		paint.drawPixmap(xPix+spacing/2,yPix,wPix,hPix,pix);
-	}
-
-	bool showFilename = globSet.value("ThumbnailWriteFilename").toBool();
-	bool showDimensions = (globSet.value("ThumbnailWriteResolution").toBool() && origwidth != 0 && origheight != 0 && !globSet.value("ThbCacheFile").toBool());
-	QTextDocument txt;
-
-	if(showFilename || showDimensions) {
-
-		QString textdocTXT = "<center><div style=\"text-align: center; font-size: 7pt; font-wight: bold; color: white; background: rgba(0,0,0,150); border-radius: 10px\">";
-		if(showFilename && showDimensions) textdocTXT += QFileInfo(path).fileName() + "<br><i>(" + QString("%1:%2").arg(origwidth).arg(origheight) + ")</i>";
-		else if(showFilename) textdocTXT += QFileInfo(path).fileName();
-		else if(showDimensions) textdocTXT += QString("%1:%2").arg(origwidth).arg(origheight);
-		textdocTXT += "</div></center>";
-
-		txt.setHtml(textdocTXT);
-		txt.setTextWidth(size);
-		if(globSet.value("ThumbnailPosition") == "Bottom")
-			paint.translate(0,size*((showFilename && showDimensions) ? 0.55 : 0.70));
-		else if(globSet.value("ThumbnailPosition") == "Top")
-			paint.translate(0,size/8.0);
-		txt.drawContents(&paint);
-	}
-	paint.end();
-
-	// The hover image
-	QPixmap imgHov(size+spacing,size+liftup);
-	imgHov.fill(Qt::transparent);
-	QPainter paintSel(&imgHov);
-	paintSel.setCompositionMode(QPainter::CompositionMode_SourceOver);
-	int xSel = (size-pix.width())/2;
-	int ySel = (size-pix.height())/2;
-	int wSel = pix.width();
-	int hSel = pix.height();
-	if(globSet.value("ThumbnailPosition") == "Bottom") {
-		paintSel.fillRect(0,0,size+spacing,size,QColor::fromRgba(qRgba(0,0,0,150)));
-		paintSel.drawPixmap(xSel+spacing/2,ySel,wSel,hSel,pix);
-	} else if(globSet.value("ThumbnailPosition") == "Top") {
-		paintSel.fillRect(0,liftup,size+spacing,size,QColor::fromRgba(qRgba(0,0,0,150)));
-		paintSel.drawPixmap(xSel+spacing/2,ySel+liftup,wSel,hSel,pix);
-	}
-	if(showFilename || showDimensions) {
-		if(globSet.value("ThumbnailPosition") == "Bottom")
-			paintSel.translate(0,size*((showFilename && showDimensions) ? 0.55 : 0.70));
-		else if(globSet.value("ThumbnailPosition") == "Top")
-			paintSel.translate(0,size/8.0);
-		txt.drawContents(&paintSel);
-	}
-	paintSel.end();
-
-	if(allPixmaps.length() >= pos) {
-		allPixmaps.at(pos)->path = path;
-		allPixmaps.at(pos)->presented = (path == currentdir+"/"+currentfile);
-		allPixmaps.at(pos)->setPixmap(imgNorm,imgHov);
-	}
-
-}
-
-// Got a click on an item
-void Thumbnails::gotClick(QString path) {
-
-	if(verbose) std::clog << "thb: gotClick:" << path.toStdString() << std::endl;
-
-	updateThbViewHoverNormPix(currentdir+"/"+currentfile,path);
-
-	// We set this boolean to true, and this causes drawImg() in mainwindow.cpp NOT to ensure the visibility of the item (it already is visible). Before occasionally this led to the thumbnailview "jumping" a little to the right/left ensuring the visibility.
-	thumbLoadedThroughClick = true;
-
-	emit loadNewImg(path);
-
-}
-
-// Update hover/norm pixmap
-void Thumbnails::updateThbViewHoverNormPix(QString oldpath, QString newpath) {
-
-	if(!noThumbs) {
-
-		if(oldpath != "" && getImageFilePathIndexOf(oldpath) != -1) {
-			allPixmaps.at(getImageFilePathIndexOf(oldpath))->presented = false;
-			allPixmaps.at(getImageFilePathIndexOf(oldpath))->setNormalImg();
-		}
-		if(newpath != "" && getImageFilePathIndexOf(newpath) != -1) {
-			allPixmaps.at(getImageFilePathIndexOf(newpath))->presented = true;
-			allPixmaps.at(getImageFilePathIndexOf(newpath))->setHoverImg();
-		}
-
-	}
-
-}
-
-// Jump to first/last image in list
-void Thumbnails::gotoFirstLast(QString side) {
-
-	if(verbose) std::clog << "thb: Got to first/Last: " << side.toStdString() << std::endl;
-
-	if(allImgsInfo.length()) {
-
-		if(side == "first")
-			gotClick(allImgsInfo.first().absoluteFilePath());
-		else if(side == "last")
-			gotClick(allImgsInfo.last().absoluteFilePath());
-
-	}
-
-}
-
 void Thumbnails::setRect(QRect rect) {
 
 	// Adjust the thumbnail geometry
@@ -578,64 +630,6 @@ void Thumbnails::setRect(QRect rect) {
 
 }
 
-void Thumbnails::makeShow() {
-
-	if(!isShown)
-		animate();
-
-}
-
-void Thumbnails::makeHide() {
-
-	if(isShown)
-		animate();
-
-}
-
-// The view has been scrolled (needed for dynamic thumbnail creation)
-void Thumbnails::scrolledView() {
-
-	QString pixPath = "";
-	int newpos = -1;
-
-
-	QPoint center = view->viewport()->visibleRegion().boundingRect().center();
-	QPoint customCenter = QPoint(center.x(),center.y());
-	// We get the position of the item in view center
-	QGraphicsItem *pix = (QGraphicsItem*)view->itemAt(customCenter);
-	pixPath = pix->data(1).toString();
-	newpos = getImageFilePathIndexOf(pixPath);
-
-	if(pixPath == "") {
-		QPoint center = view->viewport()->visibleRegion().boundingRect().center();
-		QPoint customCenter = QPoint(center.x()+2*(globSet.value("ThumbnailSpacingBetween").toInt()+2),center.y());
-		// We get the position of the item in view center
-		QGraphicsItem *pix = (QGraphicsItem*)view->itemAt(customCenter);
-		pixPath = pix->data(1).toString();
-		newpos = getImageFilePathIndexOf(pixPath);
-	}
-
-	// Sometimes PhotoQt wont find a central image.
-	// When the thumbnail view is hidden, it doesn't always get updated.
-	// But as soon as they are shown, then they will start to load, so everything's fine.
-
-	if(verbose) std::clog << "Central item: " << pixPath.toStdString() << std::endl;
-
-
-	// And submit data to thread
-	// The amUpdatingData bool is true as long as data is updated, and the thread is sitting idle in that time
-	thumbThread->amUpdatingData = true;
-	// Set data
-	thumbThread->newData(newpos,globSet.value("ThumbnailSize").toInt(),view->width());
-
-	// Finished
-	thumbThread->amUpdatingData = false;
-	// If thread wasn't even running, start it
-	if(!thumbThread->isRunning())
-		thumbThread->start();
-
-
-}
 
 // Enabling styling of widget
 void Thumbnails::paintEvent(QPaintEvent *) {

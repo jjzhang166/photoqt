@@ -1,41 +1,21 @@
-/*
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License along
- * with this program; if not, write to the Free Software Foundation, Inc.,
- * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
- */
-
 #ifndef THUMBNAILS_H
 #define THUMBNAILS_H
 
-#include "../customelements/customscrollbar.h"
+#include <QWidget>
+#include <QMap>
+#include <QVariant>
+#include <QStyleOption>
+#include <QPainter>
+#include <QPropertyAnimation>
+#include <QDir>
+#include <QtDebug>
+#include <QDateTime>
+#include <QHBoxLayout>
+#include <QTextDocument>
+
+#include "threadforthumbnails.h"
 #include "thumbnailpixmapitem.h"
 #include "thumbnailview.h"
-#include "threadforthumbnails.h"
-
-#include <QGraphicsView>
-#include <QVariant>
-#include <QMap>
-#include <QFileInfo>
-#include <QDir>
-#include <QStyleOption>
-#include <QPropertyAnimation>
-#include <QTextDocument>
-#include <QGraphicsPixmapItem>
-#include <QHBoxLayout>
-#include <QScrollBar>
-#include <QApplication>
-
-#include <QImageReader>
 
 // The thumbnail view
 class Thumbnails : public QWidget {
@@ -43,107 +23,99 @@ class Thumbnails : public QWidget {
 	Q_OBJECT
 
 public:
-	Thumbnails(QWidget *parent = 0, bool verbose = false, QMap<QString,QVariant> set = QMap<QString,QVariant>());
+	Thumbnails(QMap<QString,QVariant> set = QMap<QString,QVariant>(), bool verbose = false, QWidget *parent = 0);
 	~Thumbnails();
 
-	bool verbose;
-
-	void setGlobSet(QMap<QString,QVariant> set) { globSet = set; }
-
-	// The Graphicsview
-	ThumbnailView *view;
-
-	// Load the current directory
-	void loadDir(bool amReloadingDir = false);
-
-	// The current filepath
-	void setCurrentfile(QString file) { currentfile = QFileInfo(file).fileName(); currentdir = QFileInfo(file).absolutePath(); }
-	QString getCurrentfile() { return currentdir+"/"+currentfile; }
-
-	// The total amount of images
-	int counttot;
-	// the current position in folder
-	int countpos;
-
-	// Disable thumbnails
-	bool noThumbs;
-
-	// Some lists containing info about items in directory
-	QFileInfoList allImgsInfo;
-	QString getImageFilePathAt(int pos) { return allImgsInfo.at(pos).absoluteFilePath(); }
-	int getImageFilePathIndexOf(QString s) { return allImgsInfo.indexOf(QFileInfo(s)); }
-
-	QList<ThumbnailPixmapItem *> allPixmaps;
-
-	bool thumbLoadedThroughClick;
-
-	// Called from mainwindow.cpp drawImg(), after ensuring visibility of thumbnail
-	void startThread();
-	bool newlyLoadedDir;
-
-	// Update which item in the thumbnail view is hovered
-	void updateThbViewHoverNormPix(QString oldpath, QString newpath);
+	void setGlobSet(QMap<QString,QVariant> set);
 
 	void setRect(QRect rect);
 
 	bool isVisible() { return isShown; }
 
-	static bool compareNamesFileInfo_name(const QFileInfo &s1fileinfo, const QFileInfo &s2fileinfo);
-	static bool compareNamesFileInfo_naturalname(const QFileInfo &s1fileinfo, const QFileInfo &s2fileinfo);
-	static bool compareNamesFileInfo_date(const QFileInfo &s1fileinfo, const QFileInfo &s2fileinfo);
-	static bool compareNamesFileInfo_size(const QFileInfo &s1fileinfo, const QFileInfo &s2fileinfo);
+	void loadDir(QString filepath);
+
+	void setCurrentfile(QString file) { currentfile = file; }
+	QString getCurrentfile() { return currentfile; }
+
+	QString getImageFilePathAt(int pos) { return allImgsInfo.at(pos).absoluteFilePath(); }
+	int getImageFilePathIndexOf(QString s) { return allImgsInfo.indexOf(QFileInfo(s)); }
+
+	// Update which item in the thumbnail view is hovered
+	void updateThbViewHoverNormPix(QString oldpath, QString newpath);
+
+	ThumbnailPixmapItem* getPixmap(QString path) { return allPixmaps.value(path); }
+	bool pixmapLoaded(QString path) { return allPixmaps.keys().contains(path); }
 
 	QRect areaShown() { return rectShown; }
+
+	void clearScene() { view->scene.clear(); }
+
+	int counttot;
+	int countpos;
+	QFileInfoList allImgsInfo;
 
 	void setFilter(QStringList filter) { imageFilter = filter; }
 	void removeFilter() { imageFilter.clear(); }
 
 private:
-	// The global settings
+	bool verbose;
 	QMap<QString,QVariant> globSet;
 
-	QString currentfile;
-	QString currentdir;
-
+	// Is it visible?
 	bool isShown;
-
 	// The animation instances
 	QPropertyAnimation *ani;
-
 	// The geometries of the view
 	QRect rectHidden;
 	QRect rectShown;
-
-	// The thumbnail thread and a list for all the pixmaps
-	ThumbThread *thumbThread;
-
 	bool animateInAndOut;
 
+	// The Graphicsview
+	ThumbnailView *view;
+
+	QString currentfile;
 	QStringList imageFilter;
+
+
+	QMap<QString, ThumbnailPixmapItem *> allPixmaps;
+	QMap<int,QString> allPixmapsPath;
+
+	ThumbThread *thread;
+	void startThread();
+
+
+	static bool sort_name(const QFileInfo &s1fileinfo, const QFileInfo &s2fileinfo);
+	static bool sort_name_desc(const QFileInfo &s1fileinfo, const QFileInfo &s2fileinfo);
+	static bool sort_naturalname(const QFileInfo &s1fileinfo, const QFileInfo &s2fileinfo);
+	static bool sort_naturalname_desc(const QFileInfo &s1fileinfo, const QFileInfo &s2fileinfo);
+	static bool sort_date(const QFileInfo &s1fileinfo, const QFileInfo &s2fileinfo);
+	static bool sort_date_desc(const QFileInfo &s1fileinfo, const QFileInfo &s2fileinfo);
+	static bool sort_size(const QFileInfo &s1fileinfo, const QFileInfo &s2fileinfo);
+	static bool sort_size_desc(const QFileInfo &s1fileinfo, const QFileInfo &s2fileinfo);
 
 public slots:
 	void makeShow();
 	void makeHide();
 
-	// Stop the creation of thumbnails
-	void stopThbCreation();
+	void centerOnCurrent(bool firstLoad = false);
 
 	// Jump to beginning/end of list
 	void gotoFirstLast(QString side);
 
-	void scrolledView();
+	void abortThread() { thread->abort(); }
 
 private slots:
 	// Animate the widget
 	void animate();
 	void aniFinished();
 
+	// Update a thumbnail
+	void updateThumb(QImage img, QString path, int origwidth, int origheight, int pos, bool preload);
+
 	// got a click on an item
 	void gotClick(QString path);
 
-	// Update a thumbnail
-	void updateThumb(QImage img, QString path, int origwidth, int origheight, int pos);
-
+	void scrolledView();
 
 protected:
 	void paintEvent(QPaintEvent *);
@@ -152,6 +124,8 @@ signals:
 	// Load a new image
 	void loadNewImg(QString path);
 
+
 };
+
 
 #endif // THUMBNAILS_H

@@ -17,7 +17,6 @@ QImage ImageReader::readImage(QString filename, int rotation, bool zoomed, QSize
 
 	bool useMagick = doIUseMagick(filename);
 	if(verbose) std::clog << "Using Graphicsengine: " << (useMagick ? "Magick" : "ImageReader") << std::endl;
-	std::clog << "Using Graphicsengine: " << (useMagick ? "Magick" : "ImageReader") << std::endl;
 
 	// for SVG, we first need to load it properly...
 	if(useMagick)
@@ -120,8 +119,6 @@ QImage ImageReader::readImage_QT(QString filename, int rotation, bool zoomed, QS
 			dispWidth *= q;
 			dispHeight *= q;
 	}
-
-	std::clog << "max = " << maxSize.width() << "|" << maxSize.height() << " -- w = " << dispWidth << " -- h = " << dispHeight << std::endl;
 
 	if(zoomed)
 		scaleImg1 = q;

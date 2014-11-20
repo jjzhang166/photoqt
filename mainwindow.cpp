@@ -87,7 +87,7 @@ MainWindow::MainWindow(QWidget *parent, bool verbose) : QMainWindow(parent) {
 
 
 	// The thumbnail-bar instance
-	viewThumbs = new Thumbnails(viewBig,globSet->verbose,globSet->toSignalOut());
+	viewThumbs = new Thumbnails(globSet->toSignalOut(), globVar->verbose, viewBig);
 	connect(viewThumbs, SIGNAL(loadNewImg(QString)), this, SLOT(loadNewImgFromThumbs(QString)));
 
 
@@ -290,7 +290,8 @@ void MainWindow::applySettings(QMap<QString, bool> applySet, bool justApplyAllOf
 
 		// (Re-)Load dir
 		if(globVar->currentfile != "")
-			viewThumbs->loadDir(true);
+			viewThumbs->loadDir(globVar->currentfile);
+
 
 		// Keep Thumbs visible?
 		if(globSet->thumbnailKeepVisible && !viewThumbs->isVisible())
@@ -357,7 +358,7 @@ void MainWindow::closeEvent(QCloseEvent *e) {
 	} else {
 
 		// Stop the thumbnail thread
-		viewThumbs->stopThbCreation();
+//		viewThumbsOld->stopThbCreation();
 
 		// Hide to system tray
 		if(globSet->trayicon && !globVar->skipTrayIcon) {
@@ -372,7 +373,7 @@ void MainWindow::closeEvent(QCloseEvent *e) {
 		// Quit
 		} else {
 			viewBig->scene()->clear();
-			viewThumbs->view->scene.clear();
+			viewThumbs->clearScene();
 
 			e->accept();
 
@@ -413,8 +414,7 @@ void MainWindow::drawImage() {
 		// If the current directory info hasn't been loaded yet
 		if(viewThumbs->counttot == 0) {
 			viewThumbs->setCurrentfile(globVar->currentfile);
-			viewThumbs->noThumbs = globSet->thumbnailDisable;
-			viewThumbs->loadDir();
+			viewThumbs->loadDir(globVar->currentfile);
 		}
 
 
@@ -524,20 +524,15 @@ void MainWindow::drawImage() {
 		// Restore normal cursor
 		qApp->restoreOverrideCursor();
 
-		// Ensure the active thumbnail is shown
-		// We only do that when the thumbnail was NOT loaded through a click on it. The reason is, that otherwise the thumbnailview might move a little (ensuring the thumbnail is visible) although it already IS visible.
-		if(viewThumbs->getImageFilePathIndexOf(globVar->currentfile) != -1 && !globSet->thumbnailDisable && !viewThumbs->thumbLoadedThroughClick) {
-			// We center on the image if it's a newly loaded dir or if respective setting it set
-			if(viewThumbs->newlyLoadedDir || globSet->thumbnailCenterActive)
-				viewThumbs->view->centerOn(viewThumbs->allPixmaps.at(viewThumbs->getImageFilePathIndexOf(globVar->currentfile)));
-			else
-				viewThumbs->view->ensureVisible(viewThumbs->allPixmaps.at(viewThumbs->getImageFilePathIndexOf(globVar->currentfile)));
+		if(viewThumbs->getImageFilePathIndexOf(globVar->currentfile) != -1 && !globSet->thumbnailDisable) {
+			if(viewThumbs->pixmapLoaded(globVar->currentfile))
+				// We center on the image if it's a newly loaded dir or if respective setting it set
+				viewThumbs->centerOnCurrent();
 			// We also have to check here where the cursor is, cause sometimes the app reaches these statements here when auto rotate is active (exif)
-			if(!globSet->thumbnailKeepVisible && viewThumbs->isVisible() && !viewThumbs->thumbLoadedThroughClick && !viewThumbs->areaShown().contains(QCursor::pos()))
+			if(!globSet->thumbnailKeepVisible && viewThumbs->isVisible() && !viewThumbs->areaShown().contains(QCursor::pos()))
 				viewThumbs->makeHide();
-			viewThumbs->startThread();
-		} else if(viewThumbs->thumbLoadedThroughClick)
-			viewThumbs->thumbLoadedThroughClick = false;
+//			viewThumbs->startThread();
+		}
 
 	}
 
@@ -884,8 +879,7 @@ void MainWindow::loadNewImgFromOpen(QString path, bool hideImageFilterLabel) {
 	viewThumbs->counttot = 0;
 	viewThumbs->countpos = 0;
 	viewThumbs->allImgsInfo.clear();
-	viewThumbs->noThumbs = globSet->thumbnailDisable;
-	viewThumbs->loadDir();
+	viewThumbs->loadDir(path);
 	globVar->exifRead = false;
 
 	// When a new image is loaded we reset any zooming, rotation, flipping
@@ -990,7 +984,7 @@ void MainWindow::mouseMoved(int x, int y) {
 
 				if(y > viewBig->height()-20 && !viewThumbs->isVisible()) {
 					viewThumbs->makeShow();
-					QTimer::singleShot(520,viewThumbs,SLOT(scrolledView()));
+//					QTimer::singleShot(520,viewThumbsOld,SLOT(scrolledView()));
 				}
 			}
 
@@ -1163,7 +1157,7 @@ void MainWindow::openFile() {
 	if(globVar->verbose) std::clog << "Got request to open new file" << std::endl;
 
 	// Stopping a possibly running thread
-	viewThumbs->stopThbCreation();
+//	viewThumbsOld->stopThbCreation();
 
 	// Open the FileDialog in the dir of last image. If PhotoQt just was started (i.e. no current image), then open in home dir
 	QString opendir = QDir::homePath();
@@ -1204,7 +1198,7 @@ void MainWindow::reloadDir(QString t) {
 		// If it was the last file in the directory
 		if(viewThumbs->counttot == 1) {
 			viewBig->scene()->clear();
-			viewThumbs->view->scene.clear();
+			viewThumbs->clearScene();
 			viewThumbs->counttot = 0;
 			viewThumbs->countpos = 0;
 			viewThumbs->allImgsInfo.clear();
@@ -1578,7 +1572,7 @@ void MainWindow::setImageFilter(QString curDir, QStringList filter) {
 		if(globVar->currentfile != "")
 			globVar->fileBeforeEmptyFilter = globVar->currentfile;
 
-		viewThumbs->view->scene.clear();
+		viewThumbs->clearScene();
 		viewThumbs->counttot = 0;
 		viewThumbs->countpos = 0;
 		viewThumbs->allImgsInfo.clear();
@@ -1747,7 +1741,7 @@ void MainWindow::setupWidget(QString what) {
 		filehandling->show();
 
 		connect(filehandling, SIGNAL(reloadDir(QString)), this, SLOT(reloadDir(QString)));
-		connect(filehandling, SIGNAL(stopThbCreation()), viewThumbs, SLOT(stopThbCreation()));
+//		connect(filehandling, SIGNAL(stopThbCreation()), viewThumbsOld, SLOT(stopThbCreation()));
 
 		connect(filehandling, SIGNAL(blockFunc(bool)), this, SLOT(blockFunc(bool)));
 
@@ -1949,7 +1943,7 @@ void MainWindow::shortcutDO(QString key, bool mouseSH) {
 		} else {
 
 			if(key == "__stopThb")
-				viewThumbs->stopThbCreation();
+//				viewThumbsOld->stopThbCreation();
 			if(key == "__close") {
 				globVar->skipTrayIcon = true;
 				this->close();
@@ -1963,7 +1957,7 @@ void MainWindow::shortcutDO(QString key, bool mouseSH) {
 			if(key == "__prev")
 				moveInDirectory(0);
 			if(key == "__reloadThb")
-				viewThumbs->loadDir(true);
+				loadNewImgFromOpen(globVar->currentfile);
 			if(key == "__about") {
 				if(!setupWidgets->about)
 					setupWidget("about");
@@ -2488,7 +2482,6 @@ void MainWindow::updateSettings(QMap<QString, QVariant> settings) {
 	if(globVar->verbose) std::clog << "Passing updated settings to subclasses" << std::endl;
 
 	viewThumbs->setGlobSet(settings);
-	viewThumbs->view->globSet = settings;
 	viewBig->globSet = settings;
 
 	viewBigLay->setSettings(settings);
