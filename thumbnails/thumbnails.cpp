@@ -104,7 +104,11 @@ void Thumbnails::startThread() {
 	int newpos = allImgsInfo.indexOf(QFileInfo(currentfile));
 	if(newpos == -1) newpos = 0;
 
-	thread->newData(newpos, globSet.value("ThumbnailSize").toInt()+globSet.value("ThumbnailSpacingBetween").toInt(), this->width());
+	thread->newData(newpos,
+			globSet.value("ThumbnailSize").toInt()+globSet.value("ThumbnailSpacingBetween").toInt(),
+			this->width(),
+			globSet.value("ThumbnailPreloadFullDirectory").toBool(),
+			globSet.value("ThumbnailPreloadNumber").toInt());
 
 	thread->verbose = verbose;
 	thread->dynamicThumbs = globSet.value("ThumbnailDynamic").toBool();
@@ -369,10 +373,11 @@ void Thumbnails::scrolledView() {
 	if(verbose) std::clog << "Central item: " << pixPath.toStdString() << std::endl;
 
 	// Update data
-	thread->currentPos = newpos;
-	thread->thbWidth = globSet.value("ThumbnailSize").toInt();
-	thread->viewWidth = view->width();
-	thread->createThisOne = newpos;
+	thread->updateData(newpos,
+			   globSet.value("ThumbnailSize").toInt(),
+			   view->width(),
+			   globSet.value("ThumbnailPreloadFullDirectory").toBool(),
+			   globSet.value("ThumbnailPreloadNumber").toInt());
 
 	// Start thread
 	thread->start();

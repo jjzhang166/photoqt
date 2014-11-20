@@ -208,8 +208,43 @@ SettingsTabThumbnail::SettingsTabThumbnail(QWidget *parent, QMap<QString, QVaria
 	layTune->addSpacing(20);
 
 
+	// OPTION TO PRELOAD FULL DIRECTORY OR ADJUST NUMBER OF PRELOADED IMAGES
+	CustomLabel *preloadFullNumberLabel = new CustomLabel("<b><span style=\"font-size: 12pt\">" + tr("Preloading option") + "</span></b><br><bR>" + tr("Here you can adjust, how many images AT MOST will be preloaded. For example, if the directory contains 800 images, a limit of 400 (default value) means, that starting from the opened image, 200 images to the left and 200 to the right are preloaded.") + "<br><br>" + tr("If you don't want to limit PhotoQt to any number, you can simply enable the option to always preload the full directory. WARNING: This is perfectly fine for directories with a small number of images (usually anything less than 1000, depending on your computer), but can lead to performance and memory issues for larger directories. Make sure you know what you're doing before enabling this!"));
+	preloadFullNumberLabel->setWordWrap(true);
+	CustomSpinBox *preloadFullNumberSpin = new CustomSpinBox;
+	preloadFullNumberSpin->setMinimum(50);
+	preloadFullNumberSpin->setMaximum(2500);
+	preloadFullNumberSpin->setSingleStep(10);
+	preloadFullNumber = new CustomSlider;
+	preloadFullNumber->setMinimum(50);
+	preloadFullNumber->setMaximum(2500);
+	preloadFullNumber->setSingleStep(10);
+	QHBoxLayout *preloadFullNumberSliderLay = new QHBoxLayout;
+	preloadFullNumberSliderLay->addStretch();
+	preloadFullNumberSliderLay->addWidget(preloadFullNumberSpin);
+	preloadFullNumberSliderLay->addWidget(preloadFullNumber);
+	preloadFullNumberSliderLay->addStretch();
+	preloadFullNumberCheck = new CustomCheckBox(tr("Preload full directory"));
+	QHBoxLayout *preloadFullNumberCheckLay = new QHBoxLayout;
+	preloadFullNumberCheckLay->addStretch();
+	preloadFullNumberCheckLay->addWidget(preloadFullNumberCheck);
+	preloadFullNumberCheckLay->addStretch();
+	QVBoxLayout *preloadFullNumberLay = new QVBoxLayout;
+	preloadFullNumberLay->addLayout(preloadFullNumberSliderLay);
+	preloadFullNumberLay->addSpacing(10);
+	preloadFullNumberLay->addLayout(preloadFullNumberCheckLay);
+	layTune->addWidget(preloadFullNumberLabel);
+	layTune->addSpacing(10);
+	layTune->addLayout(preloadFullNumberLay);
+	layTune->addSpacing(20);
+	connect(preloadFullNumber, SIGNAL(valueChanged(int)), preloadFullNumberSpin, SLOT(setValue(int)));
+	connect(preloadFullNumberSpin, SIGNAL(valueChanged(int)), preloadFullNumber, SLOT(setValue(int)));
+	connect(preloadFullNumberCheck, SIGNAL(toggled(bool)), preloadFullNumber, SLOT(setDisabled(bool)));
+	connect(preloadFullNumberCheck, SIGNAL(toggled(bool)), preloadFullNumberSpin, SLOT(setDisabled(bool)));
+
+
 	// OPTION TO ALWAYS KEEP ACTIVE THUMBNAIL IN CENTER (IF POSSIBLE)
-	CustomLabel *alwaysCenterThumbnailsLabel = new CustomLabel("<b><span style=\"font-size: 12pt\">" + tr("Always center on Active Thumbnail") + "</span></b><br><bR>" + tr("If this option is set, then the active thumbnail (i.e., the thumbnail of the currently displayed image) will always be kept in the center of the thumbnail bar (if possible)."));
+	CustomLabel *alwaysCenterThumbnailsLabel = new CustomLabel("<b><span style=\"font-size: 12pt\">" + tr("Always center on Active Thumbnail") + "</span></b><br><bR>" + tr("If this option is set, then the active thumbnail (i.e., the thumbnail of the currently displayed image) will always be kept in the center of the thumbnail bar (if possible). If this option is not set, then the active thumbnail will simply be kept visible, but not necessarily in the center."));
 	alwaysCenterThumbnailsLabel->setWordWrap(true);
 	QHBoxLayout *alwaysCenterThbLay = new QHBoxLayout;
 	alwaysCenterThumbnail = new CustomCheckBox(tr("Center on Active Thumbnails"));
@@ -399,6 +434,11 @@ void SettingsTabThumbnail::loadSettings() {
 	dynamicThumbnails->setChecked(globSet.value("ThumbnailDynamic").toBool());
 	defaults.insert("ThumbnailDynamic",globSet.value("ThumbnailDynamic").toBool());
 
+	preloadFullNumber->setValue(globSet.value("ThumbnailPreloadNumber").toInt());
+	defaults.insert("ThumbnailPreloadNumber",globSet.value("ThumbnailPreloadNumber").toInt());
+	preloadFullNumberCheck->setChecked(globSet.value("ThumbnailPreloadFullDirectory").toBool());
+	defaults.insert("ThumbnailPreloadFullDirectory",globSet.value("ThumbnailPreloadFullDirectory").toBool());
+
 	alwaysCenterThumbnail->setChecked(globSet.value("ThumbnailCenterActive").toBool());
 	defaults.insert("ThumbnailCenterActive",globSet.value("ThumbnailCenterActive").toBool());
 
@@ -470,11 +510,24 @@ void SettingsTabThumbnail::saveSettings() {
 		defaults.remove("ThumbnailKeepVisible");
 		defaults.insert("ThumbnailKeepVisible",keepVisible->isChecked());
 	}
+
 	if(defaults.value("ThumbnailDynamic").toBool() != dynamicThumbnails->isChecked()) {
 		updatedSet.insert("ThumbnailDynamic",dynamicThumbnails->isChecked());
 		defaults.remove("ThumbnailDynamic");
 		defaults.insert("ThumbnailDynamic",dynamicThumbnails->isChecked());
 	}
+
+	if(defaults.value("ThumbnailPreloadNumber").toInt() != preloadFullNumber->value()) {
+		updatedSet.insert("ThumbnailPreloadNumber",preloadFullNumber->value());
+		defaults.remove("ThumbnailPreloadNumber");
+		defaults.insert("ThumbnailPreloadNumber",preloadFullNumber->value());
+	}
+	if(defaults.value("ThumbnailPreloadFullDirectory").toBool() != preloadFullNumberCheck->isChecked()) {
+		updatedSet.insert("ThumbnailPreloadFullDirectory",preloadFullNumberCheck->isChecked());
+		defaults.remove("ThumbnailPreloadFullDirectory");
+		defaults.insert("ThumbnailPreloadFullDirectory",preloadFullNumberCheck->isChecked());
+	}
+
 	if(defaults.value("ThumbnailCenterActive").toBool() != alwaysCenterThumbnail->isChecked()) {
 		updatedSet.insert("ThumbnailCenterActive",alwaysCenterThumbnail->isChecked());
 		defaults.remove("ThumbnailCenterActive");

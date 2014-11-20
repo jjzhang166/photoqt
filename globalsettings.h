@@ -461,6 +461,10 @@ public:
 	int thumbnailFilenameInsteadFontSize;
 	// Thumbnails can be disabled altogether
 	bool thumbnailDisable;
+	// Preload full directory (no matter the size)
+	bool thumbnailPreloadFullDirectory;
+	// How many thumbnail shall be reloaded?
+	unsigned int thumbnailPreloadNumber;
 
 	bool thumbnailWriteFilename;
 	bool thumbnailWriteResolution;
@@ -563,6 +567,8 @@ public:
 		map.insert("ThumbnailDisable",thumbnailDisable);
 		map.insert("ThumbnailWriteFilename",thumbnailWriteFilename);
 		map.insert("ThumbnailWriteResolution",thumbnailWriteResolution);
+		map.insert("ThumbnailPreloadFullDirectory",thumbnailPreloadFullDirectory);
+		map.insert("ThumbnailPreloadNumber",thumbnailPreloadNumber);
 
 		map.insert("SlideShowTime",slideShowTime);
 		map.insert("SlideShowTransition",slideShowTransition);
@@ -665,6 +671,8 @@ public:
 		thumbnailDisable = false;
 		thumbnailWriteFilename = true;
 		thumbnailWriteResolution = false;
+		thumbnailPreloadFullDirectory = false;
+		thumbnailPreloadNumber = 400;
 
 		thumbnailFilenameInstead = false;
 		thumbnailFilenameInsteadFontSize = 8;
@@ -912,6 +920,14 @@ public:
 			else if(all.contains("ThumbnailWriteResolution=0"))
 				thumbnailWriteResolution = false;
 
+			if(all.contains("ThumbnailPreloadFullDirectory=1"))
+				thumbnailPreloadFullDirectory = true;
+			else if(all.contains("ThumbnailPreloadFullDirectory=0"))
+				thumbnailPreloadFullDirectory = false;
+
+			if(all.contains("ThumbnailPreloadNumber="))
+				thumbnailPreloadNumber = all.split("ThumbnailPreloadNumber=").at(1).split("\n").at(0).toInt();
+
 
 			if(all.contains("SlideShowTime="))
 				slideShowTime = all.split("SlideShowTime=").at(1).split("\n").at(0).toInt();
@@ -1112,6 +1128,8 @@ public:
 			cont += QString("ThumbnailDisable=%1\n").arg(int(thumbnailDisable));
 			cont += QString("ThumbnailWriteFilename=%1\n").arg(int(thumbnailWriteFilename));
 			cont += QString("ThumbnailWriteResolution=%1\n").arg(int(thumbnailWriteResolution));
+			cont += QString("ThumbnailPreloadFullDirectory=%1\n").arg(int(thumbnailPreloadFullDirectory));
+			cont += QString("ThumbnailPreloadNumber=%1\n").arg(thumbnailPreloadNumber);
 
 			cont += "\n[Slideshow]\n";
 
@@ -1361,6 +1379,14 @@ public slots:
 		}
 		if(changedSet.keys().contains("ThumbnailWriteResolution")) {
 			thumbnailWriteResolution = changedSet.value("ThumbnailWriteResolution").toBool();
+			applySet["thumb"] = true;
+		}
+		if(changedSet.keys().contains("ThumbnailPreloadFullDirectory")) {
+			thumbnailPreloadFullDirectory = changedSet.value("ThumbnailPreloadFullDirectory").toBool();
+			applySet["thumb"] = true;
+		}
+		if(changedSet.keys().contains("ThumbnailPreloadNumber")) {
+			thumbnailPreloadNumber = changedSet.value("ThumbnailPreloadNumber").toInt();
 			applySet["thumb"] = true;
 		}
 

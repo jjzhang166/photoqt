@@ -32,6 +32,8 @@ public:
 	int currentPos;
 	QFileInfoList allimgs;
 	int height;
+	bool loadFullDirectory;
+	unsigned int preloadNumber;
 
 	QSqlDatabase db;
 	QString typeCache;
@@ -55,16 +57,27 @@ public:
 	QList<int> preloadCreated;
 
 	// Update the thumbnail position and data
-	void newData(int pos, int thbw, int vieww) {
+	void newData(int pos, int thbw, int vieww, bool loadfulldir, int preload) {
 		amountCreated = 0;
 		currentPos = pos;
 		thbWidth = thbw;
 		viewWidth = vieww;
+		loadFullDirectory = loadfulldir;
+		preloadNumber = preload;
 		createThisOne = 0;
 		leftNextThb = -1;
 		rightNextThb = -1;
 		posCreated.clear();
 		preloadCreated.clear();
+	}
+
+	void updateData(int pos, int thbw, int vieww, bool loadfulldir, int preload) {
+		currentPos = pos;
+		thbWidth = thbw;
+		viewWidth = vieww;
+		createThisOne = pos;
+		loadFullDirectory = loadfulldir;
+		preloadNumber = preload;
 	}
 
 	// Posibility to abort thread
@@ -89,11 +102,18 @@ protected:
 		_working = true;
 		_abort = false;
 
+		if(preloadNumber < viewWidth/thbWidth + 10) preloadNumber = viewWidth/thbWidth + 10;
+
 		// Start and end pos of required thumbnails
-		int startpos = currentPos-200;
+		int startpos = currentPos-(preloadNumber/2);
 		if(startpos < 0) startpos = 0;
-		int endpos = currentPos+200;
+		int endpos = currentPos+(preloadNumber/2);
 		if(endpos > counttot) endpos = counttot;
+
+		if(loadFullDirectory) {
+			startpos = 0;
+			endpos = counttot;
+		}
 
 		// This stores if the dir was newly loaded
 		// It is set to false if any preload-thumbs have already been setup

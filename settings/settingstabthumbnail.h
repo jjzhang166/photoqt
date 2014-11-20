@@ -98,6 +98,10 @@ private:
 	// Enable dynamic thumbnails (i.e. only create the ones you need)
 	CustomCheckBox *dynamicThumbnails;
 
+	// Preload how many
+	CustomSlider *preloadFullNumber;
+	CustomCheckBox *preloadFullNumberCheck;
+
 	// Center on active thumbnail
 	CustomCheckBox *alwaysCenterThumbnail;
 
