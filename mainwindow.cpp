@@ -358,7 +358,7 @@ void MainWindow::closeEvent(QCloseEvent *e) {
 	} else {
 
 		// Stop the thumbnail thread
-//		viewThumbsOld->stopThbCreation();
+		viewThumbs->abortThread();
 
 		// Hide to system tray
 		if(globSet->trayicon && !globVar->skipTrayIcon) {
@@ -982,10 +982,8 @@ void MainWindow::mouseMoved(int x, int y) {
 				if(y < viewBig->height()-h-20 && viewThumbs->isVisible() && (!globSet->thumbnailKeepVisible || (globVar->zoomedImgAtLeastOnce && globVar->zoomed && viewBig->absoluteScaleFactor > 0)))
 					viewThumbs->makeHide();
 
-				if(y > viewBig->height()-20 && !viewThumbs->isVisible()) {
+				if(y > viewBig->height()-20 && !viewThumbs->isVisible())
 					viewThumbs->makeShow();
-//					QTimer::singleShot(520,viewThumbsOld,SLOT(scrolledView()));
-				}
 			}
 
 			int menuX = viewBig->width()-450;
@@ -1157,7 +1155,7 @@ void MainWindow::openFile() {
 	if(globVar->verbose) std::clog << "Got request to open new file" << std::endl;
 
 	// Stopping a possibly running thread
-//	viewThumbsOld->stopThbCreation();
+	viewThumbs->abortThread();
 
 	// Open the FileDialog in the dir of last image. If PhotoQt just was started (i.e. no current image), then open in home dir
 	QString opendir = QDir::homePath();
@@ -1741,7 +1739,7 @@ void MainWindow::setupWidget(QString what) {
 		filehandling->show();
 
 		connect(filehandling, SIGNAL(reloadDir(QString)), this, SLOT(reloadDir(QString)));
-//		connect(filehandling, SIGNAL(stopThbCreation()), viewThumbsOld, SLOT(stopThbCreation()));
+		connect(filehandling, SIGNAL(stopThbCreation()), viewThumbs, SLOT(abortThread()));
 
 		connect(filehandling, SIGNAL(blockFunc(bool)), this, SLOT(blockFunc(bool)));
 
@@ -1943,7 +1941,7 @@ void MainWindow::shortcutDO(QString key, bool mouseSH) {
 		} else {
 
 			if(key == "__stopThb")
-//				viewThumbsOld->stopThbCreation();
+				viewThumbs->abortThread();
 			if(key == "__close") {
 				globVar->skipTrayIcon = true;
 				this->close();
