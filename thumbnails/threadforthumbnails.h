@@ -117,7 +117,7 @@ protected:
 
 		// This stores if the dir was newly loaded
 		// It is set to false if any preload-thumbs have already been setup
-		bool newlyLoaded = true;
+		bool newlyLoaded = (preloadCreated.length()==0);
 
 		// Setup preload thumbnails
 		for(int i = startpos; i < endpos; ++i) {
@@ -128,8 +128,7 @@ protected:
 			if(!preloadCreated.contains(i)) {
 				emit updateThumb(QImage(), allimgs.at(i).absoluteFilePath(), 200, 200, i, true);
 				preloadCreated << i;
-			} else
-				newlyLoaded = false;
+			}
 
 		}
 
