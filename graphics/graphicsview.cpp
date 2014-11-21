@@ -22,6 +22,9 @@ GraphicsView::GraphicsView(QMap<QString, QVariant> set, QWidget *parent) : QGrap
 
 	imgLoaded = false;
 
+	// We set it to -1, as adding one in event function guarantees that it evaluates request
+	wheelEventCounter = -1;
+	wheelEventCounterDirectionUp = true;
 
 	this->setRenderHints(QPainter::Antialiasing | QPainter::SmoothPixmapTransform);
 	this->setObjectName("viewBig");
@@ -308,6 +311,30 @@ void GraphicsView::setupContextMenu() {
 
 // Zooming the image on ctrl+mouse wheel
 void GraphicsView::wheelEvent(QWheelEvent *event) {
+
+	// Add one to counter (to control mouse wheel sensitivity)
+	++wheelEventCounter;
+
+	// If the mouse wheel direction changed, then we reset the counter
+	if(event->delta() > 0 && !wheelEventCounterDirectionUp) {
+		event->ignore();
+		wheelEventCounter = 0;
+		wheelEventCounterDirectionUp = true;
+		return;
+	} else if(event->delta() < 0 && wheelEventCounterDirectionUp) {
+		event->ignore();
+		wheelEventCounter = 0;
+		wheelEventCounterDirectionUp = false;
+		return;
+	}
+
+	// If we are in between two steps, do nothing
+	if(wheelEventCounter % globSet.value("MouseWheelSensitivity").toInt() != 0) {
+		event->ignore();
+		return;
+	// Continue with evaluating event
+	} else
+		wheelEventCounter = 0;
 
 	// Booleans storring the modifiers state
 	bool ctrlPressed = false;

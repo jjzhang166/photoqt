@@ -418,6 +418,8 @@ public:
 	// Sort images by
 	QString sortby;
 	bool sortbyAscending;
+	// Mouse Wheel sensitivity
+	int mouseWheelSensitivity;
 
 	// Are quickinfos hidden?
 	bool hidecounter;
@@ -544,6 +546,7 @@ public:
 		map.insert("CloseOnGrey",closeongrey);
 		map.insert("BorderAroundImg",borderAroundImg);
 		map.insert("QuickSettings",quickSettings);
+		map.insert("MouseWheelSensitivity",mouseWheelSensitivity);
 
 		map.insert("HideCounter",hidecounter);
 		map.insert("HideFilepathShowFilename",hidefilepathshowfilename);
@@ -650,6 +653,7 @@ public:
 		closeongrey = false;
 		borderAroundImg = 5;
 		quickSettings = true;
+		mouseWheelSensitivity = 1;
 
 		hidecounter = false;
 		hidefilepathshowfilename = true;
@@ -856,6 +860,11 @@ public:
 				fancyX = true;
 			else if(all.contains("FancyX=0"))
 				fancyX = false;
+
+			if(all.contains("MouseWheelSensitivity=")) {
+				mouseWheelSensitivity = all.split("MouseWheelSensitivity=").at(1).split("\n").at(0).toInt();
+				if(mouseWheelSensitivity < 1) mouseWheelSensitivity = 1;
+			}
 
 			if(all.contains("ThumbnailSize="))
 				thumbnailsize = all.split("ThumbnailSize=").at(1).split("\n").at(0).toInt();
@@ -1102,6 +1111,7 @@ public:
 			cont += QString("QuickSettings=%1\n").arg(int(quickSettings));
 			cont += QString("SortImagesBy=%1\n").arg(sortby);
 			cont += QString("SortImagesAscending=%1\n").arg(int(sortbyAscending));
+			cont += QString("MouseWheelSensitivity=%1\n").arg(mouseWheelSensitivity);
 
 			cont += "\n[Quickinfo]\n";
 
@@ -1331,6 +1341,9 @@ public slots:
 			fancyX = changedSet.value("FancyX").toBool();
 			applySet["quickinfo"] = true;
 		}
+
+		if(changedSet.keys().contains("MouseWheelSensitivity"))
+			mouseWheelSensitivity = changedSet.value("MouseWheelSensitivity").toInt();
 
 		if(changedSet.keys().contains("ThumbnailSize")) {
 			thumbnailsize = changedSet.value("ThumbnailSize").toInt();

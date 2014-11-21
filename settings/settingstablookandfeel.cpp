@@ -252,6 +252,26 @@ SettingsTabLookAndFeel::SettingsTabLookAndFeel(QWidget *parent, QMap<QString, QV
 	layFeel->addSpacing(20);
 
 
+	// OPTION TO ADJUST THE MOUSE WHEEL SENSITIVITY
+	CustomLabel *wheelSensitivityLabel = new CustomLabel("<b><span style=\"font-size: 12pt\">" + tr("Mouse Wheel Sensitivity") + "</span></b><hr>" + tr("Here you can adjust the sensitivity of the mouse wheel. For example, if you have set the mouse wheel up/down for switching back and forth between images, then a lower sensitivity means that you will have to scroll further for triggering a shortcut."));
+	wheelSensitivityLabel->setWordWrap(true);
+	QHBoxLayout *wheelLay = new QHBoxLayout;
+	CustomLabel *wheelLabelLeft = new CustomLabel(tr("Very sensitive"));
+	CustomLabel *wheelLabelRight = new CustomLabel(tr("Not sensitive at all"));
+	wheelSensitivity = new CustomSlider;
+	wheelSensitivity->setMinimum(1);
+	wheelSensitivity->setMaximum(10);
+	wheelSensitivity->setPageStep(1);
+	wheelLay->addStretch();
+	wheelLay->addWidget(wheelLabelLeft);
+	wheelLay->addWidget(wheelSensitivity);
+	wheelLay->addWidget(wheelLabelRight);
+	wheelLay->addStretch();
+	layFeel->addWidget(wheelSensitivityLabel);
+	layFeel->addSpacing(5);
+	layFeel->addLayout(wheelLay);
+	layFeel->addSpacing(20);
+
 
 	// Adjust window mode
 	CustomLabel *windowModeLabel = new CustomLabel("<b><span style=\"font-size:12pt\">" + tr("Window Mode") + "</span></b><br><br>" + tr("PhotoQt is designed with the space of a fullscreen app in mind. That's why it by default runs as fullscreen. However, some might prefer to have it as a normal window, e.g. so that they can see the panel.") + "<br><b></b>");
@@ -452,6 +472,9 @@ void SettingsTabLookAndFeel::loadSettings() {
 	menu->setValue(globSet.value("MenuSensitivity").toInt());
 	defaults.insert("MenuSensitivity",globSet.value("MenuSensitivity").toInt());
 
+	wheelSensitivity->setValue(globSet.value("MouseWheelSensitivity").toInt());
+	defaults.insert("MouseWheelSensitivity",globSet.value("MouseWheelSensitivity").toInt());
+
 	windowMode->setChecked(globSet.value("WindowMode").toBool());
 	defaults.insert("WindowMode",globSet.value("WindowMode").toBool());
 
@@ -550,8 +573,6 @@ void SettingsTabLookAndFeel::saveSettings() {
 		defaults.insert("BackgroundImageCenter",backgroundImgCenter->isChecked());
 	}
 
-
-
 	if(defaults.value("TrayIcon").toBool() != trayIcon->isChecked()) {
 		updatedSet.insert("TrayIcon",trayIcon->isChecked());
 		defaults.remove("TrayIcon");
@@ -580,6 +601,12 @@ void SettingsTabLookAndFeel::saveSettings() {
 		updatedSet.insert("MenuSensitivity",menu->value());
 		defaults.remove("MenuSensitivity");
 		defaults.insert("MenuSensitivity",menu->value());
+	}
+
+	if(defaults.value("MouseWheelSensitivity").toInt() != wheelSensitivity->value()) {
+		updatedSet.insert("MouseWheelSensitivity",wheelSensitivity->value());
+		defaults.remove("MouseWheelSensitivity");
+		defaults.insert("MouseWheelSensitivity",wheelSensitivity->value());
 	}
 
 	if(defaults.value("WindowMode").toBool() != windowMode->isChecked()) {

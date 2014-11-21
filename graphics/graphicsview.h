@@ -41,8 +41,7 @@ public:
 	GraphicsView(QMap<QString,QVariant> set, QWidget *parent = 0);
 	~GraphicsView();
 
-	// All the global settings
-	QMap<QString,QVariant> globSet;
+	void setGlobSet(QMap<QString,QVariant> set) { globSet = set; }
 
 	// The absolute current scale factor
 	int absoluteScaleFactor;
@@ -52,6 +51,8 @@ public:
 	void showContext() { setupContextMenu(); menu->popup(QCursor::pos()); }
 
 private:
+	// All the global settings
+	QMap<QString,QVariant> globSet;
 
 	QGraphicsScene sceneBig;
 
@@ -74,6 +75,9 @@ private:
 	qint64 menuLastChange;
 
 	void setupContextMenu();
+
+	int wheelEventCounter;
+	bool wheelEventCounterDirectionUp;
 
 
 

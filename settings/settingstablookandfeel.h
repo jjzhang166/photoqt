@@ -113,6 +113,9 @@ private:
 	// Menu sensitivity
 	CustomSlider *menu;
 
+	// Mouse wheel sensitivity
+	CustomSlider *wheelSensitivity;
+
 	// Window Mode
 	CustomCheckBox *windowMode;
 	CustomCheckBox *windowDeco;

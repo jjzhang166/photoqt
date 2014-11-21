@@ -2480,7 +2480,7 @@ void MainWindow::updateSettings(QMap<QString, QVariant> settings) {
 	if(globVar->verbose) std::clog << "Passing updated settings to subclasses" << std::endl;
 
 	viewThumbs->setGlobSet(settings);
-	viewBig->globSet = settings;
+	viewBig->setGlobSet(settings);
 
 	viewBigLay->setSettings(settings);
 
