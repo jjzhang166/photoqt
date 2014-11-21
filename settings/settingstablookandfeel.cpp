@@ -94,22 +94,16 @@ SettingsTabLookAndFeel::SettingsTabLookAndFeel(QWidget *parent, QMap<QString, QV
 	CustomLabel *compositeImageLabel = new CustomLabel("<b><span style=\"font-size: 12pt\">" + tr("Background of PhotoQt") + "</span></b><br><br>" + compTxt);
 	compositeImageLabel->setWordWrap(true);
 
-	QHBoxLayout *compLay1 = new QHBoxLayout;
-	compLay1->addStretch();
+	QVBoxLayout *compLay1 = new QVBoxLayout;
+	compLay1->setAlignment(Qt::AlignCenter);
 	compLay1->addWidget(compositeBackground);
 	compLay1->addWidget(backgroundImageUseScreenshot);
 	compLay1->addWidget(backgroundImageUseCustom);
-	compLay1->addStretch();
-
-	QHBoxLayout *compLay2 = new QHBoxLayout;
-	compLay2->addStretch();
-	compLay2->addWidget(noBackgroundImage);
-	compLay2->addStretch();
+	compLay1->addWidget(noBackgroundImage);
 
 	layLook->addWidget(compositeImageLabel);
 	layLook->addSpacing(10);
 	layLook->addLayout(compLay1);
-	layLook->addLayout(compLay2);
 
 	// OPTION TO SET BACKGROUND IMAGE
 	QWidget *widgetChooseBgImg = new QWidget;
