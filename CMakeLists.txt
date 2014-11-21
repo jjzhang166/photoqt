@@ -7,7 +7,7 @@ PROJECT(photoqt)
 
 #### SOURCES ####
 # toplevel
-SET(photoqt_SOURCES main.cpp mainwindow.cpp globalsettings.h globalvariables.h setupwidgets.h)
+SET(photoqt_SOURCES main.cpp mainwindow.cpp globalsettings.h fileformats.h globalvariables.h setupwidgets.h)
 # settings/
 SET(p "settings")
 SET(photoqt_SOURCES ${photoqt_SOURCES} ${p}/settings.cpp ${p}/settingstabexif.cpp ${p}/settingstabexiftiles.cpp ${p}/settingstablookandfeel.cpp)
@@ -41,7 +41,7 @@ SET(photoqt_SOURCES ${photoqt_SOURCES} slideshow/slideshowbar.cpp slideshow/slid
 
 #### HEADER ####
 # toplevel
-SET(photoqt_HEADERS mainwindow.h globalsettings.h globalvariables.h setupwidgets.h)
+SET(photoqt_HEADERS mainwindow.h globalsettings.h fileformats.h globalvariables.h setupwidgets.h)
 # settings/
 SET(p "settings")
 SET(photoqt_HEADERS ${photoqt_HEADERS} ${p}/shortcuts.h ${p}/settings.h ${p}/settingstabexif.h ${p}/settingstabexiftiles.h ${p}/settingstablookandfeel.h)
