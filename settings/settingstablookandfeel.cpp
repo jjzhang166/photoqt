@@ -253,7 +253,7 @@ SettingsTabLookAndFeel::SettingsTabLookAndFeel(QWidget *parent, QMap<QString, QV
 
 
 	// OPTION TO ADJUST THE MOUSE WHEEL SENSITIVITY
-	CustomLabel *wheelSensitivityLabel = new CustomLabel("<b><span style=\"font-size: 12pt\">" + tr("Mouse Wheel Sensitivity") + "</span></b><hr>" + tr("Here you can adjust the sensitivity of the mouse wheel. For example, if you have set the mouse wheel up/down for switching back and forth between images, then a lower sensitivity means that you will have to scroll further for triggering a shortcut."));
+	CustomLabel *wheelSensitivityLabel = new CustomLabel("<b><span style=\"font-size: 12pt\">" + tr("Mouse Wheel Sensitivity") + "</span></b><hr>" + tr("Here you can adjust the sensitivity of the mouse wheel. For example, if you have set the mouse wheel up/down for switching back and forth between images, then a lower sensitivity means that you will have to scroll further for triggering a shortcut. Per default it is set to the highest sensitivity, i.e. every single wheel movement is evaluated."));
 	wheelSensitivityLabel->setWordWrap(true);
 	QHBoxLayout *wheelLay = new QHBoxLayout;
 	CustomLabel *wheelLabelLeft = new CustomLabel(tr("Very sensitive"));
