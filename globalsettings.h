@@ -122,6 +122,7 @@ public:
 	bool thumbnailKeepVisible;
 	// Enable dynamic thumbnail creation
 	bool thumbnailDynamic;
+	bool thumbnailDynamicSmart;
 	// Always center on active thumbnails
 	bool thumbnailCenterActive;
 	// Don't load actual thumbnail but just display the filename
@@ -230,6 +231,7 @@ public:
 		map.insert("ThumbnailLiftUp",thumbnailLiftUp);
 		map.insert("ThumbnailKeepVisible",thumbnailKeepVisible);
 		map.insert("ThumbnailDynamic",thumbnailDynamic);
+		map.insert("ThumbnailDynamicSmart",thumbnailDynamicSmart);
 		map.insert("ThumbnailCenterActive",thumbnailCenterActive);
 		map.insert("ThumbnailFilenameInstead",thumbnailFilenameInstead);
 		map.insert("ThumbnailFilenameInsteadFontSize",thumbnailFilenameInsteadFontSize);
@@ -337,6 +339,7 @@ public:
 		thumbnailLiftUp = 6;
 		thumbnailKeepVisible = false;
 		thumbnailDynamic = true;
+		thumbnailDynamicSmart = true;
 		thumbnailCenterActive = false;
 		thumbnailDisable = false;
 		thumbnailWriteFilename = true;
@@ -566,6 +569,11 @@ public:
 				thumbnailDynamic = true;
 			else if(all.contains("ThumbnailDynamic=0"))
 				thumbnailDynamic = false;
+
+			if(all.contains("ThumbnailDynamicSmart=1"))
+				thumbnailDynamicSmart = true;
+			else if(all.contains("ThumbnailDynamicSmart=0"))
+				thumbnailDynamicSmart = false;
 
 			if(all.contains("ThumbnailCenterActive=1"))
 				thumbnailCenterActive = true;
@@ -798,6 +806,7 @@ public:
 			cont += QString("ThumbnailLiftUp=%1\n").arg(thumbnailLiftUp);
 			cont += QString("ThumbnailKeepVisible=%1\n").arg(thumbnailKeepVisible);
 			cont += QString("ThumbnailDynamic=%1\n").arg(thumbnailDynamic);
+			cont += QString("ThumbnailDynamicSmart=%1\n").arg(thumbnailDynamicSmart);
 			cont += QString("ThumbnailCenterActive=%1\n").arg(int(thumbnailCenterActive));
 			cont += QString("ThumbnailFilenameInstead=%1\n").arg(int(thumbnailFilenameInstead));
 			cont += QString("ThumbnailFilenameInsteadFontSize=%1\n").arg(thumbnailFilenameInsteadFontSize);
@@ -1038,6 +1047,8 @@ public slots:
 		}
 		if(changedSet.keys().contains("ThumbnailDynamic"))
 			thumbnailDynamic = changedSet.value("ThumbnailDynamic").toBool();
+		if(changedSet.keys().contains("ThumbnailDynamicSmart"))
+			thumbnailDynamicSmart = changedSet.value("ThumbnailDynamicSmart").toBool();
 		if(changedSet.keys().contains("ThumbnailCenterActive"))
 			thumbnailCenterActive = changedSet.value("ThumbnailCenterActive").toBool();
 		if(changedSet.keys().contains("ThumbnailFilenameInstead")) {

@@ -115,7 +115,8 @@ void Thumbnails::startThread() {
 			this->width(),
 			globSet.value("ThumbnailPreloadFullDirectory").toBool(),
 			globSet.value("ThumbnailPreloadNumber").toInt(),
-			globSet.value("ThumbnailFilenameInstead").toBool());
+			globSet.value("ThumbnailFilenameInstead").toBool(),
+			globSet.value("ThumbnailDynamicSmart").toBool());
 
 	thread->verbose = verbose;
 	thread->dynamicThumbs = globSet.value("ThumbnailDynamic").toBool();
@@ -394,7 +395,8 @@ void Thumbnails::scrolledView() {
 			   view->width(),
 			   globSet.value("ThumbnailPreloadFullDirectory").toBool(),
 			   globSet.value("ThumbnailPreloadNumber").toInt(),
-			   globSet.value("ThumbnailFilenameInstead").toBool());
+			   globSet.value("ThumbnailFilenameInstead").toBool(),
+			   globSet.value("ThumbnailDynamicSmart").toBool());
 
 	// Start thread
 	thread->start();

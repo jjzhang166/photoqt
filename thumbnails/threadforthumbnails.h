@@ -26,6 +26,7 @@ public:
 
 	// Dynamic thumbnails?
 	bool dynamicThumbs;
+	bool smartDynamic;
 
 	// Filename only on thumbnails?
 	bool filenameOnly;
@@ -60,7 +61,7 @@ public:
 	QList<int> preloadCreated;
 
 	// Update the thumbnail position and data
-	void newData(int pos, int thbw, int vieww, bool loadfulldir, int preload, bool filename) {
+	void newData(int pos, int thbw, int vieww, bool loadfulldir, int preload, bool filename, bool smartdyn) {
 		amountCreated = 0;
 		currentPos = pos;
 		thbWidth = thbw;
@@ -73,9 +74,10 @@ public:
 		posCreated.clear();
 		preloadCreated.clear();
 		filenameOnly = filename;
+		smartDynamic = smartdyn;
 	}
 
-	void updateData(int pos, int thbw, int vieww, bool loadfulldir, int preload, bool filename) {
+	void updateData(int pos, int thbw, int vieww, bool loadfulldir, int preload, bool filename, bool smartdyn) {
 		currentPos = pos;
 		thbWidth = thbw;
 		viewWidth = vieww;
@@ -83,6 +85,7 @@ public:
 		loadFullDirectory = loadfulldir;
 		preloadNumber = preload;
 		filenameOnly = filename;
+		smartDynamic = smartdyn;
 	}
 
 	// Posibility to abort thread
@@ -166,6 +169,7 @@ protected:
 
 		// The actual number of thumbnail we have to create (plus 10, 5 for safety on either site)
 		int numberThbs = viewWidth/thbWidth + 10;
+
 		// If we don't stop whenever the thumbnails are out of range, then we just continue until all are eventually set up
 		if(!dynamicThumbs || numberThbs > counttot)
 			numberThbs = counttot;
@@ -173,10 +177,13 @@ protected:
 		if(verbose) std::clog << "Thumbnail thread started! v: " << verbose << " - curPos: " << currentPos << " - amountCreated: " << amountCreated << " - numberThumbs: " << numberThbs << std::endl;
 
 		// We add all thumbnails up and stop when we reach the total number
-		while(amountCreated < numberThbs) {
+		int stopCriteria = ((dynamicThumbs && smartDynamic) ? preloadNumber : numberThbs);
+		while(amountCreated < stopCriteria) {
 
 			// If we should stop - stop!
 			if (_abort) return;
+
+			// We don't check for abort request after here, as we should finish loading the thumbnail anyways...
 
 			// Another thumbnail created
 			++amountCreated;
@@ -207,12 +214,8 @@ protected:
 			}
 
 
-			// We don't check for abort request after here, as we should finish loading the thumbnail anyways...
-
-
 			// If this thumbnail hasn't yet been set up
-			// FOR ANYTHING WE DO BELOW WE CHECK THE BOOLEAN amUpdatingData, BECAUSE IF THAT'S TRUE, THEN THE DATA IS CURRENTLY BEING UPDATED AND THAT COULD POSSIBLE RESULT IN SOMETHING BAD IF WE TRY TO EMIT A NEW THUMB...
-			if(!posCreated.contains(createThisOne) && createThisOne != -1) {
+			if(!posCreated.contains(createThisOne) && createThisOne != -1 && createThisOne < counttot) {
 
 				posCreated.append(createThisOne);
 
@@ -286,7 +289,7 @@ protected:
 				}
 
 				// If file wasn't loaded from file or database, then it doesn't exist yet (or isn't up-to-date anymore) and we have to create it
-				if(!loaded) {
+				if(!loaded && amountCreated < numberThbs) {
 
 					if(verbose) std::clog << "thread: Creating new thumb: " << createThisOne << std::endl;
 
