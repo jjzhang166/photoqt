@@ -114,7 +114,8 @@ void Thumbnails::startThread() {
 			globSet.value("ThumbnailSize").toInt()+globSet.value("ThumbnailSpacingBetween").toInt(),
 			this->width(),
 			globSet.value("ThumbnailPreloadFullDirectory").toBool(),
-			globSet.value("ThumbnailPreloadNumber").toInt());
+			globSet.value("ThumbnailPreloadNumber").toInt(),
+			globSet.value("ThumbnailFilenameInstead").toBool());
 
 	thread->verbose = verbose;
 	thread->dynamicThumbs = globSet.value("ThumbnailDynamic").toBool();
@@ -140,6 +141,9 @@ void Thumbnails::updateThumb(QImage img, QString path, int origwidth, int orighe
 	bool showFilename = globSet.value("ThumbnailWriteFilename").toBool();
 	bool showDimensions = (globSet.value("ThumbnailWriteResolution").toBool() && origwidth != 0 && origheight != 0 && !globSet.value("ThbCacheFile").toBool());
 
+	bool filenameOnly = globSet.value("ThumbnailFilenameInstead").toBool();
+	int filenameOnlyFontsize = globSet.value("ThumbnailFilenameInsteadFontSize").toInt();
+
 	QString thumbpos = globSet.value("ThumbnailPosition").toString();
 
 	// Preload thumbnail
@@ -155,7 +159,7 @@ void Thumbnails::updateThumb(QImage img, QString path, int origwidth, int orighe
 		QPainter paintHov(&hov);
 
 		// Both load an empty "?" thumbnail
-		QIcon f(":/img/emptythumb.png");
+		QIcon f(filenameOnly ? ":/img/nothumb.png" : ":/img/emptythumb.png");
 		if(thumbpos == "Bottom") {
 
 			paint.drawPixmap(spacing/2,liftup,size,size,f.pixmap(size,size));
@@ -171,7 +175,7 @@ void Thumbnails::updateThumb(QImage img, QString path, int origwidth, int orighe
 		// Write filename and/or dimensions
 		QTextDocument txt;
 		if(showFilename || showDimensions) {
-			QString textdocTXT = "<center><div style=\"text-align: center; font-size: 7pt; font-wight: bold; color: white; background: rgba(0,0,0,80); border-radius: 10px\">";
+			QString textdocTXT = QString("<center><div style=\"text-align: center; font-size: %1pt; font-weight: bold; color: white; background: %2; border-radius: 10px\">").arg(filenameOnly ? filenameOnlyFontsize : 7).arg(filenameOnly ? "transparent" : "rgba(0,0,0,80)");
 			if(showFilename) textdocTXT += QFileInfo(path).fileName();
 			if(showDimensions) {
 				if(showFilename) textdocTXT += "<br><i>(";
@@ -183,15 +187,16 @@ void Thumbnails::updateThumb(QImage img, QString path, int origwidth, int orighe
 			txt.setHtml(textdocTXT);
 			txt.setTextWidth(size);
 			if(thumbpos == "Bottom") {
-				paint.translate(0,size*((showFilename && showDimensions) ? 0.55 : 0.70));
-				paintHov.translate(0,size*((showFilename && showDimensions) ? 0.55 : 0.70));
+				paint.translate(0,size*(filenameOnly ? 0.1 : ((showFilename && showDimensions) ? 0.55 : 0.70)));
+				paintHov.translate(0,size*(filenameOnly ? 0.1 : ((showFilename && showDimensions) ? 0.55 : 0.70)));
 			} else if(thumbpos== "Top") {
-				paint.translate(0,size/8.0);
-				paintHov.translate(0,size/8.0);
+				paint.translate(0,(filenameOnly ? size*0.1 : size/8.0));
+				paintHov.translate(0,(filenameOnly ? size*0.1 : size/8.0));
 			}
 			txt.drawContents(&paint);
 			txt.drawContents(&paintHov);
 		}
+
 		paint.end();
 		paintHov.end();
 
@@ -388,7 +393,8 @@ void Thumbnails::scrolledView() {
 			   globSet.value("ThumbnailSize").toInt(),
 			   view->width(),
 			   globSet.value("ThumbnailPreloadFullDirectory").toBool(),
-			   globSet.value("ThumbnailPreloadNumber").toInt());
+			   globSet.value("ThumbnailPreloadNumber").toInt(),
+			   globSet.value("ThumbnailFilenameInstead").toBool());
 
 	// Start thread
 	thread->start();
