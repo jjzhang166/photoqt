@@ -91,6 +91,11 @@ MainWindow::MainWindow(QWidget *parent, bool verbose) : QMainWindow(parent) {
 	connect(viewThumbs, SIGNAL(loadNewImg(QString)), this, SLOT(loadNewImgFromThumbs(QString)));
 
 
+	// The quicksetting window
+	quickset = new QuickSettings(globSet->toSignalOut(), globVar->verbose, viewBig);
+	connect(quickset, SIGNAL(updateSettings(QMap<QString,QVariant>)), globSet, SLOT(settingsUpdated(QMap<QString,QVariant>)));
+	connect(quickset, SIGNAL(emulateShortcut(QString)), this, SLOT(shortcutDO(QString)));
+
 
 	// An ImageReader combining QImageReader and GraphicsMagic (if not disabled)
 	imageReader = new ImageReader(globVar->verbose);
@@ -199,6 +204,7 @@ void MainWindow::adjustGeometries() {
 	// exif and set are always setup (the tabs in set aren't initially)
 	details->setRect(fullscreen);
 	set->setRect(fullscreen);
+	quickset->setRect(fullscreen);
 
 
 	// Update the rects for all set up widgets
@@ -216,8 +222,6 @@ void MainWindow::adjustGeometries() {
 	if(setupWidgets->scaleimage) scaleimage->setRect(fullscreen);
 
 	if(setupWidgets->slideshowbar) slideshowbar->setWidth(this->width());
-
-	if(setupWidgets->quicksettings) quickset->setRect(fullscreen);
 
 
 	if(globSet->thumbnailKeepVisible)
@@ -1048,11 +1052,10 @@ void MainWindow::mouseMoved(int x, int y) {
 
 
 		// Animate Quicksettings widget
-		if(x > viewBig->width()-10*globSet->menusensitivity && y > quickset->y()-3*globSet->menusensitivity && y < quickset->y()+quickset->height()+3*globSet->menusensitivity && globSet->quickSettings) {
-			if(!setupWidgets->quicksettings) setupWidget("quicksetting");
+		if(x > viewBig->width()-10*globSet->menusensitivity && y > quickset->y()-3*globSet->menusensitivity && y < quickset->y()+quickset->height()+3*globSet->menusensitivity && globSet->quickSettings)
 			quickset->makeShow();
-		}
-		if(setupWidgets->quicksettings && quickset->isVisible() && x < viewBig->width()-10*globSet->menusensitivity && (x < viewBig->width()-quickset->width()-10*globSet->menusensitivity || y < quickset->y()-10*globSet->menusensitivity || y> quickset->y()+quickset->height()+10*globSet->menusensitivity))
+
+		if(quickset->isVisible() && x < viewBig->width()-10*globSet->menusensitivity && (x < viewBig->width()-quickset->width()-10*globSet->menusensitivity || y < quickset->y()-10*globSet->menusensitivity || y> quickset->y()+quickset->height()+10*globSet->menusensitivity))
 			quickset->makeHide();
 
 
@@ -1848,21 +1851,6 @@ void MainWindow::setupWidget(QString what) {
 
 	}
 
-	if(what == "quicksetting" && !setupWidgets->quicksettings) {
-
-		if(globVar->verbose) std::clog << "Setting up quick setting widget" << std::endl;
-
-		setupWidgets->quicksettings = true;
-
-		quickset = new QuickSettings(globSet->toSignalOut(), globVar->verbose, viewBig);
-		quickset->setRect(QRect(0,0,viewBig->width(),viewBig->height()));
-		quickset->show();
-
-		connect(quickset, SIGNAL(updateSettings(QMap<QString,QVariant>)), globSet, SLOT(settingsUpdated(QMap<QString,QVariant>)));
-		connect(quickset, SIGNAL(emulateShortcut(QString)), this, SLOT(shortcutDO(QString)));
-
-	}
-
 }
 
 // Called by shortcuts to exec
@@ -2503,10 +2491,8 @@ void MainWindow::updateSettings(QMap<QString, QVariant> settings) {
 
 	if(set->tabsSetup) set->loadSettings();
 
-	if(setupWidgets->quicksettings) {
-		quickset->globSet = settings;
-		quickset->loadSettings();
-	}
+	quickset->globSet = settings;
+	quickset->loadSettings();
 
 }
 

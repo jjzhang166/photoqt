@@ -315,6 +315,8 @@ void QuickSettings::setRect(QRect fullscreen) {
 	rectShown = QRect(fullscreen.width()-375, (fullscreen.height()-650)/3, 375, 650);
 	rectHidden = QRect(fullscreen.width()+rectShown.width(),rectShown.y(),rectShown.width(),rectShown.height());
 
+	this->setGeometry(this->isVisible() ? rectShown : rectHidden);
+
 }
 
 void QuickSettings::makeShow() {
