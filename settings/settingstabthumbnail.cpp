@@ -26,9 +26,6 @@ SettingsTabThumbnail::SettingsTabThumbnail(QWidget *parent, QMap<QString, QVaria
 
 	verbose = v;
 
-	// Store value for easier use below
-	double fontSizeMultiplier = set.value("FontSizeMultiplier").toDouble();
-
 	// Opening the thumbnail database
 	db = QSqlDatabase::database("thumbDB");
 
@@ -91,7 +88,7 @@ SettingsTabThumbnail::SettingsTabThumbnail(QWidget *parent, QMap<QString, QVaria
 
 
 	// OPTION TO CHANGE THUMBNAIL SIZE
-	CustomLabel *thumbSizeLabel = new CustomLabel(QString("<b><span style=\"font-size: %1pt\">").arg(12*fontSizeMultiplier) + tr("Thumbnail Size") + "</span></b><br><br>" + tr("Here you can adjust the thumbnail size. You can set it to any size between 20 and 256 pixel. Per default it is set to 80 pixel, but with different screen resolutions it might be nice to have them larger/smaller."));
+	CustomLabel *thumbSizeLabel = new CustomLabel("<b><span style=\"font-size: 12pt\">" + tr("Thumbnail Size") + "</span></b><br><br>" + tr("Here you can adjust the thumbnail size. You can set it to any size between 20 and 256 pixel. Per default it is set to 80 pixel, but with different screen resolutions it might be nice to have them larger/smaller."));
 	thumbSizeLabel->setWordWrap(true);
 	QHBoxLayout *thumbSizeLay = new QHBoxLayout;
 	thumbSizeSlider = new CustomSlider;
@@ -122,7 +119,7 @@ SettingsTabThumbnail::SettingsTabThumbnail(QWidget *parent, QMap<QString, QVaria
 	borderAroundSpin->setMinimum(0);
 	borderAroundSpin->setMaximum(30);
 	borderAroundSpin->setSuffix(" px");
-	CustomLabel *thbBorderAroundLabel = new CustomLabel(QString("<b><span style=\"font-size: %1pt\">").arg(12*fontSizeMultiplier) + tr("Spacing Between Thumbnail Images") + "</span></b><br><br>" + tr("The thumbnails are shown in a row at the lower or upper edge (depending on your setup). They are lined up side by side. Per default, there's no empty space between them, however exactly that can be changed here."));
+	CustomLabel *thbBorderAroundLabel = new CustomLabel("<b><span style=\"font-size: 12pt\">" + tr("Spacing Between Thumbnail Images") + "</span></b><br><br>" + tr("The thumbnails are shown in a row at the lower or upper edge (depending on your setup). They are lined up side by side. Per default, there's no empty space between them, however exactly that can be changed here."));
 	thbBorderAroundLabel->setWordWrap(true);
 	QHBoxLayout *thbBorderLay = new QHBoxLayout;
 	thbBorderLay->addStretch();
@@ -147,7 +144,7 @@ SettingsTabThumbnail::SettingsTabThumbnail(QWidget *parent, QMap<QString, QVaria
 	thbLiftUpSpin->setMinimum(0);
 	thbLiftUpSpin->setMaximum(40);
 	thbLiftUpSpin->setSuffix(" px");
-	CustomLabel *thbLiftUpLabel = new CustomLabel(QString("<b><span style=\"font-size: %1pt\">").arg(12*fontSizeMultiplier) + tr("Lift-up of Thumbnail Images on Hovering") + "</span></b><br><br>" + tr("When a thumbnail is hovered, it is lifted up some pixels (default 10). Here you can increase/decrease this value according to your personal preference."));
+	CustomLabel *thbLiftUpLabel = new CustomLabel("<b><span style=\"font-size: 12pt\">" + tr("Lift-up of Thumbnail Images on Hovering") + "</span></b><br><br>" + tr("When a thumbnail is hovered, it is lifted up some pixels (default 10). Here you can increase/decrease this value according to your personal preference."));
 	thbLiftUpLabel->setWordWrap(true);
 	QHBoxLayout *thbLiftUpLay = new QHBoxLayout;
 	thbLiftUpLay->addStretch();
@@ -164,7 +161,7 @@ SettingsTabThumbnail::SettingsTabThumbnail(QWidget *parent, QMap<QString, QVaria
 
 
 	// ADJUST THE POSITION OF THE THUMBNAILS
-	CustomLabel *thbPosLabel = new CustomLabel(QString("<b><span style=\"font-size: %1pt\">").arg(12*fontSizeMultiplier) + tr("Change Thumbnail Position") + "</span></b><br><bR>" + tr("Per default the bar with the thumbnails is shown at the lower edge. However, some might find it nice and handy to have the thumbnail bar at the upper edge, so that's what can be changed here."));
+	CustomLabel *thbPosLabel = new CustomLabel("<b><span style=\"font-size: 12pt\">" + tr("Change Thumbnail Position") + "</span></b><br><bR>" + tr("Per default the bar with the thumbnails is shown at the lower edge. However, some might find it nice and handy to have the thumbnail bar at the upper edge, so that's what can be changed here."));
 	thbPosLabel->setWordWrap(true);
 	QHBoxLayout *thbPosLay = new QHBoxLayout;
 	thbPosTop = new CustomRadioButton(tr("Show Thumbnails at upper edge"));
@@ -184,7 +181,7 @@ SettingsTabThumbnail::SettingsTabThumbnail(QWidget *parent, QMap<QString, QVaria
 
 
 	// OPTION TO KEEP THUMBNAILS VISIBLE OR FADE THEM OUT
-	CustomLabel *thbKeepVisibleLabel = new CustomLabel(QString("<b><span style=\"font-size: %1pt\">").arg(12*fontSizeMultiplier) + tr("Keep Thumbnails Visible") + "</span></b><br><bR>" + tr("Per default the Thumbnails slide out over the edge of the screen. Here you can force them to stay visible. The big image is shrunk to fit into the empty space. Note, that the thumbnails will be hidden (and only shown on mouse hovering) once you zoomed the image in/out. Resetting the zoom restores the original visibility of the thumbnails."));
+	CustomLabel *thbKeepVisibleLabel = new CustomLabel("<b><span style=\"font-size: 12pt\">" + tr("Keep Thumbnails Visible") + "</span></b><br><bR>" + tr("Per default the Thumbnails slide out over the edge of the screen. Here you can force them to stay visible. The big image is shrunk to fit into the empty space. Note, that the thumbnails will be hidden (and only shown on mouse hovering) once you zoomed the image in/out. Resetting the zoom restores the original visibility of the thumbnails."));
 	thbKeepVisibleLabel->setWordWrap(true);
 	QHBoxLayout *thbKeepLay = new QHBoxLayout;
 	keepVisible = new CustomCheckBox(tr("Keep Thumbnails Visible"));
@@ -198,7 +195,7 @@ SettingsTabThumbnail::SettingsTabThumbnail(QWidget *parent, QMap<QString, QVaria
 
 
 	// OPTION TO ENABLE DYNAMIC THUMBNAIL CREATION (handy for faster harddrives)
-	CustomLabel *dynamicThumbnailsLabel = new CustomLabel(QString("<b><span style=\"font-size: %1pt\">").arg(12*fontSizeMultiplier) + tr("Dynamic Thumbnail Creation") + "</span></b><br><bR>" + tr("Dynamic thumbnail creation means, that PhotoQt only sets up those thumbnail images that are actually needed, i.e. it stops once it reaches the end of the visible area and sits idle until you scroll left/right.") + "<br>" + tr("Smart thumbnails are similar in nature. However, they make use of the fast, that once a thumbnail has been created, it can be loaded very quickly and efficiently. It also first loads all of the currently visible thumbnails, but it doesn't stop there: Any thumbnails (even if invisible at the moment) that once have been created are loaded. This is a nice compromise between efficiency and usability.") + "<br><br>" + tr("Enabling either one of these is recommended, as it increases the performance of PhotoQt significantly, while preserving the usability."));
+	CustomLabel *dynamicThumbnailsLabel = new CustomLabel("<b><span style=\"font-size: 12pt\">" + tr("Dynamic Thumbnail Creation") + "</span></b><br><bR>" + tr("Dynamic thumbnail creation means, that PhotoQt only sets up those thumbnail images that are actually needed, i.e. it stops once it reaches the end of the visible area and sits idle until you scroll left/right.") + "<br>" + tr("Smart thumbnails are similar in nature. However, they make use of the fast, that once a thumbnail has been created, it can be loaded very quickly and efficiently. It also first loads all of the currently visible thumbnails, but it doesn't stop there: Any thumbnails (even if invisible at the moment) that once have been created are loaded. This is a nice compromise between efficiency and usability.") + "<br><br>" + tr("Enabling either one of these is recommended, as it increases the performance of PhotoQt significantly, while preserving the usability."));
 	dynamicThumbnailsLabel->setWordWrap(true);
 	normalThumbnails = new CustomRadioButton(tr("Normal thumbnails"));
 	dynamicThumbnails = new CustomRadioButton(tr("Dynamic Thumbnails"));
@@ -222,7 +219,7 @@ SettingsTabThumbnail::SettingsTabThumbnail(QWidget *parent, QMap<QString, QVaria
 
 
 	// OPTION TO PRELOAD FULL DIRECTORY OR ADJUST NUMBER OF PRELOADED IMAGES
-	CustomLabel *preloadFullNumberLabel = new CustomLabel(QString("<b><span style=\"font-size: %1pt\">").arg(12*fontSizeMultiplier) + tr("Preloading") + "</span></b><br><bR>" + tr("Here you can adjust, how many images AT MOST will be preloaded. For example, if the directory contains 800 images, a limit of 400 (default value) means, that starting from the opened image, 200 images to the left and 200 to the right are preloaded.") + "<br><br>" + tr("If you don't want to limit PhotoQt to any number, you can simply enable the option to always preload the full directory. WARNING: This is perfectly fine for directories with a small number of images (usually anything less than 1000, depending on your computer), but can lead to performance and memory issues for larger directories. Make sure you know what you're doing before enabling this!"));
+	CustomLabel *preloadFullNumberLabel = new CustomLabel("<b><span style=\"font-size: 12pt\">" + tr("Preloading") + "</span></b><br><bR>" + tr("Here you can adjust, how many images AT MOST will be preloaded. For example, if the directory contains 800 images, a limit of 400 (default value) means, that starting from the opened image, 200 images to the left and 200 to the right are preloaded.") + "<br><br>" + tr("If you don't want to limit PhotoQt to any number, you can simply enable the option to always preload the full directory. WARNING: This is perfectly fine for directories with a small number of images (usually anything less than 1000, depending on your computer), but can lead to performance and memory issues for larger directories. Make sure you know what you're doing before enabling this!"));
 	preloadFullNumberLabel->setWordWrap(true);
 	CustomSpinBox *preloadFullNumberSpin = new CustomSpinBox;
 	preloadFullNumberSpin->setMinimum(50);
@@ -257,7 +254,7 @@ SettingsTabThumbnail::SettingsTabThumbnail(QWidget *parent, QMap<QString, QVaria
 
 
 	// OPTION TO ALWAYS KEEP ACTIVE THUMBNAIL IN CENTER (IF POSSIBLE)
-	CustomLabel *alwaysCenterThumbnailsLabel = new CustomLabel(QString("<b><span style=\"font-size: %1pt\">").arg(12*fontSizeMultiplier) + tr("Always center on Active Thumbnail") + "</span></b><br><bR>" + tr("If this option is set, then the active thumbnail (i.e., the thumbnail of the currently displayed image) will always be kept in the center of the thumbnail bar (if possible). If this option is not set, then the active thumbnail will simply be kept visible, but not necessarily in the center."));
+	CustomLabel *alwaysCenterThumbnailsLabel = new CustomLabel("<b><span style=\"font-size: 12pt\">" + tr("Always center on Active Thumbnail") + "</span></b><br><bR>" + tr("If this option is set, then the active thumbnail (i.e., the thumbnail of the currently displayed image) will always be kept in the center of the thumbnail bar (if possible). If this option is not set, then the active thumbnail will simply be kept visible, but not necessarily in the center."));
 	alwaysCenterThumbnailsLabel->setWordWrap(true);
 	QHBoxLayout *alwaysCenterThbLay = new QHBoxLayout;
 	alwaysCenterThumbnail = new CustomCheckBox(tr("Center on Active Thumbnails"));
@@ -272,7 +269,7 @@ SettingsTabThumbnail::SettingsTabThumbnail(QWidget *parent, QMap<QString, QVaria
 
 
 	// OPTION TO ONLY USE FILENAME AND NO ACTUAL THUMBNAIL
-	CustomLabel *filenameInsteadThbLabel = new CustomLabel(QString("<b><span style=\"font-size: %1pt\">").arg(12*fontSizeMultiplier) + tr("Use file-name-only Thumbnails") + "</span></b><br><bR>" + tr("If you don't want PhotoQt to always load the actual image thumbnail in the background, but you still want to have something for better navigating, then you can set a file-name-only thumbnail, i.e. PhotoQt wont load any thumbnail images but simply puts the file name into the box. You can also adjust the font size of this text."));
+	CustomLabel *filenameInsteadThbLabel = new CustomLabel("<b><span style=\"font-size: 12pt\">" + tr("Use file-name-only Thumbnails") + "</span></b><br><bR>" + tr("If you don't want PhotoQt to always load the actual image thumbnail in the background, but you still want to have something for better navigating, then you can set a file-name-only thumbnail, i.e. PhotoQt wont load any thumbnail images but simply puts the file name into the box. You can also adjust the font size of this text."));
 	filenameInsteadThbLabel->setWordWrap(true);
 	filenameInsteadThb = new CustomCheckBox(tr("Use file-name-only Thumbnail"));
 	filenameInsteadThb->setChecked(false);
@@ -309,7 +306,7 @@ SettingsTabThumbnail::SettingsTabThumbnail(QWidget *parent, QMap<QString, QVaria
 
 
 	// OPTION TO SWITCH BETWEEN FILENAME DIMENSION OR BOTH FOR WRITING ON THUMBNAILS
-	CustomLabel *writeFilenameDimensionsLabel = new CustomLabel(QString("<b><span style=\"font-size: %1pt\">").arg(12*fontSizeMultiplier) + tr("Filename? Resolution? Or both?") + "</span></b><br><bR>" + tr("When thumbnails are displayed at the top/bottom, PhotoQt usually writes the filename on them. If wanted, this can be switched to the image resolution. Or even both can be displayed, whatever you want."));
+	CustomLabel *writeFilenameDimensionsLabel = new CustomLabel("<b><span style=\"font-size: 12pt\">" + tr("Filename? Resolution? Or both?") + "</span></b><br><bR>" + tr("When thumbnails are displayed at the top/bottom, PhotoQt usually writes the filename on them. If wanted, this can be switched to the image resolution. Or even both can be displayed, whatever you want."));
 	writeFilename = new CustomCheckBox(tr("Write Filename"));
 	writeDimensions = new CustomCheckBox(tr("Write Resolution"));
 	QHBoxLayout *writeCheckLay = new QHBoxLayout;
@@ -325,7 +322,7 @@ SettingsTabThumbnail::SettingsTabThumbnail(QWidget *parent, QMap<QString, QVaria
 
 
 	// OPTION TO DISABLE THUMBNAILS ALLTOGETHER
-	CustomLabel *thumbnailDisableLabel = new CustomLabel(QString("<b><span style=\"font-size: %1pt\">").arg(12*fontSizeMultiplier) + tr("Disable Thumbnails") + "</span></b><br><bR>" + tr("If you just don't need or don't want any thumbnails whatsoever, then you can disable them here completely. This option can also be toggled remotely via command line (run 'photoqt --help' for more information on that). This might increase the speed of PhotoQt a good bit, however, navigating through a folder might be a little harder without thumbnails."));
+	CustomLabel *thumbnailDisableLabel = new CustomLabel("<b><span style=\"font-size: 12pt\">" + tr("Disable Thumbnails") + "</span></b><br><bR>" + tr("If you just don't need or don't want any thumbnails whatsoever, then you can disable them here completely. This option can also be toggled remotely via command line (run 'photoqt --help' for more information on that). This might increase the speed of PhotoQt a good bit, however, navigating through a folder might be a little harder without thumbnails."));
 	thumbnailDisableLabel->setWordWrap(true);
 	thumbDisable = new CustomCheckBox(tr("Disable Thumbnails altogether"));
 	thumbDisable->setChecked(false);
@@ -341,7 +338,7 @@ SettingsTabThumbnail::SettingsTabThumbnail(QWidget *parent, QMap<QString, QVaria
 
 	// OPTION FOR THUMBNAIL CACHE
 
-	CustomLabel *thumbCacheLabel = new CustomLabel(QString("<b><span style=\"font-size: %1pt\">").arg(12*fontSizeMultiplier) + tr("Thumbnail Cache") + "</span></b><hr>" + tr("Thumbnails can be cached in two different ways:<br>1) File Caching (following the freedesktop.org standard) or<br>2) Database Caching (better performance and management, default option).") + "<br><br>" + tr("Both ways have their advantages and disadvantages:") + "<br>" + tr("File Caching is done according to the freedesktop.org standard and thus different applications can share the same thumbnail for the same image file. However, it's not possible to check for obsolete thumbnails (thus this may lead to many unneeded thumbnail files).") + "<br>" + tr("Database Caching doesn't have the advantage of sharing thumbnails with other applications (and thus every thumbnails has to be newly created for PhotoQt), but it brings a slightly better performance, and it allows a better handling of existing thumbnails (e.g. deleting obsolete thumbnails).") + "<br><br>" + tr("PhotoQt works with either option, though the second way is set as default.") + "<br><br>" + tr("Although everybody is encouraged to use at least one of the two options, caching can be completely disabled altogether. However, that does affect the performance and usability of PhotoQt, since thumbnails have to be newly re-created every time they are needed."));
+	CustomLabel *thumbCacheLabel = new CustomLabel("<b><span style=\"font-size:12pt\">" + tr("Thumbnail Cache") + "</span></b><hr>" + tr("Thumbnails can be cached in two different ways:<br>1) File Caching (following the freedesktop.org standard) or<br>2) Database Caching (better performance and management, default option).") + "<br><br>" + tr("Both ways have their advantages and disadvantages:") + "<br>" + tr("File Caching is done according to the freedesktop.org standard and thus different applications can share the same thumbnail for the same image file. However, it's not possible to check for obsolete thumbnails (thus this may lead to many unneeded thumbnail files).") + "<br>" + tr("Database Caching doesn't have the advantage of sharing thumbnails with other applications (and thus every thumbnails has to be newly created for PhotoQt), but it brings a slightly better performance, and it allows a better handling of existing thumbnails (e.g. deleting obsolete thumbnails).") + "<br><br>" + tr("PhotoQt works with either option, though the second way is set as default.") + "<br><br>" + tr("Although everybody is encouraged to use at least one of the two options, caching can be completely disabled altogether. However, that does affect the performance and usability of PhotoQt, since thumbnails have to be newly re-created every time they are needed."));
 	thumbCacheLabel->setWordWrap(true);
 	QHBoxLayout *thumbCacheLay = new QHBoxLayout;
 	thumbCache = new CustomCheckBox(tr("Enable Thumbnail Cache"));
@@ -399,11 +396,11 @@ SettingsTabThumbnail::SettingsTabThumbnail(QWidget *parent, QMap<QString, QVaria
 
 
 	// We ask for confirmation before cleaning up the database
-	confirmClean = new CustomConfirm(tr("Clean Database"),tr("Do you really want to clean up the database? This removes all obsolete thumbnails, thus possibly making PhotoQt a little faster.") + "<bR><br>" + tr("This process might take a little while."), globSet.value("FontSizeMultiplier").toDouble(),tr("Yes, clean is good"),tr("No, don't have time for that"),QSize(450,250),"default","default",this->parentWidget());
+	confirmClean = new CustomConfirm(tr("Clean Database"),tr("Do you really want to clean up the database? This removes all obsolete thumbnails, thus possibly making PhotoQt a little faster.") + "<bR><br>" + tr("This process might take a little while."),tr("Yes, clean is good"),tr("No, don't have time for that"),QSize(450,250),"default","default",this->parentWidget());
 	confirmClean->show();
 
 	// We ask for confirmation before erasing the entire database
-	confirmErase = new CustomConfirm(tr("Erase Database"),tr("Do you really want to ERASE the entire database? This removes every single item in the database! This step should never really be necessarily. After that, every thumbnail has to be newly re-created. This step cannot be reversed!"),globSet.value("FontSizeMultiplier").toDouble(),tr("Yes, get rid of it all"),tr("Nooo, I want to keep it"),QSize(450,250),"default","default",this->parentWidget());
+	confirmErase = new CustomConfirm(tr("Erase Database"),tr("Do you really want to ERASE the entire database? This removes every single item in the database! This step should never really be necessarily. After that, every thumbnail has to be newly re-created. This step cannot be reversed!"),tr("Yes, get rid of it all"),tr("Nooo, I want to keep it"),QSize(450,250),"default","default",this->parentWidget());
 	confirmErase->show();
 
 	connect(cleanDatabase, SIGNAL(clicked()), confirmClean, SLOT(animate()));

@@ -34,7 +34,7 @@ class ShortcutsTiles: public QWidget {
 	Q_OBJECT
 
 public:
-	ShortcutsTiles(QString exeCmd, QString exeDesc, QString category, QString availORexist, double fontSizeMultiplier, QWidget *parent = 0);
+	ShortcutsTiles(QString exeCmd, QString exeDesc, QString category, QString availORexist, QWidget *parent = 0);
 	~ShortcutsTiles();
 
 	// The main back label

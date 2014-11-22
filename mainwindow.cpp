@@ -1737,7 +1737,7 @@ void MainWindow::setupWidget(QString what) {
 
 		setupWidgets->filehandling = true;
 
-		filehandling = new FileHandling(globSet->fontSizeMultiplier, viewBig,globVar->verbose,globVar->currentfile);
+		filehandling = new FileHandling(viewBig,globVar->verbose,globVar->currentfile);
 		filehandling->setRect(QRect(0,0,viewBig->width(),viewBig->height()));
 		filehandling->show();
 
@@ -1757,7 +1757,7 @@ void MainWindow::setupWidget(QString what) {
 
 		setupWidgets->about = true;
 
-		about = new About(globSet->fontSizeMultiplier, viewBig);
+		about = new About(viewBig);
 		about->setLicense(globSet->version);
 		about->setRect(QRect(0,0,viewBig->width(),viewBig->height()));
 		about->show();
@@ -1788,7 +1788,7 @@ void MainWindow::setupWidget(QString what) {
 
 		setupWidgets->filterimages = true;
 
-		filterImagesSetup = new FilterImagesSetup(globSet->fontSizeMultiplier, viewBig);
+		filterImagesSetup = new FilterImagesSetup(viewBig);
 		filterImagesSetup->setRect(QRect(0,0,viewBig->width(),viewBig->height()));
 		filterImagesSetup->show();
 
@@ -2051,7 +2051,7 @@ void MainWindow::showStartupUpdateInstallMsg() {
 	if(globVar->startupMessageInstallUpdateShown == 1) {
 
 		// This widget is shown after an update/fresh install
-		startup = new StartUpWidget(globSet->fontSizeMultiplier, viewBig);
+		startup = new StartUpWidget(viewBig);
 		setupWidgets->startup = true;
 		startup->setRect(QRect(0,0,viewBig->width(),viewBig->height()));
 
@@ -2071,7 +2071,7 @@ void MainWindow::showStartupUpdateInstallMsg() {
 		firstStartSetup();
 
 		// This widget is shown after an update/fresh install
-		startup = new StartUpWidget(globSet->fontSizeMultiplier, viewBig);
+		startup = new StartUpWidget(viewBig);
 		setupWidgets->startup = true;
 		startup->setRect(QRect(0,0,viewBig->width(),viewBig->height()));
 

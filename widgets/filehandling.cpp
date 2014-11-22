@@ -18,7 +18,7 @@
 #include <unistd.h>
 #include <iostream>
 
-FileHandling::FileHandling(double fontSizeMultiplier, QWidget *parent, bool v, QString cf) : MyWidget(fontSizeMultiplier, parent) {
+FileHandling::FileHandling(QWidget *parent, bool v, QString cf) : MyWidget(parent) {
 
 	this->setVisibleArea(QSize(600,400));
 
@@ -62,19 +62,19 @@ FileHandling::FileHandling(double fontSizeMultiplier, QWidget *parent, bool v, Q
 
 	renameLay = new QVBoxLayout;
 	renameTitle = new CustomLabel("<center>" + tr("Rename File") + "</center>");
-	renameTitle->setFontSize(25*fontSizeMultiplier);
+	renameTitle->setFontSize(25);
 	renameTitle->setBold(true);
 	renameOldName = new CustomLabel;
-	renameOldName->setFontSize(15*fontSizeMultiplier);
+	renameOldName->setFontSize(15);
 	renameOldName->setItalic(true);
 	renameOldName->setFontColor("grey");
 	renameOldName->setPadding(10);
 	QHBoxLayout *renameNewLay = new QHBoxLayout;
 	renameNewName = new CustomLineEdit;
 	renameNewName->setFixedWidth(300);
-	renameNewName->setFontSize(15*fontSizeMultiplier);
+	renameNewName->setFontSize(15);
 	renameOldEnding = new CustomLabel;
-	renameOldEnding->setFontSize(15*fontSizeMultiplier);
+	renameOldEnding->setFontSize(15);
 	renameNewLay->addStretch();
 	renameNewLay->addWidget(renameNewName);
 	renameNewLay->addWidget(renameOldEnding);
@@ -86,12 +86,12 @@ FileHandling::FileHandling(double fontSizeMultiplier, QWidget *parent, bool v, Q
 
 	renameSave = new CustomPushButton(tr("Save"));
 	renameSave->setPadding(10);
-	renameSave->setFontSize(QString("%1pt").arg(13*fontSizeMultiplier));
+	renameSave->setFontSize("13pt");
 	renameSave->setBold(true);
 
 	renameCancel = new CustomPushButton(tr("Cancel"));
 	renameCancel->setPadding(10);
-	renameCancel->setFontSize(QString("%1pt").arg(13*fontSizeMultiplier));
+	renameCancel->setFontSize("13pt");
 	renameCancel->setBold(true);
 
 	renameLay->addStretch();
@@ -127,15 +127,15 @@ FileHandling::FileHandling(double fontSizeMultiplier, QWidget *parent, bool v, Q
 
 	deleteLay = new QVBoxLayout;
 	deleteTitle = new CustomLabel("<center>" + tr("Delete File") + "</center>");
-	deleteTitle->setFontSize(15*fontSizeMultiplier);
+	deleteTitle->setFontSize(15);
 	deleteTitle->setBold(true);
 	deleteFilename = new CustomLabel(" ");
-	deleteFilename->setFontSize(15*fontSizeMultiplier);
+	deleteFilename->setFontSize(15);
 	deleteFilename->setItalic(true);
 	deleteFilename->setFontColor("grey");
-	deleteFilename->setPadding(10*fontSizeMultiplier);
+	deleteFilename->setPadding(10);
 	deleteQuestion = new CustomLabel("<center>" + tr("Do you really want to delete this file?") +"</center>");
-	deleteQuestion->setFontSize(15*fontSizeMultiplier);
+	deleteQuestion->setFontSize(15);
 	deleteQuestion->setPadding(10);
 
 
@@ -143,16 +143,16 @@ FileHandling::FileHandling(double fontSizeMultiplier, QWidget *parent, bool v, Q
 	deleteYesHard = new CustomPushButton(tr("Delete permanently"));
 	deleteYesHard->setPadding(6);
 #if defined(Q_WS_X11)
-	deleteYesHard->setFontSize(QString("%1pt").arg(10*fontSizeMultiplier));
+	deleteYesHard->setFontSize("10pt");
 #else
-	deleteYesHard->setFontSize(QString("%1pt").arg(13*fontSizeMultiplier));
+	deleteYesHard->setFontSize("13pt");
 	deleteYesHard->setBold(true);
 #endif
 
 #if defined(Q_WS_X11)
 	deleteYes = new CustomPushButton(tr("Move to Trash"));
 	deleteYes->setPadding(6);
-	deleteYes->setFontSize(QString("%1pt").arg(13*fontSizeMultiplier));
+	deleteYes->setFontSize("13pt");
 	deleteYes->setBold(true);
 #else
 	deleteYes = new CustomPushButton;
@@ -161,7 +161,7 @@ FileHandling::FileHandling(double fontSizeMultiplier, QWidget *parent, bool v, Q
 
 	deleteNo = new CustomPushButton(tr("Cancel"));
 	deleteNo->setPadding(6);
-	deleteNo->setFontSize(QString("%1pt").arg(13*fontSizeMultiplier));
+	deleteNo->setFontSize("13pt");
 	deleteNo->setBold(true);
 
 	QHBoxLayout *deleteButLay = new QHBoxLayout;
@@ -216,7 +216,7 @@ FileHandling::FileHandling(double fontSizeMultiplier, QWidget *parent, bool v, Q
 
 	moveLay = new QVBoxLayout;
 	moveTitle = new CustomLabel("<center>" + tr("Moving File") + "</center>");
-	moveTitle->setFontSize(25*fontSizeMultiplier);
+	moveTitle->setFontSize(25);
 	moveTitle->setBold(true);
 
 	moveTree = new QTreeView;
@@ -239,13 +239,13 @@ FileHandling::FileHandling(double fontSizeMultiplier, QWidget *parent, bool v, Q
 	moveNewNameExists->setBold(true);
 
 	moveNewNameLabel = new CustomLabel(tr("Filename") + ":");
-	moveNewNameLabel->setFontSize(12*fontSizeMultiplier);
+	moveNewNameLabel->setFontSize(12);
 	moveNewNameLabel->setBold(true);
 	moveNewName = new CustomLineEdit;
 	moveNewName->setFixedWidth(300);
-	moveNewName->setFontSize(12*fontSizeMultiplier);
+	moveNewName->setFontSize(12);
 	moveNewNameEnding = new CustomLabel(".xyz");
-	moveNewNameEnding->setFontSize(12*fontSizeMultiplier);
+	moveNewNameEnding->setFontSize(12);
 	moveNewNameEnding->setBold(true);
 
 	QHBoxLayout *moveNewNameLay = new QHBoxLayout;
@@ -257,11 +257,11 @@ FileHandling::FileHandling(double fontSizeMultiplier, QWidget *parent, bool v, Q
 
 	moveSave = new CustomPushButton(tr("Move"));
 	moveSave->setPadding(10);
-	moveSave->setFontSize(QString("%1pt").arg(11*fontSizeMultiplier));
+	moveSave->setFontSize("11pt");
 	moveSave->setBold(true);
 	moveCancel = new CustomPushButton(tr("Cancel"));
 	moveCancel->setPadding(10);
-	moveCancel->setFontSize(QString("%1pt").arg(11*fontSizeMultiplier));
+	moveCancel->setFontSize("11pt");
 	moveCancel->setBold(true);
 
 	QHBoxLayout *moveButLay = new QHBoxLayout;
@@ -296,7 +296,7 @@ FileHandling::FileHandling(double fontSizeMultiplier, QWidget *parent, bool v, Q
 
 	copyLay = new QVBoxLayout;
 	copyTitle = new CustomLabel("<center>" + tr("Copying File") + "</center>");
-	copyTitle->setFontSize(25*fontSizeMultiplier);
+	copyTitle->setFontSize(25);
 	copyTitle->setBold(true);
 
 	copyTree = new QTreeView;
@@ -319,13 +319,13 @@ FileHandling::FileHandling(double fontSizeMultiplier, QWidget *parent, bool v, Q
 	copyNewNameExists->setBold(true);
 
 	copyNewNameLabel = new CustomLabel(tr("Filename") + ":");
-	copyNewNameLabel->setFontSize(12*fontSizeMultiplier);
+	copyNewNameLabel->setFontSize(12);
 	copyNewNameLabel->setBold(true);
 	copyNewName = new CustomLineEdit;
 	copyNewName->setFixedWidth(300);
-	copyNewName->setFontSize(12*fontSizeMultiplier);
+	copyNewName->setFontSize(12);
 	copyNewNameEnding = new CustomLabel(".xyz");
-	copyNewNameEnding->setFontSize(12*fontSizeMultiplier);
+	copyNewNameEnding->setFontSize(12);
 	copyNewNameEnding->setBold(true);
 
 	QHBoxLayout *copyNewNameLay = new QHBoxLayout;
@@ -336,11 +336,11 @@ FileHandling::FileHandling(double fontSizeMultiplier, QWidget *parent, bool v, Q
 	copyNewNameLay->addStretch();
 
 	copySave = new CustomPushButton(tr("Copy"));
-	copySave->setFontSize(QString("%1pt").arg(11*fontSizeMultiplier));
+	copySave->setFontSize("11pt");
 	copySave->setPadding(10);
 	copySave->setBold(true);
 	copyCancel = new CustomPushButton(tr("Cancel"));
-	copyCancel->setFontSize(QString("%1pt").arg(11*fontSizeMultiplier));
+	copyCancel->setFontSize("11pt");
 	copyCancel->setPadding(10);
 	copyCancel->setBold(true);
 

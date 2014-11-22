@@ -16,12 +16,12 @@
 
 #include "settingstabothercontexttiles.h"
 
-ContextTile::ContextTile(double fontSizeMultiplier, QString cmdTxt, QString descTxt, QWidget *parent) : QWidget(parent) {
+ContextTile::ContextTile(QString cmdTxt, QString descTxt, QWidget *parent) : QWidget(parent) {
 
 	this->setMouseTracking(true);
 
 	// The standard default stylesheet
-	css = QString("font-weight: bold; color: black; border-radius: 5px; padding: 1px; font-size: %1pt;").arg(8*fontSizeMultiplier);
+	css = "font-weight: bold; color: black; border-radius: 5px; padding: 1px; font-size: 8pt;";
 
 	// Some special stylesheet for hovered and normal
 	cssBackgroundNorm = "background: rgba(255,255,255,100);";
@@ -76,7 +76,7 @@ ContextTile::ContextTile(double fontSizeMultiplier, QString cmdTxt, QString desc
 	x->setFlat(true);
 	x->setToolTip(tr("Delete Entry"));
 	x->setCursor(Qt::PointingHandCursor);
-	x->setStyleSheet(QString("QPushButton { background: transparent; } QToolTip {font-weight: bold; color: black; border-radius: 5px; padding: 1px; font-size: %1pt; background: rgba(255,255,255,200); }").arg(8*fontSizeMultiplier));
+	x->setStyleSheet("QPushButton { background: transparent; } QToolTip {font-weight: bold; color: black; border-radius: 5px; padding: 1px; font-size: 8pt; background: rgba(255,255,255,200); }");
 	lay->addWidget(x);
 	connect(x, SIGNAL(clicked()), this, SLOT(pleaseDeleteMe()));
 

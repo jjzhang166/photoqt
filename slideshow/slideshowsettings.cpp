@@ -17,12 +17,9 @@
 #include "slideshowsettings.h"
 #include <iostream>
 
-SlideShow::SlideShow(QMap<QString, QVariant> set, bool v, QWidget *parent) : MyWidget(set.value("FontSizeMultiplier").toDouble(),parent) {
+SlideShow::SlideShow(QMap<QString, QVariant> set, bool v, QWidget *parent) : MyWidget(parent) {
 
 	this->setBorderArea(150,100);
-
-	// STore for easier use below
-	double fontSizeMultiplier = set.value("FontSizeMultiplier").toDouble();
 
 	// Setting some variables
 	globSet = set;
@@ -64,7 +61,7 @@ SlideShow::SlideShow(QMap<QString, QVariant> set, bool v, QWidget *parent) : MyW
 	timeLay->addWidget(timeSlider);
 	timeLay->addWidget(timeSpin);
 	timeLay->addStretch();
-	CustomLabel *timeLabel = new CustomLabel(QString("<b><span style=\"font-size:%1pt\">").arg(12*fontSizeMultiplier) + tr("Time in between") + "</b></span><br><br>" + tr("Adjust the time between the images. The time specified here is the amount of time the image will be completely visible, i.e. the transitioning (if set) is not part of this time."));
+	CustomLabel *timeLabel = new CustomLabel("<b><span style=\"font-size:12pt\">" + tr("Time in between") + "</b></span><br><br>" + tr("Adjust the time between the images. The time specified here is the amount of time the image will be completely visible, i.e. the transitioning (if set) is not part of this time."));
 	timeLabel->setWordWrap(true);
 	lay->addWidget(timeLabel);
 	lay->addSpacing(5);
@@ -80,7 +77,7 @@ SlideShow::SlideShow(QMap<QString, QVariant> set, bool v, QWidget *parent) : MyW
 	trans->setPageStep(1);
 	trans->setSingleStep(1);
 	trans->setValue(globSet.value("SlideShowTransition").toInt());
-	CustomLabel *transLabel = new CustomLabel(QString("<b><span style=\"font-size: %1pt\">").arg(12*fontSizeMultiplier) + tr("Smooth Transition") + "</span></b> " + "<br><br>" + tr("Here you can set, if you want the images to fade into each other, and how fast they shall do that."));
+	CustomLabel *transLabel = new CustomLabel("<b><span style=\"font-size:12pt\">" + tr("Smooth Transition") + "</span></b> " + "<br><br>" + tr("Here you can set, if you want the images to fade into each other, and how fast they shall do that."));
 	transLabel->setWordWrap(true);
 	CustomLabel *noTrans = new CustomLabel(tr("No Transition"));
 	CustomLabel *longTrans = new CustomLabel(tr("Long Transition"));
@@ -98,7 +95,7 @@ SlideShow::SlideShow(QMap<QString, QVariant> set, bool v, QWidget *parent) : MyW
 	// Adjust quickinfo labels
 	hideQuickInfo = new CustomCheckBox(tr("Hide Quickinfos"));
 	hideQuickInfo->setChecked(globSet.value("SlideShowHideQuickinfo").toBool());
-	CustomLabel *hideQuickLabel = new CustomLabel(QString("<b><span style=\"font-size: %1pt\">").arg(12*fontSizeMultiplier) + tr("Hide Quickinfo") + "</span></b> " + "<br><br>" + tr("Depending on your setup, PhotoQt displays some information at the top edge, like position in current directory or file path/name. Here you can disable them temporarily for the slideshow."));
+	CustomLabel *hideQuickLabel = new CustomLabel("<b><span style=\"font-size:12pt\">" + tr("Hide Quickinfo") + "</span></b> " + "<br><br>" + tr("Depending on your setup, PhotoQt displays some information at the top edge, like position in current directory or file path/name. Here you can disable them temporarily for the slideshow."));
 	hideQuickLabel->setWordWrap(true);
 	QHBoxLayout *hideQuickLay = new QHBoxLayout;
 	hideQuickLay->addStretch();
@@ -126,7 +123,7 @@ SlideShow::SlideShow(QMap<QString, QVariant> set, bool v, QWidget *parent) : MyW
 	musicPathLay->addStretch();
 	musicPathLay->addWidget(musicPath);
 	musicPathLay->addStretch();
-	CustomLabel *musicLabel = new CustomLabel(QString("<b><span style=\"font-size:%1pt\">").arg(12*fontSizeMultiplier) + tr("Background Music") + "</span></b> " + "<br><br>" + tr("Some might like to listen to some music while the slideshow is running. Here you can select a music file you want to be played in the background."));
+	CustomLabel *musicLabel = new CustomLabel("<b><span style=\"font-size:12pt\">" + tr("Background Music") + "</span></b> " + "<br><br>" + tr("Some might like to listen to some music while the slideshow is running. Here you can select a music file you want to be played in the background."));
 	musicLabel->setWordWrap(true);
 	lay->addWidget(musicLabel);
 	lay->addSpacing(5);

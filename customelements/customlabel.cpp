@@ -22,7 +22,7 @@ CustomLabel::CustomLabel(const QString &text, QWidget *parent) : QLabel(text, pa
 
 	this->setWordWrap(true);
 
-	fontsize = 0;
+	fontsize = 9;
 	fontcolor = "white";
 	padding = 0;
 	backgroundcolor = "transparent";
@@ -58,7 +58,7 @@ void CustomLabel::setCSS() {
 	css += "color: " + fontcolor + ";";
 	css += "background: " + backgroundcolor + ";";
 	if(borderwidth != 0) css += QString("border: %1px solid %2;").arg(borderwidth).arg(bordercolor);
-	if(fontsize != 0) css += QString("font-size: %1pt;").arg(fontsize);
+	css += QString("font-size: %1pt;").arg(fontsize);
 	if(bold) css += "font-weight: bold;";
 	if(italic) css += "font-style: italic;";
 	if(padding != 0) css += QString("padding: %1px;").arg(padding);

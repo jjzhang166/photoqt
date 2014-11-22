@@ -33,13 +33,13 @@ public:
 	QString fileformat;
 	QSize origSize;
 
-	QImage readImage(QString filename, int rotation, bool zoomed, QSize maxSize, double fontSizeMultiplier, bool dontscale = false);
+	QImage readImage(QString filename, int rotation, bool zoomed, QSize maxSize, bool dontscale = false);
 
 private:
 	bool verbose;
 
-	QImage readImage_QT(QString filename, int rotation, bool zoomed, QSize maxSize, double fontSizeMultiplier, bool dontscale = false);
-	QImage readImage_GM(QString filename, int rotation, bool zoomed, QSize maxSize, double fontSizeMultiplier, bool dontscale = false);
+	QImage readImage_QT(QString filename, int rotation, bool zoomed, QSize maxSize, bool dontscale = false);
+	QImage readImage_GM(QString filename, int rotation, bool zoomed, QSize maxSize, bool dontscale = false);
 
 	bool doIUseMagick(QString filename);
 

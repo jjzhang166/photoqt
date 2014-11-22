@@ -144,8 +144,6 @@ void Thumbnails::updateThumb(QImage img, QString path, int origwidth, int orighe
 	bool filenameOnly = globSet.value("ThumbnailFilenameInstead").toBool();
 	int filenameOnlyFontsize = globSet.value("ThumbnailFilenameInsteadFontSize").toInt();
 
-	double fontSizeMultiplier = globSet.value("FontSizeMultiplier").toDouble();
-
 	QString thumbpos = globSet.value("ThumbnailPosition").toString();
 
 	// Preload thumbnail
@@ -177,7 +175,7 @@ void Thumbnails::updateThumb(QImage img, QString path, int origwidth, int orighe
 		// Write filename and/or dimensions
 		QTextDocument txt;
 		if(showFilename || showDimensions) {
-			QString textdocTXT = QString("<center><div style=\"text-align: center; font-size: %1pt; font-weight: bold; color: white; background: %2; border-radius: 10px\">").arg((filenameOnly ? filenameOnlyFontsize : 7)*fontSizeMultiplier).arg(filenameOnly ? "transparent" : "rgba(0,0,0,80)");
+			QString textdocTXT = QString("<center><div style=\"text-align: center; font-size: %1pt; font-weight: bold; color: white; background: %2; border-radius: 10px\">").arg(filenameOnly ? filenameOnlyFontsize : 7).arg(filenameOnly ? "transparent" : "rgba(0,0,0,80)");
 			if(showFilename) textdocTXT += QFileInfo(path).fileName();
 			if(showDimensions) {
 				if(showFilename) textdocTXT += "<br><i>(";
@@ -267,7 +265,7 @@ void Thumbnails::updateThumb(QImage img, QString path, int origwidth, int orighe
 		QTextDocument txt;
 		if(showFilename || showDimensions) {
 
-			QString textdocTXT = QString("<center><div style=\"text-align: center; font-size: %1pt; font-wight: bold; color: white; background: rgba(0,0,0,150); border-radius: 10px\">").arg(10*fontSizeMultiplier);
+			QString textdocTXT = "<center><div style=\"text-align: center; font-size: 7pt; font-wight: bold; color: white; background: rgba(0,0,0,150); border-radius: 10px\">";
 			if(showFilename && showDimensions) textdocTXT += QFileInfo(path).fileName() + "<br><i>(" + QString("%1:%2").arg(origwidth).arg(origheight) + ")</i>";
 			else if(showFilename) textdocTXT += QFileInfo(path).fileName();
 			else if(showDimensions) textdocTXT += QString("%1:%2").arg(origwidth).arg(origheight);

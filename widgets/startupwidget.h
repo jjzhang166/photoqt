@@ -27,7 +27,7 @@ class StartUpWidget : public MyWidget {
 	Q_OBJECT
 
 public:
-	StartUpWidget(double fontSizeMultiplier, QWidget *parent = 0);
+	StartUpWidget(QWidget *parent = 0);
 	~StartUpWidget();
 
 	// There's a little difference between an update message and a fresh install message

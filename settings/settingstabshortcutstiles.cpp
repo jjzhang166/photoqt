@@ -16,7 +16,7 @@
 
 #include "settingstabshortcutstiles.h"
 
-ShortcutsTiles::ShortcutsTiles(QString exeCmd, QString exeDesc, QString category, QString availORexist, double fontSizeMultiplier, QWidget *parent) : QWidget(parent) {
+ShortcutsTiles::ShortcutsTiles(QString exeCmd, QString exeDesc, QString category, QString availORexist, QWidget *parent) : QWidget(parent) {
 
 	// Store the type of this tile
 	type = availORexist;
@@ -32,7 +32,7 @@ ShortcutsTiles::ShortcutsTiles(QString exeCmd, QString exeDesc, QString category
 	this->setFixedSize(90,90);
 
 	// The standard default stylesheet
-	css = QString("font-weight: bold; color: black; border-radius: 5px; padding: 1px; font-size: %1pt;").arg(8*fontSizeMultiplier);
+	css = "font-weight: bold; color: black; border-radius: 5px; padding: 1px; font-size: 8pt;";
 
 	// Some special stylesheet for hovered and normal
 	cssBackgroundNorm = "background: rgba(255,255,255,100);";
@@ -46,14 +46,14 @@ ShortcutsTiles::ShortcutsTiles(QString exeCmd, QString exeDesc, QString category
 
 		quit = new CustomCheckBox(tr("quit"));
 		quit->setIndicatorSize(8);
-		quit->setFontSize(7*fontSizeMultiplier);
+		quit->setFontSize(7);
 		quit->setIndicatorImage(":/img/radiobutton_checked.png",":/img/radiobutton_unchecked.png");
 		quit->setFontColor("black");
 		if(category != "extern")
 			quit->hide();
 		mouse = new CustomLabel("M");
 		mouse->setBold(true);
-		mouse->setFontSize(12*fontSizeMultiplier);
+		mouse->setFontSize(12);
 		mouse->hide();
 		del = new QPushButton(QIcon(":/img/delsh.png"),"");
 		del->setCursor(Qt::PointingHandCursor);
@@ -94,7 +94,7 @@ ShortcutsTiles::ShortcutsTiles(QString exeCmd, QString exeDesc, QString category
 		shortcut = new CustomLabel("<" + tr("key") + ">");
 		shortcut->setTextFormat(Qt::PlainText);
 		shortcut->setAlignment(Qt::AlignCenter);
-		shortcut->setStyleSheet(QString("background: transparent; font-size: %1pt;").arg(7*fontSizeMultiplier));
+		shortcut->setStyleSheet("background: transparent; font-size: 7pt;");
 		shortcut->setCursor(Qt::PointingHandCursor);
 		connect(shortcut, SIGNAL(clicked()), this, SLOT(shButClkd()));
 		QHBoxLayout *shLay = new QHBoxLayout;

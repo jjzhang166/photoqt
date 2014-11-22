@@ -19,7 +19,7 @@
 CustomComboBox::CustomComboBox(QWidget *parent) : QComboBox(parent) {
 
 	enabled = true;
-	fontsize = 0;
+	fontsize = 9;
 	padding = 0;
 	borderColour = "rgba(255,255,255,40)";
 	borderWidth = 1;
@@ -69,7 +69,7 @@ void CustomComboBox::setCSS() {
 		css += "border-radius: 0px;";
 		css += "min-width: 130px;";
 		css += QString("padding: %1px;").arg(padding);
-		if(fontsize != 0) css += QString("font-size: %1pt;").arg(fontsize);
+		css += QString("font-size: %1pt;").arg(fontsize);
 		css += "color: " + QString(enabled ? "white" : "grey") + ";";
 	css += "}";
 

@@ -16,11 +16,9 @@
 
 #include "scale.h"
 
-Scale::Scale(double fontSizeMultiplier, bool verbose, QWidget *parent) : MyWidget(fontSizeMultiplier, parent) {
+Scale::Scale(bool verbose, QWidget *parent) : MyWidget(parent) {
 
 	this->setVisibleArea(QSize(550,300));
-
-	this->fontSizeMultiplier = fontSizeMultiplier;
 
 	// Some variables
 	ignoreSizeChange = false;
@@ -133,9 +131,9 @@ Scale::Scale(double fontSizeMultiplier, bool verbose, QWidget *parent) : MyWidge
 	this->setWidgetLayout(lay);
 
 	// We need to initialise them here, otherwise the system shortcut in mainwindow.cpp might cause a crash
-	confirmNotSupported = new CustomConfirm("","",fontSizeMultiplier);
-	confirmInPlace = new CustomConfirm("","",fontSizeMultiplier);
-	confirmNew = new CustomConfirm("","",fontSizeMultiplier);
+	confirmNotSupported = new CustomConfirm("","");
+	confirmInPlace = new CustomConfirm("","");
+	confirmNew = new CustomConfirm("","");
 
 }
 
@@ -158,7 +156,7 @@ void Scale::scale(QString filename, QSize s) {
 	// Scaling currently only works for Qt-supported image formats - GraphicsMagick support not yet implemented
 	if(!QImageReader::supportedImageFormats().contains(QFileInfo(filename).suffix().toLower().toLatin1())) {
 
-		confirmNotSupported = new CustomConfirm(tr("Filetype Not Supported"),tr("Sorry, scaling is currently only available for filetypes natively supported by Qt..."),fontSizeMultiplier,tr("Oh, okay..."),"",QSize(350,200), "default", "default", this->parentWidget());
+		confirmNotSupported = new CustomConfirm(tr("Filetype Not Supported"),tr("Sorry, scaling is currently only available for filetypes natively supported by Qt..."),tr("Oh, okay..."),"",QSize(350,200), "default", "default", this->parentWidget());
 		confirmNotSupported->show();
 		confirmNotSupported->setRects(getRectShown(),getRectHidden(),getRectAni());
 		connect(confirmNotSupported, SIGNAL(blockFunc(bool)), this, SIGNAL(blockFunc(bool)));
@@ -245,7 +243,6 @@ void Scale::enterClicked() {
 		// Ask for confirmation
 		confirmInPlace = new CustomConfirm(tr("Overwrite Image?"),
 					    tr("This will replace the current image with the scaled version... Continue?"),
-					    fontSizeMultiplier,
 					    tr("Continue"), tr("Stop"),
 					    QSize(300,200), "default", "rgba(0,0,0,240)", this->parentWidget());
 		confirmInPlace->show();
@@ -271,7 +268,6 @@ void Scale::enterClicked() {
 
 			confirmNew = new CustomConfirm(tr("Overwrite Image?"),
 						    tr("This file exists already... Continue?"),
-						    fontSizeMultiplier,
 						    tr("Continue"), tr("Stop"),
 						    QSize(300,200), "default", "rgba(0,0,0,240)", this->parentWidget());
 			confirmNew->show();

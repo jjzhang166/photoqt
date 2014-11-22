@@ -54,7 +54,7 @@ QuickSettings::QuickSettings(QMap<QString, QVariant> set, bool v, QWidget *paren
 	// Title of widget
 	CustomLabel *title = new CustomLabel(tr("Quick Settings"));
 	title->setAlignment(Qt::AlignCenter);
-	title->setFontSize(13*globSet.value("FontSizeMultiplier").toDouble());
+	title->setFontSize(13);
 	title->setBold(true);
 	// Description what this widget is for
 	CustomLabel *desc = new CustomLabel(tr("Change settings with one click. They are saved and applied immediately. If you're unsure what a setting does, check the full settings for descriptions."));

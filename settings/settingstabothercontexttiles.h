@@ -34,7 +34,7 @@ class ContextTile : public QWidget {
 	Q_OBJECT
 
 public:
-	ContextTile(double fontSizeMultiplier, QString cmdTxt, QString descTxt, QWidget *parent = 0);
+	ContextTile(QString cmdTxt, QString descTxt, QWidget *parent = 0);
 	~ContextTile();
 
 	// The command and the menu text

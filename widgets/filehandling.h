@@ -40,7 +40,7 @@ class FileHandling : public MyWidget {
 	Q_OBJECT
 
 public:
-	FileHandling(double fontSizeMultiplier, QWidget *parent = 0, bool verbose = false, QString cf = "");
+	FileHandling(QWidget *parent = 0, bool verbose = false, QString cf = "");
 	~FileHandling();
 
 	bool verbose;

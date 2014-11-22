@@ -30,7 +30,7 @@ class SettingsTabOtherFileTypesTiles : public QWidget {
 	Q_OBJECT
 
 public:
-	SettingsTabOtherFileTypesTiles(double fontSizeMultiplier, QString ftype, QWidget *parent = 0);
+	SettingsTabOtherFileTypesTiles(QString ftype, QWidget *parent = 0);
 	~SettingsTabOtherFileTypesTiles();
 
 	QString filetype;

@@ -35,9 +35,9 @@ class MyWidget : public QWidget {
 
 public:
 	// Different constructors
-	MyWidget(double fontSizeMultiplier, QString borderColor = "", QString backgroundColor = "", QWidget *parent = 0);
-	MyWidget(double fontSizeMultiplier, int layoutMargin = 10, QWidget *parent = 0);
-	MyWidget(double fontSizeMultiplier, QWidget *parent = 0);
+	MyWidget(QString borderColor = "", QString backgroundColor = "", QWidget *parent = 0);
+	MyWidget(int layoutMargin = 10, QWidget *parent = 0);
+	MyWidget(QWidget *parent = 0);
 	~MyWidget();
 
 	// Show/Hide
@@ -106,7 +106,6 @@ private:
 	int borderLeftRight;
 	int borderTopDown;
 	bool fullscreen;
-	double fontSizeMultiplier;
 
 	// Central widget and layout
 	QVBoxLayout *mainlayout;

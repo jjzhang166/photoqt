@@ -31,7 +31,7 @@ class SettingsTabExifTiles : public QWidget {
 	Q_OBJECT
 
 public:
-	SettingsTabExifTiles(double fontSizeMultiplier, QString exifTxt, QString exifIntern, QWidget *parent = 0);
+	SettingsTabExifTiles(QString exifTxt, QString exifIntern, QWidget *parent = 0);
 	~SettingsTabExifTiles();
 
 	// This string holds the exif key value (the itemsShort list in settingstabexif.cpp)

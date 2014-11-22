@@ -10,7 +10,7 @@ ImageReader::ImageReader(bool v) : QObject() {
 
 }
 
-QImage ImageReader::readImage(QString filename, int rotation, bool zoomed, QSize maxSize, double fontSizeMultiplier, bool dontscale) {
+QImage ImageReader::readImage(QString filename, int rotation, bool zoomed, QSize maxSize, bool dontscale) {
 
 
 	if(verbose) std::clog << "[reader] zoomed: " << zoomed << std::endl;
@@ -20,12 +20,12 @@ QImage ImageReader::readImage(QString filename, int rotation, bool zoomed, QSize
 
 	// for SVG, we first need to load it properly...
 	if(useMagick)
-		return readImage_GM(filename, rotation, zoomed, maxSize, fontSizeMultiplier, dontscale);
-	return readImage_QT(filename, rotation, zoomed, maxSize, fontSizeMultiplier, dontscale);
+		return readImage_GM(filename, rotation, zoomed, maxSize, dontscale);
+	return readImage_QT(filename, rotation, zoomed, maxSize, dontscale);
 
 }
 
-QImage ImageReader::readImage_QT(QString filename, int rotation, bool zoomed, QSize maxSize, double fontSizeMultiplier, bool dontscale) {
+QImage ImageReader::readImage_QT(QString filename, int rotation, bool zoomed, QSize maxSize, bool dontscale) {
 
 	// For reading SVG files
 	QSvgRenderer svg;
@@ -51,7 +51,7 @@ QImage ImageReader::readImage_QT(QString filename, int rotation, bool zoomed, QS
 			QPixmap pix(":/img/plainerrorimg.png");
 			QPainter paint(&pix);
 			QTextDocument txt;
-			txt.setHtml(QString("<center><div style=\"text-align: center; font-size: %1pt; font-wight: bold; color: white; background: none;\">ERROR LOADING IMAGE<br><br><bR>The file doesn't contain valid a vector graphic</div></center>").arg(12*fontSizeMultiplier));
+			txt.setHtml("<center><div style=\"text-align: center; font-size: 12pt; font-wight: bold; color: white; background: none;\">ERROR LOADING IMAGE<br><br><bR>The file doesn't contain valid a vector graphic</div></center>");
 			paint.translate(100,150);
 			txt.setTextWidth(440);
 			txt.drawContents(&paint);
@@ -180,7 +180,7 @@ QImage ImageReader::readImage_QT(QString filename, int rotation, bool zoomed, QS
 }
 
 // If GraphicsMagick supports the file format,
-QImage ImageReader::readImage_GM(QString filename, int rotation, bool zoomed, QSize maxSize, double fontSizeMultiplier, bool dontscale) {
+QImage ImageReader::readImage_GM(QString filename, int rotation, bool zoomed, QSize maxSize, bool dontscale) {
 
 #ifdef GM
 
@@ -297,7 +297,7 @@ QImage ImageReader::readImage_GM(QString filename, int rotation, bool zoomed, QS
 		QPixmap pix(":/img/plainerrorimg.png");
 		QPainter paint(&pix);
 		QTextDocument txt;
-		txt.setHtml(QString("<center><div style=\"text-align: center; font-size: %1pt; font-wight: bold; color: white; background: none;\">ERROR LOADING IMAGE<br><br><bR>" + QString(error_.what()) + "</div></center>").arg(12*fontSizeMultiplier));
+		txt.setHtml("<center><div style=\"text-align: center; font-size: 12pt; font-wight: bold; color: white; background: none;\">ERROR LOADING IMAGE<br><br><bR>" + QString(error_.what()) + "</div></center>");
 		paint.translate(100,150);
 		txt.setTextWidth(440);
 		txt.drawContents(&paint);

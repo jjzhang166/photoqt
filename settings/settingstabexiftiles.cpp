@@ -17,13 +17,13 @@
 #include "settingstabexiftiles.h"
 #include <iostream>
 
-SettingsTabExifTiles::SettingsTabExifTiles(double fontSizeMultiplier, QString exifTxt, QString exifIntern, QWidget *parent) : QWidget(parent) {
+SettingsTabExifTiles::SettingsTabExifTiles(QString exifTxt, QString exifIntern, QWidget *parent) : QWidget(parent) {
 
 	this->setObjectName("tile");
 
 	// The standard default stylesheet
 	css = "#tile { border-radius: 5px; padding: 1px;";
-	cssOff = QString("#tile { border-radius: 5px; padding: 1px; font-size: %1pt;").arg(8*fontSizeMultiplier);
+	cssOff = "#tile { border-radius: 5px; padding: 1px; font-size: 8pt;";
 
 	// Some special stylesheet for hovered and normal
 	cssBackgroundNorm = "background: rgba(255,255,255,150); }";
@@ -32,7 +32,7 @@ SettingsTabExifTiles::SettingsTabExifTiles(double fontSizeMultiplier, QString ex
 	cssBackgroundOffNorm = "background: rgba(255,255,255,100); }";
 	cssBackgroundOffHov = "background: rgba(255,255,255,150); }";
 
-	cssToolTip = QString("QToolTip {font-weight: bold; color: black; border-radius: 5px; padding: 1px; font-size: %1pt; background: rgba(255,255,255,200); }").arg(8*fontSizeMultiplier);
+	cssToolTip = "QToolTip {font-weight: bold; color: black; border-radius: 5px; padding: 1px; font-size: 8pt; background: rgba(255,255,255,200); }";
 
 	// Main Layout
 	QVBoxLayout *lay = new QVBoxLayout;
@@ -46,7 +46,7 @@ SettingsTabExifTiles::SettingsTabExifTiles(double fontSizeMultiplier, QString ex
 	// The back label is being styled
 	back = new CustomLabel("<center>" + exifTxt + "</center>");
 	back->setFontColor("black");
-	back->setFontSize(7*fontSizeMultiplier);
+	back->setFontSize(7);
 	back->setBold(true);
 	back->setToolTip(exifTxt);
 

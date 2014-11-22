@@ -16,13 +16,13 @@
 
 #include "settingstabotherfiletypestiles.h"
 
-SettingsTabOtherFileTypesTiles::SettingsTabOtherFileTypesTiles(double fontSizeMultiplier, QString ftype, QWidget *parent) : QWidget(parent) {
+SettingsTabOtherFileTypesTiles::SettingsTabOtherFileTypesTiles(QString ftype, QWidget *parent) : QWidget(parent) {
 
 	this->setObjectName("tile");
 
 	// The standard default stylesheet
-	css = QString("#tile { font-weight: bold; color: black; border-radius: 5px; padding: 1px; font-size: %1pt;").arg(8*fontSizeMultiplier);
-	cssOff = QString("#tile { font-weight: bold; color: rgb(30,30,30); border-radius: 5px; padding: 1px; font-size: %1pt;").arg(8*fontSizeMultiplier);
+	css = "#tile { font-weight: bold; color: black; border-radius: 5px; padding: 1px; font-size: 8pt;";
+	cssOff = "#tile { font-weight: bold; color: rgb(30,30,30); border-radius: 5px; padding: 1px; font-size: 8pt;";
 
 	// Some special stylesheet for hovered and normal
 	cssBackgroundNorm = "background: rgba(255,255,255,150); }";
@@ -31,7 +31,7 @@ SettingsTabOtherFileTypesTiles::SettingsTabOtherFileTypesTiles(double fontSizeMu
 	cssBackgroundOffNorm = "background: rgba(255,255,255,100); }";
 	cssBackgroundOffHov = "background: rgba(255,255,255,150); }";
 
-	cssToolTip = QString("QToolTip {font-weight: bold; color: black; border-radius: 5px; padding: 1px; font-size: %1pt; background: rgba(255,255,255,200); }").arg(8*fontSizeMultiplier);
+	cssToolTip = "QToolTip {font-weight: bold; color: black; border-radius: 5px; padding: 1px; font-size: 8pt; background: rgba(255,255,255,200); }";
 
 	// Main Layout
 	QVBoxLayout *lay = new QVBoxLayout;
@@ -45,7 +45,7 @@ SettingsTabOtherFileTypesTiles::SettingsTabOtherFileTypesTiles(double fontSizeMu
 	// The back label is being styled
 	back = new CustomLabel("<center>" + ftype + "</center>");
 	back->setFontColor("black");
-	back->setFontSize(8*fontSizeMultiplier);
+	back->setFontSize(8);
 	back->setWordWrap(true);
 	back->setBold(true);
 

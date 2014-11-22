@@ -16,10 +16,9 @@
 
 #include "settingstabshortcutskeydetect.h"
 
-ShortcutKeyDetect::ShortcutKeyDetect(double fontSizeMultiplier, QWidget *parent) : MyWidget(fontSizeMultiplier, parent) {
+ShortcutKeyDetect::ShortcutKeyDetect(QWidget *parent) : MyWidget(parent) {
 
 	this->setVisibleArea(QSize(500,400));
-	this->fontSizeMultiplier = fontSizeMultiplier;
 
 	// The current category
 	cat = "";
@@ -27,12 +26,12 @@ ShortcutKeyDetect::ShortcutKeyDetect(double fontSizeMultiplier, QWidget *parent)
 	// the title label
 	CustomLabel *t = new CustomLabel("<center>" + tr("Detecting Shortcut") + "</center>");
 	t->setWordWrap(true);
-	t->setFontSize(15*fontSizeMultiplier);
+	t->setFontSize(15);
 	t->setBold(true);
 
 	// the function label
 	function = new CustomLabel("<center>function</center>");
-	function->setFontSize(10*fontSizeMultiplier);
+	function->setFontSize(10);
 	function->setItalic(true);
 
 	// The two radiobuttons to switch between the two shortcut types
@@ -50,13 +49,13 @@ ShortcutKeyDetect::ShortcutKeyDetect(double fontSizeMultiplier, QWidget *parent)
 
 	// The key combination label
 	keyCombo = new CustomLabel;
-	keyCombo->setFontSize(12*fontSizeMultiplier);
+	keyCombo->setFontSize(12);
 
 	// This label shows an error message when the shortcut is already set
 	keyExistsError = new CustomLabel(" ");
 	keyExistsError->setFontColor("red");
 	keyExistsError->setBold(true);
-	keyExistsError->setFontSize(10*fontSizeMultiplier);
+	keyExistsError->setFontSize(10);
 	keyExistsError->setWordWrap(true);
 
 	// A combobox for the modifiers for a mouse action
@@ -151,7 +150,7 @@ void ShortcutKeyDetect::setRightTypeDisEnabled() {
 
 	if(mouseShortcut->isChecked()) {
 		keyCombo->setEnabled(false);
-		keyCombo->setStyleSheet(QString("color: grey; font-size: %1pt; background: transparent").arg(12*fontSizeMultiplier));
+		keyCombo->setStyleSheet("color: grey; font-size: 12pt; background: transparent");
 		mouseMod->setEnabled(true);
 		mouseBut->setEnabled(true);
 		okAndSet->setEnabled(true);
@@ -159,7 +158,7 @@ void ShortcutKeyDetect::setRightTypeDisEnabled() {
 		keyCombo->setText("<center>&lt;" + tr("Press a key combination") + "&gt;</center>");
 	} else {
 		keyCombo->setEnabled(true);
-		keyCombo->setStyleSheet(QString("color: white; font-size: %1pt; background: transparent").arg(12*fontSizeMultiplier));
+		keyCombo->setStyleSheet("color: white; font-size: 12pt; background: transparent");
 		mouseMod->setEnabled(false);
 		mouseBut->setEnabled(false);
 		okAndSet->setEnabled(false);

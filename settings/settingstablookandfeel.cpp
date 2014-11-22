@@ -24,9 +24,6 @@ SettingsTabLookAndFeel::SettingsTabLookAndFeel(QWidget *parent, QMap<QString, QV
 
 	verbose = v;
 
-	// Store in double for easier use below
-	double fontSizeMultiplier = set.value("FontSizeMultiplier").toDouble();
-
 	// Style widget
 	this->setObjectName("tablookfeel");
 	this->setStyleSheet("#tablookfeel { background: transparent; color: white; }");
@@ -94,7 +91,7 @@ SettingsTabLookAndFeel::SettingsTabLookAndFeel(QWidget *parent, QMap<QString, QV
 	QString compTxt = tr("The background of PhotoQt is the part, that is not covered by an image. It can be made either real (half-)transparent (using a compositor), or faked transparent (instead of the actual desktop a screenshot of it is shown), or a custom background image can be set, or none of the above.");
 	compTxt += "<br>";
 	compTxt += tr("Note: Fake transparency currently only really works when PhotoQt is run in fullscreen/maximised!");
-	CustomLabel *compositeImageLabel = new CustomLabel(QString("<b><span style=\"font-size: %1pt\">").arg(12*fontSizeMultiplier) + tr("Background of PhotoQt") + "</span></b><br><br>" + compTxt);
+	CustomLabel *compositeImageLabel = new CustomLabel("<b><span style=\"font-size: 12pt\">" + tr("Background of PhotoQt") + "</span></b><br><br>" + compTxt);
 	compositeImageLabel->setWordWrap(true);
 
 	QVBoxLayout *compLay1 = new QVBoxLayout;
@@ -164,7 +161,7 @@ SettingsTabLookAndFeel::SettingsTabLookAndFeel(QWidget *parent, QMap<QString, QV
 	// OPTION TO ADJUST BACKGROUND COLOR
 	background = new QColorDialog;
 	background->setOption(QColorDialog::ShowAlphaChannel);
-	CustomLabel *backgroundLabel = new CustomLabel(QString("<b><span style=\"font-size: %1pt\">").arg(12*fontSizeMultiplier) + tr("Background/Overlay Color") + "</span></b><br><br>" + tr("Here you can adjust the background colour of PhotoQt (of the part not covered by an image). When using compositing or a background image, then you can also specify an alpha value, i.e. the transparency of the coloured overlay layer. When neither compositing is enabled nor a background image is set, then this colour will be the non-transparent background of PhotoQt."));
+	CustomLabel *backgroundLabel = new CustomLabel("<b><span style=\"font-size:12pt\">" + tr("Background/Overlay Color") + "</span></b><br><br>" + tr("Here you can adjust the background colour of PhotoQt (of the part not covered by an image). When using compositing or a background image, then you can also specify an alpha value, i.e. the transparency of the coloured overlay layer. When neither compositing is enabled nor a background image is set, then this colour will be the non-transparent background of PhotoQt."));
 	backgroundLabel->setWordWrap(true);
 	selectCol = new CustomPushButton(tr("Click to change color!"));
 	selectCol->setPadding(25);
@@ -182,7 +179,7 @@ SettingsTabLookAndFeel::SettingsTabLookAndFeel(QWidget *parent, QMap<QString, QV
 
 	// OPTION FOR TRAY ICON USAGE
 	trayIcon = new CustomCheckBox(tr("Hide to Tray Icon"));
-	CustomLabel *trayIconLabel = new CustomLabel(QString("<b><span style=\"font-size: %1pt\">").arg(12*fontSizeMultiplier) + tr("Hide to Tray Icon") + "</span></b><br><br>" + tr("When started PhotoQt creates a tray icon in the system tray. If desired, you can set PhotoQt to minimise to the tray instead of quitting. This causes PhotoQt to be almost instantaneously available when an image is opened.") + "<br>" + tr("It is also possible to start PhotoQt already minimised to the tray (e.g. at system startup) when called with \"--start-in-tray\"."));
+	CustomLabel *trayIconLabel = new CustomLabel("<b><span style=\"font-size:12pt\">" + tr("Hide to Tray Icon") + "</span></b><br><br>" + tr("When started PhotoQt creates a tray icon in the system tray. If desired, you can set PhotoQt to minimise to the tray instead of quitting. This causes PhotoQt to be almost instantaneously available when an image is opened.") + "<br>" + tr("It is also possible to start PhotoQt already minimised to the tray (e.g. at system startup) when called with \"--start-in-tray\"."));
 	trayIconLabel->setWordWrap(true);
 	QHBoxLayout *trayIconLay = new QHBoxLayout;
 	trayIconLay->addStretch();
@@ -197,7 +194,7 @@ SettingsTabLookAndFeel::SettingsTabLookAndFeel(QWidget *parent, QMap<QString, QV
 
 	// OPTION FOR LOOPING THROUGH FOLDER
 	loopThroughFolder = new CustomCheckBox(tr("Loop Through Folder"));
-	CustomLabel *loopLabel = new CustomLabel(QString("<b><span style=\"font-size: %1pt\">").arg(12*fontSizeMultiplier) + tr("Looping Through Folder") + "</span></b><hr>" + tr("When you load the last image in a directory and select \"Next\", PhotoQt automatically jumps to the first image (and vice versa: if you select \"Previous\" while having the first image loaded, PhotoQt jumps to the last image). Disabling this option makes PhotoQt stop at the first/last image (i.e. selecting \"Next\"/\"Previous\" will have no effect in these two special cases)."));
+	CustomLabel *loopLabel = new CustomLabel("<b><span style=\"font-size: 12pt\">" + tr("Looping Through Folder") + "</span></b><hr>" + tr("When you load the last image in a directory and select \"Next\", PhotoQt automatically jumps to the first image (and vice versa: if you select \"Previous\" while having the first image loaded, PhotoQt jumps to the last image). Disabling this option makes PhotoQt stop at the first/last image (i.e. selecting \"Next\"/\"Previous\" will have no effect in these two special cases)."));
 	loopLabel->setWordWrap(true);
 	QHBoxLayout *loopLay = new QHBoxLayout;
 	loopLay->addStretch();
@@ -210,7 +207,7 @@ SettingsTabLookAndFeel::SettingsTabLookAndFeel(QWidget *parent, QMap<QString, QV
 
 
 	// OPTION TO ADJUST SORTING OF IMAGES
-	CustomLabel *sortByLabel = new CustomLabel(QString("<b><span style=\"font-size: %1pt\">").arg(12*fontSizeMultiplier) + tr("Sort Images") + "</span></b><hr>" + tr("Here you can adjust, how the images in a folder are supposed to be sorted. You can sort them by Filename, Natural Name (e.g., file10.jpg comes after file9.jpg and not after file1.jpg), File Size, and Date. Also, you can reverse the sorting order from ascending to descending if wanted.") + "<br><br><b>" + tr("Hint: You can also change this setting very quickly from the 'Quick Settings'' window, hidden behind the right screen edge.") + "</b>");
+	CustomLabel *sortByLabel = new CustomLabel("<b><span style=\"font-size: 12pt\">" + tr("Sort Images") + "</span></b><hr>" + tr("Here you can adjust, how the images in a folder are supposed to be sorted. You can sort them by Filename, Natural Name (e.g., file10.jpg comes after file9.jpg and not after file1.jpg), File Size, and Date. Also, you can reverse the sorting order from ascending to descending if wanted.") + "<br><br><b>" + tr("Hint: You can also change this setting very quickly from the 'Quick Settings'' window, hidden behind the right screen edge.") + "</b>");
 	CustomLabel *sortByIntro = new CustomLabel(tr("Sort by:"));
 	sortBy = new CustomComboBox;
 	sortBy->addItem(tr("Name"),"name");
@@ -244,7 +241,7 @@ SettingsTabLookAndFeel::SettingsTabLookAndFeel(QWidget *parent, QMap<QString, QV
 	transition->setOrientation(Qt::Horizontal);
 	transition->setTickPosition(QSlider::TicksBelow);
 	transition->setPageStep(1);
-	CustomLabel *transLabel = new CustomLabel(QString("<b><span style=\"font-size: %1pt\">").arg(12*fontSizeMultiplier) + tr("Smooth Transition") + "</span></b> " + "<hr>" + tr("Switching between images can be done smoothly, the new image can be set to fade into the old image."));
+	CustomLabel *transLabel = new CustomLabel("<b><span style=\"font-size:12pt\">" + tr("Smooth Transition") + "</span></b> " + "<hr>" + tr("Switching between images can be done smoothly, the new image can be set to fade into the old image."));
 	transLabel->setWordWrap(true);
 	CustomLabel *noTrans = new CustomLabel(tr("No Fading"));
 	CustomLabel *longTrans = new CustomLabel(tr("Long Transition"));
@@ -263,7 +260,7 @@ SettingsTabLookAndFeel::SettingsTabLookAndFeel(QWidget *parent, QMap<QString, QV
 
 
 	// OPTION FOR MENU SENSITIVITY
-	CustomLabel *menuLabel = new CustomLabel(QString("<b><span style=\"font-size: %1pt\">").arg(12*fontSizeMultiplier) + tr("Menu Sensitivity") + "</span></b><hr>" + tr("Here you can adjust the sensitivity of the drop-down menu. The menu opens when your mouse cursor gets close to the right side of the upper edge. Here you can adjust how close you need to get for it to open."));
+	CustomLabel *menuLabel = new CustomLabel("<b><span style=\"font-size: 12pt\">" + tr("Menu Sensitivity") + "</span></b><hr>" + tr("Here you can adjust the sensitivity of the drop-down menu. The menu opens when your mouse cursor gets close to the right side of the upper edge. Here you can adjust how close you need to get for it to open."));
 	menuLabel->setWordWrap(true);
 	QHBoxLayout *menuLay = new QHBoxLayout;
 	CustomLabel *menuLabelLeft = new CustomLabel(tr("Low Sensitivity"));
@@ -284,7 +281,7 @@ SettingsTabLookAndFeel::SettingsTabLookAndFeel(QWidget *parent, QMap<QString, QV
 
 
 	// OPTION TO ADJUST THE MOUSE WHEEL SENSITIVITY
-	CustomLabel *wheelSensitivityLabel = new CustomLabel(QString("<b><span style=\"font-size: %1pt\">").arg(12*fontSizeMultiplier) + tr("Mouse Wheel Sensitivity") + "</span></b><hr>" + tr("Here you can adjust the sensitivity of the mouse wheel. For example, if you have set the mouse wheel up/down for switching back and forth between images, then a lower sensitivity means that you will have to scroll further for triggering a shortcut. Per default it is set to the highest sensitivity, i.e. every single wheel movement is evaluated."));
+	CustomLabel *wheelSensitivityLabel = new CustomLabel("<b><span style=\"font-size: 12pt\">" + tr("Mouse Wheel Sensitivity") + "</span></b><hr>" + tr("Here you can adjust the sensitivity of the mouse wheel. For example, if you have set the mouse wheel up/down for switching back and forth between images, then a lower sensitivity means that you will have to scroll further for triggering a shortcut. Per default it is set to the highest sensitivity, i.e. every single wheel movement is evaluated."));
 	wheelSensitivityLabel->setWordWrap(true);
 	QHBoxLayout *wheelLay = new QHBoxLayout;
 	CustomLabel *wheelLabelLeft = new CustomLabel(tr("Very sensitive"));
@@ -305,7 +302,7 @@ SettingsTabLookAndFeel::SettingsTabLookAndFeel(QWidget *parent, QMap<QString, QV
 
 
 	// Adjust window mode
-	CustomLabel *windowModeLabel = new CustomLabel(QString("<b><span style=\"font-size: %1pt\">").arg(12*fontSizeMultiplier) + tr("Window Mode") + "</span></b><br><br>" + tr("PhotoQt is designed with the space of a fullscreen app in mind. That's why it by default runs as fullscreen. However, some might prefer to have it as a normal window, e.g. so that they can see the panel.") + "<br><b></b>");
+	CustomLabel *windowModeLabel = new CustomLabel("<b><span style=\"font-size:12pt\">" + tr("Window Mode") + "</span></b><br><br>" + tr("PhotoQt is designed with the space of a fullscreen app in mind. That's why it by default runs as fullscreen. However, some might prefer to have it as a normal window, e.g. so that they can see the panel.") + "<br><b></b>");
 	windowModeLabel->setWordWrap(true);
 	windowMode = new CustomCheckBox(tr("Run PhotoQt in Window Mode"));
 	windowDeco = new CustomCheckBox(tr("Show Window Decoration"));
@@ -326,7 +323,7 @@ SettingsTabLookAndFeel::SettingsTabLookAndFeel(QWidget *parent, QMap<QString, QV
 
 	// OPTION FOR CLOSING ON CLICK ON GREY
 	grey = new CustomCheckBox(tr("Close on Click in empty area"));
-	CustomLabel *greyLabel = new CustomLabel(QString("<b><span style=\"font-size: %1pt\">").arg(12*fontSizeMultiplier) + tr("Close on Click in empty area") + "</span></b><hr>" + tr("This option makes PhotoQt behave a bit like the JavaScript image viewers you find on many websites. A click outside of the image on the empty background will close the application. It can be a nice feature, PhotoQt will feel even more like a \"floating layer\". However, you might at times close PhotoQt accidentally.") + "<br><br>" + tr("Note: If you use a mouse click for a shortcut already, then this option wont have any effect!"));
+	CustomLabel *greyLabel = new CustomLabel("<b><span style=\"font-size: 12pt\">" + tr("Close on Click in empty area") + "</span></b><hr>" + tr("This option makes PhotoQt behave a bit like the JavaScript image viewers you find on many websites. A click outside of the image on the empty background will close the application. It can be a nice feature, PhotoQt will feel even more like a \"floating layer\". However, you might at times close PhotoQt accidentally.") + "<br><br>" + tr("Note: If you use a mouse click for a shortcut already, then this option wont have any effect!"));
 	greyLabel->setWordWrap(true);
 	QHBoxLayout *greyLay = new QHBoxLayout;
 	greyLay->addStretch();
@@ -348,7 +345,7 @@ SettingsTabLookAndFeel::SettingsTabLookAndFeel(QWidget *parent, QMap<QString, QV
 	borderAroundImgSpinBox->setMinimum(0);
 	borderAroundImgSpinBox->setMaximum(50);
 	borderAroundImgSpinBox->setSuffix(" px");
-	CustomLabel *borderLabel = new CustomLabel(QString("<b><span style=\"font-size: %1pt\">").arg(12*fontSizeMultiplier) + tr("Border Around Image") + "</span></b><br><hr>" + tr("Whenever you load an image, the image is per default not shown completely in fullscreen, i.e. it's not stretching from screen edge to screen edge. Instead there is a small margin around the image of a couple pixels (looks better). Here you can adjust the width of this margin (set to 0 to disable it)."));
+	CustomLabel *borderLabel = new CustomLabel("<b><span style=\"font-size: 12pt\">" + tr("Border Around Image") + "</span></b><br><hr>" + tr("Whenever you load an image, the image is per default not shown completely in fullscreen, i.e. it's not stretching from screen edge to screen edge. Instead there is a small margin around the image of a couple pixels (looks better). Here you can adjust the width of this margin (set to 0 to disable it)."));
 	borderLabel->setWordWrap(true);
 	QHBoxLayout *borderLay = new QHBoxLayout;
 	borderLay->addStretch();
@@ -364,7 +361,7 @@ SettingsTabLookAndFeel::SettingsTabLookAndFeel(QWidget *parent, QMap<QString, QV
 
 
 	// OPTION FOR HIDING SOME/ALL QUICKINFO
-	CustomLabel *hideQuickInfoLabel = new CustomLabel(QString("<b><span style=\"font-size: %1pt\">").arg(12*fontSizeMultiplier) + tr("Hide Quickinfo (Text Labels)") + "</span></b><hr>" + tr("Here you can hide the text labels shown in the main area: The Counter in the top left corner, the file path/name following the counter, and the \"X\" displayed in the top right corner. The labels can also be hidden by simply right-clicking on them and selecting \"Hide\"."));
+	CustomLabel *hideQuickInfoLabel = new CustomLabel("<b><span style=\"font-size: 12pt\">" + tr("Hide Quickinfo (Text Labels)") + "</span></b><hr>" + tr("Here you can hide the text labels shown in the main area: The Counter in the top left corner, the file path/name following the counter, and the \"X\" displayed in the top right corner. The labels can also be hidden by simply right-clicking on them and selecting \"Hide\"."));
 	hideQuickInfoLabel->setWordWrap(true);
 	QHBoxLayout *hideQuickInfoLay = new QHBoxLayout;
 	QVBoxLayout *hideQuickInfoColLay = new QVBoxLayout;
@@ -386,7 +383,7 @@ SettingsTabLookAndFeel::SettingsTabLookAndFeel(QWidget *parent, QMap<QString, QV
 
 
 	// Option to adjust size and look of closing X
-	CustomLabel *closeXsizeLabel = new CustomLabel(QString("<b><span style=\"font-size: %1pt\">").arg(12*fontSizeMultiplier) + tr("Closing 'X' (top right)") + "</span></b><hr>" + tr("There are two looks for the closing 'x' at the top right: a normal 'x', or a slightly more fancy 'x'. Here you can switch back and forth between both of them, and also change their size. If you prefer not to have a closing 'x' at all, see above for an option to hide it."));
+	CustomLabel *closeXsizeLabel = new CustomLabel("<b><span style=\"font-size: 12pt\">" + tr("Closing 'X' (top right)") + "</span></b><hr>" + tr("There are two looks for the closing 'x' at the top right: a normal 'x', or a slightly more fancy 'x'. Here you can switch back and forth between both of them, and also change their size. If you prefer not to have a closing 'x' at all, see above for an option to hide it."));
 	closeXsizeLabel->setWordWrap(true);
 	closeXsize = new CustomSlider;
 	closeXsize->setMinimum(5);

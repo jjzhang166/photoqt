@@ -53,7 +53,7 @@ ViewBigLay::ViewBigLay(QMap<QString, QVariant> set, bool v) : QVBoxLayout() {
 	closeWindowX = new QuickInfoLabel(0,"closewindowXTOP",verbose);
 	closeWindowX->setAlignment(Qt::AlignTop);
 	closeWindowX->setText("x");
-	closeWindowX->setStyleSheet(QString("color: white; font-weight: bold; font-size: %1pt").arg(10*globSet.value("FontSizeMultiplier").toDouble()));
+	closeWindowX->setStyleSheet("color: white; font-weight: bold; font-size: 10pt");
 	closeWindowX->setCursor(Qt::PointingHandCursor);
 	closeWindowX->setVisible(!globSet.value("HideX").toBool());
 	QSignalMapper *mapperXTOP = new QSignalMapper;
@@ -125,7 +125,7 @@ void ViewBigLay::setSettings(QMap<QString, QVariant> set) {
 	quickInfoCounterBOT->hideFilepathShowFilename = set.value("HideFilepathShowFilename").toBool();
 	quickInfoFilenameBOT->hideFilepathShowFilename = set.value("HideFilepathShowFilename").toBool();
 
-	int xsize = set.value("CloseXSize").toInt()*set.value("FontSizeMultiplier").toDouble();
+	int xsize = set.value("CloseXSize").toInt();
 	if(set.value("FancyX").toBool()) {
 		qDebug() << "Fancy X";
 		closeWindowX->setText("");

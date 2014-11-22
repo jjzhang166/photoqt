@@ -24,9 +24,6 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 
 	verbose = v;
 
-	// Store in double for easier use below
-	double fontSizeMultiplier = set.value("FontSizeMultiplier").toDouble();
-
 	this->setObjectName("tabother");
 	this->setStyleSheet("#tabother { background: transparent; color: white; }");
 
@@ -86,7 +83,7 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 
 
 	// CHOOSE A LANGUAGE
-	CustomLabel *langLabel = new CustomLabel(QString("<b><span style=\"font-size: %1pt\">").arg(12*fontSizeMultiplier) + tr("Choose Language") + "</span></b><br><br>" + tr("There are a good few different languages available. Thanks to everybody who took the time to translate PhotoQt!"));
+	CustomLabel *langLabel = new CustomLabel("<b><span style=\"font-size:12pt\">" + tr("Choose Language") + "</span></b><br><br>" + tr("There are a good few different languages available. Thanks to everybody who took the time to translate PhotoQt!"));
 	langLabel->setWordWrap(true);
 	layOther->addWidget(langLabel);
 	layOther->addSpacing(15);
@@ -199,7 +196,7 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 
 	for(int i = 0; i < langDesc.length(); ++i) {
 
-		SettingsTabOtherLanguageTiles *tile = new SettingsTabOtherLanguageTiles(globSet.value("FontSizeMultiplier").toDouble(), langDesc.at(i), langShort.at(i));
+		SettingsTabOtherLanguageTiles *tile = new SettingsTabOtherLanguageTiles(langDesc.at(i), langShort.at(i));
 		allLangTiles << tile;
 		langButGrp->addButton(tile->button);
 		langLay->addWidget(tile);
@@ -216,7 +213,7 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 
 
 	// Adjust quick settings trigering
-	CustomLabel *quickSetLabel = new CustomLabel(QString("<b><span style=\"font-size: %1pt\">").arg(12*fontSizeMultiplier) + tr("Quick Settings") + "</span></b><br><br>" + tr("The 'Quick Settings' is a widget hidden on the right side of the screen. When you move the cursor there, it shows up, and you can adjust a few simple settings on the spot without having to go through this settings dialog. Of course, only a small subset of settings is available (the ones needed most often). Here you can disable the dialog so that it doesn't show on mouse movement anymore."));
+	CustomLabel *quickSetLabel = new CustomLabel("<b><span style=\"font-size:12pt\">" + tr("Quick Settings") + "</span></b><br><br>" + tr("The 'Quick Settings' is a widget hidden on the right side of the screen. When you move the cursor there, it shows up, and you can adjust a few simple settings on the spot without having to go through this settings dialog. Of course, only a small subset of settings is available (the ones needed most often). Here you can disable the dialog so that it doesn't show on mouse movement anymore."));
 	quickSet = new CustomCheckBox(tr("Show 'Quick Settings' on mouse hovering"));
 	QHBoxLayout *quickSetLay = new QHBoxLayout;
 	quickSetLay->addStretch();
@@ -231,8 +228,8 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 
 
 	// Adjust context menu
-	CustomLabel *contextMenuLabel = new CustomLabel(QString("<b><span style=\"font-size: %1pt\">").arg(12*fontSizeMultiplier) + tr("Adjust Context Menu") + "</span></b><br><br>" + tr("Here you can adjust the context menu. You can simply drag and drop the entries, edit them, add a new one and remove an existing one."));
-	context = new Context(fontSizeMultiplier);
+	CustomLabel *contextMenuLabel = new CustomLabel("<b><span style=\"font-size:12pt\">" + tr("Adjust Context Menu") + "</span></b><br><br>" + tr("Here you can adjust the context menu. You can simply drag and drop the entries, edit them, add a new one and remove an existing one."));
+	context = new Context;
 	QHBoxLayout *contextLay = new QHBoxLayout;
 	contextLay->addStretch();
 	contextLay->addWidget(context);
@@ -262,7 +259,7 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 
 
 	// Adjust known file formats
-	CustomLabel *titleQt = new CustomLabel(QString("<b><span style=\"font-size: %1pt\">").arg(12*fontSizeMultiplier) + tr("File Types - Qt") + "</span></b><br><br>" + tr("These are the file types natively supported by Qt. Make sure, that you'll have the required libraries installed (e.g., qt5-imageformats), otherwise some of them might not work on your system.") + "<br>" + tr("If a file ending for one of the formats is missing, you can add it below, formatted like '*.ending' (without single quotation marks), multiple entries seperated by commas.") + "</b>");
+	CustomLabel *titleQt = new CustomLabel("<b><span style=\"font-size:12pt\">" + tr("File Types - Qt") + "</span></b><br><br>" + tr("These are the file types natively supported by Qt. Make sure, that you'll have the required libraries installed (e.g., qt5-imageformats), otherwise some of them might not work on your system.") + "<br>" + tr("If a file ending for one of the formats is missing, you can add it below, formatted like '*.ending' (without single quotation marks), multiple entries seperated by commas.") + "</b>");
 	titleQt->setWordWrap(true);
 
 	FlowLayout *layQt = new FlowLayout;
@@ -284,7 +281,7 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 
 	for(int i = 0; i < formatsQt.length()/2; ++i) {
 
-		SettingsTabOtherFileTypesTiles *check = new SettingsTabOtherFileTypesTiles(globSet.value("FontSizeMultiplier").toDouble(), formatsQt.at(2*i+1));
+		SettingsTabOtherFileTypesTiles *check = new SettingsTabOtherFileTypesTiles(formatsQt.at(2*i+1));
 		check->setToolTip(formatsQt.at(2*i) + " (" + formatsQt.at(2*i+1) + ")");
 		allCheckQt.insert(formatsQt.at(2*i+1),check);
 		layQt->addWidget(check);
@@ -330,7 +327,7 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 	 *  GM WORKING  *
 	 ****************/
 
-	CustomLabel *titleGmWorking = new CustomLabel(QString("<b><span style=\"font-size: %1pt\">").arg(12*fontSizeMultiplier) + tr("File Types - GraphicsMagick") + "</span></b><br><br>" + tr("PhotoQt makes use of GraphicsMagick for support of many different image formats. The list below are all those formats, that were successfully displayed using test images. If you prefer not to have one or the other enabled in PhotoQt, you can simply disable individual formats below.") + "<br>" + tr("There are a few formats, that were not tested in PhotoQt (due to lack of a test image). You can find those in the 'Untested' category below.") + "</b>");
+	CustomLabel *titleGmWorking = new CustomLabel("<b><span style=\"font-size:12pt\">" + tr("File Types - GraphicsMagick") + "</span></b><br><br>" + tr("PhotoQt makes use of GraphicsMagick for support of many different image formats. The list below are all those formats, that were successfully displayed using test images. If you prefer not to have one or the other enabled in PhotoQt, you can simply disable individual formats below.") + "<br>" + tr("There are a few formats, that were not tested in PhotoQt (due to lack of a test image). You can find those in the 'Untested' category below.") + "</b>");
 	titleGmWorking->setWordWrap(true);
 
 	FlowLayout *layGm = new FlowLayout;
@@ -378,7 +375,7 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 
 	for(int i = 0; i < formatsGm.length()/2; ++i) {
 
-		SettingsTabOtherFileTypesTiles *check = new SettingsTabOtherFileTypesTiles(globSet.value("FontSizeMultiplier").toDouble(), formatsGm.at(2*i+1));
+		SettingsTabOtherFileTypesTiles *check = new SettingsTabOtherFileTypesTiles(formatsGm.at(2*i+1));
 		allCheckGm.insert(formatsGm.at(2*i+1),check);
 		check->setToolTip(formatsGm.at(2*i) + " (" + formatsGm.at(2*i+1) + ")");
 		layGm->addWidget(check);
@@ -427,7 +424,7 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 	 *  GM WORKING GHOSTSCRIPT  *
 	 ******************************/
 
-	CustomLabel *titleGmWorkingGhostscript = new CustomLabel(QString("<b><span style=\"font-size: %1pt\">").arg(12*fontSizeMultiplier) + tr("File Types - GraphicsMagick (requires Ghostscript)") + "</span></b><br><br>" + tr("The following file types are supported by GraphicsMagick, and they have been tested and work. However, they require Ghostscript to be installed on the system.") + "</b>");
+	CustomLabel *titleGmWorkingGhostscript = new CustomLabel("<b><span style=\"font-size:12pt\">" + tr("File Types - GraphicsMagick (requires Ghostscript)") + "</span></b><br><br>" + tr("The following file types are supported by GraphicsMagick, and they have been tested and work. However, they require Ghostscript to be installed on the system.") + "</b>");
 	titleGmWorkingGhostscript->setWordWrap(true);
 
 	FlowLayout *layGmGhostscript = new FlowLayout;
@@ -443,7 +440,7 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 
 	for(int i = 0; i < formatsGmGhostscript.length()/2; ++i) {
 
-		SettingsTabOtherFileTypesTiles *check = new SettingsTabOtherFileTypesTiles(globSet.value("FontSizeMultiplier").toDouble(), formatsGmGhostscript.at(2*i+1));
+		SettingsTabOtherFileTypesTiles *check = new SettingsTabOtherFileTypesTiles(formatsGmGhostscript.at(2*i+1));
 		allCheckGmGhostscript.insert(formatsGmGhostscript.at(2*i+1),check);
 		check->setToolTip(formatsGmGhostscript.at(2*i) + " (" + formatsGmGhostscript.at(2*i+1) + ")");
 		layGmGhostscript->addWidget(check);
@@ -490,7 +487,7 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 	 *  GM UNTESTED  *
 	 *****************/
 
-	CustomLabel *titleGmUntested = new CustomLabel(QString("<b><span style=\"font-size: %1pt\">").arg(12*fontSizeMultiplier) + tr("File Types - GraphicsMagick (Untested)") + "</span></b><br><br>"
+	CustomLabel *titleGmUntested = new CustomLabel("<b><span style=\"font-size:12pt\">" + tr("File Types - GraphicsMagick (Untested)") + "</span></b><br><br>"
 						       + tr("The following file types are generally supported by GraphicsMagick, but I wasn't able to test them in PhotoQt (due to lack of test images). They might very well be working, but I simply can't say. If you decide to enable some of the, the worst that could happen ist, that you see an error image instead of the actual image.") + "<br><br>"
 						       + "<i>" + tr("If you happen to have an image in one of those formats and don't mind sending it to me, that'd be really cool...") + "</i>");
 	titleGmUntested->setWordWrap(true);
@@ -508,7 +505,7 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 
 	for(int i = 0; i < formatsGmUntested.length()/2; ++i) {
 
-		SettingsTabOtherFileTypesTiles *check = new SettingsTabOtherFileTypesTiles(globSet.value("FontSizeMultiplier").toDouble(), formatsGmUntested.at(2*i+1));
+		SettingsTabOtherFileTypesTiles *check = new SettingsTabOtherFileTypesTiles(formatsGmUntested.at(2*i+1));
 		check->setToolTip(formatsGmUntested.at(2*i) + "(" + formatsGmUntested.at(2*i+1) + ")");
 		allCheckGmUntested.insert(formatsGmUntested.at(2*i+1),check);
 		layGmUntested->addWidget(check);

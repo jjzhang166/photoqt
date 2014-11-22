@@ -29,7 +29,7 @@ class About : public MyWidget {
 	Q_OBJECT
 
 public:
-	About(double fontSizeMultiplier, QWidget *parent = 0);
+	About(QWidget *parent = 0);
 
 	void setLicense(QString version);
 
@@ -39,9 +39,6 @@ private:
 
 	// The license at top
 	CustomLabel *license;
-
-	// Font size multiplier
-	double fontSizeMultiplier;
 
 private slots:
 	void openWebsite();

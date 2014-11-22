@@ -17,11 +17,9 @@
 #include "aboutwidget.h"
 #include <iostream>
 
-About::About(double fontSizeMultiplier, QWidget *parent) : MyWidget(fontSizeMultiplier,parent) {
+About::About(QWidget *parent) : MyWidget(parent) {
 
 	this->setBorderArea(100,50);
-
-	this->fontSizeMultiplier = fontSizeMultiplier;
 
 	QVBoxLayout *lay = new QVBoxLayout;
 
@@ -58,15 +56,15 @@ About::About(double fontSizeMultiplier, QWidget *parent) : MyWidget(fontSizeMult
 	CustomLabel *text2 = new CustomLabel(txt2);
 	CustomLabel *text3 = new CustomLabel(txt3);
 	text->setTextInteractionFlags(Qt::TextSelectableByMouse);
-	text->setFontSize(11*fontSizeMultiplier);
+	text->setFontSize(11);
 	text->setWordWrap(true);
 	text2->setToolTip("http://photoqt.org");
 	text2->setTextInteractionFlags(Qt::TextSelectableByMouse);
 	text2->setCursor(Qt::PointingHandCursor);
-	text2->setFontSize(11*fontSizeMultiplier);
+	text2->setFontSize(11);
 	text2->setWordWrap(true);
 	text3->setTextInteractionFlags(Qt::TextSelectableByMouse);
-	text3->setFontSize(11*fontSizeMultiplier);
+	text3->setFontSize(11);
 	text3->setWordWrap(true);
 	lay->addWidget(text);
 	lay->addSpacing(10);
@@ -98,7 +96,7 @@ About::About(double fontSizeMultiplier, QWidget *parent) : MyWidget(fontSizeMult
 // Set the license with version (called from mainwindow.cpp)
 void About::setLicense(QString version) {
 
-	license->setText(QString("<div style=\"font-size: %1pt\">PhotoQt ").arg(fontSizeMultiplier*8) + version + ", Lukas Spies, 2014 (Lukas@photoqt.org)" + " &ndash; " + tr("website:") + " photoqt.org &ndash; " + tr("Licensed under GPLv2 or later, without any guarantee") + "</div>");
+	license->setText("<div style=\"font-size: 8pt\">PhotoQt " + version + ", Lukas Spies, 2014 (Lukas@photoqt.org)" + " &ndash; " + tr("website:") + " photoqt.org &ndash; " + tr("Licensed under GPLv2 or later, without any guarantee") + "</div>");
 
 }
 
