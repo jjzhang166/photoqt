@@ -206,6 +206,34 @@ SettingsTabLookAndFeel::SettingsTabLookAndFeel(QWidget *parent, QMap<QString, QV
 	layFeel->addSpacing(20);
 
 
+	// OPTION TO ADJUST SORTING OF IMAGES
+	CustomLabel *sortByLabel = new CustomLabel("<b><span style=\"font-size: 12pt\">" + tr("Sort Images") + "</span></b><hr>" + tr("Here you can adjust, how the images in a folder are supposed to be sorted. You can sort them by Filename, Natural Name (e.g., file10.jpg comes after file9.jpg and not after file1.jpg), File Size, and Date. Also, you can reverse the sorting order from ascending to descending if wanted.") + "<br><br><b>" + tr("Hint: You can also change this setting very quickly from the 'Quick Settings'' window, hidden behind the right screen edge.") + "</b>");
+	CustomLabel *sortByIntro = new CustomLabel(tr("Sort by:"));
+	sortBy = new CustomComboBox;
+	sortBy->addItem(tr("Name"),"name");
+	sortBy->addItem(tr("Natural Name"),"naturalname");
+	sortBy->addItem(tr("Date"),"date");
+	sortBy->addItem(tr("File Size"),"size");
+	sortByAsc = new CustomRadioButton(tr("Ascending"));
+	sortByAsc->setIcon(QIcon(":/img/sortascending.png"));
+	sortByDes = new CustomRadioButton(tr("Descending"));
+	sortByDes->setIcon(QIcon(":/img/sortdescending.png"));
+	QButtonGroup *sortByGrp = new QButtonGroup;
+	sortByGrp->addButton(sortByAsc);
+	sortByGrp->addButton(sortByDes);
+	QHBoxLayout *sortByLay = new QHBoxLayout;
+	sortByLay->addStretch();
+	sortByLay->addWidget(sortByIntro);
+	sortByLay->addWidget(sortBy);
+	sortByLay->addWidget(sortByAsc);
+	sortByLay->addWidget(sortByDes);
+	sortByLay->addStretch();
+	layFeel->addWidget(sortByLabel);
+	layFeel->addSpacing(10);
+	layFeel->addLayout(sortByLay);
+	layFeel->addSpacing(20);
+
+
 	// OPTION FOR TRANSITIONING BETWEEN IMAGES
 	transition = new CustomSlider;
 	transition->setMinimum(0);
@@ -401,7 +429,6 @@ void SettingsTabLookAndFeel::loadSettings() {
 
 	defaults.clear();
 
-
 	compositeBackground->setChecked(globSet.value("Composite").toBool());
 	defaults.insert("Composite",globSet.value("Composite").toBool());
 	backgroundImageUseScreenshot->setChecked(globSet.value("BackgroundImageScreenshot").toBool());
@@ -462,6 +489,18 @@ void SettingsTabLookAndFeel::loadSettings() {
 
 	loopThroughFolder->setChecked(globSet.value("LoopThroughFolder").toBool());
 	defaults.insert("LoopThroughFolder",globSet.value("LoopThroughFolder").toBool());
+
+	QString sort = globSet.value("SortImagesBy").toString();
+	for(int i = 0; i < sortBy->count(); ++i) {
+		if(sortBy->itemData(i).toString() == sort) {
+			sortBy->setCurrentIndex(i);
+			break;
+		}
+	}
+	sortByAsc->setChecked(globSet.value("SortImagesAscending").toBool());
+	sortByDes->setChecked(!globSet.value("SortImagesAscending").toBool());
+	defaults.insert("SortImagesAscending",sortByAsc->isChecked());
+	defaults.insert("SortImagesBy",sort);
 
 	transition->setValue(globSet.value("Transition").toInt());
 	defaults.insert("Transition",globSet.value("Transition").toInt());
@@ -583,6 +622,17 @@ void SettingsTabLookAndFeel::saveSettings() {
 		updatedSet.insert("LoopThroughFolder",loopThroughFolder->isChecked());
 		defaults.remove("LoopThroughFolder");
 		defaults.insert("LoopThroughFolder",loopThroughFolder->isChecked());
+	}
+
+	if(defaults.value("SortImagesBy").toString() != sortBy->currentData().toString()) {
+		updatedSet.insert("SortImagesBy",sortBy->currentData());
+		defaults.remove("SortImagesBy");
+		defaults.insert("SortImagesBy",sortBy->currentData());
+	}
+	if(defaults.value("SortImagesAscending").toBool() != sortByAsc->isChecked()) {
+		updatedSet.insert("SortImagesAscending",sortByAsc->isChecked());
+		defaults.remove("SortImagesAscending");
+		defaults.insert("SortImagesAscending",sortByAsc->isChecked());
 	}
 
 	if(defaults.value("Transition").toInt() != transition->value()) {

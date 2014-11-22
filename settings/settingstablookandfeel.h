@@ -17,6 +17,7 @@
 #ifndef SETTINGSTABLOOKANDFEEL_H
 #define SETTINGSTABLOOKANDFEEL_H
 
+#include "../customelements/customcombobox.h"
 #include "../customelements/customscrollbar.h"
 #include "../customelements/customcheckbox.h"
 #include "../customelements/customslider.h"
@@ -102,6 +103,11 @@ private:
 
 	// Adjust looping through the folder
 	CustomCheckBox *loopThroughFolder;
+
+	// Image sorting
+	CustomComboBox *sortBy;
+	CustomRadioButton *sortByAsc;
+	CustomRadioButton *sortByDes;
 
 	// Transitioning between images (DISABLED AT THE MOMENT)
 	CustomSlider *transition;
