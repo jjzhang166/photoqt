@@ -25,8 +25,7 @@ public:
 	bool verbose;
 
 	// Dynamic thumbnails?
-	bool dynamicThumbs;
-	bool smartDynamic;
+	int dynamicThumbs;
 
 	// Filename only on thumbnails?
 	bool filenameOnly;
@@ -61,7 +60,7 @@ public:
 	QList<int> preloadCreated;
 
 	// Update the thumbnail position and data
-	void newData(int pos, int thbw, int vieww, bool loadfulldir, int preload, bool filename, bool smartdyn) {
+	void newData(int pos, int thbw, int vieww, bool loadfulldir, int preload, bool filename, int smartdyn) {
 		amountCreated = 0;
 		currentPos = pos;
 		thbWidth = thbw;
@@ -74,10 +73,10 @@ public:
 		posCreated.clear();
 		preloadCreated.clear();
 		filenameOnly = filename;
-		smartDynamic = smartdyn;
+		dynamicThumbs = smartdyn;
 	}
 
-	void updateData(int pos, int thbw, int vieww, bool loadfulldir, int preload, bool filename, bool smartdyn) {
+	void updateData(int pos, int thbw, int vieww, bool loadfulldir, int preload, bool filename, int smartdyn) {
 		currentPos = pos;
 		thbWidth = thbw;
 		viewWidth = vieww;
@@ -85,7 +84,7 @@ public:
 		loadFullDirectory = loadfulldir;
 		preloadNumber = preload;
 		filenameOnly = filename;
-		smartDynamic = smartdyn;
+		dynamicThumbs = smartdyn;
 	}
 
 	// Posibility to abort thread
@@ -171,13 +170,13 @@ protected:
 		int numberThbs = viewWidth/thbWidth + 10;
 
 		// If we don't stop whenever the thumbnails are out of range, then we just continue until all are eventually set up
-		if(!dynamicThumbs || numberThbs > counttot)
+		if(dynamicThumbs == 0 || numberThbs > counttot)
 			numberThbs = counttot;
 
 		if(verbose) std::clog << "Thumbnail thread started! v: " << verbose << " - curPos: " << currentPos << " - amountCreated: " << amountCreated << " - numberThumbs: " << numberThbs << std::endl;
 
 		// We add all thumbnails up and stop when we reach the total number
-		int stopCriteria = ((dynamicThumbs && smartDynamic) ? preloadNumber : numberThbs);
+		int stopCriteria = ((dynamicThumbs == 2) ? preloadNumber : numberThbs);
 		while(amountCreated < stopCriteria) {
 
 			// If we should stop - stop!

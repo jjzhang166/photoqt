@@ -195,12 +195,22 @@ SettingsTabThumbnail::SettingsTabThumbnail(QWidget *parent, QMap<QString, QVaria
 
 
 	// OPTION TO ENABLE DYNAMIC THUMBNAIL CREATION (handy for faster harddrives)
-	CustomLabel *dynamicThumbnailsLabel = new CustomLabel("<b><span style=\"font-size: 12pt\">" + tr("Dynamic Thumbnail Creation") + "</span></b><br><bR>" + tr("Dynamic thumbnail creation means, that PhotoQt only sets up those thumbnail images that are actually needed, i.e. it stops once it reaches the end of the visible area and sits idle until you scroll left/right.") + "<br><br>" + tr("This feature is very handy, especially if you have bigger directories, since it doesn't occupy the CPU too long, and it doesn't create thumbnails that might never be needed."));
+	CustomLabel *dynamicThumbnailsLabel = new CustomLabel("<b><span style=\"font-size: 12pt\">" + tr("Dynamic Thumbnail Creation") + "</span></b><br><bR>" + tr("Dynamic thumbnail creation means, that PhotoQt only sets up those thumbnail images that are actually needed, i.e. it stops once it reaches the end of the visible area and sits idle until you scroll left/right.") + "<br>" + tr("Smart thumbnails are similar in nature. However, they make use of the fast, that once a thumbnail has been created, it can be loaded very quickly and efficiently. It also first loads all of the currently visible thumbnails, but it doesn't stop there: Any thumbnails (even if invisible at the moment) that once have been created are loaded. This is a nice compromise between efficiency and usability.") + "<br><br>" + tr("Enabling either one of these is recommended, as it increases the performance of PhotoQt significantly, while preserving the usability."));
 	dynamicThumbnailsLabel->setWordWrap(true);
+	normalThumbnails = new CustomRadioButton(tr("Normal thumbnails"));
+	dynamicThumbnails = new CustomRadioButton(tr("Dynamic Thumbnails"));
+	dynamicThumbnailsSmart = new CustomRadioButton(tr("Smart Thumbnails"));
+	QButtonGroup dynamicGroup;
+	dynamicGroup.addButton(normalThumbnails);
+	dynamicGroup.addButton(dynamicThumbnails);
+	dynamicGroup.addButton(dynamicThumbnailsSmart);
+	QVBoxLayout *dynamicThbVerticalLay = new QVBoxLayout;
+	dynamicThbVerticalLay->addWidget(normalThumbnails);
+	dynamicThbVerticalLay->addWidget(dynamicThumbnails);
+	dynamicThbVerticalLay->addWidget(dynamicThumbnailsSmart);
 	QHBoxLayout *dynamicThbLay = new QHBoxLayout;
-	dynamicThumbnails = new CustomCheckBox(tr("Enable Dynamic Thumbnails"));
 	dynamicThbLay->addStretch();
-	dynamicThbLay->addWidget(dynamicThumbnails);
+	dynamicThbLay->addLayout(dynamicThbVerticalLay);
 	dynamicThbLay->addStretch();
 	layTune->addWidget(dynamicThumbnailsLabel);
 	layTune->addSpacing(10);
@@ -209,7 +219,7 @@ SettingsTabThumbnail::SettingsTabThumbnail(QWidget *parent, QMap<QString, QVaria
 
 
 	// OPTION TO PRELOAD FULL DIRECTORY OR ADJUST NUMBER OF PRELOADED IMAGES
-	CustomLabel *preloadFullNumberLabel = new CustomLabel("<b><span style=\"font-size: 12pt\">" + tr("Preloading option") + "</span></b><br><bR>" + tr("Here you can adjust, how many images AT MOST will be preloaded. For example, if the directory contains 800 images, a limit of 400 (default value) means, that starting from the opened image, 200 images to the left and 200 to the right are preloaded.") + "<br><br>" + tr("If you don't want to limit PhotoQt to any number, you can simply enable the option to always preload the full directory. WARNING: This is perfectly fine for directories with a small number of images (usually anything less than 1000, depending on your computer), but can lead to performance and memory issues for larger directories. Make sure you know what you're doing before enabling this!"));
+	CustomLabel *preloadFullNumberLabel = new CustomLabel("<b><span style=\"font-size: 12pt\">" + tr("Preloading") + "</span></b><br><bR>" + tr("Here you can adjust, how many images AT MOST will be preloaded. For example, if the directory contains 800 images, a limit of 400 (default value) means, that starting from the opened image, 200 images to the left and 200 to the right are preloaded.") + "<br><br>" + tr("If you don't want to limit PhotoQt to any number, you can simply enable the option to always preload the full directory. WARNING: This is perfectly fine for directories with a small number of images (usually anything less than 1000, depending on your computer), but can lead to performance and memory issues for larger directories. Make sure you know what you're doing before enabling this!"));
 	preloadFullNumberLabel->setWordWrap(true);
 	CustomSpinBox *preloadFullNumberSpin = new CustomSpinBox;
 	preloadFullNumberSpin->setMinimum(50);
@@ -431,8 +441,14 @@ void SettingsTabThumbnail::loadSettings() {
 	keepVisible->setChecked(globSet.value("ThumbnailKeepVisible").toBool());
 	defaults.insert("ThumbnailKeepVisible",globSet.value("ThumbnailKeepVisible").toBool());
 
-	dynamicThumbnails->setChecked(globSet.value("ThumbnailDynamic").toBool());
-	defaults.insert("ThumbnailDynamic",globSet.value("ThumbnailDynamic").toBool());
+	normalThumbnails->setChecked(globSet.value("ThumbnailDynamic").toInt() == 0);
+	defaults.insert("ThumbnailNormal",globSet.value("ThumbnailDynamic").toInt() == 0);
+
+	dynamicThumbnails->setChecked(globSet.value("ThumbnailDynamic").toInt() == 1);
+	defaults.insert("ThumbnailDynamic",globSet.value("ThumbnailDynamic").toInt() == 1);
+
+	dynamicThumbnailsSmart->setChecked(globSet.value("ThumbnailDynamic").toInt() == 2);
+	defaults.insert("ThumbnailDynamicSmart",globSet.value("ThumbnailDynamic").toInt() == 2);
 
 	preloadFullNumber->setValue(globSet.value("ThumbnailPreloadNumber").toInt());
 	defaults.insert("ThumbnailPreloadNumber",globSet.value("ThumbnailPreloadNumber").toInt());
@@ -511,10 +527,16 @@ void SettingsTabThumbnail::saveSettings() {
 		defaults.insert("ThumbnailKeepVisible",keepVisible->isChecked());
 	}
 
-	if(defaults.value("ThumbnailDynamic").toBool() != dynamicThumbnails->isChecked()) {
-		updatedSet.insert("ThumbnailDynamic",dynamicThumbnails->isChecked());
+	if(defaults.value("ThumbnailNormal").toBool() != normalThumbnails->isChecked()
+		|| defaults.value("ThumbnailDynamic").toBool() != dynamicThumbnails->isChecked()
+		|| defaults.value("ThumbnailDynamicSmart").toBool() != dynamicThumbnails->isChecked()) {
+		updatedSet.insert("ThumbnailDynamic",(dynamicThumbnailsSmart->isChecked() ? 2 : (dynamicThumbnails->isChecked() ? 1 : 0)));
+		defaults.remove("ThumbnailNormal");
 		defaults.remove("ThumbnailDynamic");
+		defaults.remove("ThumbnailDynamicSmart");
+		defaults.insert("ThumbnailNormal",normalThumbnails->isChecked());
 		defaults.insert("ThumbnailDynamic",dynamicThumbnails->isChecked());
+		defaults.insert("ThumbnailDynamicSmart",dynamicThumbnailsSmart->isChecked());
 	}
 
 	if(defaults.value("ThumbnailPreloadNumber").toInt() != preloadFullNumber->value()) {

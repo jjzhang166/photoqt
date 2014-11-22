@@ -116,10 +116,9 @@ void Thumbnails::startThread() {
 			globSet.value("ThumbnailPreloadFullDirectory").toBool(),
 			globSet.value("ThumbnailPreloadNumber").toInt(),
 			globSet.value("ThumbnailFilenameInstead").toBool(),
-			globSet.value("ThumbnailDynamicSmart").toBool());
+			globSet.value("ThumbnailDynamic").toInt());
 
 	thread->verbose = verbose;
-	thread->dynamicThumbs = globSet.value("ThumbnailDynamic").toBool();
 
 	thread->counttot = allImgsInfo.length();
 	thread->allimgs = allImgsInfo;
@@ -396,7 +395,7 @@ void Thumbnails::scrolledView() {
 			   globSet.value("ThumbnailPreloadFullDirectory").toBool(),
 			   globSet.value("ThumbnailPreloadNumber").toInt(),
 			   globSet.value("ThumbnailFilenameInstead").toBool(),
-			   globSet.value("ThumbnailDynamicSmart").toBool());
+			   globSet.value("ThumbnailDynamic").toInt());
 
 	// Start thread
 	thread->start();

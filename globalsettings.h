@@ -120,9 +120,8 @@ public:
 	int thumbnailLiftUp;
 	// Are the thumbnails fading out or always visible?
 	bool thumbnailKeepVisible;
-	// Enable dynamic thumbnail creation
-	bool thumbnailDynamic;
-	bool thumbnailDynamicSmart;
+	// Enable dynamic thumbnail creation (1 = dynamic, 2 = smart)
+	int thumbnailDynamic;
 	// Always center on active thumbnails
 	bool thumbnailCenterActive;
 	// Don't load actual thumbnail but just display the filename
@@ -231,7 +230,6 @@ public:
 		map.insert("ThumbnailLiftUp",thumbnailLiftUp);
 		map.insert("ThumbnailKeepVisible",thumbnailKeepVisible);
 		map.insert("ThumbnailDynamic",thumbnailDynamic);
-		map.insert("ThumbnailDynamicSmart",thumbnailDynamicSmart);
 		map.insert("ThumbnailCenterActive",thumbnailCenterActive);
 		map.insert("ThumbnailFilenameInstead",thumbnailFilenameInstead);
 		map.insert("ThumbnailFilenameInsteadFontSize",thumbnailFilenameInsteadFontSize);
@@ -338,8 +336,7 @@ public:
 		thumbnailSpacingBetween = 0;
 		thumbnailLiftUp = 6;
 		thumbnailKeepVisible = false;
-		thumbnailDynamic = true;
-		thumbnailDynamicSmart = true;
+		thumbnailDynamic = 2;
 		thumbnailCenterActive = false;
 		thumbnailDisable = false;
 		thumbnailWriteFilename = true;
@@ -565,15 +562,8 @@ public:
 			else if(all.contains("ThumbnailKeepVisible=0"))
 				thumbnailKeepVisible = false;
 
-			if(all.contains("ThumbnailDynamic=1"))
-				thumbnailDynamic = true;
-			else if(all.contains("ThumbnailDynamic=0"))
-				thumbnailDynamic = false;
-
-			if(all.contains("ThumbnailDynamicSmart=1"))
-				thumbnailDynamicSmart = true;
-			else if(all.contains("ThumbnailDynamicSmart=0"))
-				thumbnailDynamicSmart = false;
+			if(all.contains("ThumbnailDynamic="))
+				thumbnailDynamic = all.split("ThumbnailDynamic=").at(1).split("\n").at(0).toInt();
 
 			if(all.contains("ThumbnailCenterActive=1"))
 				thumbnailCenterActive = true;
@@ -806,7 +796,6 @@ public:
 			cont += QString("ThumbnailLiftUp=%1\n").arg(thumbnailLiftUp);
 			cont += QString("ThumbnailKeepVisible=%1\n").arg(thumbnailKeepVisible);
 			cont += QString("ThumbnailDynamic=%1\n").arg(thumbnailDynamic);
-			cont += QString("ThumbnailDynamicSmart=%1\n").arg(thumbnailDynamicSmart);
 			cont += QString("ThumbnailCenterActive=%1\n").arg(int(thumbnailCenterActive));
 			cont += QString("ThumbnailFilenameInstead=%1\n").arg(int(thumbnailFilenameInstead));
 			cont += QString("ThumbnailFilenameInsteadFontSize=%1\n").arg(thumbnailFilenameInsteadFontSize);
@@ -1046,9 +1035,7 @@ public slots:
 			applySet["redrawimg"] = true;
 		}
 		if(changedSet.keys().contains("ThumbnailDynamic"))
-			thumbnailDynamic = changedSet.value("ThumbnailDynamic").toBool();
-		if(changedSet.keys().contains("ThumbnailDynamicSmart"))
-			thumbnailDynamicSmart = changedSet.value("ThumbnailDynamicSmart").toBool();
+			thumbnailDynamic = changedSet.value("ThumbnailDynamic").toInt();
 		if(changedSet.keys().contains("ThumbnailCenterActive"))
 			thumbnailCenterActive = changedSet.value("ThumbnailCenterActive").toBool();
 		if(changedSet.keys().contains("ThumbnailFilenameInstead")) {
