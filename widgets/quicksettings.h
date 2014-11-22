@@ -85,8 +85,9 @@ private:
 	CustomCheckBox *windowdeco;
 	CustomCheckBox *clickonempty;
 	CustomCheckBox *thumbnailskeepvisible;
-	CustomCheckBox *thumbnailsdynamic;
 	CustomCheckBox *quickSettings;
+
+	CustomComboBox *thumbnailsdynamic;
 
 	QMap<QString,QVariant> defaults;
 

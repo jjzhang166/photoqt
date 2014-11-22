@@ -91,15 +91,22 @@ QuickSettings::QuickSettings(QMap<QString, QVariant> set, bool v, QWidget *paren
 	background->addItem(tr("Background image"),"image");
 	background->addItem(tr("Coloured background"),"color");
 
-	// The different settings that can be adjusted
+	// Different settings that can be adjusted
 	trayicon = new CustomCheckBox(tr("Hide to system tray"));
 	loopthroughfolder = new CustomCheckBox(tr("Loop through folder"));
 	windowmode = new CustomCheckBox(tr("Window mode"));
 	windowdeco = new CustomCheckBox(tr("Show window decoration"));
 	clickonempty = new CustomCheckBox(tr("Close on click on background"));
 	thumbnailskeepvisible = new CustomCheckBox(tr("Keep thumbnails visible"));
-	thumbnailsdynamic = new CustomCheckBox(tr("Dynamic thumbnails"));
 	quickSettings = new CustomCheckBox(tr("Enable 'Quick Settings'"));
+
+	// Thumbnail type
+	thumbnailsdynamic = new CustomComboBox;
+	thumbnailsdynamic->setBackgroundColor("rgba(0,0,0,0)");
+	thumbnailsdynamic->setPadding(4);
+	thumbnailsdynamic->addItem(tr("Normal thumbnails"));
+	thumbnailsdynamic->addItem(tr("Dynamic thumbnails"));
+	thumbnailsdynamic->addItem(tr("Smart thumbnails"));
 
 	// Set default values
 	trayicon->setChecked(globSet.value("TrayIcon").toBool());
@@ -108,7 +115,7 @@ QuickSettings::QuickSettings(QMap<QString, QVariant> set, bool v, QWidget *paren
 	windowdeco->setChecked(globSet.value("WindowDecoration").toBool());
 	clickonempty->setChecked(globSet.value("CloseOnGrey").toBool());
 	thumbnailskeepvisible->setChecked(globSet.value("ThumbnailKeepVisible").toBool());
-	thumbnailsdynamic->setChecked(globSet.value("ThumbnailDynamic").toBool());
+	thumbnailsdynamic->setCurrentIndex(globSet.value("ThumbnailDynamic").toInt());
 	quickSettings->setChecked(globSet.value("QuickSettings").toBool());
 
 	// Save & Apply settings instantly
@@ -122,7 +129,7 @@ QuickSettings::QuickSettings(QMap<QString, QVariant> set, bool v, QWidget *paren
 	connect(windowdeco, SIGNAL(toggled(bool)), this, SLOT(settingChanged()));
 	connect(clickonempty, SIGNAL(toggled(bool)), this, SLOT(settingChanged()));
 	connect(thumbnailskeepvisible, SIGNAL(toggled(bool)), this, SLOT(settingChanged()));
-	connect(thumbnailsdynamic, SIGNAL(toggled(bool)), this, SLOT(settingChanged()));
+	connect(thumbnailsdynamic, SIGNAL(currentIndexChanged(int)), this, SLOT(settingChanged()));
 	connect(quickSettings, SIGNAL(toggled(bool)), this, SLOT(settingChanged()));
 
 	// Window deco depends on window mode checked
@@ -230,7 +237,7 @@ void QuickSettings::loadSettings() {
 	windowdeco->setChecked(globSet.value("WindowDecoration").toBool());
 	clickonempty->setChecked(globSet.value("CloseOnGrey").toBool());
 	thumbnailskeepvisible->setChecked(globSet.value("ThumbnailKeepVisible").toBool());
-	thumbnailsdynamic->setChecked(globSet.value("ThumbnailDynamic").toBool());
+	thumbnailsdynamic->setCurrentIndex(globSet.value("ThumbnailDynamic").toInt());
 	quickSettings->setChecked(globSet.value("QuickSettings").toBool());
 
 	windowdeco->setEnabled(windowmode->isChecked());
@@ -245,7 +252,7 @@ void QuickSettings::loadSettings() {
 	defaults.insert("WindowDecoration",windowdeco->isChecked());
 	defaults.insert("CloseOnGrey",clickonempty->isChecked());
 	defaults.insert("ThumbnailKeepVisible",thumbnailskeepvisible->isChecked());
-	defaults.insert("ThumbnailDynamic",thumbnailsdynamic->isChecked());
+	defaults.insert("ThumbnailDynamic",thumbnailsdynamic->currentIndex());
 	defaults.insert("QuickSettings",quickSettings->isChecked());
 
 }
@@ -285,8 +292,8 @@ void QuickSettings::settingChanged() {
 	if(defaults.value("ThumbnailKeepVisible").toBool() != thumbnailskeepvisible->isChecked())
 		changedSet.insert("ThumbnailKeepVisible",thumbnailskeepvisible->isChecked());
 
-	if(defaults.value("ThumbnailDynamic").toBool() != thumbnailsdynamic->isChecked())
-		changedSet.insert("ThumbnailDynamic",thumbnailsdynamic->isChecked());
+	if(defaults.value("ThumbnailDynamic").toInt() != thumbnailsdynamic->currentIndex())
+		changedSet.insert("ThumbnailDynamic",thumbnailsdynamic->currentIndex());
 
 	if(defaults.value("QuickSettings").toBool() != quickSettings->isChecked())
 		changedSet.insert("QuickSettings",quickSettings->isChecked());
@@ -302,7 +309,7 @@ void QuickSettings::settingChanged() {
 	defaults.insert("WindowDecoration",windowdeco->isChecked());
 	defaults.insert("CloseOnGrey",clickonempty->isChecked());
 	defaults.insert("ThumbnailKeepVisible",thumbnailskeepvisible->isChecked());
-	defaults.insert("ThumbnailDynamic",thumbnailsdynamic->isChecked());
+	defaults.insert("ThumbnailDynamic",thumbnailsdynamic->currentIndex());
 	defaults.insert("QuickSettings",quickSettings->isChecked());
 
 	emit updateSettings(changedSet);
