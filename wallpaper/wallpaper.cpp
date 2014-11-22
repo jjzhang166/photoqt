@@ -17,7 +17,7 @@
 #include "wallpaper.h"
 #include <iostream>
 
-Wallpaper::Wallpaper(QMap<QString, QVariant> set, bool v, QWidget *parent) : MyWidget(parent) {
+Wallpaper::Wallpaper(QMap<QString, QVariant> set, bool v, QWidget *parent) : MyWidget(set.value("FontSizeMultiplier").toDouble(),parent) {
 
 	this->setBorderArea(150,100);
 
@@ -47,8 +47,10 @@ Wallpaper::Wallpaper(QMap<QString, QVariant> set, bool v, QWidget *parent) : MyW
 	QVBoxLayout *lay = new QVBoxLayout;
 
 	// the widget title
-	QLabel *title = new QLabel("<center><span style=\"font-size: 30pt; font-weight: bold\">" + tr("Set as Wallpaper") + "</span></center>");
-	title->setStyleSheet("color: white");
+	CustomLabel *title = new CustomLabel("<center>" + tr("Set as Wallpaper") + "</center>");
+	title->setFontSize(30*globSet.value("FontSizeMultiplier").toDouble());
+	title->setBold(true);
+//	title->setStyleSheet("color: white");
 	lay->addWidget(title);
 	lay->addSpacing(10);
 
@@ -62,14 +64,14 @@ Wallpaper::Wallpaper(QMap<QString, QVariant> set, bool v, QWidget *parent) : MyW
 
 
 	// Label explaining the wm detection
-	CustomLabel *wmDetectedLabel = new CustomLabel("<b><span style=\"font-size:12pt\">" + tr("Window Manager") + "</span></b> " + "<br><br>" + tr("PhotoQt tries to detect you window manager according to the environment variables set by your system. If it still got it wrong, you can change the window manager here manually."));
+	CustomLabel *wmDetectedLabel = new CustomLabel(QString("<b><span style=\"font-size: %1pt\">").arg(12*globSet.value("FontSizeMultiplier").toDouble()) + tr("Window Manager") + "</span></b> " + "<br><br>" + tr("PhotoQt tries to detect you window manager according to the environment variables set by your system. If it still got it wrong, you can change the window manager here manually."));
 	wmDetectedLabel->setWordWrap(true);
 	lay->addWidget(wmDetectedLabel);
 	lay->addSpacing(10);
 
 	// Combobox to change WM
 	wm = new CustomComboBox;
-	wm->setFontSize(15);
+	wm->setFontSize(15*globSet.value("FontSizeMultiplier").toDouble());
 	wm->setBorder(1,"white");
 	wm->addItem("KDE4","kde");
 	wm->addItem("Gnome/Unity","gnome");
@@ -100,7 +102,7 @@ Wallpaper::Wallpaper(QMap<QString, QVariant> set, bool v, QWidget *parent) : MyW
 	//////// GNOME SETTINGS /////////////
 
 	// Some image options can be set (the label is globsl, because it is hidden/shown depending on wm choice)
-	gnomePicOpsLabel = new CustomLabel("<b><span style=\"font-size:12pt\">" + tr("Picture Options") + "</span></b> " + "<br><br>" + tr("There are several picture options that can be set for the wallpaper image."));
+	gnomePicOpsLabel = new CustomLabel(QString("<b><span style=\"font-size:%1pt\">").arg(12*globSet.value("FontSizeMultiplier").toDouble()) + tr("Picture Options") + "</span></b> " + "<br><br>" + tr("There are several picture options that can be set for the wallpaper image."));
 	gnomePicOpsLabel->setMargin(5);
 	gnomePicOpsLabel->setWordWrap(true);
 
@@ -152,7 +154,7 @@ Wallpaper::Wallpaper(QMap<QString, QVariant> set, bool v, QWidget *parent) : MyW
 	wmMonitorLay->addLayout(wmMonitorLayCenter);
 	wmMonitorLay->addStretch();
 
-	wmMonitorLabel = new CustomLabel("<b><span style=\"font-size:12pt\">" + tr("Select Monitors") + "</span></b> " + "<br><br>" + tr("The wallpaper can be set to either of the available monitors (or any combination)."));
+	wmMonitorLabel = new CustomLabel(QString("<b><span style=\"font-size: %1pt\">").arg(12*globSet.value("FontSizeMultiplier").toDouble()) + tr("Select Monitors") + "</span></b> " + "<br><br>" + tr("The wallpaper can be set to either of the available monitors (or any combination)."));
 	wmMonitorLabel->setWordWrap(true);
 	wmMonitorLabel->setMargin(5);
 
@@ -187,7 +189,7 @@ Wallpaper::Wallpaper(QMap<QString, QVariant> set, bool v, QWidget *parent) : MyW
 	xfcePicOpsLay->addLayout(xfcePicOpsLayCenter);
 	xfcePicOpsLay->addStretch();
 
-	xfcePicOpsLabel = new CustomLabel("<b><span style=\"font-size:12pt\">" + tr("Picture Options") + "</span></b> " + "<br><br>" + tr("There are several picture options that can be set for the wallpaper image."));
+	xfcePicOpsLabel = new CustomLabel(QString("<b><span style=\"font-size: %1pt\">").arg(12*globSet.value("FontSizeMultiplier").toDouble()) + tr("Picture Options") + "</span></b> " + "<br><br>" + tr("There are several picture options that can be set for the wallpaper image."));
 	xfcePicOpsLabel->setMargin(5);
 	xfcePicOpsLabel->setWordWrap(true);
 

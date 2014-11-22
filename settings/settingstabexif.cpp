@@ -23,6 +23,9 @@ SettingsTabExif::SettingsTabExif(QWidget *parent, QMap<QString, QVariant> set, b
 
 	globSet = set;
 
+	// Store in double for easier use below
+	double fontSizeMultiplier = set.value("FontSizeMultiplier").toDouble();
+
 	this->setObjectName("tabother");
 	this->setStyleSheet("#tabother { background: transparent; color: white; }");
 
@@ -47,7 +50,7 @@ SettingsTabExif::SettingsTabExif(QWidget *parent, QMap<QString, QVariant> set, b
 	lay->addSpacing(15);
 
 	// Triggering on mouse movement
-	CustomLabel *triggerOnMouseLabel = new CustomLabel("<b><span style=\"font-size: 12pt\">" + tr("Trigger Widget on Mouse Hovering") + "</span></b><br><br>" + tr("Per default the info widget can be shown two ways: Moving the mouse cursor to the left screen edge to fade it in temporarily (as long as the mouse is hovering it), or permanently by clicking the checkbox (checkbox only stored per session, can't be saved permanently!). Alternatively the widget can also be triggered by shortcut. On demand the mouse triggering can be disabled, so that the widget would only show on shortcut. This can come in handy, if you get annoyed by accidentally opening the widget occasionally."));
+	CustomLabel *triggerOnMouseLabel = new CustomLabel(QString("<b><span style=\"font-size: %1pt\">").arg(12*fontSizeMultiplier) + tr("Trigger Widget on Mouse Hovering") + "</span></b><br><br>" + tr("Per default the info widget can be shown two ways: Moving the mouse cursor to the left screen edge to fade it in temporarily (as long as the mouse is hovering it), or permanently by clicking the checkbox (checkbox only stored per session, can't be saved permanently!). Alternatively the widget can also be triggered by shortcut. On demand the mouse triggering can be disabled, so that the widget would only show on shortcut. This can come in handy, if you get annoyed by accidentally opening the widget occasionally."));
 	triggerOnMouseLabel->setWordWrap(true);
 	triggerOnMouse = new CustomCheckBox(tr("Turn mouse triggering OFF"));
 	QHBoxLayout *triggerLay = new QHBoxLayout;
@@ -65,7 +68,7 @@ SettingsTabExif::SettingsTabExif(QWidget *parent, QMap<QString, QVariant> set, b
 	exifDisabled->setWordWrap(true);
 #endif
 
-	CustomLabel *whichItemShown = new CustomLabel("<b><span style=\"font-size: 12pt\">" + tr("Which items are shown?") + "</span></b><br><br>" + tr("PhotoQt can display a number of information about the image (often called 'Exif data''). However, you might not be interested in all of them, hence you can choose to disable some of them here."));
+	CustomLabel *whichItemShown = new CustomLabel(QString("<b><span style=\"font-size: %1pt\">").arg(12*fontSizeMultiplier) + tr("Which items are shown?") + "</span></b><br><br>" + tr("PhotoQt can display a number of information about the image (often called 'Exif data''). However, you might not be interested in all of them, hence you can choose to disable some of them here."));
 	whichItemShown->setWordWrap(true);
 #ifndef EXIV2
 	whichItemShown->setEnabled(false);
@@ -168,7 +171,7 @@ SettingsTabExif::SettingsTabExif(QWidget *parent, QMap<QString, QVariant> set, b
 
 	for(int i = 0; i < allItemsShort.length(); ++i) {
 
-		SettingsTabExifTiles *tile = new SettingsTabExifTiles(allItems.at(i),allItemsShort.at(i));
+		SettingsTabExifTiles *tile = new SettingsTabExifTiles(globSet.value("FontSizeMultiplier").toDouble(),allItems.at(i),allItemsShort.at(i));
 		allTiles.append(tile);
 		flow->addWidget(tile);
 #ifndef EXIV2
@@ -181,7 +184,7 @@ SettingsTabExif::SettingsTabExif(QWidget *parent, QMap<QString, QVariant> set, b
 
 
 	// Adjust Font Size of Labels
-	CustomLabel *fontSizelabel = new CustomLabel("<b><span style=\"font-size: 12pt\">" + tr("Adjusting Font Size") + "</span></b><br><br>" + tr("Computers can have very different resolutions. On some of them, it might be nice to increase the font size of the labels to have them easier readable. Often, a size of 8 or 9 should be working quite well..."));
+	CustomLabel *fontSizelabel = new CustomLabel(QString("<b><span style=\"font-size: %1pt\">").arg(12*fontSizeMultiplier) + tr("Adjusting Font Size") + "</span></b><br><br>" + tr("Computers can have very different resolutions. On some of them, it might be nice to increase the font size of the labels to have them easier readable. Often, a size of 8 or 9 should be working quite well..."));
 	fontSizelabel->setWordWrap(true);
 	setFontSizeSlider = new CustomSlider;
 	setFontSizeSlider->setMinimum(7);
@@ -205,7 +208,7 @@ SettingsTabExif::SettingsTabExif(QWidget *parent, QMap<QString, QVariant> set, b
 
 
 	// ALWAYS/NEVER/POSSIBLY ROTATE/FLIP ACCORDING TO EXIF DATA
-	CustomLabel *rotateFlipLabel = new CustomLabel("<b><span style=\"font-size: 12pt\">" + tr("Rotating/Flipping Image according to Exif Data") + "</span></b><br><br>" + tr("Some cameras can detect - while taking the photo - whether the camera was turned and might store this information in the image exif data. If PhotoQt finds this information, it can rotate the image accordingly. Per default it's not doing it, but it can be enabled here as desired."));
+	CustomLabel *rotateFlipLabel = new CustomLabel(QString("<b><span style=\"font-size: %1pt\">").arg(12*fontSizeMultiplier) + tr("Rotating/Flipping Image according to Exif Data") + "</span></b><br><br>" + tr("Some cameras can detect - while taking the photo - whether the camera was turned and might store this information in the image exif data. If PhotoQt finds this information, it can rotate the image accordingly. Per default it's not doing it, but it can be enabled here as desired."));
 	rotateFlipLabel->setWordWrap(true);
 	QButtonGroup *groupRot = new QButtonGroup;
 	exifRotNev = new CustomRadioButton(tr("Never rotate images"));
@@ -233,7 +236,7 @@ SettingsTabExif::SettingsTabExif(QWidget *parent, QMap<QString, QVariant> set, b
 
 
 	// Select the online map service to be used for displaying GPS location
-	CustomLabel *exifGpsLabel = new CustomLabel("<b><span style=\"font-size: 12pt\">" + tr("Online map for GPS") + "</span></b><br><br>" + tr("If you're image includes a GPS location, then a click on the location text will load this location in an online map using your default external browser. Here you can choose which online service to use (suggestions for other online maps always welcome)."));
+	CustomLabel *exifGpsLabel = new CustomLabel(QString("<b><span style=\"font-size: %1pt\">").arg(12*fontSizeMultiplier) + tr("Online map for GPS") + "</span></b><br><br>" + tr("If you're image includes a GPS location, then a click on the location text will load this location in an online map using your default external browser. Here you can choose which online service to use (suggestions for other online maps always welcome)."));
 	exifGpsLabel->setWordWrap(true);
 	QButtonGroup *groupMap = new QButtonGroup;
 	radioGoogle = new CustomRadioButton("maps.google.com");

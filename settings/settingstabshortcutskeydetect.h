@@ -33,7 +33,7 @@ class ShortcutKeyDetect : public MyWidget {
 	Q_OBJECT
 
 public:
-	ShortcutKeyDetect(QWidget *parent = 0);
+	ShortcutKeyDetect(double fontSizeMultiplier, QWidget *parent = 0);
 	~ShortcutKeyDetect();
 
 	// The function for which the shortcut is for
@@ -64,6 +64,9 @@ public:
 
 	// Analyse the keyevent (called by mainwindow.cpp)
 	void analyseKeyEvent(QKeyEvent *event);
+
+private:
+	double fontSizeMultiplier;
 
 public slots:
 	// Set the current function name

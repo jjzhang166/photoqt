@@ -32,7 +32,7 @@ class Context : public QScrollArea {
 	Q_OBJECT
 
 public:
-	Context(QWidget *parent = 0, bool verbose = false);
+	Context(double fontSizeMultiplier, QWidget *parent = 0, bool verbose = false);
 	~Context();
 
 	bool verbose;
@@ -49,6 +49,9 @@ public:
 	// Load/Save context menu
 	void loadContext();
 	void saveContext();
+
+private:
+	double fontSizeMultiplier;
 
 public slots:
 	// Add a new entry

@@ -16,13 +16,13 @@
 
 #include "startupwidget.h"
 
-StartUpWidget::StartUpWidget(QWidget *parent) : MyWidget(parent) {
+StartUpWidget::StartUpWidget(double fontSizeMultiplier, QWidget *parent) : MyWidget(fontSizeMultiplier,parent) {
 
 	this->setFullscreen(true);
 
 	// A close button to close widget
 	CustomPushButton *close = new CustomPushButton(tr("Okay, I got enough now. Lets start!"));
-	close->setFontSize("12pt");
+	close->setFontSize(QString("%1pt").arg(12*fontSizeMultiplier));
 	QHBoxLayout *butLay = new QHBoxLayout;
 	butLay->setMargin(8);
 	butLay->addStretch();
@@ -41,7 +41,7 @@ StartUpWidget::StartUpWidget(QWidget *parent) : MyWidget(parent) {
 
 	// The title is set depending on update or fresh install
 	title = new CustomLabel;
-	title->setFontSize(20);
+	title->setFontSize(20*fontSizeMultiplier);
 	title->setBold(true);
 	title->setAlignment(Qt::AlignCenter);
 	title->setTextInteractionFlags(Qt::TextSelectableByMouse);
@@ -54,28 +54,28 @@ StartUpWidget::StartUpWidget(QWidget *parent) : MyWidget(parent) {
 
 	// The introduction is set depending on update or fresh install
 	customIntro = new CustomLabel;
-	customIntro->setFontSize(12);
+	customIntro->setFontSize(12*fontSizeMultiplier);
 	customIntro->setWordWrap(true);
 	customIntro->setTextInteractionFlags(Qt::TextSelectableByMouse);
 
 	// the description is the same in both cases
 	CustomLabel *desc = new CustomLabel;
-	desc->setFontSize(12);
+	desc->setFontSize(12*fontSizeMultiplier);
 	desc->setWordWrap(true);
 	desc->setTextInteractionFlags(Qt::TextSelectableByMouse);
 
-	QString descTxt = "<span style=\"font-size: 15pt; font-weight: bold\">" + tr("Many File Formats") + "</span><br>" + tr("PhotoQt used to be able to only work with those file formats natively supported by Qt (which is already pretty good). But it now can also make use of GraphicsMagick, an image library. Currently, there are more than 80 different file formats supported! You can find a list of it in the settings (Tab \"Other\"). There you can en-/disable different ones and also add custom file endings.") + "<br><br>";
+	QString descTxt = QString("<span style=\"font-size: %1pt; font-weight: bold\">").arg(15*fontSizeMultiplier) + tr("Many File Formats") + "</span><br>" + tr("PhotoQt used to be able to only work with those file formats natively supported by Qt (which is already pretty good). But it now can also make use of GraphicsMagick, an image library. Currently, there are more than 80 different file formats supported! You can find a list of it in the settings (Tab \"Other\"). There you can en-/disable different ones and also add custom file endings.") + "<br><br>";
 	descTxt += "<div align=\"center\"><img src=\":/img/startupfileformats.png\"></div><bR><br>";
-	descTxt += "<span style=\"font-size: 15pt; font-weight: bold\">" + tr("Many Settings Possible") + "</span><br>" + tr("PhotoQt has an extensive settings area. By default you can call it with the shortcut \"e\" or through the dropdown menu at the top edge towards the top right corner. You can adjust (almost) everything in PhotoQt, and it's certainly worth having a look there. Each setting usually comes with a little explanation text.") + "<br><bR>";
-	descTxt += "<span style=\"font-size: 15pt; font-weight: bold\">" + tr("Thumbnails") + "</span><br>" + tr("What would be an image viewer without thumbnails support? It would only be half as good. Whenever you load an image, PhotoQt loads the other images in the directory in the background (per default it only loads the ones whose thumbnails are currently visible). It lines them up in a row at the bottom edge (move your mouse there to see them). There are many settings just for the thumbnails, like size, liftup, en-/disabled, type, filename, permanently shown/hidden, etc. PhotoQt's quite flexible with that.") + "<br><br>";
+	descTxt += QString("<span style=\"font-size: %1pt; font-weight: bold\">").arg(15*fontSizeMultiplier) + tr("Many Settings Possible") + "</span><br>" + tr("PhotoQt has an extensive settings area. By default you can call it with the shortcut \"e\" or through the dropdown menu at the top edge towards the top right corner. You can adjust (almost) everything in PhotoQt, and it's certainly worth having a look there. Each setting usually comes with a little explanation text.") + "<br><bR>";
+	descTxt += QString("<span style=\"font-size: %1pt; font-weight: bold\">").arg(15*fontSizeMultiplier) + tr("Thumbnails") + "</span><br>" + tr("What would be an image viewer without thumbnails support? It would only be half as good. Whenever you load an image, PhotoQt loads the other images in the directory in the background (per default it only loads the ones whose thumbnails are currently visible). It lines them up in a row at the bottom edge (move your mouse there to see them). There are many settings just for the thumbnails, like size, liftup, en-/disabled, type, filename, permanently shown/hidden, etc. PhotoQt's quite flexible with that.") + "<br><br>";
 	descTxt += "<div align=\"center\"><img src=\":/img/startupthumbs.png\"></div><bR><br>";
-	descTxt += "<span style=\"font-size: 15pt; font-weight: bold\">" + tr("Shortcuts") + "</span><br>" + tr("One of the many strengths of PhotoQt is the ability to easily set a shortcut for almost anything. Even mouse shortcuts are possible!") + "<br><br>";
-	descTxt += "<span style=\"font-size: 15pt; font-weight: bold\">" + tr("Image Information") + "</span><br>" + tr("Most images store some information about the image in the file. PhotoQt can read and display a good bit of that. You can find this information in the slide-in window at the left edge of PhotoQt.") + "<bR><br>";
-	descTxt += "<span style=\"font-size: 15pt; font-weight: bold\">" + tr("Basic File Actions") + "</span><br>" + tr("Basic file actions like renaming a file, or moving/copying it or deleting it can be done from inside of PhotoQt. However, you can only operate on a single file at a time. So for bigger operations, it'd be a better solution to use your choice of file manager.") + "<br><br>";
+	descTxt += QString("<span style=\"font-size: %1pt; font-weight: bold\">").arg(15*fontSizeMultiplier) + tr("Shortcuts") + "</span><br>" + tr("One of the many strengths of PhotoQt is the ability to easily set a shortcut for almost anything. Even mouse shortcuts are possible!") + "<br><br>";
+	descTxt += QString("<span style=\"font-size: %1pt; font-weight: bold\">").arg(15*fontSizeMultiplier) + tr("Image Information") + "</span><br>" + tr("Most images store some information about the image in the file. PhotoQt can read and display a good bit of that. You can find this information in the slide-in window at the left edge of PhotoQt.") + "<bR><br>";
+	descTxt += QString("<span style=\"font-size: %1pt; font-weight: bold\">").arg(15*fontSizeMultiplier) + tr("Basic File Actions") + "</span><br>" + tr("Basic file actions like renaming a file, or moving/copying it or deleting it can be done from inside of PhotoQt. However, you can only operate on a single file at a time. So for bigger operations, it'd be a better solution to use your choice of file manager.") + "<br><br>";
 	descTxt += "<div align=\"center\"><img src=\":/img/startupfileaction.png\"></div><bR><br>";
-	descTxt += "<span style=\"font-size: 15pt; font-weight: bold\">" + tr("Wallpaper") + "</span><br>" + tr("For different desktop environments (like e.g. XFCE4, Openbox, Gnome, ...) you can set an image your viewing directly as wallpaper. Depending on the DE there are also different options available. Unfortunately, KDE is currently not supported.") + "<br><br>";
-	descTxt += "<span style=\"font-size: 15pt; font-weight: bold\">" + tr("Slideshow") + "</span><br>" + tr("PhotoQt also brings a slideshow feature. When you start a slideshow, it starts at the currently displayed image. There are a couple simply settings like transition and speed, and you can also set a music file that is played in the background. When the slideshow takes longer than the music file, then PhotoQt starts the music file all over from the beginning. At anytime during the slideshow, you can move the mouse cursor to the top edge of the screen to get a little bar, where you can pause/exit the slideshow and adjust the music volume.") + "<br><br>";
-	descTxt += "<span style=\"font-size: 15pt; font-weight: bold\">" + tr("Localisation") + "</span><br>" + tr("PhotoQt comes with a number of translations. Many have taken some of their time to create/update one of them. Not all of them are (yet) complete, so why don't you help?") + "<br><br><br>";
+	descTxt += QString("<span style=\"font-size: %1pt; font-weight: bold\">").arg(15*fontSizeMultiplier) + tr("Wallpaper") + "</span><br>" + tr("For different desktop environments (like e.g. XFCE4, Openbox, Gnome, ...) you can set an image your viewing directly as wallpaper. Depending on the DE there are also different options available. Unfortunately, KDE is currently not supported.") + "<br><br>";
+	descTxt += QString("<span style=\"font-size: %1pt; font-weight: bold\">").arg(15*fontSizeMultiplier) + tr("Slideshow") + "</span><br>" + tr("PhotoQt also brings a slideshow feature. When you start a slideshow, it starts at the currently displayed image. There are a couple simply settings like transition and speed, and you can also set a music file that is played in the background. When the slideshow takes longer than the music file, then PhotoQt starts the music file all over from the beginning. At anytime during the slideshow, you can move the mouse cursor to the top edge of the screen to get a little bar, where you can pause/exit the slideshow and adjust the music volume.") + "<br><br>";
+	descTxt += QString("<span style=\"font-size: %1pt; font-weight: bold\">").arg(15*fontSizeMultiplier) + tr("Localisation") + "</span><br>" + tr("PhotoQt comes with a number of translations. Many have taken some of their time to create/update one of them. Not all of them are (yet) complete, so why don't you help?") + "<br><br><br>";
 	descTxt += tr("There are many many more features. Best is, you just give it a go. Don't forget to check the settings to make PhotoQt \"your own\".") + "<br><br><br>" + tr("Enjoy :-)") + "<bR><br><br>";
 
 	desc->setText(descTxt);

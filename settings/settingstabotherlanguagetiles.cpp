@@ -16,7 +16,7 @@
 
 #include "settingstabotherlanguagetiles.h"
 
-SettingsTabOtherLanguageTiles::SettingsTabOtherLanguageTiles(QString lang, QString code, QWidget *parent) : QWidget(parent) {
+SettingsTabOtherLanguageTiles::SettingsTabOtherLanguageTiles(double fontSizeMultiplier, QString lang, QString code, QWidget *parent) : QWidget(parent) {
 
 	// The different stylesheets
 	css = "border-radius: 5px;";
@@ -35,7 +35,7 @@ SettingsTabOtherLanguageTiles::SettingsTabOtherLanguageTiles(QString lang, QStri
 			lang += "(" + lang_parts.at(0);
 			lang_parts.removeFirst();
 		}
-		lang = lang + "<br><span style=\"font-size: 6pt\">(" + lang_parts.at(0) + "</span>";
+		lang = lang + QString("<br><span style=\"font-size: %1pt\">(").arg(6*fontSizeMultiplier) + lang_parts.at(0) + "</span>";
 	}
 
 	// Language in proper native language
@@ -43,7 +43,7 @@ SettingsTabOtherLanguageTiles::SettingsTabOtherLanguageTiles(QString lang, QStri
 	back->setBold(true);
 	back->setFontColor("black");
 	back->setPadding(0);
-	back->setFontSize(8);
+	back->setFontSize(8*fontSizeMultiplier);
 	back->setWordWrap(true);
 	langCode = code;
 

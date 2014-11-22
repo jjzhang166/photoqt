@@ -16,15 +16,16 @@
 
 #include "settingstabshortcutschangecommand.h"
 
-ShortcutChangeCommand::ShortcutChangeCommand(QWidget *parent) : MyWidget(parent) {
+ShortcutChangeCommand::ShortcutChangeCommand(double fontSizeMultiplier, QWidget *parent) : MyWidget(fontSizeMultiplier, parent) {
 
 	// The main layout
 	QVBoxLayout *lay = new QVBoxLayout;
 
 	// The title label
-	QLabel *title = new QLabel("<center>" + tr("Set Command/Executeable") + "</center>");
+	CustomLabel *title = new CustomLabel("<center>" + tr("Set Command/Executeable") + "</center>");
 	title->setWordWrap(true);
-	title->setStyleSheet("font-size: 15pt; color: white; font-weight: bold; background: transparent");
+	title->setFontSize(15*fontSizeMultiplier);
+	title->setBold(true);
 
 	// A description of what's to be done here
 	QLabel *desc = new QLabel(tr("Here you can change the executeable. A click on the button allows you to browse for one.") + "<br>" + tr("You can use two placeholders: %f = current file, %d = current directory"));

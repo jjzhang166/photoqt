@@ -30,7 +30,7 @@ class CustomConfirm : public MyWidget {
 
 public:
 	// This class is used a couple times to have a quick and easy way of displaying a confirmation widget
-	CustomConfirm(QString title, QString text, QString yesText = "", QString noText = "", QSize size = QSize(600,400), QString borderColor = "rgb(130,130,130)", QString backgroundColor = "rgba(0,0,0,200)", QWidget *parent = 0);
+	CustomConfirm(QString title, QString text, double fontSizeMultiplier, QString yesText = "", QString noText = "", QSize size = QSize(600,400), QString borderColor = "rgb(130,130,130)", QString backgroundColor = "rgba(0,0,0,200)", QWidget *parent = 0);
 	~CustomConfirm();
 
 	// A yes and a no is possible (with custom text of course)

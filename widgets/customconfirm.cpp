@@ -16,7 +16,7 @@
 
 #include "customconfirm.h"
 
-CustomConfirm::CustomConfirm(QString title, QString text, QString yesText, QString noText, QSize size, QString borderColor, QString backgroundColor, QWidget *parent) : MyWidget(borderColor,backgroundColor,parent) {
+CustomConfirm::CustomConfirm(QString title, QString text, double fontSizeMultiplier, QString yesText, QString noText, QSize size, QString borderColor, QString backgroundColor, QWidget *parent) : MyWidget(fontSizeMultiplier,borderColor,backgroundColor,parent) {
 
 	this->setVisibleArea(size);
 

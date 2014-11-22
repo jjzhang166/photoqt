@@ -34,7 +34,7 @@ class Scale : public MyWidget {
 	Q_OBJECT
 
 public:
-	Scale(bool verbose, QWidget *parent = 0);
+	Scale(double fontSizeMultiplier, bool verbose, QWidget *parent = 0);
 	~Scale();
 
 	void scale(QString filename, QSize s);
@@ -62,6 +62,8 @@ private:
 
 	bool ignoreSizeChange;
 	QString lastEdit;
+
+	double fontSizeMultiplier;
 
 public slots:
 	void disableAllSpinBoxAndClose();

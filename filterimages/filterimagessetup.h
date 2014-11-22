@@ -29,7 +29,7 @@ class FilterImagesSetup : public MyWidget {
 
 public:
 	// Widget to set an image filter (by extension)
-	FilterImagesSetup(QWidget *parent = 0);
+	FilterImagesSetup(double fontSizeMultiplier, QWidget *parent = 0);
 	~FilterImagesSetup();
 
 	CustomPushButton *enter;

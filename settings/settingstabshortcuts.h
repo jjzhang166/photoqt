@@ -35,7 +35,7 @@ class SettingsTabShortcuts : public QWidget {
 	Q_OBJECT
 
 public:
-	SettingsTabShortcuts(QWidget *parent = 0, bool verbose = false);
+	SettingsTabShortcuts(double fontSizeMultiplier, QWidget *parent = 0, bool verbose = false);
 	~SettingsTabShortcuts();
 
 	bool verbose;
@@ -79,6 +79,9 @@ public:
 
 	// Ask for confirmation when setting default set of shortcuts
 	CustomConfirm *setDefaultConfirm;
+
+private:
+	double fontSizeMultiplier;
 
 public slots:
 	// Remove a tile

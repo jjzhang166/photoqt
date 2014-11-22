@@ -20,6 +20,7 @@
 #include "../widgets/mywidget.h"
 #include "../customelements/customlineedit.h"
 #include "../customelements/custompushbutton.h"
+#include "../customelements/customlabel.h"
 
 #include <QLineEdit>
 #include <QLabel>
@@ -30,7 +31,7 @@ class ShortcutChangeCommand : public MyWidget {
 	Q_OBJECT
 
 public:
-	ShortcutChangeCommand(QWidget *parent = 0);
+	ShortcutChangeCommand(double fontSizeMultiplier, QWidget *parent = 0);
 	~ShortcutChangeCommand();
 
 	// The original executeable (needed when change cancelled)

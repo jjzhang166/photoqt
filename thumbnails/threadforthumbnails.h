@@ -295,7 +295,8 @@ protected:
 					ImageReader image(verbose);
 					image.qtfiles = qtfiles;
 					image.gmfiles = gmfiles;
-					p = image.readImage(allimgs.at(createThisOne).absoluteFilePath(),0,false,QSize(ts,ts));
+					// We cheat here and assume a FontSizeMultiplier of 1
+					p = image.readImage(allimgs.at(createThisOne).absoluteFilePath(),0,false,QSize(ts,ts), 1);
 
 					origwidth = image.origSize.width();
 					origheight = image.origSize.height();

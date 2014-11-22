@@ -16,14 +16,14 @@
 
 #include "filterimagessetup.h"
 
-FilterImagesSetup::FilterImagesSetup(QWidget *parent) : MyWidget("default","default",parent) {
+FilterImagesSetup::FilterImagesSetup(double fontSizeMultiplier, QWidget *parent) : MyWidget(fontSizeMultiplier,"default","default",parent) {
 
 	this->setVisibleArea(QSize(500,270));
 
 	// Title
 	CustomLabel *title = new CustomLabel(tr("Filter Images in Current Directory"));
 	title->setAlignment(Qt::AlignCenter);
-	title->setFontSize(15);
+	title->setFontSize(15*fontSizeMultiplier);
 	title->setBold(true);
 	title->setWordWrap(true);
 
@@ -40,7 +40,7 @@ FilterImagesSetup::FilterImagesSetup(QWidget *parent) : MyWidget("default","defa
 	enter->setEnabled(false);	// only enabled if text entered
 	cancel = new CustomPushButton(tr("Cancel"));
 	CustomPushButton *remove = new CustomPushButton(tr("Remove Filter"));
-	remove->setFontSize("7pt");
+	remove->setFontSize(QString("%1pt").arg(7*fontSizeMultiplier));
 
 	// Connect some buttons
 	connect(enter, SIGNAL(clicked()), this, SLOT(okayClicked()));

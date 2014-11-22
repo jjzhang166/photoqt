@@ -17,11 +17,13 @@
 #include "settingstabshortcuts.h"
 #include <iostream>
 
-SettingsTabShortcuts::SettingsTabShortcuts(QWidget *parent, bool v) : QWidget(parent) {
+SettingsTabShortcuts::SettingsTabShortcuts(double fontSizeMultiplier, QWidget *parent, bool v) : QWidget(parent) {
 
 	verbose = v;
 
 	this->setStyleSheet("background: transparent; color: white;");
+
+	this->fontSizeMultiplier = fontSizeMultiplier;
 
 	// The main scroll widget
 	scrollbar = new CustomScrollbar;
@@ -37,13 +39,13 @@ SettingsTabShortcuts::SettingsTabShortcuts(QWidget *parent, bool v) : QWidget(pa
 	scroll->setVerticalScrollBar(scrollbar);
 
 	// The widget for detecting a new shortcut/mouse action
-	detect = new ShortcutKeyDetect(this->parentWidget());
+	detect = new ShortcutKeyDetect(fontSizeMultiplier,this->parentWidget());
 	detect->show();
 	connect(detect, SIGNAL(gotKeys(QString,QString,QString)), this, SLOT(analyseKeyCombo(QString,QString,QString)));
 	connect(detect, SIGNAL(shortcutCancelled()), this, SLOT(shortcutDetectCancelled()));
 
 	// A widget to change the external command
-	changeCommand = new ShortcutChangeCommand(this->parentWidget());
+	changeCommand = new ShortcutChangeCommand(fontSizeMultiplier,this->parentWidget());
 	changeCommand->show();
 	connect(changeCommand, SIGNAL(commandChanged(QString,QString)), this, SLOT(analyseChangedCommand(QString,QString)));
 	connect(changeCommand, SIGNAL(commandCanceled(QString)), this, SLOT(analyseChangedCancelled(QString)));
@@ -69,7 +71,7 @@ SettingsTabShortcuts::SettingsTabShortcuts(QWidget *parent, bool v) : QWidget(pa
 	setDefLay->addStretch();
 	lay->addLayout(setDefLay);
 	lay->addSpacing(10);
-	setDefaultConfirm = new CustomConfirm(tr("Set default shortcuts?"), tr("This reverses all changes to the shortcuts and sets the set of default ones.") + "<br><br>" + tr("This step cannot be reversed!"), tr("Give me defaults"), tr("Hm, maybe not now"),QSize(500,250),"default","default",this->parentWidget());
+	setDefaultConfirm = new CustomConfirm(tr("Set default shortcuts?"), tr("This reverses all changes to the shortcuts and sets the set of default ones.") + "<br><br>" + tr("This step cannot be reversed!"), fontSizeMultiplier, tr("Give me defaults"), tr("Hm, maybe not now"),QSize(500,250),"default","default",this->parentWidget());
 	setDefaultConfirm->show();
 	connect(setDefault, SIGNAL(clicked()), setDefaultConfirm, SLOT(animate()));
 	connect(setDefaultConfirm, SIGNAL(confirmed()), this, SIGNAL(setDefaultShortcuts()));
@@ -291,7 +293,7 @@ void SettingsTabShortcuts::loadUserSetShortcuts() {
 			// If we found the right category
 			if(j.value().keys().contains(cmd)) {
 
-				ShortcutsTiles *tile = new ShortcutsTiles(cmd, j.value().value(cmd),j.key(),"exist",this);
+				ShortcutsTiles *tile = new ShortcutsTiles(cmd, j.value().value(cmd),j.key(),"exist",fontSizeMultiplier,this);
 				tile->shortcut->setText(i.key());
 				tile->shortcutText = i.key();
 				// The id never changes during runtime. That way, we can always uniquely access this tile
@@ -310,7 +312,7 @@ void SettingsTabShortcuts::loadUserSetShortcuts() {
 		// If shortcut is not for an internal function, then it's an external shortcut
 		if(!found) {
 
-			ShortcutsTiles *tile = new ShortcutsTiles(cmd, cmd,"extern","exist",this);
+			ShortcutsTiles *tile = new ShortcutsTiles(cmd, cmd,"extern","exist",fontSizeMultiplier,this);
 			tile->shortcut->setText(i.key());
 			tile->shortcutText = i.key();
 			// The id never changes during runtime. That way, we can always uniquely access this tile
@@ -352,7 +354,7 @@ void SettingsTabShortcuts::loadUserSetShortcuts() {
 			// If we found the right category
 			if(l.value().keys().contains(cmd)) {
 
-				ShortcutsTiles *tile = new ShortcutsTiles(cmd, l.value().value(cmd),l.key(),"exist",this);
+				ShortcutsTiles *tile = new ShortcutsTiles(cmd, l.value().value(cmd),l.key(),"exist",fontSizeMultiplier,this);
 				tile->shortcut->setText(QString(k.key()).remove("[M]").trimmed());
 				tile->makeMouseShortcut(true);
 				tile->shortcutText = QString(k.key()).remove("[M]").trimmed();
@@ -373,7 +375,7 @@ void SettingsTabShortcuts::loadUserSetShortcuts() {
 		if(!found) {
 
 
-			ShortcutsTiles *tile = new ShortcutsTiles(cmd, cmd,"extern","exist",this);
+			ShortcutsTiles *tile = new ShortcutsTiles(cmd, cmd,"extern","exist",fontSizeMultiplier,this);
 			tile->shortcut->setText(QString(k.key()).remove("[M]").trimmed());
 			tile->makeMouseShortcut(true);
 			tile->shortcutText = QString(k.key()).remove("[M]").trimmed();
@@ -412,14 +414,14 @@ void SettingsTabShortcuts::loadAvailShortcuts() {
 
 			QString cmd = i.value().at(j);
 			QString desc = internFunctions[i.key()].value(i.value().at(j));
-			ShortcutsTiles *tile = new ShortcutsTiles(cmd,desc,i.key(),"avail",this);
+			ShortcutsTiles *tile = new ShortcutsTiles(cmd,desc,i.key(),"avail",fontSizeMultiplier,this);
 			allLayoutsAVAIL.value(i.key())->addWidget(tile);
 			connect(tile, SIGNAL(addShortcut(QString,QString)), this, SLOT(addNewTile(QString,QString)));
 		}
 
 	}
 
-	ShortcutsTiles *tile = new ShortcutsTiles("extern","EXTERN","extern","avail",this);
+	ShortcutsTiles *tile = new ShortcutsTiles("extern","EXTERN","extern","avail",fontSizeMultiplier,this);
 	allLayoutsAVAIL.value("extern")->addWidget(tile);
 	connect(tile, SIGNAL(addShortcut(QString,QString)), this, SLOT(addNewTile(QString,QString)));
 
@@ -448,7 +450,7 @@ void SettingsTabShortcuts::addNewTile(QString exe, QString cat) {
 	// This is used for the id, and never changes during runtime, allowing us to always uniquely identify this tile
 	QString key = QString("key%1").arg(QDateTime::currentMSecsSinceEpoch());
 
-	ShortcutsTiles *tile = new ShortcutsTiles(exe, internFunctions[cat][exe],cat,"exist",this);
+	ShortcutsTiles *tile = new ShortcutsTiles(exe, internFunctions[cat][exe],cat,"exist",fontSizeMultiplier,this);
 	tile->shortcut->setText("<key>");
 	tile->shortcutText = key;
 	tile->id = key;

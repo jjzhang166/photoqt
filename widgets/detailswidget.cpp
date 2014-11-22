@@ -63,7 +63,7 @@ Details::Details(QWidget *parent, QMap<QString, QVariant> set, bool v): QWidget(
 #ifdef EXIV2
 
 	// Confirm a rotation
-	rotConf = new CustomConfirm(tr("Rotate Image?"), tr("The Exif data of this image says, that this image is supposed to be rotated.") + "<br><br>" + tr("Do you want to apply the rotation?"), tr("Okay, do it"), tr("What? No!"),QSize(450,210), "default","default", this->parentWidget());
+	rotConf = new CustomConfirm(tr("Rotate Image?"), tr("The Exif data of this image says, that this image is supposed to be rotated.") + "<br><br>" + tr("Do you want to apply the rotation?"), globSet.value("FontSizeMultiplier").toDouble(), tr("Okay, do it"), tr("What? No!"),QSize(450,210), "default","default", this->parentWidget());
 	rotConf->setDontShowAgain();
 	connect(rotConf, SIGNAL(confirmed()), this, SLOT(rotConfYes()));
 	connect(rotConf, SIGNAL(rejected()), this, SLOT(rotConfNo()));
@@ -279,7 +279,7 @@ void Details::setupLabels() {
 		if(labels.at(i) != "") {
 			if(labelsId.at(i) != "Gps") {
 				CustomLabel *l = new CustomLabel("<b>" + labels.at(i) + "</b>");
-				l->setFontSize(globSet.value("ExifFontSize").toInt());
+				l->setFontSize(globSet.value("ExifFontSize").toInt()*globSet.value("FontSizeMultiplier").toDouble());
 				l->setBackgroundColor("rgba(0,0,0,80)");
 				l->setToolTipNoWrap(true);
 				items.insert(labelsId.at(i),l);
@@ -290,7 +290,7 @@ void Details::setupLabels() {
 				l->setCursor(Qt::PointingHandCursor);
 				l->setText("<b>" + labels.at(i) + "</b>");
 				connect(l, SIGNAL(clicked()), this, SLOT(gpsClick()));
-				l->setFontSize(globSet.value("ExifFontSize").toInt());
+				l->setFontSize(globSet.value("ExifFontSize").toInt()*globSet.value("FontSizeMultiplier").toDouble());
 				l->setBackgroundColor("rgba(0,0,0,80)");
 				l->setToolTipNoWrap(true);
 				items.insert(labelsId.at(i),l);
@@ -308,7 +308,7 @@ void Details::setupLabels() {
 	// This pushbutton enabled an option for triggering "stay open" state
 	stay = new CustomCheckBox(tr("Keep Open"));
 	stay->setIndicatorSize(10);
-	stay->setFontSize(8);
+	stay->setFontSize(8*globSet.value("FontSizeMultiplier").toDouble());
 	QHBoxLayout *stayLay = new QHBoxLayout;
 	stayLay->addStretch();
 	stayLay->addWidget(stay);
@@ -916,7 +916,7 @@ void Details::updateFontsize() {
 	for(int i = 0; i < labelsId.size(); ++i) {
 
 		if(labelsId.at(i) != "")
-			items[labelsId.at(i)]->setFontSize(globSet.value("ExifFontSize").toInt());
+			items[labelsId.at(i)]->setFontSize(globSet.value("ExifFontSize").toInt()*globSet.value("FontSizeMultiplier").toDouble());
 
 	}
 

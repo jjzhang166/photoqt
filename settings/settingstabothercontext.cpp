@@ -17,12 +17,14 @@
 #include "settingstabothercontext.h"
 #include <iostream>
 
-Context::Context(QWidget *parent, bool v) : QScrollArea(parent) {
+Context::Context(double fontSizeMultiplier, QWidget *parent, bool v) : QScrollArea(parent) {
 
 	verbose = v;
 
 	// No tiles at startup of course
 	allTiles.clear();
+
+	this->fontSizeMultiplier = fontSizeMultiplier;
 
 	this->setMouseTracking(true);
 	this->setAcceptDrops(true);
@@ -152,7 +154,7 @@ void Context::loadContext() {
 
 			QString entry = all.at(i);
 
-			ContextTile *tile = new ContextTile(entry.split("\n").at(0),entry.split("\n").at(1),this);
+			ContextTile *tile = new ContextTile(fontSizeMultiplier,entry.split("\n").at(0),entry.split("\n").at(1),this);
 			tile->index = lay->count()-1;
 			allTiles.append(tile);
 			lay->insertWidget(lay->count()-1,tile);
@@ -170,7 +172,7 @@ void Context::addNewEntry() {
 
 	if(verbose) std::clog << "setOC: Add new entry" << std::endl;
 
-	ContextTile *tile = new ContextTile("exe","text",this);
+	ContextTile *tile = new ContextTile(fontSizeMultiplier,"exe","text",this);
 	tile->index = lay->count()-1;
 	allTiles.append(tile);
 	lay->insertWidget(lay->count()-1,tile);

@@ -324,6 +324,20 @@ int main(int argc, char *argv[]) {
 
 		QApplication a(argc, argv);
 
+		// Base font size
+		QFile set(QDir::homePath() + "/.photoqt/settings");
+		double factor = 1;
+		if(set.open(QIODevice::ReadOnly)) {
+			QTextStream in(&set);
+			QString readall = in.readAll();
+			if(readall.contains("FontSizeMultiplier="))
+				factor = readall.split("FontSizeMultiplier=").at(1).split("\n").at(0).toDouble();
+			set.close();
+		}
+		QFont font;
+		font.setPointSize(10*factor);
+		a.setFont(font);
+
 		// LOAD THE TRANSLATOR
 		QTranslator trans;
 
