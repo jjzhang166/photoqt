@@ -324,6 +324,11 @@ int main(int argc, char *argv[]) {
 
 		QApplication a(argc, argv);
 
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 4, 0))
+		// Opt-in to High DPI usage of Pixmaps for larger screens with larger font DPI
+		a.setAttribute(Qt::AA_UseHighDpiPixmaps, true);
+#endif
+
 		// LOAD THE TRANSLATOR
 		QTranslator trans;
 
