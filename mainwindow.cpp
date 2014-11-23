@@ -667,6 +667,9 @@ void MainWindow::getOrientationFromExif(int degree, bool flipHor) {
 
 	if(globVar->verbose) std::clog << "Exif Rotate/Flip:" << degree << "-" << flipHor << std::endl;
 
+	// If we don't abort in that case, we apply rotation more than once...
+	if(globVar->store_rotation.keys().contains(globVar->currentfile)) return;
+
 	// And rotate
 	if(degree > 0) {
 		while(degree > 0) {
