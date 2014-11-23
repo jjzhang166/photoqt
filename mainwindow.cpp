@@ -520,6 +520,20 @@ void MainWindow::drawImage() {
 			}
 			rotateFlip(true,clock,val);
 		}
+
+		// If the image was zoomed at a previous time this session, we restore the zoom level
+		if(globVar->newlyLoadedImage && globVar->store_zoomlevel.keys().contains(globVar->currentfile)) {
+			if(globVar->store_zoomlevel[globVar->currentfile] == 0)
+				zoom(true,"actualsize");
+			else if(globVar->store_zoomlevel[globVar->currentfile] < 0)
+				for(int tmp = globVar->store_zoomlevel[globVar->currentfile]; tmp < 0; ++tmp)
+					zoom(false,"storedvalue");
+			else if(globVar->store_zoomlevel[globVar->currentfile] > 0)
+				for(int tmp = globVar->store_zoomlevel[globVar->currentfile]; tmp > 0; --tmp)
+					zoom(true,"storedvalue");
+			globVar->newlyLoadedImage = false;
+		}
+
 		if(globVar->store_flipHor[globVar->currentfile] && globVar->store_flipHor[globVar->currentfile] != globVar->flipHor)
 			rotateFlip(false,"hor");
 		if(globVar->store_flipVer[globVar->currentfile] && globVar->store_flipVer[globVar->currentfile] != globVar->flipVer)
@@ -535,7 +549,6 @@ void MainWindow::drawImage() {
 			// We also have to check here where the cursor is, cause sometimes the app reaches these statements here when auto rotate is active (exif)
 			if(!globSet->thumbnailKeepVisible && viewThumbs->isVisible() && !viewThumbs->areaShown().contains(QCursor::pos()))
 				viewThumbs->makeHide();
-//			viewThumbs->startThread();
 		}
 
 	}
@@ -893,6 +906,9 @@ void MainWindow::loadNewImgFromOpen(QString path, bool hideImageFilterLabel) {
 	globVar->store_rotation.clear();
 	globVar->store_flipHor.clear();
 	globVar->store_flipVer.clear();
+	globVar->store_zoomlevel.clear();
+
+	globVar->newlyLoadedImage = true;
 
 	// Remove "to-save" property
 // rotation indicator
@@ -922,20 +938,24 @@ void MainWindow::loadNewImgFromThumbs(QString path) {
 	// Reset zooming parameter
 	globVar->zoomedImgAtLeastOnce = false;
 
-	// When a new image is loaded we reset any zooing, rotation, flipping
+	// When a new image is loaded we initially reset any zooming, rotation, flipping, but preserve the settings
 	QMap<QString,int> tmp_rotation = globVar->store_rotation;
 	QMap<QString,bool> tmp_flipHor = globVar->store_flipHor;
 	QMap<QString,bool> tmp_flipVer = globVar->store_flipVer;
+	QMap<QString,int> tmp_zoomlevel = globVar->store_zoomlevel;
 	zoom(true,((globVar->zoomToActualSize || globVar->zoomed) && globSet->transition != 0) ? "reset" : "resetNoDraw");
 	rotateFlip(true,"resetNoDraw");
 	rotateFlip(false, "reset");
 	globVar->store_rotation = tmp_rotation;
 	globVar->store_flipHor = tmp_flipHor;
 	globVar->store_flipVer = tmp_flipVer;
+	globVar->store_zoomlevel = tmp_zoomlevel;
 
 	viewBig->absoluteScaleFactor = 0;
-	globVar->zoomed = false;
+	globVar->zoomed = tmp_zoomlevel.keys().contains(path);
 	globVar->exifRead = false;
+
+	globVar->newlyLoadedImage = true;
 
 	globVar->currentfile = path;
 	viewThumbs->countpos = viewThumbs->getImageFilePathIndexOf(path);
@@ -1095,12 +1115,14 @@ void MainWindow::moveInDirectory(int direction) {
 	QMap<QString,int> tmp_rotation = globVar->store_rotation;
 	QMap<QString,bool> tmp_flipHor = globVar->store_flipHor;
 	QMap<QString,bool> tmp_flipVer = globVar->store_flipVer;
+	QMap<QString,int> tmp_zoomlevel = globVar->store_zoomlevel;
 	zoom(true,((globVar->zoomToActualSize || globVar->zoomed) && globSet->transition != 0) ? "reset" : "resetNoDraw");
 	rotateFlip(true,"resetNoDraw");
 	rotateFlip(false, "reset");
 	globVar->store_rotation = tmp_rotation;
 	globVar->store_flipHor = tmp_flipHor;
 	globVar->store_flipVer = tmp_flipVer;
+	globVar->store_zoomlevel = tmp_zoomlevel;
 
 
 	// Reset these parameters
@@ -1109,8 +1131,10 @@ void MainWindow::moveInDirectory(int direction) {
 	globVar->rotation = 0;
 	globVar->exifRead = false;
 
+
 	// Move to right, not the end of directory
 	if(direction == 1 && viewThumbs->countpos < viewThumbs->counttot-1) {
+		globVar->newlyLoadedImage = true;
 		globVar->zoomedImgAtLeastOnce = false;
 		globVar->currentfile = viewThumbs->getImageFilePathAt(viewThumbs->countpos+1);
 		++viewThumbs->countpos;
@@ -1119,6 +1143,7 @@ void MainWindow::moveInDirectory(int direction) {
 		drawImage();
 	// Move to right, end of directory
 	} else if(direction == 1 && viewThumbs->countpos == viewThumbs->counttot-1 && globSet->loopthroughfolder && viewThumbs->counttot > 0 && (!setupWidgets->slideshowbar || !slideshowbar->isEnabled())) {
+		globVar->newlyLoadedImage = true;
 		globVar->zoomedImgAtLeastOnce = false;
 		globVar->currentfile = viewThumbs->getImageFilePathAt(0);
 		viewThumbs->countpos = 1;
@@ -1127,6 +1152,7 @@ void MainWindow::moveInDirectory(int direction) {
 		drawImage();
 	// Move to left, not the end of directory
 	} else if(direction == 0 && viewThumbs->countpos > 0) {
+		globVar->newlyLoadedImage = true;
 		globVar->zoomedImgAtLeastOnce = false;
 		globVar->currentfile = viewThumbs->getImageFilePathAt(viewThumbs->countpos-1);
 		--viewThumbs->countpos;
@@ -1135,6 +1161,7 @@ void MainWindow::moveInDirectory(int direction) {
 		drawImage();
 	// Move to left, end of directory
 	} else if(direction == 0 && viewThumbs->countpos == 0 && globSet->loopthroughfolder && viewThumbs->counttot > 0) {
+		globVar->newlyLoadedImage = true;
 		globVar->zoomedImgAtLeastOnce = false;
 		globVar->currentfile = viewThumbs->getImageFilePathAt(viewThumbs->counttot-1);
 		viewThumbs->countpos = viewThumbs->counttot-1;
@@ -1272,6 +1299,9 @@ void MainWindow::restoreDefaultSettings() {
 void MainWindow::rotateFlip(bool rotateNotFlipped, QString direction, int rotateSpecificAmount) {
 
 	if(globVar->verbose) std::clog << "Rotate and Flip: " << rotateNotFlipped << " - " << direction.toStdString() << std::endl;
+
+	// A call to this function means, that the image doesn't qualify for "newly loaded" anymore
+	globVar->newlyLoadedImage = false;
 
 	if(rotateNotFlipped) {
 
@@ -2501,6 +2531,9 @@ void MainWindow::zoom(bool zoomin, QString ignoreBoolean) {
 
 	if(globVar->verbose) std::clog << "Zoom: " << zoomin << " - " << ignoreBoolean.toStdString() << std::endl;
 
+	// A call to this function means, that the image doesn't qualify for "newly loaded" anymore
+	globVar->newlyLoadedImage = false;
+
 	// Reset zoom
 	if(ignoreBoolean.startsWith("reset")) {
 
@@ -2514,6 +2547,7 @@ void MainWindow::zoom(bool zoomin, QString ignoreBoolean) {
 		if(globSet->thumbnailKeepVisible)
 			viewThumbs->makeShow();
 
+		globVar->store_zoomlevel.remove(globVar->currentfile);
 
 		graphItem->itemZoomed = false;
 
@@ -2553,6 +2587,8 @@ void MainWindow::zoom(bool zoomin, QString ignoreBoolean) {
 			globVar->zoomedImgAtLeastOnce = true;
 
 			globVar->zoomToActualSize = true;
+
+			globVar->store_zoomlevel[globVar->currentfile] = 0;
 
 			drawImage();
 
@@ -2638,9 +2674,11 @@ void MainWindow::zoom(bool zoomin, QString ignoreBoolean) {
 		}
 
 		if(zoomin) {
+			if(ignoreBoolean != "storedvalue") globVar->store_zoomlevel[globVar->currentfile] += 1;
 			viewBig->scale(1.1,1.1);
 			viewBig->absoluteScaleFactor += 1;
 		} else {
+			if(ignoreBoolean != "storedvalue") globVar->store_zoomlevel[globVar->currentfile] -= 1;
 			viewBig->scale(0.90909090,0.90909090);
 			viewBig->absoluteScaleFactor -= 1;
 		}

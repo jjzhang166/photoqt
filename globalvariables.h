@@ -57,6 +57,9 @@ public:
 		store_rotation.clear();
 		store_flipHor.clear();
 		store_flipVer.clear();
+		store_zoomlevel.clear();
+
+		newlyLoadedImage = false;
 
 // rotation indicator
 /*      tosave.clear(); */
@@ -117,10 +120,13 @@ public:
 
 	bool windowMaximised;
 
-	// These two QMap's store the rotation/flipping of each image while it's being displayed (nothing changed permanently)
+	bool newlyLoadedImage;
+
+	// These QMap's store the rotation/flipping of each image while it's being displayed (nothing changed permanently)
 	QMap<QString,int> store_rotation;
 	QMap<QString,bool> store_flipHor;
 	QMap<QString,bool> store_flipVer;
+	QMap<QString,int> store_zoomlevel;
 
 // rotation indicator
 /*	QMap<QString,bool> tosave;*/
