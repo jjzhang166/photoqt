@@ -168,6 +168,9 @@ private:
 	// Open a new file
 	void openFile();
 
+	// Re-center image to last position (called from drawImage())
+	void restoreScrollbarValues();
+
 	// This function slips the current big image vertically/horizontally
 	void rotateFlip(bool rotateNotFlipped, QString direction, int rotateSpecificAmount = 0);
 

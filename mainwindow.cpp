@@ -510,35 +510,44 @@ void MainWindow::drawImage() {
 		}
 
 
-		// If the image was zoomed at a previous time this session, we restore the zoom level
-		if(globVar->newlyLoadedImage && globVar->store_zoomlevel.keys().contains(globVar->currentfile)) {
-			if(globVar->store_zoomlevel[globVar->currentfile] == 0 && globSet->rememberZoom)
-				zoom(true,"actualsize");
-			else if(globVar->store_zoomlevel[globVar->currentfile] < 0 && globSet->rememberZoom)
-				for(int tmp = globVar->store_zoomlevel[globVar->currentfile]; tmp < 0; ++tmp)
-					zoom(false,"storedvalue");
-			else if(globVar->store_zoomlevel[globVar->currentfile] > 0 && globSet->rememberZoom)
-				for(int tmp = globVar->store_zoomlevel[globVar->currentfile]; tmp > 0; --tmp)
-					zoom(true,"storedvalue");
+		// A new image, check if loaded and manipulated previously (this session)
+		if(globVar->newlyLoadedImage) {
+
 			globVar->newlyLoadedImage = false;
-		}
 
-		// The rotation/flipping is stored temporarily for each session
-		// We reset the rotation/flipping after the image has changed
-		if(globVar->store_rotation.keys().contains(globVar->currentfile) && globVar->store_rotation[globVar->currentfile] != 0 && globVar->store_rotation[globVar->currentfile] != globVar->rotation && globSet->rememberRotation) {
-			int val = globVar->store_rotation[globVar->currentfile];
-			QString clock = "anticlock";
-			if(val < 0) {
-				clock = "clock";
-				val *= -1;
+			// If the image was zoomed at a previous time this session, we restore the zoom level
+			if(globVar->store_zoomlevel.keys().contains(globVar->currentfile)) {
+				if(globVar->store_zoomlevel[globVar->currentfile] == 0 && globSet->rememberZoom)
+					zoom(true,"actualsize");
+				else if(globVar->store_zoomlevel[globVar->currentfile] < 0 && globSet->rememberZoom)
+					for(int tmp = globVar->store_zoomlevel[globVar->currentfile]; tmp < 0; ++tmp)
+						zoom(false,"storedvalue");
+				else if(globVar->store_zoomlevel[globVar->currentfile] > 0 && globSet->rememberZoom)
+					for(int tmp = globVar->store_zoomlevel[globVar->currentfile]; tmp > 0; --tmp)
+						zoom(true,"storedvalue");
 			}
-			rotateFlip(true,clock,val);
-		}
 
-		if(globSet->rememberRotation && globVar->store_flipHor.value(globVar->currentfile) && globVar->store_flipHor.value(globVar->currentfile) != globVar->flipHor)
-			rotateFlip(false,"hor");
-		if(globVar->store_flipVer[globVar->currentfile] && globVar->store_flipVer[globVar->currentfile] != globVar->flipVer && globSet->rememberRotation)
-			rotateFlip(false,"ver");
+			// The rotation/flipping is stored temporarily for each session
+			// We reset the rotation/flipping after the image has changed
+			if(globVar->store_rotation.keys().contains(globVar->currentfile) && globVar->store_rotation[globVar->currentfile] != 0 && globVar->store_rotation[globVar->currentfile] != globVar->rotation && globSet->rememberRotation) {
+				int val = globVar->store_rotation[globVar->currentfile];
+				QString clock = "anticlock";
+				if(val < 0) {
+					clock = "clock";
+					val *= -1;
+				}
+				rotateFlip(true,clock,val);
+			}
+
+			if(globSet->rememberRotation && globVar->store_flipHor.value(globVar->currentfile) && globVar->store_flipHor.value(globVar->currentfile) != globVar->flipHor)
+				rotateFlip(false,"hor");
+			if(globVar->store_flipVer[globVar->currentfile] && globVar->store_flipVer[globVar->currentfile] != globVar->flipVer && globSet->rememberRotation)
+				rotateFlip(false,"ver");
+
+			// Scroll to previous position
+			restoreScrollbarValues();
+
+		}
 
 		// Restore normal cursor
 		qApp->restoreOverrideCursor();
@@ -908,6 +917,7 @@ void MainWindow::loadNewImgFromOpen(QString path, bool hideImageFilterLabel) {
 	globVar->store_flipHor.clear();
 	globVar->store_flipVer.clear();
 	globVar->store_zoomlevel.clear();
+	globVar->store_visibleArea.clear();
 
 	globVar->newlyLoadedImage = true;
 
@@ -939,11 +949,14 @@ void MainWindow::loadNewImgFromThumbs(QString path) {
 	// Reset zooming parameter
 	globVar->zoomedImgAtLeastOnce = false;
 
+	globVar->store_visibleArea[globVar->currentfile] = std::pair<int,int>(viewBig->horizontalScrollBar()->value(),viewBig->verticalScrollBar()->value());
+
 	// When a new image is loaded we initially reset any zooming, rotation, flipping, but preserve the settings
 	QMap<QString,int> tmp_rotation = globVar->store_rotation;
 	QMap<QString,bool> tmp_flipHor = globVar->store_flipHor;
 	QMap<QString,bool> tmp_flipVer = globVar->store_flipVer;
 	QMap<QString,int> tmp_zoomlevel = globVar->store_zoomlevel;
+	QMap<QString,std::pair<int,int> > tmp_visibleArea = globVar->store_visibleArea;
 	zoom(true,((globVar->zoomToActualSize || globVar->zoomed) && globSet->transition != 0) ? "reset" : "resetNoDraw");
 	rotateFlip(true,"resetNoDraw");
 	rotateFlip(false, "reset");
@@ -951,6 +964,7 @@ void MainWindow::loadNewImgFromThumbs(QString path) {
 	globVar->store_flipHor = tmp_flipHor;
 	globVar->store_flipVer = tmp_flipVer;
 	globVar->store_zoomlevel = tmp_zoomlevel;
+	globVar->store_visibleArea = tmp_visibleArea;
 
 	viewBig->absoluteScaleFactor = 0;
 	globVar->zoomed = tmp_zoomlevel.keys().contains(path);
@@ -1112,11 +1126,14 @@ void MainWindow::moveInDirectory(int direction) {
 
 	if(globVar->verbose) std::clog << "Move in directory: " << direction << std::endl;
 
+	globVar->store_visibleArea[globVar->currentfile] = std::pair<int,int>(viewBig->horizontalScrollBar()->value(),viewBig->verticalScrollBar()->value());
+
 	// When a new image is loaded we reset any zooing, rotation, flipping
 	QMap<QString,int> tmp_rotation = globVar->store_rotation;
 	QMap<QString,bool> tmp_flipHor = globVar->store_flipHor;
 	QMap<QString,bool> tmp_flipVer = globVar->store_flipVer;
 	QMap<QString,int> tmp_zoomlevel = globVar->store_zoomlevel;
+	QMap<QString,std::pair<int,int> > tmp_visibleArea = globVar->store_visibleArea;
 	zoom(true,((globVar->zoomToActualSize || globVar->zoomed) && globSet->transition != 0) ? "reset" : "resetNoDraw");
 	rotateFlip(true,"resetNoDraw");
 	rotateFlip(false, "reset");
@@ -1124,6 +1141,7 @@ void MainWindow::moveInDirectory(int direction) {
 	globVar->store_flipHor = tmp_flipHor;
 	globVar->store_flipVer = tmp_flipVer;
 	globVar->store_zoomlevel = tmp_zoomlevel;
+	globVar->store_visibleArea = tmp_visibleArea;
 
 
 	// Reset these parameters
@@ -1293,6 +1311,17 @@ void MainWindow::restoreDefaultSettings() {
 
 	globSet->setDefault();
 	globSet->saveSettings();
+
+}
+
+// Re-center image to last position (called from drawImage())
+void MainWindow::restoreScrollbarValues() {
+
+	if(globVar->store_visibleArea.keys().contains(globVar->currentfile)) {
+		std::pair<int,int> p = globVar->store_visibleArea[globVar->currentfile];
+		viewBig->horizontalScrollBar()->setValue(p.first);
+		viewBig->verticalScrollBar()->setValue(p.second);
+	}
 
 }
 

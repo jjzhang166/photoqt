@@ -58,6 +58,7 @@ public:
 		store_flipHor.clear();
 		store_flipVer.clear();
 		store_zoomlevel.clear();
+		store_visibleArea.clear();
 
 		newlyLoadedImage = false;
 
@@ -127,6 +128,7 @@ public:
 	QMap<QString,bool> store_flipHor;
 	QMap<QString,bool> store_flipVer;
 	QMap<QString,int> store_zoomlevel;
+	QMap<QString,std::pair<int,int> > store_visibleArea;
 
 // rotation indicator
 /*	QMap<QString,bool> tosave;*/
