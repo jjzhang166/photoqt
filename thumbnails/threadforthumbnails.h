@@ -77,12 +77,15 @@ public:
 	}
 
 	void updateData(int pos, int thbw, int vieww, bool loadfulldir, int preload, bool filename, int smartdyn) {
+		amountCreated = 0;
 		currentPos = pos;
 		thbWidth = thbw;
 		viewWidth = vieww;
 		createThisOne = pos;
 		loadFullDirectory = loadfulldir;
 		preloadNumber = preload;
+		leftNextThb = -1;
+		rightNextThb = -1;
 		filenameOnly = filename;
 		dynamicThumbs = smartdyn;
 	}
@@ -216,8 +219,6 @@ protected:
 			// If this thumbnail hasn't yet been set up
 			if(!posCreated.contains(createThisOne) && createThisOne != -1 && createThisOne < counttot) {
 
-				posCreated.append(createThisOne);
-
 				// Create the md5 hash for the thumbnail file
 				QByteArray path = "";
 				path = "file://" + allimgs.at(createThisOne).absoluteFilePath().toLatin1();
@@ -238,7 +239,6 @@ protected:
 				int origwidth = -1;
 				int origheight = -1;
 
-				bool loaded = false;
 				bool wasoncecreated = false;
 
 				// If files in ~/.thumbnails/ shall be used, then do use them
@@ -252,10 +252,10 @@ protected:
 						p.load(QDir::homePath() + "/.thumbnails/" + td + "/" + md5 + ".png");
 
 						uint mtime = p.text("Thumb").remove("MTime:").trimmed().toInt();
-						loaded = true;
+						posCreated.append(createThisOne);
 
 						if(allimgs.at(createThisOne).lastModified().toTime_t() != mtime)
-							loaded = false;
+							posCreated.removeLast();
 
 					// Otherwise load thumbnail from original
 					}
@@ -276,7 +276,7 @@ protected:
 							p.loadFromData(b);
 							origwidth = query.value(query.record().indexOf("origwidth")).toInt();
 							origheight = query.value(query.record().indexOf("origheight")).toInt();
-							loaded = true;
+							posCreated.append(createThisOne);
 						}
 
 						wasoncecreated = true;
@@ -288,7 +288,9 @@ protected:
 				}
 
 				// If file wasn't loaded from file or database, then it doesn't exist yet (or isn't up-to-date anymore) and we have to create it
-				if(!loaded && amountCreated < numberThbs) {
+				if(!posCreated.contains(createThisOne) && amountCreated < numberThbs) {
+
+					posCreated.append(createThisOne);
 
 					if(verbose) std::clog << "thread: Creating new thumb: " << createThisOne << std::endl;
 
@@ -364,7 +366,8 @@ protected:
 				}
 
 				// Send out signal with all the data
-				emit updateThumb(p,allimgs.at(createThisOne).absoluteFilePath(),origwidth,origheight,createThisOne, false);
+				if(posCreated.contains(createThisOne))
+					emit updateThumb(p,allimgs.at(createThisOne).absoluteFilePath(),origwidth,origheight,createThisOne, false);
 
 			}
 
