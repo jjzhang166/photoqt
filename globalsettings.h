@@ -136,6 +136,7 @@ public:
 
 	bool thumbnailWriteFilename;
 	bool thumbnailWriteResolution;
+	int thumbnailFontSize;
 
 	// Window Mode
 	bool windowmode;
@@ -236,6 +237,7 @@ public:
 		map.insert("ThumbnailDisable",thumbnailDisable);
 		map.insert("ThumbnailWriteFilename",thumbnailWriteFilename);
 		map.insert("ThumbnailWriteResolution",thumbnailWriteResolution);
+		map.insert("ThumbnailFontSize",thumbnailFontSize);
 		map.insert("ThumbnailPreloadFullDirectory",thumbnailPreloadFullDirectory);
 		map.insert("ThumbnailPreloadNumber",thumbnailPreloadNumber);
 
@@ -341,6 +343,7 @@ public:
 		thumbnailDisable = false;
 		thumbnailWriteFilename = true;
 		thumbnailWriteResolution = false;
+		thumbnailFontSize = 7;
 		thumbnailPreloadFullDirectory = false;
 		thumbnailPreloadNumber = 400;
 
@@ -593,6 +596,9 @@ public:
 			else if(all.contains("ThumbnailWriteResolution=0"))
 				thumbnailWriteResolution = false;
 
+			if(all.contains("ThumbnailFontSize="))
+				thumbnailFontSize = all.split("ThumbnailFontSize=").at(1).split("\n").at(0).toInt();
+
 			if(all.contains("ThumbnailPreloadFullDirectory=1"))
 				thumbnailPreloadFullDirectory = true;
 			else if(all.contains("ThumbnailPreloadFullDirectory=0"))
@@ -802,6 +808,7 @@ public:
 			cont += QString("ThumbnailDisable=%1\n").arg(int(thumbnailDisable));
 			cont += QString("ThumbnailWriteFilename=%1\n").arg(int(thumbnailWriteFilename));
 			cont += QString("ThumbnailWriteResolution=%1\n").arg(int(thumbnailWriteResolution));
+			cont += QString("ThumbnailFontSize=%1\n").arg(thumbnailFontSize);
 			cont += QString("ThumbnailPreloadFullDirectory=%1\n").arg(int(thumbnailPreloadFullDirectory));
 			cont += QString("ThumbnailPreloadNumber=%1\n").arg(thumbnailPreloadNumber);
 
@@ -1056,6 +1063,10 @@ public slots:
 		}
 		if(changedSet.keys().contains("ThumbnailWriteResolution")) {
 			thumbnailWriteResolution = changedSet.value("ThumbnailWriteResolution").toBool();
+			applySet["thumb"] = true;
+		}
+		if(changedSet.keys().contains("ThumbnailFontSize")) {
+			thumbnailFontSize = changedSet.value("ThumbnailFontSize").toInt();
 			applySet["thumb"] = true;
 		}
 		if(changedSet.keys().contains("ThumbnailPreloadFullDirectory")) {

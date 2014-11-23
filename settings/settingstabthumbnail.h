@@ -118,8 +118,10 @@ private:
 	// Use thumbnail cache
 	CustomCheckBox *thumbCache;
 
+	// What to write onto the filenames, and how big
 	CustomCheckBox *writeFilename;
 	CustomCheckBox *writeDimensions;
+	CustomSlider *filenameDimensionFontSize;
 
 	// Type of cache
 	CustomRadioButton *cacheFile;

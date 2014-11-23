@@ -305,8 +305,8 @@ SettingsTabThumbnail::SettingsTabThumbnail(QWidget *parent, QMap<QString, QVaria
 	connect(filenameFontSizeSpin, SIGNAL(valueChanged(int)), filenameFontSizeSlider, SLOT(setValue(int)));
 
 
-	// OPTION TO SWITCH BETWEEN FILENAME DIMENSION OR BOTH FOR WRITING ON THUMBNAILS
-	CustomLabel *writeFilenameDimensionsLabel = new CustomLabel("<b><span style=\"font-size: 12pt\">" + tr("Filename? Resolution? Or both?") + "</span></b><br><bR>" + tr("When thumbnails are displayed at the top/bottom, PhotoQt usually writes the filename on them. If wanted, this can be switched to the image resolution. Or even both can be displayed, whatever you want."));
+	// OPTION TO SWITCH BETWEEN FILENAME, DIMENSION OR BOTH FOR WRITING ON THUMBNAILS
+	CustomLabel *writeFilenameDimensionsLabel = new CustomLabel("<b><span style=\"font-size: 12pt\">" + tr("Filename? Dimension? Or both?") + "</span></b><br><bR>" + tr("When thumbnails are displayed at the top/bottom, PhotoQt usually writes the filename on them. But also the dimension of the image can be written on it. Or also both or none. You can use the slider below to adjust the font size."));
 	writeFilename = new CustomCheckBox(tr("Write Filename"));
 	writeDimensions = new CustomCheckBox(tr("Write Resolution"));
 	QHBoxLayout *writeCheckLay = new QHBoxLayout;
@@ -314,9 +314,22 @@ SettingsTabThumbnail::SettingsTabThumbnail(QWidget *parent, QMap<QString, QVaria
 	writeCheckLay->addWidget(writeFilename);
 	writeCheckLay->addWidget(writeDimensions);
 	writeCheckLay->addStretch();
+	CustomLabel *filenameDimensionFontSizeLower = new CustomLabel("5pt");
+	CustomLabel *filenameDimensionFontSizeUpper = new CustomLabel("20pt");
+	filenameDimensionFontSize = new CustomSlider;
+	filenameDimensionFontSize->setMinimum(5);
+	filenameDimensionFontSize->setMaximum(20);
+	QHBoxLayout *filenameDimensionFontSizeLay = new QHBoxLayout;
+	filenameDimensionFontSizeLay->addStretch();
+	filenameDimensionFontSizeLay->addWidget(filenameDimensionFontSizeLower);
+	filenameDimensionFontSizeLay->addWidget(filenameDimensionFontSize);
+	filenameDimensionFontSizeLay->addWidget(filenameDimensionFontSizeUpper);
+	filenameDimensionFontSizeLay->addStretch();
 	layLook->addWidget(writeFilenameDimensionsLabel);
 	layLook->addSpacing(5);
 	layLook->addLayout(writeCheckLay);
+	layLook->addSpacing(10);
+	layLook->addLayout(filenameDimensionFontSizeLay);
 	layLook->addSpacing(20);
 
 
@@ -469,6 +482,9 @@ void SettingsTabThumbnail::loadSettings() {
 	writeDimensions->setChecked(globSet.value("ThumbnailWriteResolution").toBool());
 	defaults.insert("ThumbnailWriteResolution",globSet.value("ThumbnailWriteResolution").toBool());
 
+	filenameDimensionFontSize->setValue(globSet.value("ThumbnailFontSize").toInt());
+	defaults.insert("ThumbnailFontSize",globSet.value("ThumbnailFontSize").toInt());
+
 	filenameFontSizeSlider->setValue(globSet.value("ThumbnailFilenameInsteadFontSize").toInt());
 	filenameFontSizeSpin->setValue(globSet.value("ThumbnailFilenameInsteadFontSize").toInt());
 	defaults.insert("ThumbnailFilenameInsteadFontSize",globSet.value("ThumbnailFilenameInsteadFontSize").toInt());
@@ -572,6 +588,12 @@ void SettingsTabThumbnail::saveSettings() {
 		updatedSet.insert("ThumbnailWriteResolution",writeDimensions->isChecked());
 		defaults.remove("ThumbnailWriteResolution");
 		defaults.insert("ThumbnailWriteResolution",writeDimensions->isChecked());
+	}
+
+	if(defaults.value("ThumbnailFontSize").toInt() != filenameDimensionFontSize->value()) {
+		updatedSet.insert("ThumbnailFontSize",filenameDimensionFontSize->value());
+		defaults.remove("ThumbnailFontSize");
+		defaults.insert("ThumbnailFontSize",filenameDimensionFontSize->value());
 	}
 
 	if(defaults.value("ThumbnailFilenameInsteadFontSize").toInt() != filenameFontSizeSlider->value()) {
