@@ -509,9 +509,23 @@ void MainWindow::drawImage() {
 
 		}
 
+
+		// If the image was zoomed at a previous time this session, we restore the zoom level
+		if(globVar->newlyLoadedImage && globVar->store_zoomlevel.keys().contains(globVar->currentfile)) {
+			if(globVar->store_zoomlevel[globVar->currentfile] == 0 && globSet->rememberZoom)
+				zoom(true,"actualsize");
+			else if(globVar->store_zoomlevel[globVar->currentfile] < 0 && globSet->rememberZoom)
+				for(int tmp = globVar->store_zoomlevel[globVar->currentfile]; tmp < 0; ++tmp)
+					zoom(false,"storedvalue");
+			else if(globVar->store_zoomlevel[globVar->currentfile] > 0 && globSet->rememberZoom)
+				for(int tmp = globVar->store_zoomlevel[globVar->currentfile]; tmp > 0; --tmp)
+					zoom(true,"storedvalue");
+			globVar->newlyLoadedImage = false;
+		}
+
 		// The rotation/flipping is stored temporarily for each session
 		// We reset the rotation/flipping after the image has changed
-		if(globVar->store_rotation.keys().contains(globVar->currentfile) && globVar->store_rotation[globVar->currentfile] != 0 && globVar->store_rotation[globVar->currentfile] != globVar->rotation) {
+		if(globVar->store_rotation.keys().contains(globVar->currentfile) && globVar->store_rotation[globVar->currentfile] != 0 && globVar->store_rotation[globVar->currentfile] != globVar->rotation && globSet->rememberRotation) {
 			int val = globVar->store_rotation[globVar->currentfile];
 			QString clock = "anticlock";
 			if(val < 0) {
@@ -521,22 +535,9 @@ void MainWindow::drawImage() {
 			rotateFlip(true,clock,val);
 		}
 
-		// If the image was zoomed at a previous time this session, we restore the zoom level
-		if(globVar->newlyLoadedImage && globVar->store_zoomlevel.keys().contains(globVar->currentfile)) {
-			if(globVar->store_zoomlevel[globVar->currentfile] == 0)
-				zoom(true,"actualsize");
-			else if(globVar->store_zoomlevel[globVar->currentfile] < 0)
-				for(int tmp = globVar->store_zoomlevel[globVar->currentfile]; tmp < 0; ++tmp)
-					zoom(false,"storedvalue");
-			else if(globVar->store_zoomlevel[globVar->currentfile] > 0)
-				for(int tmp = globVar->store_zoomlevel[globVar->currentfile]; tmp > 0; --tmp)
-					zoom(true,"storedvalue");
-			globVar->newlyLoadedImage = false;
-		}
-
-		if(globVar->store_flipHor[globVar->currentfile] && globVar->store_flipHor[globVar->currentfile] != globVar->flipHor)
+		if(globSet->rememberRotation && globVar->store_flipHor.value(globVar->currentfile) && globVar->store_flipHor.value(globVar->currentfile) != globVar->flipHor)
 			rotateFlip(false,"hor");
-		if(globVar->store_flipVer[globVar->currentfile] && globVar->store_flipVer[globVar->currentfile] != globVar->flipVer)
+		if(globVar->store_flipVer[globVar->currentfile] && globVar->store_flipVer[globVar->currentfile] != globVar->flipVer && globSet->rememberRotation)
 			rotateFlip(false,"ver");
 
 		// Restore normal cursor

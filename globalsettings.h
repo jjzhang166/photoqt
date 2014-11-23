@@ -86,6 +86,9 @@ public:
 	bool sortbyAscending;
 	// Mouse Wheel sensitivity
 	int mouseWheelSensitivity;
+	// Remember per session
+	bool rememberRotation;
+	bool rememberZoom;
 
 	// Are quickinfos hidden?
 	bool hidecounter;
@@ -214,6 +217,8 @@ public:
 		map.insert("BorderAroundImg",borderAroundImg);
 		map.insert("QuickSettings",quickSettings);
 		map.insert("MouseWheelSensitivity",mouseWheelSensitivity);
+		map.insert("RememberRotation",rememberRotation);
+		map.insert("RememberZoom",rememberZoom);
 
 		map.insert("HideCounter",hidecounter);
 		map.insert("HideFilepathShowFilename",hidefilepathshowfilename);
@@ -322,6 +327,8 @@ public:
 		borderAroundImg = 5;
 		quickSettings = true;
 		mouseWheelSensitivity = 1;
+		rememberRotation = true;
+		rememberZoom = true;
 
 		hidecounter = false;
 		hidefilepathshowfilename = true;
@@ -502,6 +509,21 @@ public:
 			if(all.contains("BorderAroundImg="))
 				borderAroundImg = all.split("BorderAroundImg=").at(1).split("\n").at(0).toInt();
 
+			if(all.contains("MouseWheelSensitivity=")) {
+				mouseWheelSensitivity = all.split("MouseWheelSensitivity=").at(1).split("\n").at(0).toInt();
+				if(mouseWheelSensitivity < 1) mouseWheelSensitivity = 1;
+			}
+
+			if(all.contains("RememberRotation=1"))
+				rememberRotation = true;
+			else if(all.contains("RememberRotation=0"))
+				rememberRotation = false;
+
+			if(all.contains("RememberZoom=1"))
+				rememberZoom = true;
+			else if(all.contains("RememberZoom=0"))
+				rememberZoom = false;
+
 			if(all.contains("HideCounter=1"))
 				hidecounter = true;
 			else if(all.contains("HideCounter=0"))
@@ -529,11 +551,6 @@ public:
 				fancyX = true;
 			else if(all.contains("FancyX=0"))
 				fancyX = false;
-
-			if(all.contains("MouseWheelSensitivity=")) {
-				mouseWheelSensitivity = all.split("MouseWheelSensitivity=").at(1).split("\n").at(0).toInt();
-				if(mouseWheelSensitivity < 1) mouseWheelSensitivity = 1;
-			}
 
 			if(all.contains("ThumbnailSize="))
 				thumbnailsize = all.split("ThumbnailSize=").at(1).split("\n").at(0).toInt();
@@ -782,6 +799,8 @@ public:
 			cont += QString("SortImagesBy=%1\n").arg(sortby);
 			cont += QString("SortImagesAscending=%1\n").arg(int(sortbyAscending));
 			cont += QString("MouseWheelSensitivity=%1\n").arg(mouseWheelSensitivity);
+			cont += QString("RememberRotation=%1\n").arg(int(rememberRotation));
+			cont += QString("RememberZoom=%1\n").arg(int(rememberZoom));
 
 			cont += "\n[Quickinfo]\n";
 
@@ -1015,6 +1034,12 @@ public slots:
 
 		if(changedSet.keys().contains("MouseWheelSensitivity"))
 			mouseWheelSensitivity = changedSet.value("MouseWheelSensitivity").toInt();
+
+		if(changedSet.keys().contains("RememberRotation"))
+			rememberRotation = changedSet.value("RememberRotation").toBool();
+
+		if(changedSet.keys().contains("RememberZoom"))
+			rememberZoom = changedSet.value("RememberZoom").toBool();
 
 		if(changedSet.keys().contains("ThumbnailSize")) {
 			thumbnailsize = changedSet.value("ThumbnailSize").toInt();

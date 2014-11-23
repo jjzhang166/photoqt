@@ -122,6 +122,10 @@ private:
 	// Mouse wheel sensitivity
 	CustomSlider *wheelSensitivity;
 
+	// Remember per session
+	CustomCheckBox *rememberRotation;
+	CustomCheckBox *rememberZoom;
+
 	// Window Mode
 	CustomCheckBox *windowMode;
 	CustomCheckBox *windowDeco;

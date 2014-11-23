@@ -301,6 +301,23 @@ SettingsTabLookAndFeel::SettingsTabLookAndFeel(QWidget *parent, QMap<QString, QV
 	layFeel->addSpacing(20);
 
 
+	// Remember rotation/flip/zoom per session
+	CustomLabel *rememberPerSessionLabel = new CustomLabel("<b><span style=\"font-size: 12pt\">" + tr("Remember per session") + "</span></b><hr>" + tr("If you would like PhotoQt to remember the rotation/flipping and/or zoom level per session (not permanent), then you can enable it here. If not set, then every time a new image is displayed, it is displayed neither zoomed nor rotated nor flipped (one could say, it is displayed \"normal\")."));
+	rememberPerSessionLabel->setWordWrap(true);
+	rememberRotation = new CustomCheckBox(tr("Remember Rotation/Flip"));
+	rememberZoom = new CustomCheckBox(tr("Remember Zoom Level"));
+	QHBoxLayout *checkLay = new QHBoxLayout;
+	checkLay->addStretch();
+	checkLay->addWidget(rememberRotation);
+	checkLay->addSpacing(10);
+	checkLay->addWidget(rememberZoom);
+	checkLay->addStretch();
+	layFeel->addWidget(rememberPerSessionLabel);
+	layFeel->addSpacing(5);
+	layFeel->addLayout(checkLay);
+	layFeel->addSpacing(20);
+
+
 	// Adjust window mode
 	CustomLabel *windowModeLabel = new CustomLabel("<b><span style=\"font-size:12pt\">" + tr("Window Mode") + "</span></b><br><br>" + tr("PhotoQt is designed with the space of a fullscreen app in mind. That's why it by default runs as fullscreen. However, some might prefer to have it as a normal window, e.g. so that they can see the panel.") + "<br><b></b>");
 	windowModeLabel->setWordWrap(true);
@@ -514,6 +531,12 @@ void SettingsTabLookAndFeel::loadSettings() {
 	wheelSensitivity->setValue(globSet.value("MouseWheelSensitivity").toInt());
 	defaults.insert("MouseWheelSensitivity",globSet.value("MouseWheelSensitivity").toInt());
 
+	rememberRotation->setChecked(globSet.value("RememberRotation").toBool());
+	defaults.insert("RememberRotation",globSet.value("RememberRotation").toBool());
+
+	rememberZoom->setChecked(globSet.value("RememberZoom").toBool());
+	defaults.insert("RememberZoom",globSet.value("RememberZoom").toBool());
+
 	windowMode->setChecked(globSet.value("WindowMode").toBool());
 	defaults.insert("WindowMode",globSet.value("WindowMode").toBool());
 
@@ -653,10 +676,16 @@ void SettingsTabLookAndFeel::saveSettings() {
 		defaults.insert("MenuSensitivity",menu->value());
 	}
 
-	if(defaults.value("MouseWheelSensitivity").toInt() != wheelSensitivity->value()) {
-		updatedSet.insert("MouseWheelSensitivity",wheelSensitivity->value());
-		defaults.remove("MouseWheelSensitivity");
-		defaults.insert("MouseWheelSensitivity",wheelSensitivity->value());
+	if(defaults.value("RememberRotation").toBool() != rememberRotation->isChecked()) {
+		updatedSet.insert("RememberRotation",rememberRotation->isChecked());
+		defaults.remove("RememberRotation");
+		defaults.insert("RememberRotation",rememberRotation->isChecked());
+	}
+
+	if(defaults.value("RememberZoom").toBool() != rememberZoom->isChecked()) {
+		updatedSet.insert("RememberZoom",rememberZoom->isChecked());
+		defaults.remove("RememberZoom");
+		defaults.insert("RememberZoom",rememberZoom->isChecked());
 	}
 
 	if(defaults.value("WindowMode").toBool() != windowMode->isChecked()) {
