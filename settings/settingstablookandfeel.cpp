@@ -38,51 +38,194 @@ SettingsTabLookAndFeel::SettingsTabLookAndFeel(QWidget *parent, QMap<QString, QV
 	this->setLayout(mainLay);
 
 	// the main scroll widget for all LOOK content
-	scrollbarLook = new CustomScrollbar;
-	QScrollArea *scrollLook = new QScrollArea;
-	QVBoxLayout *layLook = new QVBoxLayout(scrollLook);
-	QWidget *scrollWidgLook = new QWidget(scrollLook);
-	scrollWidgLook->setLayout(layLook);
-	scrollLook->setWidget(scrollWidgLook);
-	scrollLook->setWidgetResizable(true);
-	scrollLook->setVerticalScrollBar(scrollbarLook);
+	scrollbarBasic = new CustomScrollbar;
+	QScrollArea *scrollBasic = new QScrollArea;
+	QVBoxLayout *layBasic = new QVBoxLayout(scrollBasic);
+	QWidget *scrollWidgBasic = new QWidget(scrollBasic);
+	scrollWidgBasic->setLayout(layBasic);
+	scrollBasic->setWidget(scrollWidgBasic);
+	scrollBasic->setWidgetResizable(true);
+	scrollBasic->setVerticalScrollBar(scrollbarBasic);
 
 	// the main scroll widget for all FEEL content
-	scrollbarFeel = new CustomScrollbar;
-	QScrollArea *scrollFeel = new QScrollArea;
-	QVBoxLayout *layFeel = new QVBoxLayout(scrollFeel);
-	QWidget *scrollWidgFeel = new QWidget(scrollFeel);
-	scrollWidgFeel->setLayout(layFeel);
-	scrollFeel->setWidget(scrollWidgFeel);
-	scrollFeel->setWidgetResizable(true);
-	scrollFeel->setVerticalScrollBar(scrollbarFeel);
+	scrollbarAdvanced = new CustomScrollbar;
+	QScrollArea *scrollAdvanced = new QScrollArea;
+	QVBoxLayout *layAdvanced = new QVBoxLayout(scrollAdvanced);
+	QWidget *scrollWidgAdvanced = new QWidget(scrollAdvanced);
+	scrollWidgAdvanced->setLayout(layAdvanced);
+	scrollAdvanced->setWidget(scrollWidgAdvanced);
+	scrollAdvanced->setWidgetResizable(true);
+	scrollAdvanced->setVerticalScrollBar(scrollbarAdvanced);
 
-	tabLook = new QWidget;
-	tabFeel = new QWidget;
+	tabBasic = new QWidget;
+	tabAdvanced = new QWidget;
 
-	QVBoxLayout *scrollLayLook = new QVBoxLayout;
-	scrollLayLook->addWidget(scrollLook);
-	tabLook->setLayout(scrollLayLook);
+	QVBoxLayout *scrollLayBasic = new QVBoxLayout;
+	scrollLayBasic->addWidget(scrollBasic);
+	tabBasic->setLayout(scrollLayBasic);
 
-	QVBoxLayout *scrollLayFeel = new QVBoxLayout;
-	scrollLayFeel->addWidget(scrollFeel);
-	tabFeel->setLayout(scrollLayFeel);
+	QVBoxLayout *scrollLayAdvanced = new QVBoxLayout;
+	scrollLayAdvanced->addWidget(scrollAdvanced);
+	tabAdvanced->setLayout(scrollLayAdvanced);
 
-	tabs->addTab(tabLook,tr("Look"));
-	tabs->addTab(tabFeel,tr("Behaviour"));
+	tabs->addTab(tabBasic,tr("Basic"));
+	tabs->addTab(tabAdvanced,tr("Advanced"));
 
 
 
 	// The titles
-	CustomLabel *titleLook = new CustomLabel("<center><h1>" + tr("Overall Look") + "</h1></center>");
-	layLook->addWidget(titleLook);
-	layLook->addSpacing(20);
-	CustomLabel *titleFeel = new CustomLabel("<center><h1>" + tr("Behaviour of PhotoQt") + "</h1></center>");
-	layFeel->addWidget(titleFeel);
-	layFeel->addSpacing(20);
+	CustomLabel *titleBasic = new CustomLabel("<center><h1>" + tr("Basic Settings") + "</h1></center>");
+	layBasic->addWidget(titleBasic);
+	layBasic->addSpacing(20);
+	CustomLabel *titleAdvanced = new CustomLabel("<center><h1>" + tr("Advanced Settings") + "</h1></center>");
+	layAdvanced->addWidget(titleAdvanced);
+	layAdvanced->addSpacing(20);
 
 
-	// OPTION FOR COMPOSITE
+
+	///////// BASIC TAB /////////
+
+
+	// OPTION TO ADJUST SORTING OF IMAGES
+	CustomLabel *sortByLabel = new CustomLabel("<b><span style=\"font-size: 12pt\">" + tr("Sort Images") + "</span></b><hr>" + tr("Here you can adjust, how the images in a folder are supposed to be sorted. You can sort them by Filename, Natural Name (e.g., file10.jpg comes after file9.jpg and not after file1.jpg), File Size, and Date. Also, you can reverse the sorting order from ascending to descending if wanted.") + "<br><br><b>" + tr("Hint: You can also change this setting very quickly from the 'Quick Settings'' window, hidden behind the right screen edge.") + "</b>");
+	CustomLabel *sortByIntro = new CustomLabel(tr("Sort by:"));
+	sortBy = new CustomComboBox;
+	sortBy->addItem(tr("Name"),"name");
+	sortBy->addItem(tr("Natural Name"),"naturalname");
+	sortBy->addItem(tr("Date"),"date");
+	sortBy->addItem(tr("File Size"),"size");
+	sortByAsc = new CustomRadioButton(tr("Ascending"));
+	sortByAsc->setIcon(QIcon(":/img/sortascending.png"));
+	sortByDes = new CustomRadioButton(tr("Descending"));
+	sortByDes->setIcon(QIcon(":/img/sortdescending.png"));
+	QButtonGroup *sortByGrp = new QButtonGroup;
+	sortByGrp->addButton(sortByAsc);
+	sortByGrp->addButton(sortByDes);
+	QHBoxLayout *sortByLay = new QHBoxLayout;
+	sortByLay->addStretch();
+	sortByLay->addWidget(sortByIntro);
+	sortByLay->addWidget(sortBy);
+	sortByLay->addWidget(sortByAsc);
+	sortByLay->addWidget(sortByDes);
+	sortByLay->addStretch();
+	layBasic->addWidget(sortByLabel);
+	layBasic->addSpacing(10);
+	layBasic->addLayout(sortByLay);
+	layBasic->addSpacing(20);
+
+
+	// ADJUST WINDOW MODE
+	CustomLabel *windowModeLabel = new CustomLabel("<b><span style=\"font-size:12pt\">" + tr("Window Mode") + "</span></b><br><br>" + tr("PhotoQt is designed with the space of a fullscreen app in mind. That's why it by default runs as fullscreen. However, some might prefer to have it as a normal window, e.g. so that they can see the panel.") + "<br><b></b>");
+	windowModeLabel->setWordWrap(true);
+	windowMode = new CustomCheckBox(tr("Run PhotoQt in Window Mode"));
+	windowDeco = new CustomCheckBox(tr("Show Window Decoration"));
+	windowDeco->setEnabled(false);
+	QHBoxLayout *windowLay = new QHBoxLayout;
+	windowLay->addStretch();
+	windowLay->addWidget(windowMode);
+	windowLay->addSpacing(10);
+	windowLay->addWidget(windowDeco);
+	windowLay->addStretch();
+	layBasic->addWidget(windowModeLabel);
+	layBasic->addSpacing(10);
+	layBasic->addLayout(windowLay);
+	layBasic->addSpacing(20);
+	connect(windowMode, SIGNAL(toggled(bool)), windowDeco, SLOT(setEnabled(bool)));
+
+
+	// OPTION FOR TRAY ICON USAGE
+	trayIcon = new CustomCheckBox(tr("Hide to Tray Icon"));
+	CustomLabel *trayIconLabel = new CustomLabel("<b><span style=\"font-size:12pt\">" + tr("Hide to Tray Icon") + "</span></b><br><br>" + tr("When started PhotoQt creates a tray icon in the system tray. If desired, you can set PhotoQt to minimise to the tray instead of quitting. This causes PhotoQt to be almost instantaneously available when an image is opened.") + "<br>" + tr("It is also possible to start PhotoQt already minimised to the tray (e.g. at system startup) when called with \"--start-in-tray\"."));
+	trayIconLabel->setWordWrap(true);
+	QHBoxLayout *trayIconLay = new QHBoxLayout;
+	trayIconLay->addStretch();
+	trayIconLay->addWidget(trayIcon);
+	trayIconLay->addStretch();
+	layBasic->addWidget(trayIconLabel);
+	layBasic->addSpacing(10);
+	layBasic->addLayout(trayIconLay);
+	layBasic->addSpacing(20);
+
+
+	// OPTION TO ADJUST SIZE AND LOOK OF CLOSING X
+	CustomLabel *closeXsizeLabel = new CustomLabel("<b><span style=\"font-size: 12pt\">" + tr("Closing 'X' (top right)") + "</span></b><hr>" + tr("There are two looks for the closing 'x' at the top right: a normal 'x', or a slightly more fancy 'x'. Here you can switch back and forth between both of them, and also change their size. If you prefer not to have a closing 'x' at all, see below for an option to hide it."));
+	closeXsizeLabel->setWordWrap(true);
+	closeXsize = new CustomSlider;
+	closeXsize->setMinimum(5);
+	closeXsize->setMaximum(25);
+	closeXsize->setTickInterval(1);
+	normalX = new CustomRadioButton(tr("Normal look"));
+	normalX->setChecked(true);
+	fancyX = new CustomRadioButton(tr("Fancy look"));
+	QButtonGroup *xgroup = new QButtonGroup;
+	xgroup->addButton(normalX);
+	xgroup->addButton(fancyX);
+	QHBoxLayout *normalFancyLay = new QHBoxLayout;
+	normalFancyLay->addStretch();
+	normalFancyLay->addWidget(normalX);
+	normalFancyLay->addSpacing(10);
+	normalFancyLay->addWidget(fancyX);
+	normalFancyLay->addStretch();
+	CustomLabel *closeXsmallLabel = new CustomLabel(tr("Small"));
+	CustomLabel *closeXlargeLabel = new CustomLabel(tr("Large"));
+	QHBoxLayout *closeXlabel = new QHBoxLayout;
+	closeXlabel->addStretch();
+	closeXlabel->addWidget(closeXsmallLabel);
+	closeXlabel->addWidget(closeXsize);
+	closeXlabel->addWidget(closeXlargeLabel);
+	closeXlabel->addStretch();
+	layBasic->addWidget(closeXsizeLabel);
+	layBasic->addSpacing(10);
+	layBasic->addLayout(normalFancyLay);
+	layBasic->addSpacing(5);
+	layBasic->addLayout(closeXlabel);
+	layBasic->addSpacing(20);
+
+
+	// OPTION TO FIT SMALLER IMAGES IN WINDOW
+	CustomLabel *fitInWindowLabel = new CustomLabel("<b><span style=\"font-size:12pt\">" + tr("Fit Image in Window") + "</span></b> " + "<hr>" + tr("If the image dimensions are smaller than the screen dimensions, PhotoQt can zoom those images to make them fir into the window. However, keep in mind, that such images will look pixelated to a certain degree (depending on each image)."));
+	fitInWindowLabel->setWordWrap(true);
+	fitInWindow = new CustomCheckBox(tr("Fit Images in Window"));
+	QHBoxLayout *fitInWindowLay = new QHBoxLayout;
+	fitInWindowLay->addStretch();
+	fitInWindowLay->addWidget(fitInWindow);
+	fitInWindowLay->addStretch();
+	layBasic->addWidget(fitInWindowLabel);
+	layBasic->addSpacing(10);
+	layBasic->addLayout(fitInWindowLay);
+	layBasic->addSpacing(20);
+
+
+	// OPTION FOR HIDING SOME/ALL QUICKINFO
+	CustomLabel *hideQuickInfoLabel = new CustomLabel("<b><span style=\"font-size: 12pt\">" + tr("Hide Quickinfo (Text Labels)") + "</span></b><hr>" + tr("Here you can hide the text labels shown in the main area: The Counter in the top left corner, the file path/name following the counter, and the \"X\" displayed in the top right corner. The labels can also be hidden by simply right-clicking on them and selecting \"Hide\"."));
+	hideQuickInfoLabel->setWordWrap(true);
+	QHBoxLayout *hideQuickInfoLay = new QHBoxLayout;
+	QVBoxLayout *hideQuickInfoColLay = new QVBoxLayout;
+	hideCounter = new CustomCheckBox(tr("Hide Counter"));
+	hideFilePATH = new CustomCheckBox(tr("Hide Filepath (Shows only file name)"));
+	hideFilename = new CustomCheckBox(tr("Hide Filename (Including file path)"));
+	hideX = new CustomCheckBox(tr("Hide \"X\" (Closing)"));
+	hideQuickInfoColLay->addWidget(hideCounter);
+	hideQuickInfoColLay->addWidget(hideFilePATH);
+	hideQuickInfoColLay->addWidget(hideFilename);
+	hideQuickInfoColLay->addWidget(hideX);
+	hideQuickInfoLay->addStretch();
+	hideQuickInfoLay->addLayout(hideQuickInfoColLay);
+	hideQuickInfoLay->addStretch();
+	layBasic->addWidget(hideQuickInfoLabel);
+	layBasic->addSpacing(10);
+	layBasic->addLayout(hideQuickInfoLay);
+	layBasic->addSpacing(20);
+
+
+	layBasic->addStretch();
+
+
+
+	////////// ADVANCED //////////
+
+
+	// OPTION FOR BACKGROUND
 	compositeBackground = new CustomRadioButton(tr("Use (half-)transparent background"));
 	backgroundImageUseScreenshot = new CustomRadioButton(tr("Use faked transparency"));
 	backgroundImageUseCustom = new CustomRadioButton(tr("Use custom background image"));
@@ -101,11 +244,11 @@ SettingsTabLookAndFeel::SettingsTabLookAndFeel(QWidget *parent, QMap<QString, QV
 	compLay1->addWidget(backgroundImageUseCustom);
 	compLay1->addWidget(noBackgroundImage);
 
-	layLook->addWidget(compositeImageLabel);
-	layLook->addSpacing(10);
-	layLook->addLayout(compLay1);
+	layAdvanced->addWidget(compositeImageLabel);
+	layAdvanced->addSpacing(10);
+	layAdvanced->addLayout(compLay1);
 
-	// OPTION TO SET BACKGROUND IMAGE
+	// OPTION TO SET BACKGROUND IMAGE (PART OF BACKGROUND OPTION (ONLY DISPLAYED IF NEEDED)
 	QWidget *widgetChooseBgImg = new QWidget;
 
 	backgroundImage = new CustomLabel;
@@ -151,11 +294,11 @@ SettingsTabLookAndFeel::SettingsTabLookAndFeel(QWidget *parent, QMap<QString, QV
 	widgetChooseBgImgLay->addLayout(backgroundImageLay);
 	widgetChooseBgImgLay->addSpacing(20);
 	widgetChooseBgImg->setLayout(widgetChooseBgImgLay);
-	layLook->addWidget(widgetChooseBgImg);
+	layAdvanced->addWidget(widgetChooseBgImg);
 	connect(backgroundImageUseCustom, SIGNAL(toggled(bool)), widgetChooseBgImg, SLOT(setVisible(bool)));
 	widgetChooseBgImg->hide();
 
-	layLook->addSpacing(20);
+	layAdvanced->addSpacing(20);
 
 
 	// OPTION TO ADJUST BACKGROUND COLOR
@@ -171,199 +314,10 @@ SettingsTabLookAndFeel::SettingsTabLookAndFeel(QWidget *parent, QMap<QString, QV
 	backgroundLay->addStretch();
 	connect(selectCol, SIGNAL(clicked()), background, SLOT(exec()));
 	connect(background, SIGNAL(colorSelected(QColor)), this, SLOT(newBgColorSelected(QColor)));
-	layLook->addWidget(backgroundLabel);
-	layLook->addSpacing(5);
-	layLook->addLayout(backgroundLay);
-	layLook->addSpacing(20);
-
-
-	// OPTION FOR TRAY ICON USAGE
-	trayIcon = new CustomCheckBox(tr("Hide to Tray Icon"));
-	CustomLabel *trayIconLabel = new CustomLabel("<b><span style=\"font-size:12pt\">" + tr("Hide to Tray Icon") + "</span></b><br><br>" + tr("When started PhotoQt creates a tray icon in the system tray. If desired, you can set PhotoQt to minimise to the tray instead of quitting. This causes PhotoQt to be almost instantaneously available when an image is opened.") + "<br>" + tr("It is also possible to start PhotoQt already minimised to the tray (e.g. at system startup) when called with \"--start-in-tray\"."));
-	trayIconLabel->setWordWrap(true);
-	QHBoxLayout *trayIconLay = new QHBoxLayout;
-	trayIconLay->addStretch();
-	trayIconLay->addWidget(trayIcon);
-	trayIconLay->addStretch();
-	layFeel->addWidget(trayIconLabel);
-	layFeel->addSpacing(5);
-	layFeel->addLayout(trayIconLay);
-	layFeel->addSpacing(20);
-
-
-
-	// OPTION FOR LOOPING THROUGH FOLDER
-	loopThroughFolder = new CustomCheckBox(tr("Loop Through Folder"));
-	CustomLabel *loopLabel = new CustomLabel("<b><span style=\"font-size: 12pt\">" + tr("Looping Through Folder") + "</span></b><hr>" + tr("When you load the last image in a directory and select \"Next\", PhotoQt automatically jumps to the first image (and vice versa: if you select \"Previous\" while having the first image loaded, PhotoQt jumps to the last image). Disabling this option makes PhotoQt stop at the first/last image (i.e. selecting \"Next\"/\"Previous\" will have no effect in these two special cases)."));
-	loopLabel->setWordWrap(true);
-	QHBoxLayout *loopLay = new QHBoxLayout;
-	loopLay->addStretch();
-	loopLay->addWidget(loopThroughFolder);
-	loopLay->addStretch();
-	layFeel->addWidget(loopLabel);
-	layFeel->addSpacing(5);
-	layFeel->addLayout(loopLay);
-	layFeel->addSpacing(20);
-
-
-	// OPTION TO ADJUST SORTING OF IMAGES
-	CustomLabel *sortByLabel = new CustomLabel("<b><span style=\"font-size: 12pt\">" + tr("Sort Images") + "</span></b><hr>" + tr("Here you can adjust, how the images in a folder are supposed to be sorted. You can sort them by Filename, Natural Name (e.g., file10.jpg comes after file9.jpg and not after file1.jpg), File Size, and Date. Also, you can reverse the sorting order from ascending to descending if wanted.") + "<br><br><b>" + tr("Hint: You can also change this setting very quickly from the 'Quick Settings'' window, hidden behind the right screen edge.") + "</b>");
-	CustomLabel *sortByIntro = new CustomLabel(tr("Sort by:"));
-	sortBy = new CustomComboBox;
-	sortBy->addItem(tr("Name"),"name");
-	sortBy->addItem(tr("Natural Name"),"naturalname");
-	sortBy->addItem(tr("Date"),"date");
-	sortBy->addItem(tr("File Size"),"size");
-	sortByAsc = new CustomRadioButton(tr("Ascending"));
-	sortByAsc->setIcon(QIcon(":/img/sortascending.png"));
-	sortByDes = new CustomRadioButton(tr("Descending"));
-	sortByDes->setIcon(QIcon(":/img/sortdescending.png"));
-	QButtonGroup *sortByGrp = new QButtonGroup;
-	sortByGrp->addButton(sortByAsc);
-	sortByGrp->addButton(sortByDes);
-	QHBoxLayout *sortByLay = new QHBoxLayout;
-	sortByLay->addStretch();
-	sortByLay->addWidget(sortByIntro);
-	sortByLay->addWidget(sortBy);
-	sortByLay->addWidget(sortByAsc);
-	sortByLay->addWidget(sortByDes);
-	sortByLay->addStretch();
-	layFeel->addWidget(sortByLabel);
-	layFeel->addSpacing(10);
-	layFeel->addLayout(sortByLay);
-	layFeel->addSpacing(20);
-
-
-	// OPTION FOR TRANSITIONING BETWEEN IMAGES
-	transition = new CustomSlider;
-	transition->setMinimum(0);
-	transition->setMaximum(10);
-	transition->setOrientation(Qt::Horizontal);
-	transition->setTickPosition(QSlider::TicksBelow);
-	transition->setPageStep(1);
-	CustomLabel *transLabel = new CustomLabel("<b><span style=\"font-size:12pt\">" + tr("Smooth Transition") + "</span></b> " + "<hr>" + tr("Switching between images can be done smoothly, the new image can be set to fade into the old image."));
-	transLabel->setWordWrap(true);
-	CustomLabel *noTrans = new CustomLabel(tr("No Fading"));
-	CustomLabel *longTrans = new CustomLabel(tr("Long Transition"));
-	QHBoxLayout *transLay = new QHBoxLayout;
-	transLay->addStretch();
-	transLay->addWidget(noTrans);
-	transLay->addWidget(transition);
-	transLay->addWidget(longTrans);
-	transLay->addStretch();
-	layFeel->addWidget(transLabel);
-	layFeel->addSpacing(5);
-	layFeel->addLayout(transLay);
-	layFeel->addSpacing(20);
-
-
-	// OPTION TO FIT SMALLER IMAGES IN WINDOW
-	CustomLabel *fitInWindowLabel = new CustomLabel("<b><span style=\"font-size:12pt\">" + tr("Fit Image in Window") + "</span></b> " + "<hr>" + tr("If the image dimensions are smaller than the screen dimensions, PhotoQt can zoom those images to make them fir into the window. However, keep in mind, that such images will look pixelated to a certain degree (depending on each image)."));
-	fitInWindowLabel->setWordWrap(true);
-	fitInWindow = new CustomCheckBox(tr("Fit Images in Window"));
-	QHBoxLayout *fitInWindowLay = new QHBoxLayout;
-	fitInWindowLay->addStretch();
-	fitInWindowLay->addWidget(fitInWindow);
-	fitInWindowLay->addStretch();
-	layFeel->addWidget(fitInWindowLabel);
-	layFeel->addSpacing(5);
-	layFeel->addLayout(fitInWindowLay);
-	layFeel->addSpacing(20);
-
-
-
-	// OPTION FOR MENU SENSITIVITY
-	CustomLabel *menuLabel = new CustomLabel("<b><span style=\"font-size: 12pt\">" + tr("Menu Sensitivity") + "</span></b><hr>" + tr("Here you can adjust the sensitivity of the drop-down menu. The menu opens when your mouse cursor gets close to the right side of the upper edge. Here you can adjust how close you need to get for it to open."));
-	menuLabel->setWordWrap(true);
-	QHBoxLayout *menuLay = new QHBoxLayout;
-	CustomLabel *menuLabelLeft = new CustomLabel(tr("Low Sensitivity"));
-	CustomLabel *menuLabelRight = new CustomLabel(tr("High Sensitivity"));
-	menu = new CustomSlider;
-	menu->setMinimum(1);
-	menu->setMaximum(10);
-	menu->setPageStep(1);
-	menuLay->addStretch();
-	menuLay->addWidget(menuLabelLeft);
-	menuLay->addWidget(menu);
-	menuLay->addWidget(menuLabelRight);
-	menuLay->addStretch();
-	layFeel->addWidget(menuLabel);
-	layFeel->addSpacing(5);
-	layFeel->addLayout(menuLay);
-	layFeel->addSpacing(20);
-
-
-	// OPTION TO ADJUST THE MOUSE WHEEL SENSITIVITY
-	CustomLabel *wheelSensitivityLabel = new CustomLabel("<b><span style=\"font-size: 12pt\">" + tr("Mouse Wheel Sensitivity") + "</span></b><hr>" + tr("Here you can adjust the sensitivity of the mouse wheel. For example, if you have set the mouse wheel up/down for switching back and forth between images, then a lower sensitivity means that you will have to scroll further for triggering a shortcut. Per default it is set to the highest sensitivity, i.e. every single wheel movement is evaluated."));
-	wheelSensitivityLabel->setWordWrap(true);
-	QHBoxLayout *wheelLay = new QHBoxLayout;
-	CustomLabel *wheelLabelLeft = new CustomLabel(tr("Very sensitive"));
-	CustomLabel *wheelLabelRight = new CustomLabel(tr("Not sensitive at all"));
-	wheelSensitivity = new CustomSlider;
-	wheelSensitivity->setMinimum(1);
-	wheelSensitivity->setMaximum(10);
-	wheelSensitivity->setPageStep(1);
-	wheelLay->addStretch();
-	wheelLay->addWidget(wheelLabelLeft);
-	wheelLay->addWidget(wheelSensitivity);
-	wheelLay->addWidget(wheelLabelRight);
-	wheelLay->addStretch();
-	layFeel->addWidget(wheelSensitivityLabel);
-	layFeel->addSpacing(5);
-	layFeel->addLayout(wheelLay);
-	layFeel->addSpacing(20);
-
-
-	// Remember rotation/flip/zoom per session
-	CustomLabel *rememberPerSessionLabel = new CustomLabel("<b><span style=\"font-size: 12pt\">" + tr("Remember per session") + "</span></b><hr>" + tr("If you would like PhotoQt to remember the rotation/flipping and/or zoom level per session (not permanent), then you can enable it here. If not set, then every time a new image is displayed, it is displayed neither zoomed nor rotated nor flipped (one could say, it is displayed \"normal\")."));
-	rememberPerSessionLabel->setWordWrap(true);
-	rememberRotation = new CustomCheckBox(tr("Remember Rotation/Flip"));
-	rememberZoom = new CustomCheckBox(tr("Remember Zoom Level"));
-	QHBoxLayout *checkLay = new QHBoxLayout;
-	checkLay->addStretch();
-	checkLay->addWidget(rememberRotation);
-	checkLay->addSpacing(10);
-	checkLay->addWidget(rememberZoom);
-	checkLay->addStretch();
-	layFeel->addWidget(rememberPerSessionLabel);
-	layFeel->addSpacing(5);
-	layFeel->addLayout(checkLay);
-	layFeel->addSpacing(20);
-
-
-	// Adjust window mode
-	CustomLabel *windowModeLabel = new CustomLabel("<b><span style=\"font-size:12pt\">" + tr("Window Mode") + "</span></b><br><br>" + tr("PhotoQt is designed with the space of a fullscreen app in mind. That's why it by default runs as fullscreen. However, some might prefer to have it as a normal window, e.g. so that they can see the panel.") + "<br><b></b>");
-	windowModeLabel->setWordWrap(true);
-	windowMode = new CustomCheckBox(tr("Run PhotoQt in Window Mode"));
-	windowDeco = new CustomCheckBox(tr("Show Window Decoration"));
-	windowDeco->setEnabled(false);
-	QHBoxLayout *windowLay = new QHBoxLayout;
-	windowLay->addStretch();
-	windowLay->addWidget(windowMode);
-	windowLay->addSpacing(10);
-	windowLay->addWidget(windowDeco);
-	windowLay->addStretch();
-	layFeel->addWidget(windowModeLabel);
-	layFeel->addSpacing(10);
-	layFeel->addLayout(windowLay);
-	layFeel->addSpacing(20);
-	connect(windowMode, SIGNAL(toggled(bool)), windowDeco, SLOT(setEnabled(bool)));
-
-
-
-	// OPTION FOR CLOSING ON CLICK ON GREY
-	grey = new CustomCheckBox(tr("Close on Click in empty area"));
-	CustomLabel *greyLabel = new CustomLabel("<b><span style=\"font-size: 12pt\">" + tr("Close on Click in empty area") + "</span></b><hr>" + tr("This option makes PhotoQt behave a bit like the JavaScript image viewers you find on many websites. A click outside of the image on the empty background will close the application. It can be a nice feature, PhotoQt will feel even more like a \"floating layer\". However, you might at times close PhotoQt accidentally.") + "<br><br>" + tr("Note: If you use a mouse click for a shortcut already, then this option wont have any effect!"));
-	greyLabel->setWordWrap(true);
-	QHBoxLayout *greyLay = new QHBoxLayout;
-	greyLay->addStretch();
-	greyLay->addWidget(grey);
-	greyLay->addStretch();
-	layFeel->addWidget(greyLabel);
-	layFeel->addSpacing(5);
-	layFeel->addLayout(greyLay);
-	layFeel->addSpacing(20);
-
+	layAdvanced->addWidget(backgroundLabel);
+	layAdvanced->addSpacing(10);
+	layAdvanced->addLayout(backgroundLay);
+	layAdvanced->addSpacing(20);
 
 
 	// OPTION FOR ADJUSTING BORDER AROUND MAIN IMAGE
@@ -384,71 +338,123 @@ SettingsTabLookAndFeel::SettingsTabLookAndFeel(QWidget *parent, QMap<QString, QV
 	borderLay->addStretch();
 	connect(borderAroundImgSlider, SIGNAL(valueChanged(int)), borderAroundImgSpinBox, SLOT(setValue(int)));
 	connect(borderAroundImgSpinBox, SIGNAL(valueChanged(int)), borderAroundImgSlider, SLOT(setValue(int)));
-	layLook->addWidget(borderLabel);
-	layLook->addSpacing(5);
-	layLook->addLayout(borderLay);
-	layLook->addSpacing(20);
+	layAdvanced->addWidget(borderLabel);
+	layAdvanced->addSpacing(10);
+	layAdvanced->addLayout(borderLay);
+	layAdvanced->addSpacing(20);
 
 
-	// OPTION FOR HIDING SOME/ALL QUICKINFO
-	CustomLabel *hideQuickInfoLabel = new CustomLabel("<b><span style=\"font-size: 12pt\">" + tr("Hide Quickinfo (Text Labels)") + "</span></b><hr>" + tr("Here you can hide the text labels shown in the main area: The Counter in the top left corner, the file path/name following the counter, and the \"X\" displayed in the top right corner. The labels can also be hidden by simply right-clicking on them and selecting \"Hide\"."));
-	hideQuickInfoLabel->setWordWrap(true);
-	QHBoxLayout *hideQuickInfoLay = new QHBoxLayout;
-	QVBoxLayout *hideQuickInfoColLay = new QVBoxLayout;
-	hideCounter = new CustomCheckBox(tr("Hide Counter"));
-	hideFilePATH = new CustomCheckBox(tr("Hide Filepath (Shows only file name)"));
-	hideFilename = new CustomCheckBox(tr("Hide Filename (Including file path)"));
-	hideX = new CustomCheckBox(tr("Hide \"X\" (Closing)"));
-	hideQuickInfoColLay->addWidget(hideCounter);
-	hideQuickInfoColLay->addWidget(hideFilePATH);
-	hideQuickInfoColLay->addWidget(hideFilename);
-	hideQuickInfoColLay->addWidget(hideX);
-	hideQuickInfoLay->addStretch();
-	hideQuickInfoLay->addLayout(hideQuickInfoColLay);
-	hideQuickInfoLay->addStretch();
-	layLook->addWidget(hideQuickInfoLabel);
-	layLook->addSpacing(5);
-	layLook->addLayout(hideQuickInfoLay);
-	layLook->addSpacing(20);
+	// OPTION FOR CLOSING ON CLICK ON GREY
+	grey = new CustomCheckBox(tr("Close on Click in empty area"));
+	CustomLabel *greyLabel = new CustomLabel("<b><span style=\"font-size: 12pt\">" + tr("Close on Click in empty area") + "</span></b><hr>" + tr("This option makes PhotoQt behave a bit like the JavaScript image viewers you find on many websites. A click outside of the image on the empty background will close the application. It can be a nice feature, PhotoQt will feel even more like a \"floating layer\". However, you might at times close PhotoQt accidentally.") + "<br><br>" + tr("Note: If you use a mouse click for a shortcut already, then this option wont have any effect!"));
+	greyLabel->setWordWrap(true);
+	QHBoxLayout *greyLay = new QHBoxLayout;
+	greyLay->addStretch();
+	greyLay->addWidget(grey);
+	greyLay->addStretch();
+	layAdvanced->addWidget(greyLabel);
+	layAdvanced->addSpacing(10);
+	layAdvanced->addLayout(greyLay);
+	layAdvanced->addSpacing(20);
 
 
-	// Option to adjust size and look of closing X
-	CustomLabel *closeXsizeLabel = new CustomLabel("<b><span style=\"font-size: 12pt\">" + tr("Closing 'X' (top right)") + "</span></b><hr>" + tr("There are two looks for the closing 'x' at the top right: a normal 'x', or a slightly more fancy 'x'. Here you can switch back and forth between both of them, and also change their size. If you prefer not to have a closing 'x' at all, see above for an option to hide it."));
-	closeXsizeLabel->setWordWrap(true);
-	closeXsize = new CustomSlider;
-	closeXsize->setMinimum(5);
-	closeXsize->setMaximum(25);
-	closeXsize->setTickInterval(1);
-	normalX = new CustomRadioButton(tr("Normal look"));
-	normalX->setChecked(true);
-	fancyX = new CustomRadioButton(tr("Fancy look"));
-	QButtonGroup *xgroup = new QButtonGroup;
-	xgroup->addButton(normalX);
-	xgroup->addButton(fancyX);
-	QHBoxLayout *normalFancyLay = new QHBoxLayout;
-	normalFancyLay->addStretch();
-	normalFancyLay->addWidget(normalX);
-	normalFancyLay->addSpacing(10);
-	normalFancyLay->addWidget(fancyX);
-	normalFancyLay->addStretch();
-	CustomLabel *closeXsmallLabel = new CustomLabel(tr("Small"));
-	CustomLabel *closeXlargeLabel = new CustomLabel(tr("Large"));
-	QHBoxLayout *closeXlabel = new QHBoxLayout;
-	closeXlabel->addStretch();
-	closeXlabel->addWidget(closeXsmallLabel);
-	closeXlabel->addWidget(closeXsize);
-	closeXlabel->addWidget(closeXlargeLabel);
-	closeXlabel->addStretch();
-	layLook->addWidget(closeXsizeLabel);
-	layLook->addSpacing(5);
-	layLook->addLayout(normalFancyLay);
-	layLook->addSpacing(5);
-	layLook->addLayout(closeXlabel);
-	layLook->addSpacing(20);
+	// OPTION FOR LOOPING THROUGH FOLDER
+	loopThroughFolder = new CustomCheckBox(tr("Loop Through Folder"));
+	CustomLabel *loopLabel = new CustomLabel("<b><span style=\"font-size: 12pt\">" + tr("Looping Through Folder") + "</span></b><hr>" + tr("When you load the last image in a directory and select \"Next\", PhotoQt automatically jumps to the first image (and vice versa: if you select \"Previous\" while having the first image loaded, PhotoQt jumps to the last image). Disabling this option makes PhotoQt stop at the first/last image (i.e. selecting \"Next\"/\"Previous\" will have no effect in these two special cases)."));
+	loopLabel->setWordWrap(true);
+	QHBoxLayout *loopLay = new QHBoxLayout;
+	loopLay->addStretch();
+	loopLay->addWidget(loopThroughFolder);
+	loopLay->addStretch();
+	layAdvanced->addWidget(loopLabel);
+	layAdvanced->addSpacing(10);
+	layAdvanced->addLayout(loopLay);
+	layAdvanced->addSpacing(20);
 
 
-	layLook->addStretch();
-	layFeel->addStretch();
+	// OPTION FOR TRANSITIONING BETWEEN IMAGES
+	transition = new CustomSlider;
+	transition->setMinimum(0);
+	transition->setMaximum(10);
+	transition->setOrientation(Qt::Horizontal);
+	transition->setTickPosition(QSlider::TicksBelow);
+	transition->setPageStep(1);
+	CustomLabel *transLabel = new CustomLabel("<b><span style=\"font-size:12pt\">" + tr("Smooth Transition") + "</span></b> " + "<hr>" + tr("Switching between images can be done smoothly, the new image can be set to fade into the old image."));
+	transLabel->setWordWrap(true);
+	CustomLabel *noTrans = new CustomLabel(tr("No Fading"));
+	CustomLabel *longTrans = new CustomLabel(tr("Long Transition"));
+	QHBoxLayout *transLay = new QHBoxLayout;
+	transLay->addStretch();
+	transLay->addWidget(noTrans);
+	transLay->addWidget(transition);
+	transLay->addWidget(longTrans);
+	transLay->addStretch();
+	layAdvanced->addWidget(transLabel);
+	layAdvanced->addSpacing(10);
+	layAdvanced->addLayout(transLay);
+	layAdvanced->addSpacing(20);
+
+
+	// OPTION FOR MENU SENSITIVITY
+	CustomLabel *menuLabel = new CustomLabel("<b><span style=\"font-size: 12pt\">" + tr("Menu Sensitivity") + "</span></b><hr>" + tr("Here you can adjust the sensitivity of the drop-down menu. The menu opens when your mouse cursor gets close to the right side of the upper edge. Here you can adjust how close you need to get for it to open."));
+	menuLabel->setWordWrap(true);
+	QHBoxLayout *menuLay = new QHBoxLayout;
+	CustomLabel *menuLabelLeft = new CustomLabel(tr("Low Sensitivity"));
+	CustomLabel *menuLabelRight = new CustomLabel(tr("High Sensitivity"));
+	menu = new CustomSlider;
+	menu->setMinimum(1);
+	menu->setMaximum(10);
+	menu->setPageStep(1);
+	menuLay->addStretch();
+	menuLay->addWidget(menuLabelLeft);
+	menuLay->addWidget(menu);
+	menuLay->addWidget(menuLabelRight);
+	menuLay->addStretch();
+	layAdvanced->addWidget(menuLabel);
+	layAdvanced->addSpacing(10);
+	layAdvanced->addLayout(menuLay);
+	layAdvanced->addSpacing(20);
+
+
+	// OPTION TO ADJUST THE MOUSE WHEEL SENSITIVITY
+	CustomLabel *wheelSensitivityLabel = new CustomLabel("<b><span style=\"font-size: 12pt\">" + tr("Mouse Wheel Sensitivity") + "</span></b><hr>" + tr("Here you can adjust the sensitivity of the mouse wheel. For example, if you have set the mouse wheel up/down for switching back and forth between images, then a lower sensitivity means that you will have to scroll further for triggering a shortcut. Per default it is set to the highest sensitivity, i.e. every single wheel movement is evaluated."));
+	wheelSensitivityLabel->setWordWrap(true);
+	QHBoxLayout *wheelLay = new QHBoxLayout;
+	CustomLabel *wheelLabelLeft = new CustomLabel(tr("Very sensitive"));
+	CustomLabel *wheelLabelRight = new CustomLabel(tr("Not sensitive at all"));
+	wheelSensitivity = new CustomSlider;
+	wheelSensitivity->setMinimum(1);
+	wheelSensitivity->setMaximum(10);
+	wheelSensitivity->setPageStep(1);
+	wheelLay->addStretch();
+	wheelLay->addWidget(wheelLabelLeft);
+	wheelLay->addWidget(wheelSensitivity);
+	wheelLay->addWidget(wheelLabelRight);
+	wheelLay->addStretch();
+	layAdvanced->addWidget(wheelSensitivityLabel);
+	layAdvanced->addSpacing(10);
+	layAdvanced->addLayout(wheelLay);
+	layAdvanced->addSpacing(20);
+
+
+	// Remember rotation/flip/zoom per session
+	CustomLabel *rememberPerSessionLabel = new CustomLabel("<b><span style=\"font-size: 12pt\">" + tr("Remember per session") + "</span></b><hr>" + tr("If you would like PhotoQt to remember the rotation/flipping and/or zoom level per session (not permanent), then you can enable it here. If not set, then every time a new image is displayed, it is displayed neither zoomed nor rotated nor flipped (one could say, it is displayed \"normal\")."));
+	rememberPerSessionLabel->setWordWrap(true);
+	rememberRotation = new CustomCheckBox(tr("Remember Rotation/Flip"));
+	rememberZoom = new CustomCheckBox(tr("Remember Zoom Level"));
+	QHBoxLayout *checkLay = new QHBoxLayout;
+	checkLay->addStretch();
+	checkLay->addWidget(rememberRotation);
+	checkLay->addSpacing(10);
+	checkLay->addWidget(rememberZoom);
+	checkLay->addStretch();
+	layAdvanced->addWidget(rememberPerSessionLabel);
+	layAdvanced->addSpacing(10);
+	layAdvanced->addLayout(checkLay);
+	layAdvanced->addSpacing(20);
+
+
+	layAdvanced->addStretch();
 
 }
 

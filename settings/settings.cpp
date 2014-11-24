@@ -133,10 +133,10 @@ void Settings::makeShow() {
 
 		tabs->setCurrentIndex(0);
 
-		tabLookFeel->scrollbarLook->setScrollbarShown();
-		tabLookFeel->scrollbarFeel->setScrollbarShown();
-		tabThumb->scrollbarLook->setScrollbarShown();
-		tabThumb->scrollbarTune->setScrollbarShown();
+		tabLookFeel->scrollbarBasic->setScrollbarShown();
+		tabLookFeel->scrollbarAdvanced->setScrollbarShown();
+		tabThumb->scrollbarBasic->setScrollbarShown();
+		tabThumb->scrollbarAdvanced->setScrollbarShown();
 		tabShortcuts->scrollbar->setScrollbarShown();
 
 	}
@@ -219,10 +219,10 @@ void Settings::tabChanged() {
 	if(tabs->currentIndex() == 1)
 		tabThumb->setDatabaseInfo();
 
-	tabLookFeel->scrollbarLook->setValue(0);
-	tabLookFeel->scrollbarFeel->setValue(0);
-	tabThumb->scrollbarLook->setValue(0);
-	tabThumb->scrollbarTune->setValue(0);
+	tabLookFeel->scrollbarBasic->setValue(0);
+	tabLookFeel->scrollbarAdvanced->setValue(0);
+	tabThumb->scrollbarBasic->setValue(0);
+	tabThumb->scrollbarAdvanced->setValue(0);
 	tabOther->scrollbarOther->setValue(0);
 	tabOther->scrollbarFile->setValue(0);
 	tabExif->scrollbar->setValue(0);

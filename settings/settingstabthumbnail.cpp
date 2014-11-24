@@ -43,48 +43,52 @@ SettingsTabThumbnail::SettingsTabThumbnail(QWidget *parent, QMap<QString, QVaria
 	this->setLayout(mainLay);
 
 	// the main scroll widget for all LOOK content
-	scrollbarLook = new CustomScrollbar;
-	QScrollArea *scrollLook = new QScrollArea;
-	QVBoxLayout *layLook = new QVBoxLayout(scrollLook);
-	QWidget *scrollWidgLook = new QWidget(scrollLook);
-	scrollWidgLook->setLayout(layLook);
-	scrollLook->setWidget(scrollWidgLook);
-	scrollLook->setWidgetResizable(true);
-	scrollLook->setVerticalScrollBar(scrollbarLook);
+	scrollbarBasic = new CustomScrollbar;
+	QScrollArea *scrollBasic = new QScrollArea;
+	QVBoxLayout *layBasic = new QVBoxLayout(scrollBasic);
+	QWidget *scrollWidgBasic = new QWidget(scrollBasic);
+	scrollWidgBasic->setLayout(layBasic);
+	scrollBasic->setWidget(scrollWidgBasic);
+	scrollBasic->setWidgetResizable(true);
+	scrollBasic->setVerticalScrollBar(scrollbarBasic);
 
 	// the main scroll widget for all FEEL content
-	scrollbarTune = new CustomScrollbar;
-	QScrollArea *scrollTune = new QScrollArea;
-	QVBoxLayout *layTune = new QVBoxLayout(scrollTune);
-	QWidget *scrollWidgTune = new QWidget(scrollTune);
-	scrollWidgTune->setLayout(layTune);
-	scrollTune->setWidget(scrollWidgTune);
-	scrollTune->setWidgetResizable(true);
-	scrollTune->setVerticalScrollBar(scrollbarTune);
+	scrollbarAdvanced = new CustomScrollbar;
+	QScrollArea *scrollAdvanced = new QScrollArea;
+	QVBoxLayout *layAdvanced = new QVBoxLayout(scrollAdvanced);
+	QWidget *scrollWidgAdvanced = new QWidget(scrollAdvanced);
+	scrollWidgAdvanced->setLayout(layAdvanced);
+	scrollAdvanced->setWidget(scrollWidgAdvanced);
+	scrollAdvanced->setWidgetResizable(true);
+	scrollAdvanced->setVerticalScrollBar(scrollbarAdvanced);
 
-	tabLook = new QWidget;
-	tabTune = new QWidget;
+	tabBasic = new QWidget;
+	tabAdvanced = new QWidget;
 
-	QVBoxLayout *scrollLayLook = new QVBoxLayout;
-	scrollLayLook->addWidget(scrollLook);
-	tabLook->setLayout(scrollLayLook);
+	QVBoxLayout *scrollLayBasic = new QVBoxLayout;
+	scrollLayBasic->addWidget(scrollBasic);
+	tabBasic->setLayout(scrollLayBasic);
 
-	QVBoxLayout *scrollLayTune = new QVBoxLayout;
-	scrollLayTune->addWidget(scrollTune);
-	tabTune->setLayout(scrollLayTune);
+	QVBoxLayout *scrollLayAdvanced = new QVBoxLayout;
+	scrollLayAdvanced->addWidget(scrollAdvanced);
+	tabAdvanced->setLayout(scrollLayAdvanced);
 
-	tabs->addTab(tabLook,tr("Look"));
-	tabs->addTab(tabTune,tr("Fine-Tuning"));
+	tabs->addTab(tabBasic,tr("Basic"));
+	tabs->addTab(tabAdvanced,tr("Advanced"));
 
 
 
 	// The titles
-	CustomLabel *titleLook = new CustomLabel("<center><h1>" + tr("Thumbnail Look") + "</h1></center>");
-	layLook->addWidget(titleLook);
-	layLook->addSpacing(20);
-	CustomLabel *titleTune = new CustomLabel("<center><h1>" + tr("Fine-Tuning of Thumbnails") + "</h1></center>");
-	layTune->addWidget(titleTune);
-	layTune->addSpacing(20);
+	CustomLabel *titleBasic = new CustomLabel("<center><h1>" + tr("Basic Settings") + "</h1></center>");
+	layBasic->addWidget(titleBasic);
+	layBasic->addSpacing(20);
+	CustomLabel *titleAdvanced = new CustomLabel("<center><h1>" + tr("Advanced Settings") + "</h1></center>");
+	layAdvanced->addWidget(titleAdvanced);
+	layAdvanced->addSpacing(20);
+
+
+
+	///////// BASIC TAB /////////
 
 
 	// OPTION TO CHANGE THUMBNAIL SIZE
@@ -101,13 +105,12 @@ SettingsTabThumbnail::SettingsTabThumbnail(QWidget *parent, QMap<QString, QVaria
 	thumbSizeLay->addWidget(thumbSizeSlider);
 	thumbSizeLay->addWidget(thumbSizeSpin);
 	thumbSizeLay->addStretch();
-	layLook->addWidget(thumbSizeLabel);
-	layLook->addSpacing(5);
-	layLook->addLayout(thumbSizeLay);
-	layLook->addSpacing(20);
+	layBasic->addWidget(thumbSizeLabel);
+	layBasic->addSpacing(10);
+	layBasic->addLayout(thumbSizeLay);
+	layBasic->addSpacing(20);
 	connect(thumbSizeSlider, SIGNAL(valueChanged(int)), thumbSizeSpin, SLOT(setValue(int)));
 	connect(thumbSizeSpin, SIGNAL(valueChanged(int)), thumbSizeSlider, SLOT(setValue(int)));
-
 
 
 	// OPTION TO SET SPACING BETWEEN THUMBNAILS
@@ -126,13 +129,12 @@ SettingsTabThumbnail::SettingsTabThumbnail(QWidget *parent, QMap<QString, QVaria
 	thbBorderLay->addWidget(borderAroundSlider);
 	thbBorderLay->addWidget(borderAroundSpin);
 	thbBorderLay->addStretch();
-	layLook->addWidget(thbBorderAroundLabel);
-	layLook->addSpacing(5);
-	layLook->addLayout(thbBorderLay);
-	layLook->addSpacing(20);
+	layBasic->addWidget(thbBorderAroundLabel);
+	layBasic->addSpacing(10);
+	layBasic->addLayout(thbBorderLay);
+	layBasic->addSpacing(20);
 	connect(borderAroundSlider, SIGNAL(valueChanged(int)), borderAroundSpin, SLOT(setValue(int)));
 	connect(borderAroundSpin, SIGNAL(valueChanged(int)), borderAroundSlider, SLOT(setValue(int)));
-
 
 
 	// OPTION TO ADJUST THE LIFTUP OF HOVERED THUMBNAIL
@@ -151,33 +153,12 @@ SettingsTabThumbnail::SettingsTabThumbnail(QWidget *parent, QMap<QString, QVaria
 	thbLiftUpLay->addWidget(thbLiftUpSlider);
 	thbLiftUpLay->addWidget(thbLiftUpSpin);
 	thbLiftUpLay->addStretch();
-	layLook->addWidget(thbLiftUpLabel);
-	layLook->addSpacing(5);
-	layLook->addLayout(thbLiftUpLay);
-	layLook->addSpacing(20);
+	layBasic->addWidget(thbLiftUpLabel);
+	layBasic->addSpacing(10);
+	layBasic->addLayout(thbLiftUpLay);
+	layBasic->addSpacing(20);
 	connect(thbLiftUpSlider, SIGNAL(valueChanged(int)), thbLiftUpSpin, SLOT(setValue(int)));
 	connect(thbLiftUpSpin, SIGNAL(valueChanged(int)), thbLiftUpSlider, SLOT(setValue(int)));
-
-
-
-	// ADJUST THE POSITION OF THE THUMBNAILS
-	CustomLabel *thbPosLabel = new CustomLabel("<b><span style=\"font-size: 12pt\">" + tr("Change Thumbnail Position") + "</span></b><br><bR>" + tr("Per default the bar with the thumbnails is shown at the lower edge. However, some might find it nice and handy to have the thumbnail bar at the upper edge, so that's what can be changed here."));
-	thbPosLabel->setWordWrap(true);
-	QHBoxLayout *thbPosLay = new QHBoxLayout;
-	thbPosTop = new CustomRadioButton(tr("Show Thumbnails at upper edge"));
-	thbPosBot = new CustomRadioButton(tr("Show Thumbnails at lower edge"));
-	QButtonGroup *thbPosGroup = new QButtonGroup;
-	thbPosGroup->addButton(thbPosTop);
-	thbPosGroup->addButton(thbPosBot);
-	thbPosLay->addStretch();
-	thbPosLay->addWidget(thbPosTop);
-	thbPosLay->addWidget(thbPosBot);
-	thbPosLay->addStretch();
-	layLook->addWidget(thbPosLabel);
-	layLook->addSpacing(5);
-	layLook->addLayout(thbPosLay);
-	layLook->addSpacing(20);
-
 
 
 	// OPTION TO KEEP THUMBNAILS VISIBLE OR FADE THEM OUT
@@ -188,10 +169,10 @@ SettingsTabThumbnail::SettingsTabThumbnail(QWidget *parent, QMap<QString, QVaria
 	thbKeepLay->addStretch();
 	thbKeepLay->addWidget(keepVisible);
 	thbKeepLay->addStretch();
-	layTune->addWidget(thbKeepVisibleLabel);
-	layTune->addSpacing(5);
-	layTune->addLayout(thbKeepLay);
-	layTune->addSpacing(20);
+	layBasic->addWidget(thbKeepVisibleLabel);
+	layBasic->addSpacing(10);
+	layBasic->addLayout(thbKeepLay);
+	layBasic->addSpacing(20);
 
 
 	// OPTION TO ENABLE DYNAMIC THUMBNAIL CREATION (handy for faster harddrives)
@@ -212,45 +193,10 @@ SettingsTabThumbnail::SettingsTabThumbnail(QWidget *parent, QMap<QString, QVaria
 	dynamicThbLay->addStretch();
 	dynamicThbLay->addLayout(dynamicThbVerticalLay);
 	dynamicThbLay->addStretch();
-	layTune->addWidget(dynamicThumbnailsLabel);
-	layTune->addSpacing(10);
-	layTune->addLayout(dynamicThbLay);
-	layTune->addSpacing(20);
-
-
-	// OPTION TO PRELOAD FULL DIRECTORY OR ADJUST NUMBER OF PRELOADED IMAGES
-	CustomLabel *preloadFullNumberLabel = new CustomLabel("<b><span style=\"font-size: 12pt\">" + tr("Preloading") + "</span></b><br><bR>" + tr("Here you can adjust, how many images AT MOST will be preloaded. For example, if the directory contains 800 images, a limit of 400 (default value) means, that starting from the opened image, 200 images to the left and 200 to the right are preloaded.") + "<br><br>" + tr("If you don't want to limit PhotoQt to any number, you can simply enable the option to always preload the full directory. WARNING: This is perfectly fine for directories with a small number of images (usually anything less than 1000, depending on your computer), but can lead to performance and memory issues for larger directories. Make sure you know what you're doing before enabling this!"));
-	preloadFullNumberLabel->setWordWrap(true);
-	CustomSpinBox *preloadFullNumberSpin = new CustomSpinBox;
-	preloadFullNumberSpin->setMinimum(50);
-	preloadFullNumberSpin->setMaximum(2500);
-	preloadFullNumberSpin->setSingleStep(10);
-	preloadFullNumber = new CustomSlider;
-	preloadFullNumber->setMinimum(50);
-	preloadFullNumber->setMaximum(2500);
-	preloadFullNumber->setSingleStep(10);
-	QHBoxLayout *preloadFullNumberSliderLay = new QHBoxLayout;
-	preloadFullNumberSliderLay->addStretch();
-	preloadFullNumberSliderLay->addWidget(preloadFullNumberSpin);
-	preloadFullNumberSliderLay->addWidget(preloadFullNumber);
-	preloadFullNumberSliderLay->addStretch();
-	preloadFullNumberCheck = new CustomCheckBox(tr("Preload full directory"));
-	QHBoxLayout *preloadFullNumberCheckLay = new QHBoxLayout;
-	preloadFullNumberCheckLay->addStretch();
-	preloadFullNumberCheckLay->addWidget(preloadFullNumberCheck);
-	preloadFullNumberCheckLay->addStretch();
-	QVBoxLayout *preloadFullNumberLay = new QVBoxLayout;
-	preloadFullNumberLay->addLayout(preloadFullNumberSliderLay);
-	preloadFullNumberLay->addSpacing(10);
-	preloadFullNumberLay->addLayout(preloadFullNumberCheckLay);
-	layTune->addWidget(preloadFullNumberLabel);
-	layTune->addSpacing(10);
-	layTune->addLayout(preloadFullNumberLay);
-	layTune->addSpacing(20);
-	connect(preloadFullNumber, SIGNAL(valueChanged(int)), preloadFullNumberSpin, SLOT(setValue(int)));
-	connect(preloadFullNumberSpin, SIGNAL(valueChanged(int)), preloadFullNumber, SLOT(setValue(int)));
-	connect(preloadFullNumberCheck, SIGNAL(toggled(bool)), preloadFullNumber, SLOT(setDisabled(bool)));
-	connect(preloadFullNumberCheck, SIGNAL(toggled(bool)), preloadFullNumberSpin, SLOT(setDisabled(bool)));
+	layBasic->addWidget(dynamicThumbnailsLabel);
+	layBasic->addSpacing(10);
+	layBasic->addLayout(dynamicThbLay);
+	layBasic->addSpacing(20);
 
 
 	// OPTION TO ALWAYS KEEP ACTIVE THUMBNAIL IN CENTER (IF POSSIBLE)
@@ -261,11 +207,64 @@ SettingsTabThumbnail::SettingsTabThumbnail(QWidget *parent, QMap<QString, QVaria
 	alwaysCenterThbLay->addStretch();
 	alwaysCenterThbLay->addWidget(alwaysCenterThumbnail);
 	alwaysCenterThbLay->addStretch();
-	layTune->addWidget(alwaysCenterThumbnailsLabel);
-	layTune->addSpacing(10);
-	layTune->addLayout(alwaysCenterThbLay);
-	layTune->addSpacing(20);
+	layBasic->addWidget(alwaysCenterThumbnailsLabel);
+	layBasic->addSpacing(10);
+	layBasic->addLayout(alwaysCenterThbLay);
+	layBasic->addSpacing(20);
 
+
+	layBasic->addStretch();
+
+
+
+	////////// ADVANCED //////////
+
+
+	// ADJUST THE POSITION OF THE THUMBNAILS
+	CustomLabel *thbPosLabel = new CustomLabel("<b><span style=\"font-size: 12pt\">" + tr("Change Thumbnail Position") + "</span></b><br><bR>" + tr("Per default the bar with the thumbnails is shown at the lower edge. However, some might find it nice and handy to have the thumbnail bar at the upper edge, so that's what can be changed here."));
+	thbPosLabel->setWordWrap(true);
+	QHBoxLayout *thbPosLay = new QHBoxLayout;
+	thbPosTop = new CustomRadioButton(tr("Show Thumbnails at upper edge"));
+	thbPosBot = new CustomRadioButton(tr("Show Thumbnails at lower edge"));
+	QButtonGroup *thbPosGroup = new QButtonGroup;
+	thbPosGroup->addButton(thbPosTop);
+	thbPosGroup->addButton(thbPosBot);
+	thbPosLay->addStretch();
+	thbPosLay->addWidget(thbPosTop);
+	thbPosLay->addWidget(thbPosBot);
+	thbPosLay->addStretch();
+	layAdvanced->addWidget(thbPosLabel);
+	layAdvanced->addSpacing(10);
+	layAdvanced->addLayout(thbPosLay);
+	layAdvanced->addSpacing(20);
+
+
+	// OPTION TO SWITCH BETWEEN FILENAME, DIMENSION OR BOTH FOR WRITING ON THUMBNAILS
+	CustomLabel *writeFilenameDimensionsLabel = new CustomLabel("<b><span style=\"font-size: 12pt\">" + tr("Filename? Dimension? Or both?") + "</span></b><br><bR>" + tr("When thumbnails are displayed at the top/bottom, PhotoQt usually writes the filename on them. But also the dimension of the image can be written on it. Or also both or none. You can use the slider below to adjust the font size."));
+	writeFilename = new CustomCheckBox(tr("Write Filename"));
+	writeDimensions = new CustomCheckBox(tr("Write Resolution"));
+	QHBoxLayout *writeCheckLay = new QHBoxLayout;
+	writeCheckLay->addStretch();
+	writeCheckLay->addWidget(writeFilename);
+	writeCheckLay->addWidget(writeDimensions);
+	writeCheckLay->addStretch();
+	CustomLabel *filenameDimensionFontSizeLower = new CustomLabel("5pt");
+	CustomLabel *filenameDimensionFontSizeUpper = new CustomLabel("20pt");
+	filenameDimensionFontSize = new CustomSlider;
+	filenameDimensionFontSize->setMinimum(5);
+	filenameDimensionFontSize->setMaximum(20);
+	QHBoxLayout *filenameDimensionFontSizeLay = new QHBoxLayout;
+	filenameDimensionFontSizeLay->addStretch();
+	filenameDimensionFontSizeLay->addWidget(filenameDimensionFontSizeLower);
+	filenameDimensionFontSizeLay->addWidget(filenameDimensionFontSize);
+	filenameDimensionFontSizeLay->addWidget(filenameDimensionFontSizeUpper);
+	filenameDimensionFontSizeLay->addStretch();
+	layAdvanced->addWidget(writeFilenameDimensionsLabel);
+	layAdvanced->addSpacing(10);
+	layAdvanced->addLayout(writeCheckLay);
+	layAdvanced->addSpacing(10);
+	layAdvanced->addLayout(filenameDimensionFontSizeLay);
+	layAdvanced->addSpacing(20);
 
 
 	// OPTION TO ONLY USE FILENAME AND NO ACTUAL THUMBNAIL
@@ -293,45 +292,50 @@ SettingsTabThumbnail::SettingsTabThumbnail(QWidget *parent, QMap<QString, QVaria
 	filenameSpinSliderLay->addWidget(filenameFontSizeSlider);
 	filenameSpinSliderLay->addWidget(filenameFontSizeSpin);
 	filenameSpinSliderLay->addStretch();
-
-	layLook->addWidget(filenameInsteadThbLabel);
-	layLook->addSpacing(5);
-	layLook->addLayout(filenameCheckLay);
-	layLook->addLayout(filenameSpinSliderLay);
-	layLook->addSpacing(20);
+	layAdvanced->addWidget(filenameInsteadThbLabel);
+	layAdvanced->addSpacing(10);
+	layAdvanced->addLayout(filenameCheckLay);
+	layAdvanced->addLayout(filenameSpinSliderLay);
+	layAdvanced->addSpacing(20);
 	connect(filenameInsteadThb, SIGNAL(toggled(bool)), filenameFontSizeSlider, SLOT(setEnabled(bool)));
 	connect(filenameInsteadThb, SIGNAL(toggled(bool)), filenameFontSizeSpin, SLOT(setEnabled(bool)));
 	connect(filenameFontSizeSlider, SIGNAL(valueChanged(int)), filenameFontSizeSpin, SLOT(setValue(int)));
 	connect(filenameFontSizeSpin, SIGNAL(valueChanged(int)), filenameFontSizeSlider, SLOT(setValue(int)));
 
 
-	// OPTION TO SWITCH BETWEEN FILENAME, DIMENSION OR BOTH FOR WRITING ON THUMBNAILS
-	CustomLabel *writeFilenameDimensionsLabel = new CustomLabel("<b><span style=\"font-size: 12pt\">" + tr("Filename? Dimension? Or both?") + "</span></b><br><bR>" + tr("When thumbnails are displayed at the top/bottom, PhotoQt usually writes the filename on them. But also the dimension of the image can be written on it. Or also both or none. You can use the slider below to adjust the font size."));
-	writeFilename = new CustomCheckBox(tr("Write Filename"));
-	writeDimensions = new CustomCheckBox(tr("Write Resolution"));
-	QHBoxLayout *writeCheckLay = new QHBoxLayout;
-	writeCheckLay->addStretch();
-	writeCheckLay->addWidget(writeFilename);
-	writeCheckLay->addWidget(writeDimensions);
-	writeCheckLay->addStretch();
-	CustomLabel *filenameDimensionFontSizeLower = new CustomLabel("5pt");
-	CustomLabel *filenameDimensionFontSizeUpper = new CustomLabel("20pt");
-	filenameDimensionFontSize = new CustomSlider;
-	filenameDimensionFontSize->setMinimum(5);
-	filenameDimensionFontSize->setMaximum(20);
-	QHBoxLayout *filenameDimensionFontSizeLay = new QHBoxLayout;
-	filenameDimensionFontSizeLay->addStretch();
-	filenameDimensionFontSizeLay->addWidget(filenameDimensionFontSizeLower);
-	filenameDimensionFontSizeLay->addWidget(filenameDimensionFontSize);
-	filenameDimensionFontSizeLay->addWidget(filenameDimensionFontSizeUpper);
-	filenameDimensionFontSizeLay->addStretch();
-	layLook->addWidget(writeFilenameDimensionsLabel);
-	layLook->addSpacing(5);
-	layLook->addLayout(writeCheckLay);
-	layLook->addSpacing(10);
-	layLook->addLayout(filenameDimensionFontSizeLay);
-	layLook->addSpacing(20);
-
+	// OPTION TO PRELOAD FULL DIRECTORY OR ADJUST NUMBER OF PRELOADED IMAGES
+	CustomLabel *preloadFullNumberLabel = new CustomLabel("<b><span style=\"font-size: 12pt\">" + tr("Preloading") + "</span></b><br><bR>" + tr("Here you can adjust, how many images AT MOST will be preloaded. For example, if the directory contains 800 images, a limit of 400 (default value) means, that starting from the opened image, 200 images to the left and 200 to the right are preloaded.") + "<br><br>" + tr("If you don't want to limit PhotoQt to any number, you can simply enable the option to always preload the full directory. WARNING: This is perfectly fine for directories with a small number of images (usually anything less than 1000, depending on your computer), but can lead to performance and memory issues for larger directories. Make sure you know what you're doing before enabling this!"));
+	preloadFullNumberLabel->setWordWrap(true);
+	CustomSpinBox *preloadFullNumberSpin = new CustomSpinBox;
+	preloadFullNumberSpin->setMinimum(50);
+	preloadFullNumberSpin->setMaximum(2500);
+	preloadFullNumberSpin->setSingleStep(10);
+	preloadFullNumber = new CustomSlider;
+	preloadFullNumber->setMinimum(50);
+	preloadFullNumber->setMaximum(2500);
+	preloadFullNumber->setSingleStep(10);
+	QHBoxLayout *preloadFullNumberSliderLay = new QHBoxLayout;
+	preloadFullNumberSliderLay->addStretch();
+	preloadFullNumberSliderLay->addWidget(preloadFullNumberSpin);
+	preloadFullNumberSliderLay->addWidget(preloadFullNumber);
+	preloadFullNumberSliderLay->addStretch();
+	preloadFullNumberCheck = new CustomCheckBox(tr("Preload full directory"));
+	QHBoxLayout *preloadFullNumberCheckLay = new QHBoxLayout;
+	preloadFullNumberCheckLay->addStretch();
+	preloadFullNumberCheckLay->addWidget(preloadFullNumberCheck);
+	preloadFullNumberCheckLay->addStretch();
+	QVBoxLayout *preloadFullNumberLay = new QVBoxLayout;
+	preloadFullNumberLay->addLayout(preloadFullNumberSliderLay);
+	preloadFullNumberLay->addSpacing(10);
+	preloadFullNumberLay->addLayout(preloadFullNumberCheckLay);
+	layAdvanced->addWidget(preloadFullNumberLabel);
+	layAdvanced->addSpacing(10);
+	layAdvanced->addLayout(preloadFullNumberLay);
+	layAdvanced->addSpacing(20);
+	connect(preloadFullNumber, SIGNAL(valueChanged(int)), preloadFullNumberSpin, SLOT(setValue(int)));
+	connect(preloadFullNumberSpin, SIGNAL(valueChanged(int)), preloadFullNumber, SLOT(setValue(int)));
+	connect(preloadFullNumberCheck, SIGNAL(toggled(bool)), preloadFullNumber, SLOT(setDisabled(bool)));
+	connect(preloadFullNumberCheck, SIGNAL(toggled(bool)), preloadFullNumberSpin, SLOT(setDisabled(bool)));
 
 
 	// OPTION TO DISABLE THUMBNAILS ALLTOGETHER
@@ -343,10 +347,10 @@ SettingsTabThumbnail::SettingsTabThumbnail(QWidget *parent, QMap<QString, QVaria
 	thumbDisableLay->addStretch();
 	thumbDisableLay->addWidget(thumbDisable);
 	thumbDisableLay->addStretch();
-	layTune->addWidget(thumbnailDisableLabel);
-	layTune->addSpacing(5);
-	layTune->addLayout(thumbDisableLay);
-	layTune->addSpacing(20);
+	layAdvanced->addWidget(thumbnailDisableLabel);
+	layAdvanced->addSpacing(5);
+	layAdvanced->addLayout(thumbDisableLay);
+	layAdvanced->addSpacing(20);
 
 
 	// OPTION FOR THUMBNAIL CACHE
@@ -372,12 +376,12 @@ SettingsTabThumbnail::SettingsTabThumbnail(QWidget *parent, QMap<QString, QVaria
 	cacheOption->addStretch();
 	cacheDatabase->setChecked(true);
 
-	layTune->addWidget(thumbCacheLabel);
-	layTune->addSpacing(5);
-	layTune->addLayout(thumbCacheLay);
-	layTune->addSpacing(5);
-	layTune->addLayout(cacheOption);
-	layTune->addSpacing(5);
+	layAdvanced->addWidget(thumbCacheLabel);
+	layAdvanced->addSpacing(10);
+	layAdvanced->addLayout(thumbCacheLay);
+	layAdvanced->addSpacing(5);
+	layAdvanced->addLayout(cacheOption);
+	layAdvanced->addSpacing(5);
 
 	connect(thumbCache, SIGNAL(toggled(bool)), this, SLOT(updateCacheStuff()));
 
@@ -388,7 +392,7 @@ SettingsTabThumbnail::SettingsTabThumbnail(QWidget *parent, QMap<QString, QVaria
 	dbInfoLay->addStretch();
 	dbInfoLay->addWidget(dbInfo);
 	dbInfoLay->addStretch();
-	layTune->addLayout(dbInfoLay);
+	layAdvanced->addLayout(dbInfoLay);
 
 	// The database can be cleaned and erased
 	cleanDatabase = new CustomPushButton(tr("CLEAN up Database"));
@@ -399,9 +403,9 @@ SettingsTabThumbnail::SettingsTabThumbnail(QWidget *parent, QMap<QString, QVaria
 	dbLay->addWidget(eraseDatabase);
 	dbLay->addStretch();
 
-	layTune->addSpacing(10);
-	layTune->addLayout(dbLay);
-	layTune->addSpacing(10);
+	layAdvanced->addSpacing(10);
+	layAdvanced->addLayout(dbLay);
+	layAdvanced->addSpacing(10);
 
 	connect(cacheDatabase, SIGNAL(toggled(bool)), cleanDatabase, SLOT(setEnabled(bool)));
 	connect(cacheDatabase, SIGNAL(toggled(bool)), eraseDatabase, SLOT(setEnabled(bool)));
@@ -423,8 +427,7 @@ SettingsTabThumbnail::SettingsTabThumbnail(QWidget *parent, QMap<QString, QVaria
 	connect(confirmErase, SIGNAL(confirmed()), this, SLOT(doEraseDatabase()));
 
 
-	layLook->addStretch();
-	layTune->addStretch();
+	layAdvanced->addStretch();
 
 }
 

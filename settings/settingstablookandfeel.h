@@ -66,8 +66,8 @@ public:
 	~SettingsTabLookAndFeel();
 
 	TabWidget *tabs;
-	QWidget *tabLook;
-	QWidget *tabFeel;
+	QWidget *tabBasic;
+	QWidget *tabAdvanced;
 
 	bool verbose;
 
@@ -75,8 +75,8 @@ public:
 	QMap<QString,QVariant> globSet;
 
 	// The scrollbar
-	CustomScrollbar *scrollbarLook;
-	CustomScrollbar *scrollbarFeel;
+	CustomScrollbar *scrollbarBasic;
+	CustomScrollbar *scrollbarAdvanced;
 
 	// This holds the updated settings when saved
 	QMap<QString,QVariant> updatedSet;

@@ -51,11 +51,11 @@ public:
 	~SettingsTabThumbnail();
 
 	TabWidget *tabs;
-	QWidget *tabLook;
-	QWidget *tabTune;
+	QWidget *tabBasic;
+	QWidget *tabAdvanced;
 
-	CustomScrollbar *scrollbarLook;
-	CustomScrollbar *scrollbarTune;
+	CustomScrollbar *scrollbarBasic;
+	CustomScrollbar *scrollbarAdvanced;
 
 	bool verbose;
 
