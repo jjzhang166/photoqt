@@ -89,6 +89,8 @@ public:
 	// Remember per session
 	bool rememberRotation;
 	bool rememberZoom;
+	// If image is too small, zoom to fit in window
+	bool fitInWindow;
 
 	// Are quickinfos hidden?
 	bool hidecounter;
@@ -219,6 +221,7 @@ public:
 		map.insert("MouseWheelSensitivity",mouseWheelSensitivity);
 		map.insert("RememberRotation",rememberRotation);
 		map.insert("RememberZoom",rememberZoom);
+		map.insert("FitInWindow",fitInWindow);
 
 		map.insert("HideCounter",hidecounter);
 		map.insert("HideFilepathShowFilename",hidefilepathshowfilename);
@@ -329,6 +332,7 @@ public:
 		mouseWheelSensitivity = 1;
 		rememberRotation = true;
 		rememberZoom = true;
+		fitInWindow= false;
 
 		hidecounter = false;
 		hidefilepathshowfilename = true;
@@ -523,6 +527,11 @@ public:
 				rememberZoom = true;
 			else if(all.contains("RememberZoom=0"))
 				rememberZoom = false;
+
+			if(all.contains("FitInWindow=1"))
+				fitInWindow = true;
+			else if(all.contains("FitInWindow=0"))
+				fitInWindow = false;
 
 			if(all.contains("HideCounter=1"))
 				hidecounter = true;
@@ -801,6 +810,7 @@ public:
 			cont += QString("MouseWheelSensitivity=%1\n").arg(mouseWheelSensitivity);
 			cont += QString("RememberRotation=%1\n").arg(int(rememberRotation));
 			cont += QString("RememberZoom=%1\n").arg(int(rememberZoom));
+			cont += QString("FitInWindow=%1\n").arg(int(fitInWindow));
 
 			cont += "\n[Quickinfo]\n";
 
@@ -1040,6 +1050,9 @@ public slots:
 
 		if(changedSet.keys().contains("RememberZoom"))
 			rememberZoom = changedSet.value("RememberZoom").toBool();
+
+		if(changedSet.keys().contains("FitInWindow"))
+			fitInWindow = changedSet.value("FitInWindow").toBool();
 
 		if(changedSet.keys().contains("ThumbnailSize")) {
 			thumbnailsize = changedSet.value("ThumbnailSize").toInt();

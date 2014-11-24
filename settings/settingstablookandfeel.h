@@ -122,6 +122,9 @@ private:
 	// Mouse wheel sensitivity
 	CustomSlider *wheelSensitivity;
 
+	// Fit smaller images in window
+	CustomCheckBox *fitInWindow;
+
 	// Remember per session
 	CustomCheckBox *rememberRotation;
 	CustomCheckBox *rememberZoom;

@@ -10,7 +10,7 @@ ImageReader::ImageReader(bool v) : QObject() {
 
 }
 
-QImage ImageReader::readImage(QString filename, int rotation, bool zoomed, QSize maxSize, bool dontscale) {
+QImage ImageReader::readImage(QString filename, int rotation, bool zoomed, bool fitinwindow, QSize maxSize, bool dontscale) {
 
 
 	if(verbose) std::clog << "[reader] zoomed: " << zoomed << std::endl;
@@ -20,12 +20,12 @@ QImage ImageReader::readImage(QString filename, int rotation, bool zoomed, QSize
 
 	// for SVG, we first need to load it properly...
 	if(useMagick)
-		return readImage_GM(filename, rotation, zoomed, maxSize, dontscale);
-	return readImage_QT(filename, rotation, zoomed, maxSize, dontscale);
+		return readImage_GM(filename, rotation, zoomed, fitinwindow, maxSize, dontscale);
+	return readImage_QT(filename, rotation, zoomed, fitinwindow, maxSize, dontscale);
 
 }
 
-QImage ImageReader::readImage_QT(QString filename, int rotation, bool zoomed, QSize maxSize, bool dontscale) {
+QImage ImageReader::readImage_QT(QString filename, int rotation, bool zoomed, bool fitinwindow, QSize maxSize, bool dontscale) {
 
 	// For reading SVG files
 	QSvgRenderer svg;
@@ -114,7 +114,7 @@ QImage ImageReader::readImage_QT(QString filename, int rotation, bool zoomed, QS
 	// Calculate the factor by which the main image (view) has to be zoomed
 	float q = 1;
 
-	if(dispWidth > maxSize.width()) {
+	if(dispWidth > maxSize.width() || (dispWidth != maxSize.width() && fitinwindow)) {
 			q = maxSize.width()/(dispWidth*1.0);
 			dispWidth *= q;
 			dispHeight *= q;
@@ -136,6 +136,7 @@ QImage ImageReader::readImage_QT(QString filename, int rotation, bool zoomed, QS
 		scaleImg2 = q;
 	else
 		scaleImg2 = -1;
+
 
 
 	// If image is rotated left or right, then we set the right image dimensions again
@@ -180,7 +181,7 @@ QImage ImageReader::readImage_QT(QString filename, int rotation, bool zoomed, QS
 }
 
 // If GraphicsMagick supports the file format,
-QImage ImageReader::readImage_GM(QString filename, int rotation, bool zoomed, QSize maxSize, bool dontscale) {
+QImage ImageReader::readImage_GM(QString filename, int rotation, bool zoomed, bool fitinwindow, QSize maxSize, bool dontscale) {
 
 #ifdef GM
 
@@ -289,7 +290,7 @@ QImage ImageReader::readImage_GM(QString filename, int rotation, bool zoomed, QS
 		out.open(QIODevice::WriteOnly);
 		out.write(static_cast<const char*>(ob.data()), ob.length());
 
-		return readImage_QT(QDir::tempPath() + "/photoqt_tmp.xpm",rotation,zoomed,maxSize,dontscale);
+		return readImage_QT(QDir::tempPath() + "/photoqt_tmp.xpm",rotation,zoomed,fitinwindow,maxSize,dontscale);
 
 	} catch(Magick::Exception &error_) {
 		delete[] data;

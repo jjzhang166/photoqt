@@ -437,7 +437,7 @@ void MainWindow::drawImage() {
 		}
 
 		// Get the image
-		QImage img = imageReader->readImage(globVar->currentfile,globVar->rotation,globVar->zoomed,QSize(maxW,maxH),true);
+		QImage img = imageReader->readImage(globVar->currentfile,globVar->rotation,globVar->zoomed,globSet->fitInWindow,QSize(maxW,maxH),true);
 
 		if(!globVar->zoomToActualSize) {
 			// The imagereader stores two possible scaling factors

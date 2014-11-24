@@ -257,6 +257,19 @@ SettingsTabLookAndFeel::SettingsTabLookAndFeel(QWidget *parent, QMap<QString, QV
 	layFeel->addSpacing(20);
 
 
+	// OPTION TO FIT SMALLER IMAGES IN WINDOW
+	CustomLabel *fitInWindowLabel = new CustomLabel("<b><span style=\"font-size:12pt\">" + tr("Fit Image in Window") + "</span></b> " + "<hr>" + tr("If the image dimensions are smaller than the screen dimensions, PhotoQt can zoom those images to make them fir into the window. However, keep in mind, that such images will look pixelated to a certain degree (depending on each image)."));
+	fitInWindowLabel->setWordWrap(true);
+	fitInWindow = new CustomCheckBox(tr("Fit Images in Window"));
+	QHBoxLayout *fitInWindowLay = new QHBoxLayout;
+	fitInWindowLay->addStretch();
+	fitInWindowLay->addWidget(fitInWindow);
+	fitInWindowLay->addStretch();
+	layFeel->addWidget(fitInWindowLabel);
+	layFeel->addSpacing(5);
+	layFeel->addLayout(fitInWindowLay);
+	layFeel->addSpacing(20);
+
 
 
 	// OPTION FOR MENU SENSITIVITY
@@ -531,6 +544,9 @@ void SettingsTabLookAndFeel::loadSettings() {
 	wheelSensitivity->setValue(globSet.value("MouseWheelSensitivity").toInt());
 	defaults.insert("MouseWheelSensitivity",globSet.value("MouseWheelSensitivity").toInt());
 
+	fitInWindow->setChecked(globSet.value("FitInWindow").toBool());
+	defaults.insert("FitInWindow",globSet.value("FitInWindow").toBool());
+
 	rememberRotation->setChecked(globSet.value("RememberRotation").toBool());
 	defaults.insert("RememberRotation",globSet.value("RememberRotation").toBool());
 
@@ -674,6 +690,12 @@ void SettingsTabLookAndFeel::saveSettings() {
 		updatedSet.insert("MenuSensitivity",menu->value());
 		defaults.remove("MenuSensitivity");
 		defaults.insert("MenuSensitivity",menu->value());
+	}
+
+	if(defaults.value("FitInWindow").toBool() != fitInWindow->isChecked()) {
+		updatedSet.insert("FitInWindow",fitInWindow->isChecked());
+		defaults.remove("FitInWindow");
+		defaults.insert("FitInWindow",fitInWindow->isChecked());
 	}
 
 	if(defaults.value("RememberRotation").toBool() != rememberRotation->isChecked()) {

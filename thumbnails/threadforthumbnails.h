@@ -297,7 +297,7 @@ protected:
 					ImageReader image(verbose);
 					image.qtfiles = qtfiles;
 					image.gmfiles = gmfiles;
-					p = image.readImage(allimgs.at(createThisOne).absoluteFilePath(),0,false,QSize(ts,ts));
+					p = image.readImage(allimgs.at(createThisOne).absoluteFilePath(),0,false,false,QSize(ts,ts));
 
 					origwidth = image.origSize.width();
 					origheight = image.origSize.height();
