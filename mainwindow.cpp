@@ -496,7 +496,24 @@ void MainWindow::drawImage() {
 
 			// These formats known by Photo are supported by exiv2
 			QStringList formats;
-			formats << "bmp" << "gif" << "tiff" << "jpg" << "jpeg" << "png";
+			formats << "jpeg"
+				<< "jpg"
+				<< "tif"
+				<< "tiff"
+				<< "png"
+				<< "psd"
+				<< "jpeg2000"
+				<< "jp2"
+				<< "jpc"
+				<< "j2k"
+				<< "jpf"
+				<< "jpx"
+				<< "jpm"
+				<< "mj2"
+				<< "bmp"
+				<< "bitmap"
+				<< "gif"
+				<< "tga";
 
 			// If supported, load exiv2 data
 			if(formats.contains(fileformat))
