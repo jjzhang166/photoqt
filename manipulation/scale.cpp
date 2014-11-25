@@ -296,14 +296,97 @@ void Scale::doScale(QString filename) {
 
 	if(verbose) std::clog << "scale: Scaling image '" << filename.toStdString() << "'" << std::endl;
 
-	// Get current image
+	// These image formats known by exiv2 are also supported by PhotoQt
+	QStringList formats;
+	formats << "jpeg"
+		<< "jpg"
+		<< "tif"
+		<< "tiff"
+		<< "png"
+		<< "psd"
+		<< "jpeg2000"
+		<< "jp2"
+		<< "jpc"
+		<< "j2k"
+		<< "jpf"
+		<< "jpx"
+		<< "jpm"
+		<< "mj2"
+		<< "bmp"
+		<< "bitmap"
+		<< "gif"
+		<< "tga";
+
+#ifdef EXIV2
+
+	// This will store all the exif data
+	Exiv2::ExifData exifData;
+	bool gotExifData = false;
+
+	if(formats.contains(QFileInfo(currentfile).suffix().toLower()) && formats.contains(QFileInfo(filename).suffix().toLower())) {
+
+		if(verbose) std::clog << "scale: image format supported by exiv2" << std::endl;
+
+		try {
+
+			// Open image for exif reading
+			Exiv2::Image::AutoPtr image_read = Exiv2::ImageFactory::open(currentfile.toStdString());
+
+			if(image_read.get() != 0) {
+
+				// YAY, WE FOUND SOME!!!!!
+				gotExifData = true;
+
+				// read exif
+				image_read->readMetadata();
+				exifData = image_read->exifData();
+
+				// Update dimensions
+				exifData["Exif.Photo.PixelXDimension"] = int32_t(widthSpin->value());
+				exifData["Exif.Photo.PixelYDimension"] = int32_t(heightSpin->value());
+
+			}
+
+		}
+
+		catch (Exiv2::Error& e) {
+			std::cerr << "scale: ERROR reading exif data (caught exception): " << e.what() << std::endl;
+		}
+
+	} else
+		if(verbose) std::clog << "scale: image format NOT supported by exiv2" << std::endl;
+
+
+#endif
+
+	// We need to do the actual scaling in between reading the exif data above and writing it below,
+	// since we might be scaling the image in place and thus would overwrite old exif data
 	QImageReader reader(currentfile);
-	// Scale it
 	reader.setScaledSize(QSize(widthSpin->value(),heightSpin->value()));
-	// Load it
 	QImage img = reader.read();
-	// And save to new file
 	img.save(filename,0,quality->value());
+
+#ifdef EXIV2
+
+	// We don't need to check again, if both files are actually supported formats, since if either one isn't supported, this bool cannot be true
+	if(gotExifData) {
+
+		try {
+
+			// And write exif data to new image file
+			Exiv2::Image::AutoPtr image_write = Exiv2::ImageFactory::open(filename.toStdString());
+			image_write->setExifData(exifData);
+			image_write->writeMetadata();
+
+		}
+
+		catch (Exiv2::Error& e) {
+			std::cerr << "scale: ERROR writing exif data (caught exception): " << e.what() << std::endl;
+		}
+
+	}
+
+#endif
 
 }
 

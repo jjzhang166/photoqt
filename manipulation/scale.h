@@ -29,6 +29,11 @@
 #include "../widgets/customconfirm.h"
 #include "../widgets/mywidget.h"
 
+#ifdef EXIV2
+#include <exiv2/image.hpp>
+#include <exiv2/exif.hpp>
+#endif
+
 class Scale : public MyWidget {
 
 	Q_OBJECT
