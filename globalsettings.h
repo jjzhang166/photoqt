@@ -33,6 +33,10 @@
 #include <QMap>
 #include <QtDebug>
 
+#ifdef Q_OS_WIN32
+#include <QtWin>
+#endif
+
 #include "fileformats.h"
 
 // All the global settings
@@ -308,6 +312,8 @@ public:
 
 #ifdef Q_OS_LINUX
 		backgroundImageScreenshot = false;
+#elif Q_OS_WIN32
+		backgroundImageScreenshot = (QtWin::isCompositionEnabled() ? false : true);
 #else
 		backgroundImageScreenshot = true;
 #endif
@@ -319,6 +325,8 @@ public:
 
 #ifdef Q_OS_LINUX
 		composite = true;
+#elif Q_OS_WIN32
+		composite = (QtWin::isCompositionEnabled() ? true : false);
 #else
 		composite = false;
 #endif
@@ -447,17 +455,11 @@ public:
 			else if(all.contains("WindowDecoration=0"))
 				windowDecoration = false;
 
-
 			if(all.contains("Composite=1"))
 				composite = true;
 			else if(all.contains("Composite=0"))
 				composite = false;
-			else {
-#if defined(Q_WS_X11)
-				composite = QX11Info::isCompositingManagerRunning() ? true : false;
 
-#endif
-			}
 
 			if(all.contains("QuickSettings=1"))
 				quickSettings = true;
