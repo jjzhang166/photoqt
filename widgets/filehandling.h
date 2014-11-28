@@ -74,6 +74,8 @@ public:
 	CustomPushButton *copyCancel;
 
 private:
+	// Widget layout
+	QHBoxLayout *allWidgets;
 
 	/**********************************
 	/////////// RENAME ////////////////
@@ -128,9 +130,6 @@ private:
 
 
 public slots:
-	// The animation function
-	void aniFinished();
-
 	/**********************************
 	/////////// RENAME ////////////////
 	**********************************/
@@ -153,6 +152,10 @@ public slots:
 	void doCopy();
 
 	void validateMoveAndCopyFilename();
+
+//private slots:
+	// The animation function
+	void aniFinished();
 
 
 signals:

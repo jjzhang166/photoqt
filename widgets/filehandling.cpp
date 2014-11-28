@@ -58,7 +58,6 @@ FileHandling::FileHandling(QWidget *parent, bool v, QString cf) : MyWidget(paren
 	**********************************/
 
 	renameWidget = new QWidget(this);
-	renameWidget->setStyleSheet("background: rgba(0,0,0,200); border-radius: 25px");
 
 	renameLay = new QVBoxLayout;
 	renameTitle = new CustomLabel("<center>" + tr("Rename File") + "</center>");
@@ -123,7 +122,6 @@ FileHandling::FileHandling(QWidget *parent, bool v, QString cf) : MyWidget(paren
 	// On Linux (X11) a "move to trash" is the default (according to freedesktop.org standard). On all other systems, this option is not (yet) available.
 
 	deleteWidget = new QWidget(this);
-	deleteWidget->setStyleSheet("background: rgba(0,0,0,200); border-radius: 25px");
 
 	deleteLay = new QVBoxLayout;
 	deleteTitle = new CustomLabel("<center>" + tr("Delete File") + "</center>");
@@ -142,14 +140,14 @@ FileHandling::FileHandling(QWidget *parent, bool v, QString cf) : MyWidget(paren
 
 	deleteYesHard = new CustomPushButton(tr("Delete permanently"));
 	deleteYesHard->setPadding(6);
-#if defined(Q_WS_X11)
+#ifdef Q_OS_LINUX
 	deleteYesHard->setFontSize("10pt");
 #else
 	deleteYesHard->setFontSize("13pt");
 	deleteYesHard->setBold(true);
 #endif
 
-#if defined(Q_WS_X11)
+#ifdef Q_OS_LINUX
 	deleteYes = new CustomPushButton(tr("Move to Trash"));
 	deleteYes->setPadding(6);
 	deleteYes->setFontSize("13pt");
@@ -167,7 +165,7 @@ FileHandling::FileHandling(QWidget *parent, bool v, QString cf) : MyWidget(paren
 	QHBoxLayout *deleteButLay = new QHBoxLayout;
 	deleteButLay->addStretch();
 
-#if defined(Q_WS_X11)
+#ifdef Q_OS_LINUX
 	deleteButLay->addWidget(deleteYes);
 #else
 	deleteButLay->addWidget(deleteYesHard);
@@ -176,7 +174,7 @@ FileHandling::FileHandling(QWidget *parent, bool v, QString cf) : MyWidget(paren
 	deleteButLay->addWidget(deleteNo);
 	deleteButLay->addStretch();
 
-#if defined(Q_WS_X11)
+#ifdef Q_OS_LINUX
 	QHBoxLayout *deleteHardButLay = new QHBoxLayout;
 	deleteHardButLay->addStretch();
 	deleteHardButLay->addWidget(deleteYesHard);
@@ -188,7 +186,7 @@ FileHandling::FileHandling(QWidget *parent, bool v, QString cf) : MyWidget(paren
 	deleteLay->addWidget(deleteFilename);
 	deleteLay->addWidget(deleteQuestion);
 	deleteLay->addLayout(deleteButLay);
-#if defined(Q_WS_X11)
+#ifdef Q_OS_LINUX
 	deleteLay->addLayout(deleteHardButLay);
 #endif
 	deleteLay->addStretch();
@@ -212,7 +210,6 @@ FileHandling::FileHandling(QWidget *parent, bool v, QString cf) : MyWidget(paren
 	********************************/
 
 	moveWidget = new QWidget(this);
-	moveWidget->setStyleSheet("background: rgba(0,0,0,200); border-radius: 25px");
 
 	moveLay = new QVBoxLayout;
 	moveTitle = new CustomLabel("<center>" + tr("Moving File") + "</center>");
@@ -292,7 +289,6 @@ FileHandling::FileHandling(QWidget *parent, bool v, QString cf) : MyWidget(paren
 	********************************/
 
 	copyWidget = new QWidget(this);
-	copyWidget->setStyleSheet("background: rgba(0,0,0,200); border-radius: 25px");
 
 	copyLay = new QVBoxLayout;
 	copyTitle = new CustomLabel("<center>" + tr("Copying File") + "</center>");
@@ -366,6 +362,19 @@ FileHandling::FileHandling(QWidget *parent, bool v, QString cf) : MyWidget(paren
 	copyWidget->setLayout(copyLay);
 
 
+
+
+	// Widget layout - only one at a time will be visible
+	allWidgets = new QHBoxLayout;
+	allWidgets->addWidget(renameWidget);
+	allWidgets->addWidget(copyWidget);
+	allWidgets->addWidget(deleteWidget);
+	allWidgets->addWidget(moveWidget);
+	this->setWidgetLayout(allWidgets);
+
+	// catch finished animation event:
+	connect(this, SIGNAL(notifyOfAniFinished()), this, SLOT(aniFinished()));
+
 }
 
 // Open the dialog type 't'
@@ -376,10 +385,10 @@ void FileHandling::openDialog(QString t) {
 	if(currentfile != "") {
 
 		// Make sure all widgets are hidden by default
-		renameWidget->setGeometry(getRectHidden());
-		deleteWidget->setGeometry(getRectHidden());
-		moveWidget->setGeometry(getRectHidden());
-		copyWidget->setGeometry(getRectHidden());
+		renameWidget->hide();
+		deleteWidget->hide();
+		moveWidget->hide();
+		copyWidget->hide();
 
 		// Save current state
 		dialogType = t;
@@ -407,18 +416,18 @@ void FileHandling::aniFinished() {
 
 	// Move widget out of screen
 	if(!isVisible()) {
-		this->setGeometry(getRectHidden());
-		emit widgetClosed();
+
 		if(dialogType == "rename")
 			renameNewName->setEnabled(false);
+
 		else if(dialogType == "move")
 			moveNewName->setEnabled(false);
-	}
 
-	if(isVisible()) {
+	} else {
 
 		if(dialogType == "move")
 			moveTree->scrollTo(moveTree->selectionModel()->selectedIndexes().at(0));
+
 		if(dialogType == "copy")
 			copyTree->scrollTo(copyTree->selectionModel()->selectedIndexes().at(0));
 
@@ -431,6 +440,8 @@ void FileHandling::setRename() {
 
 	if(verbose) std::clog << "fhd: Set rename layout" << std::endl;
 
+	this->setVisibleArea(QSize(600,400));
+
 	// Update the labels and focus the LineEdit
 	renameOldName->setText("<center>"+ tr("Old name") + ": " + QFileInfo(currentfile).fileName() + "</center>");
 	renameNewName->setText(QFileInfo(currentfile).completeBaseName());
@@ -439,11 +450,10 @@ void FileHandling::setRename() {
 	renameNewName->selectAll();
 	renameOldEnding->setText("." + QFileInfo(currentfile).completeSuffix());
 
-	// Adjust target of animation
-	resetAnimationTarget(renameWidget);
-
 	// Validate new filename (at this point the old name, i.e. save button is disabled)
 	validateRenameFilename();
+
+	renameWidget->show();
 
 }
 
@@ -452,11 +462,12 @@ void FileHandling::setDelete() {
 
 	if(verbose) std::clog << "fhd: Set delete layout" << std::endl;
 
+	this->setVisibleArea(QSize(600,400));
+
 	// Update old filename
 	deleteFilename->setText("<center>" + QFileInfo(currentfile).fileName() + "</center>");
 
-	// Adjust target of animation
-	resetAnimationTarget(deleteWidget);
+	deleteWidget->show();
 
 }
 
@@ -464,6 +475,13 @@ void FileHandling::setDelete() {
 void FileHandling::setCopy() {
 
 	if(verbose) std::clog << "fhd: Set copy layout" << std::endl;
+
+	int w = 600;
+	int h = 800;
+	QRect fs = getRectShown();
+	if(w > fs.width()-200) w = fs.width()-200;
+	if(h > fs.height()-150) h = fs.height()-150;
+	this->setVisibleArea(QSize(w,h));
 
 	QModelIndex first = copyTreeModel->index(QFileInfo(currentfile).absolutePath());
 	copyTree->setCurrentIndex(first);
@@ -476,9 +494,9 @@ void FileHandling::setCopy() {
 	copyNewName->setEnabled(true);
 	copyNewName->selectAll();
 
-	resetAnimationTarget(copyWidget);
-
 	validateMoveAndCopyFilename();
+
+	copyWidget->show();
 
 }
 
@@ -486,6 +504,13 @@ void FileHandling::setCopy() {
 void FileHandling::setMove() {
 
 	if(verbose) std::clog << "fhd: Set move layout" << std::endl;
+
+	int w = 600;
+	int h = 800;
+	QRect fs = getRectShown();
+	if(w > fs.width()-200) w = fs.width()-200;
+	if(h > fs.height()-150) h = fs.height()-150;
+	this->setVisibleArea(QSize(w,h));
 
 	QModelIndex first = moveTreeModel->index(QFileInfo(currentfile).absolutePath());
 	moveTree->setCurrentIndex(first);
@@ -498,9 +523,9 @@ void FileHandling::setMove() {
 	moveNewName->setEnabled(true);
 	moveNewName->selectAll();
 
-	resetAnimationTarget(moveWidget);
-
 	validateMoveAndCopyFilename();
+
+	moveWidget->show();
 
 }
 
@@ -513,7 +538,7 @@ void FileHandling::doRename() {
 	// The new filename including full path
 	QString newfile = QFileInfo(currentfile).absolutePath() + "/" + renameNewName->text() + renameOldEnding->text().toLower();
 
-	if(verbose) std::clog << "fhd: Rename: " << currentfile.toStdString() << " - " << newfile.toStdString() << std::endl;
+	if(verbose) std::clog << "fhd: Rename: " << currentfile.toStdString() << " -> " << newfile.toStdString() << std::endl;
 
 	// Do renaming (this first check of existence shouldn't be needed but just to be on the safe side)
 	if(!QFile(newfile).exists()) {
@@ -536,7 +561,7 @@ void FileHandling::doRename() {
 // Execute deletion
 void FileHandling::doDelete(int harddelete) {
 
-#if defined(Q_WS_X11)
+#ifdef Q_OS_LINUX
 
 	if(harddelete == 0) {
 
@@ -552,41 +577,40 @@ void FileHandling::doDelete(int harddelete) {
 
 			// Create the meta .trashinfo file
 			QString info = "[Trash Info]\n";
-			info += "Path=" + filepath.replace(" ","%20") + "\n";
+			info += "Path=" + QUrl(filepath).toEncoded() + "\n";
 			info += "DeletionDate=" + QDateTime::currentDateTime().toString("yyyy-MM-ddThh:mm:ss");
 
 			// The base patzh for the Trah (files on external devices  use the external device for Trash)
 			QString baseTrash = "";
 
 			// If file lies in the home directory
-			if(f.fileName().startsWith(QDir::homePath())) {
+			if(QFileInfo(filepath).absoluteFilePath().startsWith(QDir::homePath())) {
 
 				// Set the base path and make sure all the dirs exist
-				baseTrash = QString(qgetenv("XDG_DATA_HOME")) + "/Trash/";
-				if(!QDir(QDir::homePath() + "/.local").exists())
-					QDir().mkdir(QDir::homePath() + "/.local");
-				if(!QDir(QDir::homePath() + "/.local/share").exists())
-					QDir().mkdir(QDir::homePath() + "/.local/share");
+				baseTrash = QString(qgetenv("XDG_DATA_HOME"));
+				if(baseTrash.trimmed() == "") baseTrash = QDir::homePath() + "/.local/share";
+				baseTrash += "/Trash/";
+
+				if(!QDir(baseTrash).exists())
+					QDir().mkpath(baseTrash);
+				if(!QDir(baseTrash + "files").exists())
+					QDir().mkdir(baseTrash + "files");
+				if(!QDir(baseTrash + "info").exists())
+					QDir().mkdir(baseTrash + "info");
+			} else {
+				// Set the base path and make sure all the dirs exist
+				baseTrash = "/" + filepath.split("/").at(1) + "/" + filepath.split("/").at(2) + QString("/.Trash-%1/").arg(getuid());
 				if(!QDir(baseTrash).exists())
 					QDir().mkdir(baseTrash);
 				if(!QDir(baseTrash + "files").exists())
 					QDir().mkdir(baseTrash + "files");
 				if(!QDir(baseTrash + "info").exists())
 					QDir().mkdir(baseTrash + "info");
-				} else {
-					// Set the base path and make sure all the dirs exist
-				baseTrash = "/" + filepath.split("/").at(1) + "/" + filepath.split("/").at(2) + QString("/.Trash-%1/").arg(getuid());
-					if(!QDir(baseTrash).exists())
-						QDir().mkdir(baseTrash);
-					if(!QDir(baseTrash + "files").exists())
-						QDir().mkdir(baseTrash + "files");
-					if(!QDir(baseTrash + "info").exists())
-						QDir().mkdir(baseTrash + "info");
 
 			}
 
 			// that's the new trash file
-				QString trashFile = baseTrash + "files/" + QUrl::toPercentEncoding(QFileInfo(f).fileName(),""," ");
+			QString trashFile = baseTrash + "files/" + QUrl::toPercentEncoding(QFileInfo(f).fileName(),""," ");
 
 			// If there exists already a file with that name, we simply append the next higher number (sarting at 1)
 			QFile ensure(trashFile);
@@ -620,7 +644,7 @@ void FileHandling::doDelete(int harddelete) {
 		} else
 			std::cerr << "ERROR: File '" << filepath.toStdString() << "' doesn't exist...?" << std::endl;
 
-		animate();
+		makeHide();
 
 	} else {
 
@@ -633,11 +657,11 @@ void FileHandling::doDelete(int harddelete) {
 		if(file.exists()) {
 
 			file.remove();
-			animate();
+			makeHide();
 			emit reloadDir("delete");
 
 		} else {
-			animate();
+			makeHide();
 			std::cerr << "ERROR! File '" << currentfile.toStdString() << "' doesn't exist...?" << std::endl;
 		}
 
