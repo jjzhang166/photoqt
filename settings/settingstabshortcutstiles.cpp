@@ -47,8 +47,9 @@ ShortcutsTiles::ShortcutsTiles(QString exeCmd, QString exeDesc, QString category
 		quit = new CustomCheckBox(tr("quit"));
 		quit->setIndicatorSize(8);
 		quit->setFontSize(7);
-		quit->setIndicatorImage(":/img/radiobutton_checked.png",":/img/radiobutton_unchecked.png");
-		quit->setFontColor("black");
+		quit->setIndicatorImage(":/img/radiobutton_checked.png",":/img/radiobutton_unchecked.png",
+					":/img/radiobutton_checked_disabled.png",":/img/radiobutton_unchecked_disabled.png");
+		quit->setFontColor("black", "grey");
 		if(category != "extern")
 			quit->hide();
 		mouse = new CustomLabel("M");

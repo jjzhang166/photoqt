@@ -34,10 +34,10 @@ public:
 	void setIndicatorSize(int indicatorWidth, int indicatorHeight);
 
 	// And the font color can be changed
-	void setFontColor(QString col);
+	void setFontColor(QString col, QString colDisabled);
 
 	// A custom indicator image can be set
-	void setIndicatorImage(QString imgChkd, QString imgUnchkd);
+	void setIndicatorImage(QString imgChkd, QString imgUnchkd, QString imgChkdDisabled, QString imgUnchkdDisabled);
 
 	// The font size can be adjusted
 	void setFontSize(int size);
@@ -52,9 +52,16 @@ private:
 	int indicSizeW;
 	int indicSizeH;
 	QString fontCol;
+	QString fontColDisabled;
 	QString imgChkd;
+	QString imgChkdDisabled;
 	QString imgUnchkd;
+	QString imgUnchkdDisabled;
 	int fontsize;
+
+	void setCSS();
+
+	QGraphicsOpacityEffect *eff;
 
 };
 

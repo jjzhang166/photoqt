@@ -64,7 +64,8 @@ Scale::Scale(bool verbose, QWidget *parent) : MyWidget(parent) {
 
 	// Checkbox to keep aspect ratio
 	keepratio = new CustomCheckBox(tr("Aspect Ratio"));
-	keepratio->setIndicatorImage(":/img/ratioKeep.png",":/img/ratioDontKeep.png");
+	keepratio->setIndicatorImage(":/img/ratioKeep.png",":/img/ratioDontKeep.png",
+				     ":/img/ratioKeep.png",":/img/ratioDontKeep.png");
 	keepratio->setChecked(true);
 	keepRatioClicked();	// Set tooltip etc.
 	connect(keepratio, SIGNAL(clicked()), this, SLOT(keepRatioClicked()));
@@ -224,7 +225,7 @@ void Scale::keepRatioClicked() {
 
 	if(verbose) std::clog << "scale: Toggle Checkbox for keeping aspect ratio" << std::endl;
 
-	keepratio->setFontColor(keepratio->isChecked() ? "white" : "grey");
+	keepratio->setFontColor((keepratio->isChecked() ? "white" : "grey"), "grey");
 	keepratio->setToolTip(!keepratio->isChecked() ? tr("Don't keep aspect ratio") : tr("Keep aspect ratio"));
 
 }

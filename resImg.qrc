@@ -58,5 +58,7 @@
         <file>img/closingx.png</file>
         <file>img/sortdescending.png</file>
         <file>img/sortascending.png</file>
+        <file>img/checkbox_unchecked_disabled.png</file>
+        <file>img/checkbox_checked_disabled.png</file>
     </qresource>
 </RCC>

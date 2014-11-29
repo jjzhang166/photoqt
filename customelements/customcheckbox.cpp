@@ -27,33 +27,17 @@ CustomCheckBox::CustomCheckBox(const QString &text, QWidget *parent) : QCheckBox
 	// A fontsize of 0 leaves the default
 	fontsize = 0;
 
-	// The stylesheet
-	QString css = "";
-
-	css += "QCheckBox::indicator:unchecked {";
-		css += "image: url(:/img/checkbox_unchecked.png);";
-	css += "}";
-	css += "QCheckBox::indicator:checked {";
-		css += "image: url(:/img/checkbox_checked.png);";
-	css += "}";
-	css += "QCheckBox {";
-		css += "background:transparent;";
-		css += "color: white;";
-	css += "}";
-	css += "QCheckBox::indicator {";
-		css += QString("width: %1px;").arg(indicSizeW);
-		css += QString("height: %1px;").arg(indicSizeH);
-	css += "}";
-	css += "QToolTip {font-weight: bold; color: black; border-radius: 5px; padding: 1px; font-size: 8pt; background: rgba(255,255,255,200); }";
-
 	// Standard indicator image
 	imgChkd = ":/img/checkbox_checked.png";
 	imgUnchkd = ":/img/checkbox_unchecked.png";
+	imgChkdDisabled = ":/img/checkbox_checked_disabled.png";
+	imgUnchkdDisabled = ":/img/checkbox_unchecked_disabled.png";
 
 	// Standard font color
 	fontCol = "white";
 
-	this->setStyleSheet(css);
+	setCSS();
+
 	this->setToolTip(text);
 
 }
@@ -70,52 +54,17 @@ void CustomCheckBox::setIndicatorSize(int w, int h) {
 	indicSizeW = w;
 	indicSizeH = h;
 
-	QString css = "QCheckBox::indicator:unchecked {";
-		css += QString("image: url(%1);").arg(imgUnchkd);
-	css += "}";
-	css += "QCheckBox::indicator:checked {";
-		css += QString("image: url(%1);").arg(imgChkd);
-	css += "}";
-	css += "QCheckBox {";
-		css += "background:transparent;";
-		if(fontsize != 0)
-			css += QString("font-size: %1pt;").arg(fontsize);
-		css += "color: " + fontCol + ";";
-	css += "}";
-	css += "QCheckBox::indicator {";
-		css += QString("width: %1px;").arg(indicSizeW);
-		css += QString("height: %1px;").arg(indicSizeH);
-	css += "}";
-	css += "QToolTip {font-weight: bold; color: black; border-radius: 5px; padding: 1px; font-size: 8pt; background: rgba(255,255,255,200); }";
-
-	this->setStyleSheet(css);
+	setCSS();
 
 }
 
 // And the font color can be changed
-void CustomCheckBox::setFontColor(QString col) {
-
-	QString css = "QCheckBox::indicator:unchecked {";
-		css += QString("image: url(%1);").arg(imgUnchkd);
-	css += "}";
-	css += "QCheckBox::indicator:checked {";
-		css += QString("image: url(%1);").arg(imgChkd);
-	css += "}";
-	css += "QCheckBox {";
-		css += "background:transparent;";
-		if(fontsize != 0)
-			css += QString("font-size: %1pt;").arg(fontsize);
-		css += "color: " + col + ";";
-	css += "}";
-	css += "QCheckBox::indicator {";
-		css += QString("width: %1px;").arg(indicSizeW);
-		css += QString("height: %1px;").arg(indicSizeH);
-	css += "}";
-	css += "QToolTip {font-weight: bold; color: black; border-radius: 5px; padding: 1px; font-size: 8pt; background: rgba(255,255,255,200); }";
+void CustomCheckBox::setFontColor(QString col, QString colDisabled) {
 
 	fontCol = col;
+	fontColDisabled = colDisabled;
 
-	this->setStyleSheet(css);
+	setCSS();
 
 }
 
@@ -124,31 +73,53 @@ void CustomCheckBox::setFontSize(int size) {
 
 	fontsize = size;
 
-	setIndicatorSize(indicSizeW,indicSizeH);
+	setCSS();
 
 }
 
 // change indicator image
-void CustomCheckBox::setIndicatorImage(QString chkd, QString unchkd) {
+void CustomCheckBox::setIndicatorImage(QString chkd, QString unchkd, QString chkdDisabled, QString unchkdDisabled) {
 
 	imgChkd = chkd;
 	imgUnchkd = unchkd;
 
-	setIndicatorSize(indicSizeW,indicSizeH);
+	imgChkdDisabled = chkdDisabled;
+	imgUnchkdDisabled = unchkdDisabled;
+
+	setCSS();
+
+}
+
+void CustomCheckBox::setCSS() {
+
+	QString css = "QCheckBox::indicator:unchecked {";
+		css += QString("image: url(%1);").arg(isEnabled() ? imgUnchkd : imgUnchkdDisabled);
+	css += "}";
+	css += "QCheckBox::indicator:checked {";
+		css += QString("image: url(%1);").arg(isEnabled() ? imgChkd : imgChkdDisabled);
+	css += "}";
+	css += "QCheckBox {";
+		css += "background:transparent;";
+		if(fontsize != 0)
+			css += QString("font-size: %1pt;").arg(fontsize);
+		css += "color: " + (isEnabled() ? fontCol : fontColDisabled) + ";";
+	css += "}";
+	css += "QCheckBox::indicator {";
+		css += QString("width: %1px;").arg(indicSizeW);
+		css += QString("height: %1px;").arg(indicSizeH);
+	css += "}";
+	css += "QToolTip {font-weight: bold; color: black; border-radius: 5px; padding: 1px; font-size: 8pt; background: rgba(255,255,255,200); }";
+
+	this->setStyleSheet(css);
 
 }
 
 void CustomCheckBox::setEnabled(bool e) {
 
-	QGraphicsOpacityEffect *eff = new QGraphicsOpacityEffect;
-
-	eff->setOpacity(e ? 1 : 0.5);
-
-	this->setGraphicsEffect(eff);
-
 	QCheckBox::setEnabled(e);
 
-}
+	setCSS();
 
+}
 
 CustomCheckBox::~CustomCheckBox() { }
