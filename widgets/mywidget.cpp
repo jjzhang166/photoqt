@@ -60,29 +60,28 @@ void MyWidget::setup(int layoutMargin, QString borderColor, QString backgroundCo
 	isShown = false;
 	this->setGeometry(rectHidden);
 
-	// Some variables
-	fadeBack = new QTimeLine;
-	fadeBack->setLoopCount(5);
-	backAlphaShow = 130;
-	backAlphaCur = 0;
-	fadeBackIN = true;
-	connect(fadeBack, SIGNAL(valueChanged(qreal)), this, SLOT(fadeStep()));
+	// Fading
+	backOpacityShow = 0.5;
+	backOpacityCur = 0;
+	centerOpacityCur = 0;
+	fade = new QTimeLine;
+	fadeIN = true;
+	fadeEffectCenter = new QGraphicsOpacityEffect;
+	connect(fade, SIGNAL(valueChanged(qreal)), this, SLOT(fadeStep()));
+	connect(fade, SIGNAL(finished()), this, SLOT(aniFinished()));
 
 	// The current widget look
-	this->setStyleSheet(QString("background: rgba(0,0,0,%1);").arg(backAlphaShow));
+	this->setStyleSheet(QString("background: rgba(0,0,0,%1);").arg(255*backOpacityShow));
 
 	// the central widget containing all the information
 	center = new QWidget(this);
+	center->setGraphicsEffect(fadeEffectCenter);
 	center->setObjectName("center");
 	// For some reason, if the border is not defined right here at the beginning, it wont be visible...
 	if(borderColor == "")
 		center->setStyleSheet(QString("#center { background: %1; border-radius: 10px; font-size: 12pt; }").arg(this->backgroundColor));
 	else
 		center->setStyleSheet(QString("#center {background: %1; border-radius: 15px; font-size: 12pt; border: 2px solid %2; }").arg(this->backgroundColor).arg(borderColor));
-
-	// The current animation framework
-	ani = new QPropertyAnimation(center,"geometry");
-	connect(ani, SIGNAL(finished()), this, SLOT(aniFinished()));
 
 	// Create and set the scrollarea with main layout
 	QVBoxLayout *central = new QVBoxLayout;
@@ -161,11 +160,15 @@ void MyWidget::animate() {
 	else
 		shown = QRect(borderLeftRight, borderTopDown, rectShown.width()-borderLeftRight*2, rectShown.height()-borderTopDown*2);
 
+	bool noAni = false;
+
 	// Open widget
 	if(!isShown) {
 
-		if(ani->state() != QPropertyAnimation::Stopped)
-			ani->targetObject()->setProperty(ani->propertyName(),ani->endValue());
+		if(fade->state() == QTimeLine::Running) {
+			fade->stop();
+			fadeStep(true);
+		}
 
 		// The background is initially transparent but the geometry is full
 		this->setStyleSheet(QString("background: rgba(0,0,0,0);"));
@@ -174,19 +177,25 @@ void MyWidget::animate() {
 		// Widget is shown
 		isShown = true;
 
-		// Animate widget
-		ani->setDuration(400);
-		ani->setStartValue(rectAni);
-		ani->setEndValue(shown);
-		ani->setEasingCurve(QEasingCurve::InBack);
-		ani->start();
+		if(noAni) {
 
-		// Fade background in
-		if(!fullscreen) {
-			fadeBack->setDuration(200);
-			fadeBack->setLoopCount(5);
-			fadeBackIN = true;
-			fadeBack->start();
+			fadeIN = true;
+			center->setGeometry(shown);
+			fadeStep(true);
+			aniFinished();
+
+		} else {
+
+			// Prepare widget
+			fadeEffectCenter->setOpacity(0);
+			center->setGeometry(shown);
+
+			// Start fade
+			fade->setDuration(100);
+			fade->setLoopCount(5);
+			fadeIN = true;
+			fade->start();
+
 		}
 
 		// Block all base functions
@@ -198,26 +207,28 @@ void MyWidget::animate() {
 	// Close widget
 	} else if(isShown) {
 
-		if(ani->state() != QPropertyAnimation::Stopped)
-			ani->targetObject()->setProperty(ani->propertyName(),ani->endValue());
-
-		// Fade background out
-		if(!fullscreen) {
-			fadeBack->setDuration(100);
-			fadeBack->setLoopCount(5);
-			fadeBackIN = false;
-			fadeBack->start();
+		if(fade->state() == QTimeLine::Running) {
+			fade->stop();
+			fadeStep(true);
 		}
 
 		// Widget is hidden again
 		isShown = false;
 
-		// Start animation out
-		ani->setDuration(300);
-		ani->setStartValue(shown);
-		ani->setEndValue(rectAni);
-		ani->setEasingCurve(QEasingCurve::OutBack);
-		ani->start();
+		if(noAni) {
+
+			fadeIN = false;
+			fadeStep(true);
+			aniFinished();
+
+		} else {
+
+			fade->setDuration(100);
+			fade->setLoopCount(5);
+			fadeIN = false;
+			fade->start();
+
+		}
 
 		// Unblock all base functions
 		emit blockFunc(false);
@@ -226,24 +237,47 @@ void MyWidget::animate() {
 
 }
 
+// Every fade step
+void MyWidget::fadeStep(bool skipToEnd) {
 
-// Every fade step for the background
-void MyWidget::fadeStep() {
+	if(fadeIN) {
 
-	// Fade in
-	if(fadeBackIN) {
-		backAlphaCur += backAlphaShow/5;
-		if(backAlphaCur > backAlphaShow)
-			backAlphaCur = backAlphaShow;
-	// Fade out
+		if(!fullscreen) {
+			backOpacityCur += backOpacityShow/5;
+			if(backOpacityCur > backOpacityShow)
+				backOpacityCur = backOpacityShow;
+		}
+
+		centerOpacityCur += 1.0/10.0;
+		if(centerOpacityCur > 1)
+			centerOpacityCur = 1;
+
+		if(skipToEnd) {
+			backOpacityCur = backOpacityShow;
+			centerOpacityCur = 1.0;
+		}
+
 	} else {
-		backAlphaCur -= backAlphaShow/5;
-		if(backAlphaCur < 0)
-			backAlphaCur = 0;
+
+		if(!fullscreen) {
+			backOpacityCur -= backOpacityShow/5;
+			if(backOpacityCur < 0)
+				backOpacityCur = 0;
+		}
+
+		centerOpacityCur -= 1.0/10.0;
+		if(centerOpacityCur < 0)
+			centerOpacityCur = 0;
+
+		if(skipToEnd) {
+			backOpacityCur = 0;
+			centerOpacityCur = 0;
+		}
+
 	}
 
-	// Update stylesheet
-	this->setStyleSheet(QString("background: rgba(0,0,0,%1);").arg(backAlphaCur));
+	if(!fullscreen) this->setStyleSheet(QString("background: rgba(0,0,0,%1);").arg(255*backOpacityCur));
+	fadeEffectCenter->setOpacity(centerOpacityCur);
 
 }
 
@@ -258,6 +292,8 @@ void MyWidget::aniFinished() {
 	} else
 		scrollbar->setScrollbarShown();
 
+	fadeStep(true);
+	emit notifyOfAniFinished();
 
 }
 

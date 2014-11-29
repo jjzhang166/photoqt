@@ -24,9 +24,9 @@
 
 #include <QWidget>
 #include <QHBoxLayout>
-#include <QPropertyAnimation>
 #include <QTimeLine>
 #include <QScrollArea>
+#include <QGraphicsOpacityEffect>
 
 // A generic widget to provide all the animation functionality
 class MyWidget : public QWidget {
@@ -71,9 +71,6 @@ public:
 	void setBorderArea(int leftRight, int topDown) { visibleArea = QSize(); borderLeftRight = leftRight; borderTopDown = topDown; }
 	void setFullscreen(bool fullscreen) { this->fullscreen = fullscreen; }
 
-	// Reset the animation target
-	void resetAnimationTarget(QObject *w) { ani->stop(); ani->setTargetObject(w); }
-
 private:
 	// Setup MyWidget (called from all three constructors)
 	void setup(int layoutMargin, QString borderColor, QString backgroundColor);
@@ -90,14 +87,13 @@ private:
 	QRect rectHidden;
 	QRect rectAni;
 
-	// The animation for the content widget
-	QPropertyAnimation *ani;
-
-	// The fade parameters for the background
-	int backAlphaShow;
-	int backAlphaCur;
-	QTimeLine *fadeBack;
-	bool fadeBackIN;
+	// The fade parameters for the center widget
+	qreal backOpacityShow;
+	qreal backOpacityCur;
+	qreal centerOpacityCur;
+	QTimeLine *fade;
+	bool fadeIN;
+	QGraphicsOpacityEffect *fadeEffectCenter;
 
 	// Some styling
 	QSize visibleArea;
@@ -117,12 +113,13 @@ private slots:
 	void aniFinished();
 
 	// Each fade step calls this function
-	void fadeStep();
+	void fadeStep(bool skipToEnd = false);
 
 signals:
 	// Block all function in mainwindow and activate system keys
 	void blockFunc(bool block);
 	void widgetClosed();
+	void notifyOfAniFinished();
 
 protected:
 	// Overriding the paint event to make widget styleable
