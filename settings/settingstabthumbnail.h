@@ -153,9 +153,6 @@ private slots:
 	void doCleanDatabase();
 	void doEraseDatabase();
 
-private:
-	void paintEvent(QPaintEvent *);
-
 };
 
 #endif // SETTINGSTABTHUMBNAIL_H

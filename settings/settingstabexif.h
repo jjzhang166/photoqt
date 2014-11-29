@@ -92,9 +92,6 @@ private:
 public slots:
 	// Quick way to diable or enable all tiles
 	void disEnableAll();
-
-protected:
-	void paintEvent(QPaintEvent *);
 };
 
 #endif // SETTINGSTABEXIF_H

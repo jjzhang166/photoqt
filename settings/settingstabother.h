@@ -88,8 +88,6 @@ private:
 	// All the known file foormats
 	CustomLineEdit *knownFile;
 
-	void paintEvent(QPaintEvent *);
-
 private slots:
 	void markAllNone(QString cat);
 

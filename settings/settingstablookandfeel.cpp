@@ -896,11 +896,4 @@ void SettingsTabLookAndFeel::backgroundDispType() {
 
 }
 
-void SettingsTabLookAndFeel::paintEvent(QPaintEvent *) {
-	QStyleOption o;
-	o.initFrom(this);
-	QPainter p(this);
-	style()->drawPrimitive(QStyle::PE_Widget, &o, &p, this);
-}
-
 SettingsTabLookAndFeel::~SettingsTabLookAndFeel() { }

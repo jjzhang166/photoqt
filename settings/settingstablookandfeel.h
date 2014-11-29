@@ -166,9 +166,6 @@ private slots:
 	// Set a background image
 	void setBackgroundImage(QString path, bool empty = false);
 
-private:
-	void paintEvent(QPaintEvent *);
-
 };
 
 #endif // SETTINGSTABLOOKANDFEEL_H
