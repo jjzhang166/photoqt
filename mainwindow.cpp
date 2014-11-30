@@ -574,8 +574,9 @@ void MainWindow::drawImage() {
 				// We center on the image if it's a newly loaded dir or if respective setting it set
 				viewThumbs->centerOnCurrent();
 			// We also have to check here where the cursor is, cause sometimes the app reaches these statements here when auto rotate is active (exif)
-			if(!globSet->thumbnailKeepVisible && viewThumbs->isVisible() && !viewThumbs->areaShown().contains(QCursor::pos()))
+			if(!globSet->thumbnailKeepVisible && viewThumbs->isVisible() && !viewThumbs->areaShown().contains(mapFromGlobal(QCursor::pos())))
 				viewThumbs->makeHide();
+
 		}
 
 	}
