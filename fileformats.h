@@ -13,6 +13,7 @@ public:
 	// Per default enabled image formats
 	QStringList formatsQtEnabled;
 	QStringList formatsGmEnabled;
+	QStringList formatsExtrasEnabled;
 
 	void setDefaultFormats() {
 
@@ -25,6 +26,8 @@ public:
 
 		formatsQtEnabled << "*.bmp"	// Microsoft Windows bitmap
 				 << "*.bitmap"
+
+				 << "*.dds"	// Direct Draw Surface
 
 				 << "*.gif"	// CompuServe Graphics Interchange Format
 
@@ -40,7 +43,10 @@ public:
 				 << "*.jpm"
 				 << "*.mj2"
 
+				 << "*.mng"	// Multiple-image Network Graphics
+
 				 << "*.ico"	// Microsoft icon
+				 << "*.icns"
 
 				 << "*.picon"	// Personal Icon
 
@@ -56,10 +62,20 @@ public:
 				 << "*.ppm"	// Portable pixmap format (color)
 
 				 << "*.svg"	// Scalable Vector Graphics
+				 << "*.svgz"
+
+				 << "*.wbmp"	// Wireless bitmap
+				 << "*.webp"
 
 				 << "*.xbm"	// X Windows system bitmap, black and white only
 
 				 << "*.xpm";	// X Windows system pixmap
+
+
+
+		formatsExtrasEnabled << "**.psb"
+				     << "**.psd"
+				     << "**.xcf";
 
 #ifdef GM
 
@@ -138,9 +154,6 @@ public:
 
 // WORKING
 				<< "*.miff"	// Magick image file format
-
-// WORKING
-				<< "*.mng"	// Multiple-image Network Graphics
 
 // WORKING
 				<< "*.mono"	// Bi-level bitmap in least-significant-byte first order
@@ -223,10 +236,6 @@ public:
 				<< "*.viff"	// Khoros Visualization Image File Format
 
 // WORKING
-				<< "*.wbmp"	// Wireless bitmap
-				<< "*.wbm"
-
-// WORKING
 				<< "*.wpg"	// Word Perfect Graphics File
 
 // WORKING
@@ -270,6 +279,8 @@ public:
 
 					if(line.length() != 0 && formatsQtEnabled.contains(line))
 						formatsQtEnabled.removeOne(line);
+					if(line.length() != 0 && formatsExtrasEnabled.contains(line))
+						formatsExtrasEnabled.removeOne(line);
 					if(line.length() != 0 && formatsGmEnabled.contains(line))
 						formatsGmEnabled.removeOne(line);
 
@@ -280,15 +291,10 @@ public:
 
 		}
 
-//		QStringList qt_tmp = formatsQtEnabled;
-//		formatsQtEnabled.clear();
-//		foreach(QString f,qt_tmp) formatsQtEnabled.append("*" + f);
-
-
 	}
 
 	// Save all enabled formats to file
-	void saveFormats(QStringList new_qtformats, QStringList new_gmformats) {
+	void saveFormats(QStringList new_qtformats, QStringList new_gmformats, QStringList new_extrasFormats) {
 
 		setDefaultFormats();
 
@@ -310,10 +316,16 @@ public:
 
 			}
 
+			for(int i = 0; i < formatsExtrasEnabled.length(); ++i) {
+
+				if(!new_extrasFormats.contains(formatsExtrasEnabled.at(i)))
+					disabled.append(formatsExtrasEnabled.at(i));
+
+			}
+
 			formatsQtEnabled = new_qtformats;
 			formatsGmEnabled = new_gmformats;
-//			foreach(QString f, new_qtformats) formatsQtEnabled.append("*" + f);
-//			foreach(QString f, new_gmformats) formatsGmEnabled.append("*" + f);
+			formatsExtrasEnabled = new_extrasFormats;
 
 			QFile file(QDir::homePath() + "/.photoqt/fileformats.disabled");
 			if(file.exists()) {

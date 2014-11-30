@@ -157,6 +157,8 @@ public:
 	QString knownFileTypesQt;
 	QString knownFileTypesQtExtras;
 	QString knownFileTypesGm;
+	QString knownFileTypesExtras;
+	// A combination of all of them
 	QString knownFileTypes;
 
 	// Some exif settings
@@ -196,6 +198,7 @@ public:
 		map.insert("KnownFileTypesQt",knownFileTypesQt);
 		map.insert("KnownFileTypesQtExtras",knownFileTypesQtExtras);
 		map.insert("KnownFileTypesGm",knownFileTypesGm);
+		map.insert("KnownFileTypesExtras",knownFileTypesExtras);
 		map.insert("SortImagesBy",sortby);
 		map.insert("SortImagesAscending",sortbyAscending);
 
@@ -296,7 +299,8 @@ public:
 		knownFileTypesQt = fileFormats->formatsQtEnabled.join(",");
 		knownFileTypesQtExtras = "";
 		knownFileTypesGm = fileFormats->formatsGmEnabled.join(",");
-		knownFileTypes = knownFileTypesQt + "," + knownFileTypesGm;
+		knownFileTypesExtras = fileFormats->formatsExtrasEnabled.join(",");
+		knownFileTypes = (QStringList() << knownFileTypesQt << knownFileTypesGm << knownFileTypesExtras).join(",");
 
 		sortby = "name";
 		sortbyAscending = true;
@@ -433,6 +437,8 @@ public:
 				knownFileTypes += "," + knownFileTypesQt;
 			if(knownFileTypesGm != "")
 				knownFileTypes += "," + knownFileTypesGm;
+			if(knownFileTypesExtras != "")
+				knownFileTypes += "," + knownFileTypesExtras;
 			if(knownFileTypesQtExtras != "")
 				knownFileTypes += "," + knownFileTypesQtExtras;
 			if(knownFileTypes.startsWith(",")) knownFileTypes = knownFileTypes.remove(0,1);
@@ -782,7 +788,10 @@ public:
 			// We'll operate the replace() and split() below on temporary strings, not the actual ones (since we want to keep the *'s there)
 			QString knownFileTypesQt_tmp = knownFileTypesQt;
 			QString knownFileTypesGm_tmp = knownFileTypesGm;
-			fileFormats->saveFormats(knownFileTypesQt_tmp.split(","), knownFileTypesGm_tmp.split(","));
+			QString knownFileTypesExtras_tmp = knownFileTypesExtras;
+			fileFormats->saveFormats(knownFileTypesQt_tmp.split(","),
+						 knownFileTypesGm_tmp.split(","),
+						 knownFileTypesExtras_tmp.split(","));
 
 			cont += "\n[Look]\n";
 
@@ -913,6 +922,8 @@ public slots:
 			knownFileTypesQt = changedSet.value("KnownFileTypesQt").toString();
 		if(changedSet.keys().contains("KnownFileTypesGm"))
 			knownFileTypesGm = changedSet.value("KnownFileTypesGm").toString();
+		if(changedSet.keys().contains("KnownFileTypesExtras"))
+			knownFileTypesExtras = changedSet.value("KnownFileTypesExtras").toString();
 
 		knownFileTypes = "";
 		if(knownFileTypesQt != "")
@@ -921,6 +932,8 @@ public slots:
 			knownFileTypes += "," + knownFileTypesGm;
 		if(knownFileTypesQtExtras != "")
 			knownFileTypes += "," + knownFileTypesQtExtras;
+		if(knownFileTypesExtras != "")
+			knownFileTypes += "," + knownFileTypesExtras;
 		if(knownFileTypes.startsWith(",")) knownFileTypes = knownFileTypes.remove(0,1);
 
 		if(changedSet.keys().contains("SortImagesBy")) {

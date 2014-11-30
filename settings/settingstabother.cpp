@@ -265,17 +265,20 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 	FlowLayout *layQt = new FlowLayout;
 	QStringList formatsQt;
 	formatsQt << "Bitmap" << "*.bmp, *.bitmap"
+		  << "Direct Draw Surface" << "*.dds"
 		  << "Graphics Interchange Format" << "*.gif"
-		  << "Microsoft Icon" << "*.ico"
+		  << "Microsoft Icon" << "*.ico, *.icns"
 		  << "Joint Photographic Experts Group" << "*.jpg, *.jpeg"
 		  << "JPEG-2000" << "*.jpeg2000, *.jp2, *.jpc, *.j2k, *.jpf, *.jpx, *.jpm, *.mj2"
+		  << "Multiple-image Network Graphics" << "*.mng"
 		  << "Personal Icon" << "*.picon"
 		  << "Portable Network Graphics" << "*.png"
 		  << "Portable bitmap" << "*.pbm"
 		  << "Portable graymap" << "*.pgm"
 		  << "Portable pixmap" << "*.ppm"
-		  << "Scalable Vector Graphics" << "*.svg"
+		  << "Scalable Vector Graphics" << "*.svg, *.svgz"
 		  << "Tagged Image File Format" << "*.tif, *.tiff"
+		  << "Wireless bitmap" << "*.wbmp, *.webp"
 		  << "X Windows system bitmap" << "*.xbm"
 		  << "X Windows system pixmap" << "*.xpm";
 
@@ -347,7 +350,6 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 		  << "JPEG Network Graphics" << "*.jng"
 		  << "MATLAB image format" << "*.mat"
 		  << "Magick image file format" << "*.miff"
-		  << "Multiple-image Network Graphics" << "*.mng"
 		  << "Bi-level bitmap in least-significant-byte first order" << "*.mono"
 		  << "MTV Raytracing image format" << "*.mtv"
 		  << "On-the-air Bitmap" << "*.otb"
@@ -369,7 +371,6 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 		  << "Text files" << "*.txt"
 		  << "VICAR rasterfile format" << "*.vicar"
 		  << "Khoros Visualization Image File Format" << "*.viff"
-		  << "Wireless bitmap" << "*.wbm, *.wbmp"
 		  << "Word Perfect Graphics File" << "*.wpg"
 		  << "X Windows system window dump" << "*.xwd";
 
@@ -482,6 +483,76 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 
 
 
+	/*****************************
+	 *  EXTERNAL TOOLS REQUIRED  *
+	 *****************************/
+
+	QFormLayout *formlay = new QFormLayout;
+
+	CustomLabel *titleExtra = new CustomLabel("<b><span style=\"font-size:12pt\">" + tr("File Types - Other tools required") + "</span></b><br><br>" + tr("The following filetypes are supported by means of other third party tools. You first need to install them before you can use them.") + "<br><br><b>" + tr("Note") + "</b>: " + tr("If an image format is also provided by GraphicsMagick/Qt, then PhotoQt first chooses the external tool (if enabled).") + "</b>");
+
+	// XCFTOOLS (XCF support)
+
+	SettingsTabOtherFileTypesTiles *checkXcf = new SettingsTabOtherFileTypesTiles("*.xcf");
+	checkXcf->setToolTip("Gimp XCF");
+	allCheckExtra.insert("**.xcf",checkXcf);
+	CustomLabel *xcfDesc = new CustomLabel(tr("Gimp's XCF file format.") + "<br><br>" + tr("Makes use of:") + " xcftools - https://github.com/j-jorge/xcftools");
+	xcfDesc->setToolTip(tr("Click to open website"));
+	xcfDesc->setWordWrap(false);
+	CustomLabel *xcfWarning = new CustomLabel(tr("Warning: '%1' not found!").arg("xcftools"));
+	xcfWarning->setFontColor("orange","orange");
+	xcfWarning->hide();
+	QVBoxLayout *xcfLabels = new QVBoxLayout;
+	xcfLabels->addStretch();
+	xcfLabels->addWidget(xcfDesc);
+	xcfLabels->addWidget(xcfWarning);
+	xcfLabels->addStretch();
+	allExtraToolNotFound.insert("xcf2png",xcfWarning);
+
+	QSignalMapper *mapXcf = new QSignalMapper;
+	mapXcf->setMapping(xcfDesc, "https://github.com/j-jorge/xcftools");
+	connect(mapXcf, SIGNAL(mapped(QString)), this, SLOT(openWebsite(QString)));
+	connect(xcfDesc, SIGNAL(clicked()), mapXcf, SLOT(map()));
+
+	formlay->addRow(checkXcf,xcfLabels);
+
+	// LIBQPSD (PSD support)
+
+	SettingsTabOtherFileTypesTiles *checkPsd = new SettingsTabOtherFileTypesTiles("*.psb, *.psd");
+	checkPsd->setToolTip("Adobe PSD/PSB");
+	allCheckExtra.insert("**.psb, **.psd",checkPsd);
+	CustomLabel *psdDesc = new CustomLabel(tr("Adobe Photoshop PSD and PSB.") + "<br><br>" + tr("Makes use of:") + " libqpsd - https://github.com/Code-ReaQtor/libqpsd");
+	psdDesc->setToolTip(tr("Click to open website"));
+	psdDesc->setWordWrap(false);
+	CustomLabel *psdWarning = new CustomLabel(tr("Warning: Qt5 plugin for PSD/PSB (%1) not found!").arg("libqpsd"));
+	psdWarning->setFontColor("orange","orange");
+	psdWarning->hide();
+	QVBoxLayout *psdLabels = new QVBoxLayout;
+	psdLabels->addStretch();
+	psdLabels->addWidget(psdDesc);
+	psdLabels->addWidget(psdWarning);
+	psdLabels->addStretch();
+	allExtraToolNotFound.insert("libqpsd",psdWarning);
+
+	QSignalMapper *mapPsd = new QSignalMapper;
+	mapPsd->setMapping(psdDesc, "https://github.com/Code-ReaQtor/libqpsd");
+	connect(mapPsd, SIGNAL(mapped(QString)), this, SLOT(openWebsite(QString)));
+	connect(psdDesc, SIGNAL(clicked()), mapPsd, SLOT(map()));
+
+	formlay->addRow(checkPsd,psdLabels);
+
+
+	QHBoxLayout *extrasLay = new QHBoxLayout;
+	extrasLay->addStretch();
+	extrasLay->addLayout(formlay);
+	extrasLay->addStretch();
+
+	layFile->addWidget(titleExtra);
+	layFile->addSpacing(10);
+	layFile->addLayout(extrasLay);
+	layFile->addSpacing(10);
+
+
 
 	/*****************
 	 *  GM UNTESTED  *
@@ -574,8 +645,8 @@ void SettingsTabOther::loadSettings() {
 	quickSet->setChecked(globSet.value("QuickSettings").toBool());
 	defaultValue = quickSet->isChecked();
 
+	// Qt file formats
 	QStringList formatsSetQt = globSet.value("KnownFileTypesQt").toString().split(",");
-	qDebug() << formatsSetQt;
 	QMapIterator<QString, SettingsTabOtherFileTypesTiles*> iterQt(allCheckQt);
 	while (iterQt.hasNext()) {
 		iterQt.next();
@@ -584,6 +655,22 @@ void SettingsTabOther::loadSettings() {
 		for(int i = 0; i < types_part.length(); ++i) {
 			if(formatsSetQt.contains(types_part.at(i))) {
 				iterQt.value()->setChecked(true);
+				break;
+			}
+
+		}
+	}
+
+	// Extras file formats
+	QStringList formatsSetExtra = globSet.value("KnownFileTypesExtras").toString().split(",");
+	QMapIterator<QString, SettingsTabOtherFileTypesTiles*> iterExtra(allCheckExtra);
+	while (iterExtra.hasNext()) {
+		iterExtra.next();
+		QStringList types_part = QString(iterExtra.key()).split(", ",QString::SkipEmptyParts);
+		iterExtra.value()->setChecked(false);
+		for(int i = 0; i < types_part.length(); ++i) {
+			if(formatsSetExtra.contains(types_part.at(i))) {
+				iterExtra.value()->setChecked(true);
 				break;
 			}
 
@@ -638,6 +725,23 @@ void SettingsTabOther::loadSettings() {
 
 	extraQtEdit->setText(globSet.value("KnownFileTypesQtExtras").toString());
 
+	// Also update visibility of warning labels for Extra filetypes
+	QMapIterator<QString, CustomLabel*> iterExtraWarning(allExtraToolNotFound);
+	while(iterExtraWarning.hasNext()) {
+		iterExtraWarning.next();
+		if(iterExtraWarning.key() == "libqpsd") {
+			qDebug() << QImageReader::supportedImageFormats();
+			iterExtraWarning.value()->setVisible(!QImageReader::supportedImageFormats().contains("psd"));
+		} else {
+			QProcess which;
+			which.setStandardOutputFile(QProcess::nullDevice());
+			which.start(QString("which %1").arg(iterExtraWarning.key()));
+			which.waitForFinished();
+			// If it isn't -> display error
+			iterExtraWarning.value()->setVisible(which.exitCode());
+		}
+	}
+
 
 }
 
@@ -669,10 +773,20 @@ void SettingsTabOther::saveSettings() {
 	while (iterQt.hasNext()) {
 		iterQt.next();
 		if(iterQt.value()->isChecked()) {
-			formatsSetQt.append(QString(QString(iterQt.key())).split(", ",QString::SkipEmptyParts));
+			formatsSetQt.append(QString(iterQt.key()).split(", ",QString::SkipEmptyParts));
 		}
 	}
 	updatedSet.insert("KnownFileTypesQt",formatsSetQt.join(","));
+
+	QStringList formatsSetExtras;
+	QMapIterator<QString, SettingsTabOtherFileTypesTiles*> iterExtra(allCheckExtra);
+	while (iterExtra.hasNext()) {
+		iterExtra.next();
+		if(iterExtra.value()->isChecked()) {
+			formatsSetExtras.append(QString(iterExtra.key()).split(", ",QString::SkipEmptyParts));
+		}
+	}
+	updatedSet.insert("KnownFileTypesExtras",formatsSetExtras.join(","));
 
 	QStringList formatsSetGm;
 	QMapIterator<QString, SettingsTabOtherFileTypesTiles*> iterGm(allCheckGm);

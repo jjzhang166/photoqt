@@ -7,6 +7,7 @@ ImageReader::ImageReader(bool v) : QObject() {
 
 	gmfiles = "";
 	qtfiles = "";
+	extrasfiles = "";
 
 }
 
@@ -18,9 +19,11 @@ QImage ImageReader::readImage(QString filename, int rotation, bool zoomed, bool 
 	bool useMagick = doIUseMagick(filename);
 	if(verbose) std::clog << "Using Graphicsengine: " << (useMagick ? "Magick" : "ImageReader") << std::endl;
 
-	// for SVG, we first need to load it properly...
-	if(useMagick)
+	if(QFileInfo(filename).suffix().toLower() == "xcf" && !useMagick)
+			return readImage_XCF(filename, rotation, zoomed, fitinwindow, maxSize, dontscale);
+	else if(useMagick)
 		return readImage_GM(filename, rotation, zoomed, fitinwindow, maxSize, dontscale);
+
 	return readImage_QT(filename, rotation, zoomed, fitinwindow, maxSize, dontscale);
 
 }
@@ -167,6 +170,26 @@ QImage ImageReader::readImage_QT(QString filename, int rotation, bool zoomed, bo
 
 		// Eventually load the image
 		img = reader.read();
+
+		// If an error occured
+		if(img.isNull()) {
+			QString err = reader.errorString();
+			std::cerr << "[reader qt] Error: file failed to load: " << err.toStdString() << std::endl;
+			QPixmap pix(":/img/plainerrorimg.png");
+			QPainter paint(&pix);
+			QTextDocument txt;
+			txt.setHtml(QString("<center><div style=\"text-align: center; font-size: 12pt; font-wight: bold; color: white; background: none;\"><b>ERROR LOADING IMAGE</b><br><br><bR>%1</div></center>").arg(err));
+			paint.translate(100,150);
+			txt.setTextWidth(440);
+			txt.drawContents(&paint);
+			paint.end();
+			fileformat = "";
+			origSize = pix.size();
+			scaleImg1 = -1;
+			scaleImg2 = -1;
+			animatedImg = false;
+			return pix.toImage();
+		}
 
 		if(verbose) std::clog << "[read] image: " << img.width() << " - " << img.height() << " - z: " << zoomed << std::endl;
 
@@ -318,15 +341,56 @@ QImage ImageReader::readImage_GM(QString filename, int rotation, bool zoomed, bo
 
 }
 
+QImage ImageReader::readImage_XCF(QString filename, int rotation, bool zoomed, bool fitinwindow, QSize maxSize, bool dontscale) {
+
+	// We first check if xcftools is actually installed
+	QProcess which;
+	which.setStandardOutputFile(QProcess::nullDevice());
+	which.start("which xcf2png");
+	which.waitForFinished();
+	// If it isn't -> display error
+	if(which.exitCode()) {
+		std::cerr << "[reader xcf] Error: xcftools not found" << std::endl;
+		QPixmap pix(":/img/plainerrorimg.png");
+		QPainter paint(&pix);
+		QTextDocument txt;
+		txt.setHtml("<center><div style=\"text-align: center; font-size: 12pt; font-wight: bold; color: white; background: none;\">ERROR LOADING IMAGE<br><br><bR>PhotoQt relies on 'xcftools'' to display XCF images, but it wasn't found!</div></center>");
+		paint.translate(100,150);
+		txt.setTextWidth(440);
+		txt.drawContents(&paint);
+		paint.end();
+		fileformat = "";
+		origSize = pix.size();
+		scaleImg1 = -1;
+		scaleImg2 = -1;
+		animatedImg = false;
+		return pix.toImage();
+	}
+
+	// Convert xcf to png using xcf2png (part of xcftools)
+	QProcess p;
+	p.execute(QString("xcf2png \"%1\" -o %2").arg(filename).arg(QDir::tempPath() + "/photoqt_tmp.png"));
+
+	// And load it
+	return readImage_QT(QDir::tempPath() + "/photoqt_tmp.png",rotation,zoomed,fitinwindow,maxSize,dontscale);
+
+}
+
 
 bool ImageReader::doIUseMagick(QString filename) {
 
 #ifdef GM
 	QStringList qtFiles = qtfiles.split(",");
+	QStringList extrasFiles = extrasfiles.split(",");
 
 	for(int i = 0; i < qtFiles.length(); ++i) {
 		// We need to remove the first character of qtfiles.at(i), since that is a "*"
 		if(filename.toLower().endsWith(QString(qtFiles.at(i)).remove(0,1)))
+			return false;
+	}
+	for(int i = 0; i < extrasFiles.length(); ++i) {
+		// We need to remove the first character of qtfiles.at(i), since that is a "*"
+		if(filename.toLower().endsWith(QString(extrasFiles.at(i)).remove(0,2)))
 			return false;
 	}
 

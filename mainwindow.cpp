@@ -333,6 +333,7 @@ void MainWindow::applySettings(QMap<QString, bool> applySet, bool justApplyAllOf
 
 	imageReader->gmfiles = gmfiles;
 	imageReader->qtfiles = qtfiles;
+	imageReader->extrasfiles = globSet->knownFileTypesExtras;
 
 
 	if(setupWidgets->menu) menu->allItems["hide"]->setEnabled(globSet->trayicon);
@@ -1235,6 +1236,7 @@ void MainWindow::openFile() {
 	// Get new filename
 	QString known = globSet->knownFileTypes;
 	known = known.replace(","," ");
+	known = known.replace("**","*");
 	QString knownQT = globSet->knownFileTypesQt + (globSet->knownFileTypesQtExtras.length() != 0 ? "," + globSet->knownFileTypesQtExtras : "");
 	knownQT = knownQT.replace(","," ");
 	QString knownGM = globSet->knownFileTypesGm;

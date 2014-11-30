@@ -36,7 +36,11 @@
 #include <QButtonGroup>
 #include <QLineEdit>
 #include <QTextEdit>
+#include <QProcess>
 #include <QSignalMapper>
+#include <QFormLayout>
+#include <QImageReader>
+#include <QDesktopServices>
 
 class SettingsTabOther: public QWidget {
 
@@ -73,6 +77,9 @@ private:
 	QMap<QString,SettingsTabOtherFileTypesTiles*> allCheckGmUntested;
 	CustomLineEdit *extraQtEdit;
 
+	QMap<QString,SettingsTabOtherFileTypesTiles*> allCheckExtra;
+	QMap<QString,CustomLabel*> allExtraToolNotFound;
+
 	// The language selection
 	QStringList langDesc;
 	QStringList langShort;
@@ -90,6 +97,7 @@ private:
 
 private slots:
 	void markAllNone(QString cat);
+	void openWebsite(QString web) { QDesktopServices::openUrl(QUrl(web)); }
 
 };
 

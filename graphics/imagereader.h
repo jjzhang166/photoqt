@@ -15,7 +15,6 @@
 #include <GraphicsMagick/Magick++/Image.h>
 #endif
 
-
 class ImageReader : public QObject {
 
 	Q_OBJECT
@@ -25,6 +24,7 @@ public:
 
 	QString qtfiles;
 	QString gmfiles;
+	QString extrasfiles;
 
 	float scaleImg1;
 	float scaleImg2;
@@ -40,6 +40,7 @@ private:
 
 	QImage readImage_QT(QString filename, int rotation, bool zoomed, bool fitinwindow, QSize maxSize, bool dontscale = false);
 	QImage readImage_GM(QString filename, int rotation, bool zoomed, bool fitinwindow, QSize maxSize, bool dontscale = false);
+	QImage readImage_XCF(QString filename, int rotation, bool zoomed, bool fitinwindow, QSize maxSize, bool dontscale = false);
 
 	bool doIUseMagick(QString filename);
 
