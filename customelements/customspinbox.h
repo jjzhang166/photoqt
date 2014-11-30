@@ -18,7 +18,6 @@
 #define CUSTOMSPINBOX_H
 
 #include <QSpinBox>
-#include <QGraphicsOpacityEffect>
 
 // A custom (styled) spinbox
 class CustomSpinBox : public QSpinBox {
@@ -35,12 +34,13 @@ private:
 	QString borderCol;
 	int borderWidth;
 	QString fontcolor;
+	QString fontcolorDisabled;
 
 public slots:
 	void setEnabled(bool);
 	void setBackground(QString col, QString selectionCol) { backgroundCol = col; this->selectionCol = selectionCol; setCSS(); }
 	void setBorder(QString col, int w) { borderCol = col; borderWidth = w; setCSS(); }
-	void setFontColor(QString col) { fontcolor = col; setCSS(); }
+	void setFontColor(QString col, QString colDisabled) { fontcolor = col; fontcolorDisabled = colDisabled; setCSS(); }
 
 private:
 	void setCSS();

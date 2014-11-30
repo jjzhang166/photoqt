@@ -55,7 +55,7 @@ Wallpaper::Wallpaper(QMap<QString, QVariant> set, bool v, QWidget *parent) : MyW
 
 	// The filename is always set to this label
 	filenameLabel = new CustomLabel("<center>---</center>");
-	filenameLabel->setFontColor("lightgrey");
+	filenameLabel->setFontColor("lightgrey","lightgrey");
 	filenameLabel->setItalic(true);
 	lay->addWidget(filenameLabel);
 	lay->addSpacing(20);

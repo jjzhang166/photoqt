@@ -45,7 +45,7 @@ SettingsTabExifTiles::SettingsTabExifTiles(QString exifTxt, QString exifIntern, 
 
 	// The back label is being styled
 	back = new CustomLabel("<center>" + exifTxt + "</center>");
-	back->setFontColor("black");
+	back->setFontColor("black", "grey");
 	back->setFontSize(7);
 	back->setBold(true);
 	back->setToolTip(exifTxt);

@@ -41,7 +41,7 @@ ContextTile::ContextTile(QString cmdTxt, QString descTxt, QWidget *parent) : QWi
 	dragLabel = new CustomLabel(tr("Click here to drag"));
 	dragLabel->setToolTip(tr("Click here to drag"));
 	dragLabel->setCursor(Qt::SizeAllCursor);
-	dragLabel->setFontColor("#333333");
+	dragLabel->setFontColor("#333333", "grey");
 	lay->addWidget(dragLabel);
 
 	// A seperator

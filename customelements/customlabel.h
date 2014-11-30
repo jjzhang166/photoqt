@@ -18,7 +18,6 @@
 #define CUSTOMLABEL_H
 
 #include <QLabel>
-#include <QGraphicsOpacityEffect>
 
 class CustomLabel : public QLabel {
 	Q_OBJECT
@@ -31,7 +30,7 @@ public:
 	void setItalic(bool i) { italic = i; setCSS(); }
 	void setPadding(int p) { padding = p; setCSS(); }
 	void setFontSize(int fs) { fontsize = fs; setCSS(); }
-	void setFontColor(QString col) { fontcolor = col; setCSS(); }
+	void setFontColor(QString col, QString colDisabled) { fontcolor = col; fontcolorDisabled = colDisabled; setCSS(); }
 	void setBackgroundColor(QString col) { backgroundcolor = col; setCSS(); }
 	void setBorder(int width, QString col) { borderwidth = width; bordercolor = col; setCSS(); }
 	void setLineHeight(QString lh) { lineheight = lh; setCSS(); }
@@ -46,6 +45,7 @@ private:
 	void setCSS();
 	int fontsize;
 	QString fontcolor;
+	QString fontcolorDisabled;
 	QString backgroundcolor;
 	int borderwidth;
 	QString bordercolor;

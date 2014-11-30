@@ -54,7 +54,7 @@ Details::Details(QWidget *parent, QMap<QString, QVariant> set, bool v): QWidget(
 
 	// This widget is shown when no file is loaded
 	empty = new CustomLabel("<center><h1>" + tr("No file loaded") + "</h1></center>");
-	empty->setFontColor("rgb(135,135,135)");
+	empty->setFontColor("rgb(135,135,135)","rgb(135,135,135)");
 	central->addWidget(empty);
 
 	// Setup the labels

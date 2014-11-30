@@ -41,7 +41,7 @@ Scale::Scale(bool verbose, QWidget *parent) : MyWidget(parent) {
 	widthSpin->setFixedWidth(70);
 	widthSpin->setBackground("white", "black");
 	widthSpin->setBorder("black",1);
-	widthSpin->setFontColor("black");
+	widthSpin->setFontColor("black","grey");
 	widthSpin->setEnabled(false);
 	spinLay->addWidget(widthLabel,0,0);
 	spinLay->addWidget(widthSpin,0,1);
@@ -56,7 +56,7 @@ Scale::Scale(bool verbose, QWidget *parent) : MyWidget(parent) {
 	heightSpin->setFixedWidth(70);
 	heightSpin->setBackground("white", "black");
 	heightSpin->setBorder("black",1);
-	heightSpin->setFontColor("black");
+	heightSpin->setFontColor("black","grey");
 	heightSpin->setEnabled(false);
 	spinLay->addWidget(heightLabel,1,0);
 	spinLay->addWidget(heightSpin,1,1);

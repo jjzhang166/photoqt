@@ -46,15 +46,14 @@ void CustomPushButton::setEnabled(bool e) {
 void CustomPushButton::setCSS() {
 
 	QString css = "QPushButton {";
-	if(rgba == "")
-		css += hover ? (enabled ? "background: rgba(80,80,80,100);" : "background: rgba(40,40,40,100);") : "background: rgba(20,20,20,150);";
-	else
-		css += "background: " + rgba + ";";
-	enabled ? css += "color: white;" : css += "color: grey;";
-	bold ? css += "font-weight: bold;" : css += "font-weight: normal;";
+	css += "background:" + (rgba == "" ?
+				 (hover ? (enabled ?  "rgba(80,80,80,100);" : "rgba(40,40,40,100);") : "rgba(20,20,20,150);") :
+				  rgba + ";");
+	css += "color:" + QString(enabled ? "white;" : "grey;");
+	css += "font-weight:" + QString(bold ? "bold;" : "normal;");
 
-	(padding != 0) ? css += QString("padding: %1px;").arg(padding) : css += "padding: 6px 10px;";
-	enabled ? css += "border: 1px solid rgba(100,100,100,100);" : css += "border: 1px solid rgba(50,50,50,100);";
+	css += "padding:" + (padding != 0 ? QString("%1px;").arg(padding) : "6px 10px;");
+	css += "border: 1px solid " + QString(enabled ? "rgba(100,100,100,100);" : "rgba(50,50,50,100);");
 	css += "border-radius: 0;";
 	if(fontsize != "") css += QString("font-size: %1;").arg(fontsize);
 

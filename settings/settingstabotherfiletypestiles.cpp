@@ -44,7 +44,7 @@ SettingsTabOtherFileTypesTiles::SettingsTabOtherFileTypesTiles(QString ftype, QW
 
 	// The back label is being styled
 	back = new CustomLabel("<center>" + ftype + "</center>");
-	back->setFontColor("black");
+	back->setFontColor("black","grey");
 	back->setFontSize(8);
 	back->setWordWrap(true);
 	back->setBold(true);

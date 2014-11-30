@@ -24,6 +24,7 @@ CustomLabel::CustomLabel(const QString &text, QWidget *parent) : QLabel(text, pa
 
 	fontsize = 9;
 	fontcolor = "white";
+	fontcolorDisabled = "grey";
 	padding = 0;
 	backgroundcolor = "transparent";
 	bold = false;
@@ -41,10 +42,6 @@ CustomLabel::CustomLabel(const QString &text, QWidget *parent) : QLabel(text, pa
 
 void CustomLabel::setEnabled(bool e) {
 
-	QGraphicsOpacityEffect *eff = new QGraphicsOpacityEffect;
-	eff->setOpacity(e ? 1 : 0.5);
-	this->setGraphicsEffect(eff);
-
 	QLabel::setEnabled(e);
 
 	setCSS();
@@ -55,7 +52,7 @@ void CustomLabel::setCSS() {
 
 	QString css = "QLabel { ";
 
-	css += "color: " + fontcolor + ";";
+	css += "color: " + (isEnabled() ? fontcolor : fontcolorDisabled) + ";";
 	css += "background: " + backgroundcolor + ";";
 	if(borderwidth != 0) css += QString("border: %1px solid %2;").arg(borderwidth).arg(bordercolor);
 	css += QString("font-size: %1pt;").arg(fontsize);

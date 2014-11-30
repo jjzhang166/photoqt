@@ -66,7 +66,7 @@ FileHandling::FileHandling(QWidget *parent, bool v, QString cf) : MyWidget(paren
 	renameOldName = new CustomLabel;
 	renameOldName->setFontSize(15);
 	renameOldName->setItalic(true);
-	renameOldName->setFontColor("grey");
+	renameOldName->setFontColor("grey","grey");
 	renameOldName->setPadding(10);
 	QHBoxLayout *renameNewLay = new QHBoxLayout;
 	renameNewName = new CustomLineEdit;
@@ -80,7 +80,7 @@ FileHandling::FileHandling(QWidget *parent, bool v, QString cf) : MyWidget(paren
 	renameNewLay->addStretch();
 
 	renameNewNameExists = new CustomLabel(" ");
-	renameNewNameExists->setFontColor("red");
+	renameNewNameExists->setFontColor("red","red");
 	renameNewNameExists->setBold(true);
 
 	renameSave = new CustomPushButton(tr("Save"));
@@ -130,7 +130,7 @@ FileHandling::FileHandling(QWidget *parent, bool v, QString cf) : MyWidget(paren
 	deleteFilename = new CustomLabel(" ");
 	deleteFilename->setFontSize(15);
 	deleteFilename->setItalic(true);
-	deleteFilename->setFontColor("grey");
+	deleteFilename->setFontColor("grey","grey");
 	deleteFilename->setPadding(10);
 	deleteQuestion = new CustomLabel("<center>" + tr("Do you really want to delete this file?") +"</center>");
 	deleteQuestion->setFontSize(15);
@@ -232,7 +232,7 @@ FileHandling::FileHandling(QWidget *parent, bool v, QString cf) : MyWidget(paren
 		moveTree->setColumnHidden(i,true);
 
 	moveNewNameExists = new CustomLabel(" ");
-	moveNewNameExists->setFontColor("red");
+	moveNewNameExists->setFontColor("red","red");
 	moveNewNameExists->setBold(true);
 
 	moveNewNameLabel = new CustomLabel(tr("Filename") + ":");
@@ -311,7 +311,7 @@ FileHandling::FileHandling(QWidget *parent, bool v, QString cf) : MyWidget(paren
 		copyTree->setColumnHidden(i,true);
 
 	copyNewNameExists = new CustomLabel(" ");
-	copyNewNameExists->setFontColor("red");
+	copyNewNameExists->setFontColor("red", "red");
 	copyNewNameExists->setBold(true);
 
 	copyNewNameLabel = new CustomLabel(tr("Filename") + ":");

@@ -41,7 +41,7 @@ SettingsTabOtherLanguageTiles::SettingsTabOtherLanguageTiles(QString lang, QStri
 	// Language in proper native language
 	back = new CustomLabel("<center>" + lang + "</center>");
 	back->setBold(true);
-	back->setFontColor("black");
+	back->setFontColor("black", "grey");
 	back->setPadding(0);
 	back->setFontSize(8);
 	back->setWordWrap(true);

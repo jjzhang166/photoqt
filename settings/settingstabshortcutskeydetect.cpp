@@ -53,7 +53,7 @@ ShortcutKeyDetect::ShortcutKeyDetect(QWidget *parent) : MyWidget(parent) {
 
 	// This label shows an error message when the shortcut is already set
 	keyExistsError = new CustomLabel(" ");
-	keyExistsError->setFontColor("red");
+	keyExistsError->setFontColor("red", "red");
 	keyExistsError->setBold(true);
 	keyExistsError->setFontSize(10);
 	keyExistsError->setWordWrap(true);

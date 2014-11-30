@@ -18,7 +18,6 @@
 #define CUSTOMSLIDER_H
 
 #include <QSlider>
-#include <QGraphicsOpacityEffect>
 
 // A custom (styled) slider
 class CustomSlider : public QSlider {

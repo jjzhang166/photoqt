@@ -39,10 +39,6 @@ void CustomComboBox::setEnabled(bool e) {
 
 	setCSS();
 
-	QGraphicsOpacityEffect *eff = new QGraphicsOpacityEffect;
-	eff->setOpacity(e ? 1 : 0.5);
-	this->setGraphicsEffect(eff);
-
 }
 
 void CustomComboBox::setFontSize(int fsize) {

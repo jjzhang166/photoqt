@@ -24,6 +24,7 @@ CustomSpinBox::CustomSpinBox(QWidget *parent) : QSpinBox(parent) {
 	backgroundCol = "";
 	selectionCol = "";
 	fontcolor = "white";
+	fontcolorDisabled = "grey";
 
 	setCSS();
 
@@ -39,7 +40,7 @@ void CustomSpinBox::setCSS() {
 		css += "selection-background-color: transparent;";
 	if(borderCol != "" && borderWidth > 0)
 		css += QString("border: %1px solid %2;").arg(borderWidth).arg(borderCol);
-	css += QString("color: %1;").arg(fontcolor);
+	css += QString("color: %1;").arg(isEnabled() ? fontcolor : fontcolorDisabled);
 	css += "}";
 	css += "QToolTip {font-weight: bold; color: black; border-radius: 5px; padding: 1px; font-size: 8pt; background: rgba(255,255,255,200); }";
 
@@ -50,11 +51,9 @@ void CustomSpinBox::setCSS() {
 
 void CustomSpinBox::setEnabled(bool b) {
 
-	QGraphicsOpacityEffect *eff = new QGraphicsOpacityEffect;
-	eff->setOpacity(b ? 1 : 0.5);
-	this->setGraphicsEffect(eff);
-
 	QSpinBox::setEnabled(b);
+
+	setCSS();
 
 }
 

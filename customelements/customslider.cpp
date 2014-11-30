@@ -18,7 +18,6 @@
 
 CustomSlider::CustomSlider(Qt::Orientation orientation, QWidget *parent) : QSlider(orientation,parent) {
 
-
 	this->setCursor(Qt::OpenHandCursor);
 
 	this->setTickPosition(QSlider::TicksBelow);
@@ -58,10 +57,6 @@ void CustomSlider::setCSS() {
 }
 
 void CustomSlider::setEnabled(bool e) {
-
-	QGraphicsOpacityEffect *eff = new QGraphicsOpacityEffect;
-	eff->setOpacity(e ? 1 : 0.5);
-	this->setGraphicsEffect(eff);
 
 	QSlider::setEnabled(e);
 
