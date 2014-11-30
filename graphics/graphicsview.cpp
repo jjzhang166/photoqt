@@ -76,7 +76,15 @@ void GraphicsView::contextMenuClicked() {
 	QAction *action = (QAction *)sender();
 	QString cmd = action->data().toString();
 
-	cmd.startsWith("__CTX__") ? loadContextMenuAction(cmd) : loadContextMenuAction(QString("1:::::%1").arg(cmd));
+	int close = 1;
+	if(cmd.startsWith("1"))
+		cmd = cmd.remove(0,1);
+	else if(cmd.startsWith("0")) {
+		close = 0;
+		cmd = cmd.remove(0,1);
+	}
+
+	cmd.startsWith("__CTX__") ? loadContextMenuAction(cmd) : loadContextMenuAction(QString("%1:::::%2").arg(close).arg(cmd));
 
 }
 
