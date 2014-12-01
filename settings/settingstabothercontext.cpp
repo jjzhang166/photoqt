@@ -54,8 +54,8 @@ Context::Context(QWidget *parent, bool v) : QScrollArea(parent) {
 	this->setWidget(widg);
 	this->setWidgetResizable(true);
 
-	this->setFixedHeight(250);
-	this->setFixedWidth(550);
+	this->setFixedHeight(300);
+	this->setFixedWidth(650);
 
 	CustomScrollbar *scr = new CustomScrollbar;
 	scr->keepAlwaysVisible(true);
@@ -152,7 +152,16 @@ void Context::loadContext() {
 
 			QString entry = all.at(i);
 
-			ContextTile *tile = new ContextTile(entry.split("\n").at(0),entry.split("\n").at(1),this);
+			QString cmd = entry.split("\n").at(0);
+			QString desc = entry.split("\n").at(1);
+			bool close = true;
+			if(cmd.startsWith("0")) {
+				close = false;
+				cmd = cmd.remove(0,1);
+			} else if(cmd.startsWith("1"))
+				cmd = cmd.remove(0,1);
+
+			ContextTile *tile = new ContextTile(cmd,desc,close,this);
 			tile->index = lay->count()-1;
 			allTiles.append(tile);
 			lay->insertWidget(lay->count()-1,tile);
@@ -170,7 +179,7 @@ void Context::addNewEntry() {
 
 	if(verbose) std::clog << "setOC: Add new entry" << std::endl;
 
-	ContextTile *tile = new ContextTile("exe","text",this);
+	ContextTile *tile = new ContextTile("exe","text",false,this);
 	tile->index = lay->count()-1;
 	allTiles.append(tile);
 	lay->insertWidget(lay->count()-1,tile);
@@ -192,7 +201,7 @@ void Context::saveContext() {
 	for(int i = 0; i < allTiles.length(); ++i) {
 		ContextTile *t = allTiles.at(i);
 		QStringList l;
-		l << t->cmd->text() << t->desc->text();
+		l << QString::number(int(t->quit->isChecked())) << t->cmd->text() << t->desc->text();
 		items.insert(lay->indexOf(t),l);
 	}
 
@@ -205,9 +214,9 @@ void Context::saveContext() {
 
 		QStringList l = items.value(i);
 
-		cont += l.at(0);
+		cont += l.at(0)+l.at(1);
 		cont += "\n";
-		cont += l.at(1);
+		cont += l.at(2);
 
 	}
 

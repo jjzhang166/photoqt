@@ -660,7 +660,7 @@ void MainWindow::firstStartSetup() {
 				p.setStandardOutputFile(QProcess::nullDevice());
 				p.start("which " + QString(lst.at(i)).remove("%f").remove("%d").trimmed());
 				p.waitForFinished();
-				if(!p.exitCode()) def += lst.at(i) + "\n" + QObject::tr(lst_desc.at(i).toLatin1()) + "\n\n";
+				if(!p.exitCode()) def += "0" + lst.at(i) + "\n" + QObject::tr(lst_desc.at(i).toLatin1()) + "\n\n";
 			}
 
 			// And save contextmenu

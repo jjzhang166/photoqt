@@ -19,6 +19,7 @@
 
 #include "../customelements/customlabel.h"
 #include "../customelements/customlineedit.h"
+#include "../customelements/customcheckbox.h"
 
 #include <QWidget>
 #include <QHBoxLayout>
@@ -34,12 +35,13 @@ class ContextTile : public QWidget {
 	Q_OBJECT
 
 public:
-	ContextTile(QString cmdTxt, QString descTxt, QWidget *parent = 0);
+	ContextTile(QString cmdTxt, QString descTxt, bool close, QWidget *parent = 0);
 	~ContextTile();
 
-	// The command and the menu text
+	// The command, menu text and quit option
 	QLineEdit *cmd;
 	QLineEdit *desc;
+	CustomCheckBox *quit;
 
 	// The index in the layout
 	int index;

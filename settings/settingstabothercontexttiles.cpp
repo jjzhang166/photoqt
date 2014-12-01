@@ -16,7 +16,7 @@
 
 #include "settingstabothercontexttiles.h"
 
-ContextTile::ContextTile(QString cmdTxt, QString descTxt, QWidget *parent) : QWidget(parent) {
+ContextTile::ContextTile(QString cmdTxt, QString descTxt, bool close, QWidget *parent) : QWidget(parent) {
 
 	this->setMouseTracking(true);
 
@@ -70,6 +70,20 @@ ContextTile::ContextTile(QString cmdTxt, QString descTxt, QWidget *parent) : QWi
 	QLabel *sep3 = new QLabel("|");
 	sep3->setStyleSheet("background: transparent;");
 	lay->addWidget(sep3);
+
+	// A button to enable quitting PhotoQt on selection of context entry
+	quit = new CustomCheckBox(tr("quit"));
+	quit->setToolTip(tr("Quit PhotoQt after executing command"));
+	quit->setChecked(close);
+	quit->setIndicatorSize(8);
+	quit->setFontColor("black", "grey");
+	quit->setSizePolicy(QSizePolicy::Maximum,QSizePolicy::Preferred);
+	lay->addWidget(quit);
+
+	// A seperator
+	QLabel *sep4 = new QLabel("|");
+	sep4->setStyleSheet("background: transparent;");
+	lay->addWidget(sep4);
 
 	// Delete entry
 	QPushButton *x = new QPushButton("x ");
