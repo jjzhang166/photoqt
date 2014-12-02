@@ -58,7 +58,7 @@ About::About(QWidget *parent) : MyWidget(parent) {
 	text->setTextInteractionFlags(Qt::TextSelectableByMouse);
 	text->setFontSize(11);
 	text->setWordWrap(true);
-	text2->setToolTip("http://photoqt.org");
+	text2->setToolTip(tr("Click to go to:") + " http://photoqt.org");
 	text2->setTextInteractionFlags(Qt::TextSelectableByMouse);
 	text2->setCursor(Qt::PointingHandCursor);
 	text2->setFontSize(11);

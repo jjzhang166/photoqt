@@ -498,6 +498,7 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 	allCheckExtra.insert("**.xcf",checkXcf);
 	CustomLabel *xcfDesc = new CustomLabel(tr("Gimp's XCF file format.") + "<br><br>" + tr("Makes use of:") + " xcftools - https://github.com/j-jorge/xcftools");
 	xcfDesc->setToolTip(tr("Click to open website"));
+	xcfDesc->setCursor(Qt::PointingHandCursor);
 	xcfDesc->setWordWrap(false);
 	CustomLabel *xcfWarning = new CustomLabel(tr("Warning: '%1' not found!").arg("xcftools"));
 	xcfWarning->setFontColor("orange","orange");
@@ -522,6 +523,7 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 	checkPsd->setToolTip("Adobe PSD/PSB");
 	allCheckExtra.insert("**.psb, **.psd",checkPsd);
 	CustomLabel *psdDesc = new CustomLabel(tr("Adobe Photoshop PSD and PSB.") + "<br><br>" + tr("Makes use of:") + " libqpsd - https://github.com/Code-ReaQtor/libqpsd");
+	psdDesc->setCursor(Qt::PointingHandCursor);
 	psdDesc->setToolTip(tr("Click to open website"));
 	psdDesc->setWordWrap(false);
 	CustomLabel *psdWarning = new CustomLabel(tr("Warning: Qt5 plugin for PSD/PSB (%1) not found!").arg("libqpsd"));
