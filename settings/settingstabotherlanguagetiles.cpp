@@ -28,7 +28,7 @@ SettingsTabOtherLanguageTiles::SettingsTabOtherLanguageTiles(QString lang, QStri
 
 	// Display translators in smaller font => everything's visible, nothing hidden
 	if(lang.contains("(")) {
-		QList<QString> lang_parts = lang.split("(");
+		QStringList lang_parts = lang.split("(");
 		lang = lang_parts.at(0);
 		lang_parts.removeFirst();
 		while(lang_parts.length() > 1) {

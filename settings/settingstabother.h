@@ -81,8 +81,8 @@ private:
 	QMap<QString,CustomLabel*> allExtraToolNotFound;
 
 	// The language selection
-	QList<QByteArray> langDesc;
-	QList<QByteArray> langShort;
+	QStringList langDesc;
+	QStringList langShort;
 	QList<SettingsTabOtherLanguageTiles*> allLangTiles;
 
 	// Quick Settings

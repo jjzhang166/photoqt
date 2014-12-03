@@ -93,8 +93,6 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 	// A GOOD FEW OF THE TRANSLATIONS HAVEN'T BEEN UPDATED IN A LONG TIME AND ARE STANDING AT 0-5%
 	// These translations are NOT included!
 
-	// Some description strings neet to be decoded (utf8/latin1), otherwise Qt will display a 'load glyph failed' error
-
 	langDesc << "English";
 	langShort << "en";
 
@@ -111,7 +109,7 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 	langShort << "de";
 
 	// Greek
-	langDesc << QString::fromUtf8("Ελληνικά (Dimitrios G.)").toLatin1();
+	langDesc << "Ελληνικά (Dimitrios G.)";
 	langShort << "el";
 
 	// Spanish
@@ -131,7 +129,7 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 //	langShort << "hu";
 
 	// Hebrew
-	langDesc << QString::fromUtf8("עברית (GenghisKhan)").toLatin1();
+	langDesc << "עברית (GenghisKhan)";
 	langShort << "he";
 
 	// Italian
@@ -163,7 +161,7 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 	langShort << "pt_PT";
 
 	// Russian
-	langDesc << QString::fromUtf8("Pусский (Yuriy T.)").toLatin1();
+	langDesc << "Pусский (Yuriy T.)";
 	langShort << "ru_RU";
 
 	//Slovak
@@ -179,7 +177,7 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 //	langShort << "tr";
 
 	// Ukrainian
-	langDesc << QString::fromUtf8("Українська (neeesdfsdf & zubr139)").toLatin1();
+	langDesc << "Українська (neeesdfsdf & zubr139)";
 	langShort << "uk_UA";
 
 	// Viatnemese
