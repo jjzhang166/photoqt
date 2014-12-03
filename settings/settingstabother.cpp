@@ -93,6 +93,8 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 	// A GOOD FEW OF THE TRANSLATIONS HAVEN'T BEEN UPDATED IN A LONG TIME AND ARE STANDING AT 0-5%
 	// These translations are NOT included!
 
+	// Some description strings neet to be decoded (utf8/latin1), otherwise Qt will display a 'load glyph failed' error
+
 	langDesc << "English";
 	langShort << "en";
 
@@ -101,7 +103,7 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 //	langShort << "ar";
 
 	// Czech
-	langDesc << QString::fromUtf8("Čeština (Robin H. & Petr Š.)");
+	langDesc << "Čeština (Robin H. & Petr Š.)";
 	langShort << "cs";
 
 	// German
@@ -109,19 +111,19 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 	langShort << "de";
 
 	// Greek
-	langDesc << QString::fromUtf8("Ελληνικά (Dimitrios G.)");
+	langDesc << QString::fromUtf8("Ελληνικά (Dimitrios G.)").toLatin1();
 	langShort << "el";
 
 	// Spanish
-	langDesc << QString::fromUtf8("Español (Hector C. & Victoria P.)");
+	langDesc << "Español (Hector C. & Victoria P.)";
 	langShort << "es_ES";
 
 	// Finnish
-	langDesc << QString::fromUtf8("Suomen kieli (Jiri G.)");
+	langDesc << "Suomen kieli (Jiri G.)";
 	langShort << "fi";
 
 	// French
-	langDesc << QString::fromUtf8("Français (Olivier D. & Tubuntu)");
+	langDesc << "Français (Olivier D. & Tubuntu)";
 	langShort << "fr";
 
 	// Hungarian
@@ -129,7 +131,7 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 //	langShort << "hu";
 
 	// Hebrew
-	langDesc << QString::fromUtf8("עברית (GenghisKhan)");
+	langDesc << QString::fromUtf8("עברית (GenghisKhan)").toLatin1();
 	langShort << "he";
 
 	// Italian
@@ -137,7 +139,7 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 	langShort << "it";
 
 	// Japanese
-	langDesc << QString::fromUtf8("日本語 (Obytetest)");
+	langDesc << "日本語 (Obytetest)";
 	langShort << "ja";
 
 	// Norwegian Bokmal
@@ -153,19 +155,19 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 //	langShort << "pl";
 
 	// Portugal (Brazil)
-	langDesc << QString::fromUtf8("Português (Brasil) (Rafael N. & Everton)");
+	langDesc << "Português (Brasil) (Rafael N. & Everton)";
 	langShort << "pt_BR";
 
 	// Portugal (Portugal)
-	langDesc << QString::fromUtf8("Português (Portugal) (Sérgio M. & Manuela S. & Willow)");
+	langDesc << "Português (Portugal) (Sérgio M. & Manuela S. & Willow)";
 	langShort << "pt_PT";
 
 	// Russian
-	langDesc << QString::fromUtf8("Pусский (Yuriy T.)");
+	langDesc << QString::fromUtf8("Pусский (Yuriy T.)").toLatin1();
 	langShort << "ru_RU";
 
 	//Slovak
-	langDesc << QString::fromUtf8("Slovenčina (Lukáš D.)");
+	langDesc << "Slovenčina (Lukáš D.)";
 	langShort << "sk";
 
 	// Serbian
@@ -177,7 +179,7 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 //	langShort << "tr";
 
 	// Ukrainian
-	langDesc << QString::fromUtf8("Українська (neeesdfsdf & zubr139)");
+	langDesc << QString::fromUtf8("Українська (neeesdfsdf & zubr139)").toLatin1();
 	langShort << "uk_UA";
 
 	// Viatnemese
@@ -731,10 +733,9 @@ void SettingsTabOther::loadSettings() {
 	QMapIterator<QString, CustomLabel*> iterExtraWarning(allExtraToolNotFound);
 	while(iterExtraWarning.hasNext()) {
 		iterExtraWarning.next();
-		if(iterExtraWarning.key() == "libqpsd") {
-			qDebug() << QImageReader::supportedImageFormats();
+		if(iterExtraWarning.key() == "libqpsd")
 			iterExtraWarning.value()->setVisible(!QImageReader::supportedImageFormats().contains("psd"));
-		} else {
+		else {
 			QProcess which;
 			which.setStandardOutputFile(QProcess::nullDevice());
 			which.start(QString("which %1").arg(iterExtraWarning.key()));
