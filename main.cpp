@@ -73,10 +73,6 @@ int main(int argc, char *argv[]) {
 		all = in.readAll();
 	}
 
-	// Set proper encoding. This is needed e.g. for files with special characters like accents or umlaute in the file name/path
-	QTextCodec *utf8Codec=QTextCodec::codecForName("UTF-8");
-	QTextCodec::setCodecForLocale(utf8Codec);
-
 	QStringList allArgs;
 	for(int i = 0; i < argc; ++i)
 		allArgs.append(argv[i]);
