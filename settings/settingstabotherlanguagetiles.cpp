@@ -16,7 +16,7 @@
 
 #include "settingstabotherlanguagetiles.h"
 
-SettingsTabOtherLanguageTiles::SettingsTabOtherLanguageTiles(QString lang, QString code, QWidget *parent) : QWidget(parent) {
+SettingsTabOtherLanguageTiles::SettingsTabOtherLanguageTiles(QString lang, QString author, QString code, QWidget *parent) : QWidget(parent) {
 
 	// The different stylesheets
 	css = "border-radius: 5px;";
@@ -25,18 +25,6 @@ SettingsTabOtherLanguageTiles::SettingsTabOtherLanguageTiles(QString lang, QStri
 	this->setStyleSheet(css + cssBackgroundNorm);
 
 	this->setFixedSize(90,90);
-
-	// Display translators in smaller font => everything's visible, nothing hidden
-	if(lang.contains("(")) {
-		QStringList lang_parts = lang.split("(");
-		lang = lang_parts.at(0);
-		lang_parts.removeFirst();
-		while(lang_parts.length() > 1) {
-			lang += "(" + lang_parts.at(0);
-			lang_parts.removeFirst();
-		}
-		lang = lang + "<br><span style=\"font-size: 6pt\">(" + lang_parts.at(0) + "</span>";
-	}
 
 	// Language in proper native language
 	back = new CustomLabel("<center>" + lang + "</center>");
@@ -47,7 +35,7 @@ SettingsTabOtherLanguageTiles::SettingsTabOtherLanguageTiles(QString lang, QStri
 	back->setWordWrap(true);
 	langCode = code;
 
-	this->setToolTip(lang);
+	this->setToolTip(author);
 
 	// Button to select language
 	button = new CustomRadioButton;

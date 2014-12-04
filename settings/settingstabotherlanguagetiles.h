@@ -28,7 +28,7 @@ class SettingsTabOtherLanguageTiles : public QWidget {
 	Q_OBJECT
 
 public:
-	SettingsTabOtherLanguageTiles(QString lang, QString code, QWidget *parent = 0);
+	SettingsTabOtherLanguageTiles(QString lang, QString author, QString code, QWidget *parent = 0);
 	~SettingsTabOtherLanguageTiles();
 
 	// The css

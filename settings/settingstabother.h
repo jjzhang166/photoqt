@@ -82,6 +82,7 @@ private:
 
 	// The language selection
 	QStringList langDesc;
+	QStringList langAuthor;
 	QStringList langShort;
 	QList<SettingsTabOtherLanguageTiles*> allLangTiles;
 

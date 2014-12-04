@@ -94,6 +94,7 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 	// These translations are NOT included!
 
 	langDesc << "English";
+	langAuthor << "";
 	langShort << "en";
 
 	// Arabic
@@ -101,27 +102,33 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 //	langShort << "ar";
 
 	// Czech
-	langDesc << "Čeština (Robin H. & Petr Š.)";
+	langDesc << "Čeština";
+	langAuthor << "Robin H. & Petr Š.";
 	langShort << "cs";
 
 	// German
 	langDesc << "Deutsch";
+	langAuthor << "";
 	langShort << "de";
 
 	// Greek
-	langDesc << "Ελληνικά (Dimitrios G.)";
+	langDesc << "Ελληνικά";
+	langAuthor << "Dimitrios G.";
 	langShort << "el";
 
 	// Spanish
-	langDesc << "Español (Hector C. & Victoria P.)";
+	langDesc << "Español";
+	langAuthor << "Hector C. & Victoria P.";
 	langShort << "es_ES";
 
 	// Finnish
-	langDesc << "Suomen kieli (Jiri G.)";
+	langDesc << "Suomen kieli";
+	langAuthor << "Jiri G.";
 	langShort << "fi";
 
 	// French
-	langDesc << "Français (Olivier D. & Tubuntu)";
+	langDesc << "Français";
+	langAuthor << "Olivier D. & Tubuntu";
 	langShort << "fr";
 
 	// Hungarian
@@ -129,15 +136,18 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 //	langShort << "hu";
 
 	// Hebrew
-	langDesc << "עברית (GenghisKhan)";
+	langDesc << "עברית";
+	langAuthor << "GenghisKhan";
 	langShort << "he";
 
 	// Italian
-	langDesc << "Italiano (Vincenzo C. & Fabio M.)";
+	langDesc << "Italiano";
+	langAuthor << "Vincenzo C. & Fabio M.";
 	langShort << "it";
 
 	// Japanese
-	langDesc << "日本語 (Obytetest)";
+	langDesc << "日本語";
+	langAuthor << "Obytetest";
 	langShort << "ja";
 
 	// Norwegian Bokmal
@@ -153,19 +163,23 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 //	langShort << "pl";
 
 	// Portugal (Brazil)
-	langDesc << "Português (Brasil) (Rafael N. & Everton)";
+	langDesc << "Português (Brasil)";
+	langAuthor << "Rafael N. & Everton";
 	langShort << "pt_BR";
 
 	// Portugal (Portugal)
-	langDesc << "Português (Portugal) (Sérgio M. & Manuela S. & Willow)";
+	langDesc << "Português (Portugal)";
+	langAuthor << "Sérgio M. & Manuela S. & Willow";
 	langShort << "pt_PT";
 
 	// Russian
-	langDesc << "Pусский (Yuriy T.)";
+	langDesc << "Pусский";
+	langAuthor << "Yuriy T.";
 	langShort << "ru_RU";
 
 	//Slovak
-	langDesc << "Slovenčina (Lukáš D.)";
+	langDesc << "Slovenčina";
+	langAuthor << "Lukáš D.";
 	langShort << "sk";
 
 	// Serbian
@@ -177,7 +191,8 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 //	langShort << "tr";
 
 	// Ukrainian
-	langDesc << "Українська (neeesdfsdf & zubr139)";
+	langDesc << "Українська";
+	langAuthor << "neeesdfsdf & zubr139";
 	langShort << "uk_UA";
 
 	// Viatnemese
@@ -185,10 +200,12 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 //	langShort << "vi";
 
 	// Chinese (China)
-	langDesc << "Chinese (Min Zhang)";
+	langDesc << "Chinese";
+	langAuthor << "Min Zhang";
 	langShort << "zh_CN";
 
-	langDesc << "Chinese (traditional) (Min Zhang)";
+	langDesc << "Chinese (traditional)";
+	langAuthor << "Min Zhang";
 	langShort << "zh_TW";
 
 	FlowLayout *langLay = new FlowLayout;
@@ -196,7 +213,7 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 
 	for(int i = 0; i < langDesc.length(); ++i) {
 
-		SettingsTabOtherLanguageTiles *tile = new SettingsTabOtherLanguageTiles(langDesc.at(i), langShort.at(i));
+		SettingsTabOtherLanguageTiles *tile = new SettingsTabOtherLanguageTiles(langDesc.at(i), langAuthor.at(i), langShort.at(i));
 		allLangTiles << tile;
 		langButGrp->addButton(tile->button);
 		langLay->addWidget(tile);
