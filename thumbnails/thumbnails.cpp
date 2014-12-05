@@ -39,6 +39,7 @@ Thumbnails::Thumbnails(QMap<QString, QVariant> set, bool verbose, QWidget *paren
 
 	QHBoxLayout *layout = new QHBoxLayout;
 	layout->addWidget(view);
+	layout->setMargin(0);
 	this->setLayout(layout);
 
 }
