@@ -217,7 +217,7 @@ protected:
 
 
 			// If this thumbnail hasn't yet been set up
-			if(!posCreated.contains(createThisOne) && createThisOne != -1) {
+			if(!posCreated.contains(createThisOne) && createThisOne != -1 && createThisOne < counttot) {
 
 				// Create the md5 hash for the thumbnail file
 				QByteArray path = "";
