@@ -33,7 +33,7 @@ Settings::Settings(QMap<QString, QVariant> glob, bool v, QWidget *parent) : MyWi
 	sh->loadSH();
 
 	// The tab widget
-	tabs = new TabWidget;
+	tabs = new TabWidget(true);
 	tabs->makeBold(true);
 
 	// Main layout

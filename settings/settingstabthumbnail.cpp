@@ -33,7 +33,7 @@ SettingsTabThumbnail::SettingsTabThumbnail(QWidget *parent, QMap<QString, QVaria
 	this->setStyleSheet("#tabthumb { background: transparent; color: white; }");
 
 
-	tabs = new TabWidget;
+	tabs = new TabWidget(false);
 	tabs->expand(false);
 	tabs->setBorderTop("rgba(150,150,150,100)",2);
 	tabs->setBorderBot("rgba(150,150,150,100)",2);

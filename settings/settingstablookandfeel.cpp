@@ -28,7 +28,7 @@ SettingsTabLookAndFeel::SettingsTabLookAndFeel(QWidget *parent, QMap<QString, QV
 	this->setObjectName("tablookfeel");
 	this->setStyleSheet("#tablookfeel { background: transparent; color: white; }");
 
-	tabs = new TabWidget;
+	tabs = new TabWidget(false);
 	tabs->expand(false);
 	tabs->setBorderTop("rgba(150,150,150,100)",2);
 	tabs->setBorderBot("rgba(150,150,150,100)",2);

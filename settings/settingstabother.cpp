@@ -27,7 +27,7 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 	this->setObjectName("tabother");
 	this->setStyleSheet("#tabother { background: transparent; color: white; }");
 
-	tabs = new TabWidget;
+	tabs = new TabWidget(false);
 	tabs->expand(false);
 	tabs->setBorderTop("rgba(150,150,150,100)",2);
 	tabs->setBorderBot("rgba(150,150,150,100)",2);

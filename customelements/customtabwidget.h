@@ -26,7 +26,7 @@ class TabWidget : public QTabWidget {
 	Q_OBJECT
 
 public:
-	explicit TabWidget(QWidget *parent = 0);
+	explicit TabWidget(bool displayborderatbottom, QWidget *parent = 0);
 	~TabWidget();
 
 	void makeBold(bool b) { bold = b; }

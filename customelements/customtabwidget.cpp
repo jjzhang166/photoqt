@@ -17,7 +17,7 @@
 #include "customtabwidget.h"
 #include <QLayout>
 
-TabWidget::TabWidget(QWidget *parent) : QTabWidget(parent) {
+TabWidget::TabWidget(bool displayborderatbottom, QWidget *parent) : QTabWidget(parent) {
 
 	bold = false;
 	borderTopColor = "";
@@ -29,16 +29,20 @@ TabWidget::TabWidget(QWidget *parent) : QTabWidget(parent) {
 	tabBar()->setCursor(Qt::PointingHandCursor);
 
 	QString css = "QTabWidget::pane {";
-	css += "border-bottom: 4px double black;";
-	css += "padding: 10px;";
-	css += "padding-top: 20px;";
-	css += "}";
-	css += "QTabWidget::tab-bar {";
-	css += "alignment: center;";
-	css += "}";
-	css += "QTabWidget::pane {";
 	css += "position: absolute;";
 	css += "top: -0.5em;";
+	if(displayborderatbottom) {
+		css += "border-bottom: 4px double black;";
+		css += "padding: 10px;";
+		css += "padding-top: 10px;";
+	} else {
+		css += "border-bottom: none;";
+		css += "padding: 0;";
+		css += "padding-top: 5px;";
+	}
+	css += "}";
+	css += "QTabWidget::tab-bar {";
+		css += "alignment: center;";
 	css += "}";
 	css += "QToolTip {font-weight: bold; color: black; border-radius: 5px; padding: 1px; font-size: 8pt; background: rgba(255,255,255,200); }";
 
