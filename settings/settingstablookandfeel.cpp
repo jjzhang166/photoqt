@@ -698,6 +698,12 @@ void SettingsTabLookAndFeel::saveSettings() {
 		defaults.insert("MenuSensitivity",menu->value());
 	}
 
+	if(defaults.value("MouseWheelSensitivity").toInt() != wheelSensitivity->value()) {
+		updatedSet.insert("MouseWheelSensitivity",wheelSensitivity->value());
+		defaults.remove("MouseWheelSensitivity");
+		defaults.insert("MouseWheelSensitivity",wheelSensitivity->value());
+	}
+
 	if(defaults.value("FitInWindow").toBool() != fitInWindow->isChecked()) {
 		updatedSet.insert("FitInWindow",fitInWindow->isChecked());
 		defaults.remove("FitInWindow");
