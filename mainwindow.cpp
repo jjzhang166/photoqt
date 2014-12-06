@@ -340,6 +340,20 @@ void MainWindow::applySettings(QMap<QString, bool> applySet, bool justApplyAllOf
 
 	if(setupWidgets->menu) menu->allItems["hide"]->setEnabled(globSet->trayicon);
 
+	// If animation is disabled for MyWIdget, we notify class by file (many, many subclasses make use of it)
+	QFile file_noani(QDir::homePath() + "/.photoqt/mywidget_noani");
+	if(file_noani.exists()) {
+		if(!file_noani.remove())
+			std::cerr << "applysettings: unable to unset 'No Animation' file!" << std::endl;
+	}
+	if(!globSet->myWidgetAnimated) {
+		if(file_noani.open(QIODevice::WriteOnly))
+			file_noani.close();
+		else
+			std::cerr << "applysettings: unable to set 'No Animation' file!" << std::endl;
+	}
+
+
 }
 
 // If a widget (like about or settings) is opened, all other functions are suspended

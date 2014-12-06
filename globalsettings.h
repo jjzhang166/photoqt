@@ -95,6 +95,8 @@ public:
 	bool rememberZoom;
 	// If image is too small, zoom to fit in window
 	bool fitInWindow;
+	// Possibility to en-/disable animated fade-in
+	bool myWidgetAnimated;
 
 	// Are quickinfos hidden?
 	bool hidecounter;
@@ -229,6 +231,7 @@ public:
 		map.insert("RememberRotation",rememberRotation);
 		map.insert("RememberZoom",rememberZoom);
 		map.insert("FitInWindow",fitInWindow);
+		map.insert("MyWidgetAnimated",myWidgetAnimated);
 
 		map.insert("HideCounter",hidecounter);
 		map.insert("HideFilepathShowFilename",hidefilepathshowfilename);
@@ -345,6 +348,7 @@ public:
 		rememberRotation = true;
 		rememberZoom = true;
 		fitInWindow= false;
+		myWidgetAnimated = true;
 
 		hidecounter = false;
 		hidefilepathshowfilename = true;
@@ -540,6 +544,11 @@ public:
 				fitInWindow = true;
 			else if(all.contains("FitInWindow=0"))
 				fitInWindow = false;
+
+			if(all.contains("MyWidgetAnimated=1"))
+				myWidgetAnimated = true;
+			else if(all.contains("MyWidgetAnimated=0"))
+				myWidgetAnimated = false;
 
 			if(all.contains("HideCounter=1"))
 				hidecounter = true;
@@ -822,6 +831,7 @@ public:
 			cont += QString("RememberRotation=%1\n").arg(int(rememberRotation));
 			cont += QString("RememberZoom=%1\n").arg(int(rememberZoom));
 			cont += QString("FitInWindow=%1\n").arg(int(fitInWindow));
+			cont += QString("MyWidgetAnimated=%1\n").arg(int(myWidgetAnimated));
 
 			cont += "\n[Quickinfo]\n";
 
@@ -1068,6 +1078,9 @@ public slots:
 
 		if(changedSet.keys().contains("FitInWindow"))
 			fitInWindow = changedSet.value("FitInWindow").toBool();
+
+		if(changedSet.keys().contains("MyWidgetAnimated"))
+			myWidgetAnimated = changedSet.value("MyWidgetAnimated").toBool();
 
 		if(changedSet.keys().contains("ThumbnailSize")) {
 			thumbnailsize = changedSet.value("ThumbnailSize").toInt();

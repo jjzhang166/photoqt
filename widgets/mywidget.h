@@ -27,6 +27,7 @@
 #include <QTimeLine>
 #include <QScrollArea>
 #include <QGraphicsOpacityEffect>
+#include <QDir>
 
 // A generic widget to provide all the animation functionality
 class MyWidget : public QWidget {

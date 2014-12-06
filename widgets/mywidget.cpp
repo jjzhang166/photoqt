@@ -152,6 +152,10 @@ void MyWidget::setRect(QRect rect) {
 // The animation function
 void MyWidget::animate() {
 
+	bool noAni = false;
+	if(QFile(QDir::homePath() + "/.photoqt/mywidget_noani").exists())
+		noAni = true;
+
 	QRect shown;
 	if(fullscreen)
 		shown = rectShown;
@@ -159,8 +163,6 @@ void MyWidget::animate() {
 		shown = QRect((rectShown.width()-visibleArea.width())/2.0,(rectShown.height()-visibleArea.height())/2.0,visibleArea.width(),visibleArea.height());
 	else
 		shown = QRect(borderLeftRight, borderTopDown, rectShown.width()-borderLeftRight*2, rectShown.height()-borderTopDown*2);
-
-	bool noAni = false;
 
 	// Open widget
 	if(!isShown) {

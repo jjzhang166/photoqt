@@ -147,6 +147,9 @@ private:
 	CustomCheckBox *hideFilename;
 	CustomCheckBox *hideX;
 
+	// Possibility to en-/disable animation of MyWidget
+	CustomCheckBox *animateMyWidget;
+
 
 public slots:
 	// Load and save settings
