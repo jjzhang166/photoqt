@@ -457,16 +457,17 @@ int main(int argc, char *argv[]) {
 		}
 
 		// DISPLAY MAINWINDOW
-		w.show();
-
 		if(!startintray) {
 			if(settingsFileTxt.contains("WindowMode=1")) {
 				settingsFileTxt.contains("WindowDecoration=1")
-						      ? w.setWindowFlags(Qt::WindowStaysOnTopHint | Qt::Window)
-						      : w.setWindowFlags(Qt::WindowStaysOnTopHint | Qt::Window | Qt::FramelessWindowHint);
+						      ? w.setWindowFlags(Qt::Window | Qt::WindowStaysOnTopHint)
+						      : w.setWindowFlags(Qt::Window | Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint);
+
 				w.showMaximized();
-			} else
+			} else {
+				w.setWindowFlags(Qt::WindowStaysOnTopHint);
 				w.showFullScreen();
+			}
 		} else
 			w.hide();
 

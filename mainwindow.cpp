@@ -255,11 +255,13 @@ void MainWindow::applySettings(QMap<QString, bool> applySet, bool justApplyAllOf
 	if(applySet["window"]) {
 		if(globSet->windowmode) {
 			globSet->windowDecoration
-					      ? this->setWindowFlags(Qt::WindowStaysOnTopHint | Qt::Window)
-					      : this->setWindowFlags(Qt::WindowStaysOnTopHint | Qt::Window | Qt::FramelessWindowHint);
+					      ? this->setWindowFlags(Qt::Window | Qt::WindowStaysOnTopHint)
+					      : this->setWindowFlags(Qt::Window | Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint);
 			this->showMaximized();
-		} else
+		} else {
+			this->setWindowFlags(this->windowFlags() | Qt::WindowStaysOnTopHint);
 			this->showFullScreen();
+		}
 	}
 
 
@@ -2526,11 +2528,13 @@ void MainWindow::trayAcDo(QSystemTrayIcon::ActivationReason rsn) {
 			takeScreenshots();	// Refresh background
 			if(globSet->windowmode) {
 				globSet->windowDecoration
-						      ? this->setWindowFlags(Qt::WindowStaysOnTopHint | Qt::Window)
-						      : this->setWindowFlags(Qt::WindowStaysOnTopHint | Qt::Window | Qt::FramelessWindowHint);
+						      ? this->setWindowFlags(Qt::Window | Qt::WindowStaysOnTopHint)
+						      : this->setWindowFlags(Qt::Window | Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint);
 				this->showMaximized();
-			} else
+			} else  {
+				this->setWindowFlags(Qt::WindowStaysOnTopHint);
 				this->showFullScreen();
+			}
 			setBackground();	// Refresh background
 		}
 		openFile();
@@ -2545,8 +2549,8 @@ void MainWindow::trayAcDo(QSystemTrayIcon::ActivationReason rsn) {
 			globVar->restoringFromTrayNoResize = QDateTime::currentDateTime().toTime_t();
 			if(globSet->windowmode) {
 				globSet->windowDecoration
-						      ? this->setWindowFlags(Qt::WindowStaysOnTopHint | Qt::Window)
-						      : this->setWindowFlags(Qt::WindowStaysOnTopHint | Qt::Window | Qt::FramelessWindowHint);
+						      ? this->setWindowFlags(Qt::Window | Qt::WindowStaysOnTopHint)
+						      : this->setWindowFlags(Qt::Window | Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint);
 				if(globVar->windowMaximised) {
 					this->showMaximized();
 					globVar->windowMaximised = true;
@@ -2554,8 +2558,10 @@ void MainWindow::trayAcDo(QSystemTrayIcon::ActivationReason rsn) {
 					this->showNormal();
 					globVar->windowMaximised = false;
 				}
-			} else
+			} else {
+				this->setWindowFlags(this->windowFlags() | Qt::WindowStaysOnTopHint);
 				this->showFullScreen();
+			}
 			setBackground();	// Refresh background
 			if(globVar->currentfile == "--start-in-tray" || globVar->currentfile == "") {
 				openFile();
