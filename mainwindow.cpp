@@ -2048,8 +2048,10 @@ void MainWindow::shortcutDO(QString key, bool mouseSH) {
 				moveInDirectory(1);
 			if(key == "__prev")
 				moveInDirectory(0);
-			if(key == "__reloadThb")
-				loadNewImgFromOpen(globVar->currentfile);
+			if(key == "__reloadThb") {
+				if(globVar->currentfile != "")
+					loadNewImgFromOpen(globVar->currentfile);
+			}
 			if(key == "__about") {
 				if(!setupWidgets->about)
 					setupWidget("about");
