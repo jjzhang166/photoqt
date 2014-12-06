@@ -254,12 +254,18 @@ void MainWindow::applySettings(QMap<QString, bool> applySet, bool justApplyAllOf
 	// Update window for window mode/fullscreen
 	if(applySet["window"]) {
 		if(globSet->windowmode) {
+
 			globSet->windowDecoration
-					      ? this->setWindowFlags(Qt::Window | Qt::WindowStaysOnTopHint)
-					      : this->setWindowFlags(Qt::Window | Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint);
-			this->showMaximized();
+				      ? this->setWindowFlags(Qt::Window)
+				      : this->setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
+			if(globSet->keepOnTop) this->setWindowFlags(this->windowFlags() | Qt::WindowStaysOnTopHint);
+
+			if(globVar->windowMaximised)
+				this->showMaximized();
+			else
+				this->showNormal();
 		} else {
-			this->setWindowFlags(this->windowFlags() | Qt::WindowStaysOnTopHint);
+			if(globSet->keepOnTop) this->setWindowFlags(Qt::WindowStaysOnTopHint);
 			this->showFullScreen();
 		}
 	}
@@ -395,6 +401,9 @@ void MainWindow::closeEvent(QCloseEvent *e) {
 		} else {
 			viewBig->scene()->clear();
 			viewThumbs->clearScene();
+
+			QSettings settings;
+			settings.setValue("mainWindowGeometry", saveGeometry());
 
 			e->accept();
 
@@ -2542,11 +2551,16 @@ void MainWindow::trayAcDo(QSystemTrayIcon::ActivationReason rsn) {
 			takeScreenshots();	// Refresh background
 			if(globSet->windowmode) {
 				globSet->windowDecoration
-						      ? this->setWindowFlags(Qt::Window | Qt::WindowStaysOnTopHint)
-						      : this->setWindowFlags(Qt::Window | Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint);
-				this->showMaximized();
+					      ? this->setWindowFlags(Qt::Window)
+					      : this->setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
+				if(globSet->keepOnTop) this->setWindowFlags(this->windowFlags() | Qt::WindowStaysOnTopHint);
+
+				if(globVar->windowMaximised)
+					this->showMaximized();
+				else
+					this->showNormal();
 			} else  {
-				this->setWindowFlags(Qt::WindowStaysOnTopHint);
+				if(globSet->keepOnTop) this->setWindowFlags(Qt::WindowStaysOnTopHint);
 				this->showFullScreen();
 			}
 			setBackground();	// Refresh background
@@ -2563,8 +2577,9 @@ void MainWindow::trayAcDo(QSystemTrayIcon::ActivationReason rsn) {
 			globVar->restoringFromTrayNoResize = QDateTime::currentDateTime().toTime_t();
 			if(globSet->windowmode) {
 				globSet->windowDecoration
-						      ? this->setWindowFlags(Qt::Window | Qt::WindowStaysOnTopHint)
-						      : this->setWindowFlags(Qt::Window | Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint);
+					      ? this->setWindowFlags(Qt::Window)
+					      : this->setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
+				if(globSet->keepOnTop) this->setWindowFlags(this->windowFlags() | Qt::WindowStaysOnTopHint);
 				if(globVar->windowMaximised) {
 					this->showMaximized();
 					globVar->windowMaximised = true;
@@ -2573,7 +2588,7 @@ void MainWindow::trayAcDo(QSystemTrayIcon::ActivationReason rsn) {
 					globVar->windowMaximised = false;
 				}
 			} else {
-				this->setWindowFlags(this->windowFlags() | Qt::WindowStaysOnTopHint);
+				if(globSet->keepOnTop) this->setWindowFlags(Qt::WindowStaysOnTopHint);
 				this->showFullScreen();
 			}
 			setBackground();	// Refresh background

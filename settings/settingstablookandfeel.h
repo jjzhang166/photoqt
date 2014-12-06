@@ -147,8 +147,9 @@ private:
 	CustomCheckBox *hideFilename;
 	CustomCheckBox *hideX;
 
-	// Possibility to en-/disable animation of MyWidget
+	// Possibility to en-/disable animation of MyWidget & save/restore geometry
 	CustomCheckBox *animateMyWidget;
+	CustomCheckBox *saveRestoreGeometry;
 
 
 public slots:

@@ -458,14 +458,27 @@ int main(int argc, char *argv[]) {
 
 		// DISPLAY MAINWINDOW
 		if(!startintray) {
+			bool keepOnTop = settingsFileTxt.contains("KeepOnTop=1");
 			if(settingsFileTxt.contains("WindowMode=1")) {
-				settingsFileTxt.contains("WindowDecoration=1")
+				if(keepOnTop) {
+					settingsFileTxt.contains("WindowDecoration=1")
 						      ? w.setWindowFlags(Qt::Window | Qt::WindowStaysOnTopHint)
 						      : w.setWindowFlags(Qt::Window | Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint);
+				} else {
+					settingsFileTxt.contains("WindowDecoration=1")
+						      ? w.setWindowFlags(Qt::Window)
+						      : w.setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
+				}
 
-				w.showMaximized();
+				QSettings settings;
+				if(settings.allKeys().contains("mainWindowGeometry") && settingsFileTxt.contains("SaveWindowGeometry=1")) {
+					w.show();
+					w.restoreGeometry(settings.value("mainWindowGeometry").toByteArray());
+				} else
+					w.showMaximized();
+
 			} else {
-				w.setWindowFlags(Qt::WindowStaysOnTopHint);
+				if(keepOnTop) w.setWindowFlags(Qt::WindowStaysOnTopHint);
 				w.showFullScreen();
 			}
 		} else

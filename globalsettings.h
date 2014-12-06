@@ -54,6 +54,12 @@ public:
 	QString language;
 	QStringList availableLang;
 
+	// Possibility to en-/disable animated fade-in
+	bool myWidgetAnimated;
+	// Possibility to en-/disable save/restore of window geometry on quit
+	bool saveWindowGeometry;
+	// Keep PhotoQt on top of other windows?
+	bool keepOnTop;
 	// Is composite enabled?
 	bool composite;
 
@@ -95,8 +101,6 @@ public:
 	bool rememberZoom;
 	// If image is too small, zoom to fit in window
 	bool fitInWindow;
-	// Possibility to en-/disable animated fade-in
-	bool myWidgetAnimated;
 
 	// Are quickinfos hidden?
 	bool hidecounter;
@@ -206,6 +210,9 @@ public:
 
 		map.insert("WindowMode",windowmode);
 		map.insert("WindowDecoration",windowDecoration);
+		map.insert("MyWidgetAnimated",myWidgetAnimated);
+		map.insert("SaveWindowGeometry",saveWindowGeometry);
+		map.insert("KeepOnTop",keepOnTop);
 
 		map.insert("Composite",composite);
 		map.insert("BgColorRed",bgColorRed);
@@ -231,7 +238,6 @@ public:
 		map.insert("RememberRotation",rememberRotation);
 		map.insert("RememberZoom",rememberZoom);
 		map.insert("FitInWindow",fitInWindow);
-		map.insert("MyWidgetAnimated",myWidgetAnimated);
 
 		map.insert("HideCounter",hidecounter);
 		map.insert("HideFilepathShowFilename",hidefilepathshowfilename);
@@ -310,6 +316,9 @@ public:
 
 		windowmode = false;
 		windowDecoration = false;
+		myWidgetAnimated = true;
+		saveWindowGeometry = true;
+		keepOnTop = true;
 
 		language = "";
 		bgColorRed = 0;
@@ -348,7 +357,6 @@ public:
 		rememberRotation = true;
 		rememberZoom = true;
 		fitInWindow= false;
-		myWidgetAnimated = true;
 
 		hidecounter = false;
 		hidefilepathshowfilename = true;
@@ -465,6 +473,21 @@ public:
 			else if(all.contains("WindowDecoration=0"))
 				windowDecoration = false;
 
+			if(all.contains("MyWidgetAnimated=1"))
+				myWidgetAnimated = true;
+			else if(all.contains("MyWidgetAnimated=0"))
+				myWidgetAnimated = false;
+
+			if(all.contains("SaveWindowGeometry=1"))
+				saveWindowGeometry = true;
+			else if(all.contains("SaveWindowGeometry=0"))
+				saveWindowGeometry = false;
+
+			if(all.contains("KeepOnTop=1"))
+				keepOnTop = true;
+			else if(all.contains("KeepOnTop=0"))
+				keepOnTop = false;
+
 			if(all.contains("Composite=1"))
 				composite = true;
 			else if(all.contains("Composite=0"))
@@ -544,11 +567,6 @@ public:
 				fitInWindow = true;
 			else if(all.contains("FitInWindow=0"))
 				fitInWindow = false;
-
-			if(all.contains("MyWidgetAnimated=1"))
-				myWidgetAnimated = true;
-			else if(all.contains("MyWidgetAnimated=0"))
-				myWidgetAnimated = false;
 
 			if(all.contains("HideCounter=1"))
 				hidecounter = true;
@@ -792,6 +810,9 @@ public:
 			cont += QString("Language=%1\n").arg(language);
 			cont += QString("WindowMode=%1\n").arg(int(windowmode));
 			cont += QString("WindowDecoration=%1\n").arg(int(windowDecoration));
+			cont += QString("MyWidgetAnimated=%1\n").arg(int(myWidgetAnimated));
+			cont += QString("SaveWindowGeometry=%1\n").arg(int(saveWindowGeometry));
+			cont += QString("KeepOnTop=%1\n").arg(int(keepOnTop));
 			cont += QString("KnownFileTypesQtExtras=%1\n").arg(knownFileTypesQtExtras);
 
 			// We'll operate the replace() and split() below on temporary strings, not the actual ones (since we want to keep the *'s there)
@@ -831,7 +852,6 @@ public:
 			cont += QString("RememberRotation=%1\n").arg(int(rememberRotation));
 			cont += QString("RememberZoom=%1\n").arg(int(rememberZoom));
 			cont += QString("FitInWindow=%1\n").arg(int(fitInWindow));
-			cont += QString("MyWidgetAnimated=%1\n").arg(int(myWidgetAnimated));
 
 			cont += "\n[Quickinfo]\n";
 
@@ -964,6 +984,17 @@ public slots:
 			applySet["window"] = true;
 		}
 
+		if(changedSet.keys().contains("MyWidgetAnimated"))
+			myWidgetAnimated = changedSet.value("MyWidgetAnimated").toBool();
+
+		if(changedSet.keys().contains("SaveWindowGeometry"))
+			saveWindowGeometry = changedSet.value("SaveWindowGeometry").toBool();
+
+		if(changedSet.keys().contains("KeepOnTop")) {
+			keepOnTop = changedSet.value("KeepOnTop").toBool();
+			applySet["window"] = true;
+		}
+
 
 		if(changedSet.keys().contains("Language"))
 			language = changedSet.value("Language").toString();
@@ -1078,9 +1109,6 @@ public slots:
 
 		if(changedSet.keys().contains("FitInWindow"))
 			fitInWindow = changedSet.value("FitInWindow").toBool();
-
-		if(changedSet.keys().contains("MyWidgetAnimated"))
-			myWidgetAnimated = changedSet.value("MyWidgetAnimated").toBool();
 
 		if(changedSet.keys().contains("ThumbnailSize")) {
 			thumbnailsize = changedSet.value("ThumbnailSize").toInt();

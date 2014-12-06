@@ -454,14 +454,15 @@ SettingsTabLookAndFeel::SettingsTabLookAndFeel(QWidget *parent, QMap<QString, QV
 	layAdvanced->addSpacing(20);
 
 
-	// EN-/DISABLE ANIMATION OF MYWIDGET CLASS
-	CustomLabel *animateMyWidgetLabel = new CustomLabel("<b><span style=\"font-size: 12pt\">" + tr("Animate Widgets") + "</span></b><hr>" + tr("By default most of the widgets used in PhotoQt are animated in/out. While it's not possible to disable the animation for slide-in widgets (like, e.g., the thumbnail bar), it can be disabled for all the fade-in widgets (like, e.g. Settings or About widget)."));
+	// EN-/DISABLE ANIMATION OF MYWIDGET CLASS & SAVE/RESTORE OF WINDOW GEOMETRY
+	CustomLabel *animateMyWidgetLabel = new CustomLabel("<b><span style=\"font-size: 12pt\">" + tr("Animation and Window Geometry") + "</span></b><hr>" + tr("There are two things that can be adjusted here:") + "<ol><li>" + tr("Animation of fade-in widgets (like, e.g., Settings or About Widget)") + "</li><li>" + tr("Save and restore of Window Geometry: On quitting PhotoQt, it stores the size and position of the window and can restore it the next time started.") + "</li></ol>");
 	animateMyWidgetLabel->setWordWrap(true);
 	animateMyWidget = new CustomCheckBox(tr("Animate all fade-in widgets"));
-	QHBoxLayout *animateMyWidgetLay = new QHBoxLayout;
-	animateMyWidgetLay->addStretch();
+	saveRestoreGeometry = new CustomCheckBox(tr("Save and restore window geometry"));
+	QVBoxLayout *animateMyWidgetLay = new QVBoxLayout;
+	animateMyWidgetLay->setAlignment(Qt::AlignCenter);
 	animateMyWidgetLay->addWidget(animateMyWidget);
-	animateMyWidgetLay->addStretch();
+	animateMyWidgetLay->addWidget(saveRestoreGeometry);
 	layAdvanced->addWidget(animateMyWidgetLabel);
 	layAdvanced->addSpacing(10);
 	layAdvanced->addLayout(animateMyWidgetLay);
@@ -575,6 +576,9 @@ void SettingsTabLookAndFeel::loadSettings() {
 
 	animateMyWidget->setChecked(globSet.value("MyWidgetAnimated").toBool());
 	defaults.insert("MyWidgetAnimated",globSet.value("MyWidgetAnimated").toBool());
+
+	saveRestoreGeometry->setChecked(globSet.value("SaveWindowGeometry").toBool());
+	defaults.insert("SaveWindowGeometry",globSet.value("SaveWindowGeometry").toBool());
 
 	windowMode->setChecked(globSet.value("WindowMode").toBool());
 	defaults.insert("WindowMode",globSet.value("WindowMode").toBool());
@@ -743,6 +747,12 @@ void SettingsTabLookAndFeel::saveSettings() {
 		updatedSet.insert("MyWidgetAnimated",animateMyWidget->isChecked());
 		defaults.remove("MyWidgetAnimated");
 		defaults.insert("MyWidgetAnimated",animateMyWidget->isChecked());
+	}
+
+	if(defaults.value("SaveWindowGeometry").toBool() != saveRestoreGeometry->isChecked()) {
+		updatedSet.insert("SaveWindowGeometry",saveRestoreGeometry->isChecked());
+		defaults.remove("SaveWindowGeometry");
+		defaults.insert("SaveWindowGeometry",saveRestoreGeometry->isChecked());
 	}
 
 	if(defaults.value("WindowMode").toBool() != windowMode->isChecked()) {
