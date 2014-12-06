@@ -154,9 +154,6 @@ private:
 	ImageReader *imageReader;
 
 
-	// Adjust all the geometries (QRects and stuff)
-	void adjustGeometries();
-
 	void firstStartSetup();
 
 	// Show the startup widget (after update/fresh install)
@@ -184,6 +181,9 @@ private:
 	void setupWidget(QString what);
 
 private slots:
+
+	// Adjust all the geometries (QRects and stuff)
+	void adjustGeometries();
 
 	// This is called, whenever the settings have changed, and updates all sub-widgets
 	// This function is needed together with the updateSettings() function to avoid a crash on startup

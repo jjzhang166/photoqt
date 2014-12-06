@@ -99,7 +99,7 @@ int main(int argc, char *argv[]) {
 		return 0;
 
 	// If an instance of PhotoQt is running, we check for command line arguments
-	} else if(QDateTime::currentMSecsSinceEpoch() - all.toLongLong() < qint64(320)) {
+	} else if(QDateTime::currentMSecsSinceEpoch() - all.toLongLong() < qint64(1020)) {
 
 		// We need to initiate it here to, because we check for the applicationFilePath() later-on
 		QApplication a(argc, argv);
@@ -132,7 +132,7 @@ int main(int argc, char *argv[]) {
 		}
 
 		// If PhotoQt is called without any arguments, "show" is used
-		if(allArgs.length() == 1)
+		if(allArgs.length() == 1 || (allArgs.length() == 2 && allArgs.contains("--v")))
 			cont = "--show";
 
 		// If only correct arguments were used
@@ -461,10 +461,10 @@ int main(int argc, char *argv[]) {
 
 		if(!startintray) {
 			if(settingsFileTxt.contains("WindowMode=1")) {
+				settingsFileTxt.contains("WindowDecoration=1")
+						      ? w.setWindowFlags(Qt::WindowStaysOnTopHint | Qt::Window)
+						      : w.setWindowFlags(Qt::WindowStaysOnTopHint | Qt::Window | Qt::FramelessWindowHint);
 				w.showMaximized();
-				settingsFileTxt.contains("WindowDecoration=1") ? w.setWindowFlags(w.windowFlags() & ~Qt::FramelessWindowHint) : w.setWindowFlags(Qt::FramelessWindowHint);
-				QTimer::singleShot(10,&w,SLOT(showMaximized()));
-				QTimer::singleShot(500,&w,SLOT(showMaximized()));
 			} else
 				w.showFullScreen();
 		} else

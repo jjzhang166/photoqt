@@ -147,7 +147,7 @@ MainWindow::MainWindow(QWidget *parent, bool verbose) : QMainWindow(parent) {
 
 	// The global timer ensuring only one instance of Photo runs at a time
 	globalRunningProgTimer = new QTimer;
-	globalRunningProgTimer->setInterval(300);
+	globalRunningProgTimer->setInterval(1000);
 	connect(globalRunningProgTimer, SIGNAL(timeout()), this, SLOT(globalRunningProgTimerTimeout()));
 	globalRunningProgTimer->start();
 
@@ -255,8 +255,8 @@ void MainWindow::applySettings(QMap<QString, bool> applySet, bool justApplyAllOf
 	if(applySet["window"]) {
 		if(globSet->windowmode) {
 			globSet->windowDecoration
-					      ? this->setWindowFlags(Qt::Window)
-					      : this->setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
+					      ? this->setWindowFlags(Qt::WindowStaysOnTopHint | Qt::Window)
+					      : this->setWindowFlags(Qt::WindowStaysOnTopHint | Qt::Window | Qt::FramelessWindowHint);
 			this->showMaximized();
 		} else
 			this->showFullScreen();
@@ -741,11 +741,10 @@ void MainWindow::globalRunningProgTimerTimeout() {
 
 		QTextStream in(&cmd);
 
-		QString line;
-		do {
+		QStringList lines = in.readAll().split("\n",QString::SkipEmptyParts);
+		foreach(QString line, lines) {
 
 			// Check all the possivle options
-			line = in.readLine();
 			if(line == "--open")
 				doOpen = true;
 			if(line == "--show")
@@ -761,15 +760,29 @@ void MainWindow::globalRunningProgTimerTimeout() {
 			if(line.startsWith("-f-"))
 				doNewFile = line.remove(0,3).toUtf8();
 
-		} while (!line.isNull());
+		}
 
 		cmd.close();
 
 	} else if(cmd.exists())
 		std::cerr << "ERROR! Can't read '~/.photoqt/cmd'." << std::endl;
+	else if(!cmd.exists())
+		return;
 
 	// Remove file after command is read in
 	cmd.remove();
+
+	// We can only do stuff if interface is not blocked, except show window
+	if(globVar->blocked) {
+		if(globVar->verbose) std::clog << "[globtimer] interface blocked, only 'do show'" << std::endl;
+		doOpen = false;
+		doShow = true;
+		doHide = false;
+		doToggle = false;
+		doNoThumbs = false;
+		doThumbs = false;
+		doNewFile = "";
+	}
 
 	if(doNewFile != "") {
 		if(this->isHidden())
@@ -793,13 +806,13 @@ void MainWindow::globalRunningProgTimerTimeout() {
 
 	// Open a new file
 	if(doOpen) {
+		if(globVar->verbose) std::clog << "[globtimer] open new file" << std::endl;
 		if(this->isHidden()) {
 			takeScreenshots();	// Refresh screenshots
 			if(!globSet->windowmode) {
 				this->showFullScreen();
 			} else if(globVar->windowMaximised) {
 				this->showMaximized();
-				QTimer::singleShot(100,this,SLOT(showMaximized()));
 				globVar->windowMaximised = true;
 			} else {
 				this->showNormal();
@@ -814,13 +827,13 @@ void MainWindow::globalRunningProgTimerTimeout() {
 
 	// Show PhotoQt
 	if(doShow) {
+		if(globVar->verbose) std::clog << "[globtimer] show interface" << std::endl;
 		if(this->isHidden()) {
 			takeScreenshots();	// Refresh screenshots
 			if(!globSet->windowmode) {
 				this->showFullScreen();
 			} else if(globVar->windowMaximised) {
 				this->showMaximized();
-				QTimer::singleShot(100,this,SLOT(showMaximized()));
 				globVar->windowMaximised = true;
 			} else {
 				this->showNormal();
@@ -831,12 +844,17 @@ void MainWindow::globalRunningProgTimerTimeout() {
 		this->activateWindow();
 		this->raise();
 		doHide = false;
-		if(globVar->currentfile == "" && doNewFile == "")
+		if(globVar->currentfile == "" && doNewFile == "" && !globVar->blocked)
 			openFile();
+
+		// Need to call with delay to make sure they are actually adjusted correctly!
+		QTimer::singleShot(500,this,SLOT(adjustGeometries()));
 	}
 
 	// Hide PhotoQt
 	if(doHide) {
+
+		if(globVar->verbose) std::clog << "[globtimer] hide interface" << std::endl;
 
 		if(!globSet->trayicon) {
 			globSet->trayicon = true;
@@ -850,6 +868,8 @@ void MainWindow::globalRunningProgTimerTimeout() {
 	// Disable thumbnails
 	if(doNoThumbs && !globSet->thumbnailDisable) {
 
+		if(globVar->verbose) std::clog << "[globtimer] disable thumbnails" << std::endl;
+
 		QMap<QString,QVariant> upd;
 		upd.insert("ThumbnailDisable",true);
 		globSet->settingsUpdated(upd);
@@ -859,6 +879,9 @@ void MainWindow::globalRunningProgTimerTimeout() {
 
 	// Enable thumbnails
 	if(doThumbs && globSet->thumbnailDisable) {
+
+		if(globVar->verbose) std::clog << "[globtimer] enable thumbnails" << std::endl;
+
 		QMap<QString,QVariant> upd;
 		upd.insert("ThumbnailDisable",false);
 		globSet->settingsUpdated(upd);
@@ -2500,10 +2523,10 @@ void MainWindow::trayAcDo(QSystemTrayIcon::ActivationReason rsn) {
 		if(this->isHidden()) {
 			takeScreenshots();	// Refresh background
 			if(globSet->windowmode) {
+				globSet->windowDecoration
+						      ? this->setWindowFlags(Qt::WindowStaysOnTopHint | Qt::Window)
+						      : this->setWindowFlags(Qt::WindowStaysOnTopHint | Qt::Window | Qt::FramelessWindowHint);
 				this->showMaximized();
-				globSet->windowDecoration ? this->setWindowFlags(this->windowFlags() & ~Qt::FramelessWindowHint) : this->setWindowFlags(Qt::FramelessWindowHint);
-				QTimer::singleShot(10,this,SLOT(showMaximized()));
-				QTimer::singleShot(500,this,SLOT(showMaximized()));
 			} else
 				this->showFullScreen();
 			setBackground();	// Refresh background
@@ -2519,10 +2542,11 @@ void MainWindow::trayAcDo(QSystemTrayIcon::ActivationReason rsn) {
 			takeScreenshots();	// Refresh background
 			globVar->restoringFromTrayNoResize = QDateTime::currentDateTime().toTime_t();
 			if(globSet->windowmode) {
-				globSet->windowDecoration ? this->setWindowFlags(this->windowFlags() & ~Qt::FramelessWindowHint) : this->setWindowFlags(Qt::FramelessWindowHint);
+				globSet->windowDecoration
+						      ? this->setWindowFlags(Qt::WindowStaysOnTopHint | Qt::Window)
+						      : this->setWindowFlags(Qt::WindowStaysOnTopHint | Qt::Window | Qt::FramelessWindowHint);
 				if(globVar->windowMaximised) {
 					this->showMaximized();
-					QTimer::singleShot(100,this,SLOT(showMaximized()));
 					globVar->windowMaximised = true;
 				} else {
 					this->showNormal();
