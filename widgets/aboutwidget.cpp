@@ -42,19 +42,19 @@ About::About(QWidget *parent) : MyWidget(parent) {
 
 	// The main text block
 	QString txt = tr("PhotoQt is a simple image viewer, designed to be good looking, highly configurable, yet easy to use and fast.") +  "<br><br>";
-	txt += tr("Up until version 0.9.1, PhotoQt used to be called simply 'Photo'. But Photo isn't quite a unique and creative name (born simply out of the need to give it some name). Searching the web for it was close to impossible. Whether PhotoQt is a much more creative name than Photo is debatable, but it certainly is a little more unique. Simply searching the web for 'photoqt' results in some (more or less) relevant websites amongst the top results. On top of it, quite often the name of this application was thought to already be PhotoQt (or Photo-Qt), a confusion probably mainly caused by its website being photoqt.org.") + "<br>";
-	txt += tr("Well, long story short, starting version 1.0, its name is PhotoQt.") + "<br><br>";
-	txt += tr("I'm not a trained programmer. I'm a simple Maths student that loves doing stuff like this. All I know about programming I taught myself over the years. So PhotoQt might not be done in the best of ways, several things could probably be improved (from a programming point of view). But it's as good as I can do it, and I'm constantly learning and improving things.") + "<br><br>";
-	txt += tr("I heard a number of times people saying, that PhotoQt is a \"copy\" of Picasa's image viewer. Well, it's not. In fact, I myself have never used Picasa. I have seen it in use though by others, and I can't deny that it influenced the basic design idea a little. But I'm not trying to do something \"like Picasa\". I try to do my own thing, and to do it as good as I can. If some consider it to be a replacement for Picasa, well, I feel a little honoured (since Picasa is created by \"proper\" programmers).");
+	txt += tr("With PhotoQt I try to be a little different than other image viewers (after all, there are plenty of good image viewers out there). Its interface is kept very simple, yet there is an abundance of settings to customize the look and feel to make PhotoQt YOUR image viewer. ") + "<br>";
+	txt += tr("I'm not a trained programmer. I'm a simple Maths student that loves doing stuff like this. Most of my programming knowledge I taught myself over the past 10-ish years, and it has been developing a lot since I started PhotoQt. During my studies in university I learned a lot about the basics of programming that I was missing. And simply working on PhotoQt gave me a lot of invaluable insights. So the code of PhotoQt might in places not quite be done in the best of ways, but I think it's getting better and better with each release.") + "<br><br>";
+	txt += tr("I heard a number of times people saying, that PhotoQt is a 'copy' of Picasa's image viewer. Well, it's not. In fact, I myself have never used Picasa. I have seen it in use though by others, and I can't deny that it influenced the basic design idea a little. But I'm not trying to do something 'like Picasa'. I try to do my own thing, and to do it as good as I can.");
 	QString txt2 = tr("Don't forget to check out the website:") + " http://PhotoQt.org";
-	QString txt3 = tr("If there's one thing I want to achieve with PhotoQt, then it is, that you find it useful. If I accomplished that, then I'm glad. There's no other reason I'm doing that. I don't want money or anything, but just be helpful.") + "<br><br><br><br>";
-	txt3 += tr("If you find a bug or if you have a question or suggestion, tell me. I'm open to any feedback I get :)") + "<br><br>";
-	txt3 += "<center><h2>" + tr("Thanks to everybody who<br>contributed to PhotoQt<br>and/or translated PhotoQt to another language!<br><br>You guys rock!! :-)") + "</h2></center><br><br>";
-	txt3 += tr("You want to join the team and do something, e.g. translating PhotoQt to another language? Drop me and email (Lukas@photoqt.org), and for translations, check the project page on Transifex: http://transifex.com/p/photo.") + "<br><br><br>";
+	QString txt3 = tr("If you find a bug or if you have a question or suggestion, tell me. I'm open to any feedback I get :)");
+	QString txt4 = "<center><h2>" + tr("Thanks to everybody who contributed to PhotoQt and/or translated PhotoQt to another language! You guys rock!") + "</h2></center>";
+	QString txt5 = tr("You want to join the team and do something, e.g. translating PhotoQt to another language? Drop me and email (Lukas@photoqt.org), and for translations, check the project page on Transifex: http://transifex.com/p/photo.");
 
 	CustomLabel *text = new CustomLabel(txt);
 	CustomLabel *text2 = new CustomLabel(txt2);
 	CustomLabel *text3 = new CustomLabel(txt3);
+	CustomLabel *text4 = new CustomLabel(txt4);
+	CustomLabel *text5 = new CustomLabel(txt5);
 	text->setTextInteractionFlags(Qt::TextSelectableByMouse);
 	text->setFontSize(11);
 	text->setWordWrap(true);
@@ -66,11 +66,26 @@ About::About(QWidget *parent) : MyWidget(parent) {
 	text3->setTextInteractionFlags(Qt::TextSelectableByMouse);
 	text3->setFontSize(11);
 	text3->setWordWrap(true);
+	text4->setTextInteractionFlags(Qt::TextSelectableByMouse);
+	text4->setFontSize(11);
+	text4->setWordWrap(true);
+	text4->setFixedWidth(600);
+	QHBoxLayout *text4Lay = new QHBoxLayout;
+	text4Lay->addStretch();
+	text4Lay->addWidget(text4);
+	text4Lay->addStretch();
+	text5->setTextInteractionFlags(Qt::TextSelectableByMouse);
+	text5->setFontSize(11);
+	text5->setWordWrap(true);
 	lay->addWidget(text);
 	lay->addSpacing(10);
 	lay->addWidget(text2);
 	lay->addSpacing(10);
 	lay->addWidget(text3);
+	lay->addSpacing(20);
+	lay->addLayout(text4Lay);
+	lay->addSpacing(20);
+	lay->addWidget(text5);
 	lay->addStretch();
 	connect(text2, SIGNAL(clicked()), this, SLOT(openWebsite()));
 
