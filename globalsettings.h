@@ -326,9 +326,7 @@ public:
 		bgColorBlue = 0;
 		bgColorAlpha = 190;
 
-#ifdef Q_OS_LINUX
-		backgroundImageScreenshot = false;
-#elif Q_OS_WIN32
+#ifdef Q_OS_WIN32
 		backgroundImageScreenshot = (QtWin::isCompositionEnabled() ? false : true);
 #else
 		backgroundImageScreenshot = true;
@@ -339,9 +337,7 @@ public:
 		backgroundImageStretch = false;
 		backgroundImageCenter = false;
 
-#ifdef Q_OS_LINUX
-		composite = true;
-#elif Q_OS_WIN32
+#ifdef Q_OS_WIN32
 		composite = (QtWin::isCompositionEnabled() ? true : false);
 #else
 		composite = false;
