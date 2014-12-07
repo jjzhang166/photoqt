@@ -2387,6 +2387,8 @@ void MainWindow::systemShortcutDO(QString todo) {
 					set->tabThumb->confirmClean->no->animateClick();
 				else if(set->tabThumb->confirmErase->isVisible())
 					set->tabThumb->confirmErase->no->animateClick();
+				else if(set->restoreDefaultConfirm->isVisible())
+					set->restoreDefaultConfirm->no->animateClick();
 				else {
 					set->loadSettings();
 					set->makeHide();

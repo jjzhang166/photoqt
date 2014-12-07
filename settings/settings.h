@@ -66,11 +66,11 @@ public:
 	// We need to overwrite it for setting some additional stuff
 	void makeShow();
 
-private:
-	void setupTabs();
-
 	// Confirm restoration of default settings
 	CustomConfirm *restoreDefaultConfirm;
+
+private:
+	void setupTabs();
 
 private slots:
 	// Called when tab changed
