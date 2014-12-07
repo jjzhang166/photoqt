@@ -109,7 +109,7 @@ MainWindow::MainWindow(QWidget *parent, bool verbose) : QMainWindow(parent) {
 	connect(set, SIGNAL(restoreDefault()), this, SLOT(restoreDefaultSettings()));
 	set->sh->version = globSet->version;
 	connect(set->sh, SIGNAL(updatedShortcuts()), this, SLOT(setupShortcuts()));
-	connect(set, SIGNAL(widgetClosed()), this, SLOT(settingsClosed()));
+	connect(set, SIGNAL(widgetClosed()), this, SLOT(settingsAboutClosed()));
 
 
 	// The exif widget
@@ -1898,6 +1898,7 @@ void MainWindow::setupWidget(QString what) {
 		about->show();
 
 		connect(about, SIGNAL(blockFunc(bool)), this, SLOT(blockFunc(bool)));
+		connect(about, SIGNAL(widgetClosed()), this, SLOT(settingsAboutClosed()));
 
 	}
 
