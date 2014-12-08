@@ -178,7 +178,7 @@ void MainWindow::adjustGeometries() {
 		viewThumbs->setRect(QRect(0,viewH-thbHeight,viewW,thbHeight));
 
 		// Adjust the menu geometry
-		if(setupWidgets->menu) menu->setRect(QRect(viewW-450,0,300,300));
+		if(setupWidgets->menu) menu->setRect(QRect(viewW-500,0,350,300));
 
 
 
@@ -191,7 +191,7 @@ void MainWindow::adjustGeometries() {
 		viewThumbs->setRect(QRect(0,0,viewBig->width(),thbHeight));
 
 		// Adjust the menu geometry
-		if(setupWidgets->menu) menu->setRect(QRect(viewBig->width()-450,viewBig->height()-300,300,300));
+		if(setupWidgets->menu) menu->setRect(QRect(viewBig->width()-500,viewBig->height()-300,350,300));
 
 	}
 
@@ -286,7 +286,7 @@ void MainWindow::applySettings(QMap<QString, bool> applySet, bool justApplyAllOf
 			viewThumbs->setRect(QRect(0,viewH-thbHeight,viewW,thbHeight));
 
 			// Adjust the menu geometry
-			if(setupWidgets->menu) menu->setRect(QRect(viewW-450,0,300,300));
+			if(setupWidgets->menu) menu->setRect(QRect(viewW-500,0,350,300));
 
 
 		// If the thumbnails are supposed to be shown at the top
@@ -296,7 +296,7 @@ void MainWindow::applySettings(QMap<QString, bool> applySet, bool justApplyAllOf
 			viewThumbs->setRect(QRect(0,0,viewBig->width(),thbHeight));
 
 			// Adjust the menu geometry
-			if(setupWidgets->menu) menu->setRect(QRect(viewBig->width()-450,viewBig->height()-300,300,300));
+			if(setupWidgets->menu) menu->setRect(QRect(viewBig->width()-500,viewBig->height()-300,350,300));
 
 		}
 
@@ -1847,9 +1847,9 @@ void MainWindow::setupWidget(QString what) {
 		connect(menu, SIGNAL(itemClicked(QString,int)), this, SLOT(menuClicked(QString,int)));
 
 		if(globSet->thumbnailposition == "Bottom")
-			menu->setRect(QRect(viewBig->width()-450,0,300,300));
+			menu->setRect(QRect(viewBig->width()-500,0,350,300));
 		else if(globSet->thumbnailposition == "Top")
-			menu->setRect(QRect(viewBig->width()-450,viewBig->height()-300,300,300));
+			menu->setRect(QRect(viewBig->width()-500,viewBig->height()-300,350,300));
 
 		menu->show();
 

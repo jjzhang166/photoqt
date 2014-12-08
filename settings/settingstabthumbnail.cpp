@@ -307,6 +307,7 @@ SettingsTabThumbnail::SettingsTabThumbnail(QWidget *parent, QMap<QString, QVaria
 	CustomLabel *preloadFullNumberLabel = new CustomLabel("<b><span style=\"font-size: 12pt\">" + tr("Preloading") + "</span></b><br><bR>" + tr("Here you can adjust, how many images AT MOST will be preloaded. For example, if the directory contains 800 images, a limit of 400 (default value) means, that starting from the opened image, 200 images to the left and 200 to the right are preloaded.") + "<br><br>" + tr("If you don't want to limit PhotoQt to any number, you can simply enable the option to always preload the full directory. WARNING: This is perfectly fine for directories with a small number of images (usually anything less than 1000, depending on your computer), but can lead to performance and memory issues for larger directories. Make sure you know what you're doing before enabling this!"));
 	preloadFullNumberLabel->setWordWrap(true);
 	CustomSpinBox *preloadFullNumberSpin = new CustomSpinBox;
+	preloadFullNumberSpin->setSuffix(" images");
 	preloadFullNumberSpin->setMinimum(50);
 	preloadFullNumberSpin->setMaximum(2500);
 	preloadFullNumberSpin->setSingleStep(10);

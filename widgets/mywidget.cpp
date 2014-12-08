@@ -108,6 +108,10 @@ void MyWidget::setup(int layoutMargin, QString borderColor, QString backgroundCo
 	scrollbar = new CustomScrollbar;
 	scroll->setVerticalScrollBar(scrollbar);
 
+	// And in case the monitor resolution is so small, that the horizontal scrollbar is visible:
+	CustomScrollbar *scrollbarHor = new CustomScrollbar;
+	scroll->setHorizontalScrollBar(scrollbarHor);
+
 }
 
 void MyWidget::makeHide() {
