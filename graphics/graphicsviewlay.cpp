@@ -127,7 +127,6 @@ void ViewBigLay::setSettings(QMap<QString, QVariant> set) {
 
 	int xsize = set.value("CloseXSize").toInt();
 	if(set.value("FancyX").toBool()) {
-		qDebug() << "Fancy X";
 		closeWindowX->setText("");
 		closeWindowX->setStyleSheet("padding: 0px;");
 		closeWindowX->setPixmap(QPixmap(":/img/closingx.png").scaled((xsize-2)*5,(xsize-2)*5));
@@ -207,6 +206,7 @@ void ViewBigLay::updateInfo(QString currentfile, int countpos, int counttot) {
 			quickInfoCounterTOP->hide();
 			quickInfoSepTOP->hide();
 			quickInfoFilenameTOP->show();
+			closeWindowX->setVisible(!globSet.value("HideX").toBool());
 		}
 
 // rotation indicator
@@ -244,6 +244,7 @@ void ViewBigLay::updateInfo(QString currentfile, int countpos, int counttot) {
 			quickInfoCounterBOT->hide();
 			quickInfoSepBOT->hide();
 			quickInfoFilenameBOT->show();
+			closeWindowX->setVisible(!globSet.value("HideX").toBool());
 		}
 
 // rotation indicator
