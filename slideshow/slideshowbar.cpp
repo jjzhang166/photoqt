@@ -50,7 +50,6 @@ SlideShowBar::SlideShowBar(QMap<QString, QVariant> set, QWidget *parent, bool v)
 
 	// A mediaplayer to play an audiofile
 	player = new QMediaPlayer;
-	connect(player, SIGNAL(stateChanged(QMediaPlayer::State)), this, SLOT(stateChanged(QMediaPlayer::State)));
 	connect(player, SIGNAL(mediaStatusChanged(QMediaPlayer::MediaStatus)), this, SLOT(mediaStateChanged(QMediaPlayer::MediaStatus)));
 	player->setVolume(80);
 
@@ -109,7 +108,24 @@ void SlideShowBar::loadNextImg() {
 
 	if(verbose) std::clog << "sldb: Load next img" << std::endl;
 
-	emit moveInDirectory(1);
+	// If random image
+	if(globSet.value("SlideShowShuffle").toBool()) {
+
+		// If we showed all images once, and don't want to loop
+		if(slideshowRandomAvailable.length() == 0) {
+			if(!globSet.value("SlideShowLoop").toBool()) {
+				emit pleaseStopSlideShow();
+				return;
+			}
+			slideshowRandomAvailable = slideshowRandomAvailable_nochange;
+		}
+		int next_listpos = qrand()%slideshowRandomAvailable.length();
+		int pos = slideshowRandomAvailable.at(next_listpos);
+		slideshowRandomAvailable.removeAt(next_listpos);
+		emit gotoImageAtPos(pos);
+	} else
+		// In this case, the moveInDirectory function in mainwindow.cpp takes care of the looping
+		emit moveInDirectory(1);
 
 }
 
@@ -198,6 +214,18 @@ void SlideShowBar::animate() {
 		ani->setEasingCurve(QEasingCurve::OutBack);
 		ani->start();
 	}
+
+}
+
+
+void SlideShowBar::setCounttot(int tot) {
+
+	slideshowRandomAvailable.clear();
+	slideshowRandomAvailable_nochange.clear();
+	for(int i = 0; i < tot; ++i)
+		slideshowRandomAvailable_nochange.append(i);
+
+	slideshowRandomAvailable = slideshowRandomAvailable_nochange;
 
 }
 

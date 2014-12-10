@@ -41,7 +41,12 @@ public:
 
 	bool verbose;
 
+	void makeShow();
+
 	QMap<QString,QVariant> globSet;
+
+	CustomPushButton *ok;
+	CustomPushButton *cancel;
 
 	// Adjust time
 	CustomSlider *timeSlider;
@@ -52,8 +57,15 @@ public:
 	CustomCheckBox *musicEnable;
 	CustomLineEdit *musicPath;
 
+	// Random image order & loop
+	CustomCheckBox *loop;
+	CustomCheckBox *shuffle;
+
 	// Adjust quickinfo labels
 	CustomCheckBox *hideQuickInfo;
+
+private:
+	void loadSettings();
 
 public slots:
 	// Start slideshow

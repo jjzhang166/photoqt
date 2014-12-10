@@ -63,6 +63,8 @@ public:
 
 	QString musicFile;
 
+	void setCounttot(int tot);
+
 private:
 
 	// The animation framework
@@ -86,6 +88,9 @@ private:
 	CustomSlider *volume;
 	CustomLabel *volumeLabel;
 	CustomLabel *volumePercentage;
+
+	QList<int> slideshowRandomAvailable;
+	QList<int> slideshowRandomAvailable_nochange;
 
 public slots:
 	// Animation functions
@@ -114,6 +119,8 @@ protected:
 signals:
 	// To load next image
 	void moveInDirectory(int direction);
+	void gotoImageAtPos(int pos);
+	void pleaseStopSlideShow();
 
 };
 

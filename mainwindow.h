@@ -198,6 +198,9 @@ private slots:
 	// Some images store a orientation in their exif data
 	void getOrientationFromExif(int degree, bool flipHor);
 
+	// Go to specific image
+	void gotoImageAtPos(int p);
+
 	// Timeout of the global timer (see above)
 	void globalRunningProgTimerTimeout();
 

@@ -47,7 +47,6 @@ SlideShow::SlideShow(QMap<QString, QVariant> set, bool v, QWidget *parent) : MyW
 	timeSlider->setMaximum(300);
 	timeSlider->setSingleStep(1);
 	timeSlider->setPageStep(1);
-	timeSlider->setValue(globSet.value("SlideShowTime").toInt());
 	CustomSpinBox *timeSpin = new CustomSpinBox;
 	timeSpin->setMinimum(1);
 	timeSpin->setMaximum(300);
@@ -76,7 +75,6 @@ SlideShow::SlideShow(QMap<QString, QVariant> set, bool v, QWidget *parent) : MyW
 	trans->setTickPosition(QSlider::TicksBelow);
 	trans->setPageStep(1);
 	trans->setSingleStep(1);
-	trans->setValue(globSet.value("SlideShowTransition").toInt());
 	CustomLabel *transLabel = new CustomLabel("<b><span style=\"font-size:12pt\">" + tr("Smooth Transition") + "</span></b> " + "<br><br>" + tr("Here you can set, if you want the images to fade into each other, and how fast they shall do that."));
 	transLabel->setWordWrap(true);
 	CustomLabel *noTrans = new CustomLabel(tr("No Transition"));
@@ -92,9 +90,23 @@ SlideShow::SlideShow(QMap<QString, QVariant> set, bool v, QWidget *parent) : MyW
 	lay->addLayout(transLay);
 	lay->addSpacing(10);
 
+	// Load images in random order & loop
+	loop = new CustomCheckBox(tr("Loop over images"));
+	shuffle = new CustomCheckBox(tr("Shuffle images"));
+	CustomLabel *randomLoopLabel = new CustomLabel("<b><span style=\"font-size:12pt\">" + tr("Shuffle and Loop") + "</span></b> " + "<br><br>" + tr("If you want PhotoQt to loop over all images (i.e., once it shows the last image it starts from the beginning). Additionally, if you want PhotoQt to load your images in random order, you can check the second box below. No image will be shown twice before every image has been shown once."));
+	randomLoopLabel->setWordWrap(true);
+	QVBoxLayout *randomLoopLay = new QVBoxLayout;
+	randomLoopLay->setAlignment(Qt::AlignCenter);
+	randomLoopLay->addWidget(loop);
+	randomLoopLay->addWidget(shuffle);
+	lay->addWidget(randomLoopLabel);
+	lay->addSpacing(5);
+	lay->addLayout(randomLoopLay);
+	lay->addSpacing(10);
+
+
 	// Adjust quickinfo labels
 	hideQuickInfo = new CustomCheckBox(tr("Hide Quickinfos"));
-	hideQuickInfo->setChecked(globSet.value("SlideShowHideQuickinfo").toBool());
 	CustomLabel *hideQuickLabel = new CustomLabel("<b><span style=\"font-size:12pt\">" + tr("Hide Quickinfo") + "</span></b> " + "<br><br>" + tr("Depending on your setup, PhotoQt displays some information at the top edge, like position in current directory or file path/name. Here you can disable them temporarily for the slideshow."));
 	hideQuickLabel->setWordWrap(true);
 	QHBoxLayout *hideQuickLay = new QHBoxLayout;
@@ -108,17 +120,14 @@ SlideShow::SlideShow(QMap<QString, QVariant> set, bool v, QWidget *parent) : MyW
 
 	// Adjust music
 	musicEnable = new CustomCheckBox(tr("Enable Music"));
-	musicEnable->setChecked(globSet.value("SlideShowMusicFile").toString() != "");
 	QHBoxLayout *musicEnableLay = new QHBoxLayout;
 	musicEnableLay->addStretch();
 	musicEnableLay->addWidget(musicEnable);
 	musicEnableLay->addStretch();
 	musicPath = new CustomLineEdit;
-	musicPath->setEnabled(globSet.value("SlideShowMusicFile").toString() != "");
 	musicPath->setReadOnly(true);
 	musicPath->setCursor(Qt::PointingHandCursor);
 	musicPath->setToolTip(tr("Click to select/change music file"));
-	musicPath->setText(globSet.value("SlideShowMusicFile").toString());
 	QHBoxLayout *musicPathLay = new QHBoxLayout;
 	musicPathLay->addStretch();
 	musicPathLay->addWidget(musicPath);
@@ -139,8 +148,8 @@ SlideShow::SlideShow(QMap<QString, QVariant> set, bool v, QWidget *parent) : MyW
 	this->addWidgetAtBottom(line);
 
 	// Start or don't start slideshow
-	CustomPushButton *ok = new CustomPushButton(tr("Okay, lets start"));
-	CustomPushButton *cancel = new CustomPushButton(tr("Maybe later"));
+	ok = new CustomPushButton(tr("Okay, lets start"));
+	cancel = new CustomPushButton(tr("Maybe later"));
 	QHBoxLayout *butLay = new QHBoxLayout;
 	butLay->addStretch();
 	butLay->addWidget(ok);
@@ -150,6 +159,8 @@ SlideShow::SlideShow(QMap<QString, QVariant> set, bool v, QWidget *parent) : MyW
 
 	connect(ok, SIGNAL(clicked()), this, SLOT(andStart()));
 	connect(cancel, SIGNAL(clicked()), this, SLOT(animate()));
+
+	loadSettings();
 
 
 }
@@ -170,12 +181,31 @@ void SlideShow::browseForMusic() {
 
 }
 
+void SlideShow::loadSettings() {
+
+	timeSlider->setValue(globSet.value("SlideShowTime").toInt());
+	trans->setValue(globSet.value("SlideShowTransition").toInt());
+	loop->setChecked(globSet.value("SlideShowLoop").toBool());
+	shuffle->setChecked(globSet.value("SlideShowShuffle").toBool());
+	hideQuickInfo->setChecked(globSet.value("SlideShowHideQuickinfo").toBool());
+	musicEnable->setChecked(globSet.value("SlideShowMusicFile").toString() != "");
+	musicPath->setEnabled(globSet.value("SlideShowMusicFile").toString() != "");
+	musicPath->setText(globSet.value("SlideShowMusicFile").toString());
+
+}
 
 // Start slideshow
 void SlideShow::andStart() {
 
 	makeHide();
 	emit startSlideShow();
+
+}
+
+void SlideShow::makeShow() {
+
+	loadSettings();
+	MyWidget::makeShow();
 
 }
 

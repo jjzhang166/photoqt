@@ -115,6 +115,8 @@ public:
 	int slideShowTime;
 	int slideShowTransition;
 	QString slideShowMusicFile;
+	bool slideShowShuffle;
+	bool slideShowLoop;
 	bool slideShowHideQuickinfo;
 
 	// Some wallpaper settings
@@ -268,6 +270,8 @@ public:
 		map.insert("SlideShowTime",slideShowTime);
 		map.insert("SlideShowTransition",slideShowTransition);
 		map.insert("SlideShowMusicFile",slideShowMusicFile);
+		map.insert("SlideShowShuffle",slideShowShuffle);
+		map.insert("SlideShowLoop",slideShowLoop);
 		map.insert("SlideShowHideQuickinfo",slideShowHideQuickinfo);
 
 		map.insert("WallpaperAlignment",wallpaperAlignment);
@@ -384,6 +388,8 @@ public:
 		slideShowTime = 5;
 		slideShowTransition = 4;
 		slideShowMusicFile = "";
+		slideShowShuffle = false;
+		slideShowLoop = true;
 		slideShowHideQuickinfo = true;
 
 		wallpaperAlignment = "center";
@@ -674,6 +680,16 @@ public:
 			if(all.contains("SlideShowMusicFile="))
 				slideShowMusicFile = all.split("SlideShowMusicFile=").at(1).split("\n").at(0).trimmed();
 
+			if(all.contains("SlideShowShuffle=1"))
+				slideShowShuffle = true;
+			else if(all.contains("SlideShowShuffle=0"))
+				slideShowShuffle = false;
+
+			if(all.contains("SlideShowLoop=1"))
+				slideShowLoop = true;
+			else if(all.contains("SlideShowLoop=0"))
+				slideShowLoop = false;
+
 			if(all.contains("SlideShowHideQuickinfo="))
 				slideShowHideQuickinfo = bool(all.split("SlideShowHideQuickinfo=").at(1).split("\n").at(0).toInt());
 
@@ -883,6 +899,8 @@ public:
 			cont += QString("SlideShowTime=%1\n").arg(slideShowTime);
 			cont += QString("SlideShowTransition=%1\n").arg(slideShowTransition);
 			cont += QString("SlideShowMusicFile=%1\n").arg(slideShowMusicFile);
+			cont += QString("SlideShowShuffle=%1\n").arg(int(slideShowShuffle));
+			cont += QString("SlideShowLoop=%1\n").arg(int(slideShowLoop));
 			cont += QString("SlideShowHideQuickinfo=%1\n").arg(int(slideShowHideQuickinfo));
 
 			cont += "\n[Wallpaper]\n";
@@ -1177,6 +1195,12 @@ public slots:
 
 		if(changedSet.keys().contains("SlideShowMusicFile"))
 			slideShowMusicFile = changedSet.value("SlideShowMusicFile").toString();
+
+		if(changedSet.keys().contains("SlideShowShuffle"))
+			slideShowShuffle = changedSet.value("SlideShowShuffle").toBool();
+
+		if(changedSet.keys().contains("SlideShowLoop"))
+			slideShowLoop = changedSet.value("SlideShowLoop").toBool();
 
 		if(changedSet.keys().contains("SlideShowHideQuickinfo"))
 			slideShowHideQuickinfo = changedSet.value("SlideShowHideQuickinfo").toBool();

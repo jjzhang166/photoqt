@@ -558,7 +558,7 @@ void MainWindow::drawImage() {
 
 
 		// A new image, check if loaded and manipulated previously (this session)
-		if(globVar->newlyLoadedImage) {
+		if(globVar->newlyLoadedImage && !globVar->slideshowRunning) {
 
 			globVar->newlyLoadedImage = false;
 
@@ -924,6 +924,47 @@ void MainWindow::globalRunningProgTimerTimeout() {
 
 }
 
+// Go to a specific image
+void MainWindow::gotoImageAtPos(int p) {
+
+	// Store visible area
+	globVar->store_visibleArea[globVar->currentfile] = std::pair<int,int>(viewBig->horizontalScrollBar()->value(),viewBig->verticalScrollBar()->value());
+
+	// When a new image is loaded we reset any zooing, rotation, flipping
+	QMap<QString,int> tmp_rotation = globVar->store_rotation;
+	QMap<QString,bool> tmp_flipHor = globVar->store_flipHor;
+	QMap<QString,bool> tmp_flipVer = globVar->store_flipVer;
+	QMap<QString,int> tmp_zoomlevel = globVar->store_zoomlevel;
+	QMap<QString,std::pair<int,int> > tmp_visibleArea = globVar->store_visibleArea;
+	zoom(true,((globVar->zoomToActualSize || globVar->zoomed) && globSet->transition != 0) ? "reset" : "resetNoDraw");
+	rotateFlip(true,"resetNoDraw");
+	rotateFlip(false, "reset");
+	globVar->store_rotation = tmp_rotation;
+	globVar->store_flipHor = tmp_flipHor;
+	globVar->store_flipVer = tmp_flipVer;
+	globVar->store_zoomlevel = tmp_zoomlevel;
+	globVar->store_visibleArea = tmp_visibleArea;
+
+	// Reset these parameters
+	viewBig->absoluteScaleFactor = 0;
+	globVar->zoomed = false;
+	globVar->rotation = 0;
+	globVar->exifRead = false;
+
+	// Load image at pos 'p'
+	globVar->newlyLoadedImage = true;
+	globVar->zoomedImgAtLeastOnce = false;
+	globVar->currentfile = viewThumbs->getImageFilePathAt(p);
+	viewThumbs->countpos = p;
+	viewThumbs->updateThbViewHoverNormPix(viewThumbs->getCurrentfile(),globVar->currentfile);
+	viewThumbs->setCurrentfile(globVar->currentfile);
+	drawImage();
+
+	// Update info
+	viewBigLay->updateInfo(globVar->currentfile,viewThumbs->countpos,viewThumbs->counttot);
+
+}
+
 // A click onto the main graphicsview
 void MainWindow::gotViewBigClick(QPoint p) {
 
@@ -1235,7 +1276,9 @@ void MainWindow::moveInDirectory(int direction) {
 		viewThumbs->setCurrentfile(globVar->currentfile);
 		drawImage();
 	// Move to right, end of directory
-	} else if(direction == 1 && viewThumbs->countpos == viewThumbs->counttot-1 && globSet->loopthroughfolder && viewThumbs->counttot > 0 && (!setupWidgets->slideshowbar || !slideshowbar->isEnabled())) {
+	} else if(direction == 1 && viewThumbs->countpos == viewThumbs->counttot-1
+		  && ((globSet->loopthroughfolder && !slideshowbar->isEnabled()) || (globSet->slideShowLoop && slideshowbar->isEnabled()))
+		  && viewThumbs->counttot > 0) {
 		globVar->newlyLoadedImage = true;
 		globVar->zoomedImgAtLeastOnce = false;
 		globVar->currentfile = viewThumbs->getImageFilePathAt(0);
@@ -1969,6 +2012,8 @@ void MainWindow::setupWidget(QString what) {
 		slideshowbar->show();
 
 		connect(slideshowbar, SIGNAL(moveInDirectory(int)), this, SLOT(moveInDirectory(int)));
+		connect(slideshowbar, SIGNAL(gotoImageAtPos(int)), this, SLOT(gotoImageAtPos(int)));
+		connect(slideshowbar, SIGNAL(pleaseStopSlideShow()), this, SLOT(stopSlideShow()));
 		connect(slideshowbar->cancel, SIGNAL(clicked()), this, SLOT(stopSlideShow()));
 
 	}
@@ -2285,6 +2330,9 @@ void MainWindow::startSlideShow() {
 	// Set some global parameters
 	globSet->slideShowTime = slideshow->timeSlider->value();
 	globSet->slideShowTransition = slideshow->trans->value();
+	globSet->slideShowShuffle = slideshow->shuffle->isChecked();
+	globSet->slideShowLoop = slideshow->loop->isChecked();
+	globSet->slideShowHideQuickinfo = slideshow->hideQuickInfo->isChecked();
 	QString musicFilePath = slideshow->musicPath->text();
 	if(!slideshow->musicEnable->isChecked())
 		musicFilePath = "";
@@ -2312,6 +2360,8 @@ void MainWindow::startSlideShow() {
 
 	// set the interval
 	slideshowbar->nextImg->setInterval(slideshow->timeSlider->value()*1000);
+
+	slideshowbar->setCounttot(viewThumbs->counttot);
 
 	// and start slideshow
 	slideshowbar->startSlideShow();
@@ -2469,9 +2519,9 @@ void MainWindow::systemShortcutDO(QString todo) {
 		if(setupWidgets->slideshow && slideshow->isVisible()) {
 
 			if(todo == "Escape")
-				slideshow->makeHide();
+				slideshow->cancel->animateClick();
 			if(todo == "Enter" || todo == "Return")
-				slideshow->andStart();
+				slideshow->ok->animateClick();
 
 		}
 
@@ -2637,6 +2687,7 @@ void MainWindow::updateSettings(QMap<QString, QVariant> settings) {
 	graphItem->transitionSetChange(globSet->transition);
 
 	if(setupWidgets->slideshow) slideshow->globSet = settings;
+	if(setupWidgets->slideshowbar) slideshowbar->globSet = settings;
 
 	if(setupWidgets->wallpaper) wallpaper->globSet = settings;
 
