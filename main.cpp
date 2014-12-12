@@ -91,6 +91,12 @@ int main(int argc, char *argv[]) {
 	knownArgs << "--verbose";
 	knownArgs << "--v";
 
+	/****************************************************/
+	// DEVELOPMENT ONLY
+	knownArgs << "--update" << "--install";
+	// DEVELOPMENT ONLY
+	/****************************************************/
+
 	// If PhotoQt was started with "--h" or "--help", show help message
 	if(allArgs.contains("--help") || allArgs.contains("-help") || allArgs.contains("--h") || allArgs.contains("-h")) {
 
@@ -281,6 +287,13 @@ int main(int argc, char *argv[]) {
 
 			}
 		}
+
+		/****************************************************/
+		// DEVELOPMENT ONLY
+		if(allArgs.contains("--update")) update = 1;
+		if(allArgs.contains("--install")) update = 2;
+		// DEVELOPMENT ONLY
+		/****************************************************/
 
 #ifdef GM
 		Magick::InitializeMagick(*argv);
