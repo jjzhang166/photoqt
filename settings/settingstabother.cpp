@@ -288,7 +288,6 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 		  << "Joint Photographic Experts Group" << "*.jpg, *.jpeg"
 		  << "JPEG-2000" << "*.jpeg2000, *.jp2, *.jpc, *.j2k, *.jpf, *.jpx, *.jpm, *.mj2"
 		  << "Multiple-image Network Graphics" << "*.mng"
-		  << "Personal Icon" << "*.picon"
 		  << "Portable Network Graphics" << "*.png"
 		  << "Portable bitmap" << "*.pbm"
 		  << "Portable graymap" << "*.pgm"
@@ -744,12 +743,15 @@ void SettingsTabOther::loadSettings() {
 
 	extraQtEdit->setText(globSet.value("KnownFileTypesQtExtras").toString());
 
+
+	QList<QByteArray> qtSupported = QImageReader::supportedImageFormats();
+
 	// Also update visibility of warning labels for Extra filetypes
 	QMapIterator<QString, CustomLabel*> iterExtraWarning(allExtraToolNotFound);
 	while(iterExtraWarning.hasNext()) {
 		iterExtraWarning.next();
 		if(iterExtraWarning.key() == "libqpsd")
-			iterExtraWarning.value()->setVisible(!QImageReader::supportedImageFormats().contains("psd"));
+			iterExtraWarning.value()->setVisible(!qtSupported.contains("psd"));
 		else {
 			QProcess which;
 			which.setStandardOutputFile(QProcess::nullDevice());
@@ -758,6 +760,21 @@ void SettingsTabOther::loadSettings() {
 			// If it isn't -> display error
 			iterExtraWarning.value()->setVisible(which.exitCode());
 		}
+	}
+
+	// Update availability of qt filetype tiles
+	QMapIterator<QString, SettingsTabOtherFileTypesTiles*> iterQt_avail(allCheckQt);
+	while(iterQt_avail.hasNext()) {
+		iterQt_avail.next();
+		bool unavailable = true;
+		QStringList types_part = QString(iterQt_avail.key()).split(", ",QString::SkipEmptyParts);
+		foreach(QString t, types_part) {
+			if(qtSupported.contains(t.remove(0,2).toLatin1())) {
+				unavailable = false;
+				break;
+			}
+		}
+		iterQt_avail.value()->setUnavailable(unavailable);
 	}
 
 

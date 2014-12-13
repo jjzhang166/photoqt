@@ -45,6 +45,8 @@ public:
 	void setChecked(bool chkd);
 	bool isChecked() { return enabled->isChecked(); }
 	void setEnabled(bool);
+	void setUnavailable(bool unavail);
+	void setToolTip(const QString &tt) { tooltipString = tt; QWidget::setToolTip((unavailable ? QString(tr("UNAVAILABLE") + " - ") : "") + tooltipString); }
 
 private:
 	// Different css styles
@@ -54,7 +56,13 @@ private:
 	QString cssBackgroundOffNorm;
 	QString cssBackgroundHov;
 	QString cssBackgroundOffHov;
+	QString cssBackgroundHoverUnavailable;
+	QString cssBackgroundNormUnavailable;
 	QString cssToolTip;
+
+	QString tooltipString;
+	bool unavailable;
+
 
 private slots:
 	// A click on a checkbox

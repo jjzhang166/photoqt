@@ -31,6 +31,9 @@ SettingsTabOtherFileTypesTiles::SettingsTabOtherFileTypesTiles(QString ftype, QW
 	cssBackgroundOffNorm = "background: rgba(255,255,255,100); }";
 	cssBackgroundOffHov = "background: rgba(255,255,255,150); }";
 
+	cssBackgroundNormUnavailable = "background: rgba(255,114,0,150); }";
+	cssBackgroundHoverUnavailable = "background: rgba(255,114,0,150); }";
+
 	cssToolTip = "QToolTip {font-weight: bold; color: black; border-radius: 5px; padding: 1px; font-size: 8pt; background: rgba(255,255,255,200); }";
 
 	// Main Layout
@@ -41,6 +44,8 @@ SettingsTabOtherFileTypesTiles::SettingsTabOtherFileTypesTiles(QString ftype, QW
 
 	// Store the exif key value
 	filetype = ftype;
+
+	unavailable = false;
 
 	// The back label is being styled
 	back = new CustomLabel("<center>" + ftype + "</center>");
@@ -74,7 +79,7 @@ SettingsTabOtherFileTypesTiles::SettingsTabOtherFileTypesTiles(QString ftype, QW
 void SettingsTabOtherFileTypesTiles::setChecked(bool chkd) {
 
 	if(chkd) {
-		this->setStyleSheet(css + cssBackgroundNorm + cssToolTip);
+		this->setStyleSheet(css + (unavailable ? cssBackgroundNormUnavailable : cssBackgroundNorm) + cssToolTip);
 	} else {
 		this->setStyleSheet(cssOff + cssBackgroundOffNorm + cssToolTip);
 	}
@@ -111,6 +116,16 @@ void SettingsTabOtherFileTypesTiles::setEnabled(bool en) {
 
 }
 
+void SettingsTabOtherFileTypesTiles::setUnavailable(bool unavail) {
+
+	 unavailable = unavail;
+
+	 // Update look
+	 setChecked(isChecked());
+	 setToolTip(tooltipString);
+
+}
+
 // Click on the checkbox
 void SettingsTabOtherFileTypesTiles::checkboxClicked() {
 
@@ -124,25 +139,25 @@ void SettingsTabOtherFileTypesTiles::checkboxClicked() {
 void SettingsTabOtherFileTypesTiles::mouseMoveEvent(QMouseEvent *) {
 
 	if(enabled->isChecked())
-		this->setStyleSheet(css + cssBackgroundHov + cssToolTip);
+		this->setStyleSheet(css + (unavailable ? cssBackgroundHoverUnavailable : cssBackgroundHov) + cssToolTip);
 	else
-		this->setStyleSheet(cssOff + cssBackgroundOffHov + cssToolTip);
+		this->setStyleSheet(cssOff + (unavailable ? cssBackgroundHoverUnavailable : cssBackgroundOffHov) + cssToolTip);
 
 }
 
 void SettingsTabOtherFileTypesTiles::enterEvent(QEvent *) {
 
 	if(enabled->isChecked())
-		this->setStyleSheet(css + cssBackgroundHov + cssToolTip);
+		this->setStyleSheet(css + (unavailable ? cssBackgroundHoverUnavailable : cssBackgroundHov) + cssToolTip);
 	else
-		this->setStyleSheet(cssOff + cssBackgroundOffHov + cssToolTip);
+		this->setStyleSheet(cssOff + (unavailable ? cssBackgroundHoverUnavailable : cssBackgroundOffHov) + cssToolTip);
 
 }
 
 void SettingsTabOtherFileTypesTiles::leaveEvent(QEvent *) {
 
 	if(enabled->isChecked())
-		this->setStyleSheet(css + cssBackgroundNorm + cssToolTip);
+		this->setStyleSheet(css + (unavailable ? cssBackgroundNormUnavailable : cssBackgroundNorm) + cssToolTip);
 	else
 		this->setStyleSheet(cssOff + cssBackgroundOffNorm + cssToolTip);
 
@@ -154,9 +169,9 @@ void SettingsTabOtherFileTypesTiles::mousePressEvent(QMouseEvent *) {
 
 	enabled->setChecked(!enabled->isChecked());
 	if(enabled->isChecked())
-		this->setStyleSheet(css + cssBackgroundHov + cssToolTip);
+		this->setStyleSheet(css + (unavailable ? cssBackgroundHoverUnavailable : cssBackgroundHov) + cssToolTip);
 	else
-		this->setStyleSheet(css + cssBackgroundNorm + cssToolTip);
+		this->setStyleSheet(css + (unavailable ? cssBackgroundHoverUnavailable : cssBackgroundNorm) + cssToolTip);
 
 }
 
