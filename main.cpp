@@ -475,7 +475,39 @@ int main(int argc, char *argv[]) {
 			newfileformats << "*.txt";
 			newfileformats << "*.wpg";
 
-			// If not enabled, it is disabled - new fileformats are ENabled by default
+			// QT: If not supported, it is disabled
+			QStringList qtDef;
+			qtDef << "*.bmp, *.bitmap"
+				<< "*.dds"
+				<< "*.gif"
+				<< "*.ico, *.icns"
+				<< "*.jpg, *.jpeg"
+				<< "*.jpeg2000, *.jp2, *.jpc, *.j2k, *.jpf, *.jpx, *.jpm, *.mj2"
+				<< "*.mng"
+				<< "*.png"
+				<< "*.pbm"
+				<< "*.pgm"
+				<< "*.ppm"
+				<< "*.svg, *.svgz"
+				<< "*.tif, *.tiff"
+				<< "*.wbmp, *.webp"
+				<< "*.xbm"
+				<< "*.xpm";
+			QList<QByteArray> qtSup = QImageReader::supportedImageFormats();
+			foreach(QString q, qtDef) {
+				QStringList parts = q.split(", ");
+				bool disabled = true;
+				foreach(QString p, parts) {
+					if(qtSup.contains(p.remove(0,2).toLower().trimmed().toLatin1())) {
+						disabled = false;
+						break;
+					}
+				}
+				if(disabled)
+					fileformatsDisabled += parts.join("\n") + "\n";
+			}
+
+			// GM: If not enabled, it is disabled - new fileformats are ENabled by default
 			QStringList gmDef = w.globSet->fileFormats->formatsGmEnabled;
 			foreach(QString g, gmDef) {
 				if(!new_gm.contains(g) && !newfileformats.contains(g))
