@@ -436,7 +436,7 @@ int main(int argc, char *argv[]) {
 					QTextStream in(&old_qt);
 					QString line = in.readLine();
 					while (!line.isNull()) {
-						if(line.trimmed().length() != 0) new_qt << line.trimmed();
+						if(line.trimmed().length() != 0) new_qt << "*" + line.trimmed();
 						line = in.readLine();
 					}
 					old_qt.close();
@@ -454,7 +454,7 @@ int main(int argc, char *argv[]) {
 					QTextStream in(&old_gm);
 					QString line = in.readLine();
 					while (!line.isNull()) {
-						if(line.trimmed().length() != 0) new_gm << line.trimmed();
+						if(line.trimmed().length() != 0) new_gm << "*" + line.trimmed();
 						line = in.readLine();
 					}
 					old_gm.close();
@@ -463,6 +463,48 @@ int main(int argc, char *argv[]) {
 				if(!old_gm.remove())
 					std::cerr << "[migrate fileformats] WARNING: Can't remove old (redundant) file with gm file formats";
 			}
+
+			// File content of disabled fileformats
+			QString fileformatsDisabled = "";
+
+			// New fileformats that were not part of previous versions of PhotoQt
+			QStringList newfileformats;
+			newfileformats << "*.cin";
+			newfileformats << "*.mono";
+			newfileformats << "*.sfw";
+			newfileformats << "*.txt";
+			newfileformats << "*.wpg";
+
+			// If not enabled, it is disabled - new fileformats are ENabled by default
+			QStringList gmDef = w.globSet->fileFormats->formatsGmEnabled;
+			foreach(QString g, gmDef) {
+				if(!new_gm.contains(g) && !newfileformats.contains(g))
+					fileformatsDisabled += g + "\n";
+			}
+
+			// Extras are disabled by default
+			fileformatsDisabled += "**.xcf\n**.psd\n**.psb\n";
+
+			// Untested are disabled by default
+			if(!fileformatsDisabled.contains("*.hp\n")) fileformatsDisabled += "*.hp\n";
+			if(!fileformatsDisabled.contains("*.hpgl\n")) fileformatsDisabled += "*.hpgl\n";
+			if(!fileformatsDisabled.contains("*.jbig\n")) fileformatsDisabled += "*.jbig\n";
+			if(!fileformatsDisabled.contains("*.jbg\n")) fileformatsDisabled += "*.jbg\n";
+			if(!fileformatsDisabled.contains("*.pwp\n")) fileformatsDisabled += "*.pwp\n";
+			if(!fileformatsDisabled.contains("*.rast\n")) fileformatsDisabled += "*.rast\n";
+			if(!fileformatsDisabled.contains("*.rla\n")) fileformatsDisabled += "*.rla\n";
+			if(!fileformatsDisabled.contains("*.rle\n")) fileformatsDisabled += "*.rle\n";
+			if(!fileformatsDisabled.contains("*.sct\n")) fileformatsDisabled += "*.sct\n";
+			if(!fileformatsDisabled.contains("*.tim\n")) fileformatsDisabled += "*.tim\n";
+
+			// Write 'disabled filetypes' file
+			if(new_file.open(QIODevice::WriteOnly)) {
+				QTextStream out(&new_file);
+				out << fileformatsDisabled;
+				new_file.close();
+			} else
+				std::cerr << "ERROR: Can't write default disabled fileformats file" << std::endl;
+
 
 			// Update settings with new values
 			w.globSet->fileFormats->getFormats();
