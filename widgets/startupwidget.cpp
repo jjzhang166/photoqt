@@ -64,19 +64,71 @@ StartUpWidget::StartUpWidget(QWidget *parent) : MyWidget(parent) {
 	desc->setWordWrap(true);
 	desc->setTextInteractionFlags(Qt::TextSelectableByMouse);
 
-	QString descTxt = "<span style=\"font-size: 15pt; font-weight: bold\">" + tr("Many File Formats") + "</span><br>" + tr("PhotoQt used to be able to only work with those file formats natively supported by Qt (which is already pretty good). But it now can also make use of GraphicsMagick, an image library. Currently, there are more than 80 different file formats supported! You can find a list of it in the settings (Tab \"Other\"). There you can en-/disable different ones and also add custom file endings.") + "<br><br>";
-	descTxt += "<div align=\"center\"><img src=\":/img/startupfileformats.png\"></div><bR><br>";
-	descTxt += "<span style=\"font-size: 15pt; font-weight: bold\">" + tr("Many Settings Possible") + "</span><br>" + tr("PhotoQt has an extensive settings area. By default you can call it with the shortcut \"e\" or through the dropdown menu at the top edge towards the top right corner. You can adjust (almost) everything in PhotoQt, and it's certainly worth having a look there. Each setting usually comes with a little explanation text.") + "<br><bR>";
-	descTxt += "<span style=\"font-size: 15pt; font-weight: bold\">" + tr("Thumbnails") + "</span><br>" + tr("What would be an image viewer without thumbnails support? It would only be half as good. Whenever you load an image, PhotoQt loads the other images in the directory in the background (per default it only loads the ones whose thumbnails are currently visible). It lines them up in a row at the bottom edge (move your mouse there to see them). There are many settings just for the thumbnails, like size, liftup, en-/disabled, type, filename, permanently shown/hidden, etc. PhotoQt's quite flexible with that.") + "<br><br>";
-	descTxt += "<div align=\"center\"><img src=\":/img/startupthumbs.png\"></div><bR><br>";
-	descTxt += "<span style=\"font-size: 15pt; font-weight: bold\">" + tr("Shortcuts") + "</span><br>" + tr("One of the many strengths of PhotoQt is the ability to easily set a shortcut for almost anything. Even mouse shortcuts are possible!") + "<br><br>";
-	descTxt += "<span style=\"font-size: 15pt; font-weight: bold\">" + tr("Image Information") + "</span><br>" + tr("Most images store some information about the image in the file. PhotoQt can read and display a good bit of that. You can find this information in the slide-in window at the left edge of PhotoQt.") + "<bR><br>";
-	descTxt += "<span style=\"font-size: 15pt; font-weight: bold\">" + tr("Basic File Actions") + "</span><br>" + tr("Basic file actions like renaming a file, or moving/copying it or deleting it can be done from inside of PhotoQt. However, you can only operate on a single file at a time. So for bigger operations, it'd be a better solution to use your choice of file manager.") + "<br><br>";
-	descTxt += "<div align=\"center\"><img src=\":/img/startupfileaction.png\"></div><bR><br>";
-	descTxt += "<span style=\"font-size: 15pt; font-weight: bold\">" + tr("Wallpaper") + "</span><br>" + tr("For different desktop environments (like e.g. XFCE4, Openbox, Gnome, ...) you can set an image your viewing directly as wallpaper. Depending on the DE there are also different options available. Unfortunately, KDE is currently not supported.") + "<br><br>";
-	descTxt += "<span style=\"font-size: 15pt; font-weight: bold\">" + tr("Slideshow") + "</span><br>" + tr("PhotoQt also brings a slideshow feature. When you start a slideshow, it starts at the currently displayed image. There are a couple simply settings like transition and speed, and you can also set a music file that is played in the background. When the slideshow takes longer than the music file, then PhotoQt starts the music file all over from the beginning. At anytime during the slideshow, you can move the mouse cursor to the top edge of the screen to get a little bar, where you can pause/exit the slideshow and adjust the music volume.") + "<br><br>";
-	descTxt += "<span style=\"font-size: 15pt; font-weight: bold\">" + tr("Localisation") + "</span><br>" + tr("PhotoQt comes with a number of translations. Many have taken some of their time to create/update one of them. Not all of them are (yet) complete, so why don't you help?") + "<br><br><br>";
-	descTxt += tr("There are many many more features. Best is, you just give it a go. Don't forget to check the settings to make PhotoQt \"your own\".") + "<br><br><br>" + tr("Enjoy :-)") + "<bR><br><br>";
+	QString descTxt = "<table>";
+
+	descTxt += "<tr><td style=\"vertical-align: middle\">";
+		descTxt += "<img src=\":/img/startupwidget/fileformats.png\">";
+	descTxt += "</td><td style=\"vertical-align: middle\">";
+		descTxt += "<span style=\"font-size: 15pt; font-weight: bold\">" + tr("Many File Formats") + "</span><br>" + tr("PhotoQt can make use of GraphicsMagick, an image library, to display many different image formats. Currently, there are up to 72 different file formats supported (exact number depends on your system)! You can find a list of it in the settings (Tab 'Other'). There you can en-/disable different ones and also add custom file endings.");
+	descTxt += "</td></tr>";
+
+	descTxt += "</table>";
+	descTxt += "<table>";
+
+	descTxt += "<tr><td style=\"vertical-align: middle\">";
+		descTxt += "<span style=\"font-size: 15pt; font-weight: bold\">" + tr("Make PhotoQt your own") + "</span><br>" + tr("PhotoQt has an extensive settings area. By default you can call it with the shortcut 'e' or through the dropdown menu at the top edge towards the top right corner. You can adjust almost everything in PhotoQt, and it's certainly worth having a look there. Each setting usually comes with a little explanation text.");
+	descTxt += "</td><td style=\"vertical-align: middle\">";
+		descTxt += "<img src=\":/img/startupwidget/settings.png\">";
+	descTxt += "</td></tr>";
+
+	descTxt += "</table>";
+	descTxt += "<table>";
+
+	descTxt += "<tr><td style=\"vertical-align: middle\">";
+		descTxt += "<img src=\":/img/startupwidget/thumbnails.png\">";
+	descTxt += "</td><td style=\"vertical-align: middle\">";
+		descTxt += "<span style=\"font-size: 15pt; font-weight: bold\">" + tr("Thumbnails") + "</span><br>" + tr("What would be an image viewer without thumbnails support? It would only be half as good. Whenever you load an image, PhotoQt loads the other images in the directory in the background (by default, it tries to be smart about it and only loads the ones that are needed). It lines them up in a row at the bottom edge (move your mouse there to see them). There are many settings just for the thumbnails, like, e.g., size, liftup, en-/disabled, type, filename, permanently shown/hidden, etc. PhotoQt's quite flexible with that.");
+	descTxt += "</td></tr>";
+
+	descTxt += "</table>";
+	descTxt += "<table>";
+
+	descTxt += "<tr><td style=\"vertical-align: middle\">";
+		descTxt += "<span style=\"font-size: 15pt; font-weight: bold\">" + tr("Shortcuts") + "</span><br>" + tr("One of the many strengths of PhotoQt is the ability to easily set a shortcut for almost anything. Even mouse shortcuts are possible! You can choose from a huge number of internal functions, or you can run any custom script or command.");
+	descTxt += "</td><td style=\"vertical-align: middle\">";
+		descTxt += "<img src=\":/img/startupwidget/shortcuts.png\">";
+	descTxt += "</td></tr>";
+
+	descTxt += "</table>";
+	descTxt += "<table>";
+
+	descTxt += "<tr><td style=\"vertical-align: middle\">";
+		descTxt += "<img src=\":/img/startupwidget/exif.png\">";
+	descTxt += "</td><td style=\"vertical-align: middle\">";
+		descTxt += "<span style=\"font-size: 15pt; font-weight: bold\">" + tr("Image Information (Exif)") + "</span><br>" + tr("Most images store some information about the image in the file. PhotoQt can read and display a good bit of that (currently, only Exif is supported). You can find this information in the slide-in window hidden behind the left edge of PhotoQt.");
+	descTxt += "</td></tr>";
+
+	descTxt += "</table>";
+	descTxt += "<table>";
+
+	descTxt += "<tr><td style=\"vertical-align: middle\">";
+		descTxt += "<span style=\"font-size: 15pt; font-weight: bold\">" + tr("Slideshow") + "</span><br>" + tr("PhotoQt also brings a slideshow feature. When you start a slideshow, it starts at the currently displayed image. There are a couple settings like transition, speed, loop, and shuffle. Plus, you can set a music file that is played in the background. When the slideshow takes longer than the music file, then PhotoQt starts the music file all over from the beginning. At anytime during the slideshow, you can move the mouse cursor to the top edge of the screen to get a little bar, where you can pause/exit the slideshow and adjust the music volume.");
+	descTxt += "</td><td style=\"vertical-align: middle\">";
+		descTxt += "<img src=\":/img/startupwidget/slideshow.png\">";
+	descTxt += "</td></tr>";
+
+	descTxt += "</table>";
+	descTxt += "<table>";
+
+	descTxt += "<tr><td style=\"vertical-align: middle\">";
+		descTxt += "<img src=\":/img/startupwidget/localisation.png\">";
+	descTxt += "</td><td style=\"vertical-align: middle\">";
+		descTxt += "<span style=\"font-size: 15pt; font-weight: bold\">" + tr("Localisation") + "</span><br>" + tr("PhotoQt comes with a number of translations. Many have taken some of their time to create/update one of them (Thank you!). Not all of them are complete... do you want to help?");
+	descTxt += "</td></tr>";
+
+	descTxt += "</table><br><br><br>";
+
+	descTxt += tr("There are many many more features. Best is, you just give it a go. Don't forget to check out the settings to make PhotoQt YOUR image viewer.") + "<br><br><br>" + tr("Enjoy :-)") + "<br><br>";
 
 	desc->setText(descTxt);
 
@@ -97,8 +149,8 @@ void StartUpWidget::setUpdateMsg() {
 
 	title->setText(tr("PhotoQt was successfully updated"));
 
-	QString introTxt = "<b>" + tr("Welcome back to PhotoQt. It hasn't been that long since the last release of PhotoQt. Yet there have been more changes than ever before. Most (if not all) of them were aimed at smoothing PhotoQt out. I tried to include all the feedback I received over the past years that has been left without attention until now.") + "<br><br>";
-	introTxt += tr("I'm convinced, that this release is better than any one before. PhotoQt is working reliable and efficient in every one of its parts. It definitely can hold up to the 'traditional' image viewers out there.") + "<br><br><br>";
+	QString introTxt = "<b>" + tr("Welcome back to PhotoQt. It hasn't been that long since the last release of PhotoQt. Yet there have been more changes than ever before. Most (if not all) of them were aimed at smoothing PhotoQt out. I tried to implement all the feedback and feature requests I received over the past year(s) that has been left without much attention until now.") + "<br><br>";
+	introTxt += tr("I'm convinced, that this release is better than any one before. PhotoQt is working reliable and efficient in every aspect. It definitely can hold up to the more 'traditional' image viewers out there.") + "<br><br>";
 	introTxt += tr("Below you find a short overview over the features of PhotoQt. But feel free to skip it and just get started.") + "</b><br>";
 
 	customIntro->setText(introTxt);
@@ -110,7 +162,7 @@ void StartUpWidget::setInstallMsg() {
 	title->setText(tr("PhotoQt was successfully installed"));
 
 	QString introTxt = "<b>" + tr("Welcome to PhotoQt. PhotoQt is an image viewer, aimed at being fast and reliable, highly customisable and good looking.") + "<br><br>";
-	introTxt += tr("This app started out more than three years ago, and it has developed quite a bit since then. Especially since this release more than before, I'm convinced it can hold up to the more 'traditional' image viewers out there, both in reliability and efficiency.") + "<br><br><br>";
+	introTxt += tr("This app started out more than three years ago, and it has developed quite a bit since then. It has become very efficient, reliable, and highly flexible (check out the settings). I'm convinced it can hold up to the more 'traditional' image viewers out there in every way.") + "<br><br>";
 	introTxt += tr("Here below you find a short overview of what PhotoQt has to offer, but feel free to skip it and just get started.");
 
 

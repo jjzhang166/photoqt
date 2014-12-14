@@ -29,9 +29,6 @@
         <file>img/empty.png</file>
         <file>img/nothumb.png</file>
         <file>img/emptybackground.png</file>
-        <file>img/startupthumbs.png</file>
-        <file>img/startupfileaction.png</file>
-        <file>img/startupfileformats.png</file>
         <file>img/switchoff.png</file>
         <file>img/switchon.png</file>
         <file>img/delete.png</file>
@@ -60,5 +57,12 @@
         <file>img/sortascending.png</file>
         <file>img/checkbox_unchecked_disabled.png</file>
         <file>img/checkbox_checked_disabled.png</file>
+        <file>img/startupwidget/exif.png</file>
+        <file>img/startupwidget/fileformats.png</file>
+        <file>img/startupwidget/localisation.png</file>
+        <file>img/startupwidget/settings.png</file>
+        <file>img/startupwidget/shortcuts.png</file>
+        <file>img/startupwidget/thumbnails.png</file>
+        <file>img/startupwidget/slideshow.png</file>
     </qresource>
 </RCC>
