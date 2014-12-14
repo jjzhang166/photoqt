@@ -1,4 +1,6 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="sk" version="2.1">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="sk">
 <context>
     <name>About</name>
     <message>
@@ -7,63 +9,82 @@
         <translation>PhotoQt je jednoduchý prehliadač obrázkov navrhnutý s dôrazom na príjemný vzhľad, vysokú konfigurovateľnosť, rýchlosť a navyše je jednoduchý na použitie.</translation>
     </message>
     <message>
-        <location filename="../widgets/aboutwidget.cpp" line="45"/>
         <source>Up until version 0.9.1, PhotoQt used to be called simply &apos;Photo&apos;. But Photo isn&apos;t quite a unique and creative name (born simply out of the need to give it some name). Searching the web for it was close to impossible. Whether PhotoQt is a much more creative name than Photo is debatable, but it certainly is a little more unique. Simply searching the web for &apos;photoqt&apos; results in some (more or less) relevant websites amongst the top results. On top of it, quite often the name of this application was thought to already be PhotoQt (or Photo-Qt), a confusion probably mainly caused by its website being photoqt.org.</source>
-        <translation>Až do verzie 0.9.1 sa PhotoQt volalo jednoducho &apos;Photo&apos;. Photo ale nie je práve jedinečné a kreatívne meno (vymyslené len preto, aby malo nejaké meno). Hľadať Photo na webe bolo prakticky nemožné. Či je meno PhotoQt viac kreatívne je diskutabilné, ale určite je o niečo viac jedinečnejšie. Ak si zadáte do vyhľadávača &apos;photoqt&apos;, zobrazí sa Vám pár (viac či menej) súvisiacich stránok.  Na samom vrchu pravdepodobne nájdete photoqt.org, pretože sa pôvodny názov Photo často zamieňal za PhotoQt (alebo Photo-Qt).</translation>
+        <translation type="vanished">Až do verzie 0.9.1 sa PhotoQt volalo jednoducho &apos;Photo&apos;. Photo ale nie je práve jedinečné a kreatívne meno (vymyslené len preto, aby malo nejaké meno). Hľadať Photo na webe bolo prakticky nemožné. Či je meno PhotoQt viac kreatívne je diskutabilné, ale určite je o niečo viac jedinečnejšie. Ak si zadáte do vyhľadávača &apos;photoqt&apos;, zobrazí sa Vám pár (viac či menej) súvisiacich stránok.  Na samom vrchu pravdepodobne nájdete photoqt.org, pretože sa pôvodny názov Photo často zamieňal za PhotoQt (alebo Photo-Qt).</translation>
     </message>
     <message>
-        <location filename="../widgets/aboutwidget.cpp" line="46"/>
         <source>Well, long story short, starting version 1.0, its name is PhotoQt.</source>
-        <translation>Nuž, dlhý príbeh v skratke, začínajúci verziou 1.0, jej meno je PhotoQt</translation>
+        <translation type="vanished">Nuž, dlhý príbeh v skratke, začínajúci verziou 1.0, jej meno je PhotoQt</translation>
     </message>
     <message>
-        <location filename="../widgets/aboutwidget.cpp" line="47"/>
         <source>I&apos;m not a trained programmer. I&apos;m a simple Maths student that loves doing stuff like this. All I know about programming I taught myself over the years. So PhotoQt might not be done in the best of ways, several things could probably be improved (from a programming point of view). But it&apos;s as good as I can do it, and I&apos;m constantly learning and improving things.</source>
-        <translation>Nie som vyštudovaný programátor. Som jednoducho študent matematiky, ktorý rád robí takéto veci. Všetko čo viem o programovaní, som sa naučil sám počas rokov. Preto PhotoQt možno nie je spravené práve najlepším spôsobom, niektoré veci by sa možno dali spraviť lepšie (z programátorského hľadiska). No je to tak dobré, ako to len viem spraviť a neustále sa učím a zlepšujem sa.</translation>
+        <translation type="vanished">Nie som vyštudovaný programátor. Som jednoducho študent matematiky, ktorý rád robí takéto veci. Všetko čo viem o programovaní, som sa naučil sám počas rokov. Preto PhotoQt možno nie je spravené práve najlepším spôsobom, niektoré veci by sa možno dali spraviť lepšie (z programátorského hľadiska). No je to tak dobré, ako to len viem spraviť a neustále sa učím a zlepšujem sa.</translation>
+    </message>
+    <message>
+        <source>I heard a number of times people saying, that PhotoQt is a &quot;copy&quot; of Picasa&apos;s image viewer. Well, it&apos;s not. In fact, I myself have never used Picasa. I have seen it in use though by others, and I can&apos;t deny that it influenced the basic design idea a little. But I&apos;m not trying to do something &quot;like Picasa&quot;. I try to do my own thing, and to do it as good as I can. If some consider it to be a replacement for Picasa, well, I feel a little honoured (since Picasa is created by &quot;proper&quot; programmers).</source>
+        <translation type="vanished">Počul som mnoho krát ako ľudia hovorili, že PhotoQt je &quot;kópia&quot; prehliadača obrázkov Picasa. No nie je. V skutočnosti som nikdy nepoužíval Picasu. Videl som ako ju používajú iní a nepopieram, že v malej miere ovplyvnila základný koncept dizajnu PhotoQt. No nepokúšam sa robiť &quot;niečo ako Picasu&quot;. Skúšam si robiť svoju vec, a robiť ju tak dobre ako viem. Ak ale niekto uzná PhotoQt ako vhodnú náhradu za Picasu, budem poctený (keďže Picasu robia &quot;ozajstní&quot; programátori).</translation>
     </message>
     <message>
         <location filename="../widgets/aboutwidget.cpp" line="48"/>
-        <source>I heard a number of times people saying, that PhotoQt is a &quot;copy&quot; of Picasa&apos;s image viewer. Well, it&apos;s not. In fact, I myself have never used Picasa. I have seen it in use though by others, and I can&apos;t deny that it influenced the basic design idea a little. But I&apos;m not trying to do something &quot;like Picasa&quot;. I try to do my own thing, and to do it as good as I can. If some consider it to be a replacement for Picasa, well, I feel a little honoured (since Picasa is created by &quot;proper&quot; programmers).</source>
-        <translation>Počul som mnoho krát ako ľudia hovorili, že PhotoQt je &quot;kópia&quot; prehliadača obrázkov Picasa. No nie je. V skutočnosti som nikdy nepoužíval Picasu. Videl som ako ju používajú iní a nepopieram, že v malej miere ovplyvnila základný koncept dizajnu PhotoQt. No nepokúšam sa robiť &quot;niečo ako Picasu&quot;. Skúšam si robiť svoju vec, a robiť ju tak dobre ako viem. Ak ale niekto uzná PhotoQt ako vhodnú náhradu za Picasu, budem poctený (keďže Picasu robia &quot;ozajstní&quot; programátori).</translation>
-    </message>
-    <message>
-        <location filename="../widgets/aboutwidget.cpp" line="49"/>
         <source>Don&apos;t forget to check out the website:</source>
         <translation>Nezabudnite si pozrieť stránku:</translation>
     </message>
     <message>
-        <location filename="../widgets/aboutwidget.cpp" line="50"/>
         <source>If there&apos;s one thing I want to achieve with PhotoQt, then it is, that you find it useful. If I accomplished that, then I&apos;m glad. There&apos;s no other reason I&apos;m doing that. I don&apos;t want money or anything, but just be helpful.</source>
-        <translation>Ak je niečo čo by som chcel s PhotoQt dosiahnuť, potom je to jednoducho to, aby bolo užitočné. Ak sa tak stane, budem len rád. Nemám žiadny iný dôvod prečo by som to robil, nechcem peniaze a podobne, len byť nápomocný.</translation>
+        <translation type="vanished">Ak je niečo čo by som chcel s PhotoQt dosiahnuť, potom je to jednoducho to, aby bolo užitočné. Ak sa tak stane, budem len rád. Nemám žiadny iný dôvod prečo by som to robil, nechcem peniaze a podobne, len byť nápomocný.</translation>
     </message>
     <message>
-        <location filename="../widgets/aboutwidget.cpp" line="51"/>
+        <location filename="../widgets/aboutwidget.cpp" line="49"/>
         <source>If you find a bug or if you have a question or suggestion, tell me. I&apos;m open to any feedback I get :)</source>
         <translation>Ak nájdete nejakú chybu, alebo máte na mňa otázku prípadne podnet, napíšte mi. Uvítam akúkoľvek odozvu :)</translation>
     </message>
     <message>
-        <location filename="../widgets/aboutwidget.cpp" line="52"/>
         <source>Thanks to everybody who&lt;br&gt;contributed to PhotoQt&lt;br&gt;and/or translated PhotoQt to another language!&lt;br&gt;&lt;br&gt;You guys rock!! :-)</source>
-        <translation>Ďakujem všetkým ľuďom, ktorí&lt;br&gt;prispeli do PhotoQt&lt;br&gt;a/alebo preložili PhotoQt do iného jazyka!&lt;br&gt;&lt;br&gt;Ste borci!! :-)</translation>
+        <translation type="vanished">Ďakujem všetkým ľuďom, ktorí&lt;br&gt;prispeli do PhotoQt&lt;br&gt;a/alebo preložili PhotoQt do iného jazyka!&lt;br&gt;&lt;br&gt;Ste borci!! :-)</translation>
     </message>
     <message>
-        <location filename="../widgets/aboutwidget.cpp" line="53"/>
+        <location filename="../widgets/aboutwidget.cpp" line="45"/>
+        <source>With PhotoQt I try to be different than other image viewers (after all, there are plenty of good image viewers already out there). Its interface is kept very simple, yet there is an abundance of settings to customize the look and feel to make PhotoQt YOUR image viewer.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../widgets/aboutwidget.cpp" line="46"/>
+        <source>I&apos;m not a trained programmer. I&apos;m a simple Maths student that loves doing stuff like this. Most of my programming knowledge I taught myself over the past 10-ish years, and it has been developing a lot since I started PhotoQt. During my studies in university I learned a lot about the basics of programming that I was missing. And simply working on PhotoQt gave me a lot of invaluable experience. So the code of PhotoQt might in places not quite be done in the best of ways, but I think it&apos;s getting better and better with each release.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../widgets/aboutwidget.cpp" line="47"/>
+        <source>I heard a number of times people saying, that PhotoQt is a &apos;copy&apos; of Picasa&apos;s image viewer. Well, it&apos;s not. In fact, I myself have never used Picasa. I have seen it in use though by others, and I can&apos;t deny that it influenced the basic design idea a little. But I&apos;m not trying to do something &apos;like Picasa&apos;. I try to do my own thing, and to do it as good as I can.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../widgets/aboutwidget.cpp" line="50"/>
+        <source>Thanks to everybody who contributed to PhotoQt and/or translated PhotoQt to another language! You guys rock!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../widgets/aboutwidget.cpp" line="51"/>
         <source>You want to join the team and do something, e.g. translating PhotoQt to another language? Drop me and email (Lukas@photoqt.org), and for translations, check the project page on Transifex: http://transifex.com/p/photo.</source>
         <translation>hcete sa stať súčasťou týmu a niečím prispieť, napr. prekladom PhotoQt do iného jazyka? Kontaktujte ma pomocou e-mailu (Lukas@photoqt.org) a pre preklady navštívte projektovú stránku na Transifexe: http://transifex.com/p/photo</translation>
     </message>
     <message>
-        <location filename="../widgets/aboutwidget.cpp" line="81"/>
+        <location filename="../widgets/aboutwidget.cpp" line="61"/>
+        <source>Click to go to:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../widgets/aboutwidget.cpp" line="96"/>
         <source>Okay, I got enough of that...</source>
         <extracomment>This string is written onto the &quot;close&quot; button of the about widget</extracomment>
         <translation>Ok, mám toho dosť...</translation>
     </message>
     <message>
-        <location filename="../widgets/aboutwidget.cpp" line="99"/>
+        <location filename="../widgets/aboutwidget.cpp" line="114"/>
         <source>website:</source>
         <translation>webstránka:</translation>
     </message>
     <message>
-        <location filename="../widgets/aboutwidget.cpp" line="99"/>
+        <location filename="../widgets/aboutwidget.cpp" line="114"/>
         <source>Licensed under GPLv2 or later, without any guarantee</source>
         <translation>Licencované pod GPLv2, bez žiadnej garancie</translation>
     </message>
@@ -90,7 +111,17 @@
         <translation>Klikne sem pre presun</translation>
     </message>
     <message>
-        <location filename="../settings/settingstabothercontexttiles.cpp" line="77"/>
+        <location filename="../settings/settingstabothercontexttiles.cpp" line="75"/>
+        <source>quit</source>
+        <translation type="unfinished">ukončiť</translation>
+    </message>
+    <message>
+        <location filename="../settings/settingstabothercontexttiles.cpp" line="76"/>
+        <source>Quit PhotoQt after executing command</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings/settingstabothercontexttiles.cpp" line="91"/>
         <source>Delete Entry</source>
         <translation>Vymazať údaj</translation>
     </message>
@@ -237,7 +268,7 @@
     <message>
         <location filename="../widgets/detailswidget.cpp" line="117"/>
         <source>no</source>
-        <extracomment>This string identifies that flash wasn't fired</extracomment>
+        <extracomment>This string identifies that flash wasn&apos;t fired</extracomment>
         <translation>nie</translation>
     </message>
     <message>
@@ -470,107 +501,107 @@
 <context>
     <name>FileHandling</name>
     <message>
-        <location filename="../widgets/filehandling.cpp" line="64"/>
+        <location filename="../widgets/filehandling.cpp" line="63"/>
         <source>Rename File</source>
         <translation>Premenovať súbor</translation>
     </message>
     <message>
-        <location filename="../widgets/filehandling.cpp" line="87"/>
+        <location filename="../widgets/filehandling.cpp" line="86"/>
         <source>Save</source>
         <translation>Uložiť</translation>
     </message>
     <message>
-        <location filename="../widgets/filehandling.cpp" line="92"/>
-        <location filename="../widgets/filehandling.cpp" line="162"/>
-        <location filename="../widgets/filehandling.cpp" line="262"/>
-        <location filename="../widgets/filehandling.cpp" line="342"/>
+        <location filename="../widgets/filehandling.cpp" line="91"/>
+        <location filename="../widgets/filehandling.cpp" line="160"/>
+        <location filename="../widgets/filehandling.cpp" line="259"/>
+        <location filename="../widgets/filehandling.cpp" line="338"/>
         <source>Cancel</source>
         <translation>Zrušiť</translation>
     </message>
     <message>
-        <location filename="../widgets/filehandling.cpp" line="129"/>
+        <location filename="../widgets/filehandling.cpp" line="127"/>
         <source>Delete File</source>
         <translation>Vymazať súbor</translation>
     </message>
     <message>
-        <location filename="../widgets/filehandling.cpp" line="137"/>
+        <location filename="../widgets/filehandling.cpp" line="135"/>
         <source>Do you really want to delete this file?</source>
         <translation>Naozaj chcete zmazať tento súbor?</translation>
     </message>
     <message>
-        <location filename="../widgets/filehandling.cpp" line="143"/>
+        <location filename="../widgets/filehandling.cpp" line="141"/>
         <source>Delete permanently</source>
         <translation>Zmazať natrvalo</translation>
     </message>
     <message>
-        <location filename="../widgets/filehandling.cpp" line="153"/>
+        <location filename="../widgets/filehandling.cpp" line="151"/>
         <source>Move to Trash</source>
         <translation>Presunúť do koša</translation>
     </message>
     <message>
-        <location filename="../widgets/filehandling.cpp" line="218"/>
+        <location filename="../widgets/filehandling.cpp" line="215"/>
         <source>Moving File</source>
         <translation>Presunúť súbor</translation>
     </message>
     <message>
-        <location filename="../widgets/filehandling.cpp" line="241"/>
-        <location filename="../widgets/filehandling.cpp" line="321"/>
+        <location filename="../widgets/filehandling.cpp" line="238"/>
+        <location filename="../widgets/filehandling.cpp" line="317"/>
         <source>Filename</source>
         <translation>Názov súboru</translation>
     </message>
     <message>
-        <location filename="../widgets/filehandling.cpp" line="258"/>
+        <location filename="../widgets/filehandling.cpp" line="255"/>
         <source>Move</source>
         <translation>Presunúť</translation>
     </message>
     <message>
-        <location filename="../widgets/filehandling.cpp" line="298"/>
+        <location filename="../widgets/filehandling.cpp" line="294"/>
         <source>Copying File</source>
         <translation>Kopírovať súbor</translation>
     </message>
     <message>
-        <location filename="../widgets/filehandling.cpp" line="338"/>
+        <location filename="../widgets/filehandling.cpp" line="334"/>
         <source>Copy</source>
         <translation>Kopírovať</translation>
     </message>
     <message>
-        <location filename="../widgets/filehandling.cpp" line="435"/>
+        <location filename="../widgets/filehandling.cpp" line="446"/>
         <source>Old name</source>
         <translation>Starý názov</translation>
     </message>
     <message>
-        <location filename="../widgets/filehandling.cpp" line="732"/>
-        <location filename="../widgets/filehandling.cpp" line="734"/>
-        <location filename="../widgets/filehandling.cpp" line="759"/>
-        <location filename="../widgets/filehandling.cpp" line="761"/>
-        <location filename="../widgets/filehandling.cpp" line="781"/>
+        <location filename="../widgets/filehandling.cpp" line="756"/>
+        <location filename="../widgets/filehandling.cpp" line="758"/>
         <location filename="../widgets/filehandling.cpp" line="783"/>
+        <location filename="../widgets/filehandling.cpp" line="785"/>
+        <location filename="../widgets/filehandling.cpp" line="805"/>
+        <location filename="../widgets/filehandling.cpp" line="807"/>
         <source>File with this name already exists!</source>
         <translation>Súbor s týmto názvom už existuje!</translation>
     </message>
     <message>
-        <location filename="../widgets/filehandling.cpp" line="738"/>
+        <location filename="../widgets/filehandling.cpp" line="762"/>
         <source>Rename file</source>
         <translation>Premenovať súbor</translation>
     </message>
     <message>
-        <location filename="../widgets/filehandling.cpp" line="745"/>
+        <location filename="../widgets/filehandling.cpp" line="769"/>
         <source>You need to specify a different name</source>
         <translation>Musíte zadať iné meno</translation>
     </message>
     <message>
-        <location filename="../widgets/filehandling.cpp" line="765"/>
+        <location filename="../widgets/filehandling.cpp" line="789"/>
         <source>Move File</source>
         <translation>Presunúť súbor</translation>
     </message>
     <message>
-        <location filename="../widgets/filehandling.cpp" line="771"/>
-        <location filename="../widgets/filehandling.cpp" line="793"/>
+        <location filename="../widgets/filehandling.cpp" line="795"/>
+        <location filename="../widgets/filehandling.cpp" line="817"/>
         <source>You need to specify a different file/name</source>
         <translation>Musíte zadať iný súbor/názov</translation>
     </message>
     <message>
-        <location filename="../widgets/filehandling.cpp" line="787"/>
+        <location filename="../widgets/filehandling.cpp" line="811"/>
         <source>Copy File</source>
         <translation>Kopírovať súbor</translation>
     </message>
@@ -624,92 +655,92 @@
 <context>
     <name>GraphicsView</name>
     <message>
-        <location filename="../graphics/graphicsview.cpp" line="124"/>
+        <location filename="../graphics/graphicsview.cpp" line="135"/>
         <source>Move:</source>
         <translation>Presunúť:</translation>
     </message>
     <message>
-        <location filename="../graphics/graphicsview.cpp" line="130"/>
+        <location filename="../graphics/graphicsview.cpp" line="141"/>
         <source>Previous</source>
         <translation>Predchádzajúci</translation>
     </message>
     <message>
-        <location filename="../graphics/graphicsview.cpp" line="133"/>
+        <location filename="../graphics/graphicsview.cpp" line="144"/>
         <source>Next</source>
         <translation>Nasledujúci</translation>
     </message>
     <message>
-        <location filename="../graphics/graphicsview.cpp" line="161"/>
+        <location filename="../graphics/graphicsview.cpp" line="172"/>
         <source>Rotate:</source>
         <translation>Otočiť:</translation>
     </message>
     <message>
-        <location filename="../graphics/graphicsview.cpp" line="163"/>
+        <location filename="../graphics/graphicsview.cpp" line="174"/>
         <source>Left</source>
         <translation>Vľavo</translation>
     </message>
     <message>
-        <location filename="../graphics/graphicsview.cpp" line="166"/>
+        <location filename="../graphics/graphicsview.cpp" line="177"/>
         <source>Right</source>
         <translation>Vpravo</translation>
     </message>
     <message>
-        <location filename="../graphics/graphicsview.cpp" line="185"/>
+        <location filename="../graphics/graphicsview.cpp" line="196"/>
         <source>Flip:</source>
         <translation>Prevrátiť:</translation>
     </message>
     <message>
-        <location filename="../graphics/graphicsview.cpp" line="187"/>
+        <location filename="../graphics/graphicsview.cpp" line="198"/>
         <source>Horizontal</source>
         <translation>Horizontálne</translation>
     </message>
     <message>
-        <location filename="../graphics/graphicsview.cpp" line="190"/>
+        <location filename="../graphics/graphicsview.cpp" line="201"/>
         <source>Vertical</source>
         <translation>Vertikálne</translation>
     </message>
     <message>
-        <location filename="../graphics/graphicsview.cpp" line="209"/>
+        <location filename="../graphics/graphicsview.cpp" line="220"/>
         <source>Zoom:</source>
         <translation>Zoom:</translation>
     </message>
     <message>
-        <location filename="../graphics/graphicsview.cpp" line="211"/>
+        <location filename="../graphics/graphicsview.cpp" line="222"/>
         <source>In</source>
         <translation>Priblížiť</translation>
     </message>
     <message>
-        <location filename="../graphics/graphicsview.cpp" line="214"/>
+        <location filename="../graphics/graphicsview.cpp" line="225"/>
         <source>Out</source>
         <translation>Oddialiť</translation>
     </message>
     <message>
-        <location filename="../graphics/graphicsview.cpp" line="217"/>
+        <location filename="../graphics/graphicsview.cpp" line="228"/>
         <source>Actual</source>
         <translation>Skutočný</translation>
     </message>
     <message>
-        <location filename="../graphics/graphicsview.cpp" line="220"/>
+        <location filename="../graphics/graphicsview.cpp" line="231"/>
         <source>Reset</source>
         <translation>Reset</translation>
     </message>
     <message>
-        <location filename="../graphics/graphicsview.cpp" line="245"/>
+        <location filename="../graphics/graphicsview.cpp" line="256"/>
         <source>Scale Image</source>
         <translation>Prevzorkovať obrázok</translation>
     </message>
     <message>
-        <location filename="../graphics/graphicsview.cpp" line="253"/>
+        <location filename="../graphics/graphicsview.cpp" line="264"/>
         <source>Open in default File Manager</source>
         <translation>Otvoriť v predvolenom súborovom manažéri.</translation>
     </message>
     <message>
-        <location filename="../graphics/graphicsview.cpp" line="259"/>
+        <location filename="../graphics/graphicsview.cpp" line="270"/>
         <source>Delete File</source>
         <translation>Odstrániť súbor</translation>
     </message>
     <message>
-        <location filename="../graphics/graphicsview.cpp" line="265"/>
+        <location filename="../graphics/graphicsview.cpp" line="276"/>
         <source>Rename File</source>
         <translation>Premenovať súbor</translation>
     </message>
@@ -717,45 +748,52 @@
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../mainwindow.cpp" line="870"/>
-        <location filename="../mainwindow.cpp" line="956"/>
+        <location filename="../mainwindow.cpp" line="1119"/>
+        <location filename="../mainwindow.cpp" line="1203"/>
         <source>Show Details</source>
         <translation>Zobraziť podrobnosti</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="870"/>
-        <location filename="../mainwindow.cpp" line="948"/>
-        <location filename="../mainwindow.cpp" line="1628"/>
+        <location filename="../mainwindow.cpp" line="1119"/>
+        <location filename="../mainwindow.cpp" line="1195"/>
+        <location filename="../mainwindow.cpp" line="1907"/>
         <source>Hide Details</source>
         <translation>Skryť podrobnosti</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1080"/>
+        <location filename="../mainwindow.cpp" line="1344"/>
         <source>Open image file</source>
         <translation>Otvoriť súbor obrázka</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1080"/>
+        <location filename="../mainwindow.cpp" line="1344"/>
+        <location filename="../mainwindow.cpp" line="1345"/>
+        <location filename="../mainwindow.cpp" line="1346"/>
         <source>Images</source>
         <translation>Obrázky</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1567"/>
+        <location filename="../mainwindow.cpp" line="1347"/>
+        <source>All Files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="1846"/>
         <source>Image Viewer</source>
         <translation>Prehliadač obrázkov</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1574"/>
+        <location filename="../mainwindow.cpp" line="1853"/>
         <source>Hide/Show PhotoQt</source>
         <translation>Skryť/ukázať PhotoQt</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1579"/>
+        <location filename="../mainwindow.cpp" line="1858"/>
         <source>Open New Image</source>
         <translation>Otvoriť nový obrázok</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1587"/>
+        <location filename="../mainwindow.cpp" line="1866"/>
         <source>Quit PhotoQt</source>
         <translation>Ukončiť PhotoQt</translation>
     </message>
@@ -763,25 +801,28 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../main.cpp" line="407"/>
         <source>Edit with Gimp</source>
-        <translation>Upraviť v Gimpe</translation>
+        <translation type="vanished">Upraviť v Gimpe</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="407"/>
         <source>Open in GwenView</source>
-        <translation>Otvoriť v GwenView</translation>
+        <translation type="vanished">Otvoriť v GwenView</translation>
     </message>
 </context>
 <context>
     <name>QuickInfoLabel</name>
     <message>
-        <location filename="../graphics/graphicsviewlay.cpp" line="299"/>
+        <location filename="../graphics/graphicsviewlay.cpp" line="320"/>
         <source>Hide Filepath, leave Filename</source>
         <translation>Skryť cestu k súboru, nechať názov súboru</translation>
     </message>
     <message>
-        <location filename="../graphics/graphicsviewlay.cpp" line="303"/>
+        <location filename="../graphics/graphicsviewlay.cpp" line="325"/>
+        <source>Switch between normal/fancy look</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../graphics/graphicsviewlay.cpp" line="329"/>
         <source>Hide this item</source>
         <translation>Skryť túto položku</translation>
     </message>
@@ -789,77 +830,112 @@
 <context>
     <name>QuickSettings</name>
     <message>
-        <location filename="../widgets/quicksettings.cpp" line="39"/>
+        <location filename="../widgets/quicksettings.cpp" line="55"/>
         <source>Quick Settings</source>
         <translation>Rýchle nastavenia</translation>
     </message>
     <message>
-        <location filename="../widgets/quicksettings.cpp" line="44"/>
+        <location filename="../widgets/quicksettings.cpp" line="60"/>
         <source>Change settings with one click. They are saved and applied immediately. If you&apos;re unsure what a setting does, check the full settings for descriptions.</source>
         <translation>Nastavenia môžete zmeniť jediným kliknutím. Zmeny sa uložia a prejavia ihneď. Ak si nie ste istý čo nastavenie spôsobí, prečítajte si popis v hlavných nastaveniach.</translation>
     </message>
     <message>
-        <location filename="../widgets/quicksettings.cpp" line="47"/>
+        <location filename="../widgets/quicksettings.cpp" line="63"/>
+        <source>Sort by</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../widgets/quicksettings.cpp" line="74"/>
+        <source>Name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../widgets/quicksettings.cpp" line="75"/>
+        <source>Natural Name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../widgets/quicksettings.cpp" line="76"/>
+        <source>Date</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../widgets/quicksettings.cpp" line="77"/>
+        <source>File Size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../widgets/quicksettings.cpp" line="89"/>
         <source>Real transparency</source>
         <translation>Skutočná priehľadnosť</translation>
     </message>
     <message>
-        <location filename="../widgets/quicksettings.cpp" line="48"/>
+        <location filename="../widgets/quicksettings.cpp" line="90"/>
         <source>Faked transparency</source>
         <translation>Falošná priehľadnosť</translation>
     </message>
     <message>
-        <location filename="../widgets/quicksettings.cpp" line="49"/>
+        <location filename="../widgets/quicksettings.cpp" line="91"/>
         <source>Background image</source>
         <translation>Obrázok pozadia</translation>
     </message>
     <message>
-        <location filename="../widgets/quicksettings.cpp" line="50"/>
+        <location filename="../widgets/quicksettings.cpp" line="92"/>
         <source>Coloured background</source>
         <translation>Farebné pozadie</translation>
     </message>
     <message>
-        <location filename="../widgets/quicksettings.cpp" line="51"/>
+        <location filename="../widgets/quicksettings.cpp" line="95"/>
         <source>Hide to system tray</source>
         <translation>Skryť do systémového panela</translation>
     </message>
     <message>
-        <location filename="../widgets/quicksettings.cpp" line="52"/>
+        <location filename="../widgets/quicksettings.cpp" line="96"/>
         <source>Loop through folder</source>
         <translation>Zreťaz obrázky v priečinku</translation>
     </message>
     <message>
-        <location filename="../widgets/quicksettings.cpp" line="53"/>
+        <location filename="../widgets/quicksettings.cpp" line="97"/>
         <source>Window mode</source>
         <translation>Mód v okne</translation>
     </message>
     <message>
-        <location filename="../widgets/quicksettings.cpp" line="54"/>
+        <location filename="../widgets/quicksettings.cpp" line="98"/>
         <source>Show window decoration</source>
         <translation>Zobrazovať dekorácie okna</translation>
     </message>
     <message>
-        <location filename="../widgets/quicksettings.cpp" line="55"/>
+        <location filename="../widgets/quicksettings.cpp" line="99"/>
         <source>Close on click on background</source>
         <translation>Zatvoriť kliknutím na pozadie</translation>
     </message>
     <message>
-        <location filename="../widgets/quicksettings.cpp" line="56"/>
+        <location filename="../widgets/quicksettings.cpp" line="100"/>
         <source>Keep thumbnails visible</source>
         <translation>Ponechať náhľady viditeľné</translation>
     </message>
     <message>
-        <location filename="../widgets/quicksettings.cpp" line="57"/>
+        <location filename="../widgets/quicksettings.cpp" line="107"/>
+        <source>Normal thumbnails</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../widgets/quicksettings.cpp" line="108"/>
         <source>Dynamic thumbnails</source>
         <translation>Dynamické náhľady</translation>
     </message>
     <message>
-        <location filename="../widgets/quicksettings.cpp" line="58"/>
+        <location filename="../widgets/quicksettings.cpp" line="101"/>
         <source>Enable &apos;Quick Settings&apos;</source>
         <translation>Zapnúť &quot;Rýche nastavenia&quot;</translation>
     </message>
     <message>
-        <location filename="../widgets/quicksettings.cpp" line="93"/>
+        <location filename="../widgets/quicksettings.cpp" line="109"/>
+        <source>Smart thumbnails</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../widgets/quicksettings.cpp" line="140"/>
         <source>Show full settings</source>
         <translation>Ukázať plné nastavenia</translation>
     </message>
@@ -867,111 +943,111 @@
 <context>
     <name>Scale</name>
     <message>
-        <location filename="../manipulation/scale.cpp" line="12"/>
+        <location filename="../manipulation/scale.cpp" line="28"/>
         <source>Scale Image</source>
         <translation>Prevzorkovať obrázok</translation>
     </message>
     <message>
-        <location filename="../manipulation/scale.cpp" line="14"/>
-        <location filename="../manipulation/scale.cpp" line="160"/>
+        <location filename="../manipulation/scale.cpp" line="30"/>
+        <location filename="../manipulation/scale.cpp" line="177"/>
         <source>Current Size:</source>
         <translation>Aktuálna veľkosť:</translation>
     </message>
     <message>
-        <location filename="../manipulation/scale.cpp" line="20"/>
+        <location filename="../manipulation/scale.cpp" line="36"/>
         <source>New Width:</source>
         <translation>Nová šírka:</translation>
     </message>
     <message>
-        <location filename="../manipulation/scale.cpp" line="35"/>
+        <location filename="../manipulation/scale.cpp" line="51"/>
         <source>New Height:</source>
         <translation>Nová výška:</translation>
     </message>
     <message>
-        <location filename="../manipulation/scale.cpp" line="50"/>
+        <location filename="../manipulation/scale.cpp" line="66"/>
         <source>Aspect Ratio</source>
         <translation>Pomer strán</translation>
     </message>
     <message>
-        <location filename="../manipulation/scale.cpp" line="66"/>
+        <location filename="../manipulation/scale.cpp" line="83"/>
         <source>Quality:</source>
         <translation>Kvalita:</translation>
     </message>
     <message>
-        <location filename="../manipulation/scale.cpp" line="87"/>
+        <location filename="../manipulation/scale.cpp" line="104"/>
         <source>Scale in place</source>
         <translation>Prevzorkovať tento súbor</translation>
     </message>
     <message>
-        <location filename="../manipulation/scale.cpp" line="89"/>
+        <location filename="../manipulation/scale.cpp" line="106"/>
         <source>Scale in new file</source>
         <translation>Prevzorkovať do nového súboru</translation>
     </message>
     <message>
-        <location filename="../manipulation/scale.cpp" line="91"/>
+        <location filename="../manipulation/scale.cpp" line="108"/>
         <source>Don&apos;t Scale</source>
         <translation>Neprevzorkovať</translation>
     </message>
     <message>
-        <location filename="../manipulation/scale.cpp" line="143"/>
+        <location filename="../manipulation/scale.cpp" line="160"/>
         <source>Filetype Not Supported</source>
         <translation>Nepodporovaný typ súboru</translation>
     </message>
     <message>
-        <location filename="../manipulation/scale.cpp" line="143"/>
+        <location filename="../manipulation/scale.cpp" line="160"/>
         <source>Sorry, scaling is currently only available for filetypes natively supported by Qt...</source>
         <translation>Sorry, zmena veľkosti je možná len pre formáty, ktoré podporuje Qt...</translation>
     </message>
     <message>
-        <location filename="../manipulation/scale.cpp" line="143"/>
+        <location filename="../manipulation/scale.cpp" line="160"/>
         <source>Oh, okay...</source>
         <translation>No dobre...</translation>
     </message>
     <message>
-        <location filename="../manipulation/scale.cpp" line="212"/>
+        <location filename="../manipulation/scale.cpp" line="229"/>
         <source>Don&apos;t keep aspect ratio</source>
         <translation>Nedodržiavať pomer strán</translation>
     </message>
     <message>
-        <location filename="../manipulation/scale.cpp" line="212"/>
+        <location filename="../manipulation/scale.cpp" line="229"/>
         <source>Keep aspect ratio</source>
         <translation>Dodržiavať pomer strán</translation>
     </message>
     <message>
-        <location filename="../manipulation/scale.cpp" line="228"/>
-        <location filename="../manipulation/scale.cpp" line="253"/>
+        <location filename="../manipulation/scale.cpp" line="245"/>
+        <location filename="../manipulation/scale.cpp" line="270"/>
         <source>Overwrite Image?</source>
         <translation>Prepísať obrázok?</translation>
     </message>
     <message>
-        <location filename="../manipulation/scale.cpp" line="229"/>
+        <location filename="../manipulation/scale.cpp" line="246"/>
         <source>This will replace the current image with the scaled version... Continue?</source>
         <translation>Prevzorkovaný obrázok nahradí ten pôvodný... Naozaj chcete pokračovať?</translation>
     </message>
     <message>
-        <location filename="../manipulation/scale.cpp" line="230"/>
-        <location filename="../manipulation/scale.cpp" line="255"/>
+        <location filename="../manipulation/scale.cpp" line="247"/>
+        <location filename="../manipulation/scale.cpp" line="272"/>
         <source>Continue</source>
         <translation>Pokračovať</translation>
     </message>
     <message>
-        <location filename="../manipulation/scale.cpp" line="230"/>
-        <location filename="../manipulation/scale.cpp" line="255"/>
+        <location filename="../manipulation/scale.cpp" line="247"/>
+        <location filename="../manipulation/scale.cpp" line="272"/>
         <source>Stop</source>
         <translation>Stop</translation>
     </message>
     <message>
-        <location filename="../manipulation/scale.cpp" line="247"/>
+        <location filename="../manipulation/scale.cpp" line="264"/>
         <source>Save as...</source>
         <translation>Uložit ako...</translation>
     </message>
     <message>
-        <location filename="../manipulation/scale.cpp" line="247"/>
+        <location filename="../manipulation/scale.cpp" line="264"/>
         <source>Images</source>
         <translation>Obrázky</translation>
     </message>
     <message>
-        <location filename="../manipulation/scale.cpp" line="254"/>
+        <location filename="../manipulation/scale.cpp" line="271"/>
         <source>This file exists already... Continue?</source>
         <translation>Tento súbor už existuje... Pokračovať?</translation>
     </message>
@@ -1235,246 +1311,427 @@
 <context>
     <name>SettingsTabLookAndFeel</name>
     <message>
-        <location filename="../settings/settingstablookandfeel.cpp" line="71"/>
         <source>Look</source>
-        <translation>Vzhľad</translation>
+        <translation type="vanished">Vzhľad</translation>
     </message>
     <message>
-        <location filename="../settings/settingstablookandfeel.cpp" line="72"/>
         <source>Behaviour</source>
-        <translation>Správanie</translation>
+        <translation type="vanished">Správanie</translation>
     </message>
     <message>
-        <location filename="../settings/settingstablookandfeel.cpp" line="77"/>
         <source>Overall Look</source>
-        <translation>Celkový vzhľad</translation>
+        <translation type="vanished">Celkový vzhľad</translation>
     </message>
     <message>
-        <location filename="../settings/settingstablookandfeel.cpp" line="80"/>
         <source>Behaviour of PhotoQt</source>
-        <translation>Správanie Photo Qt</translation>
+        <translation type="vanished">Správanie Photo Qt</translation>
     </message>
     <message>
-        <location filename="../settings/settingstablookandfeel.cpp" line="86"/>
+        <location filename="../settings/settingstablookandfeel.cpp" line="229"/>
         <source>Use (half-)transparent background</source>
         <translation>Použiť (polo-) priehľadné pozadie</translation>
     </message>
     <message>
-        <location filename="../settings/settingstablookandfeel.cpp" line="87"/>
+        <location filename="../settings/settingstablookandfeel.cpp" line="230"/>
         <source>Use faked transparency</source>
         <translation>Použiť falošnú priehľadnosť</translation>
     </message>
     <message>
-        <location filename="../settings/settingstablookandfeel.cpp" line="88"/>
+        <location filename="../settings/settingstablookandfeel.cpp" line="231"/>
         <source>Use custom background image</source>
         <translation>Použiť vlastný obrázok ako pozadie</translation>
     </message>
     <message>
-        <location filename="../settings/settingstablookandfeel.cpp" line="89"/>
+        <location filename="../settings/settingstablookandfeel.cpp" line="232"/>
         <source>Use one-colored, non-transparent background</source>
         <translation>Použiť jednofarebné, nepriehľadné pozadie</translation>
     </message>
     <message>
-        <location filename="../settings/settingstablookandfeel.cpp" line="91"/>
+        <location filename="../settings/settingstablookandfeel.cpp" line="234"/>
         <source>The background of PhotoQt is the part, that is not covered by an image. It can be made either real (half-)transparent (using a compositor), or faked transparent (instead of the actual desktop a screenshot of it is shown), or a custom background image can be set, or none of the above.</source>
         <translation>Pozadím aplikácie PhotoQt je tá časť, ktorá nie je prekrytá obrázkom. Pozadie môže byť (polo) priehľadné (cez kompozítor), alebo falošne priehľadné (namiesto aktuálnej plochy je použitý jej screenshot), alebo môže byť použitý vlastný obrázok pozadia, alebo môže byť nepriehľadné.</translation>
     </message>
     <message>
-        <location filename="../settings/settingstablookandfeel.cpp" line="93"/>
+        <location filename="../settings/settingstablookandfeel.cpp" line="236"/>
         <source>Note: Fake transparency currently only really works when PhotoQt is run in fullscreen/maximised!</source>
         <translation>Poznámka: Falošná nepriehľadnosť funguje len ak je PhotoQt v režime celej obrazovky, alebo maximalizované!</translation>
     </message>
     <message>
-        <location filename="../settings/settingstablookandfeel.cpp" line="94"/>
+        <location filename="../settings/settingstablookandfeel.cpp" line="237"/>
         <source>Background of PhotoQt</source>
         <translation>Pozadie PhotoQt</translation>
     </message>
     <message>
-        <location filename="../settings/settingstablookandfeel.cpp" line="121"/>
-        <location filename="../settings/settingstablookandfeel.cpp" line="596"/>
-        <location filename="../settings/settingstablookandfeel.cpp" line="675"/>
+        <location filename="../settings/settingstablookandfeel.cpp" line="258"/>
+        <location filename="../settings/settingstablookandfeel.cpp" line="818"/>
+        <location filename="../settings/settingstablookandfeel.cpp" line="897"/>
         <source>no image has been selected</source>
         <translation>nebol vybraný žiadny obrázok</translation>
     </message>
     <message>
-        <location filename="../settings/settingstablookandfeel.cpp" line="125"/>
+        <location filename="../settings/settingstablookandfeel.cpp" line="262"/>
         <source>Scale To Fit</source>
         <translation>Zmenšiť/zväčšiť</translation>
     </message>
     <message>
-        <location filename="../settings/settingstablookandfeel.cpp" line="127"/>
+        <location filename="../settings/settingstablookandfeel.cpp" line="264"/>
         <source>Stretch To Fit</source>
         <translation>Roztiahnuť</translation>
     </message>
     <message>
-        <location filename="../settings/settingstablookandfeel.cpp" line="129"/>
+        <location filename="../settings/settingstablookandfeel.cpp" line="266"/>
         <source>Center Image</source>
         <translation>Centrovať</translation>
     </message>
     <message>
-        <location filename="../settings/settingstablookandfeel.cpp" line="170"/>
+        <location filename="../settings/settingstablookandfeel.cpp" line="307"/>
         <source>Background/Overlay Color</source>
         <translation>Farba pozadia</translation>
     </message>
     <message>
-        <location filename="../settings/settingstablookandfeel.cpp" line="170"/>
+        <location filename="../settings/settingstablookandfeel.cpp" line="307"/>
         <source>Here you can adjust the background colour of PhotoQt (of the part not covered by an image). When using compositing or a background image, then you can also specify an alpha value, i.e. the transparency of the coloured overlay layer. When neither compositing is enabled nor a background image is set, then this colour will be the non-transparent background of PhotoQt.</source>
         <translation>Tu je možné nastaviť farbu pozadia PhotoQt (časti nezakrytej obrázkom). Pri použití kompozície, alebo obrázka ako pozadie táto farba slúži ako alfa hodnota, napr. priehľadnosť zafarbenej vrstvy. Ak nie je použitá kompozícia ani obrázok ako pozadie, potom je táto farba použitá na zafarbenie pozadia aplikácie PhotoQt.</translation>
     </message>
     <message>
-        <location filename="../settings/settingstablookandfeel.cpp" line="172"/>
+        <location filename="../settings/settingstablookandfeel.cpp" line="309"/>
         <source>Click to change color!</source>
         <translation>Kliknite pre zmenu farby!</translation>
     </message>
     <message>
-        <location filename="../settings/settingstablookandfeel.cpp" line="187"/>
-        <location filename="../settings/settingstablookandfeel.cpp" line="188"/>
+        <location filename="../settings/settingstablookandfeel.cpp" line="137"/>
+        <location filename="../settings/settingstablookandfeel.cpp" line="138"/>
         <source>Hide to Tray Icon</source>
         <translation>Skryť do systémového panelu</translation>
     </message>
     <message>
-        <location filename="../settings/settingstablookandfeel.cpp" line="188"/>
+        <location filename="../settings/settingstablookandfeel.cpp" line="71"/>
+        <source>Basic</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings/settingstablookandfeel.cpp" line="72"/>
+        <source>Advanced</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings/settingstablookandfeel.cpp" line="77"/>
+        <source>Basic Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings/settingstablookandfeel.cpp" line="80"/>
+        <source>Advanced Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings/settingstablookandfeel.cpp" line="90"/>
+        <source>Sort Images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings/settingstablookandfeel.cpp" line="90"/>
+        <source>Here you can adjust, how the images in a folder are supposed to be sorted. You can sort them by Filename, Natural Name (e.g., file10.jpg comes after file9.jpg and not after file1.jpg), File Size, and Date. Also, you can reverse the sorting order from ascending to descending if wanted.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings/settingstablookandfeel.cpp" line="90"/>
+        <source>Hint: You can also change this setting very quickly from the &apos;Quick Settings&apos;&apos; window, hidden behind the right screen edge.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings/settingstablookandfeel.cpp" line="91"/>
+        <source>Sort by:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings/settingstablookandfeel.cpp" line="93"/>
+        <source>Name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings/settingstablookandfeel.cpp" line="94"/>
+        <source>Natural Name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings/settingstablookandfeel.cpp" line="95"/>
+        <source>Date</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings/settingstablookandfeel.cpp" line="96"/>
+        <source>File Size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings/settingstablookandfeel.cpp" line="97"/>
+        <source>Ascending</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings/settingstablookandfeel.cpp" line="99"/>
+        <source>Descending</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings/settingstablookandfeel.cpp" line="138"/>
         <source>When started PhotoQt creates a tray icon in the system tray. If desired, you can set PhotoQt to minimise to the tray instead of quitting. This causes PhotoQt to be almost instantaneously available when an image is opened.</source>
         <translation>Po spustení PhotoQt vytvorí ikonu v systémovom paneli. Je tiež možné, aby sa pri ukončení aplikácie PhotoQt namiesto úplného ukončenia minimalizovalo do panelu. Takto bude Photo pripravené čo najrýchlejšie otvoriť obrázok.</translation>
     </message>
     <message>
-        <location filename="../settings/settingstablookandfeel.cpp" line="188"/>
+        <location filename="../settings/settingstablookandfeel.cpp" line="138"/>
         <source>It is also possible to start PhotoQt already minimised to the tray (e.g. at system startup) when called with &quot;--start-in-tray&quot;.</source>
         <translation>Je tiež možné spustiť PhotoQt už minimalizované do systémového panelu (napr. po nabehnutí systému) s parametrom &quot;--start-in-tray&quot;.</translation>
     </message>
     <message>
-        <location filename="../settings/settingstablookandfeel.cpp" line="202"/>
+        <location filename="../settings/settingstablookandfeel.cpp" line="151"/>
+        <source>Closing &apos;X&apos; (top right)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings/settingstablookandfeel.cpp" line="151"/>
+        <source>There are two looks for the closing &apos;x&apos; at the top right: a normal &apos;x&apos;, or a slightly more fancy &apos;x&apos;. Here you can switch back and forth between both of them, and also change their size. If you prefer not to have a closing &apos;x&apos; at all, see below for an option to hide it.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings/settingstablookandfeel.cpp" line="157"/>
+        <source>Normal look</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings/settingstablookandfeel.cpp" line="159"/>
+        <source>Fancy look</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings/settingstablookandfeel.cpp" line="169"/>
+        <source>Small</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings/settingstablookandfeel.cpp" line="170"/>
+        <source>Large</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings/settingstablookandfeel.cpp" line="186"/>
+        <source>Fit Image in Window</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings/settingstablookandfeel.cpp" line="186"/>
+        <source>If the image dimensions are smaller than the screen dimensions, PhotoQt can zoom those images to make them fir into the window. However, keep in mind, that such images will look pixelated to a certain degree (depending on each image).</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings/settingstablookandfeel.cpp" line="188"/>
+        <source>Fit Images in Window</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings/settingstablookandfeel.cpp" line="362"/>
         <source>Loop Through Folder</source>
         <translation>Zreťaz obrázky v priečinku</translation>
     </message>
     <message>
-        <location filename="../settings/settingstablookandfeel.cpp" line="203"/>
+        <location filename="../settings/settingstablookandfeel.cpp" line="363"/>
         <source>Looping Through Folder</source>
         <translation>Zreťazenie obrázkov v priečinku</translation>
     </message>
     <message>
-        <location filename="../settings/settingstablookandfeel.cpp" line="203"/>
+        <location filename="../settings/settingstablookandfeel.cpp" line="363"/>
         <source>When you load the last image in a directory and select &quot;Next&quot;, PhotoQt automatically jumps to the first image (and vice versa: if you select &quot;Previous&quot; while having the first image loaded, PhotoQt jumps to the last image). Disabling this option makes PhotoQt stop at the first/last image (i.e. selecting &quot;Next&quot;/&quot;Previous&quot; will have no effect in these two special cases).</source>
         <translation>Ak sa načíta posledný obrázok v priečinku a stlačíte &quot;Nasledujúci&quot;, PhotoQt automaticky skočí na prvý obrázok v priečinku (a naopak ak stlačíte &quot;Predchádzajúci&quot; ak máte načítaný prvý obrázok v priečinku, PhotoQt skočí na posledný obrázok). Vypnutím tejto funkcie sa PhotoQt zastaví na prvom/poslednom obrázku v priečinku (stlačenie &quot;Predchádzajúci/Nasledujúci&quot; pri vyššie zmienených príkladoch ostane bez efektu).</translation>
     </message>
     <message>
-        <location filename="../settings/settingstablookandfeel.cpp" line="222"/>
+        <location filename="../settings/settingstablookandfeel.cpp" line="382"/>
         <source>Smooth Transition</source>
         <translation>Jemný prechod</translation>
     </message>
     <message>
-        <location filename="../settings/settingstablookandfeel.cpp" line="222"/>
+        <location filename="../settings/settingstablookandfeel.cpp" line="382"/>
         <source>Switching between images can be done smoothly, the new image can be set to fade into the old image.</source>
         <translation>Prechod medzi obrázkami môže byť jemný, nový obrázok sa objaví v jemnom zániku starého.</translation>
     </message>
     <message>
-        <location filename="../settings/settingstablookandfeel.cpp" line="224"/>
+        <location filename="../settings/settingstablookandfeel.cpp" line="384"/>
         <source>No Fading</source>
         <translation>Bez prechodu</translation>
     </message>
     <message>
-        <location filename="../settings/settingstablookandfeel.cpp" line="225"/>
+        <location filename="../settings/settingstablookandfeel.cpp" line="385"/>
         <source>Long Transition</source>
         <translation>Dlhý prechod</translation>
     </message>
     <message>
-        <location filename="../settings/settingstablookandfeel.cpp" line="241"/>
+        <location filename="../settings/settingstablookandfeel.cpp" line="399"/>
         <source>Menu Sensitivity</source>
         <translation>Citlivosť zobrazenia menu</translation>
     </message>
     <message>
-        <location filename="../settings/settingstablookandfeel.cpp" line="241"/>
+        <location filename="../settings/settingstablookandfeel.cpp" line="399"/>
         <source>Here you can adjust the sensitivity of the drop-down menu. The menu opens when your mouse cursor gets close to the right side of the upper edge. Here you can adjust how close you need to get for it to open.</source>
         <translation>Tu môžete nastaviť citlivosť vysúvacieho menu. Menu sa vysunie, ak sa kurzor dostane do blízkosti pravého horného rohu. Tu si môžete nastaviť ako blízko sa potrebuje kurzor dostať, aby sa menu vysunulo.</translation>
     </message>
     <message>
-        <location filename="../settings/settingstablookandfeel.cpp" line="244"/>
+        <location filename="../settings/settingstablookandfeel.cpp" line="402"/>
         <source>Low Sensitivity</source>
         <translation>Nízka citlivosť</translation>
     </message>
     <message>
-        <location filename="../settings/settingstablookandfeel.cpp" line="245"/>
+        <location filename="../settings/settingstablookandfeel.cpp" line="403"/>
         <source>High Sensitivity</source>
         <translation>Vysoká citlivosť</translation>
     </message>
     <message>
-        <location filename="../settings/settingstablookandfeel.cpp" line="263"/>
+        <location filename="../settings/settingstablookandfeel.cpp" line="458"/>
+        <source>Animation and Window Geometry</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings/settingstablookandfeel.cpp" line="458"/>
+        <source>There are two things that can be adjusted here:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings/settingstablookandfeel.cpp" line="458"/>
+        <source>Animation of fade-in widgets (like, e.g., Settings or About Widget)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings/settingstablookandfeel.cpp" line="458"/>
+        <source>Save and restore of Window Geometry: On quitting PhotoQt, it stores the size and position of the window and can restore it the next time started.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings/settingstablookandfeel.cpp" line="118"/>
         <source>Window Mode</source>
         <translation>Mód v okne</translation>
     </message>
     <message>
-        <location filename="../settings/settingstablookandfeel.cpp" line="263"/>
+        <location filename="../settings/settingstablookandfeel.cpp" line="118"/>
         <source>PhotoQt is designed with the space of a fullscreen app in mind. That&apos;s why it by default runs as fullscreen. However, some might prefer to have it as a normal window, e.g. so that they can see the panel.</source>
         <translation>PhotoQt bolo dizajnované ako predstava fullscreen aplikácie. Preto v základnom nastavení beží na celú obrazovku. Každopádne, niekto preferuje obyčajné okno, tak aby videl panel.</translation>
     </message>
     <message>
-        <location filename="../settings/settingstablookandfeel.cpp" line="265"/>
+        <location filename="../settings/settingstablookandfeel.cpp" line="120"/>
         <source>Run PhotoQt in Window Mode</source>
         <translation>Spusitť PhotoQt v okne</translation>
     </message>
     <message>
-        <location filename="../settings/settingstablookandfeel.cpp" line="266"/>
+        <location filename="../settings/settingstablookandfeel.cpp" line="121"/>
         <source>Show Window Decoration</source>
         <translation>Zobrazovať dekorácie okna</translation>
     </message>
     <message>
-        <location filename="../settings/settingstablookandfeel.cpp" line="283"/>
-        <location filename="../settings/settingstablookandfeel.cpp" line="284"/>
+        <location filename="../settings/settingstablookandfeel.cpp" line="348"/>
+        <location filename="../settings/settingstablookandfeel.cpp" line="349"/>
         <source>Close on Click in empty area</source>
         <translation>Zatvoriť Photo kliknutím na prázdne miesto</translation>
     </message>
     <message>
-        <location filename="../settings/settingstablookandfeel.cpp" line="284"/>
+        <location filename="../settings/settingstablookandfeel.cpp" line="349"/>
         <source>This option makes PhotoQt behave a bit like the JavaScript image viewers you find on many websites. A click outside of the image on the empty background will close the application. It can be a nice feature, PhotoQt will feel even more like a &quot;floating layer&quot;. However, you might at times close PhotoQt accidentally.</source>
         <translation>Táto funkcia je spravená na štýl mnohých javaskriptových prehliadačov obrázkov, presne ako to poznáte z webstránok. Kliknutím mimo obrázka na prázdne pozadie ukončíte aplikáciu. Je to fajn funkcia, PhotoQt sa takto ešte viac podobá na akúsi &quot;plávajúcu vrstvu&quot;. Bohužiaľ takto môžete náhodne vypnúť Photoqt aj keď to práve nechcete.</translation>
     </message>
     <message>
-        <location filename="../settings/settingstablookandfeel.cpp" line="284"/>
+        <location filename="../settings/settingstablookandfeel.cpp" line="349"/>
         <source>Note: If you use a mouse click for a shortcut already, then this option wont have any effect!</source>
         <translation>Poznámka: Ak používate kliknutie myšou ako skratku, táto funkcia ostane bez efektu!</translation>
     </message>
     <message>
-        <location filename="../settings/settingstablookandfeel.cpp" line="306"/>
+        <location filename="../settings/settingstablookandfeel.cpp" line="332"/>
         <source>Border Around Image</source>
         <translation>Okraj okolo obrázka</translation>
     </message>
     <message>
-        <location filename="../settings/settingstablookandfeel.cpp" line="306"/>
+        <location filename="../settings/settingstablookandfeel.cpp" line="332"/>
         <source>Whenever you load an image, the image is per default not shown completely in fullscreen, i.e. it&apos;s not stretching from screen edge to screen edge. Instead there is a small margin around the image of a couple pixels (looks better). Here you can adjust the width of this margin (set to 0 to disable it).</source>
         <translation>Vždy keď sa načíta obrázok, nezobrazí sa úplne na celú obrazovku. To znamená, že nie je roztiahnutý od okraja obrazovky po okraj. Namiesto toho je na okraji malá medzera o veľkosti pár pixelov (lepšie to vyzerá). Tu si môžete nastaviť veľkosť medzery (nastavením na 0 ju vypnete).</translation>
     </message>
     <message>
-        <location filename="../settings/settingstablookandfeel.cpp" line="323"/>
+        <location filename="../settings/settingstablookandfeel.cpp" line="200"/>
         <source>Hide Quickinfo (Text Labels)</source>
         <translation>Skryť Quickinfo (textové popisky)</translation>
     </message>
     <message>
-        <location filename="../settings/settingstablookandfeel.cpp" line="323"/>
+        <location filename="../settings/settingstablookandfeel.cpp" line="200"/>
         <source>Here you can hide the text labels shown in the main area: The Counter in the top left corner, the file path/name following the counter, and the &quot;X&quot; displayed in the top right corner. The labels can also be hidden by simply right-clicking on them and selecting &quot;Hide&quot;.</source>
         <translation>Tu môžete skryť textové popisky objavujúce sa v hlavnej oblasti: Počítadlo v hornom ľavom rohu, cesta k súboru/názov súboru za počítadlom, a &quot;X&quot; zobrazené v hornom pravom rohu. Tieto popisky, je tiež možné  skryť pravým kliknutím na samotné popisky a stlačením na &quot;Skryť&quot;.</translation>
     </message>
     <message>
-        <location filename="../settings/settingstablookandfeel.cpp" line="327"/>
+        <location filename="../settings/settingstablookandfeel.cpp" line="204"/>
         <source>Hide Counter</source>
         <translation>Skryť počitadlo</translation>
     </message>
     <message>
-        <location filename="../settings/settingstablookandfeel.cpp" line="328"/>
+        <location filename="../settings/settingstablookandfeel.cpp" line="205"/>
         <source>Hide Filepath (Shows only file name)</source>
         <translation>Skryť cestu k súboru (ukázať len názov súboru)</translation>
     </message>
     <message>
-        <location filename="../settings/settingstablookandfeel.cpp" line="329"/>
+        <location filename="../settings/settingstablookandfeel.cpp" line="206"/>
         <source>Hide Filename (Including file path)</source>
         <translation>Skryť názov súboru (vrátane cesty k súboru)</translation>
     </message>
     <message>
-        <location filename="../settings/settingstablookandfeel.cpp" line="330"/>
+        <location filename="../settings/settingstablookandfeel.cpp" line="207"/>
         <source>Hide &quot;X&quot; (Closing)</source>
         <translation>Skryť &quot;X&quot; (Ukončenie)</translation>
     </message>
     <message>
-        <location filename="../settings/settingstablookandfeel.cpp" line="679"/>
+        <location filename="../settings/settingstablookandfeel.cpp" line="420"/>
+        <source>Mouse Wheel Sensitivity</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings/settingstablookandfeel.cpp" line="420"/>
+        <source>Here you can adjust the sensitivity of the mouse wheel. For example, if you have set the mouse wheel up/down for switching back and forth between images, then a lower sensitivity means that you will have to scroll further for triggering a shortcut. Per default it is set to the highest sensitivity, i.e. every single wheel movement is evaluated.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings/settingstablookandfeel.cpp" line="423"/>
+        <source>Very sensitive</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings/settingstablookandfeel.cpp" line="424"/>
+        <source>Not sensitive at all</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings/settingstablookandfeel.cpp" line="441"/>
+        <source>Remember per session</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings/settingstablookandfeel.cpp" line="441"/>
+        <source>If you would like PhotoQt to remember the rotation/flipping and/or zoom level per session (not permanent), then you can enable it here. If not set, then every time a new image is displayed, it is displayed neither zoomed nor rotated nor flipped (one could say, it is displayed &quot;normal&quot;).</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings/settingstablookandfeel.cpp" line="443"/>
+        <source>Remember Rotation/Flip</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings/settingstablookandfeel.cpp" line="444"/>
+        <source>Remember Zoom Level</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings/settingstablookandfeel.cpp" line="460"/>
+        <source>Animate all fade-in widgets</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings/settingstablookandfeel.cpp" line="461"/>
+        <source>Save and restore window geometry</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings/settingstablookandfeel.cpp" line="901"/>
         <source>Select Background Image</source>
         <translation>Vybrať obrázok pozadia</translation>
     </message>
@@ -1512,95 +1769,187 @@
         <translation>K dispozícii sú rôzne jazyky. Vďaka všetkým, ktorí venovali svoj čas prekladu PhotoQt!</translation>
     </message>
     <message>
-        <location filename="../settings/settingstabother.cpp" line="216"/>
+        <location filename="../settings/settingstabother.cpp" line="233"/>
         <source>Quick Settings</source>
         <translation>Rýchle nastavenia</translation>
     </message>
     <message>
-        <location filename="../settings/settingstabother.cpp" line="216"/>
+        <location filename="../settings/settingstabother.cpp" line="233"/>
         <source>The &apos;Quick Settings&apos; is a widget hidden on the right side of the screen. When you move the cursor there, it shows up, and you can adjust a few simple settings on the spot without having to go through this settings dialog. Of course, only a small subset of settings is available (the ones needed most often). Here you can disable the dialog so that it doesn&apos;t show on mouse movement anymore.</source>
         <translation>&quot;Rýchle nastavenia&quot; je widget skrytý v pravom okraji obrazovky. Zobrazí sa, keď sa kurzor dostatočne priblíži k okraju. Môžete v ňom z fleku zmeniť veci bez toho, aby ste museli ísť do hlavného menu. K dispozícií je ich ale len pár (tie najpoužívanejšie). Tu je možné vypnúť tento widget, takže sa už pri priblížení kurzoru nezobrazí.</translation>
     </message>
     <message>
-        <location filename="../settings/settingstabother.cpp" line="217"/>
+        <location filename="../settings/settingstabother.cpp" line="234"/>
         <source>Show &apos;Quick Settings&apos; on mouse hovering</source>
         <translation>Zobraziť &quot;Rýchle nastavenia&quot; pri prechode myšou</translation>
     </message>
     <message>
-        <location filename="../settings/settingstabother.cpp" line="231"/>
+        <location filename="../settings/settingstabother.cpp" line="248"/>
         <source>Adjust Context Menu</source>
         <translation>Nastavenia kontextového menu</translation>
     </message>
     <message>
-        <location filename="../settings/settingstabother.cpp" line="231"/>
+        <location filename="../settings/settingstabother.cpp" line="248"/>
         <source>Here you can adjust the context menu. You can simply drag and drop the entries, edit them, add a new one and remove an existing one.</source>
         <translation>Tu si môžete nastaviť kontextové menu. Môžete jednoducho preniesť položky, upraviť ich, pridať novú položku alebo odstrániť už existujúcu.</translation>
     </message>
     <message>
-        <location filename="../settings/settingstabother.cpp" line="237"/>
+        <location filename="../settings/settingstabother.cpp" line="254"/>
         <source>Add new Entry</source>
         <translation>Pridať novú položku</translation>
     </message>
     <message>
-        <location filename="../settings/settingstabother.cpp" line="257"/>
+        <location filename="../settings/settingstabother.cpp" line="279"/>
         <source>File Types - Qt</source>
         <translation>Súborové typy - Qt</translation>
     </message>
     <message>
-        <location filename="../settings/settingstabother.cpp" line="257"/>
+        <location filename="../settings/settingstabother.cpp" line="279"/>
+        <source>These are the file types natively supported by Qt. Make sure, that you&apos;ll have the required libraries installed (e.g., qt5-imageformats), otherwise some of them might not work on your system.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings/settingstabother.cpp" line="279"/>
+        <source>If a file ending for one of the formats is missing, you can add it below, formatted like &apos;*.ending&apos; (without single quotation marks), multiple entries seperated by commas.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings/settingstabother.cpp" line="349"/>
+        <source>PhotoQt makes use of GraphicsMagick for support of many different image formats. The list below are all those formats, that were successfully displayed using test images. If you prefer not to have one or the other enabled in PhotoQt, you can simply disable individual formats below.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings/settingstabother.cpp" line="349"/>
+        <source>There are a few formats, that were not tested in PhotoQt (due to lack of a test image). You can find those in the &apos;Untested&apos; category below.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings/settingstabother.cpp" line="444"/>
+        <source>File Types - GraphicsMagick (requires Ghostscript)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings/settingstabother.cpp" line="444"/>
+        <source>The following file types are supported by GraphicsMagick, and they have been tested and work. However, they require Ghostscript to be installed on the system.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings/settingstabother.cpp" line="508"/>
+        <source>File Types - Other tools required</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings/settingstabother.cpp" line="508"/>
+        <source>The following filetypes are supported by means of other third party tools. You first need to install them before you can use them.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings/settingstabother.cpp" line="508"/>
+        <source>Note</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings/settingstabother.cpp" line="508"/>
+        <source>If an image format is also provided by GraphicsMagick/Qt, then PhotoQt first chooses the external tool (if enabled).</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings/settingstabother.cpp" line="515"/>
+        <source>Gimp&apos;s XCF file format.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings/settingstabother.cpp" line="515"/>
+        <location filename="../settings/settingstabother.cpp" line="541"/>
+        <source>Makes use of:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings/settingstabother.cpp" line="516"/>
+        <location filename="../settings/settingstabother.cpp" line="543"/>
+        <source>Click to open website</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings/settingstabother.cpp" line="519"/>
+        <source>Warning: &apos;%1&apos; not found!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings/settingstabother.cpp" line="541"/>
+        <source>Adobe Photoshop PSD and PSB.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings/settingstabother.cpp" line="545"/>
+        <source>Warning: Qt5 plugin for PSD/PSB (%1) not found!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings/settingstabother.cpp" line="579"/>
+        <source>File Types - GraphicsMagick (Untested)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings/settingstabother.cpp" line="580"/>
+        <source>The following file types are generally supported by GraphicsMagick, but I wasn&apos;t able to test them in PhotoQt (due to lack of test images). They might very well be working, but I simply can&apos;t say. If you decide to enable some of the, the worst that could happen ist, that you see an error image instead of the actual image.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings/settingstabother.cpp" line="581"/>
+        <source>If you happen to have an image in one of those formats and don&apos;t mind sending it to me, that&apos;d be really cool...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>These are the standard file types supported by Qt. Depending on your system, this list can vary a little.</source>
-        <translation>Tieto súborové typy sú štandardne podporované frameworkom Qt. V závislosti od Vášho systému sa môže zoznam trochu líšiť.</translation>
+        <translation type="vanished">Tieto súborové typy sú štandardne podporované frameworkom Qt. V závislosti od Vášho systému sa môže zoznam trochu líšiť.</translation>
     </message>
     <message>
-        <location filename="../settings/settingstabother.cpp" line="257"/>
-        <location filename="../settings/settingstabother.cpp" line="307"/>
         <source>If you want to add a file type not in the list, you can add them in the text box below. You have to enter the formats like &apos;*.ending&apos;, all seperated by commas.</source>
-        <translation>Ak chcete pridať súborový typ, ktorý sa nenachádza v zozname, môžete tak spraviť v riadku &quot;Extra typy súborov&quot;. Formáty je potrebné zadávať v tomto tvare &apos;*.koncovka&apos;, oddelené čiarkou.</translation>
+        <translation type="vanished">Ak chcete pridať súborový typ, ktorý sa nenachádza v zozname, môžete tak spraviť v riadku &quot;Extra typy súborov&quot;. Formáty je potrebné zadávať v tomto tvare &apos;*.koncovka&apos;, oddelené čiarkou.</translation>
     </message>
     <message>
-        <location filename="../settings/settingstabother.cpp" line="274"/>
-        <location filename="../settings/settingstabother.cpp" line="327"/>
+        <location filename="../settings/settingstabother.cpp" line="311"/>
         <source>Extra File Types:</source>
         <translation>Extra typy súborov:</translation>
     </message>
     <message>
-        <location filename="../settings/settingstabother.cpp" line="277"/>
-        <location filename="../settings/settingstabother.cpp" line="330"/>
-        <location filename="../settings/settingstabother.cpp" line="390"/>
+        <location filename="../settings/settingstabother.cpp" line="314"/>
+        <location filename="../settings/settingstabother.cpp" line="406"/>
+        <location filename="../settings/settingstabother.cpp" line="471"/>
+        <location filename="../settings/settingstabother.cpp" line="608"/>
         <source>Mark All</source>
         <translation>Označ všetky</translation>
     </message>
     <message>
-        <location filename="../settings/settingstabother.cpp" line="278"/>
-        <location filename="../settings/settingstabother.cpp" line="331"/>
-        <location filename="../settings/settingstabother.cpp" line="391"/>
+        <location filename="../settings/settingstabother.cpp" line="315"/>
+        <location filename="../settings/settingstabother.cpp" line="407"/>
+        <location filename="../settings/settingstabother.cpp" line="472"/>
+        <location filename="../settings/settingstabother.cpp" line="609"/>
         <source>Mark None</source>
         <translation>Označ žiadne</translation>
     </message>
     <message>
-        <location filename="../settings/settingstabother.cpp" line="303"/>
+        <location filename="../settings/settingstabother.cpp" line="340"/>
         <source>Use of GraphicsMagick has been disabled as PhotoQt was compiled/installed!</source>
         <translation>Použitie knižnice GraphicsMagick bolo deaktivované pri inštalácií PhotoQt!</translation>
     </message>
     <message>
-        <location filename="../settings/settingstabother.cpp" line="307"/>
+        <location filename="../settings/settingstabother.cpp" line="349"/>
         <source>File Types - GraphicsMagick</source>
         <translation>Súborové typy - GraphicsMagick</translation>
     </message>
     <message>
-        <location filename="../settings/settingstabother.cpp" line="307"/>
         <source>PhotoQt makes use of GraphicsMagick for support of many different file types. Not all of the formats supported by GraphicsMagick make sense in an image viewer. There are some that aren&apos;t quite working at the moment, you can find them in the &apos;Unstable&apos; category below.</source>
-        <translation>PhotoQt používa knižnicu GraphicsMagick na podporu rôznych typov súborov. Nie všetky formáty, ktoré podporuje GraphicsMagick dáva zmysel v prehliadači obrázkov. Niektoré z nich, ktoré práve nefungujú môžete nájsť v  &apos;Nestabilnej&apos; kategórii nižšie.</translation>
+        <translation type="vanished">PhotoQt používa knižnicu GraphicsMagick na podporu rôznych typov súborov. Nie všetky formáty, ktoré podporuje GraphicsMagick dáva zmysel v prehliadači obrázkov. Niektoré z nich, ktoré práve nefungujú môžete nájsť v  &apos;Nestabilnej&apos; kategórii nižšie.</translation>
     </message>
     <message>
-        <location filename="../settings/settingstabother.cpp" line="370"/>
         <source>File Types - GraphicsMagick (Unstable)</source>
-        <translation>Súborové typy - GraphicsMagick (nestabilné)</translation>
+        <translation type="vanished">Súborové typy - GraphicsMagick (nestabilné)</translation>
     </message>
     <message>
-        <location filename="../settings/settingstabother.cpp" line="370"/>
         <source>The following file types are supported by GraphicsMagick, but aren&apos;t quite working in PhotoQt just yet. If you want to experiment around a little, feel free to enable some of them. They shouldn&apos;t cause PhotoQt to crash, but you might see an error image instead of the actual image.</source>
-        <translation>Nasledujúce formáty majú podporu v knižnici GraphicsMagick, ale vo PhotoQt ešte nefungujú úplne správne. Ak si ale chcete trochu zaexperimentovať, kľudne do toho. Nemalo by to spôsobiť pád celej aplikácie, ale mohli by ste vidieť obrázok zobrazený chybne, či vôbec.</translation>
+        <translation type="vanished">Nasledujúce formáty majú podporu v knižnici GraphicsMagick, ale vo PhotoQt ešte nefungujú úplne správne. Ak si ale chcete trochu zaexperimentovať, kľudne do toho. Nemalo by to spôsobiť pád celej aplikácie, ale mohli by ste vidieť obrázok zobrazený chybne, či vôbec.</translation>
     </message>
 </context>
 <context>
@@ -1844,268 +2193,350 @@
 <context>
     <name>SettingsTabThumbnail</name>
     <message>
-        <location filename="../settings/settingstabthumbnail.cpp" line="76"/>
         <source>Look</source>
-        <translation>Vzhľad</translation>
+        <translation type="vanished">Vzhľad</translation>
     </message>
     <message>
-        <location filename="../settings/settingstabthumbnail.cpp" line="77"/>
         <source>Fine-Tuning</source>
-        <translation>Doladenie</translation>
+        <translation type="vanished">Doladenie</translation>
     </message>
     <message>
-        <location filename="../settings/settingstabthumbnail.cpp" line="82"/>
         <source>Thumbnail Look</source>
-        <translation>Vzhľad náhľadov</translation>
+        <translation type="vanished">Vzhľad náhľadov</translation>
     </message>
     <message>
-        <location filename="../settings/settingstabthumbnail.cpp" line="85"/>
         <source>Fine-Tuning of Thumbnails</source>
-        <translation>Doladenie náhľadov</translation>
+        <translation type="vanished">Doladenie náhľadov</translation>
     </message>
     <message>
-        <location filename="../settings/settingstabthumbnail.cpp" line="91"/>
+        <location filename="../settings/settingstabthumbnail.cpp" line="95"/>
         <source>Thumbnail Size</source>
         <translation>Veľkosť náhľadov</translation>
     </message>
     <message>
-        <location filename="../settings/settingstabthumbnail.cpp" line="91"/>
+        <location filename="../settings/settingstabthumbnail.cpp" line="95"/>
         <source>Here you can adjust the thumbnail size. You can set it to any size between 20 and 256 pixel. Per default it is set to 80 pixel, but with different screen resolutions it might be nice to have them larger/smaller.</source>
         <translation>Tu je možné nastaviť veľkosť náhľadov. Je možné nastaviť akúkoľvek veľkosť od 20 do 256 pixelov. Defaultne sú nastavené na 80 pixelov, ale pri rôznych rozlíšeniach možno budú vhodnejšie väčšie/menšie náhľady.</translation>
     </message>
     <message>
-        <location filename="../settings/settingstabthumbnail.cpp" line="122"/>
+        <location filename="../settings/settingstabthumbnail.cpp" line="125"/>
         <source>Spacing Between Thumbnail Images</source>
         <translation>Medzery medzi náhľadmi</translation>
     </message>
     <message>
-        <location filename="../settings/settingstabthumbnail.cpp" line="122"/>
+        <location filename="../settings/settingstabthumbnail.cpp" line="125"/>
         <source>The thumbnails are shown in a row at the lower or upper edge (depending on your setup). They are lined up side by side. Per default, there&apos;s no empty space between them, however exactly that can be changed here.</source>
         <translation>Náhľady sú zobrazované v rade na jednom z okrajov obrazovky (v závislosti na Vašom nastavení). Sú zoradené bok po boku. V základnom nastavení nie je medzi nimi žiadne miesto, presne toto ale môžete zmeniť práve tu.</translation>
     </message>
     <message>
-        <location filename="../settings/settingstabthumbnail.cpp" line="147"/>
+        <location filename="../settings/settingstabthumbnail.cpp" line="149"/>
         <source>Lift-up of Thumbnail Images on Hovering</source>
         <translation>Vyvýšenie náhľadov</translation>
     </message>
     <message>
-        <location filename="../settings/settingstabthumbnail.cpp" line="147"/>
+        <location filename="../settings/settingstabthumbnail.cpp" line="149"/>
         <source>When a thumbnail is hovered, it is lifted up some pixels (default 10). Here you can increase/decrease this value according to your personal preference.</source>
         <translation>Aktuálne zobrazený náhľad je vyvýšený o niekoľko pixelov (defaultne 10). Tu môžete upraviť túto hodnotu vzhľadom na Vaše preferencie.</translation>
     </message>
     <message>
-        <location filename="../settings/settingstabthumbnail.cpp" line="164"/>
+        <location filename="../settings/settingstabthumbnail.cpp" line="179"/>
+        <source>Smart thumbnails are similar in nature. However, they make use of the fast, that once a thumbnail has been created, it can be loaded very quickly and efficiently. It also first loads all of the currently visible thumbnails, but it doesn&apos;t stop there: Any thumbnails (even if invisible at the moment) that once have been created are loaded. This is a nice compromise between efficiency and usability.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings/settingstabthumbnail.cpp" line="179"/>
+        <source>Enabling either one of these is recommended, as it increases the performance of PhotoQt significantly, while preserving the usability.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings/settingstabthumbnail.cpp" line="181"/>
+        <source>Normal thumbnails</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings/settingstabthumbnail.cpp" line="182"/>
+        <source>Dynamic Thumbnails</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings/settingstabthumbnail.cpp" line="183"/>
+        <source>Smart Thumbnails</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings/settingstabthumbnail.cpp" line="203"/>
+        <source>Always center on Active Thumbnail</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings/settingstabthumbnail.cpp" line="203"/>
+        <source>If this option is set, then the active thumbnail (i.e., the thumbnail of the currently displayed image) will always be kept in the center of the thumbnail bar (if possible). If this option is not set, then the active thumbnail will simply be kept visible, but not necessarily in the center.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings/settingstabthumbnail.cpp" line="206"/>
+        <source>Center on Active Thumbnails</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings/settingstabthumbnail.cpp" line="224"/>
         <source>Change Thumbnail Position</source>
         <translation>Zmena pozície náhľadov</translation>
     </message>
     <message>
-        <location filename="../settings/settingstabthumbnail.cpp" line="164"/>
+        <location filename="../settings/settingstabthumbnail.cpp" line="224"/>
         <source>Per default the bar with the thumbnails is shown at the lower edge. However, some might find it nice and handy to have the thumbnail bar at the upper edge, so that&apos;s what can be changed here.</source>
         <translation>Defaultne je panel s náhľadmi zobrazený na dolnom okraji. Možno Vám ale príde krajšie a praktickejšie mať panel náhľadov na hornom okraji a to môžete zmeniť tu.</translation>
     </message>
     <message>
-        <location filename="../settings/settingstabthumbnail.cpp" line="167"/>
+        <location filename="../settings/settingstabthumbnail.cpp" line="227"/>
         <source>Show Thumbnails at upper edge</source>
         <translation>Zobrazovať náhľady na hornom okraji</translation>
     </message>
     <message>
-        <location filename="../settings/settingstabthumbnail.cpp" line="168"/>
+        <location filename="../settings/settingstabthumbnail.cpp" line="228"/>
         <source>Show Thumbnails at lower edge</source>
         <translation>Zobrazovať náhľady na dolnom okraji</translation>
     </message>
     <message>
-        <location filename="../settings/settingstabthumbnail.cpp" line="184"/>
-        <location filename="../settings/settingstabthumbnail.cpp" line="187"/>
+        <location filename="../settings/settingstabthumbnail.cpp" line="165"/>
+        <location filename="../settings/settingstabthumbnail.cpp" line="168"/>
         <source>Keep Thumbnails Visible</source>
         <translation>Nechať náhľady viditeľné</translation>
     </message>
     <message>
-        <location filename="../settings/settingstabthumbnail.cpp" line="184"/>
+        <location filename="../settings/settingstabthumbnail.cpp" line="76"/>
+        <source>Basic</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings/settingstabthumbnail.cpp" line="77"/>
+        <source>Advanced</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings/settingstabthumbnail.cpp" line="82"/>
+        <source>Basic Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings/settingstabthumbnail.cpp" line="85"/>
+        <source>Advanced Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings/settingstabthumbnail.cpp" line="165"/>
         <source>Per default the Thumbnails slide out over the edge of the screen. Here you can force them to stay visible. The big image is shrunk to fit into the empty space. Note, that the thumbnails will be hidden (and only shown on mouse hovering) once you zoomed the image in/out. Resetting the zoom restores the original visibility of the thumbnails.</source>
         <translation>Defaultne sa náhľady vysunú z okraja obrazovky. Tu môžete nastaviť, aby ostali vždy viditeľné. Veľký obrázok sa scvrkne tak aby sa zmestil na prázdne miesto. Majte na pamäti, že náhľady sa skryjú (a objavia opäť pri prejdení myšou) vždy keď použijete na obrázok priblíženie/oddialenie. Vrátením obrázka na pôvodné priblíženie tiež obnoví pôvodnú viditeľnosť náhľadov.</translation>
     </message>
     <message>
-        <location filename="../settings/settingstabthumbnail.cpp" line="198"/>
+        <location filename="../settings/settingstabthumbnail.cpp" line="179"/>
         <source>Dynamic Thumbnail Creation</source>
         <translation>Dynamické vytváranie náhľadov</translation>
     </message>
     <message>
-        <location filename="../settings/settingstabthumbnail.cpp" line="198"/>
+        <location filename="../settings/settingstabthumbnail.cpp" line="179"/>
         <source>Dynamic thumbnail creation means, that PhotoQt only sets up those thumbnail images that are actually needed, i.e. it stops once it reaches the end of the visible area and sits idle until you scroll left/right.</source>
         <translation>Dynamické vytváranie náhľadov znamená to, že PhotoQt vytvorí náhľady len tých obrázkov, ktoré práve potrebuje, resp. prestane vytvárať náhľady ak dosiahne okraj a čaká kým scrollnete doľava/doprava.</translation>
     </message>
     <message>
-        <location filename="../settings/settingstabthumbnail.cpp" line="198"/>
         <source>This feature is very handy, especially if you have bigger directories, since it doesn&apos;t occupy the CPU too long, and it doesn&apos;t create thumbnails that might never be needed.</source>
-        <translation>Táto funkcia je veľmi praktická, hlavne ak máte väčšie priečinky, pretože tak veľmi nezaťažuje procesor a nevytvárajú sa náhľady, ktoré možno nikdy nebudú potrebné.</translation>
+        <translation type="vanished">Táto funkcia je veľmi praktická, hlavne ak máte väčšie priečinky, pretože tak veľmi nezaťažuje procesor a nevytvárajú sa náhľady, ktoré možno nikdy nebudú potrebné.</translation>
     </message>
     <message>
-        <location filename="../settings/settingstabthumbnail.cpp" line="201"/>
         <source>Enable Dynamic Thumbnails</source>
-        <translation>Zapnúť dynamické náhľady</translation>
+        <translation type="vanished">Zapnúť dynamické náhľady</translation>
     </message>
     <message>
-        <location filename="../settings/settingstabthumbnail.cpp" line="213"/>
+        <location filename="../settings/settingstabthumbnail.cpp" line="271"/>
         <source>Use file-name-only Thumbnails</source>
         <translation>Použiť ako náhľady len názvy</translation>
     </message>
     <message>
-        <location filename="../settings/settingstabthumbnail.cpp" line="213"/>
+        <location filename="../settings/settingstabthumbnail.cpp" line="271"/>
         <source>If you don&apos;t want PhotoQt to always load the actual image thumbnail in the background, but you still want to have something for better navigating, then you can set a file-name-only thumbnail, i.e. PhotoQt wont load any thumbnail images but simply puts the file name into the box. You can also adjust the font size of this text.</source>
         <translation>Ak nechcete, aby aplikácia PhotoQt spracovávala aktuálne náhľady na pozadí, ale zároveň chcete niečo na lepšiu navigáciu, môžete použiť ako náhľady samotné názvy obrázkov. To znamená, že PhotoQt nevytvorí náhľady ako miniatúrne obrázky, ale jednoducho vloží názov súboru do boxu. Taktiež je možné upraviť veľkosť písma tohto textu.</translation>
     </message>
     <message>
-        <location filename="../settings/settingstabthumbnail.cpp" line="215"/>
+        <location filename="../settings/settingstabthumbnail.cpp" line="273"/>
         <source>Use file-name-only Thumbnail</source>
         <translation>Použiť ako náhľady len názvy</translation>
     </message>
     <message>
-        <location filename="../settings/settingstabthumbnail.cpp" line="250"/>
         <source>Filename? Resolution? Or both?</source>
-        <translation>Názov súboru? Rozlíšenie? Alebo oboje?</translation>
+        <translation type="vanished">Názov súboru? Rozlíšenie? Alebo oboje?</translation>
     </message>
     <message>
-        <location filename="../settings/settingstabthumbnail.cpp" line="250"/>
         <source>When thumbnails are displayed at the top/bottom, PhotoQt usually writes the filename on them. If wanted, this can be switched to the image resolution. Or even both can be displayed, whatever you want.</source>
-        <translation>Keď sú náhľady zobrazené na vrchu/spodku, PhotoQt na ne zvyčajne napíše názov súboru. Ak chcete, toto môže byť zmenené na rozlíšenie obrázka. Alebo môže byť zobrazené oboje, ako už chcete.</translation>
+        <translation type="vanished">Keď sú náhľady zobrazené na vrchu/spodku, PhotoQt na ne zvyčajne napíše názov súboru. Ak chcete, toto môže byť zmenené na rozlíšenie obrázka. Alebo môže byť zobrazené oboje, ako už chcete.</translation>
     </message>
     <message>
-        <location filename="../settings/settingstabthumbnail.cpp" line="251"/>
+        <location filename="../settings/settingstabthumbnail.cpp" line="243"/>
+        <source>Filename? Dimension? Or both?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings/settingstabthumbnail.cpp" line="243"/>
+        <source>When thumbnails are displayed at the top/bottom, PhotoQt usually writes the filename on them. But also the dimension of the image can be written on it. Or also both or none. You can use the slider below to adjust the font size.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings/settingstabthumbnail.cpp" line="244"/>
         <source>Write Filename</source>
         <translation>Písať názov súboru</translation>
     </message>
     <message>
-        <location filename="../settings/settingstabthumbnail.cpp" line="252"/>
+        <location filename="../settings/settingstabthumbnail.cpp" line="245"/>
         <source>Write Resolution</source>
         <translation>Písať rozlíšenie</translation>
     </message>
     <message>
-        <location filename="../settings/settingstabthumbnail.cpp" line="266"/>
+        <location filename="../settings/settingstabthumbnail.cpp" line="307"/>
+        <source>Preloading</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings/settingstabthumbnail.cpp" line="307"/>
+        <source>Here you can adjust, how many images AT MOST will be preloaded. For example, if the directory contains 800 images, a limit of 400 (default value) means, that starting from the opened image, 200 images to the left and 200 to the right are preloaded.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings/settingstabthumbnail.cpp" line="307"/>
+        <source>If you don&apos;t want to limit PhotoQt to any number, you can simply enable the option to always preload the full directory. WARNING: This is perfectly fine for directories with a small number of images (usually anything less than 1000, depending on your computer), but can lead to performance and memory issues for larger directories. Make sure you know what you&apos;re doing before enabling this!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings/settingstabthumbnail.cpp" line="323"/>
+        <source>Preload full directory</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings/settingstabthumbnail.cpp" line="343"/>
         <source>Disable Thumbnails</source>
         <translation>Úplne vypnutie náhľadov</translation>
     </message>
     <message>
-        <location filename="../settings/settingstabthumbnail.cpp" line="266"/>
+        <location filename="../settings/settingstabthumbnail.cpp" line="343"/>
         <source>If you just don&apos;t need or don&apos;t want any thumbnails whatsoever, then you can disable them here completely. This option can also be toggled remotely via command line (run &apos;photoqt --help&apos; for more information on that). This might increase the speed of PhotoQt a good bit, however, navigating through a folder might be a little harder without thumbnails.</source>
         <translation>Ak jednoducho nechcete žiadne náhľady, tu ich môžete vypnúť úplne. Táto možnosť je tiež dostupná pomocou príkazového riadku (spustite  &apos;photo --help&apos; pre viac informácií). Toto môže celkom slušne zrýchliť PhotoQt, ale orientácia v priečinku môže byť bez náhľadov ťažšia.</translation>
     </message>
     <message>
-        <location filename="../settings/settingstabthumbnail.cpp" line="268"/>
+        <location filename="../settings/settingstabthumbnail.cpp" line="345"/>
         <source>Disable Thumbnails altogether</source>
         <translation>Vypnúť náhľady úplne</translation>
     </message>
     <message>
-        <location filename="../settings/settingstabthumbnail.cpp" line="282"/>
+        <location filename="../settings/settingstabthumbnail.cpp" line="359"/>
         <source>Thumbnail Cache</source>
         <translation>Pamäť náhľadov</translation>
     </message>
     <message>
-        <location filename="../settings/settingstabthumbnail.cpp" line="282"/>
+        <location filename="../settings/settingstabthumbnail.cpp" line="359"/>
         <source>Thumbnails can be cached in two different ways:&lt;br&gt;1) File Caching (following the freedesktop.org standard) or&lt;br&gt;2) Database Caching (better performance and management, default option).</source>
         <translation>Náhľady môžu byť ukladané do pamäti dvoma spôsobmi:&lt;br&gt;1) Súborové ukladanie (podľa freedesktop.org štandardu) alebo&lt;br&gt;2) Databázové ukladanie (lepší výkon a správa pamäti, prednastavený spôsob).</translation>
     </message>
     <message>
-        <location filename="../settings/settingstabthumbnail.cpp" line="282"/>
+        <location filename="../settings/settingstabthumbnail.cpp" line="359"/>
         <source>Both ways have their advantages and disadvantages:</source>
         <translation>Oba spôsoby majú svoje prednosti a nedostatky:</translation>
     </message>
     <message>
-        <location filename="../settings/settingstabthumbnail.cpp" line="282"/>
+        <location filename="../settings/settingstabthumbnail.cpp" line="359"/>
         <source>File Caching is done according to the freedesktop.org standard and thus different applications can share the same thumbnail for the same image file. However, it&apos;s not possible to check for obsolete thumbnails (thus this may lead to many unneeded thumbnail files).</source>
         <translation>Súborové ukladanie je spravené podľa štandardu freedesktop.org takže rôzne aplikácie môžu zdieľať ten istý náhľad obrázka. Avšak nie je možné kontrolovať zastaralé náhľady (toto môže viesť k mnohým neželaným náhľadom obrázkov).</translation>
     </message>
     <message>
-        <location filename="../settings/settingstabthumbnail.cpp" line="282"/>
+        <location filename="../settings/settingstabthumbnail.cpp" line="359"/>
         <source>Database Caching doesn&apos;t have the advantage of sharing thumbnails with other applications (and thus every thumbnails has to be newly created for PhotoQt), but it brings a slightly better performance, and it allows a better handling of existing thumbnails (e.g. deleting obsolete thumbnails).</source>
         <translation>Databázové ukladanie nemá prednosti zdieľania náhľadov s ostatnými aplikáciami (preto sa každý náhľad musí vytvoriť osobitne pre PhotoQt), ale prináša o niečo lepší výkon, a umožňuje lepšie nakladanie s už existujúcimi náhľadmi (napríklad odstraňovanie zastaralých náhľadov).</translation>
     </message>
     <message>
-        <location filename="../settings/settingstabthumbnail.cpp" line="282"/>
+        <location filename="../settings/settingstabthumbnail.cpp" line="359"/>
         <source>PhotoQt works with either option, though the second way is set as default.</source>
         <translation>PhotoQt dokáže fungovať oboma spôsobmi, avšak druhý spôsob je v základe prednastavený.</translation>
     </message>
     <message>
-        <location filename="../settings/settingstabthumbnail.cpp" line="282"/>
+        <location filename="../settings/settingstabthumbnail.cpp" line="359"/>
         <source>Although everybody is encouraged to use at least one of the two options, caching can be completely disabled altogether. However, that does affect the performance and usability of PhotoQt, since thumbnails have to be newly re-created every time they are needed.</source>
         <translation>Hoci by bolo vhodné, aby každý používal niektorý zo spôsobov, ukladanie náhľadov môže byť vypnuté úplne. Toto ale dosť vplýva na výkon a použiteľnosť aplikácie PhotoQt, pretože náhľady musia byť vytvorené vždy nanovo.</translation>
     </message>
     <message>
-        <location filename="../settings/settingstabthumbnail.cpp" line="285"/>
+        <location filename="../settings/settingstabthumbnail.cpp" line="362"/>
         <source>Enable Thumbnail Cache</source>
         <translation>Aktivovať ukladanie náhľadov</translation>
     </message>
     <message>
-        <location filename="../settings/settingstabthumbnail.cpp" line="293"/>
+        <location filename="../settings/settingstabthumbnail.cpp" line="370"/>
         <source>File caching</source>
         <translation>Súborové ukladanie</translation>
     </message>
     <message>
-        <location filename="../settings/settingstabthumbnail.cpp" line="294"/>
+        <location filename="../settings/settingstabthumbnail.cpp" line="371"/>
         <source>Database caching</source>
         <translation>Databázové ukladanie</translation>
     </message>
     <message>
-        <location filename="../settings/settingstabthumbnail.cpp" line="322"/>
+        <location filename="../settings/settingstabthumbnail.cpp" line="399"/>
         <source>CLEAN up Database</source>
         <translation>PREČISTIŤ databázu</translation>
     </message>
     <message>
-        <location filename="../settings/settingstabthumbnail.cpp" line="323"/>
+        <location filename="../settings/settingstabthumbnail.cpp" line="400"/>
         <source>ERASE Database</source>
         <translation>VYMAZAŤ databázu</translation>
     </message>
     <message>
-        <location filename="../settings/settingstabthumbnail.cpp" line="340"/>
+        <location filename="../settings/settingstabthumbnail.cpp" line="417"/>
         <source>Clean Database</source>
         <translation>Prečistenie databázy</translation>
     </message>
     <message>
-        <location filename="../settings/settingstabthumbnail.cpp" line="340"/>
+        <location filename="../settings/settingstabthumbnail.cpp" line="417"/>
         <source>Do you really want to clean up the database? This removes all obsolete thumbnails, thus possibly making PhotoQt a little faster.</source>
         <translation>Naozaj si prajete prečistiť databázu? Tento úkon odstráni všetky zastaralé náhľady, robiac PhotoQt trochu rýchlejším.</translation>
     </message>
     <message>
-        <location filename="../settings/settingstabthumbnail.cpp" line="340"/>
+        <location filename="../settings/settingstabthumbnail.cpp" line="417"/>
         <source>This process might take a little while.</source>
         <translation>Tento proces môže trochu trvať.</translation>
     </message>
     <message>
-        <location filename="../settings/settingstabthumbnail.cpp" line="340"/>
+        <location filename="../settings/settingstabthumbnail.cpp" line="417"/>
         <source>Yes, clean is good</source>
         <translation>Áno, prečistenie je dobré</translation>
     </message>
     <message>
-        <location filename="../settings/settingstabthumbnail.cpp" line="340"/>
+        <location filename="../settings/settingstabthumbnail.cpp" line="417"/>
         <source>No, don&apos;t have time for that</source>
         <translation>Nie, nemám na to čas</translation>
     </message>
     <message>
-        <location filename="../settings/settingstabthumbnail.cpp" line="344"/>
+        <location filename="../settings/settingstabthumbnail.cpp" line="421"/>
         <source>Erase Database</source>
         <translation>Vymazať databázu</translation>
     </message>
     <message>
-        <location filename="../settings/settingstabthumbnail.cpp" line="344"/>
+        <location filename="../settings/settingstabthumbnail.cpp" line="421"/>
         <source>Do you really want to ERASE the entire database? This removes every single item in the database! This step should never really be necessarily. After that, every thumbnail has to be newly re-created. This step cannot be reversed!</source>
         <translation>Naozaj si prajete VYMAZAŤ celú databázu? Tento úkon zmaže každú jednu položku v databáze. Tento krok by nemal byť nikdy potrebný. Po vykonaní, každý nový náhľad bude treba vytvoriť nanovo. Tento krok je nezvratný! </translation>
     </message>
     <message>
-        <location filename="../settings/settingstabthumbnail.cpp" line="344"/>
+        <location filename="../settings/settingstabthumbnail.cpp" line="421"/>
         <source>Yes, get rid of it all</source>
         <translation>Áno, zbav sa toho všetkého</translation>
     </message>
     <message>
-        <location filename="../settings/settingstabthumbnail.cpp" line="344"/>
+        <location filename="../settings/settingstabthumbnail.cpp" line="421"/>
         <source>Nooo, I want to keep it</source>
         <translation>Nieee, chcem si to nechať</translation>
     </message>
     <message>
-        <location filename="../settings/settingstabthumbnail.cpp" line="518"/>
+        <location filename="../settings/settingstabthumbnail.cpp" line="641"/>
         <source>Current database filesize: %1 KB</source>
         <translation>Momentálne databáza zaberá: %1 KB</translation>
     </message>
     <message>
-        <location filename="../settings/settingstabthumbnail.cpp" line="518"/>
+        <location filename="../settings/settingstabthumbnail.cpp" line="641"/>
         <source>Entries in database: %2</source>
         <translation>Počet položiek v databáze: %2</translation>
     </message>
@@ -2252,7 +2683,7 @@
         <translation>ukončiť</translation>
     </message>
     <message>
-        <location filename="../settings/settingstabshortcutstiles.cpp" line="94"/>
+        <location filename="../settings/settingstabshortcutstiles.cpp" line="95"/>
         <source>key</source>
         <translation>klávesa</translation>
     </message>
@@ -2275,82 +2706,102 @@
         <translation>Ak už raz máte nastavené Vaše želané nastavenia, môžete začať slideshow tiež pomocou &quot;Quickstart&quot;, to znamená bez okna s nastaveniami.</translation>
     </message>
     <message>
-        <location filename="../slideshow/slideshowsettings.cpp" line="64"/>
+        <location filename="../slideshow/slideshowsettings.cpp" line="63"/>
         <source>Time in between</source>
         <translation>Čas medzi</translation>
     </message>
     <message>
-        <location filename="../slideshow/slideshowsettings.cpp" line="64"/>
+        <location filename="../slideshow/slideshowsettings.cpp" line="63"/>
         <source>Adjust the time between the images. The time specified here is the amount of time the image will be completely visible, i.e. the transitioning (if set) is not part of this time.</source>
         <translation>Upraviť čas medzi obrazmi. Uvedený čas je čas, za ktorý bude obraz kompletne viditeľný, to znamená, že prechod nie je súčasťou tohto času.</translation>
     </message>
     <message>
-        <location filename="../slideshow/slideshowsettings.cpp" line="80"/>
+        <location filename="../slideshow/slideshowsettings.cpp" line="78"/>
         <source>Smooth Transition</source>
         <translation>Jemný prechod</translation>
     </message>
     <message>
-        <location filename="../slideshow/slideshowsettings.cpp" line="80"/>
+        <location filename="../slideshow/slideshowsettings.cpp" line="78"/>
         <source>Here you can set, if you want the images to fade into each other, and how fast they shall do that.</source>
         <translation>Môžete nastaviť, či chcete obrázky výchádzal jeden z druhého a ako rýchlo by to malo byť.</translation>
     </message>
     <message>
-        <location filename="../slideshow/slideshowsettings.cpp" line="82"/>
+        <location filename="../slideshow/slideshowsettings.cpp" line="80"/>
         <source>No Transition</source>
         <translation>Bez prechodu</translation>
     </message>
     <message>
-        <location filename="../slideshow/slideshowsettings.cpp" line="83"/>
+        <location filename="../slideshow/slideshowsettings.cpp" line="81"/>
         <source>Long Transition</source>
         <translation>Dlhý prechod</translation>
     </message>
     <message>
+        <location filename="../slideshow/slideshowsettings.cpp" line="94"/>
+        <source>Loop over images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../slideshow/slideshowsettings.cpp" line="95"/>
+        <source>Shuffle images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../slideshow/slideshowsettings.cpp" line="96"/>
+        <source>Shuffle and Loop</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../slideshow/slideshowsettings.cpp" line="96"/>
+        <source>If you want PhotoQt to loop over all images (i.e., once it shows the last image it starts from the beginning). Additionally, if you want PhotoQt to load your images in random order, you can check the second box below. No image will be shown twice before every image has been shown once.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../slideshow/slideshowsettings.cpp" line="109"/>
         <source>Hide Quickinfos</source>
         <translation>Skryť Quickinfos</translation>
     </message>
     <message>
-        <location filename="../slideshow/slideshowsettings.cpp" line="98"/>
+        <location filename="../slideshow/slideshowsettings.cpp" line="110"/>
         <source>Hide Quickinfo</source>
         <translation>Skryť Quickinfo</translation>
     </message>
     <message>
-        <location filename="../slideshow/slideshowsettings.cpp" line="98"/>
+        <location filename="../slideshow/slideshowsettings.cpp" line="110"/>
         <source>Depending on your setup, PhotoQt displays some information at the top edge, like position in current directory or file path/name. Here you can disable them temporarily for the slideshow.</source>
         <translation>V závislosti na nastavení, PhotoQt zobrazuje informácie na hornom okraji ako pozíciu v aktuálnom priečinku, alebo názov súboru/cestu k súboru. Tu ich viete dočasne pre slideshow deaktivovať</translation>
     </message>
     <message>
-        <location filename="../slideshow/slideshowsettings.cpp" line="110"/>
+        <location filename="../slideshow/slideshowsettings.cpp" line="122"/>
         <source>Enable Music</source>
         <translation>Aktivovať hudbu</translation>
     </message>
     <message>
-        <location filename="../slideshow/slideshowsettings.cpp" line="120"/>
+        <location filename="../slideshow/slideshowsettings.cpp" line="130"/>
         <source>Click to select/change music file</source>
         <translation>Kliknite pre výber/zmenu hudby</translation>
     </message>
     <message>
-        <location filename="../slideshow/slideshowsettings.cpp" line="126"/>
+        <location filename="../slideshow/slideshowsettings.cpp" line="135"/>
         <source>Background Music</source>
         <translation>Hudba na pozadí</translation>
     </message>
     <message>
-        <location filename="../slideshow/slideshowsettings.cpp" line="126"/>
+        <location filename="../slideshow/slideshowsettings.cpp" line="135"/>
         <source>Some might like to listen to some music while the slideshow is running. Here you can select a music file you want to be played in the background.</source>
         <translation>Niekto má rád keď hrá počas slideshow hudba. Tu môžete vybrať hudobný súbor.</translation>
     </message>
     <message>
-        <location filename="../slideshow/slideshowsettings.cpp" line="142"/>
+        <location filename="../slideshow/slideshowsettings.cpp" line="151"/>
         <source>Okay, lets start</source>
         <translation>OK, začnime</translation>
     </message>
     <message>
-        <location filename="../slideshow/slideshowsettings.cpp" line="143"/>
+        <location filename="../slideshow/slideshowsettings.cpp" line="152"/>
         <source>Maybe later</source>
         <translation>Možno neskôr</translation>
     </message>
     <message>
-        <location filename="../slideshow/slideshowsettings.cpp" line="166"/>
+        <location filename="../slideshow/slideshowsettings.cpp" line="177"/>
         <source>Select Music File</source>
         <translation>Vybrať hudobný súbor</translation>
     </message>
@@ -2359,22 +2810,22 @@
     <name>SlideShowBar</name>
     <message>
         <location filename="../slideshow/slideshowbar.cpp" line="48"/>
-        <location filename="../slideshow/slideshowbar.cpp" line="99"/>
+        <location filename="../slideshow/slideshowbar.cpp" line="98"/>
         <source>Pause Slideshow</source>
         <translation>Pozastaviť slideshow</translation>
     </message>
     <message>
-        <location filename="../slideshow/slideshowbar.cpp" line="64"/>
+        <location filename="../slideshow/slideshowbar.cpp" line="63"/>
         <source>Music Volume:</source>
         <translation>Hlasitosť hudby</translation>
     </message>
     <message>
-        <location filename="../slideshow/slideshowbar.cpp" line="69"/>
+        <location filename="../slideshow/slideshowbar.cpp" line="68"/>
         <source>Exit Slideshow</source>
         <translation>Ukončiť slideshow</translation>
     </message>
     <message>
-        <location filename="../slideshow/slideshowbar.cpp" line="93"/>
+        <location filename="../slideshow/slideshowbar.cpp" line="92"/>
         <source>Play Slideshow</source>
         <translation>Spustiť slideshow</translation>
     </message>
@@ -2387,142 +2838,194 @@
         <translation>Dobre, už mám dosť. Začnime!</translation>
     </message>
     <message>
-        <location filename="../widgets/startupwidget.cpp" line="67"/>
+        <location filename="../widgets/startupwidget.cpp" line="72"/>
         <source>Many File Formats</source>
         <translation>Množstvo súborových typov</translation>
     </message>
     <message>
-        <location filename="../widgets/startupwidget.cpp" line="67"/>
         <source>PhotoQt used to be able to only work with those file formats natively supported by Qt (which is already pretty good). But it now can also make use of GraphicsMagick, an image library. Currently, there are more than 80 different file formats supported! You can find a list of it in the settings (Tab &quot;Other&quot;). There you can en-/disable different ones and also add custom file endings.</source>
-        <translation>V minulosti PhotoQt pracovalo len s formátmi, ktoré mali podporu Qt (čo je samo o sebe celkom dobré). Teraz ale vie PhotoQt použiť knižnicu GraphicsMagick. Momentálne je podporovaných viac ako 80 rôznych formátov! Zoznam formátov nájdete v nastaveniach (záložka &quot;Iné&quot;), kde je možné zapnúť/vypnúť podporu a tiež pridať vlastný formát.</translation>
+        <translation type="vanished">V minulosti PhotoQt pracovalo len s formátmi, ktoré mali podporu Qt (čo je samo o sebe celkom dobré). Teraz ale vie PhotoQt použiť knižnicu GraphicsMagick. Momentálne je podporovaných viac ako 80 rôznych formátov! Zoznam formátov nájdete v nastaveniach (záložka &quot;Iné&quot;), kde je možné zapnúť/vypnúť podporu a tiež pridať vlastný formát.</translation>
     </message>
     <message>
-        <location filename="../widgets/startupwidget.cpp" line="69"/>
         <source>Many Settings Possible</source>
-        <translation>Mnoho možných nastavení</translation>
+        <translation type="vanished">Mnoho možných nastavení</translation>
     </message>
     <message>
-        <location filename="../widgets/startupwidget.cpp" line="69"/>
         <source>PhotoQt has an extensive settings area. By default you can call it with the shortcut &quot;e&quot; or through the dropdown menu at the top edge towards the top right corner. You can adjust (almost) everything in PhotoQt, and it&apos;s certainly worth having a look there. Each setting usually comes with a little explanation text.</source>
-        <translation>PhotoQt má rozsiahle možnosti nastavení. Vyvoláte ich klávesovou skratkou &quot;e&quot; alebo vysunutím menu z horného pravého okraja obrazovky. Je možné upraviť (skoro) všetko a určite sa oplatí na to pozrieť. Každá možnosť je stručne popísaná.</translation>
+        <translation type="vanished">PhotoQt má rozsiahle možnosti nastavení. Vyvoláte ich klávesovou skratkou &quot;e&quot; alebo vysunutím menu z horného pravého okraja obrazovky. Je možné upraviť (skoro) všetko a určite sa oplatí na to pozrieť. Každá možnosť je stručne popísaná.</translation>
     </message>
     <message>
-        <location filename="../widgets/startupwidget.cpp" line="70"/>
+        <location filename="../widgets/startupwidget.cpp" line="90"/>
         <source>Thumbnails</source>
         <translation>Náhľady</translation>
     </message>
     <message>
-        <location filename="../widgets/startupwidget.cpp" line="70"/>
         <source>What would be an image viewer without thumbnails support? It would only be half as good. Whenever you load an image, PhotoQt loads the other images in the directory in the background (per default it only loads the ones whose thumbnails are currently visible). It lines them up in a row at the bottom edge (move your mouse there to see them). There are many settings just for the thumbnails, like size, liftup, en-/disabled, type, filename, permanently shown/hidden, etc. PhotoQt&apos;s quite flexible with that.</source>
-        <translation>Aký by to bol prehliadač obrázkov bez náhľadov? Bol by len polovičný. Vždy, keď otvoríte obrázok, PhotoQt na pozadí načíta zvyšné obrázky nachádzajúce sa v priečinku (implicitne len tie, ktorých náhľady práve vidíte). Zoradí ich v rade na dolnom kraji obrazovky (musíte tam prejsť s myšou, aby ste ich videli). PhotoQt má mnoho nastavení pre náhľady ako sú - rozmer, vysúvanie, povolené/zakázané, typ, názov súboru, trvalo zobrazené/skryté, atď. PhotoQt je v tomto veľmi flexibilné.</translation>
+        <translation type="vanished">Aký by to bol prehliadač obrázkov bez náhľadov? Bol by len polovičný. Vždy, keď otvoríte obrázok, PhotoQt na pozadí načíta zvyšné obrázky nachádzajúce sa v priečinku (implicitne len tie, ktorých náhľady práve vidíte). Zoradí ich v rade na dolnom kraji obrazovky (musíte tam prejsť s myšou, aby ste ich videli). PhotoQt má mnoho nastavení pre náhľady ako sú - rozmer, vysúvanie, povolené/zakázané, typ, názov súboru, trvalo zobrazené/skryté, atď. PhotoQt je v tomto veľmi flexibilné.</translation>
     </message>
     <message>
-        <location filename="../widgets/startupwidget.cpp" line="72"/>
+        <location filename="../widgets/startupwidget.cpp" line="97"/>
         <source>Shortcuts</source>
         <translation>Skratky</translation>
     </message>
     <message>
-        <location filename="../widgets/startupwidget.cpp" line="72"/>
         <source>One of the many strengths of PhotoQt is the ability to easily set a shortcut for almost anything. Even mouse shortcuts are possible!</source>
-        <translation>Jednou zo silných stránok aplikácie PhotoQt je schopnosť jednoducho nastaviť klávesovú skratku skoro pre všetko. Možné sú aj skratky myšou!</translation>
+        <translation type="vanished">Jednou zo silných stránok aplikácie PhotoQt je schopnosť jednoducho nastaviť klávesovú skratku skoro pre všetko. Možné sú aj skratky myšou!</translation>
     </message>
     <message>
-        <location filename="../widgets/startupwidget.cpp" line="73"/>
         <source>Image Information</source>
-        <translation>Informácie o obrázku</translation>
+        <translation type="vanished">Informácie o obrázku</translation>
     </message>
     <message>
-        <location filename="../widgets/startupwidget.cpp" line="73"/>
         <source>Most images store some information about the image in the file. PhotoQt can read and display a good bit of that. You can find this information in the slide-in window at the left edge of PhotoQt.</source>
-        <translation>Mnoho z obrázkov v sebe má uložené informácie o samotnom obrázku. PhotoQt je schopné prečítať tieto informácie a zobraziť ich na ľavom okraji obrazovky.</translation>
+        <translation type="vanished">Mnoho z obrázkov v sebe má uložené informácie o samotnom obrázku. PhotoQt je schopné prečítať tieto informácie a zobraziť ich na ľavom okraji obrazovky.</translation>
     </message>
     <message>
-        <location filename="../widgets/startupwidget.cpp" line="74"/>
         <source>Basic File Actions</source>
-        <translation>Základné súborové úkony</translation>
+        <translation type="vanished">Základné súborové úkony</translation>
     </message>
     <message>
-        <location filename="../widgets/startupwidget.cpp" line="74"/>
         <source>Basic file actions like renaming a file, or moving/copying it or deleting it can be done from inside of PhotoQt. However, you can only operate on a single file at a time. So for bigger operations, it&apos;d be a better solution to use your choice of file manager.</source>
-        <translation>Základné úkony ako sú napríklad premenovanie súboru, presunutie/kopírovanie, alebo zmazanie môžete spraviť pomocou PhotoQt. Avšak je možné pracovať len s jedným súborom naraz. Pre väčšie operácie je preto lepším riešením použiť súborový manažér.</translation>
+        <translation type="vanished">Základné úkony ako sú napríklad premenovanie súboru, presunutie/kopírovanie, alebo zmazanie môžete spraviť pomocou PhotoQt. Avšak je možné pracovať len s jedným súborom naraz. Pre väčšie operácie je preto lepším riešením použiť súborový manažér.</translation>
     </message>
     <message>
-        <location filename="../widgets/startupwidget.cpp" line="76"/>
         <source>Wallpaper</source>
-        <translation>Tapeta</translation>
+        <translation type="vanished">Tapeta</translation>
     </message>
     <message>
-        <location filename="../widgets/startupwidget.cpp" line="76"/>
         <source>For different desktop environments (like e.g. XFCE4, Openbox, Gnome, ...) you can set an image your viewing directly as wallpaper. Depending on the DE there are also different options available. Unfortunately, KDE is currently not supported.</source>
-        <translation>Pre rôzne pracovné prostredia (napr. XFCE4, Openbox, Gnome, ...) je možné nastaviť ako tapetu obrázok, ktorý si práve prezeráte. V závislosti na pracovnom prostredí sú k dispozícií rôzne možnosti. Naneštastie, KDE momentálne nie je podporované.</translation>
+        <translation type="vanished">Pre rôzne pracovné prostredia (napr. XFCE4, Openbox, Gnome, ...) je možné nastaviť ako tapetu obrázok, ktorý si práve prezeráte. V závislosti na pracovnom prostredí sú k dispozícií rôzne možnosti. Naneštastie, KDE momentálne nie je podporované.</translation>
     </message>
     <message>
-        <location filename="../widgets/startupwidget.cpp" line="77"/>
+        <location filename="../widgets/startupwidget.cpp" line="115"/>
         <source>Slideshow</source>
         <translation>Slideshow</translation>
     </message>
     <message>
-        <location filename="../widgets/startupwidget.cpp" line="77"/>
         <source>PhotoQt also brings a slideshow feature. When you start a slideshow, it starts at the currently displayed image. There are a couple simply settings like transition and speed, and you can also set a music file that is played in the background. When the slideshow takes longer than the music file, then PhotoQt starts the music file all over from the beginning. At anytime during the slideshow, you can move the mouse cursor to the top edge of the screen to get a little bar, where you can pause/exit the slideshow and adjust the music volume.</source>
-        <translation>PhotoQt tiež prináša funkciu Slideshow. Keď spustíte slideshow, začne na práve zobrazenom obrázku. Je tu k dispozícií niekoľko nastavení ako prechod, rýchlosť, tiež je možné spustiť hudbu do pozadia. Ak slideshow trvá dlhšie ako je dĺžka hudby, PhotoQt pustí hudobný súbor odznova. Kedykoľvek počas slideshow môžete posunúť kurzor k hornému okraju obrazovky kde sa vám objaví malý panel, kde môžete pauznúť/zastaviť slideshow a upraviť hlasitosť hudby.</translation>
+        <translation type="vanished">PhotoQt tiež prináša funkciu Slideshow. Keď spustíte slideshow, začne na práve zobrazenom obrázku. Je tu k dispozícií niekoľko nastavení ako prechod, rýchlosť, tiež je možné spustiť hudbu do pozadia. Ak slideshow trvá dlhšie ako je dĺžka hudby, PhotoQt pustí hudobný súbor odznova. Kedykoľvek počas slideshow môžete posunúť kurzor k hornému okraju obrazovky kde sa vám objaví malý panel, kde môžete pauznúť/zastaviť slideshow a upraviť hlasitosť hudby.</translation>
     </message>
     <message>
-        <location filename="../widgets/startupwidget.cpp" line="78"/>
+        <location filename="../widgets/startupwidget.cpp" line="126"/>
         <source>Localisation</source>
         <translation>Lokalizácie</translation>
     </message>
     <message>
-        <location filename="../widgets/startupwidget.cpp" line="78"/>
         <source>PhotoQt comes with a number of translations. Many have taken some of their time to create/update one of them. Not all of them are (yet) complete, so why don&apos;t you help?</source>
-        <translation>PhotoQt k Vám prichádza s niekoľkými prekladmi. Prekladatelia venovali svoj čas na preklad a dodatočné úpravy, ale všetky preklady (ešte) nie sú hotové. Takže prečo nepomôcť?</translation>
+        <translation type="vanished">PhotoQt k Vám prichádza s niekoľkými prekladmi. Prekladatelia venovali svoj čas na preklad a dodatočné úpravy, ale všetky preklady (ešte) nie sú hotové. Takže prečo nepomôcť?</translation>
     </message>
     <message>
-        <location filename="../widgets/startupwidget.cpp" line="79"/>
         <source>There are many many more features. Best is, you just give it a go. Don&apos;t forget to check the settings to make PhotoQt &quot;your own&quot;.</source>
-        <translation>Je tu ešte oveľa viac funkcií. Najlepšie je si ich všetky vyskúšať. Nezabudnite zájsť do nastavení a nastaviť si PhotoQt &quot;podľa seba&quot;.</translation>
+        <translation type="vanished">Je tu ešte oveľa viac funkcií. Najlepšie je si ich všetky vyskúšať. Nezabudnite zájsť do nastavení a nastaviť si PhotoQt &quot;podľa seba&quot;.</translation>
+    </message>
+    <message>
+        <location filename="../widgets/startupwidget.cpp" line="72"/>
+        <source>PhotoQt can make use of GraphicsMagick, an image library, to display many different image formats. Currently, there are up to 72 different file formats supported (exact number depends on your system)! You can find a list of it in the settings (Tab &apos;Other&apos;). There you can en-/disable different ones and also add custom file endings.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../widgets/startupwidget.cpp" line="79"/>
+        <source>Make PhotoQt your own</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../widgets/startupwidget.cpp" line="79"/>
+        <source>PhotoQt has an extensive settings area. By default you can call it with the shortcut &apos;e&apos; or through the dropdown menu at the top edge towards the top right corner. You can adjust almost everything in PhotoQt, and it&apos;s certainly worth having a look there. Each setting usually comes with a little explanation text.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../widgets/startupwidget.cpp" line="90"/>
+        <source>What would be an image viewer without thumbnails support? It would only be half as good. Whenever you load an image, PhotoQt loads the other images in the directory in the background (by default, it tries to be smart about it and only loads the ones that are needed). It lines them up in a row at the bottom edge (move your mouse there to see them). There are many settings just for the thumbnails, like, e.g., size, liftup, en-/disabled, type, filename, permanently shown/hidden, etc. PhotoQt&apos;s quite flexible with that.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../widgets/startupwidget.cpp" line="97"/>
+        <source>One of the many strengths of PhotoQt is the ability to easily set a shortcut for almost anything. Even mouse shortcuts are possible! You can choose from a huge number of internal functions, or you can run any custom script or command.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../widgets/startupwidget.cpp" line="108"/>
+        <source>Image Information (Exif)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../widgets/startupwidget.cpp" line="108"/>
+        <source>Most images store some information about the image in the file. PhotoQt can read and display a good bit of that (currently, only Exif is supported). You can find this information in the slide-in window hidden behind the left edge of PhotoQt.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../widgets/startupwidget.cpp" line="115"/>
+        <source>PhotoQt also brings a slideshow feature. When you start a slideshow, it starts at the currently displayed image. There are a couple settings like transition, speed, loop, and shuffle. Plus, you can set a music file that is played in the background. When the slideshow takes longer than the music file, then PhotoQt starts the music file all over from the beginning. At anytime during the slideshow, you can move the mouse cursor to the top edge of the screen to get a little bar, where you can pause/exit the slideshow and adjust the music volume.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../widgets/startupwidget.cpp" line="126"/>
+        <source>PhotoQt comes with a number of translations. Many have taken some of their time to create/update one of them (Thank you!). Not all of them are complete... do you want to help?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../widgets/startupwidget.cpp" line="131"/>
         <source>Enjoy :-)</source>
         <translation>Užite si to :-)</translation>
     </message>
     <message>
-        <location filename="../widgets/startupwidget.cpp" line="98"/>
+        <location filename="../widgets/startupwidget.cpp" line="131"/>
+        <source>There are many many more features. Best is, you just give it a go. Don&apos;t forget to check out the settings to make PhotoQt YOUR image viewer.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../widgets/startupwidget.cpp" line="150"/>
         <source>PhotoQt was successfully updated</source>
         <translation>PhotoQt bolo úspešne aktualizované</translation>
     </message>
     <message>
-        <location filename="../widgets/startupwidget.cpp" line="100"/>
+        <location filename="../widgets/startupwidget.cpp" line="152"/>
+        <source>Welcome back to PhotoQt. It hasn&apos;t been that long since the last release of PhotoQt. Yet there have been more changes than ever before. Most (if not all) of them were aimed at smoothing PhotoQt out. I tried to implement all the feedback and feature requests I received over the past year(s) that has been left without much attention until now.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../widgets/startupwidget.cpp" line="153"/>
+        <source>I&apos;m convinced, that this release is better than any one before. PhotoQt is working reliable and efficient in every aspect. It definitely can hold up to the more &apos;traditional&apos; image viewers out there.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../widgets/startupwidget.cpp" line="165"/>
+        <source>This app started out more than three years ago, and it has developed quite a bit since then. It has become very efficient, reliable, and highly flexible (check out the settings). I&apos;m convinced it can hold up to the more &apos;traditional&apos; image viewers out there in every way.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../widgets/startupwidget.cpp" line="164"/>
+        <source>Welcome to PhotoQt. PhotoQt is an image viewer, aimed at being fast and reliable, highly customisable and good looking.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Welcome back to PhotoQt.</source>
-        <translation>Vitajte späť vo PhotoQt</translation>
+        <translation type="vanished">Vitajte späť vo PhotoQt</translation>
     </message>
     <message>
-        <location filename="../widgets/startupwidget.cpp" line="101"/>
         <source>It has been more than a year since the last stable release of PhotoQt was released. For a while development has stalled as I was busy finishing my Bachelor degree, but I came back and once again there are some really cool (I believe) changes in this release. I gave my best to ensure that everything is working as smoothly as possible. But please forgive me if a bug sneaked in here or there again, they are never intended, I promise!</source>
-        <translation>Už je to viac ako rok, kedy naposledy vyšla posledná stabilná verzia PhotoQt. Vývoju som sa nejaký čas nevenoval, pretože som dokončoval bakalárske štúdium, ale k vývoju som sa vrátil a opäť sú tu nejaké skvelé (dúfam) zmeny v tomto vydaní. Dávam Vám svoje slovo, že všetko funguje tak hladko ako to len ide. Prosím prepáčte mi, ak sa niekde objaví chyba. Nebol to úmysel, sľubujem!</translation>
+        <translation type="vanished">Už je to viac ako rok, kedy naposledy vyšla posledná stabilná verzia PhotoQt. Vývoju som sa nejaký čas nevenoval, pretože som dokončoval bakalárske štúdium, ale k vývoju som sa vrátil a opäť sú tu nejaké skvelé (dúfam) zmeny v tomto vydaní. Dávam Vám svoje slovo, že všetko funguje tak hladko ako to len ide. Prosím prepáčte mi, ak sa niekde objaví chyba. Nebol to úmysel, sľubujem!</translation>
     </message>
     <message>
-        <location filename="../widgets/startupwidget.cpp" line="102"/>
+        <location filename="../widgets/startupwidget.cpp" line="154"/>
         <source>Below you find a short overview over the features of PhotoQt. But feel free to skip it and just get started.</source>
         <translation>Nižšie nájdete krátky prehľad funkcií aplikácie PhotoQt. Alebo prehľad preskočte a začnite s používaním.</translation>
     </message>
     <message>
-        <location filename="../widgets/startupwidget.cpp" line="110"/>
+        <location filename="../widgets/startupwidget.cpp" line="162"/>
         <source>PhotoQt was successfully installed</source>
         <translation>PhotoQt bolo úspešne nainštalované</translation>
     </message>
     <message>
-        <location filename="../widgets/startupwidget.cpp" line="112"/>
         <source>Welcome to PhotoQt. PhotoQt is an image viewer, aimed at being fast, highly customisable and good looking.</source>
-        <translation>Vitajte v aplikácii PhotoQt. PhotoQt je prehliadač obrázkov zameraný na rýchlosť, vysokú konfigurovateľnosť a príjemný vzhľad.</translation>
+        <translation type="vanished">Vitajte v aplikácii PhotoQt. PhotoQt je prehliadač obrázkov zameraný na rýchlosť, vysokú konfigurovateľnosť a príjemný vzhľad.</translation>
     </message>
     <message>
-        <location filename="../widgets/startupwidget.cpp" line="113"/>
         <source>This app started out almost three years ago, and it has developed quite a bit since then. Although I gave my best to ensure that everything is working as smoothly as possible, please forgive me if a bug sneaked in here or there again, they are never intended, I promise!</source>
-        <translation>Táto aplikácia už existuje vyše troch rokov a počas tohto obdobia prešla podstatným vyvojom. Dávam Vám svoje slovo, že všetko funguje tak hladko ako to len ide. Prosím prepáčte mi, ak sa niekde objaví chyba. Nebol to úmysel, sľubujem!</translation>
+        <translation type="vanished">Táto aplikácia už existuje vyše troch rokov a počas tohto obdobia prešla podstatným vyvojom. Dávam Vám svoje slovo, že všetko funguje tak hladko ako to len ide. Prosím prepáčte mi, ak sa niekde objaví chyba. Nebol to úmysel, sľubujem!</translation>
     </message>
     <message>
-        <location filename="../widgets/startupwidget.cpp" line="114"/>
+        <location filename="../widgets/startupwidget.cpp" line="166"/>
         <source>Here below you find a short overview of what PhotoQt has to offer, but feel free to skip it and just get started.</source>
         <translation>Nižšie nájdete krátky prehľad toho čo ponúka PhotoQt, no kľudne môžete túto časť preskočiť a rovno začať PhotoQt používať.</translation>
     </message>
@@ -2530,16 +3033,16 @@
 <context>
     <name>ViewBigLay</name>
     <message>
-        <location filename="../graphics/graphicsviewlay.cpp" line="46"/>
-        <location filename="../graphics/graphicsviewlay.cpp" line="88"/>
-        <location filename="../graphics/graphicsviewlay.cpp" line="186"/>
-        <location filename="../graphics/graphicsviewlay.cpp" line="223"/>
+        <location filename="../graphics/graphicsviewlay.cpp" line="49"/>
+        <location filename="../graphics/graphicsviewlay.cpp" line="96"/>
+        <location filename="../graphics/graphicsviewlay.cpp" line="205"/>
+        <location filename="../graphics/graphicsviewlay.cpp" line="243"/>
         <source>Open File to Begin.</source>
         <translation>Pre začatie otvorte súbor.</translation>
     </message>
     <message>
-        <location filename="../graphics/graphicsviewlay.cpp" line="186"/>
-        <location filename="../graphics/graphicsviewlay.cpp" line="223"/>
+        <location filename="../graphics/graphicsviewlay.cpp" line="205"/>
+        <location filename="../graphics/graphicsviewlay.cpp" line="243"/>
         <source>No images match current filter</source>
         <translation>Žiaden obrázok nevyhovuje aktuálnemu filtru</translation>
     </message>
