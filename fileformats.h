@@ -278,11 +278,11 @@ public:
 					line = line.trimmed();
 
 					if(line.length() != 0 && formatsQtEnabled.contains(line))
-						formatsQtEnabled.removeOne(line);
+						formatsQtEnabled.removeAll(line);
 					if(line.length() != 0 && formatsExtrasEnabled.contains(line))
-						formatsExtrasEnabled.removeOne(line);
+						formatsExtrasEnabled.removeAll(line);
 					if(line.length() != 0 && formatsGmEnabled.contains(line))
-						formatsGmEnabled.removeOne(line);
+						formatsGmEnabled.removeAll(line);
 
 					line = in.readLine();
 				}

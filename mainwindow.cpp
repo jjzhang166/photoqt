@@ -617,10 +617,11 @@ void MainWindow::firstStartSetup() {
 
 	// On first start ever, we need to set the default file for disabled file formats.
 	QFile file(QDir::homePath() + "/.photoqt/fileformats.disabled");
+	if(file.exists()) file.remove();
 	if(!file.open(QIODevice::WriteOnly))
 		std::cerr << "[setup] ERROR: Unable to create file 'fileformats.disabled'";
 	else {
-		if(globVar->verbose) std::clog << "[setup] Create default file for disabled file formats";
+		if(globVar->verbose) std::clog << "[setup] Create default file for disabled file formats" << std::endl;
 		QTextStream out(&file);
 		QString txt = QString("*.eps\n")
 				+ QString("*.epsf\n")
@@ -642,10 +643,21 @@ void MainWindow::firstStartSetup() {
 				+ QString("*.rla\n")
 				+ QString("*.rle\n")
 				+ QString("*.sct\n")
-				+ QString("*.tim\n");
+				+ QString("*.tim\n")
+				+ QString("**.xcf\n")
+				+ QString("**.psb\n")
+				+ QString("**.psd\n");
 
 		out << txt;
 		file.close();
+
+		// And update fileformats
+		globSet->fileFormats->getFormats();
+		QMap<QString, QVariant> upd;
+		upd.insert("KnownFileTypesQt",globSet->fileFormats->formatsQtEnabled.join(","));
+		upd.insert("KnownFileTypesGm",globSet->fileFormats->formatsGmEnabled.join(","));
+		upd.insert("KnownFileTypesExtras", globSet->fileFormats->formatsExtrasEnabled.join(", "));
+		globSet->settingsUpdated(upd);
 
 	}
 
@@ -700,13 +712,6 @@ void MainWindow::firstStartSetup() {
 		} else
 			std::cerr << "ERROR: Couldn't create contextmenu file" << std::endl;
 	}
-
-	globSet->fileFormats->getFormats();
-
-	QMap<QString, QVariant> upd;
-	upd.insert("KnownFileTypesQt",globSet->fileFormats->formatsQtEnabled.join(","));
-	upd.insert("KnownFileTypesGm",globSet->fileFormats->formatsGmEnabled.join(","));
-	globSet->settingsUpdated(upd);
 
 }
 
