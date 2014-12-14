@@ -35,7 +35,7 @@ SET(photoqt_SOURCES ${photoqt_SOURCES} ${p}/customradiobutton.cpp ${p}/customscr
 SET(photoqt_SOURCES ${photoqt_SOURCES} ${p}/customlabel.cpp ${p}/customtabwidget.cpp ${p}/customline.h)
 # manipulation/
 SET(p "manipulation")
-SET(photoqt_SOURCES ${photoqt_SOURCES} ${p}/cropwidget.cpp ${p}/cropbar.cpp ${p}/scale.cpp)
+SET(photoqt_SOURCES ${photoqt_SOURCES} ${p}/scale.cpp)
 # [other]/
 SET(photoqt_SOURCES ${photoqt_SOURCES} slideshow/slideshowbar.cpp slideshow/slideshowsettings.cpp flowlayout/flowlayout.cpp wallpaper/wallpaper.cpp)
 
@@ -69,7 +69,7 @@ SET(photoqt_HEADERS ${photoqt_HEADERS} ${p}/customradiobutton.h ${p}/customscrol
 SET(photoqt_HEADERS ${photoqt_HEADERS} ${p}/customtabwidget.h ${p}/customline.h)
 # manipulation/
 SET(p "manipulation")
-SET(photoqt_HEADERS ${photoqt_HEADERS} ${p}/cropwidget.h ${p}/cropbar.h ${p}/scale.h)
+SET(photoqt_HEADERS ${photoqt_HEADERS} ${p}/scale.h)
 # [other]/
 SET(photoqt_HEADERS ${photoqt_HEADERS} slideshow/slideshowbar.h slideshow/slideshowsettings.h flowlayout/flowlayout.h wallpaper/wallpaper.h)
 
