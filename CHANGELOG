@@ -1,5 +1,40 @@
-Changelog PhotoQt v1.1.0.1  - Copyright (C) 2014, Lukas Spies (Lukas@photoqt.org), License: GPLv2 (or later)
+Changelog PhotoQt v1.2beta  - Copyright (C) 2014, Lukas Spies (Lukas@photoqt.org), License: GPLv2 (or later)
 ------------------------------------------------------------------------------------------------------------
+
+
+Release 1.2beta
+----------------------------
+
+- GraphicsMagick: More thorough testing and fixing
+- Intelligent detection of supported fileformats on first start
+- Colour filetype tiles of unsupported formats orange (qt formats only)
+- Add SVG support
+- Add XCF support (depending on XCFtools)
+- Add PSB/PSD support (depending on libqpsd)
+- Smart preloading of folder, better support for large directories (15,000+ files)
+- Add sorting criteria for files (name, natural name, filesize, date)
+- Fix&Improve: Restore support for Trash on Linux
+- Re-worked thumbnail handling: faster, more reliable, new "smart thumbnails" mode
+- Option to stay centered on active thumbnail
+- Dynamically detect supported context menu entries
+- Option to switch between close/not close when selecting context menu entry
+- Remember zoom levels/rotation per session
+- Option to fit smaller images in window
+- Improved handling of windowed/fullscreen mode
+- Window always stays on top
+- Normal/Fancy look for closing 'x' top right
+- Automatic language detection on first start-up (system locale)
+- Change: Main animation is now 'fade-in' (+Possibility to disable altogether)
+- Wheel sensitivity settings
+- Opt-in to High-DPI pixmaps (Qt >= 5.4.0)
+- Fix: Proper handling of window flags
+- Re-ordering of settings (basic and advanced category)
+- Re-ordering and extending of quicksettings
+- Fix: Composite detection (not possible in Qt5 on Linux)
+- Loop and Shuffle option in Slideshow
+- Fix: Scaling preserves Exiv metadata
+- Many fixes, improvements, and removal of quite a bit of redundant code
+
 
 Release 1.1.0.1 - 13/10/2014
 ----------------------------
