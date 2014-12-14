@@ -410,17 +410,9 @@ void GraphicsView::wheelEvent(QWheelEvent *event) {
 // Detecting all mouse button press events
 void GraphicsView::mousePressEvent(QMouseEvent *e) {
 
-	if(cropImage) {
-		cropSelectionStarted=true;
-		cropSelectionRect.setTopLeft(e->pos());
-		cropSelectionRect.setBottomRight(e->pos());
-	} else {
-
-		// A left button can possibly include dragging -> don't take for shortcut
-		if(e->button() == Qt::LeftButton)
-			buttonpressed = true;
-
-	}
+	// A left button can possibly include dragging -> don't take for shortcut
+	if(e->button() == Qt::LeftButton)
+		buttonpressed = true;
 
 	QGraphicsView::mousePressEvent(e);
 
@@ -429,90 +421,79 @@ void GraphicsView::mousePressEvent(QMouseEvent *e) {
 // Detect mouse button release events
 void GraphicsView::mouseReleaseEvent(QMouseEvent *event) {
 
-	if(cropImage) {
+	// Booleans storring the modifiers state
+	bool ctrlPressed = false;
+	bool altPressed = false;
+	bool shiftPressed = false;
 
-		if(cropSelectionRect.topLeft() == cropSelectionRect.bottomRight()) {
-			cropSelectionRect = QRect();
-			repaint();
-		}
+	// Check for modifiers
+	if(event->modifiers().testFlag(Qt::ControlModifier))
+		ctrlPressed = true;
+	if(event->modifiers().testFlag(Qt::AltModifier))
+		altPressed = true;
+	if(event->modifiers().testFlag(Qt::ShiftModifier))
+		shiftPressed = true;
 
-	} else {
+	// Booleans for buttons
+	bool doubleClick = false;
+	bool rightButton = false;
+	bool leftButton = false;
+	bool middleButton = false;
 
-		// Booleans storring the modifiers state
-		bool ctrlPressed = false;
-		bool altPressed = false;
-		bool shiftPressed = false;
+	// Check for buttons
+	if(event->type() == QMouseEvent::MouseButtonDblClick)
+		doubleClick = true;
+	else if(event->button() == Qt::LeftButton)
+		leftButton = true;
+	else if(event->button() == Qt::RightButton)
+		rightButton = true;
+	else if(event->button() == Qt::MiddleButton)
+		middleButton = true;
 
-		// Check for modifiers
-		if(event->modifiers().testFlag(Qt::ControlModifier))
-			ctrlPressed = true;
-		if(event->modifiers().testFlag(Qt::AltModifier))
-			altPressed = true;
-		if(event->modifiers().testFlag(Qt::ShiftModifier))
-			shiftPressed = true;
+	// Key string
+	QString key = "";
 
-		// Booleans for buttons
-		bool doubleClick = false;
-		bool rightButton = false;
-		bool leftButton = false;
-		bool middleButton = false;
-
-		// Check for buttons
-		if(event->type() == QMouseEvent::MouseButtonDblClick)
-			doubleClick = true;
-		else if(event->button() == Qt::LeftButton)
-			leftButton = true;
-		else if(event->button() == Qt::RightButton)
-			rightButton = true;
-		else if(event->button() == Qt::MiddleButton)
-			middleButton = true;
-
-		// Key string
-		QString key = "";
-
-		// Set up the string
-		if(ctrlPressed)
-			key = "Ctrl";
-		if(altPressed) {
-			if(key != "")
-				key += "+";
-			key += "Alt";
-		}
-		if(shiftPressed) {
-			if(key != "")
-				key += "+";
-			key += "Shift";
-		}
-
+	// Set up the string
+	if(ctrlPressed)
+		key = "Ctrl";
+	if(altPressed) {
 		if(key != "")
 			key += "+";
-
-		if(doubleClick)
-			key += "Double Click";
-		else if(rightButton)
-			key += "Right Button";
-		else if(leftButton)
-			key += "Left Button";
-		else if(middleButton)
-			key += "Middle Button";
-
-		// If mouse click doesn't include dragging -> take it
-		if(!mousedragged) {
-
-			// If shortcut exists, execute command
-			if(mouseSh.keys().contains(key)) {
-				QString toemit = QString("%1:::::%2").arg(int(mouseClose[key])).arg(mouseSh[key]);
-				emit shMouseDo(toemit,true);
-			} else if(key == "Left Button")
-				emit clicked(event->pos());
-
-		} else
-			mousedragged = false;
-
-		// Reset booleans
-		buttonpressed = false;
-
+		key += "Alt";
 	}
+	if(shiftPressed) {
+		if(key != "")
+			key += "+";
+		key += "Shift";
+	}
+
+	if(key != "")
+		key += "+";
+
+	if(doubleClick)
+		key += "Double Click";
+	else if(rightButton)
+		key += "Right Button";
+	else if(leftButton)
+		key += "Left Button";
+	else if(middleButton)
+		key += "Middle Button";
+
+	// If mouse click doesn't include dragging -> take it
+	if(!mousedragged) {
+
+		// If shortcut exists, execute command
+		if(mouseSh.keys().contains(key)) {
+			QString toemit = QString("%1:::::%2").arg(int(mouseClose[key])).arg(mouseSh[key]);
+			emit shMouseDo(toemit,true);
+		} else if(key == "Left Button")
+			emit clicked(event->pos());
+
+	} else
+		mousedragged = false;
+
+	// Reset booleans
+	buttonpressed = false;
 
 	QGraphicsView::mouseReleaseEvent(event);
 
@@ -521,22 +502,11 @@ void GraphicsView::mouseReleaseEvent(QMouseEvent *event) {
 // Get the current mouse position
 void GraphicsView::mouseMoveEvent(QMouseEvent *e) {
 
-	if(cropImage) {
+	emit mousePos(e->pos().x(),e->pos().y());
 
-		if (cropSelectionStarted) {
-			cropSelectionRect.setBottomRight(e->pos());
-			repaint();
-		}
-
-	} else {
-
-		emit mousePos(e->pos().x(),e->pos().y());
-
-		// Detect click + dragging
-		if(buttonpressed)
-			mousedragged = true;
-
-	}
+	// Detect click + dragging
+	if(buttonpressed)
+		mousedragged = true;
 
 	QGraphicsView::mouseMoveEvent(e);
 
