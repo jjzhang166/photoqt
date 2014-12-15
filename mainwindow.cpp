@@ -1281,8 +1281,9 @@ void MainWindow::moveInDirectory(int direction) {
 		viewThumbs->setCurrentfile(globVar->currentfile);
 		drawImage();
 	// Move to right, end of directory
-	} else if(direction == 1 && viewThumbs->countpos == viewThumbs->counttot-1
-		  && ((globSet->loopthroughfolder && !slideshowbar->isEnabled()) || (globSet->slideShowLoop && slideshowbar->isEnabled()))
+	} else if(direction == 1 && viewThumbs->countpos == viewThumbs->counttot-1 &&
+		  ((globSet->loopthroughfolder && ((setupWidgets->slideshowbar && !slideshowbar->isEnabled()) || !setupWidgets->slideshowbar))
+		   || (globSet->slideShowLoop && setupWidgets->slideshowbar && slideshowbar->isEnabled()))
 		  && viewThumbs->counttot > 0) {
 		globVar->newlyLoadedImage = true;
 		globVar->zoomedImgAtLeastOnce = false;
