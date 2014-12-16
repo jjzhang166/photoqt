@@ -86,7 +86,6 @@ private:
 /*	CustomLabel *quickInfoSaveBOT;*/
 
 	QuickInfoLabel *quickInfoCounterBOT;
-	CustomLabel *quickInfoSepBOT;
 	QuickInfoLabel *quickInfoFilenameBOT;
 
 // rotation indicator
@@ -95,8 +94,6 @@ private:
 	QuickInfoLabel *quickInfoCounterTOP;
 	QuickInfoLabel *quickInfoFilenameTOP;
 	QuickInfoLabel *closeWindowX;
-
-	CustomLabel *quickInfoSepTOP;
 
 signals:
 	void clickOnX(QString);

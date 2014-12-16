@@ -40,10 +40,6 @@ ViewBigLay::ViewBigLay(QMap<QString, QVariant> set, bool v) : QVBoxLayout() {
 	quickInfoCounterTOP->setAlignment(Qt::AlignTop);
 	quickInfoCounterTOP->setStyleSheet("padding: 2px; color: white");
 	quickInfoCounterTOP->hide();
-	quickInfoSepTOP = new CustomLabel("--");
-	quickInfoSepTOP->setStyleSheet("padding: 2px; color: white;");
-	quickInfoSepTOP->setAlignment(Qt::AlignTop);
-	quickInfoSepTOP->hide();
 	quickInfoFilenameTOP = new QuickInfoLabel(0,"quickinfoFilenameTOP",verbose);
 	quickInfoFilenameTOP->setAlignment(Qt::AlignTop);
 	quickInfoFilenameTOP->setText(tr("Open File to Begin."));
@@ -70,7 +66,6 @@ ViewBigLay::ViewBigLay(QMap<QString, QVariant> set, bool v) : QVBoxLayout() {
 /*	quickInfoTOP->addWidget(quickInfoSaveTOP);*/
 
 	quickInfoTOP->addWidget(quickInfoCounterTOP);
-	quickInfoTOP->addWidget(quickInfoSepTOP);
 	quickInfoTOP->addWidget(quickInfoFilenameTOP);
 	quickInfoTOP->addStretch();
 	quickInfoTOP->addWidget(closeWindowX);
@@ -90,8 +85,6 @@ ViewBigLay::ViewBigLay(QMap<QString, QVariant> set, bool v) : QVBoxLayout() {
 	quickInfoCounterBOT = new QuickInfoLabel(0,"quickinfoCounterBOT",verbose);
 	quickInfoCounterBOT->setStyleSheet("color: white");
 	quickInfoCounterBOT->hide();
-	quickInfoSepBOT = new CustomLabel("--");
-	quickInfoSepBOT->hide();
 	quickInfoFilenameBOT = new QuickInfoLabel(0,"quickinfoFilenameBOT",verbose);
 	quickInfoFilenameBOT->setText(tr("Open File to Begin."));
 	quickInfoFilenameBOT->setStyleSheet("color: white");
@@ -105,7 +98,6 @@ ViewBigLay::ViewBigLay(QMap<QString, QVariant> set, bool v) : QVBoxLayout() {
 /*	quickInfoBOT->addWidget(quickInfoSaveBOT);*/
 
 	quickInfoBOT->addWidget(quickInfoCounterBOT);
-	quickInfoBOT->addWidget(quickInfoSepBOT);
 	quickInfoBOT->addWidget(quickInfoFilenameBOT);
 	quickInfoBOT->addStretch();
 
@@ -144,12 +136,10 @@ void ViewBigLay::setPosition(QString pos) {
 	if(pos == "Bottom") {
 		quickInfoCounterTOP->hide();
 		quickInfoFilenameTOP->hide();
-		quickInfoSepTOP->hide();
 		closeWindowX->hide();
 	} else if(pos == "Top") {
 		quickInfoCounterBOT->hide();
 		quickInfoFilenameBOT->hide();
-		quickInfoSepBOT->hide();
 		closeWindowX->hide();
 	}
 
@@ -171,10 +161,8 @@ void ViewBigLay::updateInfo(QString currentfile, int countpos, int counttot) {
 
 		quickInfoCounterTOP->hide();
 		quickInfoFilenameTOP->hide();
-		quickInfoSepTOP->hide();
 
 		quickInfoCounterBOT->hide();
-		quickInfoSepBOT->hide();
 		quickInfoFilenameBOT->hide();
 
 		closeWindowX->hide();
@@ -196,7 +184,6 @@ void ViewBigLay::updateInfo(QString currentfile, int countpos, int counttot) {
 			quickInfoCounterTOP->setVisible(!globSet.value("HideCounter").toBool());
 			quickInfoFilenameTOP->setVisible(!globSet.value("HideFilename").toBool());
 			closeWindowX->setVisible(!globSet.value("HideX").toBool());
-			quickInfoSepTOP->setVisible((globSet.value("HideFilename").toBool() == globSet.value("HideCounter").toBool()) && !globSet.value("HideCounter").toBool());
 		} else {
 
 // rotation indicator
@@ -204,7 +191,6 @@ void ViewBigLay::updateInfo(QString currentfile, int countpos, int counttot) {
 
 			quickInfoFilenameTOP->setText((countpos == -1 && counttot == -1) ? tr("No images match current filter") : tr("Open File to Begin."));
 			quickInfoCounterTOP->hide();
-			quickInfoSepTOP->hide();
 			quickInfoFilenameTOP->show();
 			closeWindowX->setVisible(!globSet.value("HideX").toBool());
 		}
@@ -214,7 +200,6 @@ void ViewBigLay::updateInfo(QString currentfile, int countpos, int counttot) {
 
 		quickInfoFilenameBOT->hide();
 		quickInfoCounterBOT->hide();
-		quickInfoSepBOT->hide();
 		quickInfoFilenameBOT->hide();
 
 	} else if(globSet.value("ThumbnailPosition").toString() == "Top") {
@@ -234,7 +219,6 @@ void ViewBigLay::updateInfo(QString currentfile, int countpos, int counttot) {
 			quickInfoCounterBOT->setVisible(!globSet.value("HideCounter").toBool());
 			quickInfoFilenameBOT->setVisible(!globSet.value("HideFilename").toBool());
 			closeWindowX->setVisible(!globSet.value("HideX").toBool());
-			quickInfoSepBOT->setVisible(!globSet.value("HideFilename").toBool() && !globSet.value("HideCounter").toBool());
 		} else {
 
 // rotation indicator
@@ -242,7 +226,6 @@ void ViewBigLay::updateInfo(QString currentfile, int countpos, int counttot) {
 
 			quickInfoFilenameBOT->setText((countpos == -1 && counttot == -1) ? tr("No images match current filter") : tr("Open File to Begin."));
 			quickInfoCounterBOT->hide();
-			quickInfoSepBOT->hide();
 			quickInfoFilenameBOT->show();
 			closeWindowX->setVisible(!globSet.value("HideX").toBool());
 		}
@@ -252,7 +235,6 @@ void ViewBigLay::updateInfo(QString currentfile, int countpos, int counttot) {
 
 		quickInfoFilenameTOP->hide();
 		quickInfoCounterTOP->hide();
-		quickInfoSepTOP->hide();
 		quickInfoFilenameTOP->hide();
 
 	}
@@ -269,14 +251,10 @@ void ViewBigLay::hideItem() {
 	if(objName.startsWith("quickinfoCounter")) {
 		quickInfoCounterTOP->hide();
 		quickInfoCounterBOT->hide();
-		quickInfoSepTOP->hide();
-		quickInfoSepBOT->hide();
 		updateSet.insert("HideCounter",true);
 	} else if(objName.startsWith("quickinfoFilepath"))
 		updateSet.insert("HideFilepathShowFilename",true);
 	else if(objName.startsWith("quickinfoFilename")) {
-		quickInfoSepTOP->hide();
-		quickInfoSepBOT->hide();
 		quickInfoFilenameTOP->hide();
 		quickInfoFilenameBOT->hide();
 		updateSet.insert("HideFilename",true);
