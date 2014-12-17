@@ -920,6 +920,9 @@ void Details::updateFontsize() {
 
 	}
 
+	// After the fontsized has changed, we also need to adjust the height
+	adjustHeight();
+
 }
 
 
