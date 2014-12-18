@@ -93,7 +93,7 @@ SlideShow::SlideShow(QMap<QString, QVariant> set, bool v, QWidget *parent) : MyW
 	// Load images in random order & loop
 	loop = new CustomCheckBox(tr("Loop over images"));
 	shuffle = new CustomCheckBox(tr("Shuffle images"));
-	CustomLabel *randomLoopLabel = new CustomLabel("<b><span style=\"font-size:12pt\">" + tr("Shuffle and Loop") + "</span></b> " + "<br><br>" + tr("If you want PhotoQt to loop over all images (i.e., once it shows the last image it starts from the beginning). Additionally, if you want PhotoQt to load your images in random order, you can check the second box below. No image will be shown twice before every image has been shown once."));
+	CustomLabel *randomLoopLabel = new CustomLabel("<b><span style=\"font-size:12pt\">" + tr("Shuffle and Loop") + "</span></b> " + "<br><br>" + tr("If you want PhotoQt to loop over all images (i.e., once it shows the last image it starts from the beginning), or if you want PhotoQt to load your images in random order, you can check either or both boxes below. Note, that no image will be shown twice before every image has been shown once."));
 	randomLoopLabel->setWordWrap(true);
 	QVBoxLayout *randomLoopLay = new QVBoxLayout;
 	randomLoopLay->setAlignment(Qt::AlignCenter);
