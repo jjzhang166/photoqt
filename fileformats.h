@@ -48,8 +48,6 @@ public:
 				 << "*.ico"	// Microsoft icon
 				 << "*.icns"
 
-				 << "*.picon"	// Personal Icon
-
 				 << "*.jpeg"	// Joint Photographic Experts Group JFIF format
 				 << "*.jpg"
 
