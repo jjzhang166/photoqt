@@ -60,17 +60,10 @@ ThumbnailView::ThumbnailView(bool v, QMap<QString, QVariant> set) : QGraphicsVie
 // Manipulate the wheel event
 void ThumbnailView::wheelEvent(QWheelEvent *event) {
 
-	int delta = event->delta();
-	if(delta < 0)
-		delta = -35;
-	else if(delta > 0)
-		delta = 35;
-
-	// A vertical scrolling is translated to a horizontal scrolling
-	QWheelEvent *w = new QWheelEvent(event->pos(),delta,event->buttons(),event->modifiers(),Qt::Horizontal);
-	QGraphicsView::wheelEvent(w);
-
-
+	// Qt handles wheelevent pretty smart now, so we don't have to adjust the delat ourselves anymore, only the orientation
+	QGraphicsView::wheelEvent(new QWheelEvent(event->posF(),event->globalPosF(),
+					      event->pixelDelta(),event->angleDelta(),event->delta(),
+					      Qt::Horizontal,event->buttons(),event->modifiers()));
 
 }
 
