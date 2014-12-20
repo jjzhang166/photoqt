@@ -13,17 +13,25 @@ ImageReader::ImageReader(bool v) : QObject() {
 
 QImage ImageReader::readImage(QString filename, int rotation, bool zoomed, bool fitinwindow, QSize maxSize, bool dontscale) {
 
-
 	if(verbose) std::clog << "[reader] zoomed: " << zoomed << std::endl;
 
-	bool useMagick = doIUseMagick(filename);
-	if(verbose) std::clog << "Using Graphicsengine: " << (useMagick ? "Magick" : "ImageReader") << std::endl;
+	// Which GraphicsEngine should we use?
+	QString whatToUse = whatDoIUse(filename);
 
-	if(QFileInfo(filename).suffix().toLower() == "xcf" && !useMagick)
+	if(verbose)
+		std::clog << "Using Graphicsengine: "
+			  << (whatToUse=="gm" ? "GraphicsMagick" : (whatToUse=="qt" ? "ImageReader" : "External Tool"))
+			  << std::endl;
+
+	// Try to use XCFtools for XCF (if enabled)
+	if(QFileInfo(filename).suffix().toLower() == "xcf" && whatToUse == "extra")
 			return readImage_XCF(filename, rotation, zoomed, fitinwindow, maxSize, dontscale);
-	else if(useMagick)
+
+	// Try to use GraphicsMagick (if available)
+	else if(whatToUse == "gm")
 		return readImage_GM(filename, rotation, zoomed, fitinwindow, maxSize, dontscale);
 
+	// Try to use Qt
 	return readImage_QT(filename, rotation, zoomed, fitinwindow, maxSize, dontscale);
 
 }
@@ -397,5 +405,45 @@ bool ImageReader::doIUseMagick(QString filename) {
 	return true;
 #endif
 	return false;
+
+}
+
+QString ImageReader::whatDoIUse(QString filename) {
+
+	QString use = "qt";
+
+	// We need this list for GM and EXTRA below
+	QStringList extrasFiles = extrasfiles.split(",");
+
+	// Check for extra
+	for(int i = 0; i < extrasFiles.length(); ++i) {
+		// We need to remove the first character of qtfiles.at(i), since that is a "*"
+		if(filename.toLower().endsWith(QString(extrasFiles.at(i)).remove(0,2)))  {
+			use = "extra";
+			break;
+		}
+	}
+
+#ifdef GM
+
+	// Check for GM (i.e., check for not qt and not extra)
+	bool usegm = true;
+	QStringList qtFiles = qtfiles.split(",");
+
+	for(int i = 0; i < qtFiles.length(); ++i) {
+		// We need to remove the first character of qtfiles.at(i), since that is a "*"
+		if(filename.toLower().endsWith(QString(qtFiles.at(i)).remove(0,1)))
+			usegm = false;
+	}
+	for(int i = 0; i < extrasFiles.length(); ++i) {
+		// We need to remove the first character of qtfiles.at(i), since that is a "*"
+		if(filename.toLower().endsWith(QString(extrasFiles.at(i)).remove(0,2)))
+			usegm = false;
+	}
+
+	if(usegm) use = "gm";
+#endif
+
+	return use;
 
 }

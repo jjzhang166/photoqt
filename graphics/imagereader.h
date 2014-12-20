@@ -43,6 +43,7 @@ private:
 	QImage readImage_XCF(QString filename, int rotation, bool zoomed, bool fitinwindow, QSize maxSize, bool dontscale = false);
 
 	bool doIUseMagick(QString filename);
+	QString whatDoIUse(QString filename);
 
 };
 
