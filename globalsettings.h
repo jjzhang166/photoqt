@@ -34,7 +34,7 @@
 #include <QtDebug>
 
 #ifdef Q_OS_WIN32
-#include <QtWin>
+//#include <QtWin>
 #endif
 
 #include "fileformats.h"
@@ -330,22 +330,22 @@ public:
 		bgColorBlue = 0;
 		bgColorAlpha = 190;
 
-#ifdef Q_OS_WIN32
-		backgroundImageScreenshot = (QtWin::isCompositionEnabled() ? false : true);
-#else
+//#ifdef Q_OS_WIN32
+//		backgroundImageScreenshot = (QtWin::isCompositionEnabled() ? false : true);
+//#else
 		backgroundImageScreenshot = true;
-#endif
+//#endif
 		backgroundImageUse = false;
 		backgroundImagePath = "";
 		backgroundImageScale = false;
 		backgroundImageStretch = false;
 		backgroundImageCenter = false;
 
-#ifdef Q_OS_WIN32
-		composite = (QtWin::isCompositionEnabled() ? true : false);
-#else
+//#ifdef Q_OS_WIN32
+//		composite = (QtWin::isCompositionEnabled() ? true : false);
+//#else
 		composite = false;
-#endif
+//#endif
 		trayicon = false;
 		transition = 0;
 		loopthroughfolder = true;
