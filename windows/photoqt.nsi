@@ -48,7 +48,7 @@
 
 	; Installer pages
 	!insertmacro MUI_PAGE_WELCOME
-	!insertmacro MUI_PAGE_LICENSE "app32\license.txt"
+	!insertmacro MUI_PAGE_LICENSE "license.txt"
 	!insertmacro MUI_PAGE_DIRECTORY
 	!insertmacro MUI_PAGE_INSTFILES
 	Page custom FinalStepsInit FinalStepsLeave
@@ -72,9 +72,6 @@ Section "PhotoQt" SecDummy
 
 	SetOutPath "$INSTDIR"
 	${If} ${RunningX64}
-		
-		MessageBox MB_OK "64BIT"
-
 		File "app64\libbz2-1.dll"
 		File "app64\libEGL.dll"
 		File "app64\libexiv2.dll"
@@ -100,12 +97,13 @@ Section "PhotoQt" SecDummy
 		File "app64\Qt5Gui.dll"
 		File "app64\Qt5Multimedia.dll"
 		File "app64\Qt5Network.dll"
-		;File "app64\Qt5Svg.dll"
+		File "app64\Qt5Svg.dll"
 		File "app64\Qt5Sql.dll"
 		File "app64\Qt5Widgets.dll"
 		File "app64\zlib1.dll"
+		
+		File "app64\photoqt.exe"
 	${Else}
-		MessageBox MB_OK "32BIT"
 		File "app32\libbz2-1.dll"
 		File "app32\libEGL.dll"
 		File "app32\libexiv2.dll"
@@ -131,15 +129,16 @@ Section "PhotoQt" SecDummy
 		File "app32\Qt5Gui.dll"
 		File "app32\Qt5Multimedia.dll"
 		File "app32\Qt5Network.dll"
-		;File "app32\Qt5Svg.dll"
+		File "app32\Qt5Svg.dll"
 		File "app32\Qt5Sql.dll"
 		File "app32\Qt5Widgets.dll"
 		File "app32\zlib1.dll"
+		
+		File "app32\photoqt.exe"
 	${EndIf}
 	
-	File "app32\license.txt"
-	File "app32\photoqt.exe"
-	File "app32\logo.ico"
+	File "license.txt"
+	File "logo.ico"
 
 	SetOutPath "$INSTDIR\sqldrivers"
 	${If} ${RunningX64}
