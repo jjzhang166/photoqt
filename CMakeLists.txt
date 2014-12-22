@@ -118,7 +118,6 @@ ADD_CUSTOM_COMMAND(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/resLang.qrc
 		   MAIN_DEPENDENCY ${CMAKE_CURRENT_SOURCE_DIR}/resLang.qrc
 		   DEPENDS ${qm_files})
 
-
 # Set resources
 SET(photoqt_RESOURCES resImg.qrc ${CMAKE_CURRENT_BINARY_DIR}/resLang.qrc)
 
@@ -146,6 +145,16 @@ ELSEIF(NOT WIN32)
 	ADD_EXECUTABLE(photoqt ${photoqt_SOURCES} ${photoqt_HEADERS_MOC} ${qm_files} ${photoqt_RESOURCES_RCC} ${trans_outfile})
 ENDIF(WIN32)
 QT5_USE_MODULES(photoqt Core Sql Widgets Multimedia Svg)
+
+
+#Depending on setup, we copy one of the desktop files to photoqt.desktop
+IF(GM)
+	ADD_CUSTOM_COMMAND(TARGET photoqt POST_BUILD
+		COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/for_photoqt_desktop_FULL ${CMAKE_CURRENT_SOURCE_DIR}/photoqt.desktop)
+ELSEIF(NOT GM)
+	ADD_CUSTOM_COMMAND(TARGET photoqt POST_BUILD
+		COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/for_photoqt_desktop_QT ${CMAKE_CURRENT_SOURCE_DIR}/photoqt.desktop)
+ENDIF(GM)
 
 
 MESSAGE("")
