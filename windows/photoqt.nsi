@@ -209,8 +209,8 @@ Var RadioButtonAdvanced
 Var RadioButtonAdvanced_State
 Var CheckboxPdfPs
 Var CheckboxPdfPs_State
-Var CheckboxPdsXcf
-Var CheckboxPdsXcf_State
+Var CheckboxPsdXcf
+Var CheckboxPsdXcf_State
 
 Var CheckboxStartMenu
 Var CheckboxStartMenu_State
@@ -253,7 +253,7 @@ Function FinalStepsInit
 	Pop $CheckboxPdfPs
 
 	${NSD_CreateCheckbox} 0 77u 100% 12u "Also include PSD and XCF"
-	Pop $CheckboxPdsXcf
+	Pop $CheckboxPsdXcf
 
 	${NSD_CreateHLine} 0 99u 100% 1u HLineBeforeDesktop
 
@@ -276,10 +276,10 @@ Function FinalStepsDisEnable
 	${NSD_GetState} $RadioButtonAdvanced $RadioButtonAdvanced_State
 	${If} $RadioButtonAdvanced_State == ${BST_CHECKED}
 		EnableWindow $CheckboxPdfPs 1
-		EnableWindow $CheckboxPdsXcf 1
+		EnableWindow $CheckboxPsdXcf 1
 	${Else}
 		EnableWindow $CheckboxPdfPs 0
-		EnableWindow $CheckboxPdsXcf 0
+		EnableWindow $CheckboxPsdXcf 0
 	${EndIf}
 
 FunctionEnd
@@ -290,7 +290,7 @@ Function FinalStepsLeave
 	${NSD_GetState} $RadioButtonBasic $RadioButtonBasic_State
 	${NSD_GetState} $RadioButtonAdvanced $RadioButtonAdvanced_State
 	${NSD_GetState} $CheckboxPdfPs $CheckboxPdfPs_State
-	${NSD_GetState} $CheckboxPdsXcf $CheckboxPdsXcf_State
+	${NSD_GetState} $CheckboxPsdXcf $CheckboxPsdXcf_State
 	${NSD_GetState} $CheckboxDesktop $CheckboxDesktop_State
 	${NSD_GetState} $CheckboxStartMenu $CheckboxStartMenu_State
 
@@ -300,36 +300,35 @@ Function FinalStepsLeave
 
 		WriteRegStr HKCU "Software\PhotoQt" "fileformats" "basic"
 
-		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".bmp" "BMP_FILE"
-		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".bitmap" "BITMAP_FILE"
-		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".dds" "DDS_FILE"
-		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".gif" "GIF_FILE"
-		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".tif" "TIF_FILE"
-		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".tiff" "TIFF_FILE"
-		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".jpeg2000" "JPEG2000_FILE"
-		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".jp2" "JP2_FILE"
-		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".jpc" "JPC_FILE"
-		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".j2k" "J2K_FILE"
-		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".jpf" "JPF_FILE"
-		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".jpx" "JPX_FILE"
-		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".jpm" "JPM_FILE"
-		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".mj2" "MJ2_FILE"
-		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".mng" "MNG_FILE"
-		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".ico" "ICON_FILE"
-		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".icns" "ICNS_FILE"
-		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".jpeg" "JPEG_FILE"
-		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".jpg" "JPEG_FILE"
-		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".png" "PNG_FILE"
-		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".pbm" "PBM_FILE"
-		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".pgm" "PGM_FILE"
-		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".ppm" "PPM_FILE"
-		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".svg" "SVG_FILE"
-		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".svgz" "SVGZ_FILE"
-		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".xbm" "XBM_FILE"
-		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".wbmp" "WBMP_FILE"
-		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".webp" "WEBP_FILE"
-		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".xbm" "XBM_FILE"
-		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".xpm" "XPM_FILE"
+		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".bmp" "Microsoft Windows bitmap"
+		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".bitmap" "Microsoft Windows bitmap"
+		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".dds" "Direct Draw Surface"
+		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".gif" "Graphics Interchange Format"
+		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".tif" "Tagged Image File Format"
+		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".tiff" "Tagged Image File Format"
+		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".jpeg2000" "JPEG-2000 image"
+		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".jp2" "JPEG-2000 image"
+		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".jpc" "JPEG-2000 image"
+		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".j2k" "JPEG-2000 image"
+		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".jpf" "JPEG-2000 image"
+		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".jpx" "JPEG-2000 image"
+		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".jpm" "JPEG-2000 image"
+		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".mj2" "JPEG-2000 image"
+		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".mng" "Multiple-image Network Graphics"
+		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".ico" "Microsoft Icon"
+		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".icns" "Microsoft Icon"
+		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".jpeg" "JPEG image"
+		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".jpg" "JPEG image"
+		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".png" "Portable Network Graphics"
+		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".pbm" "Portable bitmap format"
+		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".pgm" "Portable graymap format"
+		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".ppm" "Portable pixmap format"
+		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".svg" "Scalable Vector Graphics"
+		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".svgz" "Scalable Vector Graphics"
+		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".xbm" "X Windows system bitmap"
+		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".wbmp" "Wireless bitmap"
+		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".webp" "Wireless bitmap"
+		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".xpm" "X Windows system pixmap"
 
 	${EndIf}
 
@@ -338,92 +337,92 @@ Function FinalStepsLeave
 
 		WriteRegStr HKCU "Software\PhotoQt" "fileformats" "advanced"
 
-		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".avs" "AVS_FILE"
-		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".x" "X_FILE"
+		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".avs" "AVS X image"
+		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".x" "AVS X image"
 
-		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".cals" "CALS_FILE"
-		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".cal" "CAL_FILE"
-		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".dcl" "DCL_FILE"
-		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".ras" "RAS_FILE"
+		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".cals" "Continuous Acquisition and Life-cycle Support Type 1 image"
+		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".cal" "Continuous Acquisition and Life-cycle Support Type 1 image"
+		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".dcl" "Continuous Acquisition and Life-cycle Support Type 1 image"
+		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".ras" "Continuous Acquisition and Life-cycle Support Type 1 image"
 
-		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".cin" "CIN_FILE"
-		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".cut" "CUT_FILE"
+		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".cin" "Kodak Cineon"
+		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".cut" "DR Halo"
 
-		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".acr" "ACR_FILE"
-		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".dcm" "DCM_FILE"
-		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".dicom" "DICOM_FILE"
-		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".dic" "DIC_FILE"
+		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".acr" "DICOM image"
+		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".dcm" "DICOM image"
+		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".dicom" "DICOM image"
+		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".dic" "DICOM image"
 
-		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".dcx" "DCX_FILE"
-		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".dib" "DIB_FILE"
-		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".dpx" "DPX_FILE"
+		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".dcx" "ZSoft IBM PC multi-page Paintbrush image"
+		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".dib" "Device Independent Bitmap"
+		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".dpx" "Digital Moving Picture Exchange"
 
-		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".fax" "FAX_FILE"
-		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".fits" "FITS_FILE"
-		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".fts" "FTS_FILE"
-		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".fit" "FIT_FILE"
-		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".fpx" "FPX_FILE"
-		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".jng" "JNG_FILE"
-		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".mat" "MAT_FILE"
-		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".miff" "MIFF_FILE"
+		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".fax" "Group 3 Fax"
+		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".fits" "Flexible Image Transport System"
+		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".fts" "Flexible Image Transport System"
+		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".fit" "Flexible Image Transport System"
+		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".fpx" "FlashPix Format"
+		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".jng" "JPEG Network Graphics"
+		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".mat" "MATLAT image format"
+		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".miff" "Magick image file format"
 
-		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".mono" "MONO_FILE"
-		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".mtv" "MTV_FILE"
-		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".otb" "OTB_FILE"
-		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".p7" "P7_FILE"
-		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".palm" "PALM_FILE"
-		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".pam" "PAM_FILE"
-		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".pcd" "PCD_FILE"
-		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".pcds" "PCDS_FILE"
-		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".pcx" "PCX_FILE"
-		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".pdb" "PDB_FILE"
+		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".mono" "Bi-level bitmap in little-endian order"
+		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".mtv" "MTV Raytracing image format"
+		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".otb" "On-the-air bitmap"
+		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".p7" "Xv's Visual Schnauzer thumbnail format"
+		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".palm" "Palm pixmap"
+		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".pam" "Portable Arbitrary Map format"
+		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".pcd" "Photo CD"
+		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".pcds" "Photo CD"
+		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".pcx" "ZSoft IBM PC Paintbrush file"
+		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".pdb" "Palm Database ImageViewer format"
 
-		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".pict" "PICT_FILE"
-		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".pct" "PCT_FILE"
-		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".pic" "PIC_FILE"
-		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".pix" "PIX_FILE"
-		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".pal" "PAL_FILE"
-		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".pnm" "PNM_FILE"
+		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".pict" "Apple Macintosh QuickDraw/PICT file"
+		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".pct" "Apple Macintosh QuickDraw/PICT file"
+		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".pic" "Apple Macintosh QuickDraw/PICT file"
+		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".pix" "Alias/Wavefront RLE image format"
+		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".pal" "Alias/Wavefront RLE image format"
+		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".pnm" "Portable anymap"
 
-		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".ptif" "PTIF_FILE"
-		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".ptiff" "PTIFF_FILE"
-		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".sfw" "SFW_FILE"
-		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".sgi" "SGI_FILE"
-		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".sun" "SUN_FILE"
-		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".tga" "TGA_FILE"
-		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".vicar" "VICAR_FILE"
-		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".viff" "VIFF_FILE"
+		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".ptif" "Pyramid encoded TIFF"
+		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".ptiff" "Pyramid encoded TIFF"
+		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".sfw" "Seattle File Works image"
+		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".sgi" "Irix RGB image"
+		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".sun" "SUN Rasterfile"
+		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".tga" "Truevision Targe image"
+		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".vicar" "VICAR rasterfile format"
+		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".viff" "Khoros Visualization image file format"
 
-		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".wpg" "WPG_FILE"
-		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".xwd" "XWD_FILE"
+		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".wpg" "Word Perfect Graphics file"
+		!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".xwd" "X Windows system window dump"
 
 
 		${If} $CheckboxPdfPs_State == ${BST_CHECKED}
 
-			WriteRegStr HKCU "Software\PhotoQt" "fileformats" "advanced_2"
+			WriteRegStr HKCU "Software\PhotoQt" "fileformats_pdfps" "registered"
 
-			!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".epdf" "EPDF_FILE"
-			!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".epi" "EPI_FILE"
-			!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".epsi" "EPSI_FILE"
-			!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".eps" "EPS_FILE"
-			!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".epsf" "EPSF_FILE"
-			!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".eps2" "EPS2_FILE"
-			!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".eps3" "EPS3_FILE"
-			!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".ept" "EPT_FILE"
-			!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".pdf" "PDF_FILE"
-			!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".ps" "PS_FILE"
-			!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".ps2" "PS2_FILE"
-			!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".ps3" "PS3_FILE"
+			!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".epdf" "Encapsulated PDF"
+			!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".epi" "Encapsulated PostScript Interchange format"
+			!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".epsi" "Encapsulated PostScript Interchange format"
+			!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".eps" "Encapsulated PostScript"
+			!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".epsf" "Encapsulated PostScript"
+			!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".eps2" "Level II Encapsulated PostScript"
+			!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".eps3" "Level III Encapsulated PostScript"
+			!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".ept" "Encapsulated PostScript Interchange format (TIFF preview)"
+			!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".pdf" "Portable Document Format"
+			!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".ps" "PostScript"
+			!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".ps2" "Level II PostScript"
+			!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".ps3" "Level III PostScript"
 
 		${EndIf}
 
-		${If} $CheckboxPdsXcf_State == ${BST_CHECKED}
+		${If} $CheckboxPsdXcf_State == ${BST_CHECKED}
 
-			WriteRegStr HKCU "Software\PhotoQt" "fileformats" "advanced_2"
+			WriteRegStr HKCU "Software\PhotoQt" "fileformats_psdxcf" "registered"
 
-			!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".psb" "PSB_FILE"
-			!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".psd" "PSD_FILE"
-			!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".xcf" "XCF_FILE"
+			!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".psb" "Large Photoshop Document"
+			!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".psd" "Photoshop Document"
+			!insertmacro RegisterExtensionCall "$INSTDIR\photoqt.exe" ".xcf" "Gimp image"
 
 		${EndIf}
 
@@ -520,120 +519,124 @@ Section "Uninstall"
 	; De-register file types
 
 	Var /GLOBAL fileformats
+	Var /GLOBAL fileformats_pdfps
+	Var /GLOBAL fileformats_psdxcf
 	ReadRegStr $fileformats HKCU "Software\PhotoQt" "fileformats"
+	ReadRegStr $fileformats_pdfps HKCU "Software\PhotoQt" "fileformats_pdfps"
+	ReadRegStr $fileformats_psdxcf HKCU "Software\PhotoQt" "fileformats_psdxcf"
 
 	${If} $fileformats == "basic"
-		!insertmacro UnRegisterExtensionCall ".bmp" "BMP_FILE"
-		!insertmacro UnRegisterExtensionCall ".bitmap" "BITMAP_FILE"
-		!insertmacro UnRegisterExtensionCall ".dds" "DDS_FILE"
-		!insertmacro UnRegisterExtensionCall ".gif" "GIF_FILE"
-		!insertmacro UnRegisterExtensionCall ".tif" "TIF_FILE"
-		!insertmacro UnRegisterExtensionCall ".tiff" "TIFF_FILE"
-		!insertmacro UnRegisterExtensionCall ".jpeg2000" "JPEG2000_FILE"
-		!insertmacro UnRegisterExtensionCall ".jp2" "JP2_FILE"
-		!insertmacro UnRegisterExtensionCall ".jpc" "JPC_FILE"
-		!insertmacro UnRegisterExtensionCall ".j2k" "J2K_FILE"
-		!insertmacro UnRegisterExtensionCall ".jpf" "JPF_FILE"
-		!insertmacro UnRegisterExtensionCall ".jpx" "JPX_FILE"
-		!insertmacro UnRegisterExtensionCall ".jpm" "JPM_FILE"
-		!insertmacro UnRegisterExtensionCall ".mj2" "MJ2_FILE"
-		!insertmacro UnRegisterExtensionCall ".mng" "MNG_FILE"
-		!insertmacro UnRegisterExtensionCall ".ico" "ICON_FILE"
-		!insertmacro UnRegisterExtensionCall ".icns" "ICNS_FILE"
-		!insertmacro UnRegisterExtensionCall ".jpeg" "JPEG_FILE"
-		!insertmacro UnRegisterExtensionCall ".jpg" "JPEG_FILE"
-		!insertmacro UnRegisterExtensionCall ".png" "PNG_FILE"
-		!insertmacro UnRegisterExtensionCall ".pbm" "PBM_FILE"
-		!insertmacro UnRegisterExtensionCall ".pgm" "PGM_FILE"
-		!insertmacro UnRegisterExtensionCall ".ppm" "PPM_FILE"
-		!insertmacro UnRegisterExtensionCall ".svg" "SVG_FILE"
-		!insertmacro UnRegisterExtensionCall ".svgz" "SVGZ_FILE"
-		!insertmacro UnRegisterExtensionCall ".xbm" "XBM_FILE"
-		!insertmacro UnRegisterExtensionCall ".wbmp" "WBMP_FILE"
-		!insertmacro UnRegisterExtensionCall ".webp" "WEBP_FILE"
-		!insertmacro UnRegisterExtensionCall ".xbm" "XBM_FILE"
-		!insertmacro UnRegisterExtensionCall ".xpm" "XPM_FILE"
+		!insertmacro UnRegisterExtensionCall ".bmp" "Microsoft Windows bitmap"
+		!insertmacro UnRegisterExtensionCall ".bitmap" "Microsoft Windows bitmap"
+		!insertmacro UnRegisterExtensionCall ".dds" "Direct Draw Surface"
+		!insertmacro UnRegisterExtensionCall ".gif" "Graphics Interchange Format"
+		!insertmacro UnRegisterExtensionCall ".tif" "Tagged Image File Format"
+		!insertmacro UnRegisterExtensionCall ".tiff" "Tagged Image File Format"
+		!insertmacro UnRegisterExtensionCall ".jpeg2000" "JPEG-2000 image"
+		!insertmacro UnRegisterExtensionCall ".jp2" "JPEG-2000 image"
+		!insertmacro UnRegisterExtensionCall ".jpc" "JPEG-2000 image"
+		!insertmacro UnRegisterExtensionCall ".j2k" "JPEG-2000 image"
+		!insertmacro UnRegisterExtensionCall ".jpf" "JPEG-2000 image"
+		!insertmacro UnRegisterExtensionCall ".jpx" "JPEG-2000 image"
+		!insertmacro UnRegisterExtensionCall ".jpm" "JPEG-2000 image"
+		!insertmacro UnRegisterExtensionCall ".mj2" "JPEG-2000 image"
+		!insertmacro UnRegisterExtensionCall ".mng" "Multiple-image Network Graphics"
+		!insertmacro UnRegisterExtensionCall ".ico" "Microsoft Icon"
+		!insertmacro UnRegisterExtensionCall ".icns" "Microsoft Icon"
+		!insertmacro UnRegisterExtensionCall ".jpeg" "JPEG image"
+		!insertmacro UnRegisterExtensionCall ".jpg" "JPEG image"
+		!insertmacro UnRegisterExtensionCall ".png" "Portable Network Graphics"
+		!insertmacro UnRegisterExtensionCall ".pbm" "Portable bitmap format"
+		!insertmacro UnRegisterExtensionCall ".pgm" "Portable graymap format"
+		!insertmacro UnRegisterExtensionCall ".ppm" "Portable pixmap format"
+		!insertmacro UnRegisterExtensionCall ".svg" "Scalable Vector Graphics"
+		!insertmacro UnRegisterExtensionCall ".svgz" "Scalable Vector Graphics"
+		!insertmacro UnRegisterExtensionCall ".xbm" "X Windows system bitmap"
+		!insertmacro UnRegisterExtensionCall ".wbmp" "Wireless bitmap"
+		!insertmacro UnRegisterExtensionCall ".webp" "Wireless bitmap"
+		!insertmacro UnRegisterExtensionCall ".xpm" "X Windows system pixmap"
 	${EndIf}
 
 	${If} $fileformats == "advanced"
-	${Orif} $fileformats == "advanced_2"
-		!insertmacro UnRegisterExtensionCall ".avs" "AVS_FILE"
-		!insertmacro UnRegisterExtensionCall ".x" "X_FILE"
+		!insertmacro UnRegisterExtensionCall ".avs" "AVS X image"
+		!insertmacro UnRegisterExtensionCall ".x" "AVS X image"
 
-		!insertmacro UnRegisterExtensionCall ".cals" "CALS_FILE"
-		!insertmacro UnRegisterExtensionCall ".cal" "CAL_FILE"
-		!insertmacro UnRegisterExtensionCall ".dcl" "DCL_FILE"
-		!insertmacro UnRegisterExtensionCall ".ras" "RAS_FILE"
+		!insertmacro UnRegisterExtensionCall ".cals" "Continuous Acquisition and Life-cycle Support Type 1 image"
+		!insertmacro UnRegisterExtensionCall ".cal" "Continuous Acquisition and Life-cycle Support Type 1 image"
+		!insertmacro UnRegisterExtensionCall ".dcl" "Continuous Acquisition and Life-cycle Support Type 1 image"
+		!insertmacro UnRegisterExtensionCall ".ras" "Continuous Acquisition and Life-cycle Support Type 1 image"
 
-		!insertmacro UnRegisterExtensionCall ".cin" "CIN_FILE"
-		!insertmacro UnRegisterExtensionCall ".cut" "CUT_FILE"
+		!insertmacro UnRegisterExtensionCall ".cin" "Kodak Cineon"
+		!insertmacro UnRegisterExtensionCall ".cut" "DR Halo"
 
-		!insertmacro UnRegisterExtensionCall ".acr" "ACR_FILE"
-		!insertmacro UnRegisterExtensionCall ".dcm" "DCM_FILE"
-		!insertmacro UnRegisterExtensionCall ".dicom" "DICOM_FILE"
-		!insertmacro UnRegisterExtensionCall ".dic" "DIC_FILE"
+		!insertmacro UnRegisterExtensionCall ".acr" "DICOM image"
+		!insertmacro UnRegisterExtensionCall ".dcm" "DICOM image"
+		!insertmacro UnRegisterExtensionCall ".dicom" "DICOM image"
+		!insertmacro UnRegisterExtensionCall ".dic" "DICOM image"
 
-		!insertmacro UnRegisterExtensionCall ".dcx" "DCX_FILE"
-		!insertmacro UnRegisterExtensionCall ".dib" "DIB_FILE"
-		!insertmacro UnRegisterExtensionCall ".dpx" "DPX_FILE"
+		!insertmacro UnRegisterExtensionCall ".dcx" "ZSoft IBM PC multi-page Paintbrush image"
+		!insertmacro UnRegisterExtensionCall ".dib" "Device Independent Bitmap"
+		!insertmacro UnRegisterExtensionCall ".dpx" "Digital Moving Picture Exchange"
 
-		!insertmacro UnRegisterExtensionCall ".fax" "FAX_FILE"
-		!insertmacro UnRegisterExtensionCall ".fits" "FITS_FILE"
-		!insertmacro UnRegisterExtensionCall ".fts" "FTS_FILE"
-		!insertmacro UnRegisterExtensionCall ".fit" "FIT_FILE"
-		!insertmacro UnRegisterExtensionCall ".fpx" "FPX_FILE"
-		!insertmacro UnRegisterExtensionCall ".jng" "JNG_FILE"
-		!insertmacro UnRegisterExtensionCall ".mat" "MAT_FILE"
-		!insertmacro UnRegisterExtensionCall ".miff" "MIFF_FILE"
+		!insertmacro UnRegisterExtensionCall ".fax" "Group 3 Fax"
+		!insertmacro UnRegisterExtensionCall ".fits" "Flexible Image Transport System"
+		!insertmacro UnRegisterExtensionCall ".fts" "Flexible Image Transport System"
+		!insertmacro UnRegisterExtensionCall ".fit" "Flexible Image Transport System"
+		!insertmacro UnRegisterExtensionCall ".fpx" "FlashPix Format"
+		!insertmacro UnRegisterExtensionCall ".jng" "JPEG Network Graphics"
+		!insertmacro UnRegisterExtensionCall ".mat" "MATLAT image format"
+		!insertmacro UnRegisterExtensionCall ".miff" "Magick image file format"
 
-		!insertmacro UnRegisterExtensionCall ".mono" "MONO_FILE"
-		!insertmacro UnRegisterExtensionCall ".mtv" "MTV_FILE"
-		!insertmacro UnRegisterExtensionCall ".otb" "OTB_FILE"
-		!insertmacro UnRegisterExtensionCall ".p7" "P7_FILE"
-		!insertmacro UnRegisterExtensionCall ".palm" "PALM_FILE"
-		!insertmacro UnRegisterExtensionCall ".pam" "PAM_FILE"
-		!insertmacro UnRegisterExtensionCall ".pcd" "PCD_FILE"
-		!insertmacro UnRegisterExtensionCall ".pcds" "PCDS_FILE"
-		!insertmacro UnRegisterExtensionCall ".pcx" "PCX_FILE"
-		!insertmacro UnRegisterExtensionCall ".pdb" "PDB_FILE"
+		!insertmacro UnRegisterExtensionCall ".mono" "Bi-level bitmap in little-endian order"
+		!insertmacro UnRegisterExtensionCall ".mtv" "MTV Raytracing image format"
+		!insertmacro UnRegisterExtensionCall ".otb" "On-the-air bitmap"
+		!insertmacro UnRegisterExtensionCall ".p7" "Xv's Visual Schnauzer thumbnail format"
+		!insertmacro UnRegisterExtensionCall ".palm" "Palm pixmap"
+		!insertmacro UnRegisterExtensionCall ".pam" "Portable Arbitrary Map format"
+		!insertmacro UnRegisterExtensionCall ".pcd" "Photo CD"
+		!insertmacro UnRegisterExtensionCall ".pcds" "Photo CD"
+		!insertmacro UnRegisterExtensionCall ".pcx" "ZSoft IBM PC Paintbrush file"
+		!insertmacro UnRegisterExtensionCall ".pdb" "Palm Database ImageViewer format"
 
-		!insertmacro UnRegisterExtensionCall ".pict" "PICT_FILE"
-		!insertmacro UnRegisterExtensionCall ".pct" "PCT_FILE"
-		!insertmacro UnRegisterExtensionCall ".pic" "PIC_FILE"
-		!insertmacro UnRegisterExtensionCall ".pix" "PIX_FILE"
-		!insertmacro UnRegisterExtensionCall ".pal" "PAL_FILE"
-		!insertmacro UnRegisterExtensionCall ".pnm" "PNM_FILE"
+		!insertmacro UnRegisterExtensionCall ".pict" "Apple Macintosh QuickDraw/PICT file"
+		!insertmacro UnRegisterExtensionCall ".pct" "Apple Macintosh QuickDraw/PICT file"
+		!insertmacro UnRegisterExtensionCall ".pic" "Apple Macintosh QuickDraw/PICT file"
+		!insertmacro UnRegisterExtensionCall ".pix" "Alias/Wavefront RLE image format"
+		!insertmacro UnRegisterExtensionCall ".pal" "Alias/Wavefront RLE image format"
+		!insertmacro UnRegisterExtensionCall ".pnm" "Portable anymap"
 
-		!insertmacro UnRegisterExtensionCall ".ptif" "PTIF_FILE"
-		!insertmacro UnRegisterExtensionCall ".ptiff" "PTIFF_FILE"
-		!insertmacro UnRegisterExtensionCall ".sfw" "SFW_FILE"
-		!insertmacro UnRegisterExtensionCall ".sgi" "SGI_FILE"
-		!insertmacro UnRegisterExtensionCall ".sun" "SUN_FILE"
-		!insertmacro UnRegisterExtensionCall ".tga" "TGA_FILE"
-		!insertmacro UnRegisterExtensionCall ".vicar" "VICAR_FILE"
-		!insertmacro UnRegisterExtensionCall ".viff" "VIFF_FILE"
+		!insertmacro UnRegisterExtensionCall ".ptif" "Pyramid encoded TIFF"
+		!insertmacro UnRegisterExtensionCall ".ptiff" "Pyramid encoded TIFF"
+		!insertmacro UnRegisterExtensionCall ".sfw" "Seattle File Works image"
+		!insertmacro UnRegisterExtensionCall ".sgi" "Irix RGB image"
+		!insertmacro UnRegisterExtensionCall ".sun" "SUN Rasterfile"
+		!insertmacro UnRegisterExtensionCall ".tga" "Truevision Targe image"
+		!insertmacro UnRegisterExtensionCall ".vicar" "VICAR rasterfile format"
+		!insertmacro UnRegisterExtensionCall ".viff" "Khoros Visualization image file format"
 
-		!insertmacro UnRegisterExtensionCall ".wpg" "WPG_FILE"
-		!insertmacro UnRegisterExtensionCall ".xwd" "XWD_FILE"
+		!insertmacro UnRegisterExtensionCall ".wpg" "Word Perfect Graphics file"
+		!insertmacro UnRegisterExtensionCall ".xwd" "X Windows system window dump"
 	${EndIf}
 
-	${If} $fileformats == "advanced_2"
-		!insertmacro UnRegisterExtensionCall ".epdf" "EPDF_FILE"
-		!insertmacro UnRegisterExtensionCall ".epi" "EPI_FILE"
-		!insertmacro UnRegisterExtensionCall ".epsi" "EPSI_FILE"
-		!insertmacro UnRegisterExtensionCall ".eps" "EPS_FILE"
-		!insertmacro UnRegisterExtensionCall ".epsf" "EPSF_FILE"
-		!insertmacro UnRegisterExtensionCall ".eps2" "EPS2_FILE"
-		!insertmacro UnRegisterExtensionCall ".eps3" "EPS3_FILE"
-		!insertmacro UnRegisterExtensionCall ".ept" "EPT_FILE"
-		!insertmacro UnRegisterExtensionCall ".pdf" "PDF_FILE"
-		!insertmacro UnRegisterExtensionCall ".ps" "PS_FILE"
-		!insertmacro UnRegisterExtensionCall ".ps2" "PS2_FILE"
-		!insertmacro UnRegisterExtensionCall ".ps3" "PS3_FILE"
+	${If} $fileformats_pdfps == "registered"
+		!insertmacro UnRegisterExtensionCall ".epdf" "Encapsulated PDF"
+		!insertmacro UnRegisterExtensionCall ".epi" "Encapsulated PostScript Interchange format"
+		!insertmacro UnRegisterExtensionCall ".epsi" "Encapsulated PostScript Interchange format"
+		!insertmacro UnRegisterExtensionCall ".eps" "Encapsulated PostScript"
+		!insertmacro UnRegisterExtensionCall ".epsf" "Encapsulated PostScript"
+		!insertmacro UnRegisterExtensionCall ".eps2" "Level II Encapsulated PostScript"
+		!insertmacro UnRegisterExtensionCall ".eps3" "Level III Encapsulated PostScript"
+		!insertmacro UnRegisterExtensionCall ".ept" "Encapsulated PostScript Interchange format (TIFF preview)"
+		!insertmacro UnRegisterExtensionCall ".pdf" "Portable Document Format"
+		!insertmacro UnRegisterExtensionCall ".ps" "PostScript"
+		!insertmacro UnRegisterExtensionCall ".ps2" "Level II PostScript"
+		!insertmacro UnRegisterExtensionCall ".ps3" "Level III PostScript"
+	${EndIf}
 
-		!insertmacro UnRegisterExtensionCall ".psb" "PSB_FILE"
-		!insertmacro UnRegisterExtensionCall ".psd" "PSD_FILE"
-		!insertmacro UnRegisterExtensionCall ".xcf" "XCF_FILE"
+	${If} $fileformats_psdxcf == "registered"
+		!insertmacro UnRegisterExtensionCall ".psb" "Large Photoshop Document"
+		!insertmacro UnRegisterExtensionCall ".psd" "Photoshop Document"
+		!insertmacro UnRegisterExtensionCall ".xcf" "Gimp image"
 	${EndIf}
 
 	; Update icons
@@ -641,6 +644,8 @@ Section "Uninstall"
 
 	; And delete registry key
 	DeleteRegValue HKCU "SOFTWARE\PhotoQt" "fileformats"
+	DeleteRegValue HKCU "SOFTWARE\PhotoQt" "fileformats_pdfps"
+	DeleteRegValue HKCU "SOFTWARE\PhotoQt" "fileformats_psdxcf"
 	DeleteRegKey /ifempty HKCU "Software\PhotoQt"
 
 SectionEnd
