@@ -314,14 +314,15 @@ QImage ImageReader::readImage_GM(QString filename, int rotation, bool zoomed, bo
 
 		image.read(blob);
 		Magick::Blob ob;
-		image.magick("XPM");
+		image.type(Magick::TrueColorMatteType);
+		image.magick("PNG");
 		image.write(&ob);
 
-		QFile out(QDir::tempPath() + "/photoqt_tmp.xpm");
+		QFile out(QDir::tempPath() + "/photoqt_tmp.png");
 		out.open(QIODevice::WriteOnly);
 		out.write(static_cast<const char*>(ob.data()), ob.length());
 
-		return readImage_QT(QDir::tempPath() + "/photoqt_tmp.xpm",rotation,zoomed,fitinwindow,maxSize,dontscale);
+		return readImage_QT(QDir::tempPath() + "/photoqt_tmp.png",rotation,zoomed,fitinwindow,maxSize,dontscale);
 
 	} catch(Magick::Exception &error_) {
 		delete[] data;
