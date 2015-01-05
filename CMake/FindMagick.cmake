@@ -45,19 +45,5 @@ IF(MAGICK++_INCLUDE_DIR)
 	ENDIF(MAGICK++_LIBRARIES)
 ENDIF(MAGICK++_INCLUDE_DIR)
 
-
-IF(NOT MAGICK++_FOUND)
-	# make FIND_PACKAGE friendly
-	IF(NOT Magick++_FIND_QUIETLY)
-		IF(Magick++_FIND_REQUIRED)
-			MESSAGE(FATAL_ERROR
-				"GraphicsMagick required, please specify it's location with MAGICK_HOME, MAGICK_LOCATION or MAGICK++_LOCATION")
-		ELSE(Magick++_FIND_REQUIRED)
-			MESSAGE(STATUS "GraphicsMagick was not found.")
-		ENDIF(Magick++_FIND_REQUIRED)
-	ENDIF(NOT Magick++_FIND_QUIETLY)
-ENDIF(NOT MAGICK++_FOUND)
-
-
 #####
 
