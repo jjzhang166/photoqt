@@ -10,7 +10,7 @@ Qt >= 5 (make sure to have the needed modules: image formats, multimedia)
 cmake (needed for building PhotoQt)
 
 >> Dependencies, that are needed by default, but can be disabled via cmake (see INSTALL section):
-exiv2
+Exiv2
 GraphicsMagick
 
 
@@ -37,7 +37,7 @@ INSTALL
 
    # To install PhotoQt into another prefix e.g. /usr/{bin,share}, run:
    cmake -DCMAKE_INSTALL_PREFIX=/usr ..
-   
+
    # PhotoQt makes use of different libraries: Exiv2, GraphicsMagick ("gm").
    # You can en-/disable them with the following options:
    # (if you don't specify anything, it asumes the default values)
@@ -47,7 +47,11 @@ INSTALL
    # The following option equates to setting the two above options to OFF
    -DQTONLY=ON			# default: OFF
    # Note: -DQTONLY overwrites the two individual options above!
-   
+
+   # If CMake complains that it can't find Exiv2 and/or GraphicsMagick, but you're certain that the header files are
+   # available, then you can specify their location via the following environment variables
+	MAGICK_LOCATION
+	EXIV2_LOCATION
 
 3) make  # This creates an executeable photoqt binary located in the ./build/ folder
 
