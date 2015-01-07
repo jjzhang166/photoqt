@@ -354,7 +354,9 @@ QImage ImageReader::readImage_XCF(QString filename, int rotation, bool zoomed, b
 
 	// We first check if xcftools is actually installed
 	QProcess which;
+#if QT_VERSION >= 0x050200
 	which.setStandardOutputFile(QProcess::nullDevice());
+#endif
 	which.start("which xcf2png");
 	which.waitForFinished();
 	// If it isn't -> display error

@@ -754,7 +754,9 @@ void SettingsTabOther::loadSettings() {
 			iterExtraWarning.value()->setVisible(!qtSupported.contains("psd"));
 		else {
 			QProcess which;
+#if QT_VERSION >= 0x050200
 			which.setStandardOutputFile(QProcess::nullDevice());
+#endif
 			which.start(QString("which %1").arg(iterExtraWarning.key()));
 			which.waitForFinished();
 			// If it isn't -> display error

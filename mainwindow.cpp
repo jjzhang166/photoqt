@@ -698,7 +698,9 @@ void MainWindow::firstStartSetup() {
 			// We use the 'which' command to check for existence
 			for(int i = 0; i < lst.length(); ++i) {
 				QProcess p;
+#if QT_VERSION >= 0x050200
 				p.setStandardOutputFile(QProcess::nullDevice());
+#endif
 				p.start("which " + QString(lst.at(i)).remove("%f").remove("%d").trimmed());
 				p.waitForFinished();
 				if(!p.exitCode()) def += "0" + lst.at(i) + "\n" + QObject::tr(lst_desc.at(i).toLatin1()) + "\n\n";

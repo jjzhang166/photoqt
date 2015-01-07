@@ -690,10 +690,10 @@ void SettingsTabLookAndFeel::saveSettings() {
 		defaults.insert("LoopThroughFolder",loopThroughFolder->isChecked());
 	}
 
-	if(defaults.value("SortImagesBy").toString() != sortBy->currentData().toString()) {
-		updatedSet.insert("SortImagesBy",sortBy->currentData());
+	if(defaults.value("SortImagesBy").toString() != sortBy->itemData(sortBy->currentIndex()).toString()) {
+		updatedSet.insert("SortImagesBy",sortBy->itemData(sortBy->currentIndex()));
 		defaults.remove("SortImagesBy");
-		defaults.insert("SortImagesBy",sortBy->currentData());
+		defaults.insert("SortImagesBy",sortBy->itemData(sortBy->currentIndex()));
 	}
 	if(defaults.value("SortImagesAscending").toBool() != sortByAsc->isChecked()) {
 		updatedSet.insert("SortImagesAscending",sortByAsc->isChecked());

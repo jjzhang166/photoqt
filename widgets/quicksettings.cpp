@@ -245,7 +245,7 @@ void QuickSettings::loadSettings() {
 	defaults.clear();
 	defaults.insert("SortImagesAscending",sort_asc->isChecked());
 	defaults.insert("SortImagesBy",sort);
-	defaults.insert("Background",background->currentData());
+	defaults.insert("Background",background->itemData(background->currentIndex()));
 	defaults.insert("TrayIcon",trayicon->isChecked());
 	defaults.insert("LoopThroughFolder",loopthroughfolder->isChecked());
 	defaults.insert("WindowMode",windowmode->isChecked());
@@ -262,15 +262,15 @@ void QuickSettings::settingChanged() {
 
 	QMap<QString,QVariant> changedSet;
 
-	if(defaults.value("SortImagesBy").toString() != sortby->currentData().toString())
-		changedSet.insert("SortImagesBy",sortby->currentData());
+	if(defaults.value("SortImagesBy").toString() != sortby->itemData(sortby->currentIndex()).toString())
+		changedSet.insert("SortImagesBy",sortby->itemData(sortby->currentIndex()));
 	if(defaults.value("SortImagesAscending").toBool() != sort_asc->isChecked())
 		changedSet.insert("SortImagesAscending",sort_asc->isChecked());
 
-	if(defaults.value("Background").toString() != background->currentData().toString()) {
-		changedSet.insert("Composite",background->currentData().toString()=="real");
-		changedSet.insert("BackgroundImageScreenshot",background->currentData().toString()=="faked");
-		changedSet.insert("BackgroundImageUse",background->currentData().toString()=="image");
+	if(defaults.value("Background").toString() != background->itemData(background->currentIndex()).toString()) {
+		changedSet.insert("Composite",background->itemData(background->currentIndex()).toString()=="real");
+		changedSet.insert("BackgroundImageScreenshot",background->itemData(background->currentIndex()).toString()=="faked");
+		changedSet.insert("BackgroundImageUse",background->itemData(background->currentIndex()).toString()=="image");
 	}
 
 
@@ -301,8 +301,8 @@ void QuickSettings::settingChanged() {
 	// Update new defaults
 	defaults.clear();
 	defaults.insert("SortImagesAscending",sort_asc->isChecked());
-	defaults.insert("SortImagesBy",sortby->currentData());
-	defaults.insert("Background",background->currentData());
+	defaults.insert("SortImagesBy",sortby->itemData(sortby->currentIndex()));
+	defaults.insert("Background",background->itemData(background->currentIndex()));
 	defaults.insert("TrayIcon",trayicon->isChecked());
 	defaults.insert("LoopThroughFolder",loopthroughfolder->isChecked());
 	defaults.insert("WindowMode",windowmode->isChecked());
