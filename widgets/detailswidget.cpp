@@ -800,7 +800,7 @@ void Details::setRect(QRect rect) {
 #ifdef EXIV2
 	rotConf->setRect(rect);
 #endif
-
+	adjustHeight();
 }
 
 // Animate open/close the widget
