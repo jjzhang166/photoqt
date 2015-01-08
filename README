@@ -1,13 +1,13 @@
-PhotoQt 1.2beta - Copyright (C) 2015, Lukas Spies (Lukas@photoqt.org),
-License: GPLv2 (or later) -- http://photoqt.org
+ PhotoQt 1.2beta - Copyright (C) 2015, Lukas Spies (Lukas@photoqt.org),
+ License: GPLv2 (or later) -- http://photoqt.org
 -------------------------------------------------------------------------------
 
  PhotoQt is a fast and highly configurable image viewer with a simple and nice
  interface.
 
 
-DEPENDENCIES
-------------
+ DEPENDENCIES
+--------------
 - Qt >= 5.1 (5.2 or higher recommended)
 - CMake (needed for building PhotoQt)
 
@@ -15,20 +15,23 @@ DEPENDENCIES
   multimedia, svg
 
 
->> Dependencies, that are needed by default, but can be disabled via CMake
+> Dependencies, that are needed by default, but can be disabled via CMake
    (see INSTALL section):
 - Exiv2
 - GraphicsMagick
 
 
-**Note**
+> NOTE
  On some systems you also need the *-dev package for compiling (e.g. exiv2-dev
  - names can vary slightly depending on your distribution). These files usually
  can be uninstalled again after compilation is done.
+> NOTE
+ Even though GraphicsMagick initially started as a fork of ImageMagick (in 2002),
+ trying to build PhotoQt with ImageMagick wont work!
 
 
-OPTIONAL DEPENDENCIES
----------------------
+ OPTIONAL DEPENDENCIES
+-----------------------
 - XCFtools - https://github.com/j-jorge/xcftools
 - libqpsd - https://github.com/Code-ReaQtor/libqpsd
 
@@ -37,8 +40,8 @@ OPTIONAL DEPENDENCIES
   XCF/PSD support.
 
 
-INSTALL
--------
+ INSTALL
+---------
 
 1) cd build/
 
@@ -72,9 +75,9 @@ INSTALL
 
 
 
-UNINSTALL
----------
-If you want to uninstall PhotoQt, simply run "make uninstall" as root. This removes
-the desktop file (via "xdg-desktop-menu uninstall"), the icons and the binary file.
-Alternatively you can simply remove all the files manually, that should yield the
-same result.
+ UNINSTALL
+-----------
+ If you want to uninstall PhotoQt, simply run "make uninstall" as root. This removes
+ the desktop file (via "xdg-desktop-menu uninstall"), the icons and the binary file.
+ Alternatively you can simply remove all the files manually, that should yield the
+ same result.
