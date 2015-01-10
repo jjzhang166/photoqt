@@ -2297,6 +2297,10 @@ void MainWindow::startuptimer() {
 
 	if(this->centralWidget()->height()-viewBig->height() < 25 && this->centralWidget()->width()-viewBig->width() < 25 && viewBig->width() > 500 && viewBig->height() > 500) {
 
+		// This is needed in Windows to prevent an initial misplacing of slide-in widgets (thumbs bar, quicksettings)
+		// (observed in VirtualBox Win7 64 Bit)
+		adjustGeometries();
+
 		// Show startup message (if it has to be shown and isn't shown yet)
 		if(globVar->startupMessageInstallUpdateShown != 0 && !setupWidgets->startup) {
 			if(globVar->verbose) std::clog << "Startup timer ended (message)" << std::endl;
