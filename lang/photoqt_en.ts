@@ -724,52 +724,52 @@
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../mainwindow.cpp" line="1119"/>
-        <location filename="../mainwindow.cpp" line="1203"/>
+        <location filename="../mainwindow.cpp" line="1121"/>
+        <location filename="../mainwindow.cpp" line="1205"/>
         <source>Show Details</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1119"/>
-        <location filename="../mainwindow.cpp" line="1195"/>
-        <location filename="../mainwindow.cpp" line="1907"/>
+        <location filename="../mainwindow.cpp" line="1121"/>
+        <location filename="../mainwindow.cpp" line="1197"/>
+        <location filename="../mainwindow.cpp" line="1910"/>
         <source>Hide Details</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1344"/>
+        <location filename="../mainwindow.cpp" line="1347"/>
         <source>Open image file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1344"/>
-        <location filename="../mainwindow.cpp" line="1345"/>
-        <location filename="../mainwindow.cpp" line="1346"/>
+        <location filename="../mainwindow.cpp" line="1347"/>
+        <location filename="../mainwindow.cpp" line="1348"/>
+        <location filename="../mainwindow.cpp" line="1349"/>
         <source>Images</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1347"/>
+        <location filename="../mainwindow.cpp" line="1350"/>
         <source>All Files</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1846"/>
+        <location filename="../mainwindow.cpp" line="1849"/>
         <source>Image Viewer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1853"/>
+        <location filename="../mainwindow.cpp" line="1856"/>
         <source>Hide/Show PhotoQt</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1858"/>
+        <location filename="../mainwindow.cpp" line="1861"/>
         <source>Open New Image</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1866"/>
+        <location filename="../mainwindow.cpp" line="1869"/>
         <source>Quit PhotoQt</source>
         <translation type="unfinished"></translation>
     </message>
@@ -777,17 +777,17 @@
 <context>
     <name>QuickInfoLabel</name>
     <message>
-        <location filename="../graphics/graphicsviewlay.cpp" line="320"/>
+        <location filename="../graphics/graphicsviewlay.cpp" line="298"/>
         <source>Hide Filepath, leave Filename</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../graphics/graphicsviewlay.cpp" line="325"/>
+        <location filename="../graphics/graphicsviewlay.cpp" line="303"/>
         <source>Switch between normal/fancy look</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../graphics/graphicsviewlay.cpp" line="329"/>
+        <location filename="../graphics/graphicsviewlay.cpp" line="307"/>
         <source>Hide this item</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2649,7 +2649,7 @@
     </message>
     <message>
         <location filename="../slideshow/slideshowsettings.cpp" line="96"/>
-        <source>If you want PhotoQt to loop over all images (i.e., once it shows the last image it starts from the beginning). Additionally, if you want PhotoQt to load your images in random order, you can check the second box below. No image will be shown twice before every image has been shown once.</source>
+        <source>If you want PhotoQt to loop over all images (i.e., once it shows the last image it starts from the beginning), or if you want PhotoQt to load your images in random order, you can check either or both boxes below. Note, that no image will be shown twice before every image has been shown once.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2858,16 +2858,16 @@
 <context>
     <name>ViewBigLay</name>
     <message>
-        <location filename="../graphics/graphicsviewlay.cpp" line="49"/>
-        <location filename="../graphics/graphicsviewlay.cpp" line="96"/>
-        <location filename="../graphics/graphicsviewlay.cpp" line="205"/>
-        <location filename="../graphics/graphicsviewlay.cpp" line="243"/>
+        <location filename="../graphics/graphicsviewlay.cpp" line="45"/>
+        <location filename="../graphics/graphicsviewlay.cpp" line="89"/>
+        <location filename="../graphics/graphicsviewlay.cpp" line="192"/>
+        <location filename="../graphics/graphicsviewlay.cpp" line="227"/>
         <source>Open File to Begin.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../graphics/graphicsviewlay.cpp" line="205"/>
-        <location filename="../graphics/graphicsviewlay.cpp" line="243"/>
+        <location filename="../graphics/graphicsviewlay.cpp" line="192"/>
+        <location filename="../graphics/graphicsviewlay.cpp" line="227"/>
         <source>No images match current filter</source>
         <translation type="unfinished"></translation>
     </message>

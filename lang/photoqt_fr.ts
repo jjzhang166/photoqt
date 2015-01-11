@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.1" language="fr">
+<?xml version="1.0" ?><!DOCTYPE TS><TS language="fr" version="2.1">
 <context>
     <name>About</name>
     <message>
@@ -9,20 +7,14 @@
         <translation>PhotoQt est un simple logiciel de visualisation d&apos;images, avec une interface agréable et configurable, facile à utiliser et rapide.</translation>
     </message>
     <message>
-        <source>Up until version 0.9.1, PhotoQt used to be called simply &apos;Photo&apos;. But Photo isn&apos;t quite a unique and creative name (born simply out of the need to give it some name). Searching the web for it was close to impossible. Whether PhotoQt is a much more creative name than Photo is debatable, but it certainly is a little more unique. Simply searching the web for &apos;photoqt&apos; results in some (more or less) relevant websites amongst the top results. On top of it, quite often the name of this application was thought to already be PhotoQt (or Photo-Qt), a confusion probably mainly caused by its website being photoqt.org.</source>
-        <translation type="vanished">Jusqu&apos;à la version 0.9.1, PhotoQt se nommait simplement &apos;Photo&apos;. Mais Photo n&apos;est pas un nom particulièrement créatif ou unique (il fallait bien lui donner un nom). Une recherche sur internet était quasiment impossible. Que PhotoQt soit beaucoup plus créatif que Photo est discutable, mais c&apos;est certainement un peu plus unique. Une recherche internet pour &apos;photoqt&apos; renvoie des résultats (plus ou moins) pertinents. De plus, beaucoup de gens pensaient déjà que l&apos;application se nommait PhotoQt (ou Photo-Qt), une confusion due au nom du site internet photoqt.org. </translation>
+        <location filename="../widgets/aboutwidget.cpp" line="45"/>
+        <source>With PhotoQt I try to be different than other image viewers (after all, there are plenty of good image viewers already out there). Its interface is kept very simple, yet there is an abundance of settings to customize the look and feel to make PhotoQt YOUR image viewer.</source>
+        <translation>PhotoQt se veut être un logiciel de visualisation d&apos;images différent (après tout, il en existent déjà pas mal et de qualité). Son interface reste très simple, tout en proposant une abondance de paramètres pour en personnaliser la présentation et faire de PhotoQt VOTRE visionneuse d&apos;images.</translation>
     </message>
     <message>
-        <source>Well, long story short, starting version 1.0, its name is PhotoQt.</source>
-        <translation type="vanished">Bref, en résumé, à partir de la version 1.0, le nom officiel est PhotoQt.</translation>
-    </message>
-    <message>
-        <source>I&apos;m not a trained programmer. I&apos;m a simple Maths student that loves doing stuff like this. All I know about programming I taught myself over the years. So PhotoQt might not be done in the best of ways, several things could probably be improved (from a programming point of view). But it&apos;s as good as I can do it, and I&apos;m constantly learning and improving things.</source>
-        <translation type="vanished">Je ne suis pas un programmeur expérimenté. Je suis juste un étudiant en Maths qui aime faire ce genre de truc. Tout ce que je sais en programmation, je l&apos;ai appris par moi-même au cours des années. Donc Photo n&apos;est probablement pas fait de la meilleure manière possible. De nombreuses choses pourraient certainement être améliorées (du point de vue de la programmation). Mais je fais de mon mieux et j&apos;apprends et améliore les choses constamment.</translation>
-    </message>
-    <message>
-        <source>I heard a number of times people saying, that PhotoQt is a &quot;copy&quot; of Picasa&apos;s image viewer. Well, it&apos;s not. In fact, I myself have never used Picasa. I have seen it in use though by others, and I can&apos;t deny that it influenced the basic design idea a little. But I&apos;m not trying to do something &quot;like Picasa&quot;. I try to do my own thing, and to do it as good as I can. If some consider it to be a replacement for Picasa, well, I feel a little honoured (since Picasa is created by &quot;proper&quot; programmers).</source>
-        <translation type="vanished">J&apos;ai entendu de nombreuses fois que Photo est une &quot;copie&quot; de Picasa. Ce n&apos;est pas le cas. En fait, je n&apos;ai personnellement jamais utilisé Picasa. Je l&apos;ai vu fonctionner et ne peux nier qu&apos;il a un peu influencé le design de base. Mais je ne cherche pas à faire &quot;comme Picasa&quot;. J&apos;essaye de faire mon propre logiciel, et de le faire aussi bien que possible. Si vous le trouvez mieux que Picasa, je suis honoré (Picasa est créé par de &quot;vrais&quot; programmeurs).</translation>
+        <location filename="../widgets/aboutwidget.cpp" line="46"/>
+        <source>I&apos;m not a trained programmer. I&apos;m a simple Maths student that loves doing stuff like this. Most of my programming knowledge I taught myself over the past 10-ish years, and it has been developing a lot since I started PhotoQt. During my studies in university I learned a lot about the basics of programming that I was missing. And simply working on PhotoQt gave me a lot of invaluable experience. So the code of PhotoQt might in places not quite be done in the best of ways, but I think it&apos;s getting better and better with each release.</source>
+        <translation>Je ne suis pas un programmeur formé. Je suis un simple étudiant en Mathématiques qui aime faire des choses de ce type. La plus grande partie de mes connaissances en programmation fut acquise dans les 10 dernières années, et elles se sont sérieusement améliorées pendant le développement de PhotoQt. Lors de mes études à l&apos;université, j&apos;ai appris les bases de la programmation qui me manquaient. Et c&apos;est en développant PhotoQt que j&apos;ai acquis une expérience inestimable. Le code de PhotoQt peut donc ne pas être de la meilleure facture, mais je l&apos;améliore de version en version.</translation>
     </message>
     <message>
         <location filename="../widgets/aboutwidget.cpp" line="48"/>
@@ -30,37 +22,19 @@
         <translation>N&apos;oubliez pas de visiter le site internet: </translation>
     </message>
     <message>
-        <source>If there&apos;s one thing I want to achieve with PhotoQt, then it is, that you find it useful. If I accomplished that, then I&apos;m glad. There&apos;s no other reason I&apos;m doing that. I don&apos;t want money or anything, but just be helpful.</source>
-        <translation type="vanished">Mon principal objectif avec Photo, c&apos;est que vous le trouviez utile. Si j&apos;ai accompli ça, alors je suis ravi. Il n&apos;y a pas d&apos;autre raison pour laquelle je fais ça. Je ne veux pas d&apos;argent ou autre, juste rendre service. </translation>
-    </message>
-    <message>
         <location filename="../widgets/aboutwidget.cpp" line="49"/>
         <source>If you find a bug or if you have a question or suggestion, tell me. I&apos;m open to any feedback I get :)</source>
         <translation>Si vous trouvez un bug ou si vous avez une question ou une suggestion, dites-le moi. Je suis ouvert à toutes vos remarques :)</translation>
     </message>
     <message>
-        <source>Thanks to everybody who&lt;br&gt;contributed to PhotoQt&lt;br&gt;and/or translated PhotoQt to another language!&lt;br&gt;&lt;br&gt;You guys rock!! :-)</source>
-        <translation type="vanished">Merci à tous ceux qui &lt;br&gt; ont contribué à PhotoQt &lt;br&gt; et/ou traduit PhotoQt dans une autre langue! &lt;br&gt;&lt;br&gt; Vous êtes supers!! :-)</translation>
-    </message>
-    <message>
-        <location filename="../widgets/aboutwidget.cpp" line="45"/>
-        <source>With PhotoQt I try to be different than other image viewers (after all, there are plenty of good image viewers already out there). Its interface is kept very simple, yet there is an abundance of settings to customize the look and feel to make PhotoQt YOUR image viewer.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../widgets/aboutwidget.cpp" line="46"/>
-        <source>I&apos;m not a trained programmer. I&apos;m a simple Maths student that loves doing stuff like this. Most of my programming knowledge I taught myself over the past 10-ish years, and it has been developing a lot since I started PhotoQt. During my studies in university I learned a lot about the basics of programming that I was missing. And simply working on PhotoQt gave me a lot of invaluable experience. So the code of PhotoQt might in places not quite be done in the best of ways, but I think it&apos;s getting better and better with each release.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../widgets/aboutwidget.cpp" line="47"/>
         <source>I heard a number of times people saying, that PhotoQt is a &apos;copy&apos; of Picasa&apos;s image viewer. Well, it&apos;s not. In fact, I myself have never used Picasa. I have seen it in use though by others, and I can&apos;t deny that it influenced the basic design idea a little. But I&apos;m not trying to do something &apos;like Picasa&apos;. I try to do my own thing, and to do it as good as I can.</source>
-        <translation type="unfinished"></translation>
+        <translation>J&apos;ai entendu pas mal de fois des gens me dire que PhotoQt est une &apos;copie&apos; de la visionneuse d&apos;images de Picasa. Et bien, ce n&apos;est pas le cas. En fait, je n&apos;ai jamais utilisé Picasa. Je l&apos;ai vu en usage chez d&apos;autres, et je ne peux nier son influence dans l&apos;idée de base de sa conception. Mais je ne tente pas de faire quelque chose &apos;comme Picasa&apos;. Je tente de créer mon propre projet, et de le faire du mieux que je peux.</translation>
     </message>
     <message>
         <location filename="../widgets/aboutwidget.cpp" line="50"/>
         <source>Thanks to everybody who contributed to PhotoQt and/or translated PhotoQt to another language! You guys rock!</source>
-        <translation type="unfinished"></translation>
+        <translation>Merci à tous ceux qui ont contribué à PhotoQt et/ou à sa traduction! Vous êtes super!</translation>
     </message>
     <message>
         <location filename="../widgets/aboutwidget.cpp" line="51"/>
@@ -70,7 +44,7 @@
     <message>
         <location filename="../widgets/aboutwidget.cpp" line="61"/>
         <source>Click to go to:</source>
-        <translation type="unfinished"></translation>
+        <translation>Cliquer pour aller à :</translation>
     </message>
     <message>
         <location filename="../widgets/aboutwidget.cpp" line="96"/>
@@ -113,12 +87,12 @@
     <message>
         <location filename="../settings/settingstabothercontexttiles.cpp" line="75"/>
         <source>quit</source>
-        <translation type="unfinished">quitter</translation>
+        <translation>quitter</translation>
     </message>
     <message>
         <location filename="../settings/settingstabothercontexttiles.cpp" line="76"/>
         <source>Quit PhotoQt after executing command</source>
-        <translation type="unfinished"></translation>
+        <translation>Quitter PhotoQt après l&apos;exécution de la commande</translation>
     </message>
     <message>
         <location filename="../settings/settingstabothercontexttiles.cpp" line="91"/>
@@ -268,7 +242,7 @@
     <message>
         <location filename="../widgets/detailswidget.cpp" line="117"/>
         <source>no</source>
-        <extracomment>This string identifies that flash wasn&apos;t fired</extracomment>
+        <extracomment>This string identifies that flash wasn't fired</extracomment>
         <translation>non</translation>
     </message>
     <message>
@@ -687,7 +661,7 @@
     <message>
         <location filename="../graphics/graphicsview.cpp" line="196"/>
         <source>Flip:</source>
-        <translation>Retourner:</translation>
+        <translation>Inverser:</translation>
     </message>
     <message>
         <location filename="../graphics/graphicsview.cpp" line="198"/>
@@ -756,73 +730,62 @@
     <message>
         <location filename="../mainwindow.cpp" line="1119"/>
         <location filename="../mainwindow.cpp" line="1195"/>
-        <location filename="../mainwindow.cpp" line="1907"/>
+        <location filename="../mainwindow.cpp" line="1908"/>
         <source>Hide Details</source>
         <translation>Masquer les détails</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1344"/>
+        <location filename="../mainwindow.cpp" line="1345"/>
         <source>Open image file</source>
         <translation>Ouvrir un fichier image</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1344"/>
         <location filename="../mainwindow.cpp" line="1345"/>
         <location filename="../mainwindow.cpp" line="1346"/>
+        <location filename="../mainwindow.cpp" line="1347"/>
         <source>Images</source>
         <translation>Images</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1347"/>
+        <location filename="../mainwindow.cpp" line="1348"/>
         <source>All Files</source>
-        <translation type="unfinished"></translation>
+        <translation>Tous les fichiers</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1846"/>
+        <location filename="../mainwindow.cpp" line="1847"/>
         <source>Image Viewer</source>
         <translation>Visionneuse d&apos;images</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1853"/>
+        <location filename="../mainwindow.cpp" line="1854"/>
         <source>Hide/Show PhotoQt</source>
         <translation>Afficher/Masquer PhotoQt</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1858"/>
+        <location filename="../mainwindow.cpp" line="1859"/>
         <source>Open New Image</source>
         <translation>Ouvrir une nouvelle image</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1866"/>
+        <location filename="../mainwindow.cpp" line="1867"/>
         <source>Quit PhotoQt</source>
         <translation>Quitter PhotoQt</translation>
     </message>
 </context>
 <context>
-    <name>QObject</name>
-    <message>
-        <source>Edit with Gimp</source>
-        <translation type="vanished">Editer avec Gimp</translation>
-    </message>
-    <message>
-        <source>Open in GwenView</source>
-        <translation type="vanished">Ouvrir avec GwenView</translation>
-    </message>
-</context>
-<context>
     <name>QuickInfoLabel</name>
     <message>
-        <location filename="../graphics/graphicsviewlay.cpp" line="320"/>
+        <location filename="../graphics/graphicsviewlay.cpp" line="298"/>
         <source>Hide Filepath, leave Filename</source>
         <translation>Masquer le chemin, laisser le nom de fichier</translation>
     </message>
     <message>
-        <location filename="../graphics/graphicsviewlay.cpp" line="325"/>
+        <location filename="../graphics/graphicsviewlay.cpp" line="303"/>
         <source>Switch between normal/fancy look</source>
-        <translation type="unfinished"></translation>
+        <translation>Alterner entre l&apos;aspect normal / élégant</translation>
     </message>
     <message>
-        <location filename="../graphics/graphicsviewlay.cpp" line="329"/>
+        <location filename="../graphics/graphicsviewlay.cpp" line="307"/>
         <source>Hide this item</source>
         <translation>Masquer cet élément</translation>
     </message>
@@ -842,27 +805,27 @@
     <message>
         <location filename="../widgets/quicksettings.cpp" line="63"/>
         <source>Sort by</source>
-        <translation type="unfinished"></translation>
+        <translation>Trier par</translation>
     </message>
     <message>
         <location filename="../widgets/quicksettings.cpp" line="74"/>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Nom</translation>
     </message>
     <message>
         <location filename="../widgets/quicksettings.cpp" line="75"/>
         <source>Natural Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Nom naturel</translation>
     </message>
     <message>
         <location filename="../widgets/quicksettings.cpp" line="76"/>
         <source>Date</source>
-        <translation type="unfinished"></translation>
+        <translation>Date</translation>
     </message>
     <message>
         <location filename="../widgets/quicksettings.cpp" line="77"/>
         <source>File Size</source>
-        <translation type="unfinished"></translation>
+        <translation>Taille de fichier</translation>
     </message>
     <message>
         <location filename="../widgets/quicksettings.cpp" line="89"/>
@@ -917,7 +880,7 @@
     <message>
         <location filename="../widgets/quicksettings.cpp" line="107"/>
         <source>Normal thumbnails</source>
-        <translation type="unfinished"></translation>
+        <translation>Vignettes normales</translation>
     </message>
     <message>
         <location filename="../widgets/quicksettings.cpp" line="108"/>
@@ -932,7 +895,7 @@
     <message>
         <location filename="../widgets/quicksettings.cpp" line="109"/>
         <source>Smart thumbnails</source>
-        <translation type="unfinished"></translation>
+        <translation>Vignettes intelligentes</translation>
     </message>
     <message>
         <location filename="../widgets/quicksettings.cpp" line="140"/>
@@ -1131,12 +1094,12 @@ Continuer?</translation>
     <message>
         <location filename="../settings/settingstabexif.cpp" line="43"/>
         <source>PhotoQt can display different information of and about each image. The widget for this information is on the left outside the screen and slides in when mouse gets close to it and/or when the set shortcut (default Ctrl+E) is triggered. On demand, the triggering by mouse movement can be disabled by checking the box below.</source>
-        <translation>PhotoQt peut afficher diverses information sur les images. Le composant graphique pour cette information est sur la gauche de l&apos;écran et s&apos;affiche au survol de la souris ou grâce au raccourci clavier (Ctrl+E par défaut). La coche ci-dessous permet de désactiver l&apos;affichage par la souris. </translation>
+        <translation>PhotoQt peut afficher diverses information sur les images. Le composant pour cette information est sur la gauche de l&apos;écran et s&apos;affiche au survol de la souris ou grâce au raccourci clavier (Ctrl+E par défaut). La coche ci-dessous permet de désactiver l&apos;affichage par la souris. </translation>
     </message>
     <message>
         <location filename="../settings/settingstabexif.cpp" line="50"/>
         <source>Trigger Widget on Mouse Hovering</source>
-        <translation>Afficher l&apos;élément au survol de la souris</translation>
+        <translation>Afficher le composant au survol de la souris</translation>
     </message>
     <message>
         <location filename="../settings/settingstabexif.cpp" line="50"/>
@@ -1276,7 +1239,7 @@ Continuer?</translation>
     <message>
         <location filename="../settings/settingstabexif.cpp" line="208"/>
         <source>Rotating/Flipping Image according to Exif Data</source>
-        <translation>Pivoter / retourner l&apos;image d&apos;après les données Exif</translation>
+        <translation>Pivoter/Inverser l&apos;image d&apos;après les données Exif</translation>
     </message>
     <message>
         <location filename="../settings/settingstabexif.cpp" line="208"/>
@@ -1311,22 +1274,6 @@ Continuer?</translation>
 </context>
 <context>
     <name>SettingsTabLookAndFeel</name>
-    <message>
-        <source>Look</source>
-        <translation type="vanished">Apparenc</translation>
-    </message>
-    <message>
-        <source>Behaviour</source>
-        <translation type="vanished">Comportement</translation>
-    </message>
-    <message>
-        <source>Overall Look</source>
-        <translation type="vanished">Apparence générale</translation>
-    </message>
-    <message>
-        <source>Behaviour of PhotoQt</source>
-        <translation type="vanished">Comportement de PhotoQt</translation>
-    </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="229"/>
         <source>Use (half-)transparent background</source>
@@ -1408,72 +1355,72 @@ Continuer?</translation>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="71"/>
         <source>Basic</source>
-        <translation type="unfinished"></translation>
+        <translation>Basiqu</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="72"/>
         <source>Advanced</source>
-        <translation type="unfinished"></translation>
+        <translation>Avancé</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="77"/>
         <source>Basic Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Réglages de base</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="80"/>
         <source>Advanced Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Réglages avancés</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="90"/>
         <source>Sort Images</source>
-        <translation type="unfinished"></translation>
+        <translation>Trier les images</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="90"/>
         <source>Here you can adjust, how the images in a folder are supposed to be sorted. You can sort them by Filename, Natural Name (e.g., file10.jpg comes after file9.jpg and not after file1.jpg), File Size, and Date. Also, you can reverse the sorting order from ascending to descending if wanted.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ici vous pouvez paramétrer la façon dont les images doivent être triées dans un dossier. Vous pouvez les trier par Nom de fichier, Nom naturel (p.e., fichier10.jpg vient après fichier9.jpg et pas après fichier1.jpg), Taille de fichier et Date. Vous pouvez également inverser l&apos;ordre de tri d&apos;ascendant à descendant si besoin.</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="90"/>
         <source>Hint: You can also change this setting very quickly from the &apos;Quick Settings&apos;&apos; window, hidden behind the right screen edge.</source>
-        <translation type="unfinished"></translation>
+        <translation>Astuce: vous pouvez aussi changer ce réglage rapidement depuis la fenêtre &apos;Réglages rapides&apos; cachée derrière la bordure droite de l&apos;écran.</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="91"/>
         <source>Sort by:</source>
-        <translation type="unfinished"></translation>
+        <translation>Trier par:</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="93"/>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Nom</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="94"/>
         <source>Natural Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Nom naturel</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="95"/>
         <source>Date</source>
-        <translation type="unfinished"></translation>
+        <translation>Dat</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="96"/>
         <source>File Size</source>
-        <translation type="unfinished"></translation>
+        <translation>Taille de fichier</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="97"/>
         <source>Ascending</source>
-        <translation type="unfinished"></translation>
+        <translation>Ordre croissant</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="99"/>
         <source>Descending</source>
-        <translation type="unfinished"></translation>
+        <translation>Ordre décroissant</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="138"/>
@@ -1488,47 +1435,47 @@ Continuer?</translation>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="151"/>
         <source>Closing &apos;X&apos; (top right)</source>
-        <translation type="unfinished"></translation>
+        <translation>Quitter &apos;X&apos; (en haut à droite) </translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="151"/>
         <source>There are two looks for the closing &apos;x&apos; at the top right: a normal &apos;x&apos;, or a slightly more fancy &apos;x&apos;. Here you can switch back and forth between both of them, and also change their size. If you prefer not to have a closing &apos;x&apos; at all, see below for an option to hide it.</source>
-        <translation type="unfinished"></translation>
+        <translation>Il y a deux aspects possibles pour le &apos;x&apos; de fermeture en haut à droite: un &apos;x&apos; normal, ou un &apos;x&apos; légèrement plus élégant. Ici vous pouvez passer de l&apos;un à l&apos;autre et en changer la taille. Si vous préférez ne pas avoir de &apos;x&apos; de fermeture du tout, voir ci-dessous pour une option pour le cacher. </translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="157"/>
         <source>Normal look</source>
-        <translation type="unfinished"></translation>
+        <translation>Aspect normal</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="159"/>
         <source>Fancy look</source>
-        <translation type="unfinished"></translation>
+        <translation>Aspect élégant</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="169"/>
         <source>Small</source>
-        <translation type="unfinished"></translation>
+        <translation>Petit</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="170"/>
         <source>Large</source>
-        <translation type="unfinished"></translation>
+        <translation>Gran</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="186"/>
         <source>Fit Image in Window</source>
-        <translation type="unfinished"></translation>
+        <translation>Ajuster l&apos;image à la fenêtre</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="186"/>
         <source>If the image dimensions are smaller than the screen dimensions, PhotoQt can zoom those images to make them fir into the window. However, keep in mind, that such images will look pixelated to a certain degree (depending on each image).</source>
-        <translation type="unfinished"></translation>
+        <translation>Si la dimension des images est plus petite que la dimension de l&apos;écran, PhotoQt peut zoomer ces images pour les ajuster à la fenêtre. Mais, ce type d&apos;ajustement peut rendre à un certain degré une image pixelisée (dépendant de chaque image).</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="188"/>
         <source>Fit Images in Window</source>
-        <translation type="unfinished"></translation>
+        <translation>Ajuster les images à la fenêtre</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="362"/>
@@ -1588,22 +1535,22 @@ Continuer?</translation>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="458"/>
         <source>Animation and Window Geometry</source>
-        <translation type="unfinished"></translation>
+        <translation>Géométrie d&apos;animation et de fenêtre</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="458"/>
         <source>There are two things that can be adjusted here:</source>
-        <translation type="unfinished"></translation>
+        <translation>Deux choses peuvent être ajustées ici :</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="458"/>
         <source>Animation of fade-in widgets (like, e.g., Settings or About Widget)</source>
-        <translation type="unfinished"></translation>
+        <translation>Composants d&apos;animation ou de fondu (comme, p. ex., Paramètres ou À propos du composant)</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="458"/>
         <source>Save and restore of Window Geometry: On quitting PhotoQt, it stores the size and position of the window and can restore it the next time started.</source>
-        <translation type="unfinished"></translation>
+        <translation>Sauvegarder et restituer la géométrie de fenêtre: Lorsque l&apos;on quitte PhotoQt, la taille et la position de la fenêtre sont stockées afin d&apos;être restituées au prochain démarrage.</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="118"/>
@@ -1684,52 +1631,52 @@ Continuer?</translation>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="420"/>
         <source>Mouse Wheel Sensitivity</source>
-        <translation type="unfinished"></translation>
+        <translation>Sensibilité de la roulette de la souris</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="420"/>
         <source>Here you can adjust the sensitivity of the mouse wheel. For example, if you have set the mouse wheel up/down for switching back and forth between images, then a lower sensitivity means that you will have to scroll further for triggering a shortcut. Per default it is set to the highest sensitivity, i.e. every single wheel movement is evaluated.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="423"/>
         <source>Very sensitive</source>
-        <translation type="unfinished"></translation>
+        <translation>Très sensible</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="424"/>
         <source>Not sensitive at all</source>
-        <translation type="unfinished"></translation>
+        <translation>Pas sensible du tout</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="441"/>
         <source>Remember per session</source>
-        <translation type="unfinished"></translation>
+        <translation>Mémoriser par session</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="441"/>
         <source>If you would like PhotoQt to remember the rotation/flipping and/or zoom level per session (not permanent), then you can enable it here. If not set, then every time a new image is displayed, it is displayed neither zoomed nor rotated nor flipped (one could say, it is displayed &quot;normal&quot;).</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="443"/>
         <source>Remember Rotation/Flip</source>
-        <translation type="unfinished"></translation>
+        <translation>Mémoriser Pivoter/Inverser</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="444"/>
         <source>Remember Zoom Level</source>
-        <translation type="unfinished"></translation>
+        <translation>Mémoriser le niveau de zoom</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="460"/>
         <source>Animate all fade-in widgets</source>
-        <translation type="unfinished"></translation>
+        <translation>Animer tous les composants de fondu</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="461"/>
         <source>Save and restore window geometry</source>
-        <translation type="unfinished"></translation>
+        <translation>Sauvegarder et rétablir la géométrie de fenêtre</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="901"/>
@@ -1777,7 +1724,7 @@ Continuer?</translation>
     <message>
         <location filename="../settings/settingstabother.cpp" line="233"/>
         <source>The &apos;Quick Settings&apos; is a widget hidden on the right side of the screen. When you move the cursor there, it shows up, and you can adjust a few simple settings on the spot without having to go through this settings dialog. Of course, only a small subset of settings is available (the ones needed most often). Here you can disable the dialog so that it doesn&apos;t show on mouse movement anymore.</source>
-        <translation>Le widget &quot;Paramétrage rapide&quot; est caché du côté droit de l&apos;écran. Lorsque vous bougez le curseur dans cette zone, il apparaît, et vous pouvez y ajuster quelques réglages à la volée, sans avoir à passer par les boîtes de dialogue des réglages. Bien sûr, seulement quelques réglages sont disponibles (ceux dont on a besoin le plus souvent). Vous pouvez désactiver cette option ici si vous ne désirez pas son apparition par survol de la zone.</translation>
+        <translation>Le composant &quot;Paramétrage rapide&quot; est caché du côté droit de l&apos;écran. Lorsque vous bougez le curseur dans cette zone, il apparaît, et vous pouvez y ajuster quelques réglages à la volée, sans avoir à passer par les boîtes de dialogue des réglages. Bien sûr, seulement quelques réglages sont disponibles (ceux dont on a besoin le plus souvent). Vous pouvez désactiver cette option ici si vous ne désirez pas son apparition par survol de la zone.</translation>
     </message>
     <message>
         <location filename="../settings/settingstabother.cpp" line="234"/>
@@ -1807,107 +1754,99 @@ Continuer?</translation>
     <message>
         <location filename="../settings/settingstabother.cpp" line="279"/>
         <source>These are the file types natively supported by Qt. Make sure, that you&apos;ll have the required libraries installed (e.g., qt5-imageformats), otherwise some of them might not work on your system.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../settings/settingstabother.cpp" line="279"/>
         <source>If a file ending for one of the formats is missing, you can add it below, formatted like &apos;*.ending&apos; (without single quotation marks), multiple entries seperated by commas.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../settings/settingstabother.cpp" line="349"/>
         <source>PhotoQt makes use of GraphicsMagick for support of many different image formats. The list below are all those formats, that were successfully displayed using test images. If you prefer not to have one or the other enabled in PhotoQt, you can simply disable individual formats below.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../settings/settingstabother.cpp" line="349"/>
         <source>There are a few formats, that were not tested in PhotoQt (due to lack of a test image). You can find those in the &apos;Untested&apos; category below.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../settings/settingstabother.cpp" line="444"/>
         <source>File Types - GraphicsMagick (requires Ghostscript)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../settings/settingstabother.cpp" line="444"/>
         <source>The following file types are supported by GraphicsMagick, and they have been tested and work. However, they require Ghostscript to be installed on the system.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../settings/settingstabother.cpp" line="508"/>
         <source>File Types - Other tools required</source>
-        <translation type="unfinished"></translation>
+        <translation>Types de fichiers - Autres outils requis</translation>
     </message>
     <message>
         <location filename="../settings/settingstabother.cpp" line="508"/>
         <source>The following filetypes are supported by means of other third party tools. You first need to install them before you can use them.</source>
-        <translation type="unfinished"></translation>
+        <translation>Les types de fichiers suivants sont supportés seulement par des outils tiers. Vous devez d&apos;abord les installer pour pouvoir les utiliser.</translation>
     </message>
     <message>
         <location filename="../settings/settingstabother.cpp" line="508"/>
         <source>Note</source>
-        <translation type="unfinished"></translation>
+        <translation>Note</translation>
     </message>
     <message>
         <location filename="../settings/settingstabother.cpp" line="508"/>
         <source>If an image format is also provided by GraphicsMagick/Qt, then PhotoQt first chooses the external tool (if enabled).</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../settings/settingstabother.cpp" line="515"/>
         <source>Gimp&apos;s XCF file format.</source>
-        <translation type="unfinished"></translation>
+        <translation>Format de fichier XCF de GIMP.</translation>
     </message>
     <message>
         <location filename="../settings/settingstabother.cpp" line="515"/>
         <location filename="../settings/settingstabother.cpp" line="541"/>
         <source>Makes use of:</source>
-        <translation type="unfinished"></translation>
+        <translation>Utilise :</translation>
     </message>
     <message>
         <location filename="../settings/settingstabother.cpp" line="516"/>
         <location filename="../settings/settingstabother.cpp" line="543"/>
         <source>Click to open website</source>
-        <translation type="unfinished"></translation>
+        <translation>Cliquer pour ouvrir le site internet</translation>
     </message>
     <message>
         <location filename="../settings/settingstabother.cpp" line="519"/>
         <source>Warning: &apos;%1&apos; not found!</source>
-        <translation type="unfinished"></translation>
+        <translation>Avertissement : &apos;%1&apos; non trouvé !</translation>
     </message>
     <message>
         <location filename="../settings/settingstabother.cpp" line="541"/>
         <source>Adobe Photoshop PSD and PSB.</source>
-        <translation type="unfinished"></translation>
+        <translation>Adobe Photoshop PSD et PSB.</translation>
     </message>
     <message>
         <location filename="../settings/settingstabother.cpp" line="545"/>
         <source>Warning: Qt5 plugin for PSD/PSB (%1) not found!</source>
-        <translation type="unfinished"></translation>
+        <translation>Avertissement : greffon Qt5 pour PSD/PSB (%1) non trouvé !</translation>
     </message>
     <message>
         <location filename="../settings/settingstabother.cpp" line="579"/>
         <source>File Types - GraphicsMagick (Untested)</source>
-        <translation type="unfinished"></translation>
+        <translation>Types de fichiers - GraphicsMagick (Non testé)</translation>
     </message>
     <message>
         <location filename="../settings/settingstabother.cpp" line="580"/>
         <source>The following file types are generally supported by GraphicsMagick, but I wasn&apos;t able to test them in PhotoQt (due to lack of test images). They might very well be working, but I simply can&apos;t say. If you decide to enable some of the, the worst that could happen ist, that you see an error image instead of the actual image.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../settings/settingstabother.cpp" line="581"/>
         <source>If you happen to have an image in one of those formats and don&apos;t mind sending it to me, that&apos;d be really cool...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>These are the standard file types supported by Qt. Depending on your system, this list can vary a little.</source>
-        <translation type="vanished">Types de fichiers standard supportés par Qt. Selon votre système, cette liste peut varier quelque peu. </translation>
-    </message>
-    <message>
-        <source>If you want to add a file type not in the list, you can add them in the text box below. You have to enter the formats like &apos;*.ending&apos;, all seperated by commas.</source>
-        <translation type="vanished">La zone de texte ci-dessous permet d&apos;ajouter un type de fichier qui n&apos;est pas dans la lite. Vous devez entrer les types sous la forme &apos;*.extension&apos;, séparés par des virgules.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../settings/settingstabother.cpp" line="311"/>
@@ -1940,18 +1879,6 @@ Continuer?</translation>
         <source>File Types - GraphicsMagick</source>
         <translation>Types de fichiers - GraphicsMagick</translation>
     </message>
-    <message>
-        <source>PhotoQt makes use of GraphicsMagick for support of many different file types. Not all of the formats supported by GraphicsMagick make sense in an image viewer. There are some that aren&apos;t quite working at the moment, you can find them in the &apos;Unstable&apos; category below.</source>
-        <translation type="vanished">PhotoQt fait appel à GraphicsMagick pour supporter de nombreux types de fichiers. Tous les formats supportés par GraphicsMagick ne sont pas intéressants pour une visionneuse d&apos;images. Certains ne fonctionnent pas encore très bien: vous les trouverez dans la catégorie &quot;Instable&quot; ci-dessous. </translation>
-    </message>
-    <message>
-        <source>File Types - GraphicsMagick (Unstable)</source>
-        <translation type="vanished">Types de fichiers - GraphicsMagick (instable)</translation>
-    </message>
-    <message>
-        <source>The following file types are supported by GraphicsMagick, but aren&apos;t quite working in PhotoQt just yet. If you want to experiment around a little, feel free to enable some of them. They shouldn&apos;t cause PhotoQt to crash, but you might see an error image instead of the actual image.</source>
-        <translation type="vanished">Les types de de fichiers suivants sont supportés par GraphicsMagick mais ne fonctionnent pas encore très bien avec PhotoQt. Si vous souhaitez expérimenter un peu, n&apos;hésitez pas à en activer certains. Ils ne devraient pas causer de crash de PhotoQt mais il est possible qu&apos;un message d&apos;erreur s&apos;affiche à la place de l&apos;image. </translation>
-    </message>
 </context>
 <context>
     <name>SettingsTabShortcuts</name>
@@ -1963,7 +1890,7 @@ Continuer?</translation>
     <message>
         <location filename="../settings/settingstabshortcuts.cpp" line="56"/>
         <source>Here you can adjust the shortcuts, add new or remove existing ones, or change a key combination. The shortcuts are grouped into 4 different categories for internal commands plus a category for external commands. The boxes on the right side contain all the possible commands. To add a shortcut for one of the available function you can either double click on the tile or click the &quot;+&quot; button. This automatically opens another widget where you can set a key combination.</source>
-        <translation>Ici, vous pouvez ajouter, supprimer ou éditer les raccourcis clavier. Les raccourcis sont groupés en 4 catégories pour les commandes internes et une pour les commandes externes. Les cases de droite représentent toutes les commandes possibles. Pour ajouter un raccourci, vous pouvez double-cliquer sur le titre ou cliquer sur le bouton &quot;+&quot;. Ceci ouvre un autre composant où vous pouvez définir la combinaison de touches du raccourci. </translation>
+        <translation>Ici, vous pouvez ajouter, supprimer ou éditer les raccourcis clavier. Les raccourcis sont groupés en 4 catégories pour les commandes internes et une pour les commandes externes. Les cases de droite représentent toutes les commandes possibles. Pour ajouter un raccourci, vous pouvez double-cliquer sur le titre ou cliquer sur le bouton &quot;+&quot;. Ceci ouvre automatiquement un autre composant où vous pouvez définir la combinaison de touches du raccourci. </translation>
     </message>
     <message>
         <location filename="../settings/settingstabshortcuts.cpp" line="65"/>
@@ -2073,12 +2000,12 @@ Continuer?</translation>
     <message>
         <location filename="../settings/settingstabshortcuts.cpp" line="114"/>
         <source>Flip Horizontally</source>
-        <translation>Retourner horizontalement</translation>
+        <translation>Inverser horizontalement</translation>
     </message>
     <message>
         <location filename="../settings/settingstabshortcuts.cpp" line="115"/>
         <source>Flip Vertically</source>
-        <translation>Retourner verticalement</translation>
+        <translation>Inverser verticalement</translation>
     </message>
     <message>
         <location filename="../settings/settingstabshortcuts.cpp" line="116"/>
@@ -2194,22 +2121,6 @@ Continuer?</translation>
 <context>
     <name>SettingsTabThumbnail</name>
     <message>
-        <source>Look</source>
-        <translation type="vanished">Apparence</translation>
-    </message>
-    <message>
-        <source>Fine-Tuning</source>
-        <translation type="vanished">Réglages fins</translation>
-    </message>
-    <message>
-        <source>Thumbnail Look</source>
-        <translation type="vanished">Apparence de la vignette</translation>
-    </message>
-    <message>
-        <source>Fine-Tuning of Thumbnails</source>
-        <translation type="vanished">Ajustements fins des vignettes</translation>
-    </message>
-    <message>
         <location filename="../settings/settingstabthumbnail.cpp" line="95"/>
         <source>Thumbnail Size</source>
         <translation>Taille des vignettes</translation>
@@ -2242,42 +2153,42 @@ Continuer?</translation>
     <message>
         <location filename="../settings/settingstabthumbnail.cpp" line="179"/>
         <source>Smart thumbnails are similar in nature. However, they make use of the fast, that once a thumbnail has been created, it can be loaded very quickly and efficiently. It also first loads all of the currently visible thumbnails, but it doesn&apos;t stop there: Any thumbnails (even if invisible at the moment) that once have been created are loaded. This is a nice compromise between efficiency and usability.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../settings/settingstabthumbnail.cpp" line="179"/>
         <source>Enabling either one of these is recommended, as it increases the performance of PhotoQt significantly, while preserving the usability.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../settings/settingstabthumbnail.cpp" line="181"/>
         <source>Normal thumbnails</source>
-        <translation type="unfinished"></translation>
+        <translation>Vignettes normales</translation>
     </message>
     <message>
         <location filename="../settings/settingstabthumbnail.cpp" line="182"/>
         <source>Dynamic Thumbnails</source>
-        <translation type="unfinished"></translation>
+        <translation>Vignettes dynamiques</translation>
     </message>
     <message>
         <location filename="../settings/settingstabthumbnail.cpp" line="183"/>
         <source>Smart Thumbnails</source>
-        <translation type="unfinished"></translation>
+        <translation>Vignettes intelligentes</translation>
     </message>
     <message>
         <location filename="../settings/settingstabthumbnail.cpp" line="203"/>
         <source>Always center on Active Thumbnail</source>
-        <translation type="unfinished"></translation>
+        <translation>Toujours centrer sur la vignette active</translation>
     </message>
     <message>
         <location filename="../settings/settingstabthumbnail.cpp" line="203"/>
         <source>If this option is set, then the active thumbnail (i.e., the thumbnail of the currently displayed image) will always be kept in the center of the thumbnail bar (if possible). If this option is not set, then the active thumbnail will simply be kept visible, but not necessarily in the center.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../settings/settingstabthumbnail.cpp" line="206"/>
         <source>Center on Active Thumbnails</source>
-        <translation type="unfinished"></translation>
+        <translation>Centrer sur les vignettes actives</translation>
     </message>
     <message>
         <location filename="../settings/settingstabthumbnail.cpp" line="224"/>
@@ -2308,22 +2219,22 @@ Continuer?</translation>
     <message>
         <location filename="../settings/settingstabthumbnail.cpp" line="76"/>
         <source>Basic</source>
-        <translation type="unfinished"></translation>
+        <translation>Basique</translation>
     </message>
     <message>
         <location filename="../settings/settingstabthumbnail.cpp" line="77"/>
         <source>Advanced</source>
-        <translation type="unfinished"></translation>
+        <translation>Avancé</translation>
     </message>
     <message>
         <location filename="../settings/settingstabthumbnail.cpp" line="82"/>
         <source>Basic Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Réglages de base</translation>
     </message>
     <message>
         <location filename="../settings/settingstabthumbnail.cpp" line="85"/>
         <source>Advanced Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Réglages avancés</translation>
     </message>
     <message>
         <location filename="../settings/settingstabthumbnail.cpp" line="165"/>
@@ -2341,14 +2252,6 @@ Continuer?</translation>
         <translation>Création dynamique des vignettes signifie que PhotoQt crée uniquement les vignettes nécessaires, i.e., il stoppe lorsqu&apos;il atteint la fin de la zone visible et attend jusqu&apos;à ce que vous fassiez défiler vers la droite ou la gauche. </translation>
     </message>
     <message>
-        <source>This feature is very handy, especially if you have bigger directories, since it doesn&apos;t occupy the CPU too long, and it doesn&apos;t create thumbnails that might never be needed.</source>
-        <translation type="vanished">Cette caractéristique est très pratique pour les gros répertoires car le CPU n&apos;est pas utilisé trop longtemps et les vignettes inutiles ne sont pas créées. </translation>
-    </message>
-    <message>
-        <source>Enable Dynamic Thumbnails</source>
-        <translation type="vanished">Activer les vignettes dynamiques</translation>
-    </message>
-    <message>
         <location filename="../settings/settingstabthumbnail.cpp" line="271"/>
         <source>Use file-name-only Thumbnails</source>
         <translation>Utiliser seulement les noms de fichier</translation>
@@ -2364,22 +2267,14 @@ Continuer?</translation>
         <translation>Utiliser seulement le nom de fichier</translation>
     </message>
     <message>
-        <source>Filename? Resolution? Or both?</source>
-        <translation type="vanished">Nom de fichier? Résolution? Ou les deux?</translation>
-    </message>
-    <message>
-        <source>When thumbnails are displayed at the top/bottom, PhotoQt usually writes the filename on them. If wanted, this can be switched to the image resolution. Or even both can be displayed, whatever you want.</source>
-        <translation type="vanished">Lorsque les vignettes sont affichées en haut/bas, PhotoQt affiche également le nom de fichier. Alternativement, la résolution de l&apos;image ou le nom et la résolution peuvent être affichés.</translation>
-    </message>
-    <message>
         <location filename="../settings/settingstabthumbnail.cpp" line="243"/>
         <source>Filename? Dimension? Or both?</source>
-        <translation type="unfinished"></translation>
+        <translation>Nom de fichier? Taille? Ou les deux? </translation>
     </message>
     <message>
         <location filename="../settings/settingstabthumbnail.cpp" line="243"/>
         <source>When thumbnails are displayed at the top/bottom, PhotoQt usually writes the filename on them. But also the dimension of the image can be written on it. Or also both or none. You can use the slider below to adjust the font size.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../settings/settingstabthumbnail.cpp" line="244"/>
@@ -2394,22 +2289,22 @@ Continuer?</translation>
     <message>
         <location filename="../settings/settingstabthumbnail.cpp" line="307"/>
         <source>Preloading</source>
-        <translation type="unfinished"></translation>
+        <translation>Précharger</translation>
     </message>
     <message>
         <location filename="../settings/settingstabthumbnail.cpp" line="307"/>
         <source>Here you can adjust, how many images AT MOST will be preloaded. For example, if the directory contains 800 images, a limit of 400 (default value) means, that starting from the opened image, 200 images to the left and 200 to the right are preloaded.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../settings/settingstabthumbnail.cpp" line="307"/>
         <source>If you don&apos;t want to limit PhotoQt to any number, you can simply enable the option to always preload the full directory. WARNING: This is perfectly fine for directories with a small number of images (usually anything less than 1000, depending on your computer), but can lead to performance and memory issues for larger directories. Make sure you know what you&apos;re doing before enabling this!</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../settings/settingstabthumbnail.cpp" line="323"/>
         <source>Preload full directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Précharger le dossier complet</translation>
     </message>
     <message>
         <location filename="../settings/settingstabthumbnail.cpp" line="343"/>
@@ -2739,22 +2634,22 @@ Continuer?</translation>
     <message>
         <location filename="../slideshow/slideshowsettings.cpp" line="94"/>
         <source>Loop over images</source>
-        <translation type="unfinished"></translation>
+        <translation>Boucler sur les images</translation>
     </message>
     <message>
         <location filename="../slideshow/slideshowsettings.cpp" line="95"/>
         <source>Shuffle images</source>
-        <translation type="unfinished"></translation>
+        <translation>Lecture aléatoire des images</translation>
     </message>
     <message>
         <location filename="../slideshow/slideshowsettings.cpp" line="96"/>
         <source>Shuffle and Loop</source>
-        <translation type="unfinished"></translation>
+        <translation>Lecture aléatoire et boucle</translation>
     </message>
     <message>
         <location filename="../slideshow/slideshowsettings.cpp" line="96"/>
-        <source>If you want PhotoQt to loop over all images (i.e., once it shows the last image it starts from the beginning). Additionally, if you want PhotoQt to load your images in random order, you can check the second box below. No image will be shown twice before every image has been shown once.</source>
-        <translation type="unfinished"></translation>
+        <source>If you want PhotoQt to loop over all images (i.e., once it shows the last image it starts from the beginning), or if you want PhotoQt to load your images in random order, you can check either or both boxes below. Note, that no image will be shown twice before every image has been shown once.</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../slideshow/slideshowsettings.cpp" line="109"/>
@@ -2844,25 +2739,9 @@ Continuer?</translation>
         <translation>Nombreux formats de fichiers</translation>
     </message>
     <message>
-        <source>PhotoQt used to be able to only work with those file formats natively supported by Qt (which is already pretty good). But it now can also make use of GraphicsMagick, an image library. Currently, there are more than 80 different file formats supported! You can find a list of it in the settings (Tab &quot;Other&quot;). There you can en-/disable different ones and also add custom file endings.</source>
-        <translation type="vanished">Initialement, PhotoQt ne fonctionnait qu&apos;avec les formats d&apos;images supporté nativement par Qt (ce qui était déjà pas mal). Il peut désormais utiliser la librairie GraphicsMagick qui lui permet de supporter plus de 80 formats de fichiers différents! Une liste complète est disponible dans les paramètres (Onglet &quot;Autres&quot;). Ici, vous pouvez (dés)-activer ces formats et ajouter des extensions personnalisées. </translation>
-    </message>
-    <message>
-        <source>Many Settings Possible</source>
-        <translation type="vanished">Nombreux paramètres possibles.</translation>
-    </message>
-    <message>
-        <source>PhotoQt has an extensive settings area. By default you can call it with the shortcut &quot;e&quot; or through the dropdown menu at the top edge towards the top right corner. You can adjust (almost) everything in PhotoQt, and it&apos;s certainly worth having a look there. Each setting usually comes with a little explanation text.</source>
-        <translation type="vanished">PhotoQt dispose d&apos;une zone de réglages étendue que vous pouvez afficher grâce au raccourci par défaut &quot;e&quot; ou grâce au menu déroulant en haut à droite. Presque tout les paramètres peuvent être ajustés et il est intéressant de jeter un œil à cette zone de réglages. Chaque paramètre est associé à un petit texte explicatif.</translation>
-    </message>
-    <message>
         <location filename="../widgets/startupwidget.cpp" line="90"/>
         <source>Thumbnails</source>
         <translation>Vignettes</translation>
-    </message>
-    <message>
-        <source>What would be an image viewer without thumbnails support? It would only be half as good. Whenever you load an image, PhotoQt loads the other images in the directory in the background (per default it only loads the ones whose thumbnails are currently visible). It lines them up in a row at the bottom edge (move your mouse there to see them). There are many settings just for the thumbnails, like size, liftup, en-/disabled, type, filename, permanently shown/hidden, etc. PhotoQt&apos;s quite flexible with that.</source>
-        <translation type="vanished">Que serait une visionneuse d&apos;images sans vignettes? Ça serait moitié moins intéressant. Lorsque vous ouvrez une image, PhotoQt charge les autres images du répertoire en tâche de fond (par défaut, seules les images dont les vignettes sont visibles sont chargées). Il les aligne en bas de l&apos;écran (déplacez-y la souris pour les afficher). De nombreux paramètres des vignettes peuvent être ajustés: taille, élévation, type, nom de fichier, affichage, etc. Photo est plutôt flexible en ce qui concerne les vignettes. </translation>
     </message>
     <message>
         <location filename="../widgets/startupwidget.cpp" line="97"/>
@@ -2870,41 +2749,9 @@ Continuer?</translation>
         <translation>Raccourcis</translation>
     </message>
     <message>
-        <source>One of the many strengths of PhotoQt is the ability to easily set a shortcut for almost anything. Even mouse shortcuts are possible!</source>
-        <translation type="vanished">L&apos;un des points forts de PhotoQt est la possibilité de définir des raccourcis clavier pour presque tout. Il est même possible de définir des raccourcis pour la souris!</translation>
-    </message>
-    <message>
-        <source>Image Information</source>
-        <translation type="vanished">Information sur l&apos;image</translation>
-    </message>
-    <message>
-        <source>Most images store some information about the image in the file. PhotoQt can read and display a good bit of that. You can find this information in the slide-in window at the left edge of PhotoQt.</source>
-        <translation type="vanished">La plupart des fichiers image stockent de l&apos;information sur l&apos;image. PhotoQt peut lire et afficher une part importante de cette information. Vous trouverez cette information dans le composant s&apos;affichant sur la gauche de l&apos;écran.</translation>
-    </message>
-    <message>
-        <source>Basic File Actions</source>
-        <translation type="vanished">Actions basiques sur les fichiers</translation>
-    </message>
-    <message>
-        <source>Basic file actions like renaming a file, or moving/copying it or deleting it can be done from inside of PhotoQt. However, you can only operate on a single file at a time. So for bigger operations, it&apos;d be a better solution to use your choice of file manager.</source>
-        <translation type="vanished">Les actions de base sur les fichiers telles que renommer, déplacer/copier ou effacer peuvent être réalisées depuis PhotoQt. Cependant, vous ne pouvez le faire que sur un seul fichier à la fois. Pour des opérations de plus grande envergure, utilisez l&apos;explorateur de fichier de votre choix.</translation>
-    </message>
-    <message>
-        <source>Wallpaper</source>
-        <translation type="vanished">Fond d&apos;écran</translation>
-    </message>
-    <message>
-        <source>For different desktop environments (like e.g. XFCE4, Openbox, Gnome, ...) you can set an image your viewing directly as wallpaper. Depending on the DE there are also different options available. Unfortunately, KDE is currently not supported.</source>
-        <translation type="vanished">Pour divers environnements de bureau (comme par exemple XFCE4, Openbox, Gnome, ...), vous pouvez afficher l&apos;image que vous visualisez comme fond d&apos;écran. Selon l&apos;environnement, différentes options sont également disponibles. Malheureusement, KDE n&apos;est actuellement pas supporté. </translation>
-    </message>
-    <message>
         <location filename="../widgets/startupwidget.cpp" line="115"/>
         <source>Slideshow</source>
         <translation>Diaporama</translation>
-    </message>
-    <message>
-        <source>PhotoQt also brings a slideshow feature. When you start a slideshow, it starts at the currently displayed image. There are a couple simply settings like transition and speed, and you can also set a music file that is played in the background. When the slideshow takes longer than the music file, then PhotoQt starts the music file all over from the beginning. At anytime during the slideshow, you can move the mouse cursor to the top edge of the screen to get a little bar, where you can pause/exit the slideshow and adjust the music volume.</source>
-        <translation type="vanished">PhotoQt présent également une fonction de diaporama. Le diaporama débute à l&apos;image en cours d&apos;affichage. Quelques paramètres simples tels que la transition ou la vitesse sont ajustables et vous pouvez également définir un fond sonore. Lorsque le diaporama dure plus longtemps que la musique, PhotoQt reprend la lecture du fichier son au début. À tout moment, déplacer la souris vers le bord haut de l&apos;écran affiche la barre de contrôle du diaporama qui permet de mettre en pause, de quitter ou d&apos;ajuster le volume de la bande son. </translation>
     </message>
     <message>
         <location filename="../widgets/startupwidget.cpp" line="126"/>
@@ -2912,57 +2759,49 @@ Continuer?</translation>
         <translation>Localisation</translation>
     </message>
     <message>
-        <source>PhotoQt comes with a number of translations. Many have taken some of their time to create/update one of them. Not all of them are (yet) complete, so why don&apos;t you help?</source>
-        <translation type="vanished">Photo est livré avec de nombreuses traductions. De nombreuses personnes ont pris sur leur temps pour les créer/mettre à jour. Toutes les traductions ne sont pas (encore) complètes, alors pourquoi ne pas donner un petit coup de main ?</translation>
-    </message>
-    <message>
-        <source>There are many many more features. Best is, you just give it a go. Don&apos;t forget to check the settings to make PhotoQt &quot;your own&quot;.</source>
-        <translation type="vanished">Il y a de nombreux autres fonctionnalités. Le mieux est de l&apos;essayer. N&apos;oubliez pas d&apos;aller voir les réglages pour faire de PhotoQt &quot;le vôtre&quot;.</translation>
-    </message>
-    <message>
         <location filename="../widgets/startupwidget.cpp" line="72"/>
         <source>PhotoQt can make use of GraphicsMagick, an image library, to display many different image formats. Currently, there are up to 72 different file formats supported (exact number depends on your system)! You can find a list of it in the settings (Tab &apos;Other&apos;). There you can en-/disable different ones and also add custom file endings.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../widgets/startupwidget.cpp" line="79"/>
         <source>Make PhotoQt your own</source>
-        <translation type="unfinished"></translation>
+        <translation>Composer votre propre PhotoQt</translation>
     </message>
     <message>
         <location filename="../widgets/startupwidget.cpp" line="79"/>
         <source>PhotoQt has an extensive settings area. By default you can call it with the shortcut &apos;e&apos; or through the dropdown menu at the top edge towards the top right corner. You can adjust almost everything in PhotoQt, and it&apos;s certainly worth having a look there. Each setting usually comes with a little explanation text.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../widgets/startupwidget.cpp" line="90"/>
         <source>What would be an image viewer without thumbnails support? It would only be half as good. Whenever you load an image, PhotoQt loads the other images in the directory in the background (by default, it tries to be smart about it and only loads the ones that are needed). It lines them up in a row at the bottom edge (move your mouse there to see them). There are many settings just for the thumbnails, like, e.g., size, liftup, en-/disabled, type, filename, permanently shown/hidden, etc. PhotoQt&apos;s quite flexible with that.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../widgets/startupwidget.cpp" line="97"/>
         <source>One of the many strengths of PhotoQt is the ability to easily set a shortcut for almost anything. Even mouse shortcuts are possible! You can choose from a huge number of internal functions, or you can run any custom script or command.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../widgets/startupwidget.cpp" line="108"/>
         <source>Image Information (Exif)</source>
-        <translation type="unfinished"></translation>
+        <translation>Information de l&apos;image (Exif)</translation>
     </message>
     <message>
         <location filename="../widgets/startupwidget.cpp" line="108"/>
         <source>Most images store some information about the image in the file. PhotoQt can read and display a good bit of that (currently, only Exif is supported). You can find this information in the slide-in window hidden behind the left edge of PhotoQt.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../widgets/startupwidget.cpp" line="115"/>
         <source>PhotoQt also brings a slideshow feature. When you start a slideshow, it starts at the currently displayed image. There are a couple settings like transition, speed, loop, and shuffle. Plus, you can set a music file that is played in the background. When the slideshow takes longer than the music file, then PhotoQt starts the music file all over from the beginning. At anytime during the slideshow, you can move the mouse cursor to the top edge of the screen to get a little bar, where you can pause/exit the slideshow and adjust the music volume.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../widgets/startupwidget.cpp" line="126"/>
         <source>PhotoQt comes with a number of translations. Many have taken some of their time to create/update one of them (Thank you!). Not all of them are complete... do you want to help?</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../widgets/startupwidget.cpp" line="131"/>
@@ -2972,7 +2811,7 @@ Continuer?</translation>
     <message>
         <location filename="../widgets/startupwidget.cpp" line="131"/>
         <source>There are many many more features. Best is, you just give it a go. Don&apos;t forget to check out the settings to make PhotoQt YOUR image viewer.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../widgets/startupwidget.cpp" line="150"/>
@@ -2982,30 +2821,17 @@ Continuer?</translation>
     <message>
         <location filename="../widgets/startupwidget.cpp" line="152"/>
         <source>Welcome back to PhotoQt. It hasn&apos;t been that long since the last release of PhotoQt. Yet there have been more changes than ever before. Most (if not all) of them were aimed at smoothing PhotoQt out. I tried to implement all the feedback and feature requests I received over the past year(s) that has been left without much attention until now.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../widgets/startupwidget.cpp" line="153"/>
         <source>I&apos;m convinced, that this release is better than any one before. PhotoQt is working reliable and efficient in every aspect. It definitely can hold up to the more &apos;traditional&apos; image viewers out there.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../widgets/startupwidget.cpp" line="165"/>
-        <source>This app started out more than three years ago, and it has developed quite a bit since then. It has become very efficient, reliable, and highly flexible (check out the settings). I&apos;m convinced it can hold up to the more &apos;traditional&apos; image viewers out there in every way.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../widgets/startupwidget.cpp" line="164"/>
         <source>Welcome to PhotoQt. PhotoQt is an image viewer, aimed at being fast and reliable, highly customisable and good looking.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Welcome back to PhotoQt.</source>
-        <translation type="vanished">Bienvenue sur PhotoQt.</translation>
-    </message>
-    <message>
-        <source>It has been more than a year since the last stable release of PhotoQt was released. For a while development has stalled as I was busy finishing my Bachelor degree, but I came back and once again there are some really cool (I believe) changes in this release. I gave my best to ensure that everything is working as smoothly as possible. But please forgive me if a bug sneaked in here or there again, they are never intended, I promise!</source>
-        <translation type="vanished">Plus d&apos;un an s&apos;est écoulé depuis la dernière version stable de PhotoQt. Le développement a cessé pour un temps puisque  j&apos;étais occupé à terminer ma licence. Mais je suis revenu et une fois de plus, il y a des changements vraiment intéressants (à mon avis) dans cette version. J&apos;ai fait de mon mieux pour m&apos;assurer que tout fonctionne aussi bien que possible. Mais veuillez me pardonner si un bug s&apos;est glissé ici ou là. Les bugs ne sont jamais intentionnels, promis!</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../widgets/startupwidget.cpp" line="154"/>
@@ -3018,12 +2844,9 @@ Continuer?</translation>
         <translation>PhotoQt a été installé avec succés</translation>
     </message>
     <message>
-        <source>Welcome to PhotoQt. PhotoQt is an image viewer, aimed at being fast, highly customisable and good looking.</source>
-        <translation type="vanished">Bienvenue sur PhotoQt. PhotoQt est une visionneuse d&apos;images dont le but est d&apos;être rapide, hautement configurable et d&apos;apparence agréable. </translation>
-    </message>
-    <message>
-        <source>This app started out almost three years ago, and it has developed quite a bit since then. Although I gave my best to ensure that everything is working as smoothly as possible, please forgive me if a bug sneaked in here or there again, they are never intended, I promise!</source>
-        <translation type="vanished">Cette application a début il y a presque trois and et le développement a bien progressé depuis. Bien que j&apos;aie fait de mon mieux pour m&apos;assurer que tout fonctionne aussi bien que possible, veuillez me pardonner si un bug s&apos;est glissé ici ou là. Les bugs ne sont jamais intentionnels, promis!</translation>
+        <location filename="../widgets/startupwidget.cpp" line="165"/>
+        <source>This app started out more than three years ago, and it has developed quite a bit since then. It has become very efficient, reliable, and highly flexible (check out the settings). I&apos;m convinced it can hold up to the more &apos;traditional&apos; image viewers out there in every way.</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../widgets/startupwidget.cpp" line="166"/>
@@ -3034,16 +2857,16 @@ Continuer?</translation>
 <context>
     <name>ViewBigLay</name>
     <message>
-        <location filename="../graphics/graphicsviewlay.cpp" line="49"/>
-        <location filename="../graphics/graphicsviewlay.cpp" line="96"/>
-        <location filename="../graphics/graphicsviewlay.cpp" line="205"/>
-        <location filename="../graphics/graphicsviewlay.cpp" line="243"/>
+        <location filename="../graphics/graphicsviewlay.cpp" line="45"/>
+        <location filename="../graphics/graphicsviewlay.cpp" line="89"/>
+        <location filename="../graphics/graphicsviewlay.cpp" line="192"/>
+        <location filename="../graphics/graphicsviewlay.cpp" line="227"/>
         <source>Open File to Begin.</source>
         <translation>Ouvrir un fichier pour débuter.</translation>
     </message>
     <message>
-        <location filename="../graphics/graphicsviewlay.cpp" line="205"/>
-        <location filename="../graphics/graphicsviewlay.cpp" line="243"/>
+        <location filename="../graphics/graphicsviewlay.cpp" line="192"/>
+        <location filename="../graphics/graphicsviewlay.cpp" line="227"/>
         <source>No images match current filter</source>
         <translation>Aucune image ne correspond au filtre actuel</translation>
     </message>
