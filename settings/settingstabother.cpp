@@ -136,13 +136,13 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 //	langShort << "hu";
 
 	// Hebrew
-	langDesc << "עברית";
-	langAuthor << "GenghisKhan";
-	langShort << "he";
+//	langDesc << "עברית";
+//	langAuthor << "GenghisKhan";
+//	langShort << "he";
 
 	// Italian
 	langDesc << "Italiano";
-	langAuthor << "Vincenzo C. & Fabio M.";
+	langAuthor << "Fabio M. & Vincenzo C.";
 	langShort << "it";
 
 	// Japanese
@@ -173,9 +173,9 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 	langShort << "pt_PT";
 
 	// Russian
-	langDesc << "Pусский";
-	langAuthor << "Yuriy T.";
-	langShort << "ru_RU";
+//	langDesc << "Pусский";
+//	langAuthor << "Yuriy T.";
+//	langShort << "ru_RU";
 
 	//Slovak
 	langDesc << "Slovenčina";
