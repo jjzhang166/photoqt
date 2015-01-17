@@ -96,12 +96,6 @@ FIND_PACKAGE(Magick)
 FIND_PACKAGE(Exiv2)
 
 
-###################################
-###### REMOVE BEFORE RELEASE ######
-###################################
-SET(CMAKE_BUILD_TYPE Debug)
-
-
 ####################################
 #### TRANSLATIONS AND RESOURCES ####
 ####################################

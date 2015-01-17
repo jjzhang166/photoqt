@@ -2648,7 +2648,7 @@
     <message>
         <location filename="../slideshow/slideshowsettings.cpp" line="96"/>
         <source>If you want PhotoQt to loop over all images (i.e., once it shows the last image it starts from the beginning), or if you want PhotoQt to load your images in random order, you can check either or both boxes below. Note, that no image will be shown twice before every image has been shown once.</source>
-        <translation type="unfinished"/>
+        <translation>Se quiser que o PhotoQt percorra todas as imagens (assim que mostrar a última imagem, voltar à primeira) ou se quiser carregar as imagens aleatoriamente, pode ativar as caixas abaixo. Tenha em conta que nenhuma imagem será mostrada duas vezes sem mostrar uma vez todas as imagens. </translation>
     </message>
     <message>
         <location filename="../slideshow/slideshowsettings.cpp" line="109"/>
@@ -2760,7 +2760,7 @@
     <message>
         <location filename="../widgets/startupwidget.cpp" line="72"/>
         <source>PhotoQt can make use of GraphicsMagick, an image library, to display many different image formats. Currently, there are up to 72 different file formats supported (exact number depends on your system)! You can find a list of it in the settings (Tab &apos;Other&apos;). There you can en-/disable different ones and also add custom file endings.</source>
-        <translation type="unfinished"/>
+        <translation>O PhotoQt pode utilizar a biblioteca GraphicsMagick para mostrar diferentes formatos de imagem. Atualmente, são suportados 72 formatos de imagem (o número exato depende do seu sistema operativo). Pode encontrar a lista de formatos nas definições (separador Outras) e ativar ou desativar os formatos que pretende bem como adicionar formatos personalizados.</translation>
     </message>
     <message>
         <location filename="../widgets/startupwidget.cpp" line="79"/>
@@ -2780,7 +2780,7 @@
     <message>
         <location filename="../widgets/startupwidget.cpp" line="97"/>
         <source>One of the many strengths of PhotoQt is the ability to easily set a shortcut for almost anything. Even mouse shortcuts are possible! You can choose from a huge number of internal functions, or you can run any custom script or command.</source>
-        <translation type="unfinished"/>
+        <translation>Uma das características do PhotoQt é a capacidade de definir um atalho para quase todas as opções. Também pode utilizar o rato como atalho. Pode escolher diversas opções e, eventualmente, um comando ou script personalizado.</translation>
     </message>
     <message>
         <location filename="../widgets/startupwidget.cpp" line="108"/>
@@ -2795,12 +2795,12 @@
     <message>
         <location filename="../widgets/startupwidget.cpp" line="115"/>
         <source>PhotoQt also brings a slideshow feature. When you start a slideshow, it starts at the currently displayed image. There are a couple settings like transition, speed, loop, and shuffle. Plus, you can set a music file that is played in the background. When the slideshow takes longer than the music file, then PhotoQt starts the music file all over from the beginning. At anytime during the slideshow, you can move the mouse cursor to the top edge of the screen to get a little bar, where you can pause/exit the slideshow and adjust the music volume.</source>
-        <translation type="unfinished"/>
+        <translation>O PhotoQt também disponibiliza o modo de apresentação. A apresentação será sempre iniciada na imagem atual. Pode configurar as transições, velocidade, ciclos e aleatoriedade. Pode também utilizar um ficheiro áudio para reproduzir em segundo plano. Se a apresentação for mais demorada do que o ficheiro de áudio, a faixa será reiniciada. Em qualquer momento da apresentação, pode mover o cursor do rato para a mergem superior do ecrã para mostrar uma barra, na qual pode parar ou sair da apresentação e ajustar o volume da faixa.</translation>
     </message>
     <message>
         <location filename="../widgets/startupwidget.cpp" line="126"/>
         <source>PhotoQt comes with a number of translations. Many have taken some of their time to create/update one of them (Thank you!). Not all of them are complete... do you want to help?</source>
-        <translation type="unfinished"/>
+        <translation>O PhotoQt está disponível em diversos idiomas. Os colaboradores doaram parte do seu tempo para nos ajudar (obrigado). Mas, nem todos estão completos... Porque não nos ajuda?</translation>
     </message>
     <message>
         <location filename="../widgets/startupwidget.cpp" line="131"/>
@@ -2810,7 +2810,7 @@
     <message>
         <location filename="../widgets/startupwidget.cpp" line="131"/>
         <source>There are many many more features. Best is, you just give it a go. Don&apos;t forget to check out the settings to make PhotoQt YOUR image viewer.</source>
-        <translation type="unfinished"/>
+        <translation>Existem muitas mais funções disponíveis. O melhor que tem a fazer é experimentar a aplicação. Não se esqueça de analisar as definições.</translation>
     </message>
     <message>
         <location filename="../widgets/startupwidget.cpp" line="150"/>
@@ -2820,17 +2820,17 @@
     <message>
         <location filename="../widgets/startupwidget.cpp" line="152"/>
         <source>Welcome back to PhotoQt. It hasn&apos;t been that long since the last release of PhotoQt. Yet there have been more changes than ever before. Most (if not all) of them were aimed at smoothing PhotoQt out. I tried to implement all the feedback and feature requests I received over the past year(s) that has been left without much attention until now.</source>
-        <translation type="unfinished"/>
+        <translation>Bem-vindo ao PhotoQt. Não passou muito tempo desde a última versão. No entanto, foram efetuadas diversas alterações. A maioria (se não todas) estão relacionadas com estão relacionadas com o polimento do PhotoQt. Tentámos implementar as funcionalidades pedidas e corrigir os erros reportados durante o último ano e que ainda não tinham sido implementados.</translation>
     </message>
     <message>
         <location filename="../widgets/startupwidget.cpp" line="153"/>
         <source>I&apos;m convinced, that this release is better than any one before. PhotoQt is working reliable and efficient in every aspect. It definitely can hold up to the more &apos;traditional&apos; image viewers out there.</source>
-        <translation type="unfinished"/>
+        <translation>Estou convencido que esta versão é muito melhor que qualquer outra anterior. O PhotoQt está mais estável em todos os aspetos. Deve agora estar a par com os melhores visualizadores de imagens existentes..</translation>
     </message>
     <message>
         <location filename="../widgets/startupwidget.cpp" line="164"/>
         <source>Welcome to PhotoQt. PhotoQt is an image viewer, aimed at being fast and reliable, highly customisable and good looking.</source>
-        <translation type="unfinished"/>
+        <translation>Bem-vindo ao PhotoQt. O PhotoQt é um visualizador de imagens criado com o intuito de ser elegante e ao fácil de utilizar.</translation>
     </message>
     <message>
         <location filename="../widgets/startupwidget.cpp" line="154"/>
@@ -2845,7 +2845,7 @@
     <message>
         <location filename="../widgets/startupwidget.cpp" line="165"/>
         <source>This app started out more than three years ago, and it has developed quite a bit since then. It has become very efficient, reliable, and highly flexible (check out the settings). I&apos;m convinced it can hold up to the more &apos;traditional&apos; image viewers out there in every way.</source>
-        <translation type="unfinished"/>
+        <translation>O desenvolvimento do PhotoQt decorre há cerca de três anos e já melhorou muito desde o inicio. Tornou-se mais eficiente, estável e altamente personalizado (aceda às definições).  Estou convencido que já está a par com as melhores aplicações existentes.</translation>
     </message>
     <message>
         <location filename="../widgets/startupwidget.cpp" line="166"/>

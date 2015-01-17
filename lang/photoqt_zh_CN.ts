@@ -4,17 +4,17 @@
     <message>
         <location filename="../widgets/aboutwidget.cpp" line="44"/>
         <source>PhotoQt is a simple image viewer, designed to be good looking, highly configurable, yet easy to use and fast.</source>
-        <translation>PhotoQt 是一个简洁的图片查看器，设计宗旨是：好看，高度可定制，易用和快捷。</translation>
+        <translation>PhotoQt 是一个简洁的图片查看器，设计宗旨是：美观，高度自定义，易用和快捷。</translation>
     </message>
     <message>
         <location filename="../widgets/aboutwidget.cpp" line="45"/>
         <source>With PhotoQt I try to be different than other image viewers (after all, there are plenty of good image viewers already out there). Its interface is kept very simple, yet there is an abundance of settings to customize the look and feel to make PhotoQt YOUR image viewer.</source>
-        <translation>PhotoQt 不同于其他图片查看器（毕竟已经有太多优秀的图片查看器了）。它的界面非常简洁，不过有很多设置选项供您制定属于自己的界面。</translation>
+        <translation>PhotoQt 不同于其他图片查看器(毕竟已经有太多优秀的图片查看器了)。它的界面非常简洁，不过丰富的设置选项提供给您制定属于自己的PhotoQt界面。</translation>
     </message>
     <message>
         <location filename="../widgets/aboutwidget.cpp" line="46"/>
         <source>I&apos;m not a trained programmer. I&apos;m a simple Maths student that loves doing stuff like this. Most of my programming knowledge I taught myself over the past 10-ish years, and it has been developing a lot since I started PhotoQt. During my studies in university I learned a lot about the basics of programming that I was missing. And simply working on PhotoQt gave me a lot of invaluable experience. So the code of PhotoQt might in places not quite be done in the best of ways, but I think it&apos;s getting better and better with each release.</source>
-        <translation>我不是一个专业的程序员。我只是一个喜欢干这些事的数学系学生。很多编程知识都是我10年多自学的，从 PhotoQt 开发至今，已经拥有了很多功能。在大学的学习过程中，我补缺了很多编程基础知识。将所学知识都用在 PhotoQt 上给我带来了很多宝贵的经验。虽然 PhotoQt 的代码还不够完美，实现方法也不够好，但我想每个版本都在不断改进。</translation>
+        <translation>我不是一个专业的程序员。我只是一个喜欢写程序的数学系学生。很多编程知识都是我10年多自学的，从 PhotoQt 开发至今，已经拥有了很多功能。在大学的学习过程中，我填补了很多编程基础知识。将所学知识都用在 PhotoQt 上给我带来了很多宝贵的经验。虽然 PhotoQt 的代码还不够完美，实现方法也不够好，但我想每个版本都在不断改进。</translation>
     </message>
     <message>
         <location filename="../widgets/aboutwidget.cpp" line="48"/>
@@ -29,12 +29,12 @@
     <message>
         <location filename="../widgets/aboutwidget.cpp" line="47"/>
         <source>I heard a number of times people saying, that PhotoQt is a &apos;copy&apos; of Picasa&apos;s image viewer. Well, it&apos;s not. In fact, I myself have never used Picasa. I have seen it in use though by others, and I can&apos;t deny that it influenced the basic design idea a little. But I&apos;m not trying to do something &apos;like Picasa&apos;. I try to do my own thing, and to do it as good as I can.</source>
-        <translation>我经常听到别人说 PhotoQt 是 Picasa 的图片查看器的 “克隆” 。我想说，不是！事实上我都没用过 Picasa。曾看到别人使用它，我不否认说 PhotoQt 没受其设计思想的影响。但是我尽量的不去做的“像 Picasa&quot;。我尝试做我自己的东西， 并尽力做到最好。</translation>
+        <translation>我经常听到别人说 PhotoQt 是 Picasa 的图片查看器的 “山寨版” 。我想说，不是！事实上我都没用过 Picasa。我曾看到别人使用它，并且我不否认说 PhotoQt 没受其设计思想的影响。但是我尽量避免“Picasa化&quot;。我尝试做我自己的东西， 并尽力做到最好。</translation>
     </message>
     <message>
         <location filename="../widgets/aboutwidget.cpp" line="50"/>
         <source>Thanks to everybody who contributed to PhotoQt and/or translated PhotoQt to another language! You guys rock!</source>
-        <translation>感谢所有为 PhotoQt 贡献过的人，且/或将 PhotoQt 翻译成其他语言的人！你们太棒了 !</translation>
+        <translation>感谢所有为 PhotoQt 贡献过的人，感谢将 PhotoQt 翻译成其他语言的人！你们太棒了 !</translation>
     </message>
     <message>
         <location filename="../widgets/aboutwidget.cpp" line="51"/>
@@ -50,7 +50,7 @@
         <location filename="../widgets/aboutwidget.cpp" line="96"/>
         <source>Okay, I got enough of that...</source>
         <extracomment>This string is written onto the &quot;close&quot; button of the about widget</extracomment>
-        <translation>好了，我知道的够多了...</translation>
+        <translation>好了，别再提示我了...</translation>
     </message>
     <message>
         <location filename="../widgets/aboutwidget.cpp" line="114"/>
@@ -60,7 +60,7 @@
     <message>
         <location filename="../widgets/aboutwidget.cpp" line="114"/>
         <source>Licensed under GPLv2 or later, without any guarantee</source>
-        <translation>使用 GPLv2 及后续版本许可，无任何保证</translation>
+        <translation>使用 GPLv2 及后续版本许可授权，无任何保证</translation>
     </message>
 </context>
 <context>
@@ -162,7 +162,7 @@
         <location filename="../widgets/detailswidget.cpp" line="84"/>
         <source>Tungsten (incandescent light)</source>
         <extracomment>This string refers to the light source</extracomment>
-        <translation>钨丝灯（白炽灯）</translation>
+        <translation>钨丝灯(白炽灯)</translation>
     </message>
     <message>
         <location filename="../widgets/detailswidget.cpp" line="86"/>
@@ -205,7 +205,7 @@
         <location filename="../widgets/detailswidget.cpp" line="98"/>
         <source>Cool white fluorescent</source>
         <extracomment>This string refers to the light source</extracomment>
-        <translation>冷白荧光灯</translation>
+        <translation>白色冷光荧光灯</translation>
     </message>
     <message>
         <location filename="../widgets/detailswidget.cpp" line="100"/>
@@ -249,13 +249,13 @@
         <location filename="../widgets/detailswidget.cpp" line="119"/>
         <source>strobe return light not detected</source>
         <extracomment>This string refers to a flash mode</extracomment>
-        <translation>未检测到反光</translation>
+        <translation>未检测到频闪灯</translation>
     </message>
     <message>
         <location filename="../widgets/detailswidget.cpp" line="121"/>
         <source>strobe return light detected</source>
         <extracomment>This string refers to a flash mode</extracomment>
-        <translation>检测到反光</translation>
+        <translation>检测到频闪灯</translation>
     </message>
     <message>
         <location filename="../widgets/detailswidget.cpp" line="123"/>
@@ -291,7 +291,7 @@
         <location filename="../widgets/detailswidget.cpp" line="148"/>
         <source>No flash function</source>
         <extracomment>This string refers to a flash mode</extracomment>
-        <translation>无闪光功能</translation>
+        <translation>无闪光</translation>
     </message>
     <message>
         <location filename="../widgets/detailswidget.cpp" line="162"/>
@@ -370,7 +370,7 @@
     <message>
         <location filename="../widgets/detailswidget.cpp" line="244"/>
         <source>Scene Type</source>
-        <translation>镜头类型</translation>
+        <translation>场景类型</translation>
     </message>
     <message>
         <location filename="../widgets/detailswidget.cpp" line="248"/>
@@ -400,7 +400,7 @@
     <message>
         <location filename="../widgets/detailswidget.cpp" line="420"/>
         <source>Unknown data</source>
-        <translation>位置数据</translation>
+        <translation>未知数据</translation>
     </message>
     <message>
         <location filename="../widgets/detailswidget.cpp" line="484"/>
@@ -444,7 +444,7 @@
     <message>
         <location filename="../widgets/dropdownmenu.cpp" line="53"/>
         <source>Show Details</source>
-        <translation>显示细节</translation>
+        <translation>显示详情</translation>
     </message>
     <message>
         <location filename="../widgets/dropdownmenu.cpp" line="54"/>
@@ -454,7 +454,7 @@
     <message>
         <location filename="../widgets/dropdownmenu.cpp" line="55"/>
         <source>Hide (System Tray)</source>
-        <translation>隐藏 （系统托盘）</translation>
+        <translation>隐藏 (系统托盘)</translation>
     </message>
     <message>
         <location filename="../widgets/dropdownmenu.cpp" line="56"/>
@@ -464,7 +464,7 @@
     <message>
         <location filename="../widgets/dropdownmenu.cpp" line="67"/>
         <source>Start Slideshow</source>
-        <translation>开始幻灯片</translation>
+        <translation>开始放映幻灯片</translation>
     </message>
     <message>
         <location filename="../widgets/dropdownmenu.cpp" line="68"/>
@@ -515,7 +515,7 @@
     <message>
         <location filename="../widgets/filehandling.cpp" line="215"/>
         <source>Moving File</source>
-        <translation>移动文件中</translation>
+        <translation>正在移动文件</translation>
     </message>
     <message>
         <location filename="../widgets/filehandling.cpp" line="238"/>
@@ -531,7 +531,7 @@
     <message>
         <location filename="../widgets/filehandling.cpp" line="294"/>
         <source>Copying File</source>
-        <translation>复制文件中</translation>
+        <translation>正在复制文件</translation>
     </message>
     <message>
         <location filename="../widgets/filehandling.cpp" line="334"/>
@@ -541,7 +541,7 @@
     <message>
         <location filename="../widgets/filehandling.cpp" line="446"/>
         <source>Old name</source>
-        <translation>旧文件名</translation>
+        <translation>原文件名</translation>
     </message>
     <message>
         <location filename="../widgets/filehandling.cpp" line="756"/>
@@ -561,7 +561,7 @@
     <message>
         <location filename="../widgets/filehandling.cpp" line="769"/>
         <source>You need to specify a different name</source>
-        <translation>你需要指定一个不同的名称</translation>
+        <translation>你需要指定一个不同的文件名</translation>
     </message>
     <message>
         <location filename="../widgets/filehandling.cpp" line="789"/>
@@ -603,12 +603,12 @@
     <message>
         <location filename="../filterimages/filterimagessetup.cpp" line="31"/>
         <source>Enter here the term you want to search for. Seperate multiple terms by a space.</source>
-        <translation>输入搜索关键词，多个关键词请用空格隔开</translation>
+        <translation>在此输入搜索关键词，关键词间请用空格隔开</translation>
     </message>
     <message>
         <location filename="../filterimages/filterimagessetup.cpp" line="31"/>
         <source>If you want to limit a term to file extensions, prepend a dot &apos;.&apos; to the term.</source>
-        <translation>如果你想过滤出指定文件扩展，请在关键词前面加 ‘.’</translation>
+        <translation>如果你想过滤出指定的文件类型，请在关键词前面加 ‘.’</translation>
     </message>
     <message>
         <location filename="../filterimages/filterimagessetup.cpp" line="39"/>
@@ -725,14 +725,14 @@
         <location filename="../mainwindow.cpp" line="1119"/>
         <location filename="../mainwindow.cpp" line="1203"/>
         <source>Show Details</source>
-        <translation>显示细节</translation>
+        <translation>显示详情</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="1119"/>
         <location filename="../mainwindow.cpp" line="1195"/>
         <location filename="../mainwindow.cpp" line="1908"/>
         <source>Hide Details</source>
-        <translation>隐藏细节</translation>
+        <translation>隐藏详情</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="1345"/>
@@ -969,7 +969,7 @@
     <message>
         <location filename="../manipulation/scale.cpp" line="229"/>
         <source>Don&apos;t keep aspect ratio</source>
-        <translation>不要锁定宽高比</translation>
+        <translation>任意宽高比</translation>
     </message>
     <message>
         <location filename="../manipulation/scale.cpp" line="229"/>
@@ -1002,7 +1002,7 @@
     <message>
         <location filename="../manipulation/scale.cpp" line="264"/>
         <source>Save as...</source>
-        <translation>保存为</translation>
+        <translation>另存为</translation>
     </message>
     <message>
         <location filename="../manipulation/scale.cpp" line="264"/>
@@ -1030,7 +1030,7 @@
     <message>
         <location filename="../settings/settings.cpp" line="47"/>
         <source>Exit and Discard Changes</source>
-        <translation>退出不保存设置</translation>
+        <translation>不保存设置并退出</translation>
     </message>
     <message>
         <location filename="../settings/settings.cpp" line="57"/>
@@ -1040,7 +1040,7 @@
     <message>
         <location filename="../settings/settings.cpp" line="57"/>
         <source>Do you really want to get rid of your custom settings and set the default ones? This only resets all settings. A default set of shortcuts can be set in the shortcuts tab.</source>
-        <translation>你真的想放弃自定义设置并使用默认设置？这只会重置所有设置。快捷键重置可在快捷键设置菜单中找到。</translation>
+        <translation>你真的想放弃自定义设置并使用默认设置？这只会重置所有设置。重置快捷键请至快捷键设置菜单中操作。</translation>
     </message>
     <message>
         <location filename="../settings/settings.cpp" line="57"/>
@@ -1070,7 +1070,7 @@
     <message>
         <location filename="../settings/settings.cpp" line="92"/>
         <source>Details</source>
-        <translation>细节</translation>
+        <translation>详情</translation>
     </message>
     <message>
         <location filename="../settings/settings.cpp" line="93"/>
@@ -1088,12 +1088,12 @@
     <message>
         <location filename="../settings/settingstabexif.cpp" line="43"/>
         <source>Image Details and Information</source>
-        <translation>图片细节和信息</translation>
+        <translation>图片详情</translation>
     </message>
     <message>
         <location filename="../settings/settingstabexif.cpp" line="43"/>
         <source>PhotoQt can display different information of and about each image. The widget for this information is on the left outside the screen and slides in when mouse gets close to it and/or when the set shortcut (default Ctrl+E) is triggered. On demand, the triggering by mouse movement can be disabled by checking the box below.</source>
-        <translation>PhotoQt 可以显示每张图片的详细/相关信息。此信息会显示在屏幕左侧，当鼠标放到屏幕边缘（或使用默认快捷键Ctrl+E）时会滑动出来。你可以根据喜好，选中下面的选项以禁用鼠标触发。</translation>
+        <translation>PhotoQt 可以显示每张图片的详情。信息框会显示在屏幕左侧，当鼠标放到屏幕边缘(或使用默认快捷键Ctrl+E)时会触发显示。你可以根据喜好，选中下面的选项以禁用鼠标触发。</translation>
     </message>
     <message>
         <location filename="../settings/settingstabexif.cpp" line="50"/>
@@ -1103,7 +1103,7 @@
     <message>
         <location filename="../settings/settingstabexif.cpp" line="50"/>
         <source>Per default the info widget can be shown two ways: Moving the mouse cursor to the left screen edge to fade it in temporarily (as long as the mouse is hovering it), or permanently by clicking the checkbox (checkbox only stored per session, can&apos;t be saved permanently!). Alternatively the widget can also be triggered by shortcut. On demand the mouse triggering can be disabled, so that the widget would only show on shortcut. This can come in handy, if you get annoyed by accidentally opening the widget occasionally.</source>
-        <translation>默认显示信息框有两种方式：将鼠标移动到屏幕左边边缘可以让信息框临时弹出来（只要鼠标还在那个区域就会一直显示），你可以勾选保持打开让其一直显示（但是此设置只对当前对话生效，不会保存）。或者，可以使用快捷键调出。你可以根据个人喜好禁用鼠标触发，这样只有使用快捷键才能调出信息框。如果你觉得经常不小心打开信息框很恼人，请禁用此功能。</translation>
+        <translation>默认显示信息框有两种方式：将鼠标移动到屏幕左边边缘可以让信息框临时弹出来(只要鼠标滞留在框内就会一直显示)，你可以勾选保持打开让其一直显示(但是此设置只对当前对话生效，不会保存)。或者，可以使用快捷键调出。你可以根据个人喜好禁用鼠标触发，这样只有使用快捷键才能调出信息框。如果你觉得经常不小心打开信息框很恼人，请禁用此功能。</translation>
     </message>
     <message>
         <location filename="../settings/settingstabexif.cpp" line="52"/>
@@ -1123,7 +1123,7 @@
     <message>
         <location filename="../settings/settingstabexif.cpp" line="68"/>
         <source>PhotoQt can display a number of information about the image (often called &apos;Exif data&apos;&apos;). However, you might not be interested in all of them, hence you can choose to disable some of them here.</source>
-        <translation>PhotoQt 支持显示部分图片信息（即 Exif 数据）。但是您可能只需要知道其中部分的，在这里你设置需要显示哪些。</translation>
+        <translation>PhotoQt 支持显示部分图片信息(即 Exif 数据)。但是您可能只需要其中一部分，在这里设置需要显示选项。</translation>
     </message>
     <message>
         <location filename="../settings/settingstabexif.cpp" line="78"/>
@@ -1218,7 +1218,7 @@
     <message>
         <location filename="../settings/settingstabexif.cpp" line="184"/>
         <source>Adjusting Font Size</source>
-        <translation>字体大小</translation>
+        <translation>调整字体大小</translation>
     </message>
     <message>
         <location filename="../settings/settingstabexif.cpp" line="184"/>
@@ -1268,7 +1268,7 @@
     <message>
         <location filename="../settings/settingstabexif.cpp" line="236"/>
         <source>If you&apos;re image includes a GPS location, then a click on the location text will load this location in an online map using your default external browser. Here you can choose which online service to use (suggestions for other online maps always welcome).</source>
-        <translation>如果您的照片包含 GPS 信息，那点击位置文本后，会打开系统默认浏览器，在在线地图网站中定位此位置。在这里您可以选择使用哪个在线服务（也欢迎您给我们推荐其他在线地图）</translation>
+        <translation>如果您的照片包含 GPS 信息，那点击位置文本后，会打开系统默认浏览器，在在线地图服务中定位此位置。在这里您可以选择使用哪个在线服务(也欢迎您给我们推荐其他在线地图)</translation>
     </message>
 </context>
 <context>
@@ -1276,7 +1276,7 @@
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="229"/>
         <source>Use (half-)transparent background</source>
-        <translation>使用（半）透明背景</translation>
+        <translation>使用(半)透明背景</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="230"/>
@@ -1291,12 +1291,12 @@
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="232"/>
         <source>Use one-colored, non-transparent background</source>
-        <translation>使用单色，不透明背景</translation>
+        <translation>使用纯色、不透明背景</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="234"/>
         <source>The background of PhotoQt is the part, that is not covered by an image. It can be made either real (half-)transparent (using a compositor), or faked transparent (instead of the actual desktop a screenshot of it is shown), or a custom background image can be set, or none of the above.</source>
-        <translation>PhotoQt 的背景是指未被图片遮盖住的区域。可以使用真（半）透明（使用渲染器），或者假透明（将屏幕截图当做背景显示出来），或者设置自定义图片背景。。或者完全不用。</translation>
+        <translation>PhotoQt 的背景是指未被图片遮盖住的区域。可以使用真(半)透明(使用渲染器)，或者假透明(将屏幕截图当做背景显示出来)，或者设置自定义图片背景。。或者完全不用。</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="236"/>
@@ -1338,7 +1338,7 @@
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="307"/>
         <source>Here you can adjust the background colour of PhotoQt (of the part not covered by an image). When using compositing or a background image, then you can also specify an alpha value, i.e. the transparency of the coloured overlay layer. When neither compositing is enabled nor a background image is set, then this colour will be the non-transparent background of PhotoQt.</source>
-        <translation>在这里你可以调整 PhotoQt 的背景颜色（未被图片覆盖住的区域）。当使用渲染器或者背景图片时，你还可以设置一个 Alpha 值，即覆盖层颜色的透明度（当使用图片或假透明时，所谓的透明只是在图片上加一个半透明的颜色，看起来效果像是透明）。当你未启用渲染器或者未设置背景图片时，此颜色会成为非透明背景。</translation>
+        <translation>在这里你可以调整 PhotoQt 的背景颜色(未被图片覆盖住的区域)。当使用纯色背景或者背景图片时，你还可以设置一个 Alpha 值，即覆盖层颜色的透明度。当使用图片或假透明时，所谓的透明只是在图片上加一个半透明的颜色，看起来效果像是透明。当你未设置纯色背景或背景图片时，此颜色会成为非透明背景。</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="309"/>
@@ -1364,7 +1364,7 @@
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="77"/>
         <source>Basic Settings</source>
-        <translation>基础设置</translation>
+        <translation>基本设置</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="80"/>
@@ -1379,12 +1379,12 @@
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="90"/>
         <source>Here you can adjust, how the images in a folder are supposed to be sorted. You can sort them by Filename, Natural Name (e.g., file10.jpg comes after file9.jpg and not after file1.jpg), File Size, and Date. Also, you can reverse the sorting order from ascending to descending if wanted.</source>
-        <translation>在这里你可以设置文件夹中的图片如何排序。可以按照文件名，自然排序（例如，file10.jpg 会跟在 file9.jpg 后，而不是file1.jpg 之后），文件大小，日期排序。另，你也可以选择逆向排序。</translation>
+        <translation>在这里你可以设置文件夹中的图片如何排序。可以按照文件名、自然排序(例如，file10.jpg 会跟在 file9.jpg 后，而不是file1.jpg 之后)，文件大小，日期排序。另外，你也可以选择降序排序。</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="90"/>
         <source>Hint: You can also change this setting very quickly from the &apos;Quick Settings&apos;&apos; window, hidden behind the right screen edge.</source>
-        <translation>提示：你也可以在‘快速设置’（隐藏在屏幕右侧）中改变此设置。</translation>
+        <translation>提示：你也可以在隐藏在屏幕右侧的‘快速设置’中改变此设置。</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="91"/>
@@ -1399,7 +1399,7 @@
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="94"/>
         <source>Natural Name</source>
-        <translation>自然排序</translation>
+        <translation>自然名称</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="95"/>
@@ -1424,17 +1424,17 @@
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="138"/>
         <source>When started PhotoQt creates a tray icon in the system tray. If desired, you can set PhotoQt to minimise to the tray instead of quitting. This causes PhotoQt to be almost instantaneously available when an image is opened.</source>
-        <translation>当启动 PhotoQt 时创建一个系统托盘图标。你可以按需求设置让 PhotoQt 最小化到托盘而不是退出。当下次打开图片时 PhotoQt 能立即进行处理。</translation>
+        <translation>当启动 PhotoQt 时创建一个系统托盘图标。你可以按需求设置让 PhotoQt 最小化到托盘而不是退出。这可以提高 PhotoQt 的处理效率。</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="138"/>
         <source>It is also possible to start PhotoQt already minimised to the tray (e.g. at system startup) when called with &quot;--start-in-tray&quot;.</source>
-        <translation>也可以让 PhotoQt 直接在系统托盘中打开（例如，需要让它随系统启动时），使用 “ --start-in-tray” 参数</translation>
+        <translation>也可以让 PhotoQt 直接在系统托盘中打开(例如，需要让它随系统启动时)，使用 “ --start-in-tray” 参数</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="151"/>
         <source>Closing &apos;X&apos; (top right)</source>
-        <translation>关闭 &apos;X&apos; （右上方）</translation>
+        <translation>关闭 &apos;X&apos; (右上方)</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="151"/>
@@ -1469,7 +1469,7 @@
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="186"/>
         <source>If the image dimensions are smaller than the screen dimensions, PhotoQt can zoom those images to make them fir into the window. However, keep in mind, that such images will look pixelated to a certain degree (depending on each image).</source>
-        <translation>如果图片的尺寸和屏幕的尺寸差不多，PhotoQt 可以将这些图片缩放到适应窗口大小。但是，请记住这样的图片在特定角度看会有像素感（取决于图片）。</translation>
+        <translation>如果图片的尺寸和屏幕的尺寸差不多，PhotoQt 可以将这些图片缩放到适应窗口大小。但是，请记住这样的图片在特定角度看会有像素感(取决于图片)。</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="188"/>
@@ -1489,7 +1489,7 @@
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="363"/>
         <source>When you load the last image in a directory and select &quot;Next&quot;, PhotoQt automatically jumps to the first image (and vice versa: if you select &quot;Previous&quot; while having the first image loaded, PhotoQt jumps to the last image). Disabling this option makes PhotoQt stop at the first/last image (i.e. selecting &quot;Next&quot;/&quot;Previous&quot; will have no effect in these two special cases).</source>
-        <translation>当加载的是文件夹中最后一张图片，然后选择”下一张“，PhotoQt 会自动跳到第一张图片（反之亦然）。禁用此项或使 PhotoQt 打开第一张/最后一张图片后停止（即，在这两种情况下 ”上一张“/&quot;下一张&quot;将不可用）。</translation>
+        <translation>当加载的是文件夹中最后一张图片，然后选择”下一张“，PhotoQt 会自动跳到第一张图片(反之亦然)。禁用此项或使 PhotoQt 打开第一张/最后一张图片后停止(即，在这两种情况下 ”上一张“/&quot;下一张&quot;将不可用)。</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="382"/>
@@ -1509,7 +1509,7 @@
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="385"/>
         <source>Long Transition</source>
-        <translation>长时间</translation>
+        <translation>慢速切换</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="399"/>
@@ -1544,7 +1544,7 @@
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="458"/>
         <source>Animation of fade-in widgets (like, e.g., Settings or About Widget)</source>
-        <translation>淡入控件的动画（例如“设置框”，“关于”对话框）</translation>
+        <translation>淡入控件的动画(例如“设置框”，“关于”对话框)</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="458"/>
@@ -1585,7 +1585,7 @@
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="349"/>
         <source>Note: If you use a mouse click for a shortcut already, then this option wont have any effect!</source>
-        <translation>注意：如果你已将‘点击鼠标’作为快捷键绑定了，那此选项不会有任何功效。</translation>
+        <translation>注意：如果你已将‘点击鼠标’作为快捷键绑定了，那此选项不会有任何作用。</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="332"/>
@@ -1595,12 +1595,12 @@
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="332"/>
         <source>Whenever you load an image, the image is per default not shown completely in fullscreen, i.e. it&apos;s not stretching from screen edge to screen edge. Instead there is a small margin around the image of a couple pixels (looks better). Here you can adjust the width of this margin (set to 0 to disable it).</source>
-        <translation>无论你什么时候打开图片，默认图片都不会全屏显示，即图片不会延伸到屏幕的边缘去。相反图像和屏幕边沿间有一小段空隙（更好看）。这里你可以调整此空隙的宽度（设为 0 表示禁用）</translation>
+        <translation>无论你什么时候打开图片，默认图片都不会全屏显示，即图片不会延伸到屏幕的边缘去。相反图像和屏幕边沿间有一小段空隙(更好看)。这里你可以调整此空隙的宽度(设为 0 表示禁用)</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="200"/>
         <source>Hide Quickinfo (Text Labels)</source>
-        <translation>隐藏快速信息 （文本标签）</translation>
+        <translation>隐藏快速信息 (文本标签)</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="200"/>
@@ -1615,17 +1615,17 @@
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="205"/>
         <source>Hide Filepath (Shows only file name)</source>
-        <translation>隐藏文件路径（只显示文件名）</translation>
+        <translation>隐藏文件路径(只显示文件名)</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="206"/>
         <source>Hide Filename (Including file path)</source>
-        <translation>隐藏文件名（包括路径）</translation>
+        <translation>隐藏文件名(包括路径)</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="207"/>
         <source>Hide &quot;X&quot; (Closing)</source>
-        <translation>隐藏 ”X“ （关闭按钮）</translation>
+        <translation>隐藏 ”X“ (关闭按钮)</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="420"/>
@@ -1655,7 +1655,7 @@
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="441"/>
         <source>If you would like PhotoQt to remember the rotation/flipping and/or zoom level per session (not permanent), then you can enable it here. If not set, then every time a new image is displayed, it is displayed neither zoomed nor rotated nor flipped (one could say, it is displayed &quot;normal&quot;).</source>
-        <translation>如果你想让 PhotoQt 记住每次会话（不是永久的）的旋转/翻转以及（或）缩放级别，你可以启用此项。如果不设置，每次显示一个新图片都会不缩放不旋转也不翻转（即，“正常”显示）。</translation>
+        <translation>如果你想让 PhotoQt 记住每次会话(不是永久的)的旋转/翻转以及缩放级别，你可以启用此项。如果不设置，每次显示一个新图片都会不缩放不旋转也不翻转(即，“正常”显示)。</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="443"/>
@@ -1713,7 +1713,7 @@
     <message>
         <location filename="../settings/settingstabother.cpp" line="86"/>
         <source>There are a good few different languages available. Thanks to everybody who took the time to translate PhotoQt!</source>
-        <translation>有少数几种语言可用，感谢为 PhotoQt 贡献翻译的人！</translation>
+        <translation>本软件已有多个语言版本，感谢为 PhotoQt 贡献翻译的人！</translation>
     </message>
     <message>
         <location filename="../settings/settingstabother.cpp" line="233"/>
@@ -1723,7 +1723,7 @@
     <message>
         <location filename="../settings/settingstabother.cpp" line="233"/>
         <source>The &apos;Quick Settings&apos; is a widget hidden on the right side of the screen. When you move the cursor there, it shows up, and you can adjust a few simple settings on the spot without having to go through this settings dialog. Of course, only a small subset of settings is available (the ones needed most often). Here you can disable the dialog so that it doesn&apos;t show on mouse movement anymore.</source>
-        <translation>‘快速设置’ 是一个隐藏在屏幕右侧的控件。当你鼠标移动到上面时会显示出来，然后可以简单地更改一些设置，而无需用这个复杂的设置对话框。当然只有很少的几个选项可更改（最常用的那些）。你可以在此处禁用此控件，这样鼠标滑动到右面时便不会弹出设置框。</translation>
+        <translation>‘快速设置’ 是一个隐藏在屏幕右侧的控件。当你鼠标移动到上面时会显示出来，然后可以简单地更改一些设置，而无需用这个复杂的设置对话框。当然只有很少的几个子选项可更改(最常用的那些)。你可以在此处禁用此控件，这样鼠标滑动到右面时便不会弹出设置框。</translation>
     </message>
     <message>
         <location filename="../settings/settingstabother.cpp" line="234"/>
@@ -1768,7 +1768,7 @@
     <message>
         <location filename="../settings/settingstabother.cpp" line="349"/>
         <source>There are a few formats, that were not tested in PhotoQt (due to lack of a test image). You can find those in the &apos;Untested&apos; category below.</source>
-        <translation>有少数几种格式未在 PhotoQt 中测试（因为缺少样片）。你可以在下方的 ‘未测试’ 栏中找到。</translation>
+        <translation>有少数几种格式未在 PhotoQt 中测试(因为缺少样片)。你可以在下方的 ‘未测试’ 栏中找到。</translation>
     </message>
     <message>
         <location filename="../settings/settingstabother.cpp" line="444"/>
@@ -1840,7 +1840,7 @@
     <message>
         <location filename="../settings/settingstabother.cpp" line="580"/>
         <source>The following file types are generally supported by GraphicsMagick, but I wasn&apos;t able to test them in PhotoQt (due to lack of test images). They might very well be working, but I simply can&apos;t say. If you decide to enable some of the, the worst that could happen ist, that you see an error image instead of the actual image.</source>
-        <translation>下列文件格式是被 GraphicsMagick 支持的，但是我无法通过 PhotoQt 测试（因为缺少样片）。我不确定能否完美支持。你可以选择启用其中某些格式，最坏的情况就是无法显示图片，只会显示一个错误信息。</translation>
+        <translation>下列文件格式是被 GraphicsMagick 支持的，但是我无法通过 PhotoQt 测试(因为缺少样片)。我不确定能否完美支持。你可以选择启用其中某些格式，最坏的情况就是无法显示图片，只会显示一个错误信息。</translation>
     </message>
     <message>
         <location filename="../settings/settingstabother.cpp" line="581"/>
@@ -1909,17 +1909,17 @@
     <message>
         <location filename="../settings/settingstabshortcuts.cpp" line="72"/>
         <source>This step cannot be reversed!</source>
-        <translation>此操作不可逆！</translation>
+        <translation>此操作不可撤销！</translation>
     </message>
     <message>
         <location filename="../settings/settingstabshortcuts.cpp" line="72"/>
         <source>Give me defaults</source>
-        <translation>嗯！使用默认</translation>
+        <translation>使用默认</translation>
     </message>
     <message>
         <location filename="../settings/settingstabshortcuts.cpp" line="72"/>
         <source>Hm, maybe not now</source>
-        <translation>不要</translation>
+        <translation>稍后再说</translation>
     </message>
     <message>
         <location filename="../settings/settingstabshortcuts.cpp" line="87"/>
@@ -2064,7 +2064,7 @@
     <message>
         <location filename="../settings/settingstabshortcuts.cpp" line="149"/>
         <source>Start Slideshow (Quickstart)</source>
-        <translation>放映幻灯片（快速开始）</translation>
+        <translation>放映幻灯片(快速开始)</translation>
     </message>
     <message>
         <location filename="../settings/settingstabshortcuts.cpp" line="150"/>
@@ -2114,7 +2114,7 @@
     <message>
         <location filename="../settings/settingstabshortcuts.cpp" line="549"/>
         <source>some executeable</source>
-        <translation>随便什么可执行文件</translation>
+        <translation>某可执行文件</translation>
     </message>
 </context>
 <context>
@@ -2127,7 +2127,7 @@
     <message>
         <location filename="../settings/settingstabthumbnail.cpp" line="95"/>
         <source>Here you can adjust the thumbnail size. You can set it to any size between 20 and 256 pixel. Per default it is set to 80 pixel, but with different screen resolutions it might be nice to have them larger/smaller.</source>
-        <translation>在这里可以调整缩略图的大小。允许值在 20 到 256 像素之间。默认为 80 像素，但根据屏幕像素的不同，调大/调小会更好看。</translation>
+        <translation>在这里可以调整缩略图的大小。允许值在 20 到 256 像素之间。默认为 80 像素，但根据屏幕分辨率不同，调大/调小会更好看。</translation>
     </message>
     <message>
         <location filename="../settings/settingstabthumbnail.cpp" line="125"/>
@@ -2137,7 +2137,7 @@
     <message>
         <location filename="../settings/settingstabthumbnail.cpp" line="125"/>
         <source>The thumbnails are shown in a row at the lower or upper edge (depending on your setup). They are lined up side by side. Per default, there&apos;s no empty space between them, however exactly that can be changed here.</source>
-        <translation>缩略图以行的形式显示在屏幕底端或顶端（看你怎么设置）。相互之间紧挨着，默认缩略图之间没用空隙，你可以在这里更改间距。</translation>
+        <translation>缩略图以行的形式显示在屏幕底端或顶端(具体看设置而定)。相互之间紧挨着，默认缩略图之间没用空隙，你可以在这里更改间距。</translation>
     </message>
     <message>
         <location filename="../settings/settingstabthumbnail.cpp" line="149"/>
@@ -2147,12 +2147,12 @@
     <message>
         <location filename="../settings/settingstabthumbnail.cpp" line="149"/>
         <source>When a thumbnail is hovered, it is lifted up some pixels (default 10). Here you can increase/decrease this value according to your personal preference.</source>
-        <translation>当鼠标放到缩略图上方时，缩略图会弹升一定像素（默认 10 像素）。这里你可以根据喜好增加/减小此值。</translation>
+        <translation>当鼠标放到缩略图上方时，缩略图会弹升一定像素(默认 10 像素)。这里你可以根据喜好增加/减小此值。</translation>
     </message>
     <message>
         <location filename="../settings/settingstabthumbnail.cpp" line="179"/>
         <source>Smart thumbnails are similar in nature. However, they make use of the fast, that once a thumbnail has been created, it can be loaded very quickly and efficiently. It also first loads all of the currently visible thumbnails, but it doesn&apos;t stop there: Any thumbnails (even if invisible at the moment) that once have been created are loaded. This is a nice compromise between efficiency and usability.</source>
-        <translation>智能缩略图很类似于自然缩略图。但是更加快捷，一旦创建缩略图，则能高速地被载入。它会一次性加载所有可视缩略图，但又不仅如此：只要是曾经创建过的缩略图（即使不在可视区域内）也都会被加载。这是快捷和易用性兼得的结果。</translation>
+        <translation>智能缩略图很类似于自然缩略图。但是更加快捷，一旦创建缩略图，则能高速地被载入。它会一次性加载所有可视缩略图，但又不仅如此：只要是曾经创建过的缩略图(即使不在可视区域内)也都会被加载。这是快捷和易用性兼得的结果。</translation>
     </message>
     <message>
         <location filename="../settings/settingstabthumbnail.cpp" line="179"/>
@@ -2182,7 +2182,7 @@
     <message>
         <location filename="../settings/settingstabthumbnail.cpp" line="203"/>
         <source>If this option is set, then the active thumbnail (i.e., the thumbnail of the currently displayed image) will always be kept in the center of the thumbnail bar (if possible). If this option is not set, then the active thumbnail will simply be kept visible, but not necessarily in the center.</source>
-        <translation>如果设置此选项，则活动缩略图（即当前显示图片的缩略图）将会保持显示在缩略图栏的中间。如果不设置此项，则活动缩略图仅仅会显示在可见区域中，不会居中。</translation>
+        <translation>如果设置此选项，则活动缩略图(即当前显示图片的缩略图)将会保持显示在缩略图栏的中间。如果不设置此项，则活动缩略图仅仅会显示在可见区域中，不会居中。</translation>
     </message>
     <message>
         <location filename="../settings/settingstabthumbnail.cpp" line="206"/>
@@ -2218,7 +2218,7 @@
     <message>
         <location filename="../settings/settingstabthumbnail.cpp" line="76"/>
         <source>Basic</source>
-        <translation>基础</translation>
+        <translation>基本</translation>
     </message>
     <message>
         <location filename="../settings/settingstabthumbnail.cpp" line="77"/>
@@ -2238,7 +2238,7 @@
     <message>
         <location filename="../settings/settingstabthumbnail.cpp" line="165"/>
         <source>Per default the Thumbnails slide out over the edge of the screen. Here you can force them to stay visible. The big image is shrunk to fit into the empty space. Note, that the thumbnails will be hidden (and only shown on mouse hovering) once you zoomed the image in/out. Resetting the zoom restores the original visibility of the thumbnails.</source>
-        <translation>默认缩略图只有在鼠标滑动到屏幕底端时才显示出来。你可以让它们永久显示。比较大的图片会缩放显示在空白区域。注意，缩略图会在你缩放图片的时候隐藏（只有在鼠标滑动底部时才会再次显示）。重置缩放能让缩略图恢复显示。</translation>
+        <translation>默认缩略图只有在鼠标滑动到屏幕底端时才显示出来。你可以让它们永久显示。比较大的图片会缩放显示在空白区域。注意，缩略图会在你缩放图片的时候隐藏(只有在鼠标滑动底部时才会再次显示)。重置缩放能让缩略图恢复显示。</translation>
     </message>
     <message>
         <location filename="../settings/settingstabthumbnail.cpp" line="179"/>
@@ -2299,7 +2299,7 @@
         <location filename="../settings/settingstabthumbnail.cpp" line="307"/>
         <source>If you don&apos;t want to limit PhotoQt to any number, you can simply enable the option to always preload the full directory. WARNING: This is perfectly fine for directories with a small number of images (usually anything less than 1000, depending on your computer), but can lead to performance and memory issues for larger directories. Make sure you know what you&apos;re doing before enabling this!</source>
         <translation>如果你不想限制 PhotoQt 预加载的数量，你可以启用始终加载整个文件夹。
-警告：在文件夹中只有少数图片（少于1000张）时此选项很适合，如果文件夹非常大，则会导致性能和内存占用问题。请三思后启用此选项！！</translation>
+警告：在文件夹中只有少数图片(少于1000张)时此选项很适合，如果文件夹非常大，则会导致性能和内存占用问题。请三思后启用此选项！！</translation>
     </message>
     <message>
         <location filename="../settings/settingstabthumbnail.cpp" line="323"/>
@@ -2314,7 +2314,7 @@
     <message>
         <location filename="../settings/settingstabthumbnail.cpp" line="343"/>
         <source>If you just don&apos;t need or don&apos;t want any thumbnails whatsoever, then you can disable them here completely. This option can also be toggled remotely via command line (run &apos;photoqt --help&apos; for more information on that). This might increase the speed of PhotoQt a good bit, however, navigating through a folder might be a little harder without thumbnails.</source>
-        <translation>如果你完全不想要缩略图，可以在这里禁用。此选项可通过命令行切换（运行 &apos;photoqt --help&apos; 查看）。这能增加 PhotoQt 的运行速度，但是如果没有缩略图，浏览一个文件夹会比较费劲（你不知道哪张在哪）。</translation>
+        <translation>如果你完全不想要缩略图，可以在这里禁用。此选项可通过命令行切换(运行 &apos;photoqt --help&apos; 查看)。这能增加 PhotoQt 的运行速度，但是如果没有缩略图，浏览一个文件夹会比较费劲(你不知道哪张在哪)。</translation>
     </message>
     <message>
         <location filename="../settings/settingstabthumbnail.cpp" line="345"/>
@@ -2329,7 +2329,7 @@
     <message>
         <location filename="../settings/settingstabthumbnail.cpp" line="359"/>
         <source>Thumbnails can be cached in two different ways:&lt;br&gt;1) File Caching (following the freedesktop.org standard) or&lt;br&gt;2) Database Caching (better performance and management, default option).</source>
-        <translation>缩略图使用两种形式的缓存：&lt;br&gt;1)文件缓存（遵循 freedesktop.org 的标准），或&lt;br&gt;2)数据库缓存（性能和可管理性更好，默认的选项）。</translation>
+        <translation>缩略图使用两种形式的缓存：&lt;br&gt;1)文件缓存(遵循 freedesktop.org 的标准)，或&lt;br&gt;2)数据库缓存(性能和可管理性更好，默认的选项)。</translation>
     </message>
     <message>
         <location filename="../settings/settingstabthumbnail.cpp" line="359"/>
@@ -2339,12 +2339,12 @@
     <message>
         <location filename="../settings/settingstabthumbnail.cpp" line="359"/>
         <source>File Caching is done according to the freedesktop.org standard and thus different applications can share the same thumbnail for the same image file. However, it&apos;s not possible to check for obsolete thumbnails (thus this may lead to many unneeded thumbnail files).</source>
-        <translation>文件缓存根据 freedesktop.org 的标准完成，不同的应用可以分享相同文件的缓存。但是无法检查无用的缩略图（因此会产生大片没用的缩略图文件）</translation>
+        <translation>文件缓存根据 freedesktop.org 的标准完成，不同的应用可以分享相同文件的缓存。但是无法检查无用的缩略图(因此会产生大片没用的缩略图文件)</translation>
     </message>
     <message>
         <location filename="../settings/settingstabthumbnail.cpp" line="359"/>
         <source>Database Caching doesn&apos;t have the advantage of sharing thumbnails with other applications (and thus every thumbnails has to be newly created for PhotoQt), but it brings a slightly better performance, and it allows a better handling of existing thumbnails (e.g. deleting obsolete thumbnails).</source>
-        <translation>数据库缓存没有像文件缓存那样的共享优势（因此 PhotoQt 的每个缓存都需要自己生成），但是性能比较高，并允许对已有的缩略图进行管理（例如，删除无用的）。</translation>
+        <translation>数据库缓存没有像文件缓存那样的共享优势(因此 PhotoQt 的每个缓存都需要自己生成)，但是性能比较高，并允许对已有的缩略图进行管理(例如，删除无用的)。</translation>
     </message>
     <message>
         <location filename="../settings/settingstabthumbnail.cpp" line="359"/>
@@ -2462,7 +2462,7 @@
     <message>
         <location filename="../settings/settingstabshortcutschangecommand.cpp" line="44"/>
         <source>Stop, I changed my mind!</source>
-        <translation>不，不要</translation>
+        <translation>不，我改变主意了！</translation>
     </message>
     <message>
         <location filename="../settings/settingstabshortcutschangecommand.cpp" line="102"/>
@@ -2609,7 +2609,7 @@
     <message>
         <location filename="../slideshow/slideshowsettings.cpp" line="63"/>
         <source>Adjust the time between the images. The time specified here is the amount of time the image will be completely visible, i.e. the transitioning (if set) is not part of this time.</source>
-        <translation>调整两张图片之间的时间间隔。这里指定的时间是图像完整显示的时间，也就是说，切换时间（如果进行了设置）不在其中。</translation>
+        <translation>调整两张图片之间的时间间隔。这里指定的时间是图像完整显示的时间，也就是说，切换时间(如果进行了设置)不在其中。</translation>
     </message>
     <message>
         <location filename="../slideshow/slideshowsettings.cpp" line="78"/>
@@ -2649,7 +2649,7 @@
     <message>
         <location filename="../slideshow/slideshowsettings.cpp" line="96"/>
         <source>If you want PhotoQt to loop over all images (i.e., once it shows the last image it starts from the beginning), or if you want PhotoQt to load your images in random order, you can check either or both boxes below. Note, that no image will be shown twice before every image has been shown once.</source>
-        <translation>如果你想让 PhotoQt 循环显示所有图片（即，显示完最后一张后跳到第一张），或者让 PhotoQt 随机显示图片，你可以勾选下列其中一个或多个选项。注意，在随机模式下，在未显示完所有图片时不会重复显示某张图片。</translation>
+        <translation>如果你想让 PhotoQt 循环显示所有图片(即，显示完最后一张后跳到第一张)，或者让 PhotoQt 随机显示图片，你可以勾选下列其中一个或多个选项。注意，在随机模式下，在未显示完所有图片时不会重复显示某张图片。</translation>
     </message>
     <message>
         <location filename="../slideshow/slideshowsettings.cpp" line="109"/>
@@ -2694,7 +2694,7 @@
     <message>
         <location filename="../slideshow/slideshowsettings.cpp" line="152"/>
         <source>Maybe later</source>
-        <translation>放弃</translation>
+        <translation>以后再说</translation>
     </message>
     <message>
         <location filename="../slideshow/slideshowsettings.cpp" line="177"/>
@@ -2731,7 +2731,7 @@
     <message>
         <location filename="../widgets/startupwidget.cpp" line="24"/>
         <source>Okay, I got enough now. Lets start!</source>
-        <translation>好了，知道的够多了，开始吧！</translation>
+        <translation>好了，别再提示了，开始吧！</translation>
     </message>
     <message>
         <location filename="../widgets/startupwidget.cpp" line="72"/>
@@ -2761,7 +2761,7 @@
     <message>
         <location filename="../widgets/startupwidget.cpp" line="72"/>
         <source>PhotoQt can make use of GraphicsMagick, an image library, to display many different image formats. Currently, there are up to 72 different file formats supported (exact number depends on your system)! You can find a list of it in the settings (Tab &apos;Other&apos;). There you can en-/disable different ones and also add custom file endings.</source>
-        <translation>PhotoQt 使用了一个名为GraphicsMagic的图像库来支持很多图像格式。目前已支持多达72中图片格式（具体数字取决于你的系统）！你可以在设置 (标签：‘其他’) 中找到这些格式的列表。在哪里可以启用或禁用某些格式，或者添加自定义文件后缀。</translation>
+        <translation>PhotoQt 使用了一个名为GraphicsMagic的图像库来支持很多图像格式。目前已支持多达72中图片格式(具体数字取决于你的系统)！你可以在设置 (标签：‘其他’) 中找到这些格式的列表。在哪里可以启用或禁用某些格式，或者添加自定义文件后缀。</translation>
     </message>
     <message>
         <location filename="../widgets/startupwidget.cpp" line="79"/>
@@ -2771,12 +2771,12 @@
     <message>
         <location filename="../widgets/startupwidget.cpp" line="79"/>
         <source>PhotoQt has an extensive settings area. By default you can call it with the shortcut &apos;e&apos; or through the dropdown menu at the top edge towards the top right corner. You can adjust almost everything in PhotoQt, and it&apos;s certainly worth having a look there. Each setting usually comes with a little explanation text.</source>
-        <translation>PhotoQt 有一个很大的设置区域。默认你可以通过快捷键 &apos;e&apos; ，或是将鼠标滑到屏幕右上方边缘打开。在这里你可以调整（几乎）所有配置，而且，强烈建议您看下那些设置。每项设置都会有解释信息。</translation>
+        <translation>PhotoQt 有一个扩展设置区域。默认你可以通过快捷键 &apos;e&apos; ，或是将鼠标滑到屏幕右上方边缘打开。在这里你可以调整(几乎)所有配置，而且，强烈建议您看下那些设置。每项设置都会有解释信息。</translation>
     </message>
     <message>
         <location filename="../widgets/startupwidget.cpp" line="90"/>
         <source>What would be an image viewer without thumbnails support? It would only be half as good. Whenever you load an image, PhotoQt loads the other images in the directory in the background (by default, it tries to be smart about it and only loads the ones that are needed). It lines them up in a row at the bottom edge (move your mouse there to see them). There are many settings just for the thumbnails, like, e.g., size, liftup, en-/disabled, type, filename, permanently shown/hidden, etc. PhotoQt&apos;s quite flexible with that.</source>
-        <translation>图片查看器如果不支持缩略图会是什么样？只能算一半好！当打开图片时，PhotoQt 会在后台加载同目录下其他图片（默认会自动只加载需要的缩略图）。缩略图在屏幕下方列成一排（将鼠标移动到屏幕底部显示）。关于缩略图有很多设置，例如抬起高度，启用/禁用，类型，文件名，永久显示/隐藏等等。PhotoQt 这方面的设置很灵活。</translation>
+        <translation>图片查看器如果不支持缩略图会是什么样？只能算一半好！当打开图片时，PhotoQt 会在后台加载同目录下其他图片(默认会自动只加载需要的缩略图)。缩略图在屏幕下方列成一排(将鼠标移动到屏幕底部显示)。关于缩略图有很多设置，例如抬起高度，启用/禁用，类型，文件名，永久显示/隐藏等等。PhotoQt 这方面的设置很灵活。</translation>
     </message>
     <message>
         <location filename="../widgets/startupwidget.cpp" line="97"/>
@@ -2806,7 +2806,7 @@
     <message>
         <location filename="../widgets/startupwidget.cpp" line="131"/>
         <source>Enjoy :-)</source>
-        <translation>have fun :-)</translation>
+        <translation>享受阅图之美 :-)</translation>
     </message>
     <message>
         <location filename="../widgets/startupwidget.cpp" line="131"/>
@@ -2846,12 +2846,12 @@
     <message>
         <location filename="../widgets/startupwidget.cpp" line="165"/>
         <source>This app started out more than three years ago, and it has developed quite a bit since then. It has become very efficient, reliable, and highly flexible (check out the settings). I&apos;m convinced it can hold up to the more &apos;traditional&apos; image viewers out there in every way.</source>
-        <translation>此应用程序从三年前开始开发，到现在已经走出了很远。现在已是一款高效，可靠且扩展性高（看看设置选项就知道了）的新型图片查看器。我很确信它能在各个方面超过更加‘传统’的图片查看器。</translation>
+        <translation>此应用程序从三年前开始开发，风风雨雨一路走来。现在已是一款高效，可靠且扩展性高(看看设置选项就知道了)的新型图片查看器。我很确信它能在各个方面超过更加‘传统’的图片查看器。</translation>
     </message>
     <message>
         <location filename="../widgets/startupwidget.cpp" line="166"/>
         <source>Here below you find a short overview of what PhotoQt has to offer, but feel free to skip it and just get started.</source>
-        <translation>下放是一个 PhotoQt 功能简介。你可以直接跳过。</translation>
+        <translation>下放是一个 PhotoQt 功能简介，你也可以直接跳过。</translation>
     </message>
 </context>
 <context>
@@ -2862,7 +2862,7 @@
         <location filename="../graphics/graphicsviewlay.cpp" line="192"/>
         <location filename="../graphics/graphicsviewlay.cpp" line="227"/>
         <source>Open File to Begin.</source>
-        <translation>打开文件以继续</translation>
+        <translation>打开文件</translation>
     </message>
     <message>
         <location filename="../graphics/graphicsviewlay.cpp" line="192"/>
@@ -2876,7 +2876,7 @@
     <message>
         <location filename="../wallpaper/wallpaper.cpp" line="29"/>
         <source>Okay, do it!</source>
-        <translation>好的，确定！</translation>
+        <translation>好的，执行！</translation>
     </message>
     <message>
         <location filename="../wallpaper/wallpaper.cpp" line="30"/>
@@ -2943,7 +2943,7 @@
     <message>
         <location filename="../wallpaper/wallpaper.cpp" line="381"/>
         <source>Sorry, KDE doesn&apos;t (yet) offer the feature to change the wallpaper except from their own system settings. Hopefully this will change in the future, but until then there&apos;s nothing that can be done here.</source>
-        <translation>抱歉，KDE尚不支持通过其他软件更改壁纸(仅可以使用系统壁纸设置更改)。希望今后能改变这个问题，在此之前，无可而为。</translation>
+        <translation>抱歉，KDE尚不支持通过其他软件更改壁纸(仅可以使用系统壁纸设置更改)。希望今后能改变这个问题，在此之前，PhotoQt 无能为力。</translation>
     </message>
     <message>
         <location filename="../wallpaper/wallpaper.cpp" line="408"/>

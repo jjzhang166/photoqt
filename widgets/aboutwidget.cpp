@@ -111,7 +111,7 @@ About::About(QWidget *parent) : MyWidget(parent) {
 // Set the license with version (called from mainwindow.cpp)
 void About::setLicense(QString version) {
 
-	license->setText("<div style=\"font-size: 8pt\">PhotoQt " + version + ", Lukas Spies, 2014 (Lukas@photoqt.org)" + " &ndash; " + tr("website:") + " photoqt.org &ndash; " + tr("Licensed under GPLv2 or later, without any guarantee") + "</div>");
+	license->setText("<div style=\"font-size: 8pt\">PhotoQt " + version + ", Lukas Spies, 2015 (Lukas@photoqt.org)" + " &ndash; " + tr("website:") + " photoqt.org &ndash; " + tr("Licensed under GPLv2 or later, without any guarantee") + "</div>");
 
 }
 

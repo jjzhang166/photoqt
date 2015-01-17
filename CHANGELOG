@@ -1,16 +1,15 @@
-Changelog PhotoQt v1.2beta  - Copyright (C) 2014, Lukas Spies (Lukas@photoqt.org), License: GPLv2 (or later)
+Changelog PhotoQt v1.2  - Copyright (C) 2015, Lukas Spies (Lukas@photoqt.org), License: GPLv2 (or later)
 ------------------------------------------------------------------------------------------------------------
 
 
-Release 1.2beta
+Release 1.2 - 17/01/2015
 ----------------------------
-
 - GraphicsMagick: More thorough testing and fixing
 - Intelligent detection of supported fileformats on first start
 - Colour filetype tiles of unsupported formats orange (qt formats only)
-- Add SVG support
-- Add XCF support (depending on XCFtools)
-- Add PSB/PSD support (depending on libqpsd)
+- Added better SVG support
+- Added XCF support (depending on XCFtools)
+- Added PSB/PSD support (depending on libqpsd)
 - Smart preloading of folder, better support for large directories (15,000+ files)
 - Add sorting criteria for files (name, natural name, filesize, date)
 - Fix&Improve: Restore support for Trash on Linux
