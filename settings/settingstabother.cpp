@@ -201,11 +201,11 @@ SettingsTabOther::SettingsTabOther(QWidget *parent, QMap<QString, QVariant> set,
 
 	// Chinese (China)
 	langDesc << "Chinese";
-	langAuthor << "Min Zhang";
+	langAuthor << "Min Zhang & Louis Lu";
 	langShort << "zh_CN";
 
 	langDesc << "Chinese (traditional)";
-	langAuthor << "Min Zhang";
+	langAuthor << "Min Zhang & Louis Lu";
 	langShort << "zh_TW";
 
 	FlowLayout *langLay = new FlowLayout;
