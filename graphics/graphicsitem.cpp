@@ -139,25 +139,6 @@ void GraphicsItem::composePixmap(int i) {
 	QPixmap newitem(qMax(curItem.width(),prevItem.width()),qMax(curItem.height(),prevItem.height()));
 	newitem.fill(QColor(0,0,0,1));
 
-	// If the new item is smaller than the previous one, we have to fade out the previous one, but leave a patch as big as the new pixmap to prevent an ugly bug (background showing through)
-	if(prevItem.width() > curItem.width() || prevItem.height() > curItem.height()) {
-
-		// Draw the patch onto newitem
-
-		QPainter p(&newitem);
-
-		int x = 0;
-		int y = 0;
-		if(curItem.width() < prevItem.width())
-			x = (prevItem.width()-curItem.width())/2;
-		if(curItem.height() < prevItem.height())
-			y = (prevItem.height()-curItem.height())/2;
-		p.drawPixmap(x,y,curItem.width(),curItem.height()-addTransBar,prevItem,x,y,curItem.width(),curItem.height());
-		p.end();
-
-
-	}
-
 	QPainter prevPaint(&newitem);
 
 	// Increase the opacity of the previous items only if it's bigger than the new one
