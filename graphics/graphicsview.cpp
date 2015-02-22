@@ -324,12 +324,12 @@ void GraphicsView::wheelEvent(QWheelEvent *event) {
 	++wheelEventCounter;
 
 	// If the mouse wheel direction changed, then we reset the counter
-	if(event->delta() > 0 && !wheelEventCounterDirectionUp) {
+	if(event->delta() > 0 && !wheelEventCounterDirectionUp && globSet.value("MouseWheelSensitivity").toInt() == 0) {
 		event->ignore();
 		wheelEventCounter = 0;
 		wheelEventCounterDirectionUp = true;
 		return;
-	} else if(event->delta() < 0 && wheelEventCounterDirectionUp) {
+	} else if(event->delta() < 0 && wheelEventCounterDirectionUp && globSet.value("MouseWheelSensitivity").toInt() == 0) {
 		event->ignore();
 		wheelEventCounter = 0;
 		wheelEventCounterDirectionUp = false;
