@@ -52,6 +52,8 @@ public:
 
 		restoringFromTrayNoResize = 0;
 
+		slideshowRunning = false;
+
 		startupMessageInstallUpdateShown = 0;
 
 		store_rotation.clear();
