@@ -403,7 +403,7 @@ void MainWindow::closeEvent(QCloseEvent *e) {
 			viewThumbs->clearScene();
 
 			// Save current geometry
-			QSettings settings;
+			QSettings settings("photoqt");
 			settings.setValue("mainWindowGeometry", saveGeometry());
 
 			// Remove 'running' file

@@ -557,7 +557,7 @@ int main(int argc, char *argv[]) {
 						      : w.setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
 				}
 
-				QSettings settings;
+				QSettings settings("photoqt");
 				if(settings.allKeys().contains("mainWindowGeometry") && settingsFileTxt.contains("SaveWindowGeometry=1")) {
 					w.show();
 					w.restoreGeometry(settings.value("mainWindowGeometry").toByteArray());
@@ -607,6 +607,7 @@ int main(int argc, char *argv[]) {
 		return a.exec();
 
 	}
+
 }
 
 
