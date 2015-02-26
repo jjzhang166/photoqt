@@ -1843,6 +1843,8 @@ void MainWindow::setupTrayIcon() {
 
 	if(globVar->verbose) std::clog << "Setup Tray Icon" << std::endl;
 
+#ifdef WITH_SYSTRAY
+
 	// The Tray Icon
 	trayIcon = new QSystemTrayIcon(this);
 	trayIcon->setIcon(QIcon(":/img/icon.png"));
@@ -1881,6 +1883,8 @@ void MainWindow::setupTrayIcon() {
 
 	// The tray icon is always shown, but PhotoQt is not necessarily always minimised to it (depending on user settings)
 	trayIcon->show();
+
+#endif
 
 }
 

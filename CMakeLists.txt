@@ -82,6 +82,8 @@ OPTION(EXIV2 "Use exiv2 library" ON)
 OPTION(GM "Use graphicsmagick library" ON)
 OPTION(QTONLY "ONLY USE QT-ONLY FEATURES" OFF)
 
+OPTION(WITH_SYSTRAY "USE SYSTEM TRAY" ON)
+
 
 ################################
 #### FIND REQUIRED PACKAGES ####
@@ -158,6 +160,10 @@ MESSAGE("")
 ########################
 #### CUSTOM OPTIONS ####
 ########################
+
+IF(WITH_SYSTRAY)
+	ADD_DEFINITIONS(-DWITH_SYSTRAY)
+ENDIF(WITH_SYSTRAY)
 
 IF(NOT QTONLY)
 

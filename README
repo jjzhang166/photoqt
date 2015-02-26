@@ -66,6 +66,15 @@
      MAGICK_LOCATION
      EXIV2_LOCATION
 
+
+   # NOTE: IF YOU HAVE PROBLEMS WITH PHOTOQT CRASHING WHEN EXITING (OR NOT EXITING
+   # AT ALL), THEN THIS MIGHT BE CAUSED BY THE SYSTRAY (OBSERVED IN PLASMA 5.2)
+
+   # To solve this, you can compile PhotoQt without a systray by adding the following
+   # flag to CMake:
+   -DWITH_SYSTRAY=OFF
+
+
 3) make  # This creates an executeable photoqt binary located in the ./build/ folder
 
 4) (as root or sudo) make install
