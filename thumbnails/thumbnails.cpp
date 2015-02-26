@@ -73,7 +73,11 @@ void Thumbnails::loadDir(QString filepath) {
 
 
 	// Store a QFileInfoList and a QStringList with the filenames
-	allImgsInfo = dir.entryInfoList(QDir::Files|QDir::NoSymLinks,QDir::IgnoreCase);
+	// We NEED a stringlist of the filename and CANNOT do fileinfolist.indexof(QFileInfo(path)), as
+	// this breaks the capability of handling symlinks!!!
+	allImgsInfo = dir.entryInfoList(QDir::Files,QDir::IgnoreCase);
+	foreach(QFileInfo i, allImgsInfo)
+		allImgsPath.append(i.absoluteFilePath());
 
 	// When opening an unknown file (i.e., one that doesn't match any set format), then we need to manually add it to the list of loaded images
 	if(!allImgsInfo.contains(QFileInfo(currentfile))) allImgsInfo.append(QFileInfo(currentfile));

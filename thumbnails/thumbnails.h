@@ -38,7 +38,7 @@ public:
 	QString getCurrentfile() { return currentfile; }
 
 	QString getImageFilePathAt(int pos) { return allImgsInfo.at(pos).absoluteFilePath(); }
-	int getImageFilePathIndexOf(QString s) { return allImgsInfo.indexOf(QFileInfo(s)); }
+	int getImageFilePathIndexOf(QString s) { return allImgsPath.indexOf(s); }
 
 	// Update which item in the thumbnail view is hovered
 	void updateThbViewHoverNormPix(QString oldpath, QString newpath);
@@ -53,6 +53,7 @@ public:
 	int counttot;
 	int countpos;
 	QFileInfoList allImgsInfo;
+	QStringList allImgsPath;	// We have to do this to properly handle symlinks
 
 	void setFilter(QStringList filter) { imageFilter = filter; }
 	void removeFilter() { imageFilter.clear(); }
