@@ -418,12 +418,15 @@ QString ImageReader::whatDoIUse(QString filename) {
 	// We need this list for GM and EXTRA below
 	QStringList extrasFiles = extrasfiles.split(",");
 
-	// Check for extra
-	for(int i = 0; i < extrasFiles.length(); ++i) {
-		// We need to remove the first character of qtfiles.at(i), since that is a "*"
-		if(filename.toLower().endsWith(QString(extrasFiles.at(i)).remove(0,2)))  {
-			use = "extra";
-			break;
+	// We need to do this check, otherwise the below check always return "extra"
+	if(extrasfiles.length() > 0) {
+		// Check for extra
+		for(int i = 0; i < extrasFiles.length(); ++i) {
+			// We need to remove the first character of qtfiles.at(i), since that is a "*"
+			if(filename.toLower().endsWith(QString(extrasFiles.at(i)).remove(0,2)))  {
+				use = "extra";
+				break;
+			}
 		}
 	}
 
