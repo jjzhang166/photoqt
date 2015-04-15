@@ -4,7 +4,7 @@
     <message>
         <location filename="../widgets/aboutwidget.cpp" line="44"/>
         <source>PhotoQt is a simple image viewer, designed to be good looking, highly configurable, yet easy to use and fast.</source>
-        <translation>PhotoQt est un simple logiciel de visualisation d&apos;images, avec une interface agréable et configurable, facile à utiliser et rapide.</translation>
+        <translation>PhotoQt est un logiciel simple de visualisation d&apos;images, avec une interface agréable et configurable, facile à utiliser et rapide.</translation>
     </message>
     <message>
         <location filename="../widgets/aboutwidget.cpp" line="45"/>
@@ -1759,7 +1759,7 @@ Continuer?</translation>
     <message>
         <location filename="../settings/settingstabother.cpp" line="279"/>
         <source>If a file ending for one of the formats is missing, you can add it below, formatted like &apos;*.ending&apos; (without single quotation marks), multiple entries seperated by commas.</source>
-        <translation type="unfinished"/>
+        <translation>Si une extension manque pour l&apos;un des formats, vous pouvez l&apos;éditer ici, au format &apos;.extension&apos; (sans guillemets), en séparant les entrées multiples par des virgules.</translation>
     </message>
     <message>
         <location filename="../settings/settingstabother.cpp" line="349"/>
@@ -1769,17 +1769,17 @@ Continuer?</translation>
     <message>
         <location filename="../settings/settingstabother.cpp" line="349"/>
         <source>There are a few formats, that were not tested in PhotoQt (due to lack of a test image). You can find those in the &apos;Untested&apos; category below.</source>
-        <translation type="unfinished"/>
+        <translation>Quelques formats n&apos;ont pas été testés avec PhotoQt (par manque d&apos;une image test). Vous pouvez les trouver dans la catégorie &apos;Non testé&apos; ci-dessous.</translation>
     </message>
     <message>
         <location filename="../settings/settingstabother.cpp" line="444"/>
         <source>File Types - GraphicsMagick (requires Ghostscript)</source>
-        <translation type="unfinished"/>
+        <translation>Types de fichiers - GraphicsMagick (Nécessite Ghostscript)</translation>
     </message>
     <message>
         <location filename="../settings/settingstabother.cpp" line="444"/>
         <source>The following file types are supported by GraphicsMagick, and they have been tested and work. However, they require Ghostscript to be installed on the system.</source>
-        <translation type="unfinished"/>
+        <translation>Les types de fichiers suivants sont supportés par GraphicsMagick, ils ont été testés et fonctionnent. Cependant, ils nécessitent que Ghostscript soit installé sur le système.</translation>
     </message>
     <message>
         <location filename="../settings/settingstabother.cpp" line="508"/>
@@ -1846,7 +1846,7 @@ Continuer?</translation>
     <message>
         <location filename="../settings/settingstabother.cpp" line="581"/>
         <source>If you happen to have an image in one of those formats and don&apos;t mind sending it to me, that&apos;d be really cool...</source>
-        <translation type="unfinished"/>
+        <translation>Si par hasard vous avez une image dans l&apos;un de ces formats que ca ne vous dérange pas de m&apos;envoyer, ça serait vraiment sympa...</translation>
     </message>
     <message>
         <location filename="../settings/settingstabother.cpp" line="311"/>
@@ -2801,7 +2801,7 @@ Continuer?</translation>
     <message>
         <location filename="../widgets/startupwidget.cpp" line="126"/>
         <source>PhotoQt comes with a number of translations. Many have taken some of their time to create/update one of them (Thank you!). Not all of them are complete... do you want to help?</source>
-        <translation type="unfinished"/>
+        <translation>Photo est livré avec de nombreuses traductions. De nombreuses personnes ont pris sur leur temps pour les créer/mettre à jour (Merci!). Certaines traductions sont incomplètes... voulez-vous donner un coup de main ?</translation>
     </message>
     <message>
         <location filename="../widgets/startupwidget.cpp" line="131"/>
@@ -2811,7 +2811,7 @@ Continuer?</translation>
     <message>
         <location filename="../widgets/startupwidget.cpp" line="131"/>
         <source>There are many many more features. Best is, you just give it a go. Don&apos;t forget to check out the settings to make PhotoQt YOUR image viewer.</source>
-        <translation type="unfinished"/>
+        <translation>Il y a de nombreuses autres fonctionnalités. Le mieux est simplement d&apos;essayer. N&apos;oubliez pas d&apos;aller voir les réglages pour que PhotoQt soit &quot;le vôtre&quot;.</translation>
     </message>
     <message>
         <location filename="../widgets/startupwidget.cpp" line="150"/>
@@ -2831,7 +2831,7 @@ Continuer?</translation>
     <message>
         <location filename="../widgets/startupwidget.cpp" line="164"/>
         <source>Welcome to PhotoQt. PhotoQt is an image viewer, aimed at being fast and reliable, highly customisable and good looking.</source>
-        <translation type="unfinished"/>
+        <translation>Bienvenue sur PhotoQt. PhotoQt est une visionneuse d&apos;images dont le but est d&apos;être rapide, hautement configurable et d&apos;apparence agréable. </translation>
     </message>
     <message>
         <location filename="../widgets/startupwidget.cpp" line="154"/>

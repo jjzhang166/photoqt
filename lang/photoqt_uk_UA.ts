@@ -4,53 +4,53 @@
     <message>
         <location filename="../widgets/aboutwidget.cpp" line="44"/>
         <source>PhotoQt is a simple image viewer, designed to be good looking, highly configurable, yet easy to use and fast.</source>
-        <translation>PhotoQt є простим переглядачем зображень, розроблений, щоб добре виглядати, легко конфігуруватися, та бути простим і швидким у використанні.</translation>
+        <translation>PhotoQt - простий переглядач зображень, розроблений так, щоб він гарно виглядав, легко налаштовувався, та був простим і швидким у використанні.</translation>
     </message>
     <message>
         <location filename="../widgets/aboutwidget.cpp" line="45"/>
         <source>With PhotoQt I try to be different than other image viewers (after all, there are plenty of good image viewers already out there). Its interface is kept very simple, yet there is an abundance of settings to customize the look and feel to make PhotoQt YOUR image viewer.</source>
-        <translation type="unfinished"/>
+        <translation>З PhotoQt я намагаюся зробити цю програму відмінною від інших переглядачів зображень (зрештою, вже існує достатньо хороших переглядачів). Її інтерфейс залишається дуже простим, разом з тим в ній є вдосталь налаштувань щоб підігнати під себе вигляд і роботу програми, щоб зробити PhotoQt ТВОЇМ переглядачем зображень.</translation>
     </message>
     <message>
         <location filename="../widgets/aboutwidget.cpp" line="46"/>
         <source>I&apos;m not a trained programmer. I&apos;m a simple Maths student that loves doing stuff like this. Most of my programming knowledge I taught myself over the past 10-ish years, and it has been developing a lot since I started PhotoQt. During my studies in university I learned a lot about the basics of programming that I was missing. And simply working on PhotoQt gave me a lot of invaluable experience. So the code of PhotoQt might in places not quite be done in the best of ways, but I think it&apos;s getting better and better with each release.</source>
-        <translation type="unfinished"/>
+        <translation>Я не професійний програміст. Я простий студент-математик, що любить робити такі от штуки. Більшість своїх знань з програмування я отримав сам за останній 10-ок років, і ці знання суттєво збільшилися відколи я почав розробляти PhotoQt. Під час навчання в університеті я багато вивчив про основи програмування, чого мені не вистачало. І просто робота над PhotoQt дала мені багато безцінного досвіду. Таким чином код PhotoQt може бути місцями зробленим не самим найкращим чином, але я думаю, він стає все краще і краще з кожним випуском. </translation>
     </message>
     <message>
         <location filename="../widgets/aboutwidget.cpp" line="48"/>
         <source>Don&apos;t forget to check out the website:</source>
-        <translation>Не забудьте перевірити сайт:</translation>
+        <translation>Не забудьте зазирнути на сайт:</translation>
     </message>
     <message>
         <location filename="../widgets/aboutwidget.cpp" line="49"/>
         <source>If you find a bug or if you have a question or suggestion, tell me. I&apos;m open to any feedback I get :)</source>
-        <translation>Якщо Ви знайшли помилку або у Вас є питання або пропозиції, скажіть мені. Я готовий розглянути будь-які побажання та відповісти на будь-які питання :)</translation>
+        <translation>Якщо Ви знайшли помилку або у Вас є питання чи пропозиції, скажіть мені. Я готовий розглянути будь-які побажання та відповісти на будь-які питання :)</translation>
     </message>
     <message>
         <location filename="../widgets/aboutwidget.cpp" line="47"/>
         <source>I heard a number of times people saying, that PhotoQt is a &apos;copy&apos; of Picasa&apos;s image viewer. Well, it&apos;s not. In fact, I myself have never used Picasa. I have seen it in use though by others, and I can&apos;t deny that it influenced the basic design idea a little. But I&apos;m not trying to do something &apos;like Picasa&apos;. I try to do my own thing, and to do it as good as I can.</source>
-        <translation type="unfinished"/>
+        <translation>Багато разів я чув як люди казали що PhotoQt є &quot;копією&quot; Picasa image viewer. Насправді, не є. Фактично, я сам ніколи не користувався Picasa. Я бачив її в роботі у інших, і не можу заперечувати що вона трішки вплинула на базову ідею дизайну. Але я не намагаюся зробити щось &quot;на кшталт Picasa&quot;. Я намагаюся зробити мою власну річ, і зробити її настільки доброю наскільки я можу.</translation>
     </message>
     <message>
         <location filename="../widgets/aboutwidget.cpp" line="50"/>
         <source>Thanks to everybody who contributed to PhotoQt and/or translated PhotoQt to another language! You guys rock!</source>
-        <translation type="unfinished"/>
+        <translation>Дякую всім хто зробив внесок у створення PhotoQt чи/або переклав PhotoQt на іншу мову! Ви, чуваки, рулите!</translation>
     </message>
     <message>
         <location filename="../widgets/aboutwidget.cpp" line="51"/>
         <source>You want to join the team and do something, e.g. translating PhotoQt to another language? Drop me and email (Lukas@photoqt.org), and for translations, check the project page on Transifex: http://transifex.com/p/photo.</source>
-        <translation type="unfinished"/>
+        <translation>Хочете приєднатися до команди і зробити щось корисне, назразок, перекласти PhotoQt іншою мовою? Скиньте мені email (Lukas@photoqt.org), а для перекладів, загляньте на сторінку проекту на Transifex: http://transifex.com/p/photo.</translation>
     </message>
     <message>
         <location filename="../widgets/aboutwidget.cpp" line="61"/>
         <source>Click to go to:</source>
-        <translation type="unfinished"/>
+        <translation>Натисніть щоб перейти на:</translation>
     </message>
     <message>
         <location filename="../widgets/aboutwidget.cpp" line="96"/>
         <source>Okay, I got enough of that...</source>
         <extracomment>This string is written onto the &quot;close&quot; button of the about widget</extracomment>
-        <translation type="unfinished"/>
+        <translation>Гаразд, з мене досить...</translation>
     </message>
     <message>
         <location filename="../widgets/aboutwidget.cpp" line="114"/>
@@ -68,7 +68,7 @@
     <message>
         <location filename="../settings/settingstabothercontext.cpp" line="37"/>
         <source>Executeable</source>
-        <translation type="unfinished"/>
+        <translation>Команда на виконання</translation>
     </message>
     <message>
         <location filename="../settings/settingstabothercontext.cpp" line="39"/>
@@ -87,12 +87,12 @@
     <message>
         <location filename="../settings/settingstabothercontexttiles.cpp" line="75"/>
         <source>quit</source>
-        <translation type="unfinished"/>
+        <translation>вийти</translation>
     </message>
     <message>
         <location filename="../settings/settingstabothercontexttiles.cpp" line="76"/>
         <source>Quit PhotoQt after executing command</source>
-        <translation type="unfinished"/>
+        <translation>Вийти з PhotoQt після виконання команди</translation>
     </message>
     <message>
         <location filename="../settings/settingstabothercontexttiles.cpp" line="91"/>
@@ -105,7 +105,7 @@
     <message>
         <location filename="../widgets/customconfirm.cpp" line="43"/>
         <source>Don&apos;t ask me again...</source>
-        <translation>Не питати мене, знову...</translation>
+        <translation>Не питати мене знову...</translation>
     </message>
 </context>
 <context>
@@ -123,7 +123,7 @@
     <message>
         <location filename="../widgets/detailswidget.cpp" line="66"/>
         <source>The Exif data of this image says, that this image is supposed to be rotated.</source>
-        <translation type="unfinished"/>
+        <translation>Дані Exif цього зображення кажуть, що ця картинка має бути повернута</translation>
     </message>
     <message>
         <location filename="../widgets/detailswidget.cpp" line="66"/>
@@ -156,7 +156,7 @@
         <location filename="../widgets/detailswidget.cpp" line="82"/>
         <source>Fluorescent</source>
         <extracomment>This string refers to the light source</extracomment>
-        <translation>Флуоресцентне</translation>
+        <translation>Флуоресцентні лампи</translation>
     </message>
     <message>
         <location filename="../widgets/detailswidget.cpp" line="84"/>
@@ -175,7 +175,7 @@
         <location filename="../widgets/detailswidget.cpp" line="88"/>
         <source>Fine weather</source>
         <extracomment>This string refers to the light source</extracomment>
-        <translation>Гарна погода</translation>
+        <translation>Ясна погода</translation>
     </message>
     <message>
         <location filename="../widgets/detailswidget.cpp" line="90"/>
@@ -205,7 +205,7 @@
         <location filename="../widgets/detailswidget.cpp" line="98"/>
         <source>Cool white fluorescent</source>
         <extracomment>This string refers to the light source</extracomment>
-        <translation>Холодне біле флуоресцентне</translation>
+        <translation>Холодне біле флуоресцентне освітлення</translation>
     </message>
     <message>
         <location filename="../widgets/detailswidget.cpp" line="100"/>
@@ -225,7 +225,7 @@
         <location filename="../widgets/detailswidget.cpp" line="110"/>
         <source>ISO studio tungsten</source>
         <extracomment>This string refers to the light source</extracomment>
-        <translation>ISO студійний вольфрам</translation>
+        <translation>ISO студійні лампи розжарювання</translation>
     </message>
     <message>
         <location filename="../widgets/detailswidget.cpp" line="112"/>
@@ -249,13 +249,13 @@
         <location filename="../widgets/detailswidget.cpp" line="119"/>
         <source>strobe return light not detected</source>
         <extracomment>This string refers to a flash mode</extracomment>
-        <translation type="unfinished"/>
+        <translation>Відбите світло від зовнішнього спалаху не виявлене</translation>
     </message>
     <message>
         <location filename="../widgets/detailswidget.cpp" line="121"/>
         <source>strobe return light detected</source>
         <extracomment>This string refers to a flash mode</extracomment>
-        <translation type="unfinished"/>
+        <translation>Виявлене відбите світло від зовнішнього спалаху</translation>
     </message>
     <message>
         <location filename="../widgets/detailswidget.cpp" line="123"/>
@@ -279,13 +279,13 @@
         <location filename="../widgets/detailswidget.cpp" line="129"/>
         <source>return light detected</source>
         <extracomment>This string refers to a flash mode</extracomment>
-        <translation>Попередній спалах виявлений</translation>
+        <translation>Виявлене відбите світло спалаху</translation>
     </message>
     <message>
         <location filename="../widgets/detailswidget.cpp" line="131"/>
         <source>return light not detected</source>
         <extracomment>This string refers to a flash mode</extracomment>
-        <translation type="unfinished"/>
+        <translation>Відбите світло спалаху не виявлене</translation>
     </message>
     <message>
         <location filename="../widgets/detailswidget.cpp" line="148"/>
@@ -355,12 +355,12 @@
     <message>
         <location filename="../widgets/detailswidget.cpp" line="221"/>
         <source>Time photo was taken</source>
-        <translation>Time photo was taken</translation>
+        <translation>Час зйомки</translation>
     </message>
     <message>
         <location filename="../widgets/detailswidget.cpp" line="228"/>
         <source>Exposure Time</source>
-        <translation type="unfinished"/>
+        <translation>Час витримки</translation>
     </message>
     <message>
         <location filename="../widgets/detailswidget.cpp" line="237"/>
@@ -380,7 +380,7 @@
     <message>
         <location filename="../widgets/detailswidget.cpp" line="253"/>
         <source>F Number</source>
-        <translation type="unfinished"/>
+        <translation>Число діафрагми</translation>
     </message>
     <message>
         <location filename="../widgets/detailswidget.cpp" line="258"/>
@@ -390,7 +390,7 @@
     <message>
         <location filename="../widgets/detailswidget.cpp" line="265"/>
         <source>GPS Position</source>
-        <translation type="unfinished"/>
+        <translation>Місцезнаходження за GPS</translation>
     </message>
     <message>
         <location filename="../widgets/detailswidget.cpp" line="309"/>
@@ -439,7 +439,7 @@
     <message>
         <location filename="../widgets/dropdownmenu.cpp" line="52"/>
         <source>Filter Images in Folder</source>
-        <translation type="unfinished"/>
+        <translation>Фільтрувати зображення в папці</translation>
     </message>
     <message>
         <location filename="../widgets/dropdownmenu.cpp" line="53"/>
@@ -561,7 +561,7 @@
     <message>
         <location filename="../widgets/filehandling.cpp" line="769"/>
         <source>You need to specify a different name</source>
-        <translation>Перемістити файл</translation>
+        <translation>Вам потрібно вказати інше ім&apos;я</translation>
     </message>
     <message>
         <location filename="../widgets/filehandling.cpp" line="789"/>
@@ -585,12 +585,12 @@
     <message>
         <location filename="../filterimages/filterimagesdisplay.cpp" line="26"/>
         <source>Remove Image Filter</source>
-        <translation type="unfinished"/>
+        <translation>Прибрати Фільтр зображень</translation>
     </message>
     <message>
         <location filename="../filterimages/filterimagesdisplay.cpp" line="35"/>
         <source>Click to change filter</source>
-        <translation type="unfinished"/>
+        <translation>Натисніть, щоб змінити фільтр</translation>
     </message>
 </context>
 <context>
@@ -598,32 +598,32 @@
     <message>
         <location filename="../filterimages/filterimagessetup.cpp" line="24"/>
         <source>Filter Images in Current Directory</source>
-        <translation type="unfinished"/>
+        <translation>Фільтрувати зображення в поточній папці</translation>
     </message>
     <message>
         <location filename="../filterimages/filterimagessetup.cpp" line="31"/>
         <source>Enter here the term you want to search for. Seperate multiple terms by a space.</source>
-        <translation type="unfinished"/>
+        <translation>Введіть тут слово за яким ви хочете пошукати. Відділяйте кілька слів пробілами</translation>
     </message>
     <message>
         <location filename="../filterimages/filterimagessetup.cpp" line="31"/>
         <source>If you want to limit a term to file extensions, prepend a dot &apos;.&apos; to the term.</source>
-        <translation type="unfinished"/>
+        <translation>Якщо хочете шукати тільки за розширенням файлу, поставте крапку &apos;.&apos; перед фразою для пошуку</translation>
     </message>
     <message>
         <location filename="../filterimages/filterimagessetup.cpp" line="39"/>
         <source>Filter</source>
-        <translation type="unfinished"/>
+        <translation>Фільтрувати</translation>
     </message>
     <message>
         <location filename="../filterimages/filterimagessetup.cpp" line="41"/>
         <source>Cancel</source>
-        <translation type="unfinished"/>
+        <translation>Скасувати</translation>
     </message>
     <message>
         <location filename="../filterimages/filterimagessetup.cpp" line="42"/>
         <source>Remove Filter</source>
-        <translation type="unfinished"/>
+        <translation>Прибрати фільтр</translation>
     </message>
 </context>
 <context>
@@ -681,7 +681,7 @@
     <message>
         <location filename="../graphics/graphicsview.cpp" line="222"/>
         <source>In</source>
-        <translation type="unfinished"/>
+        <translation>Збільшити</translation>
     </message>
     <message>
         <location filename="../graphics/graphicsview.cpp" line="225"/>
@@ -691,7 +691,7 @@
     <message>
         <location filename="../graphics/graphicsview.cpp" line="228"/>
         <source>Actual</source>
-        <translation type="unfinished"/>
+        <translation>Справжній розмір</translation>
     </message>
     <message>
         <location filename="../graphics/graphicsview.cpp" line="231"/>
@@ -701,7 +701,7 @@
     <message>
         <location filename="../graphics/graphicsview.cpp" line="256"/>
         <source>Scale Image</source>
-        <translation type="unfinished"/>
+        <translation>Масштабувати зображення</translation>
     </message>
     <message>
         <location filename="../graphics/graphicsview.cpp" line="264"/>
@@ -749,7 +749,7 @@
     <message>
         <location filename="../mainwindow.cpp" line="1348"/>
         <source>All Files</source>
-        <translation type="unfinished"/>
+        <translation>Всі файли</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="1847"/>
@@ -782,7 +782,7 @@
     <message>
         <location filename="../graphics/graphicsviewlay.cpp" line="303"/>
         <source>Switch between normal/fancy look</source>
-        <translation type="unfinished"/>
+        <translation>Перемикач між нормальним/навороченим виглядом</translation>
     </message>
     <message>
         <location filename="../graphics/graphicsviewlay.cpp" line="307"/>
@@ -795,112 +795,112 @@
     <message>
         <location filename="../widgets/quicksettings.cpp" line="55"/>
         <source>Quick Settings</source>
-        <translation type="unfinished"/>
+        <translation>Швидкі налаштування</translation>
     </message>
     <message>
         <location filename="../widgets/quicksettings.cpp" line="60"/>
         <source>Change settings with one click. They are saved and applied immediately. If you&apos;re unsure what a setting does, check the full settings for descriptions.</source>
-        <translation type="unfinished"/>
+        <translation>Змінюйте налаштування в один клік. Вони зберігаються і застосовуються негайно. Якщо ви не впевнені що саме робить якесь налаштування, подивіться його опис у Повних Налаштуваннях</translation>
     </message>
     <message>
         <location filename="../widgets/quicksettings.cpp" line="63"/>
         <source>Sort by</source>
-        <translation type="unfinished"/>
+        <translation>Сортувати за</translation>
     </message>
     <message>
         <location filename="../widgets/quicksettings.cpp" line="74"/>
         <source>Name</source>
-        <translation type="unfinished"/>
+        <translation>Ім’ям</translation>
     </message>
     <message>
         <location filename="../widgets/quicksettings.cpp" line="75"/>
         <source>Natural Name</source>
-        <translation type="unfinished"/>
+        <translation>Ім’ям (у природний спосіб)</translation>
     </message>
     <message>
         <location filename="../widgets/quicksettings.cpp" line="76"/>
         <source>Date</source>
-        <translation type="unfinished"/>
+        <translation>Датою</translation>
     </message>
     <message>
         <location filename="../widgets/quicksettings.cpp" line="77"/>
         <source>File Size</source>
-        <translation type="unfinished"/>
+        <translation>Розміром файлу</translation>
     </message>
     <message>
         <location filename="../widgets/quicksettings.cpp" line="89"/>
         <source>Real transparency</source>
-        <translation type="unfinished"/>
+        <translation>Справжня прозорість</translation>
     </message>
     <message>
         <location filename="../widgets/quicksettings.cpp" line="90"/>
         <source>Faked transparency</source>
-        <translation type="unfinished"/>
+        <translation>Імітація прозорості</translation>
     </message>
     <message>
         <location filename="../widgets/quicksettings.cpp" line="91"/>
         <source>Background image</source>
-        <translation type="unfinished"/>
+        <translation>Зображення тла</translation>
     </message>
     <message>
         <location filename="../widgets/quicksettings.cpp" line="92"/>
         <source>Coloured background</source>
-        <translation type="unfinished"/>
+        <translation>Кольорове тло</translation>
     </message>
     <message>
         <location filename="../widgets/quicksettings.cpp" line="95"/>
         <source>Hide to system tray</source>
-        <translation type="unfinished"/>
+        <translation>Згорнути до системного лотка</translation>
     </message>
     <message>
         <location filename="../widgets/quicksettings.cpp" line="96"/>
         <source>Loop through folder</source>
-        <translation type="unfinished"/>
+        <translation>Циклічно по папці</translation>
     </message>
     <message>
         <location filename="../widgets/quicksettings.cpp" line="97"/>
         <source>Window mode</source>
-        <translation type="unfinished"/>
+        <translation>Віконний режим</translation>
     </message>
     <message>
         <location filename="../widgets/quicksettings.cpp" line="98"/>
         <source>Show window decoration</source>
-        <translation type="unfinished"/>
+        <translation>Показувати декорації вікна</translation>
     </message>
     <message>
         <location filename="../widgets/quicksettings.cpp" line="99"/>
         <source>Close on click on background</source>
-        <translation type="unfinished"/>
+        <translation>Закривати при кліку на тло</translation>
     </message>
     <message>
         <location filename="../widgets/quicksettings.cpp" line="100"/>
         <source>Keep thumbnails visible</source>
-        <translation type="unfinished"/>
+        <translation>Утримувати мініатюри видимими</translation>
     </message>
     <message>
         <location filename="../widgets/quicksettings.cpp" line="107"/>
         <source>Normal thumbnails</source>
-        <translation type="unfinished"/>
+        <translation>Нормальні мініатюри</translation>
     </message>
     <message>
         <location filename="../widgets/quicksettings.cpp" line="108"/>
         <source>Dynamic thumbnails</source>
-        <translation type="unfinished"/>
+        <translation>Динамічні мініатюри</translation>
     </message>
     <message>
         <location filename="../widgets/quicksettings.cpp" line="101"/>
         <source>Enable &apos;Quick Settings&apos;</source>
-        <translation type="unfinished"/>
+        <translation>Увімкнути &apos;Швидкі Налаштування&apos;</translation>
     </message>
     <message>
         <location filename="../widgets/quicksettings.cpp" line="109"/>
         <source>Smart thumbnails</source>
-        <translation type="unfinished"/>
+        <translation>Розумні мініатюри</translation>
     </message>
     <message>
         <location filename="../widgets/quicksettings.cpp" line="140"/>
         <source>Show full settings</source>
-        <translation type="unfinished"/>
+        <translation>Показати повні налаштування</translation>
     </message>
 </context>
 <context>
@@ -908,111 +908,111 @@
     <message>
         <location filename="../manipulation/scale.cpp" line="28"/>
         <source>Scale Image</source>
-        <translation type="unfinished"/>
+        <translation>Масштабувати зображення</translation>
     </message>
     <message>
         <location filename="../manipulation/scale.cpp" line="30"/>
         <location filename="../manipulation/scale.cpp" line="177"/>
         <source>Current Size:</source>
-        <translation type="unfinished"/>
+        <translation>Поточний розмір</translation>
     </message>
     <message>
         <location filename="../manipulation/scale.cpp" line="36"/>
         <source>New Width:</source>
-        <translation type="unfinished"/>
+        <translation>Нова ширина:</translation>
     </message>
     <message>
         <location filename="../manipulation/scale.cpp" line="51"/>
         <source>New Height:</source>
-        <translation type="unfinished"/>
+        <translation>Нова висота:</translation>
     </message>
     <message>
         <location filename="../manipulation/scale.cpp" line="66"/>
         <source>Aspect Ratio</source>
-        <translation type="unfinished"/>
+        <translation>Співвідношення сторін</translation>
     </message>
     <message>
         <location filename="../manipulation/scale.cpp" line="83"/>
         <source>Quality:</source>
-        <translation type="unfinished"/>
+        <translation>Якість:</translation>
     </message>
     <message>
         <location filename="../manipulation/scale.cpp" line="104"/>
         <source>Scale in place</source>
-        <translation type="unfinished"/>
+        <translation>Масштабувати вихідний файл</translation>
     </message>
     <message>
         <location filename="../manipulation/scale.cpp" line="106"/>
         <source>Scale in new file</source>
-        <translation type="unfinished"/>
+        <translation>Масштабувати у новий файл</translation>
     </message>
     <message>
         <location filename="../manipulation/scale.cpp" line="108"/>
         <source>Don&apos;t Scale</source>
-        <translation type="unfinished"/>
+        <translation>Не масштабувати</translation>
     </message>
     <message>
         <location filename="../manipulation/scale.cpp" line="160"/>
         <source>Filetype Not Supported</source>
-        <translation type="unfinished"/>
+        <translation>Тип файлу не підтримується</translation>
     </message>
     <message>
         <location filename="../manipulation/scale.cpp" line="160"/>
         <source>Sorry, scaling is currently only available for filetypes natively supported by Qt...</source>
-        <translation type="unfinished"/>
+        <translation>Вибачте, масштабування наразі доступне лише для типів файлів які нативно підтримуються Qt...</translation>
     </message>
     <message>
         <location filename="../manipulation/scale.cpp" line="160"/>
         <source>Oh, okay...</source>
-        <translation type="unfinished"/>
+        <translation>Ну, гаразд...</translation>
     </message>
     <message>
         <location filename="../manipulation/scale.cpp" line="229"/>
         <source>Don&apos;t keep aspect ratio</source>
-        <translation type="unfinished"/>
+        <translation>Не зберігати співвідношення сторін</translation>
     </message>
     <message>
         <location filename="../manipulation/scale.cpp" line="229"/>
         <source>Keep aspect ratio</source>
-        <translation type="unfinished"/>
+        <translation>Зберігати співвідношення сторін</translation>
     </message>
     <message>
         <location filename="../manipulation/scale.cpp" line="245"/>
         <location filename="../manipulation/scale.cpp" line="270"/>
         <source>Overwrite Image?</source>
-        <translation type="unfinished"/>
+        <translation>Перезаписати зображення?</translation>
     </message>
     <message>
         <location filename="../manipulation/scale.cpp" line="246"/>
         <source>This will replace the current image with the scaled version... Continue?</source>
-        <translation type="unfinished"/>
+        <translation>Ця дія замінить поточне зображення масштабованою версією... Продовжувати?</translation>
     </message>
     <message>
         <location filename="../manipulation/scale.cpp" line="247"/>
         <location filename="../manipulation/scale.cpp" line="272"/>
         <source>Continue</source>
-        <translation type="unfinished"/>
+        <translation>Продовжувати</translation>
     </message>
     <message>
         <location filename="../manipulation/scale.cpp" line="247"/>
         <location filename="../manipulation/scale.cpp" line="272"/>
         <source>Stop</source>
-        <translation type="unfinished"/>
+        <translation>Стоп</translation>
     </message>
     <message>
         <location filename="../manipulation/scale.cpp" line="264"/>
         <source>Save as...</source>
-        <translation type="unfinished"/>
+        <translation>Зберегти як...</translation>
     </message>
     <message>
         <location filename="../manipulation/scale.cpp" line="264"/>
         <source>Images</source>
-        <translation type="unfinished"/>
+        <translation>Зображення</translation>
     </message>
     <message>
         <location filename="../manipulation/scale.cpp" line="271"/>
         <source>This file exists already... Continue?</source>
-        <translation type="unfinished"/>
+        <translation>Цей файл вже існує... Продовжувати?</translation>
     </message>
 </context>
 <context>
@@ -1060,7 +1060,7 @@
     <message>
         <location filename="../settings/settings.cpp" line="90"/>
         <source>Look and Behaviour</source>
-        <translation type="unfinished"/>
+        <translation>Вигляд і Поведінка</translation>
     </message>
     <message>
         <location filename="../settings/settings.cpp" line="91"/>
@@ -1098,7 +1098,7 @@
     <message>
         <location filename="../settings/settingstabexif.cpp" line="50"/>
         <source>Trigger Widget on Mouse Hovering</source>
-        <translation type="unfinished"/>
+        <translation>Викликати Віджет при наведенні мишкою</translation>
     </message>
     <message>
         <location filename="../settings/settingstabexif.cpp" line="50"/>
@@ -1108,12 +1108,12 @@
     <message>
         <location filename="../settings/settingstabexif.cpp" line="52"/>
         <source>Turn mouse triggering OFF</source>
-        <translation type="unfinished"/>
+        <translation>ВИМКНУТИ активацію мишкою</translation>
     </message>
     <message>
         <location filename="../settings/settingstabexif.cpp" line="64"/>
         <source>Use of Exiv2 has been disabled as PhotoQt was compiled/installed!</source>
-        <translation type="unfinished"/>
+        <translation>Використання Exiv2 було вимкнено при компілюванні/встановленні PhotoQt!</translation>
     </message>
     <message>
         <location filename="../settings/settingstabexif.cpp" line="68"/>
@@ -1123,7 +1123,7 @@
     <message>
         <location filename="../settings/settingstabexif.cpp" line="68"/>
         <source>PhotoQt can display a number of information about the image (often called &apos;Exif data&apos;&apos;). However, you might not be interested in all of them, hence you can choose to disable some of them here.</source>
-        <translation type="unfinished"/>
+        <translation>PhotoQt може показувати численну інформацію про зображення (часто називається &quot;Exif-дані&quot;). Втім, якщо вас не цікавлять ВСІ дані, тоді ви можете вимкнути показ деяких з них тут. </translation>
     </message>
     <message>
         <location filename="../settings/settingstabexif.cpp" line="78"/>
@@ -1153,7 +1153,7 @@
     <message>
         <location filename="../settings/settingstabexif.cpp" line="130"/>
         <source>Dimensions</source>
-        <translation type="unfinished"/>
+        <translation>Розміри</translation>
     </message>
     <message>
         <location filename="../settings/settingstabexif.cpp" line="133"/>
@@ -1203,7 +1203,7 @@
     <message>
         <location filename="../settings/settingstabexif.cpp" line="160"/>
         <source>F-Number</source>
-        <translation type="unfinished"/>
+        <translation>Діафрагма</translation>
     </message>
     <message>
         <location filename="../settings/settingstabexif.cpp" line="163"/>
@@ -1223,7 +1223,7 @@
     <message>
         <location filename="../settings/settingstabexif.cpp" line="184"/>
         <source>Computers can have very different resolutions. On some of them, it might be nice to increase the font size of the labels to have them easier readable. Often, a size of 8 or 9 should be working quite well...</source>
-        <translation type="unfinished"/>
+        <translation>Комп&apos;ютери можуть мати геть різні роздільні здатності. На деяких, може бути добре збільшити розмір шрифтів, щоб легше читалося. Найчастіше, розмір 8 або 9 має виглядати цілком добре...</translation>
     </message>
     <message>
         <location filename="../settings/settingstabexif.cpp" line="192"/>
@@ -1276,12 +1276,12 @@
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="229"/>
         <source>Use (half-)transparent background</source>
-        <translation type="unfinished"/>
+        <translation>Використовувати (напів-)прозоре тло</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="230"/>
         <source>Use faked transparency</source>
-        <translation type="unfinished"/>
+        <translation>Використовувати імітацію прозорості</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="231"/>
@@ -1301,12 +1301,12 @@
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="236"/>
         <source>Note: Fake transparency currently only really works when PhotoQt is run in fullscreen/maximised!</source>
-        <translation type="unfinished"/>
+        <translation>Увага: імітація напівпрозорості наразі справді працює лише коли PhotoQt працює в повноекранному режимі!</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="237"/>
         <source>Background of PhotoQt</source>
-        <translation type="unfinished"/>
+        <translation>Тло PhotoQt</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="258"/>
@@ -1318,7 +1318,7 @@
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="262"/>
         <source>Scale To Fit</source>
-        <translation type="unfinished"/>
+        <translation>Масштабувати так, щоб вписати на екран</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="264"/>
@@ -1328,12 +1328,12 @@
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="266"/>
         <source>Center Image</source>
-        <translation type="unfinished"/>
+        <translation>Центрувати зображення</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="307"/>
         <source>Background/Overlay Color</source>
-        <translation type="unfinished"/>
+        <translation>Колір тла/перекриття</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="307"/>
@@ -1349,92 +1349,92 @@
         <location filename="../settings/settingstablookandfeel.cpp" line="137"/>
         <location filename="../settings/settingstablookandfeel.cpp" line="138"/>
         <source>Hide to Tray Icon</source>
-        <translation type="unfinished"/>
+        <translation>Згорнути у Іконку системного лотка</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="71"/>
         <source>Basic</source>
-        <translation type="unfinished"/>
+        <translation>Основні</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="72"/>
         <source>Advanced</source>
-        <translation type="unfinished"/>
+        <translation>Розширені</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="77"/>
         <source>Basic Settings</source>
-        <translation type="unfinished"/>
+        <translation>Основні налаштування</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="80"/>
         <source>Advanced Settings</source>
-        <translation type="unfinished"/>
+        <translation>Розширені налаштування</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="90"/>
         <source>Sort Images</source>
-        <translation type="unfinished"/>
+        <translation>Сортувати зображення</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="90"/>
         <source>Here you can adjust, how the images in a folder are supposed to be sorted. You can sort them by Filename, Natural Name (e.g., file10.jpg comes after file9.jpg and not after file1.jpg), File Size, and Date. Also, you can reverse the sorting order from ascending to descending if wanted.</source>
-        <translation type="unfinished"/>
+        <translation>Тут ви можете налаштувати, яким чином зображення в теці мають бути відсортовані. Ви можете їх сортувати за Іменем файлу, Іменем у природний спосіб (наприклад, файл10.jpg буде йти після файл9.jpg а не після файл1.jpg), Розміром файлу і за Датою. Також, ви можете  за бажанням переставляти порядок сортування від зростаючого до спадного</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="90"/>
         <source>Hint: You can also change this setting very quickly from the &apos;Quick Settings&apos;&apos; window, hidden behind the right screen edge.</source>
-        <translation type="unfinished"/>
+        <translation>Підказка: Ви також можете дуже швидко змінити це налаштування у віконці &quot;Швидкі Налаштування&quot;, схованого за правим краєм екрану</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="91"/>
         <source>Sort by:</source>
-        <translation type="unfinished"/>
+        <translation>Сортувати за:</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="93"/>
         <source>Name</source>
-        <translation type="unfinished"/>
+        <translation>Ім’я</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="94"/>
         <source>Natural Name</source>
-        <translation type="unfinished"/>
+        <translation>Ім’я (у природний спосіб)</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="95"/>
         <source>Date</source>
-        <translation type="unfinished"/>
+        <translation>Дата</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="96"/>
         <source>File Size</source>
-        <translation type="unfinished"/>
+        <translation>Розмір файлу</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="97"/>
         <source>Ascending</source>
-        <translation type="unfinished"/>
+        <translation>Зростання</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="99"/>
         <source>Descending</source>
-        <translation type="unfinished"/>
+        <translation>Спадання</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="138"/>
         <source>When started PhotoQt creates a tray icon in the system tray. If desired, you can set PhotoQt to minimise to the tray instead of quitting. This causes PhotoQt to be almost instantaneously available when an image is opened.</source>
-        <translation type="unfinished"/>
+        <translation>При запуску, PhotoQt створює іконку в системному лотку. При бажанні, ви можете налаштувати PhotoQt так, що він згортався у системний лоток замість виходу з програми. Це дозволить PhotoQt спрацьовувати практично миттєво коли відкривається зображення.</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="138"/>
         <source>It is also possible to start PhotoQt already minimised to the tray (e.g. at system startup) when called with &quot;--start-in-tray&quot;.</source>
-        <translation type="unfinished"/>
+        <translation>Також можливо запускати PhotoQt одразу мінімізованим до системного лотка (наприклад, під час запуску системи), якщо запускати її з ключем &quot;--start-in-tray&quot;.</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="151"/>
         <source>Closing &apos;X&apos; (top right)</source>
-        <translation type="unfinished"/>
+        <translation>Закрити &quot;Х&quot; (справа зверху)</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="151"/>
@@ -1444,27 +1444,27 @@
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="157"/>
         <source>Normal look</source>
-        <translation type="unfinished"/>
+        <translation>Нормальний вигляд</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="159"/>
         <source>Fancy look</source>
-        <translation type="unfinished"/>
+        <translation>Наворочений вигляд</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="169"/>
         <source>Small</source>
-        <translation type="unfinished"/>
+        <translation>Малий</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="170"/>
         <source>Large</source>
-        <translation type="unfinished"/>
+        <translation>Великий</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="186"/>
         <source>Fit Image in Window</source>
-        <translation type="unfinished"/>
+        <translation>Вписати зображення у вікно</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="186"/>
@@ -1474,12 +1474,12 @@
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="188"/>
         <source>Fit Images in Window</source>
-        <translation type="unfinished"/>
+        <translation>Вписати зображення у вікно</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="362"/>
         <source>Loop Through Folder</source>
-        <translation type="unfinished"/>
+        <translation>Циклічно по папці</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="363"/>
@@ -1504,7 +1504,7 @@
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="384"/>
         <source>No Fading</source>
-        <translation type="unfinished"/>
+        <translation>Без поступового переходу</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="385"/>
@@ -1534,12 +1534,12 @@
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="458"/>
         <source>Animation and Window Geometry</source>
-        <translation type="unfinished"/>
+        <translation>Анімація і Геометрія Вікна</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="458"/>
         <source>There are two things that can be adjusted here:</source>
-        <translation type="unfinished"/>
+        <translation>Тут можна налаштувати дві речі:</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="458"/>
@@ -1569,7 +1569,7 @@
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="121"/>
         <source>Show Window Decoration</source>
-        <translation type="unfinished"/>
+        <translation>Показувати декорації вікна</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="348"/>
@@ -1585,12 +1585,12 @@
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="349"/>
         <source>Note: If you use a mouse click for a shortcut already, then this option wont have any effect!</source>
-        <translation type="unfinished"/>
+        <translation>Увага: Якщо ви вже використовуєте клік мишки як скорочення клавіш, тоді ця опція не матиме ефекту!</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="332"/>
         <source>Border Around Image</source>
-        <translation type="unfinished"/>
+        <translation>Обвідка навколо зображення</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="332"/>
@@ -1600,7 +1600,7 @@
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="200"/>
         <source>Hide Quickinfo (Text Labels)</source>
-        <translation type="unfinished"/>
+        <translation>Приховати часткову інформацію (Текстові написи)</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="200"/>
@@ -1615,22 +1615,22 @@
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="205"/>
         <source>Hide Filepath (Shows only file name)</source>
-        <translation type="unfinished"/>
+        <translation>Сховати шлях до файлу (Показувати тільки ім’я файлу)</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="206"/>
         <source>Hide Filename (Including file path)</source>
-        <translation type="unfinished"/>
+        <translation>Сховати ім’я файлу (включно з шляхом до файлу)</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="207"/>
         <source>Hide &quot;X&quot; (Closing)</source>
-        <translation type="unfinished"/>
+        <translation>Приховувати &quot;X&quot; (Закриття вікна)</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="420"/>
         <source>Mouse Wheel Sensitivity</source>
-        <translation type="unfinished"/>
+        <translation>Чутливість Колеса Миші</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="420"/>
@@ -1640,17 +1640,17 @@
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="423"/>
         <source>Very sensitive</source>
-        <translation type="unfinished"/>
+        <translation>Дуже чутливе</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="424"/>
         <source>Not sensitive at all</source>
-        <translation type="unfinished"/>
+        <translation>Зовсім не чутливе</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="441"/>
         <source>Remember per session</source>
-        <translation type="unfinished"/>
+        <translation>Запам’ятати на цей сеанс</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="441"/>
@@ -1660,12 +1660,12 @@
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="443"/>
         <source>Remember Rotation/Flip</source>
-        <translation type="unfinished"/>
+        <translation>Запам’ятати Обертання/Віддзеркалення</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="444"/>
         <source>Remember Zoom Level</source>
-        <translation type="unfinished"/>
+        <translation>Запам’ятати збільшення</translation>
     </message>
     <message>
         <location filename="../settings/settingstablookandfeel.cpp" line="460"/>
@@ -1718,7 +1718,7 @@
     <message>
         <location filename="../settings/settingstabother.cpp" line="233"/>
         <source>Quick Settings</source>
-        <translation type="unfinished"/>
+        <translation>Швидкі налаштування</translation>
     </message>
     <message>
         <location filename="../settings/settingstabother.cpp" line="233"/>
@@ -1773,7 +1773,7 @@
     <message>
         <location filename="../settings/settingstabother.cpp" line="444"/>
         <source>File Types - GraphicsMagick (requires Ghostscript)</source>
-        <translation type="unfinished"/>
+        <translation>Типи файлів - GraphicsMagick (Потребує Ghostscript)</translation>
     </message>
     <message>
         <location filename="../settings/settingstabother.cpp" line="444"/>
@@ -1793,7 +1793,7 @@
     <message>
         <location filename="../settings/settingstabother.cpp" line="508"/>
         <source>Note</source>
-        <translation type="unfinished"/>
+        <translation>Примітка</translation>
     </message>
     <message>
         <location filename="../settings/settingstabother.cpp" line="508"/>
@@ -1835,7 +1835,7 @@
     <message>
         <location filename="../settings/settingstabother.cpp" line="579"/>
         <source>File Types - GraphicsMagick (Untested)</source>
-        <translation type="unfinished"/>
+        <translation>Типи файлів - GraphicsMagick (Нетостовано)</translation>
     </message>
     <message>
         <location filename="../settings/settingstabother.cpp" line="580"/>
@@ -1909,7 +1909,7 @@
     <message>
         <location filename="../settings/settingstabshortcuts.cpp" line="72"/>
         <source>This step cannot be reversed!</source>
-        <translation type="unfinished"/>
+        <translation>Цей крок не можна скасувати!</translation>
     </message>
     <message>
         <location filename="../settings/settingstabshortcuts.cpp" line="72"/>
@@ -1949,7 +1949,7 @@
     <message>
         <location filename="../settings/settingstabshortcuts.cpp" line="92"/>
         <source>Filter Images in Folder</source>
-        <translation type="unfinished"/>
+        <translation>Фільтрувати зображення в папці</translation>
     </message>
     <message>
         <location filename="../settings/settingstabshortcuts.cpp" line="93"/>
@@ -2009,7 +2009,7 @@
     <message>
         <location filename="../settings/settingstabshortcuts.cpp" line="116"/>
         <source>Scale Image</source>
-        <translation type="unfinished"/>
+        <translation>Масштабувати зображення</translation>
     </message>
     <message>
         <location filename="../settings/settingstabshortcuts.cpp" line="131"/>
@@ -2049,7 +2049,7 @@
     <message>
         <location filename="../settings/settingstabshortcuts.cpp" line="146"/>
         <source>Show Context Menu</source>
-        <translation type="unfinished"/>
+        <translation>Показувати Контекстне меню</translation>
     </message>
     <message>
         <location filename="../settings/settingstabshortcuts.cpp" line="147"/>
@@ -2162,17 +2162,17 @@
     <message>
         <location filename="../settings/settingstabthumbnail.cpp" line="181"/>
         <source>Normal thumbnails</source>
-        <translation type="unfinished"/>
+        <translation>Нормальні мініатюри</translation>
     </message>
     <message>
         <location filename="../settings/settingstabthumbnail.cpp" line="182"/>
         <source>Dynamic Thumbnails</source>
-        <translation type="unfinished"/>
+        <translation>Динамічні мініатюри</translation>
     </message>
     <message>
         <location filename="../settings/settingstabthumbnail.cpp" line="183"/>
         <source>Smart Thumbnails</source>
-        <translation type="unfinished"/>
+        <translation>Розумні мініатюри</translation>
     </message>
     <message>
         <location filename="../settings/settingstabthumbnail.cpp" line="203"/>
@@ -2213,27 +2213,27 @@
         <location filename="../settings/settingstabthumbnail.cpp" line="165"/>
         <location filename="../settings/settingstabthumbnail.cpp" line="168"/>
         <source>Keep Thumbnails Visible</source>
-        <translation type="unfinished"/>
+        <translation>Утримувати мініатюри видимими</translation>
     </message>
     <message>
         <location filename="../settings/settingstabthumbnail.cpp" line="76"/>
         <source>Basic</source>
-        <translation type="unfinished"/>
+        <translation>Основні</translation>
     </message>
     <message>
         <location filename="../settings/settingstabthumbnail.cpp" line="77"/>
         <source>Advanced</source>
-        <translation type="unfinished"/>
+        <translation>Розширені</translation>
     </message>
     <message>
         <location filename="../settings/settingstabthumbnail.cpp" line="82"/>
         <source>Basic Settings</source>
-        <translation type="unfinished"/>
+        <translation>Основні налаштування</translation>
     </message>
     <message>
         <location filename="../settings/settingstabthumbnail.cpp" line="85"/>
         <source>Advanced Settings</source>
-        <translation type="unfinished"/>
+        <translation>Розширені налаштування</translation>
     </message>
     <message>
         <location filename="../settings/settingstabthumbnail.cpp" line="165"/>
@@ -2278,7 +2278,7 @@
     <message>
         <location filename="../settings/settingstabthumbnail.cpp" line="244"/>
         <source>Write Filename</source>
-        <translation type="unfinished"/>
+        <translation>Записати ім’я файла</translation>
     </message>
     <message>
         <location filename="../settings/settingstabthumbnail.cpp" line="245"/>
@@ -2288,7 +2288,7 @@
     <message>
         <location filename="../settings/settingstabthumbnail.cpp" line="307"/>
         <source>Preloading</source>
-        <translation type="unfinished"/>
+        <translation>Підвантаження</translation>
     </message>
     <message>
         <location filename="../settings/settingstabthumbnail.cpp" line="307"/>
@@ -2303,7 +2303,7 @@
     <message>
         <location filename="../settings/settingstabthumbnail.cpp" line="323"/>
         <source>Preload full directory</source>
-        <translation type="unfinished"/>
+        <translation>Підвантажити всю папку</translation>
     </message>
     <message>
         <location filename="../settings/settingstabthumbnail.cpp" line="343"/>
@@ -2333,7 +2333,7 @@
     <message>
         <location filename="../settings/settingstabthumbnail.cpp" line="359"/>
         <source>Both ways have their advantages and disadvantages:</source>
-        <translation type="unfinished"/>
+        <translation>Обидва шляхи мають свої переваги й недоліки</translation>
     </message>
     <message>
         <location filename="../settings/settingstabthumbnail.cpp" line="359"/>
@@ -2348,7 +2348,7 @@
     <message>
         <location filename="../settings/settingstabthumbnail.cpp" line="359"/>
         <source>PhotoQt works with either option, though the second way is set as default.</source>
-        <translation type="unfinished"/>
+        <translation>PhotoQt працює з будь-якою опцією, але остання використовується на замовчання.</translation>
     </message>
     <message>
         <location filename="../settings/settingstabthumbnail.cpp" line="359"/>
@@ -2638,12 +2638,12 @@
     <message>
         <location filename="../slideshow/slideshowsettings.cpp" line="95"/>
         <source>Shuffle images</source>
-        <translation type="unfinished"/>
+        <translation>Перемішати зображення</translation>
     </message>
     <message>
         <location filename="../slideshow/slideshowsettings.cpp" line="96"/>
         <source>Shuffle and Loop</source>
-        <translation type="unfinished"/>
+        <translation>Перемішати і крутити по колу</translation>
     </message>
     <message>
         <location filename="../slideshow/slideshowsettings.cpp" line="96"/>
@@ -2673,7 +2673,7 @@
     <message>
         <location filename="../slideshow/slideshowsettings.cpp" line="130"/>
         <source>Click to select/change music file</source>
-        <translation type="unfinished"/>
+        <translation>Натисніть щоб вибрати/змінити музичний файл</translation>
     </message>
     <message>
         <location filename="../slideshow/slideshowsettings.cpp" line="135"/>
@@ -2730,7 +2730,7 @@
     <message>
         <location filename="../widgets/startupwidget.cpp" line="24"/>
         <source>Okay, I got enough now. Lets start!</source>
-        <translation type="unfinished"/>
+        <translation>Гаразд, я зрозумів достатньо покищо. Поїхали!</translation>
     </message>
     <message>
         <location filename="../widgets/startupwidget.cpp" line="72"/>
@@ -2785,7 +2785,7 @@
     <message>
         <location filename="../widgets/startupwidget.cpp" line="108"/>
         <source>Image Information (Exif)</source>
-        <translation type="unfinished"/>
+        <translation>Інформація про зображення (Exif)</translation>
     </message>
     <message>
         <location filename="../widgets/startupwidget.cpp" line="108"/>
@@ -2835,7 +2835,7 @@
     <message>
         <location filename="../widgets/startupwidget.cpp" line="154"/>
         <source>Below you find a short overview over the features of PhotoQt. But feel free to skip it and just get started.</source>
-        <translation type="unfinished"/>
+        <translation>Нижче ви знайдете короткий огляд особливостей PhotoQt. Але можете спокійно пропускати і просто починати користуватися.</translation>
     </message>
     <message>
         <location filename="../widgets/startupwidget.cpp" line="162"/>
@@ -2867,7 +2867,7 @@
         <location filename="../graphics/graphicsviewlay.cpp" line="192"/>
         <location filename="../graphics/graphicsviewlay.cpp" line="227"/>
         <source>No images match current filter</source>
-        <translation type="unfinished"/>
+        <translation>Жодних зображень, що відповідають цьому фільтру</translation>
     </message>
 </context>
 <context>
@@ -2912,7 +2912,7 @@
         <location filename="../wallpaper/wallpaper.cpp" line="103"/>
         <location filename="../wallpaper/wallpaper.cpp" line="190"/>
         <source>There are several picture options that can be set for the wallpaper image.</source>
-        <translation type="unfinished"/>
+        <translation>Є кілька опцій для встановлення зображення шпалерами</translation>
     </message>
     <message>
         <location filename="../wallpaper/wallpaper.cpp" line="144"/>
@@ -2927,17 +2927,17 @@
     <message>
         <location filename="../wallpaper/wallpaper.cpp" line="155"/>
         <source>The wallpaper can be set to either of the available monitors (or any combination).</source>
-        <translation type="unfinished"/>
+        <translation>Шпалери можуть бути встановлені на кожен з доступних моніторів (чи будь-яку комбінацію з них).</translation>
     </message>
     <message>
         <location filename="../wallpaper/wallpaper.cpp" line="201"/>
         <source>Use &apos;feh&apos;</source>
-        <translation type="unfinished"/>
+        <translation>Використовувати &quot;feh&quot;</translation>
     </message>
     <message>
         <location filename="../wallpaper/wallpaper.cpp" line="204"/>
         <source>Use &apos;nitrogen&apos;</source>
-        <translation type="unfinished"/>
+        <translation>Використовувати &apos;nitrogen&apos;</translation>
     </message>
     <message>
         <location filename="../wallpaper/wallpaper.cpp" line="381"/>
@@ -2947,7 +2947,7 @@
     <message>
         <location filename="../wallpaper/wallpaper.cpp" line="408"/>
         <source>Sorry, Razor-Qt doesn&apos;t yet support this feature... hopefully that&apos;ll change soon!</source>
-        <translation type="unfinished"/>
+        <translation>Вибачте, Razor-Qt не підтримує поки що цю функцію... сподіваємося, це скоро зміниться!</translation>
     </message>
     <message>
         <location filename="../wallpaper/wallpaper.cpp" line="419"/>

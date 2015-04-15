@@ -4,17 +4,17 @@
     <message>
         <location filename="../widgets/aboutwidget.cpp" line="44"/>
         <source>PhotoQt is a simple image viewer, designed to be good looking, highly configurable, yet easy to use and fast.</source>
-        <translation type="unfinished"/>
+        <translation>PhotoQt jest prostą przeglądarką obrazków, wysoce konfigurowalną a jednocześnie łatwą i szybką w użyciu.</translation>
     </message>
     <message>
         <location filename="../widgets/aboutwidget.cpp" line="45"/>
         <source>With PhotoQt I try to be different than other image viewers (after all, there are plenty of good image viewers already out there). Its interface is kept very simple, yet there is an abundance of settings to customize the look and feel to make PhotoQt YOUR image viewer.</source>
-        <translation type="unfinished"/>
+        <translation>Tworząc PhotoQt chciałem by była ona inna od pozostałych przeglądarek (których jest już przecież wiele). Prosty interfejs kryje w sobie dziesiątki możliwych ustawień, po to byś mógł uczynić z PhotoQt TWOJĄ własną przeglądarkę obrazów.</translation>
     </message>
     <message>
         <location filename="../widgets/aboutwidget.cpp" line="46"/>
         <source>I&apos;m not a trained programmer. I&apos;m a simple Maths student that loves doing stuff like this. Most of my programming knowledge I taught myself over the past 10-ish years, and it has been developing a lot since I started PhotoQt. During my studies in university I learned a lot about the basics of programming that I was missing. And simply working on PhotoQt gave me a lot of invaluable experience. So the code of PhotoQt might in places not quite be done in the best of ways, but I think it&apos;s getting better and better with each release.</source>
-        <translation type="unfinished"/>
+        <translation>Nie jestem zawodowym programistą, tylko zwykłym studentem matematyki, który uwielbia tworzyć. Programowania uczyłem się głównie sam na przestrzeni ostatnich 10 lat. Podczas studiów na uniwersytecie poznałem wiele podstaw programowania, które dotąd mi umykały. Jednocześnie tworzenie PhotoQt umożliwiło mi zdobycie bezcennego doświadczenia. Być może kod PhotoQt mógłby być miejscami lepszy niż teraz, ale sądzę że staję się on lepszy z każdą kolejną wersją.</translation>
     </message>
     <message>
         <location filename="../widgets/aboutwidget.cpp" line="48"/>
@@ -24,27 +24,27 @@
     <message>
         <location filename="../widgets/aboutwidget.cpp" line="49"/>
         <source>If you find a bug or if you have a question or suggestion, tell me. I&apos;m open to any feedback I get :)</source>
-        <translation>Jeśli znajdziesz błąd, lub jeśli masz pytania, sugestie, napisz do mnie. Jestem otwarty na wszystkie komentarze, jakie otrzymuje :)</translation>
+        <translation>Jeśli znajdziesz błąd lub masz jakieś pytania czy sugestie, napisz do mnie. Jestem otwarty na wszystkie komentarze, jakie otrzymuje :)</translation>
     </message>
     <message>
         <location filename="../widgets/aboutwidget.cpp" line="47"/>
         <source>I heard a number of times people saying, that PhotoQt is a &apos;copy&apos; of Picasa&apos;s image viewer. Well, it&apos;s not. In fact, I myself have never used Picasa. I have seen it in use though by others, and I can&apos;t deny that it influenced the basic design idea a little. But I&apos;m not trying to do something &apos;like Picasa&apos;. I try to do my own thing, and to do it as good as I can.</source>
-        <translation type="unfinished"/>
+        <translation>Parokrotnie spotkałem się ze zdaniem, iż PhotoQt jest &quot;kopią&quot; przeglądarki programów Picasa. Nie jest. Osobiście nigdy nie używałem Picasy. Widziałem ją tylko w użyciu przez inne osoby. Nie mogę zaprzeczyć, iż wpłynęło to w małym stopniu na podstawową ideą programu. Ale moim zamiarem nie jest stworzenie czegoś podobnego do Picasy. Staram się tworzyć coś własnego i na tyle dobrego na ile jestem w stanie.</translation>
     </message>
     <message>
         <location filename="../widgets/aboutwidget.cpp" line="50"/>
         <source>Thanks to everybody who contributed to PhotoQt and/or translated PhotoQt to another language! You guys rock!</source>
-        <translation type="unfinished"/>
+        <translation>Dziękuje wszystkim osobom, które wsparły PhotoQt lub przetłumaczyły PhotoQt na inne języki! Rządzicie!</translation>
     </message>
     <message>
         <location filename="../widgets/aboutwidget.cpp" line="51"/>
         <source>You want to join the team and do something, e.g. translating PhotoQt to another language? Drop me and email (Lukas@photoqt.org), and for translations, check the project page on Transifex: http://transifex.com/p/photo.</source>
-        <translation type="unfinished"/>
+        <translation>Chciałbyś się przyłączyć do zespołu i pomóc przy kodowaniu lub tłumaczeniu? Wyślij do mnie maila (Lukas@photoqt.org). Co do tłumaczeń zajrzyj na stronę projektu w serwisie Transifex: http://transifex.com/p/photo.</translation>
     </message>
     <message>
         <location filename="../widgets/aboutwidget.cpp" line="61"/>
         <source>Click to go to:</source>
-        <translation type="unfinished"/>
+        <translation>Kliknij by przejść:</translation>
     </message>
     <message>
         <location filename="../widgets/aboutwidget.cpp" line="96"/>
@@ -60,7 +60,7 @@
     <message>
         <location filename="../widgets/aboutwidget.cpp" line="114"/>
         <source>Licensed under GPLv2 or later, without any guarantee</source>
-        <translation type="unfinished"/>
+        <translation>Wydano na warunkach licencji GPLv2 lub późniejszej, bez żadnych gwarancji.</translation>
     </message>
 </context>
 <context>
@@ -82,22 +82,22 @@
         <location filename="../settings/settingstabothercontexttiles.cpp" line="41"/>
         <location filename="../settings/settingstabothercontexttiles.cpp" line="42"/>
         <source>Click here to drag</source>
-        <translation type="unfinished"/>
+        <translation>Kliknij tutaj i przeciągnij</translation>
     </message>
     <message>
         <location filename="../settings/settingstabothercontexttiles.cpp" line="75"/>
         <source>quit</source>
-        <translation type="unfinished"/>
+        <translation>Zamknij</translation>
     </message>
     <message>
         <location filename="../settings/settingstabothercontexttiles.cpp" line="76"/>
         <source>Quit PhotoQt after executing command</source>
-        <translation type="unfinished"/>
+        <translation>Zamknij PhotoQt wykonując polecenie</translation>
     </message>
     <message>
         <location filename="../settings/settingstabothercontexttiles.cpp" line="91"/>
         <source>Delete Entry</source>
-        <translation type="unfinished"/>
+        <translation>Usuń wpis</translation>
     </message>
 </context>
 <context>
@@ -113,87 +113,87 @@
     <message>
         <location filename="../widgets/detailswidget.cpp" line="56"/>
         <source>No file loaded</source>
-        <translation type="unfinished"/>
+        <translation>Nie wczytano żadnego pliku</translation>
     </message>
     <message>
         <location filename="../widgets/detailswidget.cpp" line="66"/>
         <source>Rotate Image?</source>
-        <translation type="unfinished"/>
+        <translation>Obrócić obraz?</translation>
     </message>
     <message>
         <location filename="../widgets/detailswidget.cpp" line="66"/>
         <source>The Exif data of this image says, that this image is supposed to be rotated.</source>
-        <translation type="unfinished"/>
+        <translation>Dane Exif zawarte w tym pliku sugerują, iż ten obrazek powinien być obrócony.</translation>
     </message>
     <message>
         <location filename="../widgets/detailswidget.cpp" line="66"/>
         <source>Do you want to apply the rotation?</source>
-        <translation type="unfinished"/>
+        <translation>Obróciłeś zdjęcie, czy chcesz zatwierdzić zmiany?</translation>
     </message>
     <message>
         <location filename="../widgets/detailswidget.cpp" line="66"/>
         <source>Okay, do it</source>
-        <translation type="unfinished"/>
+        <translation>Tak.</translation>
     </message>
     <message>
         <location filename="../widgets/detailswidget.cpp" line="66"/>
         <source>What? No!</source>
-        <translation type="unfinished"/>
+        <translation>Co? Nie!</translation>
     </message>
     <message>
         <location filename="../widgets/detailswidget.cpp" line="78"/>
         <source>Unknown</source>
         <extracomment>This string refers to the light source</extracomment>
-        <translation type="unfinished"/>
+        <translation>Nieznany</translation>
     </message>
     <message>
         <location filename="../widgets/detailswidget.cpp" line="80"/>
         <source>Daylight</source>
         <extracomment>This string refers to the light source</extracomment>
-        <translation type="unfinished"/>
+        <translation>Światło dzienne</translation>
     </message>
     <message>
         <location filename="../widgets/detailswidget.cpp" line="82"/>
         <source>Fluorescent</source>
         <extracomment>This string refers to the light source</extracomment>
-        <translation type="unfinished"/>
+        <translation>Światło jarzeniowe</translation>
     </message>
     <message>
         <location filename="../widgets/detailswidget.cpp" line="84"/>
         <source>Tungsten (incandescent light)</source>
         <extracomment>This string refers to the light source</extracomment>
-        <translation type="unfinished"/>
+        <translation>Żarówka (światło żarowe)</translation>
     </message>
     <message>
         <location filename="../widgets/detailswidget.cpp" line="86"/>
         <location filename="../widgets/detailswidget.cpp" line="233"/>
         <source>Flash</source>
         <extracomment>This string refers to the light source</extracomment>
-        <translation type="unfinished"/>
+        <translation>Flesz</translation>
     </message>
     <message>
         <location filename="../widgets/detailswidget.cpp" line="88"/>
         <source>Fine weather</source>
         <extracomment>This string refers to the light source</extracomment>
-        <translation type="unfinished"/>
+        <translation>Ładna pogoda</translation>
     </message>
     <message>
         <location filename="../widgets/detailswidget.cpp" line="90"/>
         <source>Cloudy Weather</source>
         <extracomment>This string refers to the light source</extracomment>
-        <translation type="unfinished"/>
+        <translation>Pochmurna pogoda</translation>
     </message>
     <message>
         <location filename="../widgets/detailswidget.cpp" line="92"/>
         <source>Shade</source>
         <extracomment>This string refers to the light source</extracomment>
-        <translation type="unfinished"/>
+        <translation>Cień</translation>
     </message>
     <message>
         <location filename="../widgets/detailswidget.cpp" line="94"/>
         <source>Daylight fluorescent (D 5700 - 7100K)</source>
         <extracomment>This string refers to the light source</extracomment>
-        <translation type="unfinished"/>
+        <translation>Światło jarzeniowe dziennie (D 5700 - 7100K)</translation>
     </message>
     <message>
         <location filename="../widgets/detailswidget.cpp" line="96"/>
@@ -205,13 +205,13 @@
         <location filename="../widgets/detailswidget.cpp" line="98"/>
         <source>Cool white fluorescent</source>
         <extracomment>This string refers to the light source</extracomment>
-        <translation type="unfinished"/>
+        <translation>Zimna biel jarzeniowa</translation>
     </message>
     <message>
         <location filename="../widgets/detailswidget.cpp" line="100"/>
         <source>White fluorescent</source>
         <extracomment>This string refers to the light source</extracomment>
-        <translation type="unfinished"/>
+        <translation>Białe światło jarzeniowe</translation>
     </message>
     <message>
         <location filename="../widgets/detailswidget.cpp" line="102"/>
@@ -219,7 +219,7 @@
         <location filename="../widgets/detailswidget.cpp" line="104"/>
         <source>Standard light</source>
         <extracomment>This string refers to the light source</extracomment>
-        <translation type="unfinished"/>
+        <translation>Normalne światło</translation>
     </message>
     <message>
         <location filename="../widgets/detailswidget.cpp" line="110"/>
@@ -231,187 +231,187 @@
         <location filename="../widgets/detailswidget.cpp" line="112"/>
         <source>Other light source</source>
         <extracomment>This string refers to the light source</extracomment>
-        <translation type="unfinished"/>
+        <translation>Inne źródła światła</translation>
     </message>
     <message>
         <location filename="../widgets/detailswidget.cpp" line="115"/>
         <source>yes</source>
         <extracomment>This string identifies that flash was fired</extracomment>
-        <translation type="unfinished"/>
+        <translation>tak</translation>
     </message>
     <message>
         <location filename="../widgets/detailswidget.cpp" line="117"/>
         <source>no</source>
         <extracomment>This string identifies that flash wasn't fired</extracomment>
-        <translation type="unfinished"/>
+        <translation>nie</translation>
     </message>
     <message>
         <location filename="../widgets/detailswidget.cpp" line="119"/>
         <source>strobe return light not detected</source>
         <extracomment>This string refers to a flash mode</extracomment>
-        <translation type="unfinished"/>
+        <translation>Nie wykryto odbitego światła zewnętrznego</translation>
     </message>
     <message>
         <location filename="../widgets/detailswidget.cpp" line="121"/>
         <source>strobe return light detected</source>
         <extracomment>This string refers to a flash mode</extracomment>
-        <translation type="unfinished"/>
+        <translation>Wykryto zewnętrzne odbite światło</translation>
     </message>
     <message>
         <location filename="../widgets/detailswidget.cpp" line="123"/>
         <source>compulsory flash mode</source>
         <extracomment>This string refers to a flash mode</extracomment>
-        <translation type="unfinished"/>
+        <translation>Tryb lampy błyskowej</translation>
     </message>
     <message>
         <location filename="../widgets/detailswidget.cpp" line="125"/>
         <source>auto mode</source>
         <extracomment>This string refers to a flash mode</extracomment>
-        <translation type="unfinished"/>
+        <translation>tryb auto</translation>
     </message>
     <message>
         <location filename="../widgets/detailswidget.cpp" line="127"/>
         <source>red-eye reduction mode</source>
         <extracomment>This string refers to a flash mode</extracomment>
-        <translation type="unfinished"/>
+        <translation>redukcja efektu czerwonych oczu</translation>
     </message>
     <message>
         <location filename="../widgets/detailswidget.cpp" line="129"/>
         <source>return light detected</source>
         <extracomment>This string refers to a flash mode</extracomment>
-        <translation type="unfinished"/>
+        <translation>Wykryto odbite światło</translation>
     </message>
     <message>
         <location filename="../widgets/detailswidget.cpp" line="131"/>
         <source>return light not detected</source>
         <extracomment>This string refers to a flash mode</extracomment>
-        <translation type="unfinished"/>
+        <translation>Nie wykryto światła odbitego</translation>
     </message>
     <message>
         <location filename="../widgets/detailswidget.cpp" line="148"/>
         <source>No flash function</source>
         <extracomment>This string refers to a flash mode</extracomment>
-        <translation type="unfinished"/>
+        <translation>Brak funkcji lampy błyskowej</translation>
     </message>
     <message>
         <location filename="../widgets/detailswidget.cpp" line="162"/>
         <source>Standard</source>
         <extracomment>This string refers to a scene type</extracomment>
-        <translation type="unfinished"/>
+        <translation>Standardowy</translation>
     </message>
     <message>
         <location filename="../widgets/detailswidget.cpp" line="164"/>
         <source>Landscape</source>
         <extracomment>This string refers to a scene type</extracomment>
-        <translation type="unfinished"/>
+        <translation>Krajobraz</translation>
     </message>
     <message>
         <location filename="../widgets/detailswidget.cpp" line="166"/>
         <source>Portrait</source>
         <extracomment>This string refers to a scene type</extracomment>
-        <translation type="unfinished"/>
+        <translation>Portret</translation>
     </message>
     <message>
         <location filename="../widgets/detailswidget.cpp" line="168"/>
         <source>Night Scene</source>
         <extracomment>This string refers to a scene type</extracomment>
-        <translation type="unfinished"/>
+        <translation>Tryb nocny</translation>
     </message>
     <message>
         <location filename="../widgets/detailswidget.cpp" line="192"/>
         <source>Filename</source>
-        <translation type="unfinished"/>
+        <translation>Nazwa pliku</translation>
     </message>
     <message>
         <location filename="../widgets/detailswidget.cpp" line="195"/>
         <source>Filetype</source>
-        <translation type="unfinished"/>
+        <translation>Typ pliku</translation>
     </message>
     <message>
         <location filename="../widgets/detailswidget.cpp" line="198"/>
         <source>Filesize</source>
-        <translation type="unfinished"/>
+        <translation>Rozmiar pliku</translation>
     </message>
     <message>
         <location filename="../widgets/detailswidget.cpp" line="201"/>
         <source>Dimensions</source>
-        <translation type="unfinished"/>
+        <translation>Wymiary</translation>
     </message>
     <message>
         <location filename="../widgets/detailswidget.cpp" line="209"/>
         <source>Make</source>
-        <translation type="unfinished"/>
+        <translation>Wykonano</translation>
     </message>
     <message>
         <location filename="../widgets/detailswidget.cpp" line="213"/>
         <source>Model</source>
-        <translation type="unfinished"/>
+        <translation>Model</translation>
     </message>
     <message>
         <location filename="../widgets/detailswidget.cpp" line="217"/>
         <source>Software</source>
-        <translation type="unfinished"/>
+        <translation>Oprogramowanie</translation>
     </message>
     <message>
         <location filename="../widgets/detailswidget.cpp" line="221"/>
         <source>Time photo was taken</source>
-        <translation type="unfinished"/>
+        <translation>Data zrobienia zdjęcia</translation>
     </message>
     <message>
         <location filename="../widgets/detailswidget.cpp" line="228"/>
         <source>Exposure Time</source>
-        <translation type="unfinished"/>
+        <translation>Czas naświetlania</translation>
     </message>
     <message>
         <location filename="../widgets/detailswidget.cpp" line="237"/>
         <source>ISO</source>
-        <translation type="unfinished"/>
+        <translation>ISO</translation>
     </message>
     <message>
         <location filename="../widgets/detailswidget.cpp" line="244"/>
         <source>Scene Type</source>
-        <translation type="unfinished"/>
+        <translation>Rodzaj sceny</translation>
     </message>
     <message>
         <location filename="../widgets/detailswidget.cpp" line="248"/>
         <source>Focal Length</source>
-        <translation type="unfinished"/>
+        <translation>Ogniskowa</translation>
     </message>
     <message>
         <location filename="../widgets/detailswidget.cpp" line="253"/>
         <source>F Number</source>
-        <translation type="unfinished"/>
+        <translation>Liczba F</translation>
     </message>
     <message>
         <location filename="../widgets/detailswidget.cpp" line="258"/>
         <source>Light Source</source>
-        <translation type="unfinished"/>
+        <translation>Źródło światła</translation>
     </message>
     <message>
         <location filename="../widgets/detailswidget.cpp" line="265"/>
         <source>GPS Position</source>
-        <translation type="unfinished"/>
+        <translation>Pozycja GPS</translation>
     </message>
     <message>
         <location filename="../widgets/detailswidget.cpp" line="309"/>
         <source>Keep Open</source>
-        <translation type="unfinished"/>
+        <translation>Pozostaw na wierzchu</translation>
     </message>
     <message>
         <location filename="../widgets/detailswidget.cpp" line="420"/>
         <source>Unknown data</source>
-        <translation type="unfinished"/>
+        <translation>Nieznane</translation>
     </message>
     <message>
         <location filename="../widgets/detailswidget.cpp" line="484"/>
         <location filename="../widgets/detailswidget.cpp" line="499"/>
         <source>not set</source>
-        <translation type="unfinished"/>
+        <translation>Nie ustawiony</translation>
     </message>
     <message>
         <location filename="../widgets/detailswidget.cpp" line="586"/>
         <source>unsupported format</source>
-        <translation type="unfinished"/>
+        <translation>Niewspierany format pliku</translation>
     </message>
 </context>
 <context>
@@ -429,12 +429,12 @@
     <message>
         <location filename="../widgets/dropdownmenu.cpp" line="49"/>
         <source>Settings</source>
-        <translation type="unfinished"/>
+        <translation>Ustawienia</translation>
     </message>
     <message>
         <location filename="../widgets/dropdownmenu.cpp" line="50"/>
         <source>Set as Wallpaper</source>
-        <translation type="unfinished"/>
+        <translation>Ustaw jako tapetę pulpitu</translation>
     </message>
     <message>
         <location filename="../widgets/dropdownmenu.cpp" line="52"/>
@@ -444,32 +444,32 @@
     <message>
         <location filename="../widgets/dropdownmenu.cpp" line="53"/>
         <source>Show Details</source>
-        <translation type="unfinished"/>
+        <translation>Pokaż szczegóły</translation>
     </message>
     <message>
         <location filename="../widgets/dropdownmenu.cpp" line="54"/>
         <source>About PhotoQt</source>
-        <translation type="unfinished"/>
+        <translation>O programie</translation>
     </message>
     <message>
         <location filename="../widgets/dropdownmenu.cpp" line="55"/>
         <source>Hide (System Tray)</source>
-        <translation>Ukryj (Tacka systemowa)</translation>
+        <translation>Ukryj (do tacki systemowej)</translation>
     </message>
     <message>
         <location filename="../widgets/dropdownmenu.cpp" line="56"/>
         <source>Quit</source>
-        <translation>Wyjdź</translation>
+        <translation>Zamknij</translation>
     </message>
     <message>
         <location filename="../widgets/dropdownmenu.cpp" line="67"/>
         <source>Start Slideshow</source>
-        <translation type="unfinished"/>
+        <translation>Pokaz slajdów</translation>
     </message>
     <message>
         <location filename="../widgets/dropdownmenu.cpp" line="68"/>
         <source>(Quickstart)</source>
-        <translation type="unfinished"/>
+        <translation>(Szybki start)</translation>
     </message>
 </context>
 <context>
@@ -477,7 +477,7 @@
     <message>
         <location filename="../widgets/filehandling.cpp" line="63"/>
         <source>Rename File</source>
-        <translation>Zmień nazwę pliku</translation>
+        <translation>Zmień nazwę</translation>
     </message>
     <message>
         <location filename="../widgets/filehandling.cpp" line="86"/>
@@ -495,7 +495,7 @@
     <message>
         <location filename="../widgets/filehandling.cpp" line="127"/>
         <source>Delete File</source>
-        <translation>Usuń Plik</translation>
+        <translation>Usuń plik</translation>
     </message>
     <message>
         <location filename="../widgets/filehandling.cpp" line="135"/>
@@ -505,17 +505,17 @@
     <message>
         <location filename="../widgets/filehandling.cpp" line="141"/>
         <source>Delete permanently</source>
-        <translation>Usuń trwale</translation>
+        <translation>Usuń z dysku</translation>
     </message>
     <message>
         <location filename="../widgets/filehandling.cpp" line="151"/>
         <source>Move to Trash</source>
-        <translation>Usuń do kosza</translation>
+        <translation>Przenieś do kosza</translation>
     </message>
     <message>
         <location filename="../widgets/filehandling.cpp" line="215"/>
         <source>Moving File</source>
-        <translation>Przenieś Plik</translation>
+        <translation>Przenieś plik</translation>
     </message>
     <message>
         <location filename="../widgets/filehandling.cpp" line="238"/>
@@ -526,17 +526,17 @@
     <message>
         <location filename="../widgets/filehandling.cpp" line="255"/>
         <source>Move</source>
-        <translation>Przenieść</translation>
+        <translation>Przenieś</translation>
     </message>
     <message>
         <location filename="../widgets/filehandling.cpp" line="294"/>
         <source>Copying File</source>
-        <translation>Kopiuj plik</translation>
+        <translation>Kopiowanie</translation>
     </message>
     <message>
         <location filename="../widgets/filehandling.cpp" line="334"/>
         <source>Copy</source>
-        <translation>Kopiuj</translation>
+        <translation>Skopiuj</translation>
     </message>
     <message>
         <location filename="../widgets/filehandling.cpp" line="446"/>
@@ -556,28 +556,28 @@
     <message>
         <location filename="../widgets/filehandling.cpp" line="762"/>
         <source>Rename file</source>
-        <translation type="unfinished"/>
+        <translation>Zmień nazwę pliku</translation>
     </message>
     <message>
         <location filename="../widgets/filehandling.cpp" line="769"/>
         <source>You need to specify a different name</source>
-        <translation type="unfinished"/>
+        <translation>Musisz podać inną nazwę</translation>
     </message>
     <message>
         <location filename="../widgets/filehandling.cpp" line="789"/>
         <source>Move File</source>
-        <translation type="unfinished"/>
+        <translation>Przenieś plik</translation>
     </message>
     <message>
         <location filename="../widgets/filehandling.cpp" line="795"/>
         <location filename="../widgets/filehandling.cpp" line="817"/>
         <source>You need to specify a different file/name</source>
-        <translation type="unfinished"/>
+        <translation>Musisz podać inny plik/nazwę</translation>
     </message>
     <message>
         <location filename="../widgets/filehandling.cpp" line="811"/>
         <source>Copy File</source>
-        <translation type="unfinished"/>
+        <translation>Skopiuj plik</translation>
     </message>
 </context>
 <context>
@@ -603,7 +603,7 @@
     <message>
         <location filename="../filterimages/filterimagessetup.cpp" line="31"/>
         <source>Enter here the term you want to search for. Seperate multiple terms by a space.</source>
-        <translation type="unfinished"/>
+        <translation>Wpisz tutaj nazwę którą chcesz wyszukać. Użyj odstępu przy szukaniu kilku jednocześnie.</translation>
     </message>
     <message>
         <location filename="../filterimages/filterimagessetup.cpp" line="31"/>
@@ -618,7 +618,7 @@
     <message>
         <location filename="../filterimages/filterimagessetup.cpp" line="41"/>
         <source>Cancel</source>
-        <translation type="unfinished"/>
+        <translation>Anuluj</translation>
     </message>
     <message>
         <location filename="../filterimages/filterimagessetup.cpp" line="42"/>
@@ -636,47 +636,47 @@
     <message>
         <location filename="../graphics/graphicsview.cpp" line="141"/>
         <source>Previous</source>
-        <translation type="unfinished"/>
+        <translation>Poprzedni</translation>
     </message>
     <message>
         <location filename="../graphics/graphicsview.cpp" line="144"/>
         <source>Next</source>
-        <translation type="unfinished"/>
+        <translation>Następny</translation>
     </message>
     <message>
         <location filename="../graphics/graphicsview.cpp" line="172"/>
         <source>Rotate:</source>
-        <translation type="unfinished"/>
+        <translation>Obróć:</translation>
     </message>
     <message>
         <location filename="../graphics/graphicsview.cpp" line="174"/>
         <source>Left</source>
-        <translation type="unfinished"/>
+        <translation>W lewo</translation>
     </message>
     <message>
         <location filename="../graphics/graphicsview.cpp" line="177"/>
         <source>Right</source>
-        <translation type="unfinished"/>
+        <translation>W prawo</translation>
     </message>
     <message>
         <location filename="../graphics/graphicsview.cpp" line="196"/>
         <source>Flip:</source>
-        <translation type="unfinished"/>
+        <translation>Przerzuć:</translation>
     </message>
     <message>
         <location filename="../graphics/graphicsview.cpp" line="198"/>
         <source>Horizontal</source>
-        <translation type="unfinished"/>
+        <translation>Poziomo</translation>
     </message>
     <message>
         <location filename="../graphics/graphicsview.cpp" line="201"/>
         <source>Vertical</source>
-        <translation type="unfinished"/>
+        <translation>Pionowo</translation>
     </message>
     <message>
         <location filename="../graphics/graphicsview.cpp" line="220"/>
         <source>Zoom:</source>
-        <translation type="unfinished"/>
+        <translation>Przybliżenie:</translation>
     </message>
     <message>
         <location filename="../graphics/graphicsview.cpp" line="222"/>
@@ -701,22 +701,22 @@
     <message>
         <location filename="../graphics/graphicsview.cpp" line="256"/>
         <source>Scale Image</source>
-        <translation type="unfinished"/>
+        <translation>Skaluj obrazek</translation>
     </message>
     <message>
         <location filename="../graphics/graphicsview.cpp" line="264"/>
         <source>Open in default File Manager</source>
-        <translation type="unfinished"/>
+        <translation>Otwórz w domyślnym menadżerze plików</translation>
     </message>
     <message>
         <location filename="../graphics/graphicsview.cpp" line="270"/>
         <source>Delete File</source>
-        <translation type="unfinished"/>
+        <translation>Usuń plik</translation>
     </message>
     <message>
         <location filename="../graphics/graphicsview.cpp" line="276"/>
         <source>Rename File</source>
-        <translation type="unfinished"/>
+        <translation>Zmień nazwę pliku</translation>
     </message>
 </context>
 <context>
@@ -725,14 +725,14 @@
         <location filename="../mainwindow.cpp" line="1119"/>
         <location filename="../mainwindow.cpp" line="1203"/>
         <source>Show Details</source>
-        <translation type="unfinished"/>
+        <translation>Pokaż szczegóły</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="1119"/>
         <location filename="../mainwindow.cpp" line="1195"/>
         <location filename="../mainwindow.cpp" line="1908"/>
         <source>Hide Details</source>
-        <translation type="unfinished"/>
+        <translation>Ukryj szczegóły</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="1345"/>
@@ -749,17 +749,17 @@
     <message>
         <location filename="../mainwindow.cpp" line="1348"/>
         <source>All Files</source>
-        <translation type="unfinished"/>
+        <translation>Wszystkie pliki</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="1847"/>
         <source>Image Viewer</source>
-        <translation type="unfinished"/>
+        <translation>Przeglądarka obrazów</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="1854"/>
         <source>Hide/Show PhotoQt</source>
-        <translation type="unfinished"/>
+        <translation>Ukryj/pokaż PhotoQt</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="1859"/>
@@ -769,7 +769,7 @@
     <message>
         <location filename="../mainwindow.cpp" line="1867"/>
         <source>Quit PhotoQt</source>
-        <translation type="unfinished"/>
+        <translation>Zamknij PhotoQt</translation>
     </message>
 </context>
 <context>
@@ -782,7 +782,7 @@
     <message>
         <location filename="../graphics/graphicsviewlay.cpp" line="303"/>
         <source>Switch between normal/fancy look</source>
-        <translation type="unfinished"/>
+        <translation>Przełącz pomiędzy zwykłym/ozdobnym wyglądem</translation>
     </message>
     <message>
         <location filename="../graphics/graphicsviewlay.cpp" line="307"/>
@@ -795,22 +795,22 @@
     <message>
         <location filename="../widgets/quicksettings.cpp" line="55"/>
         <source>Quick Settings</source>
-        <translation type="unfinished"/>
+        <translation>Szybkie ustawienia</translation>
     </message>
     <message>
         <location filename="../widgets/quicksettings.cpp" line="60"/>
         <source>Change settings with one click. They are saved and applied immediately. If you&apos;re unsure what a setting does, check the full settings for descriptions.</source>
-        <translation type="unfinished"/>
+        <translation>Zmiany ustawień są dokonywane za pomocą jednego kliknięcia. Są również automatycznie zapisywane i wykonywane. Jeśli nie jesteś pewien za co odpowiada dane ustawienie, sprawdź opis w pełnych ustawieniach.</translation>
     </message>
     <message>
         <location filename="../widgets/quicksettings.cpp" line="63"/>
         <source>Sort by</source>
-        <translation type="unfinished"/>
+        <translation>Segreguj według</translation>
     </message>
     <message>
         <location filename="../widgets/quicksettings.cpp" line="74"/>
         <source>Name</source>
-        <translation type="unfinished"/>
+        <translation>Nazwy</translation>
     </message>
     <message>
         <location filename="../widgets/quicksettings.cpp" line="75"/>
@@ -820,17 +820,17 @@
     <message>
         <location filename="../widgets/quicksettings.cpp" line="76"/>
         <source>Date</source>
-        <translation type="unfinished"/>
+        <translation>Daty</translation>
     </message>
     <message>
         <location filename="../widgets/quicksettings.cpp" line="77"/>
         <source>File Size</source>
-        <translation type="unfinished"/>
+        <translation>Rozmiaru pliku</translation>
     </message>
     <message>
         <location filename="../widgets/quicksettings.cpp" line="89"/>
         <source>Real transparency</source>
-        <translation type="unfinished"/>
+        <translation>Przezroczystość</translation>
     </message>
     <message>
         <location filename="../widgets/quicksettings.cpp" line="90"/>
@@ -840,7 +840,7 @@
     <message>
         <location filename="../widgets/quicksettings.cpp" line="91"/>
         <source>Background image</source>
-        <translation type="unfinished"/>
+        <translation>Obrazek w tle</translation>
     </message>
     <message>
         <location filename="../widgets/quicksettings.cpp" line="92"/>
