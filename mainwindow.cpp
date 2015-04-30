@@ -256,8 +256,8 @@ void MainWindow::applySettings(QMap<QString, bool> applySet, bool justApplyAllOf
 		if(globSet->windowmode) {
 
 			globSet->windowDecoration
-				      ? this->setWindowFlags(Qt::Window)
-				      : this->setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
+					? this->setWindowFlags(Qt::Window)
+					: this->setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
 			if(globSet->keepOnTop) this->setWindowFlags(this->windowFlags() | Qt::WindowStaysOnTopHint);
 
 			if(globVar->windowMaximised)
@@ -412,6 +412,8 @@ void MainWindow::closeEvent(QCloseEvent *e) {
 			e->accept();
 
 			std::cout << "Goodbye!" << std::endl;
+
+			qApp->quit();
 		}
 
 	}
@@ -2624,8 +2626,8 @@ void MainWindow::trayAcDo(QSystemTrayIcon::ActivationReason rsn) {
 			takeScreenshots();	// Refresh background
 			if(globSet->windowmode) {
 				globSet->windowDecoration
-					      ? this->setWindowFlags(Qt::Window)
-					      : this->setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
+						? this->setWindowFlags(Qt::Window)
+						: this->setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
 				if(globSet->keepOnTop) this->setWindowFlags(this->windowFlags() | Qt::WindowStaysOnTopHint);
 
 				if(globVar->windowMaximised)
@@ -2650,8 +2652,8 @@ void MainWindow::trayAcDo(QSystemTrayIcon::ActivationReason rsn) {
 			globVar->restoringFromTrayNoResize = QDateTime::currentDateTime().toTime_t();
 			if(globSet->windowmode) {
 				globSet->windowDecoration
-					      ? this->setWindowFlags(Qt::Window)
-					      : this->setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
+						? this->setWindowFlags(Qt::Window)
+						: this->setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
 				if(globSet->keepOnTop) this->setWindowFlags(this->windowFlags() | Qt::WindowStaysOnTopHint);
 				if(globVar->windowMaximised) {
 					this->showMaximized();
