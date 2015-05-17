@@ -70,6 +70,9 @@ public:
 		fileBeforeEmptyFilter = "";
 		curDir = "";
 
+		trayIconSetup = false;
+		trayIconVisible = false;
+
 	}
 
 	bool verbose;
@@ -136,6 +139,9 @@ public:
 /*	QMap<QString,bool> tosave;*/
 
 	QString fileBeforeEmptyFilter;
+
+	bool trayIconSetup;
+	bool trayIconVisible;
 
 };
 

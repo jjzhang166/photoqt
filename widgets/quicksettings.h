@@ -79,6 +79,7 @@ private:
 	CustomRadioButton *sort_des;
 
 	CustomComboBox *background;
+	CustomCheckBox *trayiconEnable;
 	CustomCheckBox *trayicon;
 	CustomCheckBox *loopthroughfolder;
 	CustomCheckBox *windowmode;

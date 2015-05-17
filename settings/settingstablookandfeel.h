@@ -100,6 +100,7 @@ private:
 
 	// Adjust tray icon usage
 	CustomCheckBox *trayIcon;
+	CustomCheckBox *trayIcon_enable;
 
 	// Adjust looping through the folder
 	CustomCheckBox *loopThroughFolder;

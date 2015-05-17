@@ -92,6 +92,7 @@ QuickSettings::QuickSettings(QMap<QString, QVariant> set, bool v, QWidget *paren
 	background->addItem(tr("Coloured background"),"color");
 
 	// Different settings that can be adjusted
+	trayiconEnable = new CustomCheckBox(tr("Enable system tray"));
 	trayicon = new CustomCheckBox(tr("Hide to system tray"));
 	loopthroughfolder = new CustomCheckBox(tr("Loop through folder"));
 	windowmode = new CustomCheckBox(tr("Window mode"));
@@ -118,11 +119,15 @@ QuickSettings::QuickSettings(QMap<QString, QVariant> set, bool v, QWidget *paren
 	thumbnailsdynamic->setCurrentIndex(globSet.value("ThumbnailDynamic").toInt());
 	quickSettings->setChecked(globSet.value("QuickSettings").toBool());
 
+	// Some dependencies
+	connect(trayiconEnable, SIGNAL(toggled(bool)), trayicon, SLOT(setEnabled(bool)));
+
 	// Save & Apply settings instantly
 	connect(sortby, SIGNAL(currentTextChanged(QString)), this, SLOT(settingChanged()));
 	connect(sort_asc, SIGNAL(clicked()), this, SLOT(settingChanged()));
 	connect(sort_des, SIGNAL(clicked()), this, SLOT(settingChanged()));
 	connect(background, SIGNAL(currentIndexChanged(int)), this, SLOT(settingChanged()));
+	connect(trayiconEnable, SIGNAL(toggled(bool)), this, SLOT(settingChanged()));
 	connect(trayicon, SIGNAL(toggled(bool)), this, SLOT(settingChanged()));
 	connect(loopthroughfolder, SIGNAL(toggled(bool)), this, SLOT(settingChanged()));
 	connect(windowmode, SIGNAL(toggled(bool)), this, SLOT(settingChanged()));
@@ -178,6 +183,8 @@ QuickSettings::QuickSettings(QMap<QString, QVariant> set, bool v, QWidget *paren
 	central->addSpacing(5);
 	central->addWidget(compositeLine);
 	central->addSpacing(5);
+	central->addWidget(trayiconEnable);
+	central->addSpacing(5);
 	central->addWidget(trayicon);
 	central->addSpacing(5);
 	central->addWidget(trayiconLine);
@@ -231,7 +238,9 @@ void QuickSettings::loadSettings() {
 	else if(globSet.value("BackgroundImageUse").toBool()) background->setCurrentIndex(2);
 	else background->setCurrentIndex(3);
 
-	trayicon->setChecked(globSet.value("TrayIcon").toBool());
+	trayiconEnable->setChecked(globSet.value("TrayIcon").toInt() != 2);
+	trayicon->setChecked(globSet.value("TrayIcon").toInt() == 1);
+	trayicon->setEnabled(trayiconEnable->isChecked());
 	loopthroughfolder->setChecked(globSet.value("LoopThroughFolder").toBool());
 	windowmode->setChecked(globSet.value("WindowMode").toBool());
 	windowdeco->setChecked(globSet.value("WindowDecoration").toBool());
@@ -246,7 +255,7 @@ void QuickSettings::loadSettings() {
 	defaults.insert("SortImagesAscending",sort_asc->isChecked());
 	defaults.insert("SortImagesBy",sort);
 	defaults.insert("Background",background->itemData(background->currentIndex()));
-	defaults.insert("TrayIcon",trayicon->isChecked());
+	defaults.insert("TrayIcon",trayiconEnable->isChecked() ? (trayicon->isChecked() ? 1 : 0 ) : 2);
 	defaults.insert("LoopThroughFolder",loopthroughfolder->isChecked());
 	defaults.insert("WindowMode",windowmode->isChecked());
 	defaults.insert("WindowDecoration",windowdeco->isChecked());
@@ -274,8 +283,27 @@ void QuickSettings::settingChanged() {
 	}
 
 
-	if(defaults.value("TrayIcon").toBool() != trayicon->isChecked())
-		changedSet.insert("TrayIcon",trayicon->isChecked());
+	if(trayiconEnable->isChecked()) {
+		if(trayicon->isChecked()) {
+			if(defaults.value("TrayIcon").toInt() != 1) {
+				changedSet.insert("TrayIcon",1);
+				defaults.remove("TrayIcon");
+				defaults.insert("TrayIcon",1);
+			}
+		} else {
+			if(defaults.value("TrayIcon").toInt() != 0) {
+				changedSet.insert("TrayIcon",0);
+				defaults.remove("TrayIcon");
+				defaults.insert("TrayIcon",0);
+			}
+		}
+	} else {
+		if(defaults.value("TrayIcon").toInt() != 2) {
+			changedSet.insert("TrayIcon",2);
+			defaults.remove("TrayIcon");
+			defaults.insert("TrayIcon",2);
+		}
+	}
 
 	if(defaults.value("LoopThroughFolder").toBool() != loopthroughfolder->isChecked())
 		changedSet.insert("LoopThroughFolder",loopthroughfolder->isChecked());

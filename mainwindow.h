@@ -60,12 +60,9 @@
 #include <QMenu>
 #include <QScreen>
 
-
 class MainWindow : public QMainWindow {
-	Q_OBJECT
 
-private:
-	void setupTrayIcon();
+	Q_OBJECT
 
 public:
 	explicit MainWindow(QWidget *parent = 0, bool verbose = false);
@@ -149,7 +146,6 @@ private:
 	QuickSettings *quickset;
 
 
-
 	// imagereader combining QImageReader and GraphicsMagic
 	ImageReader *imageReader;
 
@@ -179,6 +175,9 @@ private:
 
 	// Setup a widget
 	void setupWidget(QString what);
+
+	void setupTrayIcon();
+	void deleteTrayIcon();
 
 private slots:
 

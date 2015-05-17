@@ -270,6 +270,14 @@ void MainWindow::applySettings(QMap<QString, bool> applySet, bool justApplyAllOf
 		}
 	}
 
+	if(applySet["trayicon"]) {
+
+		if(globSet->trayicon == 2)
+			deleteTrayIcon();
+		else
+			setupTrayIcon();
+
+	}
 
 	// Update the thumbnails
 	if(applySet["thumb"]) {
@@ -388,7 +396,7 @@ void MainWindow::closeEvent(QCloseEvent *e) {
 		viewThumbs->abortThread();
 
 		// Hide to system tray
-		if(globSet->trayicon && !globVar->skipTrayIcon) {
+		if(globSet->trayicon == 1 && !globVar->skipTrayIcon) {
 
 			if(set->isVisible())
 				set->makeHide();
@@ -1843,50 +1851,67 @@ void MainWindow::setupShortcuts() {
 // Setup the Tray Icon
 void MainWindow::setupTrayIcon() {
 
-	if(globVar->verbose) std::clog << "Setup Tray Icon" << std::endl;
+	if(globSet->trayicon != 2) {
 
-#ifdef WITH_SYSTRAY
+		if(!globVar->trayIconSetup) {
 
-	// The Tray Icon
-	trayIcon = new QSystemTrayIcon(this);
-	trayIcon->setIcon(QIcon(":/img/icon.png"));
-	trayIcon->setToolTip("PhotoQt - " + tr("Image Viewer"));
+			if(globVar->verbose) std::clog << "Setup Tray Icon" << std::endl;
 
-	// A context menu for the tray icon
-	trayIconMenu = new QMenu(this);
-	trayIconMenu->setStyleSheet("background-color: rgb(67,67,67); color: white; border-radius: 5px;");
+			// The Tray Icon
+			trayIcon = new QSystemTrayIcon(this);
+			trayIcon->setIcon(QIcon(":/img/icon.png"));
+			trayIcon->setToolTip("PhotoQt - " + tr("Image Viewer"));
 
-	// A new action for the menu
-	QAction *trayAcToggle = new QAction(QIcon(":/img/logo.png"),tr("Hide/Show PhotoQt"),this);
-	trayAcToggle->setObjectName("toggle");
-	trayIconMenu->addAction(trayAcToggle);
+			// A context menu for the tray icon
+			trayIconMenu = new QMenu(this);
+			trayIconMenu->setStyleSheet("background-color: rgb(67,67,67); color: white; border-radius: 5px;");
 
-	// A new action for the menu
-	QAction *trayAcLoad = new QAction(QIcon(":/img/open.png"),tr("Open New Image"),this);
-	trayAcLoad->setObjectName("open");
-	trayIconMenu->addAction(trayAcLoad);
+			// A new action for the menu
+			QAction *trayAcToggle = new QAction(QIcon(":/img/logo.png"),tr("Hide/Show PhotoQt"),this);
+			trayAcToggle->setObjectName("toggle");
+			trayIconMenu->addAction(trayAcToggle);
 
-	// A seperator for the menu
-	trayIconMenu->addSeparator();
+			// A new action for the menu
+			QAction *trayAcLoad = new QAction(QIcon(":/img/open.png"),tr("Open New Image"),this);
+			trayAcLoad->setObjectName("open");
+			trayIconMenu->addAction(trayAcLoad);
 
-	// A new action for the menu
-	QAction *trayAcQuit = new QAction(QIcon(":/img/quit.png"),tr("Quit PhotoQt"),this);
-	trayAcQuit->setObjectName("quit");
-	trayIconMenu->addAction(trayAcQuit);
+			// A seperator for the menu
+			trayIconMenu->addSeparator();
 
-	// Set the menu to the tray icon
-	trayIcon->setContextMenu(trayIconMenu);
+			// A new action for the menu
+			QAction *trayAcQuit = new QAction(QIcon(":/img/quit.png"),tr("Quit PhotoQt"),this);
+			trayAcQuit->setObjectName("quit");
+			trayIconMenu->addAction(trayAcQuit);
 
-	// Connect signals
-	connect(trayAcToggle, SIGNAL(triggered()), this, SLOT(trayAcDo()));
-	connect(trayAcLoad, SIGNAL(triggered()), this, SLOT(trayAcDo()));
-	connect(trayAcQuit, SIGNAL(triggered()), this, SLOT(trayAcDo()));
-	connect(trayIcon, SIGNAL(activated(QSystemTrayIcon::ActivationReason)), this, SLOT(trayAcDo(QSystemTrayIcon::ActivationReason)));
+			// Set the menu to the tray icon
+			trayIcon->setContextMenu(trayIconMenu);
 
-	// The tray icon is always shown, but PhotoQt is not necessarily always minimised to it (depending on user settings)
-	trayIcon->show();
+			// Connect signals
+			connect(trayAcToggle, SIGNAL(triggered()), this, SLOT(trayAcDo()));
+			connect(trayAcLoad, SIGNAL(triggered()), this, SLOT(trayAcDo()));
+			connect(trayAcQuit, SIGNAL(triggered()), this, SLOT(trayAcDo()));
+			connect(trayIcon, SIGNAL(activated(QSystemTrayIcon::ActivationReason)), this, SLOT(trayAcDo(QSystemTrayIcon::ActivationReason)));
 
-#endif
+			globVar->trayIconSetup = true;
+
+		}
+
+		// The tray icon is always shown, but PhotoQt is not necessarily always minimised to it (depending on user settings)
+		trayIcon->show();
+		globVar->trayIconVisible = true;
+
+	} else
+		if(globVar->verbose) std::clog << "Skip Set-up of Tray Icon" << std::endl;
+
+}
+
+void MainWindow::deleteTrayIcon() {
+
+	if(globVar->verbose) std::clog << "Hiding Tray Icon" << std::endl;
+
+	trayIcon->hide();
+	globVar->trayIconVisible = false;
 
 }
 

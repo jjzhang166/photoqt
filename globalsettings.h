@@ -78,7 +78,7 @@ public:
 	bool backgroundImageCenter;
 
 	// Hide to tray icon?
-	bool trayicon;
+	int trayicon;
 	// Smooth Transition for changing images
 	int transition;
 	// Loop through folder?
@@ -346,7 +346,7 @@ public:
 //#else
 		composite = false;
 //#endif
-		trayicon = false;
+		trayicon = 0;
 		transition = 0;
 		loopthroughfolder = true;
 		menusensitivity = 4;
@@ -526,10 +526,9 @@ public:
 				backgroundImageCenter = bool(all.split("BackgroundImageCenter=").at(1).split("\n").at(0).toInt());
 
 
-			if(all.contains("TrayIcon=1"))
-				trayicon = true;
-			else if(all.contains("TrayIcon=0"))
-				trayicon = false;
+			if(all.contains("TrayIcon="))
+				trayicon = all.split("TrayIcon=").at(1).split("\n").at(0).toInt();
+
 
 			if(all.contains("Transition="))
 				transition = all.split("Transition=").at(1).split("\n").at(0).toInt();
@@ -851,7 +850,7 @@ public:
 
 			cont += "\n[Behaviour]\n";
 
-			cont += QString("TrayIcon=%1\n").arg(int(trayicon));
+			cont += QString("TrayIcon=%1\n").arg(trayicon);
 			cont += QString("Transition=%1\n").arg(transition);
 			cont += QString("LoopThroughFolder=%1\n").arg(int(loopthroughfolder));
 			cont += QString("MenuSensitivity=%1\n").arg(menusensitivity);
@@ -954,6 +953,7 @@ public slots:
 		applySet.insert("quickinfo",false);
 		applySet.insert("redrawimg",false);
 		applySet.insert("thumb",false);
+		applySet.insert("trayicon",false);
 		applySet.insert("exif",false);
 		applySet.insert("open",false);
 
@@ -1063,8 +1063,10 @@ public slots:
 		}
 
 
-		if(changedSet.keys().contains("TrayIcon"))
-			trayicon = changedSet.value("TrayIcon").toBool();
+		if(changedSet.keys().contains("TrayIcon")) {
+			trayicon = changedSet.value("TrayIcon").toInt();
+			applySet["trayicon"] = true;
+		}
 
 		if(changedSet.keys().contains("Transition"))
 			transition = changedSet.value("Transition").toInt();

@@ -82,8 +82,6 @@ OPTION(EXIV2 "Use exiv2 library" ON)
 OPTION(GM "Use graphicsmagick library" ON)
 OPTION(QTONLY "ONLY USE QT-ONLY FEATURES" OFF)
 
-OPTION(WITH_SYSTRAY "USE SYSTEM TRAY" ON)
-
 
 ################################
 #### FIND REQUIRED PACKAGES ####
@@ -105,7 +103,7 @@ FIND_PACKAGE(Exiv2)
 # Add *.ts translation files (looping over all of them)
 FILE(GLOB files "lang/*.ts")
 FOREACH(file ${files})
-	QT5_CREATE_TRANSLATION(qm_files ${photoqt_SOURCES} ${file})
+#	QT5_CREATE_TRANSLATION(qm_files ${photoqt_SOURCES} ${file})
 ENDFOREACH()
 
 # Copy the language QRC file to the output directory, because the files listed in the
@@ -160,10 +158,6 @@ MESSAGE("")
 ########################
 #### CUSTOM OPTIONS ####
 ########################
-
-IF(WITH_SYSTRAY)
-	ADD_DEFINITIONS(-DWITH_SYSTRAY)
-ENDIF(WITH_SYSTRAY)
 
 IF(NOT QTONLY)
 
