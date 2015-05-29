@@ -134,25 +134,20 @@ SettingsTabLookAndFeel::SettingsTabLookAndFeel(QWidget *parent, QMap<QString, QV
 
 
 	// OPTION FOR TRAY ICON USAGE
-	trayIcon = new CustomCheckBox(tr("Hide to Tray Icon"));
-	trayIcon_enable = new CustomCheckBox(tr("Enable Tray Icon"));
 	CustomLabel *trayIconLabel = new CustomLabel("<b><span style=\"font-size:12pt\">" + tr("Tray Icon") + "</span></b><br><br>" + tr("When started PhotoQt by default creates a tray icon in the system tray. If desired, you can set PhotoQt to minimise to the tray instead of quitting. This causes PhotoQt to be almost instantaneously available when an image is opened. You can also disable the system try altogether.") + "<br>" + tr("It is also possible to start PhotoQt already minimised to the tray (e.g. at system startup) when called with \"--start-in-tray\"."));
 	trayIconLabel->setWordWrap(true);
+	trayIcon = new CustomComboBox;
+	trayIcon->addItem("No tray icon");
+	trayIcon->addItem("Hide to tray icon");
+	trayIcon->addItem("Show tray icon, but don't hide to it");
 	QHBoxLayout *trayIconLay = new QHBoxLayout;
 	trayIconLay->addStretch();
 	trayIconLay->addWidget(trayIcon);
 	trayIconLay->addStretch();
-	QHBoxLayout *trayIconEnableLay = new QHBoxLayout;
-	trayIconEnableLay->addStretch();
-	trayIconEnableLay->addWidget(trayIcon_enable);
-	trayIconEnableLay->addStretch();
 	layBasic->addWidget(trayIconLabel);
 	layBasic->addSpacing(10);
-	layBasic->addLayout(trayIconEnableLay);
 	layBasic->addLayout(trayIconLay);
 	layBasic->addSpacing(20);
-	connect(trayIcon_enable, SIGNAL(toggled(bool)), trayIcon, SLOT(setEnabled(bool)));
-
 
 	// OPTION TO ADJUST SIZE AND LOOK OF CLOSING X
 	CustomLabel *closeXsizeLabel = new CustomLabel("<b><span style=\"font-size: 12pt\">" + tr("Closing 'X' (top right)") + "</span></b><hr>" + tr("There are two looks for the closing 'x' at the top right: a normal 'x', or a slightly more fancy 'x'. Here you can switch back and forth between both of them, and also change their size. If you prefer not to have a closing 'x' at all, see below for an option to hide it."));
@@ -542,9 +537,7 @@ void SettingsTabLookAndFeel::loadSettings() {
 	defaults.insert("BgColorAlpha",globSet.value("BgColorAlpha").toInt());
 	selectCol->setRGBA(r,g,b,a);
 
-	trayIcon->setChecked(globSet.value("TrayIcon").toInt() == 1);
-	trayIcon_enable->setChecked(globSet.value("TrayIcon").toInt() != 2);
-	trayIcon->setEnabled(trayIcon_enable->isChecked());
+	trayIcon->setCurrentIndex(globSet.value("TrayIcon").toInt());
 	defaults.insert("TrayIcon",globSet.value("TrayIcon").toInt());
 
 	loopThroughFolder->setChecked(globSet.value("LoopThroughFolder").toBool());
@@ -687,26 +680,10 @@ void SettingsTabLookAndFeel::saveSettings() {
 		defaults.insert("BackgroundImageCenter",backgroundImgCenter->isChecked());
 	}
 
-	if(trayIcon_enable->isChecked()) {
-		if(trayIcon->isChecked()) {
-			if(defaults.value("TrayIcon").toInt() != 1) {
-				updatedSet.insert("TrayIcon",1);
-				defaults.remove("TrayIcon");
-				defaults.insert("TrayIcon",1);
-			}
-		} else {
-			if(defaults.value("TrayIcon").toInt() != 0) {
-				updatedSet.insert("TrayIcon",0);
-				defaults.remove("TrayIcon");
-				defaults.insert("TrayIcon",0);
-			}
-		}
-	} else {
-		if(defaults.value("TrayIcon").toInt() != 2) {
-			updatedSet.insert("TrayIcon",2);
-			defaults.remove("TrayIcon");
-			defaults.insert("TrayIcon",2);
-		}
+	if(defaults.value("TrayIcon").toInt() != trayIcon->currentIndex()) {
+		updatedSet.insert("TrayIcon",trayIcon->currentIndex());
+		defaults.remove("TrayIcon");
+		defaults.insert("TrayIcon",trayIcon->currentIndex());
 	}
 
 	if(defaults.value("LoopThroughFolder").toBool() != loopThroughFolder->isChecked()) {

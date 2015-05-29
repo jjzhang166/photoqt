@@ -99,8 +99,7 @@ private:
 	CustomPushButton *selectCol;
 
 	// Adjust tray icon usage
-	CustomCheckBox *trayIcon;
-	CustomCheckBox *trayIcon_enable;
+	CustomComboBox *trayIcon;
 
 	// Adjust looping through the folder
 	CustomCheckBox *loopThroughFolder;
