@@ -103,7 +103,7 @@ FIND_PACKAGE(Exiv2)
 # Add *.ts translation files (looping over all of them)
 FILE(GLOB files "lang/*.ts")
 FOREACH(file ${files})
-#	QT5_CREATE_TRANSLATION(qm_files ${photoqt_SOURCES} ${file})
+	QT5_CREATE_TRANSLATION(qm_files ${photoqt_SOURCES} ${file})
 ENDFOREACH()
 
 # Copy the language QRC file to the output directory, because the files listed in the
