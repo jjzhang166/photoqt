@@ -44,8 +44,8 @@
 
 
 	; Welcome text
-	!define MUI_WELCOMEPAGE_TITLE $(WelcomePage_Title)
-	!define MUI_WELCOMEPAGE_TEXT $(WelcomePage_Text)
+	!define MUI_WELCOMEPAGE_TITLE "Welcome to PhotoQt Setup"
+	!define MUI_WELCOMEPAGE_TEXT "This installer will guide you through the installation of the PhotoQt.$\r$\n$\r$\nPhotoQt is a simple image viewer, designed to be good looking, highly configurable, yet easy to use and fast."
 
 	; Installer pages
 	!insertmacro MUI_PAGE_WELCOME
@@ -63,10 +63,6 @@
 ; LANGUAGES
 
 	!insertmacro MUI_LANGUAGE "English"
-;	!insertmacro MUI_LANGUAGE "German"
-
-	!insertmacro LANGFILE_INCLUDE "translations\english.nsh"
-;	!insertmacro LANGFILE_INCLUDE "translations\german.nsh"
 
 ;--------------------------------
 ; INSTALLER SECTIONS
@@ -212,10 +208,6 @@ SectionEnd
 ;--------------------------------
 ; INSTALLER FUNTIONS
 
-Function .onInit
-;!insertmacro MUI_LANGDLL_DISPLAY
-FunctionEnd
-
 
 ; Custom page (nsdialog)
 Var Dialog
@@ -242,7 +234,7 @@ Var CheckboxDesktop_State
 Function FinalStepsInit
 
 	; Set header and subtitle
-	!insertmacro MUI_HEADER_TEXT $(FinishPage_Title) $(FinishPage_Subtitle)
+	!insertmacro MUI_HEADER_TEXT "Finishing up" "Just a few final steps"
 
 	; Create dialog
 	nsDialogs::Create 1018
@@ -252,38 +244,39 @@ Function FinalStepsInit
 	${EndIf}
 
 	; Create description label
-	${NSD_CreateLabel} 0 0 100% 24u $(FinishPage_Description)
+	${NSD_CreateLabel} 0 0 100% 24u "We're almost done! Here you can set PhotoQt as default application for none, some or all image formats:"
 	Pop $LabelFiletypeDesc
 
 
 	; Create all the radiobuttons/checkboxes
 
-	${NSD_CreateRadioButton} 0 25u 100% 12u $(FinishPage_RegisterNone)
+	${NSD_CreateRadioButton} 0 25u 100% 12u "Don't set it as default application for any images"
 	Pop $RadioButtonNone
 	${NSD_OnClick} $RadioButtonNone FinalStepsDisEnable
 
-	${NSD_CreateRadioButton} 0 38u 100% 12u $(FinishPage_RegisterMostCommon)
+	${NSD_CreateRadioButton} 0 38u 100% 12u "Register for the most common image formats"
+	Pop $RadioButtonBasic
 	Pop $RadioButtonBasic
 	${NSD_OnClick} $RadioButtonBasic FinalStepsDisEnable
 
-	${NSD_CreateRadioButton} 0 51u 100% 12u $(FinishPage_RegisterAll)
+	${NSD_CreateRadioButton} 0 51u 100% 12u "Register for all supported image formats (including slightly more exotic ones)"
 	Pop $RadioButtonAdvanced
 	${NSD_Check} $RadioButtonAdvanced
 	${NSD_OnClick} $RadioButtonAdvanced FinalStepsDisEnable
 
-	${NSD_CreateCheckbox} 0 64u 100% 12u $(FinishPage_RegisterPdfPs)
+	${NSD_CreateCheckbox} 0 64u 100% 12u "Also include Photoshop PDF and PS"
 	Pop $CheckboxPdfPs
 
-	${NSD_CreateCheckbox} 0 77u 100% 12u $(FinishPage_RegisterPsdXcf)
+	${NSD_CreateCheckbox} 0 77u 100% 12u "Also include PSD and XCF"
 	Pop $CheckboxPsdXcf
 
 	${NSD_CreateHLine} 0 99u 100% 1u HLineBeforeDesktop
 
-	${NSD_CreateCheckbox} 0 109u 100% 12u $(FinishPage_DesktopIcon)
+	${NSD_CreateCheckbox} 0 109u 100% 12u "Create Desktop Icon"
 	Pop $CheckboxDesktop
 	${NSD_Check} $CheckboxDesktop
 
-	${NSD_CreateCheckbox} 0 122u 100% 12u $(FinishPage_StartMenu)
+	${NSD_CreateCheckbox} 0 122u 100% 12u "Create Start menu entry"
 	Pop $CheckboxStartMenu
 	${NSD_Check} $CheckboxStartMenu
 

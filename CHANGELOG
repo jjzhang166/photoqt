@@ -1,5 +1,17 @@
-Changelog PhotoQt v1.2  - Copyright (C) 2015, Lukas Spies (Lukas@photoqt.org), License: GPLv2 (or later)
+Changelog PhotoQt v1.2.1  - Copyright (C) 2015, Lukas Spies (Lukas@photoqt.org), License: GPLv2 (or later)
 ------------------------------------------------------------------------------------------------------------
+
+
+Release 1.2.1 - 15/06/2015
+----------------------------
+- Fix: Transitioning half-transparent images caused issues
+- Fix: Wheel Sensitivity (detect wheel direction change)
+- Fix: Store window geometry in proper folder
+- Fix: Set default values to global variables (fixes persistent 'No file loaded' label in metadata widget)
+- Fix: Properly quit PhotoQt (issue in some WMs, stale process would remain)
+- Fix: Check for which imagereader to use
+- Fix: Treat symlinks to images as own image (fixes weird behaviour)
+- Add: Option to completely disable tray icon
 
 
 Release 1.2 - 17/01/2015
